@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="de-CH"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Döltschi Time - Präzision &amp; Flow</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<!DOCTYPE html><html lang="de-CH"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
           tailwind.config = {
             darkMode: "class",
             theme: {
@@ -72,294 +64,295 @@
               }
             }
           }
-    </script>
-<style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
-        .active-nav-item { background-color: #ffffff; color: #003d9b; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); }
-        body { font-family: 'Work Sans', sans-serif; background-color: #f9f9ff; }
-        .modal-backdrop { background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(2px); }
-    </style>
-</head>
-<body class="flex h-screen overflow-hidden text-on-surface">
-<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50">
-<div class="mb-6 px-2">
-<h1 class="text-xl font-bold text-primary">Döltschi Time</h1>
-<p class="text-[10px] text-primary/60 uppercase font-bold tracking-widest">Precision &amp; Flow</p>
-</div>
-<nav class="flex-1 space-y-1">
-<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold active-nav-item transition-all" id="nav-dashboard" onclick="switchView('dashboard')">
-<span class="material-symbols-outlined">dashboard</span> Dashboard
+    }catch(_e){}</script></head><body class="flex h-screen overflow-hidden text-on-surface">
+    <aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50">
+        <div class="mb-6 px-2">
+            <h1 class="text-xl font-bold text-primary">Döltschi Time</h1>
+            <p class="text-[10px] text-primary/60 uppercase font-bold tracking-widest">Precision &amp; Flow</p>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold active-nav-item transition-all" id="nav-dashboard" onclick="switchView('dashboard')">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
             </button>
-<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-employees" onclick="switchView('employees')">
-<span class="material-symbols-outlined">group</span> Mitarbeiter
+            <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-employees" onclick="switchView('employees')">
+                <span class="material-symbols-outlined">group</span> Mitarbeiter
             </button>
-<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-activities" onclick="switchView('activities')">
-<span class="material-symbols-outlined">history</span> Alle Aktivitäten
+            <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-activities" onclick="switchView('activities')">
+                <span class="material-symbols-outlined">history</span> Alle Aktivitäten
             </button>
-</nav>
-<div class="mt-auto px-2 py-4">
-<div class="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wider">
-<span class="material-symbols-outlined text-sm">check_circle</span> Daten lokal gespeichert
+        </nav>
+        <div class="mt-auto px-2 py-4">
+            <div class="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wider">
+                <span class="material-symbols-outlined text-sm">check_circle</span> Daten lokal gespeichert
             </div>
-</div>
-</aside>
-<main class="ml-64 flex-1 flex flex-col">
-<header class="h-16 px-8 border-b border-outline-variant/30 flex justify-between items-center bg-white">
-<div class="relative w-96">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Suchen..." type="text"/>
-</div>
-<div class="flex items-center gap-4">
-<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors" onclick="exportData()">
-<span class="material-symbols-outlined text-sm">download</span> Export
+        </div>
+    </aside>
+
+    <main class="ml-64 flex-1 flex flex-col">
+        <header class="h-16 px-8 border-b border-outline-variant/30 flex justify-between items-center bg-white">
+            <div class="relative w-96">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                <input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Suchen..." type="text">
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors" onclick="exportData()">
+                    <span class="material-symbols-outlined text-sm">download</span> Export
                 </button>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn" onclick="toggleModal('timeEntryModal', true)">
-<span class="material-symbols-outlined text-sm">add</span> Zeit erfassen
+                <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn" onclick="toggleModal('timeEntryModal', true)">
+                    <span class="material-symbols-outlined text-sm">add</span> Zeit erfassen
                 </button>
-<div class="h-8 w-px bg-gray-200 mx-2"></div>
-<div class="relative group">
-<button class="flex items-center gap-3 pl-3 pr-2 py-1.5 hover:bg-gray-50 rounded-full border border-transparent transition-all" id="userMenuBtn">
-<div class="text-right">
-<p class="text-xs font-bold leading-none" id="activeUserName">Lade...</p>
-<p class="text-[10px] text-gray-500 leading-none mt-1" id="activeUserRole">-</p>
-</div>
-<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold border border-primary/20" id="activeUserAvatar">?</div>
-</button>
-<div class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]" id="userSwitcher">
-<p class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-1">Mitarbeiter wechseln</p>
-<div id="userSwitchList"></div>
-</div>
-</div>
-</div>
-</header>
-<!-- Dashboard View -->
-<div class="p-8 overflow-y-auto flex-1" id="view-dashboard">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-3xl font-bold">Mitarbeiter-Dashboard</h2>
-<div class="text-sm font-medium text-gray-500">
+                <div class="h-8 w-px bg-gray-200 mx-2"></div>
+                <div class="relative group">
+                    <button class="flex items-center gap-3 pl-3 pr-2 py-1.5 hover:bg-gray-50 rounded-full border border-transparent transition-all" id="userMenuBtn">
+                        <div class="text-right">
+                            <p class="text-xs font-bold leading-none" id="activeUserName">Lade...</p>
+                            <p class="text-[10px] text-gray-500 leading-none mt-1" id="activeUserRole">-</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold border border-primary/20" id="activeUserAvatar">?</div>
+                    </button>
+                    <div class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]" id="userSwitcher">
+                        <p class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-1">Mitarbeiter wechseln</p>
+                        <div id="userSwitchList"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard View -->
+        <div class="p-8 overflow-y-auto flex-1" id="view-dashboard">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold">Mitarbeiter-Dashboard</h2>
+                <div class="text-sm font-medium text-gray-500">
                     Aktuell: <span class="text-primary font-bold" id="dashboardActiveEmployeeName">-</span>
-</div>
-</div>
-<div class="grid grid-cols-3 gap-6 mb-8">
-<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-<p class="text-xs text-gray-500 uppercase font-bold mb-2">Team-Mitglieder</p>
-<h3 class="text-3xl font-bold" id="stat-totalEmployees">0</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-<p class="text-xs text-gray-500 uppercase font-bold mb-2">Heute Aktiv</p>
-<h3 class="text-3xl font-bold" id="stat-activeToday">0</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-<p class="text-xs text-gray-500 uppercase font-bold mb-2">Jahresarbeitszeit Fortschritt</p>
-<div class="flex items-end gap-2">
-<h3 class="text-3xl font-bold" id="stat-annualTotal">0h</h3>
-<p class="text-xs text-gray-400 mb-1">von <span id="stat-annualTarget">2000</span>h</p>
-</div>
-<div class="w-full bg-gray-100 h-2 rounded-full mt-4 overflow-hidden">
-<div class="bg-primary h-full transition-all duration-1000" id="stat-annualProgress" style="width: 0%"></div>
-</div>
-</div>
-</div>
-<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-<div class="p-6 border-b border-gray-100 flex justify-between items-center">
-<h3 class="font-bold">Aktivitäten für <span id="currentEmployeeDisplay">-</span></h3>
-<button class="text-primary text-sm font-semibold hover:underline" onclick="clearAllData()">Alle Daten zurücksetzen</button>
-</div>
-<div class="px-6 py-2 bg-surface-container-low text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
-<span class="material-symbols-outlined text-xs">info</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Team-Mitglieder</p>
+                    <h3 class="text-3xl font-bold" id="stat-totalEmployees">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Heute Aktiv</p>
+                    <h3 class="text-3xl font-bold" id="stat-activeToday">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Jahresarbeitszeit Fortschritt</p>
+                    <div class="flex items-end gap-2">
+                        <h3 class="text-3xl font-bold" id="stat-annualTotal">0h</h3>
+                        <p class="text-xs text-gray-400 mb-1">von <span id="stat-annualTarget" class="">2000</span>h</p>
+                    </div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-primary h-full transition-all duration-1000" id="stat-annualProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                    <h3 class="font-bold">Aktivitäten für <span id="currentEmployeeDisplay" class="">-</span></h3>
+                    <button class="text-primary text-sm font-semibold hover:underline" onclick="clearAllData()">Alle Daten zurücksetzen</button>
+                </div>
+                <div class="px-6 py-2 bg-surface-container-low text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs">info</span>
                     Klicken Sie auf das Bearbeiten-Symbol neben einem Eintrag, um Korrekturen vorzunehmen.
                 </div>
-<div class="divide-y divide-gray-100" id="activitiesList">
-<div class="p-12 flex flex-col items-center justify-center text-gray-400 text-sm italic">
-<span class="material-symbols-outlined text-4xl mb-2 opacity-20">schedule</span>
+                <div class="divide-y divide-gray-100" id="activitiesList">
+                    <div class="p-12 flex flex-col items-center justify-center text-gray-400 text-sm italic">
+                        <span class="material-symbols-outlined text-4xl mb-2 opacity-20">schedule</span>
                         Lade Aktivitäten...
                     </div>
-</div>
-</div>
-</div>
-<!-- Employees View -->
-<div class="hidden p-8 overflow-y-auto flex-1" id="view-employees">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-3xl font-bold">Mitarbeiter-Verwaltung</h2>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-all" onclick="toggleModal('employeeModal', true)">
-<span class="material-symbols-outlined text-sm">person_add</span> Mitarbeiter hinzufügen
+                </div>
+            </div>
+        </div>
+
+        <!-- Employees View -->
+        <div class="hidden p-8 overflow-y-auto flex-1" id="view-employees">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold">Mitarbeiter-Verwaltung</h2>
+                <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-all" onclick="toggleModal('employeeModal', true)">
+                    <span class="material-symbols-outlined text-sm">person_add</span> Mitarbeiter hinzufügen
                 </button>
-</div>
-<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-<table class="w-full text-left">
-<thead class="bg-gray-50 border-b border-gray-100">
-<tr>
-<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Name</th>
-<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Rolle</th>
-<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Beschäftigung</th>
-<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Jahres-Soll (h)</th>
-<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Aktionen</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-100" id="employeeTableBody"></tbody>
-</table>
-</div>
-</div>
-<!-- All Activities View -->
-<div class="hidden p-8 overflow-y-auto flex-1" id="view-activities">
-<h2 class="text-3xl font-bold mb-8">Alle Aktivitäten</h2>
-<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-<div class="divide-y divide-gray-100" id="globalActivitiesList"></div>
-</div>
-</div>
-</main>
-<!-- Time Entry Modal -->
-<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal">
-<div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
-<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
-<h3 class="font-bold text-xl text-primary">Arbeitszeit erfassen</h3>
-<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('timeEntryModal', false)">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<form class="p-8 space-y-8" id="timeEntryForm">
-<div>
-<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
-<div class="relative">
-<input class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" id="entryDate" name="date" required="" type="date"/>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-8">
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningStart" type="time" value="07:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" type="time" value="13:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-</div>
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonStart" type="time" value="13:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonEnd" type="time" value="17:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-</div>
-</div>
-<div class="pt-4">
-<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg active:scale-[0.98]" type="submit">Eintrag speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Edit Entry Modal -->
-<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="editEntryModal">
-<div class="modal-backdrop absolute inset-0" onclick="toggleModal('editEntryModal', false)"></div>
-<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
-<h3 class="font-bold text-xl text-primary">Eintrag korrigieren</h3>
-<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('editEntryModal', false)">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<form class="p-8 space-y-8" id="editEntryForm">
-<input id="editEntryId" name="id" type="hidden"/>
-<div>
-<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
-<input class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm" id="editEntryDate" name="date" readonly="" type="date"/>
-</div>
-<div class="grid grid-cols-2 gap-8">
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningStart" name="morningStart" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningEnd" name="morningEnd" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-</div>
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonStart" name="afternoonStart" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-<div class="relative">
-<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonEnd" name="afternoonEnd" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-</div>
-</div>
-</div>
-</div>
-<div class="pt-4">
-<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg" type="submit">Korrektur speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Add Employee Modal -->
-<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="employeeModal">
-<div class="modal-backdrop absolute inset-0" onclick="toggleModal('employeeModal', false)"></div>
-<div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-<h3 class="font-bold text-lg text-primary">Neuer Mitarbeiter</h3>
-<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('employeeModal', false)">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<form class="p-6 space-y-4" id="employeeForm">
-<div>
-<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Vor- &amp; Nachname</label>
-<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="name" placeholder="z.B. Marc Döltschi" required="" type="text"/>
-</div>
-<div>
-<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rolle / Position</label>
-<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="role" placeholder="z.B. Geschäftsführer" required="" type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Beschäftigungsgrad (%)</label>
-<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" max="100" min="1" name="percentage" required="" type="number" value="100"/>
-</div>
-<div>
-<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jahres-Soll (h)</label>
-<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="annualHours" placeholder="z.B. 2100" required="" type="number" value="2000"/>
-</div>
-</div>
-<div class="pt-2">
-<button class="w-full bg-primary text-on-primary font-semibold py-2.5 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Speichern</button>
-</div>
-</form>
-</div>
-</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 border-b border-gray-100">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Name</th>
+                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Rolle</th>
+                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Beschäftigung</th>
+                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Jahres-Soll (h)</th>
+                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100" id="employeeTableBody"><tr class="hover:bg-gray-50/80 transition-colors"><td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center border border-primary/20">TD</div><span class="font-bold text-sm text-gray-800">Thomas Döltschi</span></div></td><td class="px-6 py-4 text-sm text-gray-600">Inhaber &amp; Leitung</td><td class="px-6 py-4 text-sm font-medium">100%</td><td class="px-6 py-4 text-sm font-medium">2100h</td><td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="setActiveUser('emp1')" class="text-xs font-bold text-primary hover:underline">Auswählen</button><button onclick="deleteEmployee('emp1')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button></div></td></tr><tr class="hover:bg-gray-50/80 transition-colors"><td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center border border-primary/20">SM</div><span class="font-bold text-sm text-gray-800">Sarah Miller</span></div></td><td class="px-6 py-4 text-sm text-gray-600">Projektleitung</td><td class="px-6 py-4 text-sm font-medium">80%</td><td class="px-6 py-4 text-sm font-medium">1680h</td><td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="setActiveUser('emp2')" class="text-xs font-bold text-primary hover:underline">Auswählen</button><button onclick="deleteEmployee('emp2')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button></div></td></tr><tr class="hover:bg-gray-50/80 transition-colors"><td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center border border-primary/20">MD</div><span class="font-bold text-sm text-gray-800">Marc Döltschi</span></div></td><td class="px-6 py-4 text-sm text-gray-600">Technik</td><td class="px-6 py-4 text-sm font-medium">100%</td><td class="px-6 py-4 text-sm font-medium">2100h</td><td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="setActiveUser('emp3')" class="text-xs font-bold text-primary hover:underline">Auswählen</button><button onclick="deleteEmployee('emp3')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button></div></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- All Activities View -->
+        <div class="hidden p-8 overflow-y-auto flex-1" id="view-activities">
+            <h2 class="text-3xl font-bold mb-8">Alle Aktivitäten</h2>
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="divide-y divide-gray-100" id="globalActivitiesList"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Time Entry Modal -->
+    <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal">
+        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+                <h3 class="font-bold text-xl text-primary">Arbeitszeit erfassen</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('timeEntryModal', false)">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="p-8 space-y-8" id="timeEntryForm">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
+                    <div class="relative">
+                        <input class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" id="entryDate" name="date" required="" type="date">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningStart" type="time" value="07:00">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" type="time" value="13:00">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonStart" type="time" value="13:00">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonEnd" type="time" value="17:00">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg active:scale-[0.98]" type="submit">Eintrag speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Entry Modal -->
+    <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="editEntryModal">
+        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('editEntryModal', false)"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+                <h3 class="font-bold text-xl text-primary">Eintrag korrigieren</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('editEntryModal', false)">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="p-8 space-y-8" id="editEntryForm">
+                <input id="editEntryId" name="id" type="hidden">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
+                    <input class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm" id="editEntryDate" name="date" readonly="" type="date">
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningStart" name="morningStart" type="time">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningEnd" name="morningEnd" type="time">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonStart" name="afternoonStart" type="time">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+                            <div class="relative">
+                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonEnd" name="afternoonEnd" type="time">
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg" type="submit">Korrektur speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="employeeModal">
+        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('employeeModal', false)"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="font-bold text-lg text-primary">Neuer Mitarbeiter</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('employeeModal', false)">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="p-6 space-y-4" id="employeeForm">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Vor- &amp; Nachname</label>
+                    <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="name" placeholder="z.B. Marc Döltschi" required="" type="text">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rolle / Position</label>
+                    <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="role" placeholder="z.B. Geschäftsführer" required="" type="text">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Beschäftigungsgrad (%)</label>
+                        <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" max="100" min="1" name="percentage" required="" type="number" value="100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jahres-Soll (h)</label>
+                        <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="annualHours" placeholder="z.B. 2100" required="" type="number" value="2000">
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <button class="w-full bg-primary text-on-primary font-semibold py-2.5 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 <script>
     const STORAGE_KEY_ACTIVITIES = 'doeltschi_time_activities_v3';
     const STORAGE_KEY_EMPLOYEES = 'doeltschi_time_employees_v3';
@@ -714,35 +707,4 @@
                         <button onclick="setActiveUser('${emp.id}')" class="text-xs font-bold text-primary hover:underline">Auswählen</button>
                         <button onclick="deleteEmployee('${emp.id}')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors">
                             <span class="material-symbols-outlined text-lg">delete</span>
-                        </button>
-                    </div>
-                </td>
-            `;
-            container.appendChild(tr);
-        });
-    }
-
-    function clearAllData() {
-        if(confirm('Möchten Sie wirklich alle lokalen Daten (inkl. Mitarbeiter) löschen?')) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    function exportData() {
-        const data = {
-            employees,
-            activities,
-            exportedAt: new Date().toISOString()
-        };
-        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `doeltschi_time_export_${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-    }
-
-    window.addEventListener('DOMContentLoaded', init);
-</script>
-</body></html>
+                        </button></script></body></html>
