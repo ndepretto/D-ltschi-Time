@@ -213,50 +213,62 @@
 </div>
 </main>
 <!-- Time Entry Modal -->
-<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal">
-<div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal"><div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
 <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-<h3 class="font-bold text-lg text-primary">Arbeitszeit erfassen</h3>
+<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+<h3 class="font-bold text-xl text-primary">Arbeitszeit erfassen</h3>
 <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('timeEntryModal', false)">
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<form class="p-6 space-y-6" id="timeEntryForm">
-<div class="grid grid-cols-2 gap-4">
-<div class="col-span-2">
-<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Datum</label>
-<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" id="entryDate" name="date" required="" type="date"/>
+<form class="p-8 space-y-8" id="timeEntryForm">
+<div>
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
+<div class="relative">
+<input class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" id="entryDate" name="date" onchange="loadHours()" required="" type="date"/>
 </div>
+</div>
+<div class="grid grid-cols-2 gap-8">
 <div class="space-y-4">
 <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="morningStart" type="time" value="08:00"/>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningStart" oninput="saveHours()" type="time" value="07:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="morningEnd" type="time" value="12:00"/>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" oninput="saveHours()" type="time" value="13:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
 </div>
 </div>
 <div class="space-y-4">
 <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="afternoonStart" type="time" value="13:00"/>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonStart" oninput="saveHours()" type="time" value="13:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="afternoonEnd" type="time" value="17:00"/>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonEnd" oninput="saveHours()" type="time" value="17:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 </div>
-<div class="pt-2">
-<button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Eintrag speichern</button>
+</div>
+<div class="pt-4">
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg active:scale-[0.98]" type="submit">Eintrag speichern</button>
 </div>
 </form>
-</div>
-</div>
+</div></div>
 <!-- Add Employee Modal -->
 <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="employeeModal">
 <div class="modal-backdrop absolute inset-0" onclick="toggleModal('employeeModal', false)"></div>
