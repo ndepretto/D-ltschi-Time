@@ -1,358 +1,383 @@
-<!DOCTYPE html><html lang="de-CH" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
-          tailwind.config = {
-            darkMode: "class",
-            theme: {
-              extend: {
-                "colors": {
-                        "on-error": "#ffffff",
-                        "on-primary": "#ffffff",
-                        "inverse-on-surface": "#edf0ff",
-                        "on-tertiary-fixed-variant": "#812800",
-                        "secondary": "#5c5f60",
-                        "inverse-primary": "#b2c5ff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "on-surface": "#041b3c",
-                        "on-primary-fixed": "#001848",
-                        "on-secondary-fixed-variant": "#444749",
-                        "on-primary-container": "#c4d2ff",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-tertiary-container": "#ffc6b2",
-                        "surface-tint": "#0c56d0",
-                        "surface-container-highest": "#d7e2ff",
-                        "tertiary-container": "#a33500",
-                        "surface-container-low": "#f1f3ff",
-                        "surface-dim": "#cadaff",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "tertiary": "#7b2600",
-                        "on-tertiary-fixed": "#380d00",
-                        "surface-bright": "#f9f9ff",
-                        "outline": "#737685",
-                        "surface-variant": "#d7e2ff",
-                        "primary-fixed": "#dae2ff",
-                        "on-secondary": "#ffffff",
-                        "on-secondary-fixed": "#191c1e",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#434654",
-                        "on-secondary-container": "#606365",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "surface": "#f9f9ff",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "surface-container-high": "#e0e8ff",
-                        "on-tertiary": "#ffffff",
-                        "background": "#f9f9ff",
-                        "primary-container": "#0052cc",
-                        "primary": "#003d9b",
-                        "on-background": "#041b3c",
-                        "inverse-surface": "#1d3052",
-                        "error": "#ba1a1a",
-                        "surface-container": "#e8edff",
-                        "secondary-container": "#dee0e2",
-                        "error-container": "#ffdad6",
-                        "surface-container-lowest": "#ffffff",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "outline-variant": "#c3c6d6"
-                },
-                "borderRadius": {
-                        "DEFAULT": "0.5rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                },
-                "fontFamily": {
-                        "sans": ["Work Sans", "sans-serif"]
+<!DOCTYPE html>
+
+<html lang="de-CH"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-error": "#ffffff",
+                            "on-primary": "#ffffff",
+                            "inverse-on-surface": "#edf0ff",
+                            "on-tertiary-fixed-variant": "#812800",
+                            "secondary": "#5c5f60",
+                            "inverse-primary": "#b2c5ff",
+                            "tertiary-fixed": "#ffdbcf",
+                            "on-surface": "#041b3c",
+                            "on-primary-fixed": "#001848",
+                            "on-secondary-fixed-variant": "#444749",
+                            "on-primary-container": "#c4d2ff",
+                            "secondary-fixed": "#e1e2e4",
+                            "on-tertiary-container": "#ffc6b2",
+                            "surface-tint": "#0c56d0",
+                            "surface-container-highest": "#d7e2ff",
+                            "tertiary-container": "#a33500",
+                            "surface-container-low": "#f1f3ff",
+                            "surface-dim": "#cadaff",
+                            "primary-fixed-dim": "#b2c5ff",
+                            "tertiary": "#7b2600",
+                            "on-tertiary-fixed": "#380d00",
+                            "surface-bright": "#f9f9ff",
+                            "outline": "#737685",
+                            "surface-variant": "#d7e2ff",
+                            "primary-fixed": "#dae2ff",
+                            "on-secondary": "#ffffff",
+                            "on-secondary-fixed": "#191c1e",
+                            "on-error-container": "#93000a",
+                            "on-surface-variant": "#434654",
+                            "on-secondary-container": "#606365",
+                            "on-primary-fixed-variant": "#0040a2",
+                            "surface": "#f9f9ff",
+                            "secondary-fixed-dim": "#c5c6c8",
+                            "surface-container-high": "#e0e8ff",
+                            "on-tertiary": "#ffffff",
+                            "background": "#f9f9ff",
+                            "primary-container": "#0052cc",
+                            "primary": "#003d9b",
+                            "on-background": "#041b3c",
+                            "inverse-surface": "#1d3052",
+                            "error": "#ba1a1a",
+                            "surface-container": "#e8edff",
+                            "secondary-container": "#dee0e2",
+                            "error-container": "#ffdad6",
+                            "surface-container-lowest": "#ffffff",
+                            "tertiary-fixed-dim": "#ffb59b",
+                            "outline-variant": "#c3c6d6"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.5rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                        },
+                        "fontFamily": {
+                            "sans": ["Work Sans", "sans-serif"]
+                        }
+                    }
                 }
-              }
             }
-          }
-    }catch(_e){}</script></head><body class="flex h-screen overflow-hidden text-on-surface">
-    <aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50">
-        <div class="mb-6 px-2">
-            <h1 class="text-xl font-bold text-primary">Döltschi Time</h1>
-            <p class="text-[10px] text-primary/60 uppercase font-bold tracking-widest">Precision &amp; Flow</p>
-        </div>
-        <nav class="flex-1 space-y-1">
-            <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold active-nav-item transition-all" id="nav-dashboard" onclick="switchView('dashboard')">
-                <span class="material-symbols-outlined">dashboard</span> Dashboard
+        } catch (_e) {}
+    </script>
+<style>
+        .active-nav-item {
+            background-color: white;
+            color: #003d9b;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-on-surface bg-background">
+<!-- Sidebar -->
+<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50">
+<div class="mb-6 px-2">
+<h1 class="text-xl font-bold text-primary">Döltschi Time</h1>
+<p class="text-[10px] text-primary/60 uppercase font-bold tracking-widest">Precision &amp; Flow</p>
+</div>
+<nav class="flex-1 space-y-1">
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold active-nav-item transition-all" id="nav-dashboard" onclick="switchView('dashboard')">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
             </button>
-            <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-employees" onclick="switchView('employees')">
-                <span class="material-symbols-outlined">group</span> Mitarbeiter
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-employees" onclick="switchView('employees')">
+<span class="material-symbols-outlined">group</span> Mitarbeiter
             </button>
-            <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-activities" onclick="switchView('activities')">
-                <span class="material-symbols-outlined">history</span> Alle Aktivitäten
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-activities" onclick="switchView('activities')">
+<span class="material-symbols-outlined">history</span> Alle Aktivitäten
             </button>
-        </nav>
-        <div class="mt-auto px-2 py-4">
-            <div class="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wider">
-                <span class="material-symbols-outlined text-sm">check_circle</span> Daten lokal gespeichert
+</nav>
+<div class="mt-auto px-2 py-4">
+<div class="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">check_circle</span> Daten lokal gespeichert
             </div>
-        </div>
-    </aside>
-
-    <main class="ml-64 flex-1 flex flex-col">
-        <header class="h-16 px-8 border-b border-outline-variant/30 flex justify-between items-center bg-white">
-            <div class="relative w-96">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                <input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Suchen..." type="text">
-            </div>
-            <div class="flex items-center gap-4">
-                <button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors" onclick="exportData()">
-                    <span class="material-symbols-outlined text-sm">download</span> Export
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-full overflow-hidden">
+<header class="h-16 px-8 border-b border-outline-variant/30 flex justify-between items-center bg-white shrink-0">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Suchen..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors" onclick="exportData()">
+<span class="material-symbols-outlined text-sm">download</span> Export
                 </button>
-                <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn" onclick="toggleModal('timeEntryModal', true)">
-                    <span class="material-symbols-outlined text-sm">add</span> Zeit erfassen
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn" onclick="toggleModal('timeEntryModal', true)">
+<span class="material-symbols-outlined text-sm">add</span> Zeit erfassen
                 </button>
-                <div class="h-8 w-px bg-gray-200 mx-2"></div>
-                <div class="relative group">
-                    <button class="flex items-center gap-3 pl-3 pr-2 py-1.5 hover:bg-gray-50 rounded-full border border-transparent transition-all" id="userMenuBtn">
-                        <div class="text-right">
-                            <p class="text-xs font-bold leading-none" id="activeUserName">Lade...</p>
-                            <p class="text-[10px] text-gray-500 leading-none mt-1" id="activeUserRole">-</p>
+<div class="h-8 w-px bg-gray-200 mx-2"></div>
+<div class="relative group">
+<button class="flex items-center gap-3 pl-3 pr-2 py-1.5 hover:bg-gray-50 rounded-full border border-transparent transition-all" id="userMenuBtn">
+<div class="text-right">
+<p class="text-xs font-bold leading-none" id="activeUserName">Lade...</p>
+<p class="text-[10px] text-gray-500 leading-none mt-1" id="activeUserRole">-</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold border border-primary/20" id="activeUserAvatar">?</div>
+</button>
+<div class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]" id="userSwitcher">
+<p class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-1">Mitarbeiter wechseln</p>
+<div id="userSwitchList"></div>
+</div>
+</div>
+</div>
+</header>
+<!-- View Container -->
+<div class="flex-1 overflow-y-auto">
+<!-- Dashboard View -->
+<div class="p-8" id="view-dashboard">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-3xl font-bold">Mitarbeiter-Dashboard</h2>
+<div class="text-sm font-medium text-gray-500">
+                        Aktuell: <span class="text-primary font-bold" id="dashboardActiveEmployeeName">-</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6 mb-8">
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Team-Mitglieder</p>
+<h3 class="text-3xl font-bold" id="stat-totalEmployees">0</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Heute Aktiv</p>
+<h3 class="text-3xl font-bold" id="stat-activeToday">0</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Jahresarbeitszeit Fortschritt</p>
+<div class="flex items-end gap-2">
+<h3 class="text-3xl font-bold" id="stat-annualTotal">0h</h3>
+<p class="text-xs text-gray-400 mb-1">von <span class="" id="stat-annualTarget">2000</span>h</p>
+</div>
+<div class="w-full bg-gray-100 h-2 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full transition-all duration-1000" id="stat-annualProgress" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-gray-100 flex justify-between items-center">
+<h3 class="font-bold">Aktivitäten für <span class="" id="currentEmployeeDisplay">-</span></h3>
+<button class="text-primary text-sm font-semibold hover:underline" onclick="clearAllData()">Alle Daten zurücksetzen</button>
+</div>
+<div class="px-6 py-2 bg-surface-container-low text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">info</span>
+                        Klicken Sie auf das Bearbeiten-Symbol neben einem Eintrag, um Korrekturen vorzunehmen.
+                    </div>
+<div class="divide-y divide-gray-100" id="activitiesList">
+<div class="p-12 flex flex-col items-center justify-center text-gray-400 text-sm italic">
+<span class="material-symbols-outlined text-4xl mb-2 opacity-20">schedule</span>
+                            Lade Aktivitäten...
                         </div>
-                        <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold border border-primary/20" id="activeUserAvatar">?</div>
+</div>
+</div>
+</div>
+<!-- Employees View -->
+<div class="hidden p-8" id="view-employees">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-3xl font-bold">Mitarbeiter-Verwaltung</h2>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-all" onclick="toggleModal('employeeModal', true)">
+<span class="material-symbols-outlined text-sm">person_add</span> Mitarbeiter hinzufügen
                     </button>
-                    <div class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]" id="userSwitcher">
-                        <p class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-1">Mitarbeiter wechseln</p>
-                        <div id="userSwitchList"></div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Dashboard View -->
-        <div class="p-8 overflow-y-auto flex-1" id="view-dashboard">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl font-bold">Mitarbeiter-Dashboard</h2>
-                <div class="text-sm font-medium text-gray-500">
-                    Aktuell: <span class="text-primary font-bold" id="dashboardActiveEmployeeName">-</span>
-                </div>
-            </div>
-            <div class="grid grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Team-Mitglieder</p>
-                    <h3 class="text-3xl font-bold" id="stat-totalEmployees">0</h3>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Heute Aktiv</p>
-                    <h3 class="text-3xl font-bold" id="stat-activeToday">0</h3>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Jahresarbeitszeit Fortschritt</p>
-                    <div class="flex items-end gap-2">
-                        <h3 class="text-3xl font-bold" id="stat-annualTotal">0h</h3>
-                        <p class="text-xs text-gray-400 mb-1">von <span id="stat-annualTarget" class="">2000</span>h</p>
-                    </div>
-                    <div class="w-full bg-gray-100 h-2 rounded-full mt-4 overflow-hidden">
-                        <div class="bg-primary h-full transition-all duration-1000" id="stat-annualProgress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold">Aktivitäten für <span id="currentEmployeeDisplay" class="">-</span></h3>
-                    <button class="text-primary text-sm font-semibold hover:underline" onclick="clearAllData()">Alle Daten zurücksetzen</button>
-                </div>
-                <div class="px-6 py-2 bg-surface-container-low text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
-                    <span class="material-symbols-outlined text-xs">info</span>
-                    Klicken Sie auf das Bearbeiten-Symbol neben einem Eintrag, um Korrekturen vorzunehmen.
-                </div>
-                <div class="divide-y divide-gray-100" id="activitiesList">
-                    <div class="p-12 flex flex-col items-center justify-center text-gray-400 text-sm italic">
-                        <span class="material-symbols-outlined text-4xl mb-2 opacity-20">schedule</span>
-                        Lade Aktivitäten...
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Employees View -->
-        <div class="hidden p-8 overflow-y-auto flex-1" id="view-employees">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl font-bold">Mitarbeiter-Verwaltung</h2>
-                <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-all" onclick="toggleModal('employeeModal', true)">
-                    <span class="material-symbols-outlined text-sm">person_add</span> Mitarbeiter hinzufügen
-                </button>
-            </div>
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <table class="w-full text-left">
-                    <thead class="bg-gray-50 border-b border-gray-100">
-                        <tr>
-                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Name</th>
-                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Rolle</th>
-                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Beschäftigung</th>
-                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Jahres-Soll (h)</th>
-                            <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Aktionen</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100" id="employeeTableBody"><tr class="hover:bg-gray-50/80 transition-colors"><td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center border border-primary/20">TD</div><span class="font-bold text-sm text-gray-800">Thomas Döltschi</span></div></td><td class="px-6 py-4 text-sm text-gray-600">Inhaber &amp; Leitung</td><td class="px-6 py-4 text-sm font-medium">100%</td><td class="px-6 py-4 text-sm font-medium">2100h</td><td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="setActiveUser('emp1')" class="text-xs font-bold text-primary hover:underline">Auswählen</button><button onclick="deleteEmployee('emp1')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button></div></td></tr><tr class="hover:bg-gray-50/80 transition-colors"><td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center border border-primary/20">SM</div><span class="font-bold text-sm text-gray-800">Sarah Miller</span></div></td><td class="px-6 py-4 text-sm text-gray-600">Projektleitung</td><td class="px-6 py-4 text-sm font-medium">80%</td><td class="px-6 py-4 text-sm font-medium">1680h</td><td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="setActiveUser('emp2')" class="text-xs font-bold text-primary hover:underline">Auswählen</button><button onclick="deleteEmployee('emp2')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button></div></td></tr><tr class="hover:bg-gray-50/80 transition-colors"><td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center border border-primary/20">MD</div><span class="font-bold text-sm text-gray-800">Marc Döltschi</span></div></td><td class="px-6 py-4 text-sm text-gray-600">Technik</td><td class="px-6 py-4 text-sm font-medium">100%</td><td class="px-6 py-4 text-sm font-medium">2100h</td><td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="setActiveUser('emp3')" class="text-xs font-bold text-primary hover:underline">Auswählen</button><button onclick="deleteEmployee('emp3')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button></div></td></tr></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- All Activities View -->
-        <div class="hidden p-8 overflow-y-auto flex-1" id="view-activities">
-            <h2 class="text-3xl font-bold mb-8">Alle Aktivitäten</h2>
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="divide-y divide-gray-100" id="globalActivitiesList"></div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Time Entry Modal -->
-    <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal">
-        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
-                <h3 class="font-bold text-xl text-primary">Arbeitszeit erfassen</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('timeEntryModal', false)">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <form class="p-8 space-y-8" id="timeEntryForm">
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
-                    <div class="relative">
-                        <input class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" id="entryDate" name="date" required="" type="date">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningStart" type="time" value="07:00">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" type="time" value="13:00">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonStart" type="time" value="13:00">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonEnd" type="time" value="17:00">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4">
-                    <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg active:scale-[0.98]" type="submit">Eintrag speichern</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Entry Modal -->
-    <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="editEntryModal">
-        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('editEntryModal', false)"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
-                <h3 class="font-bold text-xl text-primary">Eintrag korrigieren</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('editEntryModal', false)">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <form class="p-8 space-y-8" id="editEntryForm">
-                <input id="editEntryId" name="id" type="hidden">
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
-                    <input class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm" id="editEntryDate" name="date" readonly="" type="date">
-                </div>
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningStart" name="morningStart" type="time">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningEnd" name="morningEnd" type="time">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonStart" name="afternoonStart" type="time">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
-                            <div class="relative">
-                                <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonEnd" name="afternoonEnd" type="time">
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4">
-                    <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg" type="submit">Korrektur speichern</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Employee Modal -->
-    <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="employeeModal">
-        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('employeeModal', false)"></div>
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h3 class="font-bold text-lg text-primary">Neuer Mitarbeiter</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('employeeModal', false)">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <form class="p-6 space-y-4" id="employeeForm">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Vor- &amp; Nachname</label>
-                    <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="name" placeholder="z.B. Marc Döltschi" required="" type="text">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rolle / Position</label>
-                    <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="role" placeholder="z.B. Geschäftsführer" required="" type="text">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Beschäftigungsgrad (%)</label>
-                        <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" max="100" min="1" name="percentage" required="" type="number" value="100">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jahres-Soll (h)</label>
-                        <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="annualHours" placeholder="z.B. 2100" required="" type="number" value="2000">
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <button class="w-full bg-primary text-on-primary font-semibold py-2.5 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Speichern</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
+</div>
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-gray-50 border-b border-gray-100">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Name</th>
+<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Rolle</th>
+<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Beschäftigung</th>
+<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Jahres-Soll (h)</th>
+<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100" id="employeeTableBody">
+<!-- Populated by JS -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- All Activities View -->
+<div class="hidden p-8" id="view-activities">
+<h2 class="text-3xl font-bold mb-8">Alle Aktivitäten</h2>
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<div class="divide-y divide-gray-100" id="globalActivitiesList">
+<!-- Populated by JS -->
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Time Entry Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal">
+<div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
+<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+<h3 class="font-bold text-xl text-primary">Arbeitszeit erfassen</h3>
+<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('timeEntryModal', false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-8 space-y-8" id="timeEntryForm">
+<div>
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
+<div class="relative">
+<input class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" id="entryDate" name="date" required="" type="date"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningStart" type="time" value="07:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" type="time" value="13:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonStart" type="time" value="13:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonEnd" type="time" value="17:00"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg active:scale-[0.98]" type="submit">Eintrag speichern</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Edit Entry Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="editEntryModal">
+<div class="modal-backdrop absolute inset-0" onclick="toggleModal('editEntryModal', false)"></div>
+<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+<h3 class="font-bold text-xl text-primary">Eintrag korrigieren</h3>
+<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('editEntryModal', false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-8 space-y-8" id="editEntryForm">
+<input id="editEntryId" name="id" type="hidden"/>
+<div>
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Datum</label>
+<input class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm" id="editEntryDate" name="date" readonly="" type="date"/>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningStart" name="morningStart" type="time"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningEnd" name="morningEnd" type="time"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonStart" name="afternoonStart" type="time"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+<div class="relative">
+<input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonEnd" name="afternoonEnd" type="time"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-4 flex gap-4">
+<button class="flex-1 bg-primary text-on-primary font-bold py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg" type="submit">Korrektur speichern</button>
+<button class="px-6 border border-red-200 text-red-500 hover:bg-red-50 rounded-xl transition-all" id="deleteEntryBtn" type="button">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Add Employee Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="employeeModal">
+<div class="modal-backdrop absolute inset-0" onclick="toggleModal('employeeModal', false)"></div>
+<div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+<h3 class="font-bold text-lg text-primary">Neuer Mitarbeiter</h3>
+<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('employeeModal', false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-6 space-y-4" id="employeeForm">
+<div>
+<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Vor- &amp; Nachname</label>
+<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="name" placeholder="z.B. Marc Döltschi" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rolle / Position</label>
+<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="role" placeholder="z.B. Geschäftsführer" required="" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Beschäftigungsgrad (%)</label>
+<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" max="100" min="1" name="percentage" required="" type="number" value="100"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jahres-Soll (h)</label>
+<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="annualHours" placeholder="z.B. 2100" required="" type="number" value="2000"/>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full bg-primary text-on-primary font-semibold py-2.5 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
 <script>
     const STORAGE_KEY_ACTIVITIES = 'doeltschi_time_activities_v3';
     const STORAGE_KEY_EMPLOYEES = 'doeltschi_time_employees_v3';
@@ -370,34 +395,43 @@
     let activities = [];
     let activeEmployeeId = null;
 
+    // Initialization
     function init() {
-        // Load employees
-        const storedEmployees = localStorage.getItem(STORAGE_KEY_EMPLOYEES);
-        if (storedEmployees) {
-            employees = JSON.parse(storedEmployees);
-        } else {
-            employees = [...defaultEmployees];
-            localStorage.setItem(STORAGE_KEY_EMPLOYEES, JSON.stringify(employees));
+        try {
+            // Load employees
+            const storedEmployees = localStorage.getItem(STORAGE_KEY_EMPLOYEES);
+            if (storedEmployees) {
+                employees = JSON.parse(storedEmployees);
+            } else {
+                employees = [...defaultEmployees];
+                localStorage.setItem(STORAGE_KEY_EMPLOYEES, JSON.stringify(employees));
+            }
+
+            // Load activities
+            const storedActivities = localStorage.getItem(STORAGE_KEY_ACTIVITIES);
+            activities = storedActivities ? JSON.parse(storedActivities) : [];
+
+            // Load active user
+            const storedActiveUser = localStorage.getItem(STORAGE_KEY_ACTIVE_USER);
+            if (storedActiveUser && employees.some(e => e.id === storedActiveUser)) {
+                activeEmployeeId = storedActiveUser;
+            } else {
+                activeEmployeeId = employees.length > 0 ? employees[0].id : null;
+                if (activeEmployeeId) localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
+            }
+
+            // Set default date in modal
+            const entryDateEl = document.getElementById('entryDate');
+            if(entryDateEl) entryDateEl.valueAsDate = new Date();
+
+            setupEventListeners();
+            renderApp();
+            
+            // Show initial view
+            switchView('dashboard');
+        } catch (error) {
+            console.error("Initialization error:", error);
         }
-
-        // Load activities
-        const storedActivities = localStorage.getItem(STORAGE_KEY_ACTIVITIES);
-        activities = storedActivities ? JSON.parse(storedActivities) : [];
-
-        // Load active user
-        const storedActiveUser = localStorage.getItem(STORAGE_KEY_ACTIVE_USER);
-        if (storedActiveUser && employees.some(e => e.id === storedActiveUser)) {
-            activeEmployeeId = storedActiveUser;
-        } else {
-            activeEmployeeId = employees.length > 0 ? employees[0].id : null;
-            if (activeEmployeeId) localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
-        }
-
-        // Set default date in modal
-        document.getElementById('entryDate').valueAsDate = new Date();
-
-        renderApp();
-        setupEventListeners();
     }
 
     function calculateHours(start, end) {
@@ -411,37 +445,37 @@
     function renderApp() {
         const activeUser = employees.find(e => e.id === activeEmployeeId);
         
-        if (!activeUser) {
-            document.getElementById('activeUserName').textContent = 'Kein Benutzer';
-            document.getElementById('activeUserRole').textContent = '';
-            document.getElementById('activeUserAvatar').textContent = '?';
+        if (!activeUser && employees.length > 0) {
+            setActiveUser(employees[0].id);
             return;
         }
 
-        // Update Header
-        document.getElementById('activeUserName').textContent = activeUser.name;
-        document.getElementById('activeUserRole').textContent = activeUser.role;
-        document.getElementById('activeUserAvatar').textContent = activeUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+        if (activeUser) {
+            // Update Header
+            document.getElementById('activeUserName').textContent = activeUser.name;
+            document.getElementById('activeUserRole').textContent = activeUser.role;
+            document.getElementById('activeUserAvatar').textContent = activeUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
 
-        // Update Dashboard Stats
+            // Update Dashboard Stats
+            document.getElementById('dashboardActiveEmployeeName').textContent = activeUser.name;
+            document.getElementById('currentEmployeeDisplay').textContent = activeUser.name;
+
+            // Annual Target Progress
+            const userActivities = activities.filter(a => a.userId === activeEmployeeId);
+            const totalUserHours = userActivities.reduce((sum, a) => sum + (parseFloat(a.duration) || 0), 0);
+            const targetHours = activeUser.annualHours || 2000;
+            const progressPercent = Math.min((totalUserHours / targetHours) * 100, 100);
+            
+            document.getElementById('stat-annualTotal').textContent = totalUserHours.toFixed(1) + 'h';
+            document.getElementById('stat-annualTarget').textContent = targetHours;
+            document.getElementById('stat-annualProgress').style.width = progressPercent + '%';
+        }
+
+        // Global Stats
         document.getElementById('stat-totalEmployees').textContent = employees.length;
-        document.getElementById('dashboardActiveEmployeeName').textContent = activeUser.name;
-        document.getElementById('currentEmployeeDisplay').textContent = activeUser.name;
-
-        // Active Today Calc
         const todayStr = new Date().toISOString().split('T')[0];
         const activeTodayCount = new Set(activities.filter(a => a.date === todayStr).map(e => e.userId)).size;
         document.getElementById('stat-activeToday').textContent = activeTodayCount;
-
-        // Annual Target Progress
-        const userActivities = activities.filter(a => a.userId === activeEmployeeId);
-        const totalUserHours = userActivities.reduce((sum, a) => sum + (parseFloat(a.duration) || 0), 0);
-        const targetHours = activeUser.annualHours || 2000;
-        const progressPercent = Math.min((totalUserHours / targetHours) * 100, 100);
-        
-        document.getElementById('stat-annualTotal').textContent = totalUserHours.toFixed(1) + 'h';
-        document.getElementById('stat-annualTarget').textContent = targetHours;
-        document.getElementById('stat-annualProgress').style.width = progressPercent + '%';
 
         // Render Lists
         renderUserSwitcher();
@@ -451,13 +485,15 @@
     }
 
     function setupEventListeners() {
+        // Toggle User Switcher
         document.getElementById('userMenuBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('userSwitcher').classList.toggle('hidden');
         });
 
         document.addEventListener('click', () => {
-            document.getElementById('userSwitcher').classList.add('hidden');
+            const switcher = document.getElementById('userSwitcher');
+            if (switcher) switcher.classList.add('hidden');
         });
 
         // Time Entry Form
@@ -474,6 +510,7 @@
             const totalDuration = mDuration + aDuration;
 
             const activeUser = employees.find(e => e.id === activeEmployeeId);
+            if (!activeUser) return alert('Bitte wählen Sie zuerst einen Mitarbeiter aus.');
 
             const newEntry = {
                 id: Date.now(),
@@ -487,7 +524,7 @@
             };
 
             activities.unshift(newEntry);
-            localStorage.setItem(STORAGE_KEY_ACTIVITIES, JSON.stringify(activities));
+            saveActivities();
             toggleModal('timeEntryModal', false);
             renderApp();
             e.target.reset();
@@ -515,7 +552,18 @@
                 activities[index].afternoon = `${aStart} - ${aEnd}`;
                 activities[index].duration = totalDuration.toFixed(2);
                 
-                localStorage.setItem(STORAGE_KEY_ACTIVITIES, JSON.stringify(activities));
+                saveActivities();
+                toggleModal('editEntryModal', false);
+                renderApp();
+            }
+        });
+
+        // Delete entry button in edit modal
+        document.getElementById('deleteEntryBtn').addEventListener('click', () => {
+            const id = parseInt(document.getElementById('editEntryId').value);
+            if(confirm('Eintrag wirklich löschen?')) {
+                activities = activities.filter(a => a.id !== id);
+                saveActivities();
                 toggleModal('editEntryModal', false);
                 renderApp();
             }
@@ -534,39 +582,56 @@
                 active: true
             };
             employees.push(newEmp);
-            localStorage.setItem(STORAGE_KEY_EMPLOYEES, JSON.stringify(employees));
+            saveEmployees();
             e.target.reset();
             toggleModal('employeeModal', false);
             renderApp();
         });
     }
 
-    function switchView(viewName) {
-        ['view-dashboard', 'view-employees', 'view-activities'].forEach(v => {
-            document.getElementById(v).classList.add('hidden');
-        });
-        document.getElementById(`view-${viewName}`).classList.remove('hidden');
+    function saveActivities() {
+        localStorage.setItem(STORAGE_KEY_ACTIVITIES, JSON.stringify(activities));
+    }
 
-        ['dashboard', 'employees', 'activities'].forEach(n => {
-            const el = document.getElementById(`nav-${n}`);
-            if (n === viewName) {
-                el.classList.add('active-nav-item');
-                el.classList.remove('text-gray-600', 'hover:bg-white/50');
+    function saveEmployees() {
+        localStorage.setItem(STORAGE_KEY_EMPLOYEES, JSON.stringify(employees));
+    }
+
+    function switchView(viewName) {
+        ['dashboard', 'employees', 'activities'].forEach(v => {
+            const el = document.getElementById(`view-${v}`);
+            const navEl = document.getElementById(`nav-${v}`);
+            
+            if (v === viewName) {
+                el.classList.remove('hidden');
+                navEl.classList.add('active-nav-item');
+                navEl.classList.remove('text-gray-600', 'hover:bg-white/50');
             } else {
-                el.classList.remove('active-nav-item');
-                el.classList.add('text-gray-600', 'hover:bg-white/50');
+                el.classList.add('hidden');
+                navEl.classList.remove('active-nav-item');
+                navEl.classList.add('text-gray-600', 'hover:bg-white/50');
             }
         });
     }
 
     function toggleModal(id, show) {
-        document.getElementById(id).classList.toggle('hidden', !show);
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.classList.toggle('hidden', !show);
+        }
     }
 
     function setActiveUser(userId) {
         activeEmployeeId = userId;
         localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
         renderApp();
+        // Feedback
+        document.getElementById('userSwitcher').classList.add('hidden');
+    }
+
+    function selectAndDashboard(userId) {
+        setActiveUser(userId);
+        switchView('dashboard');
     }
 
     function openEditModal(id) {
@@ -576,8 +641,8 @@
         document.getElementById('editEntryId').value = entry.id;
         document.getElementById('editEntryDate').value = entry.date;
         
-        const morningParts = entry.morning.split(' - ');
-        const afternoonParts = entry.afternoon.split(' - ');
+        const morningParts = (entry.morning || "07:00 - 13:00").split(' - ');
+        const afternoonParts = (entry.afternoon || "13:00 - 17:00").split(' - ');
         
         document.getElementById('editMorningStart').value = morningParts[0];
         document.getElementById('editMorningEnd').value = morningParts[1];
@@ -588,11 +653,12 @@
     }
 
     function deleteEmployee(id) {
-        if (confirm('Möchten Sie diesen Mitarbeiter wirklich löschen?')) {
+        if (confirm('Möchten Sie diesen Mitarbeiter wirklich löschen? Alle zugehörigen Aktivitäten bleiben in der Datenbank erhalten (als Archiv), aber der Mitarbeiter wird nicht mehr in der Auswahl angezeigt.')) {
             employees = employees.filter(e => e.id !== id);
-            localStorage.setItem(STORAGE_KEY_EMPLOYEES, JSON.stringify(employees));
+            saveEmployees();
             if (activeEmployeeId === id) {
                 activeEmployeeId = employees.length > 0 ? employees[0].id : null;
+                if (activeEmployeeId) localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
             }
             renderApp();
         }
@@ -600,6 +666,7 @@
 
     function renderUserSwitcher() {
         const list = document.getElementById('userSwitchList');
+        if (!list) return;
         list.innerHTML = '';
         employees.forEach(emp => {
             const btn = document.createElement('button');
@@ -612,9 +679,9 @@
                 <div class="w-7 h-7 rounded-full bg-white border border-primary/20 text-[10px] font-bold flex items-center justify-center text-primary">
                     ${initials}
                 </div>
-                <div>
-                    <p class="text-xs font-bold ${emp.id === activeEmployeeId ? 'text-primary' : 'text-gray-700'}">${emp.name}</p>
-                    <p class="text-[9px] text-gray-500 uppercase font-semibold">${emp.role}</p>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold truncate ${emp.id === activeEmployeeId ? 'text-primary' : 'text-gray-700'}">${emp.name}</p>
+                    <p class="text-[9px] text-gray-500 uppercase font-semibold truncate">${emp.role}</p>
                 </div>
                 ${emp.id === activeEmployeeId ? '<span class="material-symbols-outlined text-primary text-sm ml-auto">check</span>' : ''}
             `;
@@ -624,6 +691,7 @@
 
     function renderActivitiesList() {
         const container = document.getElementById('activitiesList');
+        if (!container) return;
         const userActivities = activities.filter(a => a.userId === activeEmployeeId);
 
         if (userActivities.length === 0) {
@@ -637,19 +705,20 @@
         }
 
         container.innerHTML = '';
-        userActivities.slice(0, 10).forEach(item => {
+        userActivities.slice(0, 15).forEach(item => {
             container.appendChild(createActivityEl(item));
         });
     }
 
     function renderGlobalActivities() {
         const container = document.getElementById('globalActivitiesList');
+        if (!container) return;
         if (activities.length === 0) {
             container.innerHTML = `<div class="p-12 text-center text-gray-400 italic">Noch keine Aktivitäten im Team vorhanden.</div>`;
             return;
         }
         container.innerHTML = '';
-        activities.slice(0, 30).forEach(item => {
+        activities.slice(0, 50).forEach(item => {
             container.appendChild(createActivityEl(item, true));
         });
     }
@@ -668,7 +737,7 @@
                 </div>
                 <div>
                     <p class="font-bold text-sm">${showUser ? item.userName : dateString}</p>
-                    <p class="text-[10px] text-gray-500 font-medium">AM: ${item.morning} | PM: ${item.afternoon}</p>
+                    <p class="text-[10px] text-gray-500 font-medium">AM: ${item.morning} | PM: ${item.afternoon} ${showUser ? '• ' + dateString : ''}</p>
                 </div>
             </div>
             <div class="flex items-center gap-6">
@@ -686,6 +755,7 @@
 
     function renderEmployeesTable() {
         const container = document.getElementById('employeeTableBody');
+        if (!container) return;
         container.innerHTML = '';
         employees.forEach(emp => {
             const tr = document.createElement('tr');
@@ -704,7 +774,36 @@
                 <td class="px-6 py-4 text-sm font-medium">${emp.annualHours}h</td>
                 <td class="px-6 py-4 text-right">
                     <div class="flex items-center justify-end gap-2">
-                        <button onclick="setActiveUser('${emp.id}')" class="text-xs font-bold text-primary hover:underline">Auswählen</button>
+                        <button onclick="selectAndDashboard('${emp.id}')" class="text-xs font-bold text-primary px-3 py-1.5 hover:bg-primary/5 rounded-lg border border-primary/10 transition-colors">Auswählen</button>
                         <button onclick="deleteEmployee('${emp.id}')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors">
                             <span class="material-symbols-outlined text-lg">delete</span>
-                        </button></script></body></html>
+                        </button>
+                    </div>
+                </td>
+            `;
+            container.appendChild(tr);
+        });
+    }
+
+    function clearAllData() {
+        if (confirm('Möchten Sie wirklich ALLE Zeit-Daten unwiderruflich löschen? Die Mitarbeiter-Stammdaten bleiben erhalten.')) {
+            activities = [];
+            saveActivities();
+            renderApp();
+        }
+    }
+
+    function exportData() {
+        const dataStr = JSON.stringify({ employees, activities }, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const exportFileDefaultName = `doeltschi-time-export-${new Date().toISOString().split('T')[0]}.json`;
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+    }
+
+    // Run on start
+    window.onload = init;
+</script>
+</body></html>
