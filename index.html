@@ -113,7 +113,7 @@
 <button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors" onclick="exportData()">
 <span class="material-symbols-outlined text-sm">download</span> Export
             </button>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn" onclick="toggleModal('timeEntryModal', true)">
 <span class="material-symbols-outlined text-sm">add</span> Zeit erfassen
             </button>
 <div class="h-8 w-px bg-gray-200 mx-2"></div>
@@ -154,8 +154,14 @@
 <h3 class="text-3xl font-bold" id="stat-activeToday">0</h3>
 </div>
 <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-<p class="text-xs text-gray-500 uppercase font-bold mb-2">Offene Pendenzen</p>
-<h3 class="text-3xl font-bold text-error">12</h3>
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Jahresarbeitszeit Fortschritt</p>
+<div class="flex items-end gap-2">
+<h3 class="text-3xl font-bold" id="stat-annualTotal">0h</h3>
+<p class="text-xs text-gray-400 mb-1">von <span id="stat-annualTarget">2000</span>h</p>
+</div>
+<div class="w-full bg-gray-100 h-2 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full transition-all duration-1000" id="stat-annualProgress" style="width: 0%"></div>
+</div>
 </div>
 </div>
 <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
@@ -186,7 +192,7 @@
 <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Name</th>
 <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Rolle</th>
 <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Beschäftigung</th>
-<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Jahres-Soll (h)</th>
 <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Aktionen</th>
 </tr>
 </thead>
@@ -206,6 +212,51 @@
 </div>
 </div>
 </main>
+<!-- Time Entry Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="timeEntryModal">
+<div class="modal-backdrop absolute inset-0" onclick="toggleModal('timeEntryModal', false)"></div>
+<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden">
+<div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+<h3 class="font-bold text-lg text-primary">Arbeitszeit erfassen</h3>
+<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('timeEntryModal', false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-6 space-y-6" id="timeEntryForm">
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-2">
+<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Datum</label>
+<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" id="entryDate" name="date" required="" type="date"/>
+</div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Vormittag</p>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="morningStart" type="time" value="08:00"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="morningEnd" type="time" value="12:00"/>
+</div>
+</div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest">Nachmittag</p>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
+<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="afternoonStart" type="time" value="13:00"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
+<input class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm" name="afternoonEnd" type="time" value="17:00"/>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Eintrag speichern</button>
+</div>
+</form>
+</div>
+</div>
 <!-- Add Employee Modal -->
 <div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="employeeModal">
 <div class="modal-backdrop absolute inset-0" onclick="toggleModal('employeeModal', false)"></div>
@@ -225,9 +276,15 @@
 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rolle / Position</label>
 <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="role" placeholder="z.B. Geschäftsführer" required="" type="text"/>
 </div>
+<div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Beschäftigungsgrad (%)</label>
 <input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" max="100" min="1" name="percentage" required="" type="number" value="100"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jahres-Soll (h)</label>
+<input class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20" name="annualHours" placeholder="z.B. 2000" required="" type="number" value="2000"/>
+</div>
 </div>
 <div class="pt-2">
 <button class="w-full bg-primary text-on-primary font-semibold py-2.5 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">Speichern</button>
@@ -236,15 +293,15 @@
 </div>
 </div>
 <script>
-    const STORAGE_KEY_ACTIVITIES = 'doeltschi_time_activities_v2';
-    const STORAGE_KEY_EMPLOYEES = 'doeltschi_time_employees_v2';
-    const STORAGE_KEY_ACTIVE_USER = 'doeltschi_time_active_user_v2';
+    const STORAGE_KEY_ACTIVITIES = 'doeltschi_time_activities_v3';
+    const STORAGE_KEY_EMPLOYEES = 'doeltschi_time_employees_v3';
+    const STORAGE_KEY_ACTIVE_USER = 'doeltschi_time_active_user_v3';
 
     // Initial Data
     const defaultEmployees = [
-        { id: 'emp1', name: 'Thomas Döltschi', role: 'Inhaber & Leitung', percentage: 100, active: true },
-        { id: 'emp2', name: 'Sarah Miller', role: 'Projektleitung', percentage: 80, active: true },
-        { id: 'emp3', name: 'Marc Döltschi', role: 'Technik', percentage: 100, active: true }
+        { id: 'emp1', name: 'Thomas Döltschi', role: 'Inhaber & Leitung', percentage: 100, annualHours: 2100, active: true },
+        { id: 'emp2', name: 'Sarah Miller', role: 'Projektleitung', percentage: 80, annualHours: 1680, active: true },
+        { id: 'emp3', name: 'Marc Döltschi', role: 'Technik', percentage: 100, annualHours: 2100, active: true }
     ];
 
     // State
@@ -273,17 +330,36 @@
         if (storedActiveUser && employees.some(e => e.id === storedActiveUser)) {
             activeEmployeeId = storedActiveUser;
         } else {
-            activeEmployeeId = employees[0].id;
-            localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
+            activeEmployeeId = employees.length > 0 ? employees[0].id : null;
+            if (activeEmployeeId) localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
         }
+
+        // Set default date in modal
+        document.getElementById('entryDate').valueAsDate = new Date();
 
         renderApp();
         setupEventListeners();
     }
 
+    function calculateHours(start, end) {
+        if (!start || !end) return 0;
+        const [h1, m1] = start.split(':').map(Number);
+        const [h2, m2] = end.split(':').map(Number);
+        const diff = (h2 * 60 + m2) - (h1 * 60 + m1);
+        return diff > 0 ? diff / 60 : 0;
+    }
+
     function renderApp() {
         const activeUser = employees.find(e => e.id === activeEmployeeId);
         
+        if (!activeUser) {
+            // Fallback if no user is selected
+            document.getElementById('activeUserName').textContent = 'Kein Benutzer';
+            document.getElementById('activeUserRole').textContent = '';
+            document.getElementById('activeUserAvatar').textContent = '?';
+            return;
+        }
+
         // Update Header
         document.getElementById('activeUserName').textContent = activeUser.name;
         document.getElementById('activeUserRole').textContent = activeUser.role;
@@ -294,13 +370,21 @@
         document.getElementById('dashboardActiveEmployeeName').textContent = activeUser.name;
         document.getElementById('currentEmployeeDisplay').textContent = activeUser.name;
 
-        const todayEntries = activities.filter(a => {
-            const date = new Date(a.timestamp);
-            const today = new Date();
-            return date.toDateString() === today.toDateString();
-        });
+        // Active Today Calc
+        const todayStr = new Date().toISOString().split('T')[0];
+        const todayEntries = activities.filter(a => a.date === todayStr);
         const activeTodayCount = new Set(todayEntries.map(e => e.userId)).size;
         document.getElementById('stat-activeToday').textContent = activeTodayCount;
+
+        // Annual Target Progress
+        const userActivities = activities.filter(a => a.userId === activeEmployeeId);
+        const totalUserHours = userActivities.reduce((sum, a) => sum + (a.duration || 0), 0);
+        const targetHours = activeUser.annualHours || 2000;
+        const progressPercent = Math.min((totalUserHours / targetHours) * 100, 100);
+        
+        document.getElementById('stat-annualTotal').textContent = totalUserHours.toFixed(1) + 'h';
+        document.getElementById('stat-annualTarget').textContent = targetHours;
+        document.getElementById('stat-annualProgress').style.width = progressPercent + '%';
 
         // Render Lists
         renderUserSwitcher();
@@ -310,7 +394,6 @@
     }
 
     function setupEventListeners() {
-        // User switcher toggle
         document.getElementById('userMenuBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('userSwitcher').classList.toggle('hidden');
@@ -320,9 +403,36 @@
             document.getElementById('userSwitcher').classList.add('hidden');
         });
 
-        // New Entry
-        document.getElementById('addNewEntryBtn').addEventListener('click', () => {
-            addActivity();
+        // Time Entry Form
+        document.getElementById('timeEntryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const mStart = formData.get('morningStart');
+            const mEnd = formData.get('morningEnd');
+            const aStart = formData.get('afternoonStart');
+            const aEnd = formData.get('afternoonEnd');
+            
+            const mDuration = calculateHours(mStart, mEnd);
+            const aDuration = calculateHours(aStart, aEnd);
+            const totalDuration = mDuration + aDuration;
+
+            const activeUser = employees.find(e => e.id === activeEmployeeId);
+
+            const newEntry = {
+                id: Date.now(),
+                userId: activeEmployeeId,
+                userName: activeUser.name,
+                date: formData.get('date'),
+                timestamp: new Date().toISOString(),
+                morning: `${mStart} - ${mEnd}`,
+                afternoon: `${aStart} - ${aEnd}`,
+                duration: totalDuration
+            };
+
+            activities.unshift(newEntry);
+            localStorage.setItem(STORAGE_KEY_ACTIVITIES, JSON.stringify(activities));
+            toggleModal('timeEntryModal', false);
+            renderApp();
         });
 
         // Employee Form
@@ -334,6 +444,7 @@
                 name: formData.get('name'),
                 role: formData.get('role'),
                 percentage: formData.get('percentage'),
+                annualHours: parseInt(formData.get('annualHours')) || 2000,
                 active: true
             };
             employees.push(newEmp);
@@ -352,7 +463,6 @@
         });
         document.getElementById(`view-${viewName}`).classList.remove('hidden');
 
-        // Nav active states
         ['dashboard', 'employees', 'activities'].forEach(n => {
             const el = document.getElementById(`nav-${n}`);
             if (n === viewName) {
@@ -375,23 +485,15 @@
         renderApp();
     }
 
-    function addActivity() {
-        const types = ['Check-in', 'Check-out', 'Pause', 'Meeting'];
-        const randomType = types[Math.floor(Math.random() * types.length)];
-        const activeUser = employees.find(e => e.id === activeEmployeeId);
-
-        const newEntry = {
-            id: Date.now(),
-            userId: activeEmployeeId,
-            userName: activeUser.name,
-            type: randomType,
-            timestamp: new Date().toISOString(),
-            status: "success"
-        };
-
-        activities.unshift(newEntry);
-        localStorage.setItem(STORAGE_KEY_ACTIVITIES, JSON.stringify(activities));
-        renderApp();
+    function deleteEmployee(id) {
+        if (confirm('Möchten Sie diesen Mitarbeiter wirklich löschen?')) {
+            employees = employees.filter(e => e.id !== id);
+            localStorage.setItem(STORAGE_KEY_EMPLOYEES, JSON.stringify(employees));
+            if (activeEmployeeId === id) {
+                activeEmployeeId = employees.length > 0 ? employees[0].id : null;
+            }
+            renderApp();
+        }
     }
 
     // --- Rendering Helpers ---
@@ -453,28 +555,25 @@
     }
 
     function createActivityEl(item, showUser = false) {
-        const date = new Date(item.timestamp);
-        const timeString = date.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
-        const dateString = date.toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit' });
+        const date = new Date(item.date || item.timestamp);
+        const dateString = date.toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' });
         
         const div = document.createElement('div');
         div.className = 'p-4 flex items-center justify-between hover:bg-gray-50 transition-colors';
         
-        const icon = item.type === 'Check-in' ? 'login' : item.type === 'Check-out' ? 'logout' : 'schedule';
-        
         div.innerHTML = `
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary border border-primary/10">
-                    <span class="material-symbols-outlined text-xl">${icon}</span>
+                    <span class="material-symbols-outlined text-xl">timer</span>
                 </div>
                 <div>
-                    <p class="font-bold text-sm">${showUser ? item.userName : item.type}</p>
-                    <p class="text-xs text-gray-500">${showUser ? item.type : dateString}</p>
+                    <p class="font-bold text-sm">${showUser ? item.userName : dateString}</p>
+                    <p class="text-[10px] text-gray-500 font-medium">AM: ${item.morning} | PM: ${item.afternoon}</p>
                 </div>
             </div>
             <div class="text-right">
-                <p class="text-sm font-bold text-primary">${timeString}</p>
-                <p class="text-[10px] text-green-600 font-bold uppercase tracking-tighter">Bestätigt</p>
+                <p class="text-sm font-bold text-primary">${item.duration.toFixed(2)}h</p>
+                <p class="text-[10px] text-green-600 font-bold uppercase tracking-tighter">Erfasst</p>
             </div>
         `;
         return div;
@@ -497,11 +596,14 @@
                 </td>
                 <td class="px-6 py-4 text-sm text-gray-600">${emp.role}</td>
                 <td class="px-6 py-4 text-sm font-medium">${emp.percentage}%</td>
-                <td class="px-6 py-4">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-green-50 text-green-700 border border-green-100">Aktiv</span>
-                </td>
+                <td class="px-6 py-4 text-sm font-medium">${emp.annualHours}h</td>
                 <td class="px-6 py-4 text-right">
-                    <button onclick="setActiveUser('${emp.id}')" class="text-xs font-bold text-primary hover:underline">Auswählen</button>
+                    <div class="flex items-center justify-end gap-2">
+                        <button onclick="setActiveUser('${emp.id}')" class="text-xs font-bold text-primary hover:underline">Auswählen</button>
+                        <button onclick="deleteEmployee('${emp.id}')" class="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                    </div>
                 </td>
             `;
             container.appendChild(tr);
