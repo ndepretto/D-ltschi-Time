@@ -96,18 +96,18 @@
 <nav class="flex-1 space-y-1">
 <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold active-nav-item transition-all" id="nav-dashboard" onclick="switchView('dashboard')">
 <span class="material-symbols-outlined">dashboard</span> Dashboard
-            </button>
+        </button>
 <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-employees" onclick="switchView('employees')">
 <span class="material-symbols-outlined">group</span> Mitarbeiter
-            </button>
+        </button>
 <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50 transition-all" id="nav-activities" onclick="switchView('activities')">
 <span class="material-symbols-outlined">history</span> Alle Aktivitäten
-            </button>
+        </button>
 </nav>
 <div class="mt-auto px-2 py-4">
 <div class="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wider">
 <span class="material-symbols-outlined text-sm">check_circle</span> Daten lokal gespeichert
-            </div>
+        </div>
 </div>
 </aside>
 <!-- Main Content Area -->
@@ -120,10 +120,10 @@
 <div class="flex items-center gap-4">
 <button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors" onclick="exportData()">
 <span class="material-symbols-outlined text-sm">download</span> Export
-                </button>
+            </button>
 <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm" id="addNewEntryBtn" onclick="toggleModal('timeEntryModal', true)">
 <span class="material-symbols-outlined text-sm">add</span> Zeit erfassen
-                </button>
+            </button>
 <div class="h-8 w-px bg-gray-200 mx-2"></div>
 <div class="relative group">
 <button class="flex items-center gap-3 pl-3 pr-2 py-1.5 hover:bg-gray-50 rounded-full border border-transparent transition-all" id="userMenuBtn">
@@ -147,7 +147,7 @@
 <div class="flex items-center justify-between mb-8">
 <h2 class="text-3xl font-bold">Mitarbeiter-Dashboard</h2>
 <div class="text-sm font-medium text-gray-500">
-                        Aktuell: <span class="text-primary font-bold" id="dashboardActiveEmployeeName">-</span>
+                    Aktuell: <span class="text-primary font-bold" id="dashboardActiveEmployeeName">-</span>
 </div>
 </div>
 <div class="grid grid-cols-3 gap-6 mb-8">
@@ -177,13 +177,13 @@
 </div>
 <div class="px-6 py-2 bg-surface-container-low text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
 <span class="material-symbols-outlined text-xs">info</span>
-                        Klicken Sie auf das Bearbeiten-Symbol neben einem Eintrag, um Korrekturen vorzunehmen.
-                    </div>
+                    Klicken Sie auf das Bearbeiten-Symbol neben einem Eintrag, um Korrekturen vorzunehmen.
+                </div>
 <div class="divide-y divide-gray-100" id="activitiesList">
 <div class="p-12 flex flex-col items-center justify-center text-gray-400 text-sm italic">
 <span class="material-symbols-outlined text-4xl mb-2 opacity-20">schedule</span>
-                            Lade Aktivitäten...
-                        </div>
+                        Lade Aktivitäten...
+                    </div>
 </div>
 </div>
 </div>
@@ -193,7 +193,7 @@
 <h2 class="text-3xl font-bold">Mitarbeiter-Verwaltung</h2>
 <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary/90 transition-all" onclick="toggleModal('employeeModal', true)">
 <span class="material-symbols-outlined text-sm">person_add</span> Mitarbeiter hinzufügen
-                    </button>
+                </button>
 </div>
 <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 <table class="w-full text-left">
@@ -247,14 +247,12 @@
 <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningStart" type="time" value="07:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
 <div class="relative">
-<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" type="time" value="13:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
+<input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="morningEnd" type="time" value="12:00"/>
 </div>
 </div>
 </div>
@@ -264,14 +262,12 @@
 <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonStart" type="time" value="13:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-primary transition-all" name="afternoonEnd" type="time" value="17:00"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 </div>
@@ -305,14 +301,12 @@
 <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningStart" name="morningStart" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editMorningEnd" name="morningEnd" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 </div>
@@ -322,14 +316,12 @@
 <label class="block text-xs font-semibold text-gray-500 mb-1">Beginn</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonStart" name="afternoonStart" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold text-gray-500 mb-1">Ende</label>
 <div class="relative">
 <input class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:border-primary" id="editAfternoonEnd" name="afternoonEnd" type="time"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">schedule</span>
 </div>
 </div>
 </div>
@@ -420,10 +412,6 @@
                 if (activeEmployeeId) localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
             }
 
-            // Set default date in modal
-            const entryDateEl = document.getElementById('entryDate');
-            if(entryDateEl) entryDateEl.valueAsDate = new Date();
-
             setupEventListeners();
             renderApp();
             
@@ -445,6 +433,7 @@
     function renderApp() {
         const activeUser = employees.find(e => e.id === activeEmployeeId);
         
+        // Handle case where active employee might have been deleted
         if (!activeUser && employees.length > 0) {
             setActiveUser(employees[0].id);
             return;
@@ -528,7 +517,8 @@
             toggleModal('timeEntryModal', false);
             renderApp();
             e.target.reset();
-            document.getElementById('entryDate').valueAsDate = new Date();
+            const entryDateEl = document.getElementById('entryDate');
+            if(entryDateEl) entryDateEl.valueAsDate = new Date();
         });
 
         // Edit Entry Form
@@ -618,6 +608,10 @@
         const modal = document.getElementById(id);
         if (modal) {
             modal.classList.toggle('hidden', !show);
+            if (show && id === 'timeEntryModal') {
+                const entryDateEl = document.getElementById('entryDate');
+                if(entryDateEl) entryDateEl.valueAsDate = new Date();
+            }
         }
     }
 
@@ -626,7 +620,8 @@
         localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
         renderApp();
         // Feedback
-        document.getElementById('userSwitcher').classList.add('hidden');
+        const switcher = document.getElementById('userSwitcher');
+        if (switcher) switcher.classList.add('hidden');
     }
 
     function selectAndDashboard(userId) {
@@ -641,7 +636,7 @@
         document.getElementById('editEntryId').value = entry.id;
         document.getElementById('editEntryDate').value = entry.date;
         
-        const morningParts = (entry.morning || "07:00 - 13:00").split(' - ');
+        const morningParts = (entry.morning || "07:00 - 12:00").split(' - ');
         const afternoonParts = (entry.afternoon || "13:00 - 17:00").split(' - ');
         
         document.getElementById('editMorningStart').value = morningParts[0];
@@ -653,9 +648,12 @@
     }
 
     function deleteEmployee(id) {
-        if (confirm('Möchten Sie diesen Mitarbeiter wirklich löschen? Alle zugehörigen Aktivitäten bleiben in der Datenbank erhalten (als Archiv), aber der Mitarbeiter wird nicht mehr in der Auswahl angezeigt.')) {
+        if (confirm('Möchten Sie diesen Mitarbeiter wirklich löschen?')) {
+            // Also cleanup their activities? Or keep for archival? Usually delete for simple local storage apps.
             employees = employees.filter(e => e.id !== id);
             saveEmployees();
+            
+            // Cleanup: if active user was deleted, switch to next available
             if (activeEmployeeId === id) {
                 activeEmployeeId = employees.length > 0 ? employees[0].id : null;
                 if (activeEmployeeId) localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeEmployeeId);
@@ -718,7 +716,9 @@
             return;
         }
         container.innerHTML = '';
-        activities.slice(0, 50).forEach(item => {
+        // Sort by date descending
+        const sorted = [...activities].sort((a, b) => new Date(b.date) - new Date(a.date));
+        sorted.slice(0, 50).forEach(item => {
             container.appendChild(createActivityEl(item, true));
         });
     }
