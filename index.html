@@ -1,822 +1,149 @@
 <!DOCTYPE html>
 
-<html class="light" lang="de"><head>
+<html lang="de-CH"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Döltschi Zeiterfassung - TimeSync Pro</title>
-<!-- Tailwind CSS -->
+<title>Döltschi Time - Präzision &amp; Flow</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<!-- Design System Configuration -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
+          tailwind.config = {
             darkMode: "class",
             theme: {
-                extend: {
-                    "colors": {
-                        "on-error": "#ffffff",
-                        "tertiary": "#7b2600",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-low": "#f1f3ff",
-                        "secondary-container": "#dee0e2",
-                        "inverse-primary": "#b2c5ff",
-                        "on-secondary": "#ffffff",
-                        "on-secondary-fixed": "#191c1e",
-                        "surface-variant": "#d7e2ff",
-                        "on-secondary-container": "#606365",
-                        "tertiary-container": "#a33500",
-                        "on-secondary-fixed-variant": "#444749",
-                        "surface-container-high": "#e0e8ff",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "on-tertiary-container": "#ffc6b2",
-                        "tertiary-fixed": "#ffdbcf",
-                        "on-surface-variant": "#434654",
-                        "inverse-surface": "#1d3052",
-                        "surface": "#f9f9ff",
-                        "error-container": "#ffdad6",
-                        "surface-container": "#e8edff",
-                        "primary-container": "#0052cc",
-                        "on-surface": "#041b3c",
-                        "on-primary-fixed": "#001848",
-                        "outline": "#737685",
-                        "on-tertiary-fixed-variant": "#812800",
-                        "surface-tint": "#0c56d0",
-                        "primary": "#003d9b",
-                        "surface-dim": "#cadaff",
-                        "on-error-container": "#93000a",
-                        "secondary-fixed": "#e1e2e4",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "on-tertiary-fixed": "#380d00",
-                        "surface-container-highest": "#d7e2ff",
-                        "outline-variant": "#c3c6d6",
-                        "on-background": "#041b3c",
-                        "surface-bright": "#f9f9ff",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "background": "#f9f9ff",
-                        "inverse-on-surface": "#edf0ff",
-                        "primary-fixed": "#dae2ff",
-                        "secondary": "#5c5f60",
-                        "on-primary-container": "#c4d2ff",
-                        "on-primary": "#ffffff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "gutter": "24px",
-                        "container-max": "800px",
-                        "stack-sm": "12px",
-                        "stack-lg": "48px",
-                        "unit": "8px",
-                        "stack-md": "24px"
-                    },
-                    "fontFamily": {
-                        "body-md": ["Work Sans", "sans-serif"],
-                        "headline-lg-mobile": ["Work Sans", "sans-serif"],
-                        "headline-md": ["Work Sans", "sans-serif"],
-                        "headline-lg": ["Work Sans", "sans-serif"],
-                        "body-lg": ["Work Sans", "sans-serif"],
-                        "label-caps": ["Work Sans", "sans-serif"]
-                    },
-                    "fontSize": {
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
-                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
-                    }
+              extend: {
+                "colors": {
+                    "primary": "#00418f",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "surface-container": "#e5eeff",
+                    "outline-variant": "#c2c6d5"
                 }
+              }
             }
-        }
+          }
     </script>
 <style>
-        /* Hide sections by default for SPA routing */
-        .spa-section { display: none; }
-        .spa-section.active { display: block; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .active-nav-item { background-color: #ffffff; color: #00418f; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f8f9ff; }
     </style>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-background text-on-background font-body-md text-body-md flex h-screen overflow-hidden">
-<!-- App Shell: SideNavBar (Web) -->
-<nav class="w-64 h-screen sticky left-0 top-0 bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col h-full py-stack-md px-4 hidden md:flex flex-shrink-0 z-20">
-<!-- Brand/Header -->
-<div class="mb-stack-lg flex items-center gap-3 px-3">
-<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">timer</span>
+<body class="flex h-screen overflow-hidden text-on-surface">
+<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50">
+<div class="mb-6 px-2">
+<h1 class="text-xl font-bold text-primary">Döltschi Time</h1>
+<p class="text-xs text-on-surface-variant uppercase font-semibold">Precision &amp; Flow</p>
 </div>
-<div>
-<h1 class="font-headline-md text-headline-md font-bold text-primary">TimeSync Pro</h1>
-<p class="text-on-surface-variant text-sm mt-1">Cloud Zeiterfassung</p>
-</div>
-</div>
-<!-- Primary CTA -->
-<button class="mb-stack-lg w-full bg-primary text-on-primary hover:bg-primary/90 transition-colors duration-200 py-3 px-4 rounded-full flex items-center justify-center gap-2 font-bold shadow-sm" onclick="navigate('zeiterfassung')">
-<span class="material-symbols-outlined">add</span>
-            Neuer Eintrag
-        </button>
-<!-- Navigation Links -->
-<div class="flex-1 space-y-2">
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 transition-colors duration-200" data-target="dashboard" href="#" onclick="navigate('dashboard')">
-<span class="material-symbols-outlined">dashboard</span>
-                Dashboard
-            </a>
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" data-target="mitarbeiter" href="#" onclick="navigate('mitarbeiter')">
-<span class="material-symbols-outlined">group</span>
-                Mitarbeiter
-            </a>
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" data-target="zeiterfassung" href="#" onclick="navigate('zeiterfassung')">
-<span class="material-symbols-outlined">schedule</span>
-                Zeiterfassung
-            </a>
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" data-target="berichte" href="#" onclick="navigate('berichte')">
-<span class="material-symbols-outlined">assessment</span>
-                Berichte
-            </a>
-</div>
-<!-- Footer Links -->
-<div class="mt-auto border-t border-outline-variant pt-4 space-y-2">
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" href="#">
-<span class="material-symbols-outlined">settings</span>
-                Einstellungen
-            </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" href="#">
-<span class="material-symbols-outlined">logout</span>
-                Abmelden
-            </a>
-</div>
+<nav class="flex-1 space-y-1">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold active-nav-item">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-white/50">
+<span class="material-symbols-outlined">history</span> Aktivitäten
+            </button>
 </nav>
-<!-- Main Canvas Area -->
-<main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-surface-bright">
-<!-- App Shell: TopAppBar (Mobile & Web Context) -->
-<header class="bg-surface border-b border-outline-variant w-full top-0 sticky z-10">
-<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
-<!-- Mobile Menu Button -->
-<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h2 class="font-headline-md text-headline-md font-bold text-primary" id="topbar-title">Zeiterfassung</h2>
+</aside>
+<main class="ml-64 flex-1 flex flex-col">
+<header class="h-16 px-8 border-b flex justify-between items-center bg-white">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full text-sm" placeholder="Suchen..." type="text"/>
+</div>
 <div class="flex items-center gap-4">
-<button class="text-on-surface-variant hover:text-primary transition-colors">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="text-on-surface-variant hover:text-primary transition-colors">
-<span class="material-symbols-outlined">help_outline</span>
-</button>
-<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border border-outline-variant">
-<img alt="Benutzerprofil" class="w-full h-full object-cover" data-alt="A small circular avatar placeholder image showing a generic user profile silhouette in a modern corporate style, light blue and white color palette, professional minimalist look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoQuUmmSl45QtBCFOBl0oqyZzIg0FVafVlAiZqjtKozgjGcY46uQukKkoTS1AMam_SQtPFp5o8Ha6Dhq2fZLs5-pi59bIxl-Qd-KCxDCMpiKVsjCWJoCSG4zZyT-WmmLJaLJX9Bj8cNki1tag2oMzPzHaOR_ERrAjHBnc7RSNyEMBpx1FcopSKhuCveBUdYuZYGiWEOmZI6fsao_WYBtNwW5AVo4-AJZibCY-TwgUnXsaIB414CGIR"/>
-</div>
-</div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2" id="addNewEntry">
+<span class="material-symbols-outlined text-sm">add</span> Neuer Eintrag
+                </button>
+<span class="material-symbols-outlined text-gray-500 cursor-pointer">notifications</span>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs">TD</div>
 </div>
 </header>
-<!-- Scrollable Content Area -->
-<div class="flex-1 overflow-y-auto p-4 md:p-gutter">
-<div class="max-w-container-max mx-auto w-full pb-20 md:pb-0">
-<!-- SECTION: DASHBOARD -->
-<section class="spa-section active" id="dashboard">
-<div class="mb-stack-lg">
-<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Team Übersicht</h3>
-<p class="text-on-surface-variant">Aktueller Stand der Arbeitszeiten im Vergleich zum Jahressoll.</p>
+<div class="p-8 overflow-y-auto">
+<h2 class="text-3xl font-bold mb-6">Dashboard</h2>
+<div class="grid grid-cols-3 gap-6 mb-8">
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Aktive Mitglieder</p>
+<h3 class="text-3xl font-bold">24 / 28</h3>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboard-grid">
-<!-- Dashboard cards injected via JS -->
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Team Gesundheit</p>
+<h3 class="text-3xl font-bold">92%</h3>
 </div>
-<div class="hidden text-center py-stack-lg border-2 border-dashed border-outline-variant rounded-xl bg-surface-container-lowest mt-6" id="dashboard-empty">
-<span class="material-symbols-outlined text-6xl text-outline mb-4">group_off</span>
-<h4 class="font-headline-md text-headline-md text-on-surface mb-2">Keine Mitarbeiter gefunden</h4>
-<p class="text-on-surface-variant mb-6">Füge zunächst Mitarbeiter hinzu, um deren Zeiten zu verfolgen.</p>
-<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold hover:bg-primary-container/80 transition-colors inline-flex items-center gap-2" onclick="navigate('mitarbeiter')">
-<span class="material-symbols-outlined">person_add</span>
-                            Mitarbeiter anlegen
-                        </button>
-</div>
-</section>
-<!-- SECTION: MITARBEITER -->
-<section class="spa-section" id="mitarbeiter">
-<div class="mb-stack-lg">
-<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Mitarbeiterverwaltung</h3>
-<p class="text-on-surface-variant">Verwalte das Team und deren vertragliches Jahressoll.</p>
-</div>
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm mb-stack-lg relative overflow-hidden">
-<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/5 rounded-bl-full -z-0"></div>
-<h4 class="font-headline-md text-headline-md text-on-surface mb-6 relative z-10 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">person_add</span>
-                            Neuen Mitarbeiter anlegen
-                        </h4>
-<form class="space-y-4 relative z-10" id="form-mitarbeiter">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Vor- und Nachname</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="emp-name" required="" type="text"/>
-</div>
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Pensum (%)</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="emp-pensum" max="100" min="10" required="" type="number" value="100"/>
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Ausstehend</p>
+<h3 class="text-3xl font-bold text-red-600">12</h3>
 </div>
 </div>
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Jahressoll (Stunden)</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="emp-soll" required="" type="number" value="1890"/>
-<p class="text-xs text-on-surface-variant mt-1 ml-1">Standardwert 100% Pensum = 1890h</p>
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-gray-100 flex justify-between items-center">
+<h3 class="font-bold">Neueste Aktivitäten</h3>
+<button class="text-primary text-sm font-semibold">Alle ansehen</button>
 </div>
-<div class="pt-4">
-<button class="bg-primary text-on-primary hover:bg-primary/90 transition-colors py-3 px-6 rounded-full font-bold shadow-sm w-full md:w-auto" type="submit">
-                                    Mitarbeiter speichern
-                                </button>
+<div class="divide-y divide-gray-100" id="activitiesList">
+<!-- Platzhalter für Aktivitäten-Liste -->
+<div class="p-6 flex items-center justify-center text-gray-400 text-sm italic">
+                        Lade Aktivitäten...
+                    </div>
 </div>
-</form>
-</div>
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
-<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
-<h4 class="font-headline-md text-headline-md text-on-surface">Aktuelles Team</h4>
-<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-sm font-bold" id="team-count">0</span>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="border-b border-outline-variant bg-surface-bright">
-<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Name</th>
-<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Pensum</th>
-<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Jahressoll</th>
-<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Aktion</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant" id="table-mitarbeiter-body">
-<!-- Rows injected via JS -->
-</tbody>
-</table>
-<div class="hidden text-center py-8 text-on-surface-variant" id="mitarbeiter-empty">
-                                Keine Mitarbeiter erfasst.
-                            </div>
-</div>
-</div>
-</section>
-<!-- SECTION: ZEITERFASSUNG -->
-<section class="spa-section" id="zeiterfassung">
-<div class="mb-stack-lg">
-<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Zeiten erfassen</h3>
-<p class="text-on-surface-variant">Trage die täglichen Arbeitszeiten für das Team ein.</p>
-</div>
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm max-w-2xl mx-auto">
-<form class="space-y-6" id="form-zeiterfassung">
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase tracking-wider">Mitarbeiter auswählen</label>
-<select class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none" id="zeit-emp" required="">
-<option disabled="" selected="" value="">Bitte wählen...</option>
-<!-- Options injected via JS -->
-</select>
-</div>
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase tracking-wider">Datum</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="zeit-datum" required="" type="date"/>
-</div>
-<div class="border-t border-outline-variant pt-6">
-<h5 class="font-headline-md text-headline-md text-on-surface mb-4">Vormittag</h5>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Beginn</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="zeit-vm-start" type="time"/>
-</div>
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Ende</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="zeit-vm-ende" type="time"/>
-</div>
-</div>
-</div>
-<div class="border-t border-outline-variant pt-6">
-<h5 class="font-headline-md text-headline-md text-on-surface mb-4">Nachmittag</h5>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Beginn</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="zeit-nm-start" type="time"/>
-</div>
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Ende</label>
-<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="zeit-nm-ende" type="time"/>
-</div>
-</div>
-</div>
-<div class="pt-6 border-t border-outline-variant flex justify-between items-center bg-surface-container p-4 rounded-lg">
-<span class="text-on-surface-variant">Tages total:</span>
-<span class="font-headline-md text-headline-md text-primary font-bold" id="zeit-total-preview">0.00 h</span>
-</div>
-<div class="pt-4">
-<button class="bg-primary text-on-primary hover:bg-primary/90 transition-colors py-3 px-6 rounded-full font-bold shadow-sm w-full flex items-center justify-center gap-2" type="submit">
-<span class="material-symbols-outlined">save</span>
-                                    Zeiten buchen
-                                </button>
-</div>
-</form>
-</div>
-</section>
-<!-- SECTION: BERICHTE -->
-<section class="spa-section" id="berichte">
-<div class="mb-stack-lg">
-<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Monatsberichte</h3>
-<p class="text-on-surface-variant">Detaillierte Übersicht der erfassten Zeiten und Salden.</p>
-</div>
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-outline-variant pb-6">
-<div>
-<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Berichtsmonat</label>
-<input class="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="bericht-monat" type="month"/>
-</div>
-<button class="text-primary hover:bg-surface-container-low px-4 py-2 rounded-lg transition-colors flex items-center gap-2 border border-primary/20" onclick="renderBerichte()">
-<span class="material-symbols-outlined">refresh</span>
-                                Aktualisieren
-                            </button>
-</div>
-<div id="bericht-content">
-<!-- Report injected via JS -->
-</div>
-</div>
-</section>
 </div>
 </div>
 </main>
-<!-- App Shell: BottomNavBar (Mobile Only) -->
-<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant flex justify-around items-center px-2 py-3 z-20 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-<a class="nav-link-mobile flex flex-col items-center gap-1 min-w-[64px] px-2 py-1 rounded-xl text-primary font-bold bg-primary-container/10" data-target="dashboard" href="#" onclick="navigate('dashboard')">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-<span class="text-[10px] leading-tight">Dashboard</span>
-</a>
-<a class="nav-link-mobile flex flex-col items-center gap-1 min-w-[64px] px-2 py-1 rounded-xl text-on-surface-variant" data-target="mitarbeiter" href="#" onclick="navigate('mitarbeiter')">
-<span class="material-symbols-outlined">group</span>
-<span class="text-[10px] leading-tight">Team</span>
-</a>
-<a class="nav-link-mobile flex flex-col items-center gap-1 min-w-[64px] px-2 py-1 rounded-xl text-on-surface-variant" data-target="zeiterfassung" href="#" onclick="navigate('zeiterfassung')">
-<span class="material-symbols-outlined">schedule</span>
-<span class="text-[10px] leading-tight">Zeiten</span>
-</a>
-<a class="nav-link-mobile flex flex-col items-center gap-1 min-w-[64px] px-2 py-1 rounded-xl text-on-surface-variant" data-target="berichte" href="#" onclick="navigate('berichte')">
-<span class="material-symbols-outlined">assessment</span>
-<span class="text-[10px] leading-tight">Berichte</span>
-</a>
-</nav>
-<!-- Toast Notification Container -->
-<div class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
-<!-- Application Logic -->
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script>
-        // HIER FIREBASE KONFIGURATION EINFÜGEN
+        // Firebase Konfiguration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyCLe1TDW9n_ayT-vraWhNcWiDRNH2-5JE0",
+            authDomain: "zeiterfassung-a5893.firebaseapp.com",
+            projectId: "zeiterfassung-a5893",
+            storageBucket: "zeiterfassung-a5893.firebasestorage.app",
+            messagingSenderId: "863255539210",
+            appId: "1:863255539210:web:68c922f1c881bba856b9f3",
+            measurementId: "G-JZM4W91FXN"
         };
 
-        // Initialize Firebase
-        let db;
-        if (firebase.apps.length === 0 && firebaseConfig.apiKey !== "YOUR_API_KEY") {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-        } else {
-            console.warn("Firebase config is empty. Using mock data for preview.");
-            // Mock DB for preview if no config
-            db = {
-                collection: () => ({
-                    onSnapshot: () => {},
-                    add: () => Promise.resolve(),
-                    doc: () => ({ delete: () => Promise.resolve() })
-                })
-            };
-        }
+        // Firebase initialisieren
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
+        /**
+         * Datenbank-Logik für 'Neuer Eintrag'
+         */
+        document.getElementById('addNewEntry').addEventListener('click', () => {
+            console.log("Speichern-Logik hier implementieren...");
+            /* Beispiel:
+            db.collection("activities").add({
+                user: "Thomas Döltschi",
+                type: "Check-in",
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                status: "success"
+            }).then(() => {
+                console.log("Eintrag erfolgreich gespeichert");
+                loadActivities();
+            });
+            */
+        });
 
-        // Data Structure
-        let data = {
-            mitarbeiter: [], // { id, name, pensum, jahressoll }
-            zeiten: []      // { id, empId, date, vmStart, vmEnde, nmStart, nmEnde, totalH }
-        };
-
-        // Initialize App
-        function init() {
-            setupRealtimeListeners();
+        /**
+         * Datenbank-Logik für 'Neueste Aktivitäten' laden
+         */
+        function loadActivities() {
+            console.log("Laden-Logik hier implementieren...");
+            const activitiesList = document.getElementById('activitiesList');
             
-            document.getElementById('zeit-datum').valueAsDate = new Date();
-            
-            let today = new Date();
-            let month = (today.getMonth() + 1).toString().padStart(2, '0');
-            document.getElementById('bericht-monat').value = `${today.getFullYear()}-${month}`;
-
-            setupEventListeners();
-            navigate('dashboard'); // Default route
-        }
-
-        // Realtime sync with Firestore
-        function setupRealtimeListeners() {
-            if (!db.collection) return; // Skip if no real db
-
-            // Listen to mitarbeiter collection
-            db.collection("mitarbeiter").onSnapshot((snapshot) => {
-                data.mitarbeiter = [];
-                snapshot.forEach((doc) => {
-                    data.mitarbeiter.push({ id: doc.id, ...doc.data() });
+            /* Beispiel:
+            db.collection("activities").orderBy("timestamp", "desc").limit(5).get().then((querySnapshot) => {
+                activitiesList.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // HTML für Aktivitäts-Zeile generieren und anhängen
                 });
-                renderAll();
             });
-
-            // Listen to zeiten collection
-            db.collection("zeiten").onSnapshot((snapshot) => {
-                data.zeiten = [];
-                snapshot.forEach((doc) => {
-                    data.zeiten.push({ id: doc.id, ...doc.data() });
-                });
-                renderAll();
-            });
-        }
-        
-        function renderAll() {
-            // Re-render the current active section
-            const activeSection = document.querySelector('.spa-section.active');
-            if (activeSection) {
-                if (activeSection.id === 'dashboard') renderDashboard();
-                if (activeSection.id === 'mitarbeiter') renderMitarbeiterList();
-                if (activeSection.id === 'zeiterfassung') renderMitarbeiterDropdown();
-                if (activeSection.id === 'berichte') renderBerichte();
-            }
+            */
         }
 
-
-        // Routing & UI State
-        function navigate(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.spa-section').forEach(sec => sec.classList.remove('active'));
-            // Show target section
-            document.getElementById(sectionId).classList.add('active');
-
-            // Update Web Nav State
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.dataset.target === sectionId) {
-                    link.className = 'nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 transition-colors duration-200';
-                } else {
-                    link.className = 'nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200';
-                }
-            });
-
-            // Update Mobile Nav State
-            document.querySelectorAll('.nav-link-mobile').forEach(link => {
-                if (link.dataset.target === sectionId) {
-                    link.className = 'nav-link-mobile flex flex-col items-center gap-1 min-w-[64px] px-2 py-1 rounded-xl text-primary font-bold bg-primary-container/10';
-                    link.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
-                } else {
-                    link.className = 'nav-link-mobile flex flex-col items-center gap-1 min-w-[64px] px-2 py-1 rounded-xl text-on-surface-variant';
-                    link.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
-                }
-            });
-
-            // Update Top Bar Title
-            const titles = {
-                'dashboard': 'Dashboard',
-                'mitarbeiter': 'Mitarbeiterverwaltung',
-                'zeiterfassung': 'Zeiterfassung',
-                'berichte': 'Berichte'
-            };
-            document.getElementById('topbar-title').innerText = titles[sectionId] || 'TimeSync Pro';
-
-            // Trigger section specific renders
-            if (sectionId === 'dashboard') renderDashboard();
-            if (sectionId === 'mitarbeiter') renderMitarbeiterList();
-            if (sectionId === 'zeiterfassung') renderMitarbeiterDropdown();
-            if (sectionId === 'berichte') renderBerichte();
-        }
-
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            const bgClass = type === 'success' ? 'bg-inverse-surface' : 'bg-error';
-            const icon = type === 'success' ? 'check_circle' : 'error';
-            
-            toast.className = `${bgClass} text-inverse-on-surface px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform transition-all duration-300 translate-y-[-100%] opacity-0`;
-            toast.innerHTML = `<span class="material-symbols-outlined">${icon}</span> <span class="font-body-md">${message}</span>`;
-            
-            container.appendChild(toast);
-            
-            // Animate in
-            setTimeout(() => {
-                toast.classList.remove('translate-y-[-100%]', 'opacity-0');
-            }, 10);
-            
-            // Remove after 3s
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Logic Helpers
-        function calculateHours(startStr, endStr) {
-            if (!startStr || !endStr) return 0;
-            const start = new Date(`1970-01-01T${startStr}`);
-            const end = new Date(`1970-01-01T${endStr}`);
-            let diff = (end - start) / 1000 / 60 / 60; // in hours
-            return diff > 0 ? diff : 0;
-        }
-
-        function calculateEmployeeStats(empId) {
-            const emp = data.mitarbeiter.find(m => m.id === empId);
-            if (!emp) return null;
-
-            const zeiten = data.zeiten.filter(z => z.empId === empId);
-            const totalIst = zeiten.reduce((sum, z) => sum + z.totalH, 0);
-            const saldo = totalIst - emp.jahressoll;
-            const progress = Math.min(100, Math.max(0, (totalIst / emp.jahressoll) * 100));
-
-            return { emp, totalIst, saldo, progress };
-        }
-
-        // Render Functions
-        function renderDashboard() {
-            const grid = document.getElementById('dashboard-grid');
-            const emptyState = document.getElementById('dashboard-empty');
-
-            grid.innerHTML = '';
-            
-            if (data.mitarbeiter.length === 0) {
-                grid.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            grid.classList.remove('hidden');
-            emptyState.classList.add('hidden');
-
-            data.mitarbeiter.forEach(emp => {
-                const stats = calculateEmployeeStats(emp.id);
-                const saldoClass = stats.saldo >= 0 ? 'text-primary' : 'text-error';
-                const saldoPrefix = stats.saldo > 0 ? '+' : '';
-                
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden';
-                
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary font-bold text-lg">
-                                ${emp.name.charAt(0).toUpperCase()}
-                            </div>
-                            <div>
-                                <h4 class="font-headline-md text-headline-md text-on-surface leading-tight">${emp.name}</h4>
-                                <span class="text-sm text-on-surface-variant font-label-caps uppercase tracking-wider">${emp.pensum}% Pensum</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-6 bg-surface-container-low rounded-lg p-4">
-                        <div>
-                            <p class="text-xs text-on-surface-variant mb-1">Ist-Stunden</p>
-                            <p class="font-headline-md text-headline-md text-on-surface">${stats.totalIst.toFixed(1)} h</p>
-                        </div>
-                        <div>
-                            <p class="text-xs text-on-surface-variant mb-1">Jahressoll</p>
-                            <p class="font-headline-md text-headline-md text-on-surface">${emp.jahressoll} h</p>
-                        </div>
-                    </div>
-
-                    <div class="mb-2 flex justify-between items-end">
-                        <p class="text-sm text-on-surface-variant">Fortschritt</p>
-                        <div class="text-right">
-                            <p class="text-xs text-on-surface-variant mb-1">Saldo</p>
-                            <p class="font-bold ${saldoClass}">${saldoPrefix}${stats.saldo.toFixed(1)} h</p>
-                        </div>
-                    </div>
-                    
-                    <div class="w-full bg-secondary-container rounded-full h-2.5 overflow-hidden">
-                        <div class="bg-primary h-2.5 rounded-full transition-all duration-500 ease-out" style="width: ${stats.progress}%"></div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function renderMitarbeiterList() {
-            const tbody = document.getElementById('table-mitarbeiter-body');
-            const emptyState = document.getElementById('mitarbeiter-empty');
-            const countBadge = document.getElementById('team-count');
-            
-            tbody.innerHTML = '';
-            countBadge.innerText = data.mitarbeiter.length;
-
-            if (data.mitarbeiter.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            emptyState.classList.add('hidden');
-
-            data.mitarbeiter.forEach(emp => {
-                const tr = document.createElement('tr');
-                tr.className = 'hover:bg-surface-container-low transition-colors';
-                tr.innerHTML = `
-                    <td class="p-4 font-bold text-on-surface">${emp.name}</td>
-                    <td class="p-4 text-on-surface-variant">${emp.pensum}%</td>
-                    <td class="p-4 text-on-surface-variant">${emp.jahressoll} h</td>
-                    <td class="p-4 text-right">
-                        <button onclick="deleteMitarbeiter('${emp.id}')" class="text-error hover:bg-error-container p-2 rounded-full transition-colors" title="Löschen">
-                            <span class="material-symbols-outlined text-[20px]">delete</span>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderMitarbeiterDropdown() {
-            const select = document.getElementById('zeit-emp');
-            // Keep default option
-            select.innerHTML = '<option value="" disabled selected>Bitte wählen...</option>';
-            data.mitarbeiter.forEach(emp => {
-                const opt = document.createElement('option');
-                opt.value = emp.id;
-                opt.textContent = emp.name;
-                select.appendChild(opt);
-            });
-        }
-
-        function renderBerichte() {
-            const container = document.getElementById('bericht-content');
-            const monthStr = document.getElementById('bericht-monat').value; // YYYY-MM
-            
-            if(!monthStr) {
-                container.innerHTML = '<p class="text-on-surface-variant py-4">Bitte Monat auswählen.</p>';
-                return;
-            }
-
-            const [year, month] = monthStr.split('-');
-            
-            if (data.mitarbeiter.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8">
-                        <span class="material-symbols-outlined text-4xl text-outline mb-2">analytics</span>
-                        <p class="text-on-surface-variant">Keine Daten für diesen Zeitraum verfügbar.</p>
-                    </div>`;
-                return;
-            }
-
-            let html = `
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b-2 border-outline-variant bg-surface-bright">
-                                <th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Mitarbeiter</th>
-                                <th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Stunden in Monat (${month}/${year})</th>
-                                <th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Total Ist (Jahr)</th>
-                                <th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Saldo (Jahr)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant">
-            `;
-
-            data.mitarbeiter.forEach(emp => {
-                // Calc month specific
-                const zeitenMonth = data.zeiten.filter(z => 
-                    z.empId === emp.id && 
-                    z.date.startsWith(monthStr)
-                );
-                const monthIst = zeitenMonth.reduce((sum, z) => sum + z.totalH, 0);
-                
-                // Calc overall
-                const stats = calculateEmployeeStats(emp.id);
-                const saldoClass = stats.saldo >= 0 ? 'text-primary' : 'text-error';
-                const saldoPrefix = stats.saldo > 0 ? '+' : '';
-
-                html += `
-                    <tr class="hover:bg-surface-container-low transition-colors">
-                        <td class="p-4 font-bold text-on-surface">${emp.name}</td>
-                        <td class="p-4 text-on-surface-variant bg-primary-container/5">${monthIst.toFixed(2)} h</td>
-                        <td class="p-4 text-on-surface-variant">${stats.totalIst.toFixed(2)} / ${emp.jahressoll} h</td>
-                        <td class="p-4 font-bold ${saldoClass}">${saldoPrefix}${stats.saldo.toFixed(2)} h</td>
-                    </tr>
-                `;
-            });
-
-            html += `</tbody></table></div>`;
-            container.innerHTML = html;
-        }
-
-        // Event Handlers & Actions
-        function setupEventListeners() {
-            
-            // Add Employee Form
-            document.getElementById('form-mitarbeiter').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('emp-name').value.trim();
-                const pensum = parseFloat(document.getElementById('emp-pensum').value);
-                const soll = parseFloat(document.getElementById('emp-soll').value);
-
-                if (name && pensum && soll) {
-                    if(db.collection) {
-                        db.collection("mitarbeiter").add({
-                            name,
-                            pensum,
-                            jahressoll: soll
-                        }).then(() => {
-                            e.target.reset();
-                            showToast('Mitarbeiter erfolgreich hinzugefügt');
-                        }).catch(err => {
-                            showToast('Fehler beim Hinzufügen', 'error');
-                            console.error(err);
-                        });
-                    }
-                }
-            });
-
-            // Adjust default Jahressoll based on pensum
-            document.getElementById('emp-pensum').addEventListener('input', (e) => {
-                const p = parseFloat(e.target.value) || 0;
-                document.getElementById('emp-soll').value = Math.round((1890 / 100) * p);
-            });
-
-            // Live preview of hours in Zeiterfassung
-            const timeInputs = ['zeit-vm-start', 'zeit-vm-ende', 'zeit-nm-start', 'zeit-nm-ende'];
-            timeInputs.forEach(id => {
-                document.getElementById(id).addEventListener('input', updateTimePreview);
-            });
-
-            // Add Time Entry Form
-            document.getElementById('form-zeiterfassung').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const empId = document.getElementById('zeit-emp').value;
-                const date = document.getElementById('zeit-datum').value;
-                const vmStart = document.getElementById('zeit-vm-start').value;
-                const vmEnde = document.getElementById('zeit-vm-ende').value;
-                const nmStart = document.getElementById('zeit-nm-start').value;
-                const nmEnde = document.getElementById('zeit-nm-ende').value;
-
-                if (!empId || !date) {
-                    showToast('Bitte Mitarbeiter und Datum wählen', 'error');
-                    return;
-                }
-
-                const vmH = calculateHours(vmStart, vmEnde);
-                const nmH = calculateHours(nmStart, nmEnde);
-                const totalH = vmH + nmH;
-
-                if (totalH <= 0) {
-                    showToast('Die erfasste Zeit muss größer als 0 sein', 'error');
-                    return;
-                }
-                
-                if(db.collection) {
-                    db.collection("zeiten").add({
-                        empId,
-                        date,
-                        vmStart, vmEnde, nmStart, nmEnde,
-                        totalH
-                    }).then(() => {
-                        showToast('Zeiten erfolgreich gebucht');
-                        // Reset time fields
-                        timeInputs.forEach(id => document.getElementById(id).value = '');
-                        updateTimePreview();
-                    }).catch(err => {
-                        showToast('Fehler beim Buchen', 'error');
-                        console.error(err);
-                    });
-                }
-            });
-        }
-
-        function updateTimePreview() {
-            const vmStart = document.getElementById('zeit-vm-start').value;
-            const vmEnde = document.getElementById('zeit-vm-ende').value;
-            const nmStart = document.getElementById('zeit-nm-start').value;
-            const nmEnde = document.getElementById('zeit-nm-ende').value;
-
-            const vmH = calculateHours(vmStart, vmEnde);
-            const nmH = calculateHours(nmStart, nmEnde);
-            const totalH = vmH + nmH;
-
-            document.getElementById('zeit-total-preview').innerText = `${totalH.toFixed(2)} h`;
-        }
-
-        function deleteMitarbeiter(id) {
-            if(confirm('Mitarbeiter wirklich löschen? Alle zugehörigen Zeiten müssen manuell bereinigt werden.')) {
-                if(db.collection) {
-                    db.collection("mitarbeiter").doc(id).delete().then(() => {
-                        showToast('Mitarbeiter gelöscht');
-                    }).catch(err => {
-                         showToast('Fehler beim Löschen', 'error');
-                         console.error(err);
-                    });
-                }
-            }
-        }
-
-        // Boot
-        window.onload = init;
-
+        // Initialer Aufruf zum Laden der Daten
+        loadActivities();
     </script>
 </body></html>
