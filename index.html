@@ -405,14 +405,36 @@
 <div class="bg-white border border-outline-variant rounded-xl overflow-hidden">
 <table class="w-full text-left">
 <thead class="bg-surface-container-low border-b border-outline-variant">
-<tr class="text-[10px] text-outline uppercase font-bold"><th class="px-6 py-4">Name &amp; Rolle</th><th class="px-6 py-4">Email</th><th class="px-6 py-4">Team</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
+<tr class="text-sm text-outline font-medium"><th class="px-6 py-4">Name</th><th class="px-6 py-4">E-Mail</th><th class="px-6 py-4">Pensum</th><th class="px-6 py-4">Jahressoll (h)</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="mgmt-table-body">
 <tr class="hover:bg-surface-container-low">
-<td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant"></div><div><p class="text-sm font-bold">Marc Döltschi</p><p class="text-[10px] text-primary">Senior Architekt</p></div></td>
-<td class="px-6 py-4 text-xs font-mono">m.doeltschi@company.com</td>
-<td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">Core Engine</span></td>
-<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span></td>
+<td class="px-6 py-4 text-sm font-bold">Nicole De Pretto</td>
+<td class="px-6 py-4 text-sm text-outline">Nicole.DePretto@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-sm text-on-surface">57%</td>
+<td class="px-6 py-4 text-sm text-on-surface">1077</td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="px-6 py-4 text-sm font-bold">Michelle Dreifuss</td>
+<td class="px-6 py-4 text-sm text-outline">Michele.Dreifuss@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-sm text-on-surface">100%</td>
+<td class="px-6 py-4 text-sm text-on-surface">1890</td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="px-6 py-4 text-sm font-bold">Manuel Schoch</td>
+<td class="px-6 py-4 text-sm text-outline">Manuel.Schoch@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-sm text-on-surface">100%</td>
+<td class="px-6 py-4 text-sm text-on-surface">1890</td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="px-6 py-4 text-sm font-bold">Seline Steinmann</td>
+<td class="px-6 py-4 text-sm text-outline">Seline.Steinmann@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-sm text-on-surface">92%</td>
+<td class="px-6 py-4 text-sm text-on-surface">1739</td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
 </tr>
 </tbody>
 </table>
@@ -636,10 +658,11 @@
             const row = document.createElement('tr');
             row.className = "hover:bg-surface-container-low border-t border-outline-variant";
             row.innerHTML = `
-                <td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-primary text-[10px]">NEW</div><div><p class="text-sm font-bold">${name}</p><p class="text-[10px] text-primary">${role}</p></div></td>
-                <td class="px-6 py-4 text-xs font-mono">${email}</td>
-                <td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">New Hired</span></td>
-                <td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span></td>
+                <td class="px-6 py-4 text-sm font-bold">${name}</td>
+                <td class="px-6 py-4 text-sm text-outline">${email}</td>
+                <td class="px-6 py-4 text-sm text-on-surface">100%</td>
+                <td class="px-6 py-4 text-sm text-on-surface">1890</td>
+                <td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
             `;
             tbody.appendChild(row);
             mgmtModal.classList.add('hidden');
