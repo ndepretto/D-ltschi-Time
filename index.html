@@ -137,19 +137,19 @@
         </button>
 <!-- Navigation Links -->
 <nav class="flex-1 flex flex-col gap-2">
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#">
+<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#" onclick="switchView('dashboard', this); return false;">
 <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">dashboard</span>
                 Dashboard
             </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 opacity-90 transition-opacity" href="#">
+<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 opacity-90 transition-opacity" href="#" onclick="switchView('mitarbeiter', this); return false;">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
                 Mitarbeiter
             </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#">
+<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#" onclick="switchView('zeiterfassung', this); return false;">
 <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">schedule</span>
                 Zeiterfassung
             </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#">
+<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#" onclick="switchView('berichte', this); return false;">
 <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">assessment</span>
                 Berichte
             </a>
@@ -199,7 +199,20 @@
 </div>
 </header>
 <!-- Page Content -->
-<div class="flex-1 p-gutter max-w-container-max mx-auto w-full">
+<!-- Dashboard View -->
+<div class="view-container hidden flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-dashboard">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Dashboard</h1>
+<p class="text-on-surface-variant mt-1">Übersicht Ihrer Aktivitäten.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<p class="text-on-surface-variant">Hier entsteht das Dashboard.</p>
+</div>
+</div>
+<!-- Mitarbeiter View -->
+<div class="view-container flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-mitarbeiter">
 <!-- Header Section -->
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
 <div>
@@ -245,6 +258,30 @@
 <button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-50" disabled=""><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
 </div>
 </div>
+</div>
+</div>
+<!-- Zeiterfassung View -->
+<div class="view-container hidden flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-zeiterfassung">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Zeiterfassung</h1>
+<p class="text-on-surface-variant mt-1">Ihre erfassten Arbeitszeiten.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<p class="text-on-surface-variant">Hier entsteht die Zeiterfassung.</p>
+</div>
+</div>
+<!-- Berichte View -->
+<div class="view-container hidden flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-berichte">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Berichte</h1>
+<p class="text-on-surface-variant mt-1">Auswertungen und Statistiken.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<p class="text-on-surface-variant">Hier entstehen die Berichte.</p>
 </div>
 </div>
 </main>
@@ -297,17 +334,20 @@
 </div>
 </div>
 <script>
-    let employees = [
+    const defaultEmployees = [
         { id: 1, firstName: 'Nicole', lastName: 'De Pretto', role: 'Architektin', email: 'n.depretto@timesync.ch', pensum: 100, jahressoll: 2080 },
         { id: 2, firstName: 'Michelle', lastName: 'Dreifuss', role: 'Projektleiterin', email: 'm.dreifuss@timesync.ch', pensum: 80, jahressoll: 1664 },
         { id: 3, firstName: 'Manuel', lastName: 'Schoch', role: 'Zeichner', email: 'm.schoch@timesync.ch', pensum: 100, jahressoll: 2080 },
         { id: 4, firstName: 'Seline', lastName: 'Steinmann', role: 'Administration', email: 's.steinmann@timesync.ch', pensum: 60, jahressoll: 1248 }
     ];
 
+    let employees = JSON.parse(localStorage.getItem('timesync_employees')) || defaultEmployees;
+
     let currentEditId = null;
 
     function renderTable() {
         const tbody = document.getElementById('employee-table-body');
+        if (!tbody) return;
         tbody.innerHTML = '';
 
         employees.forEach(emp => {
@@ -385,10 +425,34 @@
             employees[index].pensum = parseInt(document.getElementById('edit-pensum').value, 10);
             employees[index].jahressoll = parseInt(document.getElementById('edit-jahressoll').value, 10);
             
+            localStorage.setItem('timesync_employees', JSON.stringify(employees));
             renderTable();
         }
 
         closeEditModal();
+    }
+
+    function switchView(viewId, element) {
+        document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
+        document.getElementById('view-' + viewId).classList.remove('hidden');
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.className = 'nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group';
+            const icon = link.querySelector('span');
+            if (icon) {
+                icon.className = 'material-symbols-outlined text-outline group-hover:text-primary transition-colors';
+                icon.style.fontVariationSettings = '';
+            }
+        });
+
+        if (element) {
+            element.className = 'nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 opacity-90 transition-opacity';
+            const icon = element.querySelector('span');
+            if (icon) {
+                icon.className = 'material-symbols-outlined';
+                icon.style.fontVariationSettings = "'FILL' 1";
+            }
+        }
     }
 
     // Initial render
