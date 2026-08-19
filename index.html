@@ -7,73 +7,143 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-          tailwind.config = {
-            darkMode: "class",
-            theme: {
-              extend: {
-                "colors": {
-                        "on-primary-fixed": "#001848",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "surface-variant": "#d7e2ff",
-                        "on-secondary-container": "#606365",
-                        "background": "#f9f9ff",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "primary": "#003d9b",
-                        "outline": "#737685",
-                        "tertiary-container": "#a33500",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-primary": "#ffffff",
-                        "surface": "#f9f9ff",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "outline-variant": "#c3c6d6",
-                        "primary-fixed": "#dae2ff",
-                        "on-primary-container": "#c4d2ff",
-                        "inverse-primary": "#b2c5ff",
-                        "surface-container-highest": "#d7e2ff",
-                        "surface-container-high": "#e0e8ff",
-                        "on-surface": "#041b3c",
-                        "on-error-container": "#93000a",
-                        "on-tertiary-fixed-variant": "#812800",
-                        "inverse-surface": "#1d3052",
-                        "surface-bright": "#f9f9ff",
-                        "on-secondary-fixed": "#191c1e",
-                        "error-container": "#ffdad6",
-                        "on-background": "#041b3c",
-                        "on-tertiary-container": "#ffc6b2",
-                        "on-secondary-fixed-variant": "#444749",
-                        "on-error": "#ffffff",
-                        "surface-tint": "#0c56d0",
-                        "on-secondary": "#ffffff",
-                        "surface-dim": "#cadaff",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary": "#5c5f60",
-                        "on-surface-variant": "#434654",
-                        "primary-container": "#0052cc",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed": "#380d00",
-                        "tertiary": "#7b2600",
-                        "surface-container-low": "#f1f3ff",
-                        "surface-container": "#e8edff",
-                        "inverse-on-surface": "#edf0ff",
-                        "secondary-container": "#dee0e2"
-                },
-                "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                },
-                "fontFamily": {
-                        "body": ["IBM Plex Sans", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
-                }
-              }
-            }
-          }
-    </script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "outline-variant": "#c3c6d6",
+                "surface-container": "#e8edff",
+                "on-tertiary": "#ffffff",
+                "surface-tint": "#0c56d0",
+                "primary": "#003d9b",
+                "on-surface-variant": "#434654",
+                "on-tertiary-container": "#ffc6b2",
+                "primary-fixed-dim": "#b2c5ff",
+                "on-primary-container": "#c4d2ff",
+                "surface-dim": "#cadaff",
+                "tertiary": "#7b2600",
+                "outline": "#737685",
+                "secondary-container": "#dee0e2",
+                "background": "#f9f9ff",
+                "on-surface": "#041b3c",
+                "secondary-fixed-dim": "#c5c6c8",
+                "on-error-container": "#93000a",
+                "surface-variant": "#d7e2ff",
+                "surface": "#f9f9ff",
+                "surface-container-highest": "#d7e2ff",
+                "primary-container": "#0052cc",
+                "tertiary-fixed-dim": "#ffb59b",
+                "on-primary": "#ffffff",
+                "surface-container-high": "#e0e8ff",
+                "secondary": "#5c5f60",
+                "on-background": "#041b3c",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-fixed-variant": "#0040a2",
+                "inverse-primary": "#b2c5ff",
+                "secondary-fixed": "#e1e2e4",
+                "on-tertiary-fixed": "#380d00",
+                "on-error": "#ffffff",
+                "inverse-surface": "#1d3052",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#ffdbcf",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#444749",
+                "surface-container-low": "#f1f3ff",
+                "on-secondary-fixed": "#191c1e",
+                "inverse-on-surface": "#edf0ff",
+                "on-tertiary-fixed-variant": "#812800",
+                "surface-bright": "#f9f9ff",
+                "on-secondary-container": "#606365",
+                "on-primary-fixed": "#001848",
+                "tertiary-container": "#a33500",
+                "on-secondary": "#ffffff",
+                "primary-fixed": "#dae2ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "800px",
+                "gutter": "24px",
+                "stack-sm": "12px",
+                "unit": "8px",
+                "stack-md": "24px",
+                "stack-lg": "48px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Work Sans"
+                ],
+                "body-lg": [
+                        "Work Sans"
+                ],
+                "body-md": [
+                        "Work Sans"
+                ],
+                "headline-lg": [
+                        "Work Sans"
+                ],
+                "label-caps": [
+                        "Work Sans"
+                ],
+                "headline-lg-mobile": [
+                        "Work Sans"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "700"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
 <style>
         body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f9f9ff; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
@@ -169,7 +239,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Aktive Mitglieder</p>
-<h3 class="text-3xl font-bold">24 / 28</h3>
+<h3 class="text-3xl font-bold">4 / 4</h3>
 </div>
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Team Gesundheit</p>
@@ -201,10 +271,10 @@
 <label class="block text-sm font-bold text-on-surface-variant mb-2">Mitarbeiter auswählen</label>
 <select class="w-full rounded-lg border-outline-variant p-3 text-sm focus:ring-primary focus:border-primary bg-surface-container-low" id="employee-select">
 <option value="">Bitte wählen...</option>
-<option value="Nicole">Nicole</option>
-<option value="Michelle">Michelle</option>
-<option value="Manuel">Manuel</option>
-<option value="Seline">Seline</option>
+<option value="Nicole">Nicole De Pretto</option>
+<option value="Michelle">Michelle Dreifuss</option>
+<option value="Manuel">Manuel Schoch</option>
+<option value="Seline">Seline Steinmann</option>
 </select>
 </div>
 </div>
@@ -222,11 +292,11 @@
 <div class="flex gap-4">
 <div class="flex-1">
 <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Beginn</label>
-<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary" id="morning-start" type="time"/>
+<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary time-input" id="morning-start" type="time"/>
 </div>
 <div class="flex-1">
 <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Ende</label>
-<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary" id="morning-end" type="time"/>
+<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary time-input" id="morning-end" type="time"/>
 </div>
 </div>
 </div>
@@ -238,16 +308,17 @@
 <div class="flex gap-4">
 <div class="flex-1">
 <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Beginn</label>
-<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary" id="afternoon-start" type="time"/>
+<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary time-input" id="afternoon-start" type="time"/>
 </div>
 <div class="flex-1">
 <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Ende</label>
-<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary" id="afternoon-end" type="time"/>
+<input class="w-full rounded-lg border-outline-variant p-2.5 text-sm font-mono focus:ring-primary focus:border-primary time-input" id="afternoon-end" type="time"/>
 </div>
 </div>
 </div>
 </div>
-<div class="pt-4 border-t border-surface-container flex justify-end">
+<div class="flex items-center justify-between pt-4 border-t border-surface-container">
+<div class="text-lg font-bold">Total: <span class="font-mono text-primary" id="daily-total-hours">0.00</span> h</div>
 <button class="bg-primary text-white px-8 py-3 rounded-lg text-sm font-bold hover:bg-primary-container hover:text-primary transition-colors shadow-sm" id="save-time-entry">Speichern</button>
 </div>
 </div>
@@ -316,11 +387,8 @@
 <p class="text-xs font-bold text-on-surface-variant uppercase mb-2">Team-Anwesenheit</p>
 <h3 class="text-2xl font-bold text-primary mb-4">Wer ist momentan aktiv</h3>
 <div class="flex items-center gap-6">
-<div class="text-center"><span class="text-2xl font-bold">14</span><p class="text-[10px] text-outline">Am Arbeiten</p></div>
-<div class="text-center"><span class="text-2xl font-bold text-secondary">3</span><p class="text-[10px] text-outline">Pause</p></div>
-<div class="flex -space-x-2 ml-auto">
-<div class="w-8 h-8 rounded-full border-2 border-white bg-primary text-white text-[10px] flex items-center justify-center">+5</div>
-</div>
+<div class="text-center"><span class="text-2xl font-bold">3</span><p class="text-[10px] text-outline">Am Arbeiten</p></div>
+<div class="text-center"><span class="text-2xl font-bold text-secondary">1</span><p class="text-[10px] text-outline">Pause</p></div>
 </div>
 </div>
 <div class="bg-white border border-outline-variant p-6 rounded-xl flex flex-col justify-center items-center">
@@ -339,19 +407,35 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 <div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
 <div class="flex items-center gap-3 mb-4">
-<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-tertiary-fixed-dim"></div>
-<div><h4 class="text-sm font-bold">Stefan Müller</h4><p class="text-[10px] text-outline">Chefarchitekt</p></div>
+<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-tertiary-fixed-dim flex items-center justify-center text-xs font-bold text-primary">ND</div>
+<div><h4 class="text-sm font-bold">Nicole De Pretto</h4><p class="text-[10px] text-outline">57% Pensum</p></div>
 </div>
-<div class="w-full h-1.5 bg-surface-container rounded-full"><div class="h-full bg-primary rounded-full w-[86%]"></div></div>
-<div class="mt-2 flex justify-between text-[10px]"><span class="text-tertiary-fixed-dim font-bold">Im Büro</span><span class="font-mono">34:45 / 40h</span></div>
+<div class="w-full h-1.5 bg-surface-container rounded-full"><div class="h-full bg-primary rounded-full w-[45%]"></div></div>
+<div class="mt-2 flex justify-between text-[10px]"><span class="text-tertiary-fixed-dim font-bold">Im Büro</span><span class="font-mono">484 / 1077h</span></div>
 </div>
 <div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
 <div class="flex items-center gap-3 mb-4">
-<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-primary-fixed"></div>
-<div><h4 class="text-sm font-bold">Elena Keller</h4><p class="text-[10px] text-outline">UI-Designerin</p></div>
+<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-primary-fixed flex items-center justify-center text-xs font-bold text-primary">MD</div>
+<div><h4 class="text-sm font-bold">Michelle Dreifuss</h4><p class="text-[10px] text-outline">100% Pensum</p></div>
 </div>
 <div class="w-full h-1.5 bg-surface-container rounded-full"><div class="h-full bg-primary rounded-full w-[88%]"></div></div>
-<div class="mt-2 flex justify-between text-[10px]"><span class="text-primary-fixed-variant font-bold">Homeoffice</span><span class="font-mono">28:10 / 32h</span></div>
+<div class="mt-2 flex justify-between text-[10px]"><span class="text-primary-fixed-variant font-bold">Homeoffice</span><span class="font-mono">1663 / 1890h</span></div>
+</div>
+<div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-primary-fixed flex items-center justify-center text-xs font-bold text-primary">MS</div>
+<div><h4 class="text-sm font-bold">Manuel Schoch</h4><p class="text-[10px] text-outline">100% Pensum</p></div>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full"><div class="h-full bg-primary rounded-full w-[60%]"></div></div>
+<div class="mt-2 flex justify-between text-[10px]"><span class="text-tertiary-fixed-dim font-bold">Im Büro</span><span class="font-mono">1134 / 1890h</span></div>
+</div>
+<div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-primary-fixed flex items-center justify-center text-xs font-bold text-primary">SS</div>
+<div><h4 class="text-sm font-bold">Seline Steinmann</h4><p class="text-[10px] text-outline">92% Pensum</p></div>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full"><div class="h-full bg-primary rounded-full w-[75%]"></div></div>
+<div class="mt-2 flex justify-between text-[10px]"><span class="text-tertiary-fixed-dim font-bold">Im Büro</span><span class="font-mono">1304 / 1739h</span></div>
 </div>
 </div>
 </section>
@@ -400,14 +484,32 @@
 <div class="bg-white border border-outline-variant rounded-xl overflow-hidden">
 <table class="w-full text-left">
 <thead class="bg-surface-container-low border-b border-outline-variant">
-<tr class="text-[10px] text-outline uppercase font-bold"><th class="px-6 py-4">Name &amp; Rolle</th><th class="px-6 py-4">Email</th><th class="px-6 py-4">Team</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
+<tr class="text-[10px] text-outline uppercase font-bold"><th class="px-6 py-4">Name &amp; Rolle</th><th class="px-6 py-4">Pensum</th><th class="px-6 py-4">Jahressoll</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="mgmt-table-body">
 <tr class="hover:bg-surface-container-low">
-<td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant"></div><div><p class="text-sm font-bold">Marc Döltschi</p><p class="text-[10px] text-primary">Senior Architekt</p></div></td>
-<td class="px-6 py-4 text-xs font-mono">m.doeltschi@company.com</td>
-<td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">Core Engine</span></td>
-<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span></td>
+<td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-primary">ND</div><div><p class="text-sm font-bold">Nicole De Pretto</p></div></td>
+<td class="px-6 py-4 text-sm">57%</td>
+<td class="px-6 py-4 font-mono text-sm">1077h</td>
+<td class="px-6 py-4 text-right flex justify-end gap-2"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-primary">MD</div><div><p class="text-sm font-bold">Michelle Dreifuss</p></div></td>
+<td class="px-6 py-4 text-sm">100%</td>
+<td class="px-6 py-4 font-mono text-sm">1890h</td>
+<td class="px-6 py-4 text-right flex justify-end gap-2"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-primary">MS</div><div><p class="text-sm font-bold">Manuel Schoch</p></div></td>
+<td class="px-6 py-4 text-sm">100%</td>
+<td class="px-6 py-4 font-mono text-sm">1890h</td>
+<td class="px-6 py-4 text-right flex justify-end gap-2"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-primary">SS</div><div><p class="text-sm font-bold">Seline Steinmann</p></div></td>
+<td class="px-6 py-4 text-sm">92%</td>
+<td class="px-6 py-4 font-mono text-sm">1739h</td>
+<td class="px-6 py-4 text-right flex justify-end gap-2"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
 </tr>
 </tbody>
 </table>
@@ -421,10 +523,10 @@
 <img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWDrKjX5ezWZNw68e2EIj5RBFSUlPwg_iEzheA-7sABFngYckMJGjHmoGcC33EB-QjK09qRQVVmQIF_N6aLAZKe8SjKdBBR7IafpYD8wFITH-xXoL3RvIme-Qb1aE4B_445t3EFNyI8wrYwYan-sP3JG0FZ-_5Qm7o3ep7A9hNa8r_gbRmSwsSSRld0v7-Jpps_ylZOVxmoNotUhvws8OvcCQXX9bnmdpNjW8J6A4s_I_Kssp9P9VUm2V0umNsgu6deJZ3AOSHbKM"/>
 </div>
 <div class="flex-1 text-center md:text-left">
-<h2 class="text-3xl font-bold mb-1">Markus Döltschi</h2>
+<h2 class="text-3xl font-bold mb-1">Michelle Dreifuss</h2>
 <p class="text-on-surface-variant mb-4">Leitender Projektarchitekt • Engineering</p>
 <div class="flex flex-wrap justify-center md:justify-start gap-3">
-<span class="bg-surface-container px-4 py-1.5 rounded-full text-xs font-bold text-primary">m.doeltschi@company.com</span>
+<span class="bg-surface-container px-4 py-1.5 rounded-full text-xs font-bold text-primary">m.dreifuss@company.com</span>
 <span class="bg-tertiary-container/10 px-4 py-1.5 rounded-full text-xs font-bold text-tertiary">Admin-Zugriff</span>
 </div>
 </div>
@@ -445,12 +547,12 @@
 <h3 class="text-lg font-bold mb-6">Benutzer wechseln</h3>
 <div class="flex gap-8 overflow-x-auto pb-2">
 <button class="flex flex-col items-center gap-2 min-w-[80px] group">
-<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary"></div>
-<span class="text-xs font-bold">Sarah Miller</span>
+<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-lg font-bold text-primary">ND</div>
+<span class="text-xs font-bold">Nicole De Pretto</span>
 </button>
 <button class="flex flex-col items-center gap-2 min-w-[80px] group">
-<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary"></div>
-<span class="text-xs font-bold">David Chen</span>
+<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-lg font-bold text-primary">MS</div>
+<span class="text-xs font-bold">Manuel Schoch</span>
 </button>
 </div>
 </div>
@@ -472,13 +574,13 @@
 <input class="rounded-lg border-outline-variant text-sm p-2" id="newName" placeholder="z.B. Lukas Müller" required="" type="text"/>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newRole">Rolle</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newRole" placeholder="z.B. Entwickler" required="" type="text"/>
+<label class="text-xs font-bold text-on-surface-variant" for="newRole">Pensum (%)</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newRole" placeholder="z.B. 100" required="" type="number"/>
 </div>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newEmail">E-Mail</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newEmail" placeholder="beispiel@firma.ch" required="" type="email"/>
+<label class="text-xs font-bold text-on-surface-variant" for="newEmail">Jahressoll (h)</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newEmail" placeholder="z.B. 1890" required="" type="number"/>
 </div>
 <div class="flex gap-3 pt-4">
 <button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelMgmtModal" type="button">Abbrechen</button>
@@ -582,6 +684,37 @@
             }
         });
 
+        // Calculate hours logic
+        const timeInputs = document.querySelectorAll('.time-input');
+        const totalHoursDisplay = document.getElementById('daily-total-hours');
+
+        function calculateTimeDifference(startStr, endStr) {
+            if (!startStr || !endStr) return 0;
+            const [startH, startM] = startStr.split(':').map(Number);
+            const [endH, endM] = endStr.split(':').map(Number);
+            
+            let diff = (endH + endM/60) - (startH + startM/60);
+            return diff > 0 ? diff : 0;
+        }
+
+        function updateTotalHours() {
+            const morningStart = document.getElementById('morning-start').value;
+            const morningEnd = document.getElementById('morning-end').value;
+            const afternoonStart = document.getElementById('afternoon-start').value;
+            const afternoonEnd = document.getElementById('afternoon-end').value;
+
+            const morningHours = calculateTimeDifference(morningStart, morningEnd);
+            const afternoonHours = calculateTimeDifference(afternoonStart, afternoonEnd);
+            
+            const total = morningHours + afternoonHours;
+            totalHoursDisplay.textContent = total.toFixed(2);
+        }
+
+        timeInputs.forEach(input => {
+            input.addEventListener('change', updateTotalHours);
+        });
+
+
         document.getElementById('save-time-entry').addEventListener('click', () => {
             const employee = employeeSelect.value;
             const date = entryDate.value;
@@ -596,7 +729,8 @@
                 morningStart: document.getElementById('morning-start').value,
                 morningEnd: document.getElementById('morning-end').value,
                 afternoonStart: document.getElementById('afternoon-start').value,
-                afternoonEnd: document.getElementById('afternoon-end').value
+                afternoonEnd: document.getElementById('afternoon-end').value,
+                totalHours: parseFloat(document.getElementById('daily-total-hours').textContent)
             }).then(() => {
                 alert("Eintrag erfolgreich gespeichert!");
                 // Reset form
@@ -606,6 +740,7 @@
                 document.getElementById('morning-end').value = '';
                 document.getElementById('afternoon-start').value = '';
                 document.getElementById('afternoon-end').value = '';
+                document.getElementById('daily-total-hours').textContent = '0.00';
                 switchView('dashboard');
             }).catch(e => console.error("Error adding doc: ", e));
         });
@@ -657,17 +792,19 @@
         document.getElementById('addEmployeeForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('newName').value;
-            const role = document.getElementById('newRole').value;
-            const email = document.getElementById('newEmail').value;
+            const pensum = document.getElementById('newRole').value;
+            const jahressoll = document.getElementById('newEmail').value;
             
+            const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
             const tbody = document.getElementById('mgmt-table-body');
             const row = document.createElement('tr');
             row.className = "hover:bg-surface-container-low border-t border-outline-variant";
             row.innerHTML = `
-                <td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-primary text-[10px]">NEW</div><div><p class="text-sm font-bold">${name}</p><p class="text-[10px] text-primary">${role}</p></div></td>
-                <td class="px-6 py-4 text-xs font-mono">${email}</td>
-                <td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">New Hired</span></td>
-                <td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span></td>
+                <td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-primary">${initials}</div><div><p class="text-sm font-bold">${name}</p></div></td>
+                <td class="px-6 py-4 text-sm">${pensum}%</td>
+                <td class="px-6 py-4 font-mono text-sm">${jahressoll}h</td>
+                <td class="px-6 py-4 text-right flex justify-end gap-2"><span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span><span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="this.closest('tr').remove()">delete</span></td>
             `;
             tbody.appendChild(row);
             mgmtModal.classList.add('hidden');
