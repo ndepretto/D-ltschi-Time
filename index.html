@@ -1,461 +1,127 @@
 <!DOCTYPE html>
 
-<html class="light" lang="de"><head>
+<html lang="de-CH">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mitarbeiter-Verwaltung - TimeSync Pro</title>
-<!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-family: 'Material Symbols Outlined';
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            font-feature-settings: 'liga';
-            -webkit-font-feature-settings: 'liga';
-            -webkit-font-smoothing: antialiased;
-        }
-    </style>
-<!-- Tailwind CSS with specific configuration -->
+<title>Döltschi Time - Präzision &amp; Flow</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "secondary-fixed-dim": "#c5c6c8",
-                    "tertiary-container": "#a33500",
-                    "surface-dim": "#cadaff",
-                    "surface-container-low": "#f1f3ff",
-                    "on-secondary-container": "#606365",
-                    "on-surface-variant": "#434654",
-                    "surface-container-high": "#e0e8ff",
-                    "outline": "#737685",
-                    "on-primary-container": "#c4d2ff",
-                    "on-surface": "#041b3c",
-                    "surface-tint": "#0c56d0",
-                    "secondary-fixed": "#e1e2e4",
-                    "on-tertiary-container": "#ffc6b2",
-                    "on-primary-fixed": "#001848",
-                    "inverse-on-surface": "#edf0ff",
-                    "on-secondary": "#ffffff",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-container-highest": "#d7e2ff",
-                    "on-secondary-fixed-variant": "#444749",
-                    "secondary-container": "#dee0e2",
-                    "primary-fixed-dim": "#b2c5ff",
-                    "on-secondary-fixed": "#191c1e",
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                "colors": {
+                    "primary": "#00418f",
                     "on-primary": "#ffffff",
-                    "primary-container": "#0052cc",
-                    "on-tertiary": "#ffffff",
-                    "primary-fixed": "#dae2ff",
-                    "on-tertiary-fixed-variant": "#812800",
-                    "primary": "#003d9b",
-                    "tertiary": "#7b2600",
-                    "inverse-primary": "#b2c5ff",
-                    "on-error": "#ffffff",
-                    "background": "#f9f9ff",
-                    "surface-bright": "#f9f9ff",
-                    "inverse-surface": "#1d3052",
-                    "outline-variant": "#c3c6d6",
-                    "on-background": "#041b3c",
-                    "error-container": "#ffdad6",
-                    "surface-container": "#e8edff",
-                    "tertiary-fixed-dim": "#ffb59b",
-                    "surface-variant": "#d7e2ff",
-                    "on-tertiary-fixed": "#380d00",
-                    "error": "#ba1a1a",
-                    "tertiary-fixed": "#ffdbcf",
-                    "surface": "#f9f9ff",
-                    "secondary": "#5c5f60",
-                    "on-error-container": "#93000a",
-                    "on-primary-fixed-variant": "#0040a2"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "unit": "8px",
-                    "stack-lg": "48px",
-                    "container-max": "800px",
-                    "gutter": "24px",
-                    "stack-md": "24px",
-                    "stack-sm": "12px"
-            },
-            "fontFamily": {
-                    "headline-lg-mobile": ["Work Sans", "sans-serif"],
-                    "headline-md": ["Work Sans", "sans-serif"],
-                    "headline-lg": ["Work Sans", "sans-serif"],
-                    "body-md": ["Work Sans", "sans-serif"],
-                    "label-caps": ["Work Sans", "sans-serif"],
-                    "body-lg": ["Work Sans", "sans-serif"]
-            },
-            "fontSize": {
-                    "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "700"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    "surface": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "surface-container": "#e5eeff",
+                    "outline-variant": "#c2c6d5"
+                }
+              }
             }
-          },
-        },
-      }
+          }
     </script>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .active-nav-item { background-color: #ffffff; color: #00418f; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f8f9ff; }
+    </style>
 </head>
-<body class="bg-background text-on-background font-body-md text-body-md flex min-h-screen">
-<!-- SideNavBar (from JSON) -->
-<aside class="w-64 h-screen sticky left-0 top-0 bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col py-stack-md px-4 hidden md:flex z-40">
-<!-- Brand / Header -->
-<div class="mb-stack-lg flex items-center gap-3">
-<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-primary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
+<body class="flex h-screen overflow-hidden text-on-surface">
+<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50">
+<div class="mb-6 px-2">
+<h1 class="text-xl font-bold text-primary">Döltschi Time</h1>
+<p class="text-xs text-on-surface-variant uppercase font-semibold">Precision &amp; Flow</p>
 </div>
-<div>
-<h1 class="font-headline-md text-headline-md font-bold text-primary">TimeSync Pro</h1>
-<p class="text-sm text-on-surface-variant">Lokale Zeiterfassung</p>
-</div>
-</div>
-<!-- CTA -->
-<button class="w-full bg-primary text-on-primary py-3 rounded-lg mb-8 font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-<span class="material-symbols-outlined">add</span>
-            Neuer Eintrag
-        </button>
-<!-- Navigation Links -->
-<nav class="flex-1 flex flex-col gap-2">
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#" onclick="switchView('dashboard', this); return false;">
-<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">dashboard</span>
-                Dashboard
-            </a>
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 opacity-90 transition-opacity" href="#" onclick="switchView('mitarbeiter', this); return false;">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
-                Mitarbeiter
-            </a>
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#" onclick="switchView('zeiterfassung', this); return false;">
-<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">schedule</span>
-                Zeiterfassung
-            </a>
-<a class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#" onclick="switchView('berichte', this); return false;">
-<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">assessment</span>
-                Berichte
-            </a>
-</nav>
-<!-- Footer Links -->
-<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-2">
-<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#">
-<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">settings</span>
-                Einstellungen
-            </a>
-<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group" href="#">
-<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">logout</span>
-                Abmelden
-            </a>
-</div>
+<nav class="flex-1 space-y-1">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold active-nav-item">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </button>
+<!-- Add other nav items here -->
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-white/50 transition-colors">
+<span class="material-symbols-outlined">group</span> Team
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-white/50 transition-colors">
+<span class="material-symbols-outlined">schedule</span> Zeitplan
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-white/50 transition-colors">
+<span class="material-symbols-outlined">analytics</span> Berichte
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-white/50 transition-colors">
+<span class="material-symbols-outlined">settings</span> Einstellungen
+</button></nav>
 </aside>
-<!-- Main Content Area -->
-<main class="flex-1 flex flex-col min-w-0">
-<!-- TopAppBar (from JSON) -->
-<header class="w-full top-0 sticky bg-surface border-b border-outline-variant z-30">
-<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
-<div class="flex items-center gap-4">
-<!-- Mobile Menu Button -->
-<button class="md:hidden p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h2 class="font-headline-md text-headline-md font-bold text-primary">Zeiterfassung</h2>
+<main class="ml-64 flex-1 flex flex-col">
+<header class="h-16 px-8 border-b flex justify-between items-center bg-white">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full text-sm" placeholder="Suchen..." type="text"/>
 </div>
 <div class="flex items-center gap-4">
-<!-- Right Aligned Search -->
-<div class="relative hidden sm:block w-64">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-<input class="w-full pl-10 pr-4 py-2 rounded-full border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm" placeholder="Suchen..." type="text"/>
-</div>
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90 transition-transform rounded-full hover:bg-surface-container-low relative">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
-</button>
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90 transition-transform rounded-full hover:bg-surface-container-low hidden sm:block">
-<span class="material-symbols-outlined">help_outline</span>
-</button>
-<!-- Profile Avatar -->
-<button class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant ml-2 scale-95 active:scale-90 transition-transform">
-<img alt="Benutzerprofil" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate employee on a pristine white background. High-key lighting, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmVPS_O_QIy00faD50TR3BNK4vdn_T4UOB6VCG-om8ScaxV52TU-1rp6rr7rg4XUosnzz5b3lt9VETFJZOEH21G_04JNKqQpJWtj_8u1tNksQhKyG8PU3fLvptQuZnNHeGl3uGgqywoJYGkyN5Bnd7za0N0DqxKiOgtq0E-KxY7f7FT1EFZgJYf5ozW0cRocNpRyP5cTFShjSlB-24YbkgxVZXmMNxdQw3zdBxLr1wle7SUOccPPTa"/>
-</button>
-</div>
+<span class="material-symbols-outlined text-gray-500 cursor-pointer">notifications</span>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs">TD</div>
 </div>
 </header>
-<!-- Page Content -->
-<!-- Dashboard View -->
-<div class="view-container hidden flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-dashboard">
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
+<div class="p-8 overflow-y-auto">
+<h2 class="text-3xl font-bold mb-6">Dashboard</h2>
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Aktive Mitglieder</p>
+<h3 class="text-3xl font-bold">24 / 28</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Team Gesundheit</p>
+<h3 class="text-3xl font-bold">92%</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+<p class="text-xs text-gray-500 uppercase font-bold mb-2">Ausstehend</p>
+<h3 class="text-3xl font-bold text-red-600">12</h3>
+</div>
+</div>
+<div class="mt-8">
+<h2 class="text-xl font-bold mb-4">Letzte Aktivitäten</h2>
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<div class="p-4 border-b border-gray-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
 <div>
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Dashboard</h1>
-<p class="text-on-surface-variant mt-1">Übersicht Ihrer Aktivitäten.</p>
+<p class="text-sm font-semibold">Marc Müller hat sich eingestempelt</p>
+<p class="text-xs text-gray-500">Vor 5 Minuten • Hauptbüro</p>
 </div>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
-<p class="text-on-surface-variant">Hier entsteht das Dashboard.</p>
+<span class="text-xs font-medium text-gray-400">08:30</span>
 </div>
+<div class="p-4 border-b border-gray-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined text-sm">task_alt</span>
 </div>
-<!-- Mitarbeiter View -->
-<div class="view-container flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-mitarbeiter">
-<!-- Header Section -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
 <div>
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Mitarbeiter</h1>
-<p class="text-on-surface-variant mt-1">Verwalten Sie Ihr Team und deren Anstellungsbedingungen.</p>
-</div>
-<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-bold hover:bg-primary/90 transition-colors flex items-center gap-2 whitespace-nowrap shadow-sm">
-<span class="material-symbols-outlined">person_add</span>
-                    Mitarbeiter hinzufügen
-                </button>
-</div>
-<!-- Data Table Container -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<!-- Table Controls / Filters (Optional but good for UI) -->
-<div class="p-4 border-b border-outline-variant flex flex-wrap gap-4 items-center justify-between bg-surface-container-low">
-<div class="flex gap-2">
-<button class="px-3 py-1.5 rounded-full border border-primary text-primary text-sm font-bold bg-primary-container/10">Alle (4)</button>
-<button class="px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant text-sm hover:bg-surface-variant/50 transition-colors">Aktiv (4)</button>
+<p class="text-sm font-semibold">Projekt 'Alpha' abgeschlossen</p>
+<p class="text-xs text-gray-500">Vor 15 Minuten • Team Design</p>
 </div>
 </div>
-<!-- Table -->
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="border-b border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">
-<th class="px-6 py-4 font-semibold">Name &amp; Rolle</th>
-<th class="px-6 py-4 font-semibold">Email</th>
-<th class="px-6 py-4 font-semibold">Pensum</th>
-<th class="px-6 py-4 font-semibold">Jahressoll</th>
-<th class="px-6 py-4 font-semibold text-right">Aktionen</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant" id="employee-table-body">
-<!-- Rows will be injected by JavaScript -->
-</tbody>
-</table>
+<span class="text-xs font-medium text-gray-400">08:20</span>
 </div>
-<!-- Pagination / Footer -->
-<div class="p-4 border-t border-outline-variant flex items-center justify-between text-sm text-on-surface-variant bg-surface-container-lowest">
-<span>Zeigt 1 bis 4 von 4 Einträgen</span>
-<div class="flex gap-1">
-<button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-50" disabled=""><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
-<button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-50" disabled=""><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+<span class="material-symbols-outlined text-sm">warning</span>
 </div>
-</div>
-</div>
-</div>
-<!-- Zeiterfassung View -->
-<div class="view-container hidden flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-zeiterfassung">
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
 <div>
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Zeiterfassung</h1>
-<p class="text-on-surface-variant mt-1">Ihre erfassten Arbeitszeiten.</p>
+<p class="text-sm font-semibold">Verspätung gemeldet: Sarah Keller</p>
+<p class="text-xs text-gray-500">Vor 45 Minuten • Logistik</p>
 </div>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
-<p class="text-on-surface-variant">Hier entsteht die Zeiterfassung.</p>
+<span class="text-xs font-medium text-gray-400">07:50</span>
 </div>
 </div>
-<!-- Berichte View -->
-<div class="view-container hidden flex-1 p-gutter max-w-container-max mx-auto w-full" id="view-berichte">
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-stack-md gap-4">
-<div>
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Berichte</h1>
-<p class="text-on-surface-variant mt-1">Auswertungen und Statistiken.</p>
-</div>
-</div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
-<p class="text-on-surface-variant">Hier entstehen die Berichte.</p>
-</div>
-</div>
+</div></div>
 </main>
-<!-- Edit Modal (Hidden by default) -->
-<div class="fixed inset-0 z-50 hidden" id="edit-modal">
-<!-- Backdrop -->
-<div class="absolute inset-0 bg-on-background/50 backdrop-blur-sm transition-opacity" onclick="closeEditModal()"></div>
-<!-- Modal Content -->
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant flex flex-col max-h-[921px]">
-<div class="p-6 border-b border-outline-variant flex justify-between items-center">
-<h3 class="font-headline-md text-headline-md text-primary font-bold">Mitarbeiter bearbeiten</h3>
-<button class="text-on-surface-variant hover:text-primary transition-colors" onclick="closeEditModal()">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<div class="p-6 overflow-y-auto flex-1 flex flex-col gap-4">
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-sm font-semibold text-on-surface mb-1">Vorname</label>
-<input class="w-full px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" id="edit-firstname" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-semibold text-on-surface mb-1">Nachname</label>
-<input class="w-full px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" id="edit-lastname" type="text"/>
-</div>
-</div>
-<div>
-<label class="block text-sm font-semibold text-on-surface mb-1">Email</label>
-<input class="w-full px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" id="edit-email" type="email"/>
-</div>
-<div>
-<label class="block text-sm font-semibold text-on-surface mb-1">Rolle / Titel</label>
-<input class="w-full px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" id="edit-role" type="text"/>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-sm font-semibold text-on-surface mb-1">Pensum (%)</label>
-<input class="w-full px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" id="edit-pensum" type="number"/>
-</div>
-<div>
-<label class="block text-sm font-semibold text-on-surface mb-1">Jahressoll (h)</label>
-<input class="w-full px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" id="edit-jahressoll" type="number"/>
-</div>
-</div>
-</div>
-<div class="p-6 border-t border-outline-variant flex justify-end gap-3 bg-surface-container-low rounded-b-xl">
-<button class="px-6 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant/50 transition-colors font-semibold" onclick="closeEditModal()">Abbrechen</button>
-<button class="px-6 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-colors font-semibold" onclick="saveEditModal()">Speichern</button>
-</div>
-</div>
-</div>
-<script>
-    const defaultEmployees = [
-        { id: 1, firstName: 'Nicole', lastName: 'De Pretto', role: 'Architektin', email: 'n.depretto@timesync.ch', pensum: 100, jahressoll: 2080 },
-        { id: 2, firstName: 'Michelle', lastName: 'Dreifuss', role: 'Projektleiterin', email: 'm.dreifuss@timesync.ch', pensum: 80, jahressoll: 1664 },
-        { id: 3, firstName: 'Manuel', lastName: 'Schoch', role: 'Zeichner', email: 'm.schoch@timesync.ch', pensum: 100, jahressoll: 2080 },
-        { id: 4, firstName: 'Seline', lastName: 'Steinmann', role: 'Administration', email: 's.steinmann@timesync.ch', pensum: 60, jahressoll: 1248 }
-    ];
-
-    let employees = JSON.parse(localStorage.getItem('timesync_employees')) || defaultEmployees;
-
-    let currentEditId = null;
-
-    function renderTable() {
-        const tbody = document.getElementById('employee-table-body');
-        if (!tbody) return;
-        tbody.innerHTML = '';
-
-        employees.forEach(emp => {
-            const initials = emp.firstName.charAt(0) + emp.lastName.charAt(0);
-            const tr = document.createElement('tr');
-            tr.className = 'hover:bg-surface-container-low transition-colors duration-200 group';
-            
-            tr.innerHTML = `
-                <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 text-primary flex items-center justify-center font-bold">
-                            ${initials}
-                        </div>
-                        <div>
-                            <div class="font-bold text-on-surface">${emp.firstName} ${emp.lastName}</div>
-                            <div class="text-sm text-on-surface-variant">${emp.role}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="px-6 py-4 text-on-surface-variant">
-                    ${emp.email}
-                </td>
-                <td class="px-6 py-4">
-                    <div class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-variant text-primary text-sm font-semibold">
-                        ${emp.pensum}%
-                    </div>
-                </td>
-                <td class="px-6 py-4 text-on-surface-variant">
-                    ${emp.jahressoll.toLocaleString('de-CH')}'h
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-variant/50 transition-colors" onclick="openEditModal(${emp.id})" title="Bearbeiten">
-                            <span class="material-symbols-outlined text-[20px]">edit</span>
-                        </button>
-                        <button class="p-2 text-on-surface-variant hover:text-error rounded-full hover:bg-error-container/50 transition-colors" title="Löschen">
-                            <span class="material-symbols-outlined text-[20px]">delete</span>
-                        </button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    function openEditModal(id) {
-        currentEditId = id;
-        const emp = employees.find(e => e.id === id);
-        if (!emp) return;
-
-        document.getElementById('edit-firstname').value = emp.firstName;
-        document.getElementById('edit-lastname').value = emp.lastName;
-        document.getElementById('edit-email').value = emp.email;
-        document.getElementById('edit-role').value = emp.role;
-        document.getElementById('edit-pensum').value = emp.pensum;
-        document.getElementById('edit-jahressoll').value = emp.jahressoll;
-
-        document.getElementById('edit-modal').classList.remove('hidden');
-    }
-
-    function closeEditModal() {
-        document.getElementById('edit-modal').classList.add('hidden');
-        currentEditId = null;
-    }
-
-    function saveEditModal() {
-        if (!currentEditId) return;
-
-        const index = employees.findIndex(e => e.id === currentEditId);
-        if (index !== -1) {
-            employees[index].firstName = document.getElementById('edit-firstname').value;
-            employees[index].lastName = document.getElementById('edit-lastname').value;
-            employees[index].email = document.getElementById('edit-email').value;
-            employees[index].role = document.getElementById('edit-role').value;
-            employees[index].pensum = parseInt(document.getElementById('edit-pensum').value, 10);
-            employees[index].jahressoll = parseInt(document.getElementById('edit-jahressoll').value, 10);
-            
-            localStorage.setItem('timesync_employees', JSON.stringify(employees));
-            renderTable();
-        }
-
-        closeEditModal();
-    }
-
-    function switchView(viewId, element) {
-        document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
-        document.getElementById('view-' + viewId).classList.remove('hidden');
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.className = 'nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 group';
-            const icon = link.querySelector('span');
-            if (icon) {
-                icon.className = 'material-symbols-outlined text-outline group-hover:text-primary transition-colors';
-                icon.style.fontVariationSettings = '';
-            }
-        });
-
-        if (element) {
-            element.className = 'nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 opacity-90 transition-opacity';
-            const icon = element.querySelector('span');
-            if (icon) {
-                icon.className = 'material-symbols-outlined';
-                icon.style.fontVariationSettings = "'FILL' 1";
-            }
-        }
-    }
-
-    // Initial render
-    document.addEventListener('DOMContentLoaded', renderTable);
-</script>
-</body></html>
+</body>
+</html>
