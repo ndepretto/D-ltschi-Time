@@ -443,7 +443,7 @@
 </div>
 <div>
 <label class="block text-sm font-semibold text-on-surface mb-2">Datum</label>
-<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" type="date" value="2026-08-20"/>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" id="timeTrackingDate" type="date" value="2026-08-20"/>
 </div>
 </div>
 </div>
@@ -456,13 +456,13 @@
 <div>
 <label class="block text-sm font-semibold text-on-surface-variant mb-2">Beginn</label>
 <div class="relative">
-<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" type="time" value="07:00"/>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" id="vormittagBeginn" type="time" value="07:00"/>
 </div>
 </div>
 <div>
 <label class="block text-sm font-semibold text-on-surface-variant mb-2">Ende</label>
 <div class="relative">
-<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" type="time" value="12:00"/>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" id="vormittagEnde" type="time" value="12:00"/>
 </div>
 </div>
 </div>
@@ -474,19 +474,19 @@
 <div>
 <label class="block text-sm font-semibold text-on-surface-variant mb-2">Beginn</label>
 <div class="relative">
-<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" type="time" value="13:00"/>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" id="nachmittagBeginn" type="time" value="13:00"/>
 </div>
 </div>
 <div>
 <label class="block text-sm font-semibold text-on-surface-variant mb-2">Ende</label>
 <div class="relative">
-<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" type="time" value="17:00"/>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-primary focus:border-primary" id="nachmittagEnde" type="time" value="17:00"/>
 </div>
 </div>
 </div>
 </div>
 </div>
-<button class="w-full bg-primary text-white py-3 rounded-lg font-bold text-sm shadow-sm hover:opacity-90 transition-opacity">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-bold text-sm shadow-sm hover:opacity-90 transition-opacity" id="saveTimeEntryBtn">
         Eintrag speichern
     </button>
 </div>
@@ -721,6 +721,43 @@
             mgmtModal.classList.add('hidden');
             e.target.reset();
         });
+
+        // 6. Time Tracking Logic (Local Storage)
+        const saveTimeBtn = document.getElementById('saveTimeEntryBtn');
+        if (saveTimeBtn) {
+            saveTimeBtn.addEventListener('click', () => {
+                const empSelect = document.getElementById('timeTrackingEmployeeSelect');
+                const dateInput = document.getElementById('timeTrackingDate');
+                
+                const vBeginn = document.getElementById('vormittagBeginn').value;
+                const vEnde = document.getElementById('vormittagEnde').value;
+                const nBeginn = document.getElementById('nachmittagBeginn').value;
+                const nEnde = document.getElementById('nachmittagEnde').value;
+
+                if (!empSelect.value) {
+                    alert("Bitte wählen Sie einen Mitarbeiter aus.");
+                    return;
+                }
+
+                if (!dateInput.value) {
+                    alert("Bitte wählen Sie ein Datum aus.");
+                    return;
+                }
+
+                const entry = {
+                    employeeId: empSelect.value,
+                    date: dateInput.value,
+                    vormittag: { beginn: vBeginn, ende: vEnde },
+                    nachmittag: { beginn: nBeginn, ende: nEnde }
+                };
+
+                let entries = JSON.parse(localStorage.getItem('timeEntries') || '[]');
+                entries.push(entry);
+                localStorage.setItem('timeEntries', JSON.stringify(entries));
+                
+                alert("Eintrag erfolgreich gespeichert!");
+            });
+        }
 
         // Mobile Menu Toggle
         document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
