@@ -206,45 +206,86 @@
 <h1 class="text-3xl font-bold text-gray-900 mb-2">Mitarbeiter</h1>
 <p class="text-gray-500">Verwalten Sie Ihr Team, Pensen und Jahresstunden.</p>
 </div>
-<button class="bg-sidebar hover:bg-sidebarHover text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors text-sm font-medium">
+<button class="bg-sidebar hover:bg-sidebarHover text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors text-sm font-medium" onclick="openNewEmployeeModal()">
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
           Neuer Mitarbeiter
         </button>
 </header>
 <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
-<table class="w-full text-left text-sm">
+<table class="w-full text-left text-sm" id="employeeTable">
 <thead class="bg-white border-b border-gray-200 text-gray-500">
 <tr>
 <th class="px-6 py-4 font-medium">Name</th>
 <th class="px-6 py-4 font-medium">E-Mail</th>
 <th class="px-6 py-4 font-medium">Pensum</th>
 <th class="px-6 py-4 font-medium">Jahressoll (h)</th>
+<th class="px-6 py-4 font-medium">Aktionen</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-gray-100">
-<tr class="hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-900">Nicole De Pretto</td>
-<td class="px-6 py-4 text-gray-500">Nicole.DePretto@schulen.zuerich.ch</td>
-<td class="px-6 py-4 text-gray-900">57%</td>
-<td class="px-6 py-4 text-gray-900">1077</td>
+<tr class="hover:bg-gray-50" id="emp-1">
+<td class="px-6 py-4 font-medium text-gray-900" data-field="name">Nicole De Pretto</td>
+<td class="px-6 py-4 text-gray-500" data-field="email">Nicole.DePretto@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-gray-900" data-field="pensum">57%</td>
+<td class="px-6 py-4 text-gray-900" data-field="soll">1077</td>
+<td class="px-6 py-4 text-gray-500">
+<div class="flex gap-2">
+<button class="hover:text-sidebar transition-colors" onclick="editEmployee('emp-1')" title="Bearbeiten">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="hover:text-danger transition-colors" onclick="deleteEmployee('emp-1')" title="Löschen">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</td>
 </tr>
-<tr class="hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-900">Michelle Dreifuss</td>
-<td class="px-6 py-4 text-gray-500">Michele.Dreifuss@schulen.zuerich.ch</td>
-<td class="px-6 py-4 text-gray-900">100%</td>
-<td class="px-6 py-4 text-gray-900">1890</td>
+<tr class="hover:bg-gray-50" id="emp-2">
+<td class="px-6 py-4 font-medium text-gray-900" data-field="name">Michelle Dreifuss</td>
+<td class="px-6 py-4 text-gray-500" data-field="email">Michele.Dreifuss@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-gray-900" data-field="pensum">100%</td>
+<td class="px-6 py-4 text-gray-900" data-field="soll">1890</td>
+<td class="px-6 py-4 text-gray-500">
+<div class="flex gap-2">
+<button class="hover:text-sidebar transition-colors" onclick="editEmployee('emp-2')" title="Bearbeiten">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="hover:text-danger transition-colors" onclick="deleteEmployee('emp-2')" title="Löschen">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</td>
 </tr>
-<tr class="hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-900">Manuel Schoch</td>
-<td class="px-6 py-4 text-gray-500">Manuel.Schoch@schulen.zuerich.ch</td>
-<td class="px-6 py-4 text-gray-900">100%</td>
-<td class="px-6 py-4 text-gray-900">1890</td>
+<tr class="hover:bg-gray-50" id="emp-3">
+<td class="px-6 py-4 font-medium text-gray-900" data-field="name">Manuel Schoch</td>
+<td class="px-6 py-4 text-gray-500" data-field="email">Manuel.Schoch@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-gray-900" data-field="pensum">100%</td>
+<td class="px-6 py-4 text-gray-900" data-field="soll">1890</td>
+<td class="px-6 py-4 text-gray-500">
+<div class="flex gap-2">
+<button class="hover:text-sidebar transition-colors" onclick="editEmployee('emp-3')" title="Bearbeiten">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="hover:text-danger transition-colors" onclick="deleteEmployee('emp-3')" title="Löschen">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</td>
 </tr>
-<tr class="hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-900">Seline Steinmann</td>
-<td class="px-6 py-4 text-gray-500">Seline.Steinmann@schulen.zuerich.ch</td>
-<td class="px-6 py-4 text-gray-900">92%</td>
-<td class="px-6 py-4 text-gray-900">1739</td>
+<tr class="hover:bg-gray-50" id="emp-4">
+<td class="px-6 py-4 font-medium text-gray-900" data-field="name">Seline Steinmann</td>
+<td class="px-6 py-4 text-gray-500" data-field="email">Seline.Steinmann@schulen.zuerich.ch</td>
+<td class="px-6 py-4 text-gray-900" data-field="pensum">92%</td>
+<td class="px-6 py-4 text-gray-900" data-field="soll">1739</td>
+<td class="px-6 py-4 text-gray-500">
+<div class="flex gap-2">
+<button class="hover:text-sidebar transition-colors" onclick="editEmployee('emp-4')" title="Bearbeiten">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="hover:text-danger transition-colors" onclick="deleteEmployee('emp-4')" title="Löschen">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -353,6 +394,39 @@
 </section>
 </main>
 <!-- END: Main Content Area -->
+<!-- Employee Modal -->
+<div class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center" id="employeeModal">
+<div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+<h2 class="text-xl font-bold text-gray-900 mb-4" id="modalTitle">Mitarbeiter bearbeiten</h2>
+<form id="employeeForm" onsubmit="saveEmployee(event)">
+<input id="editEmpId" type="hidden"/>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+<input class="w-full border-gray-300 rounded-md shadow-sm focus:border-sidebar focus:ring-sidebar" id="empName" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
+<input class="w-full border-gray-300 rounded-md shadow-sm focus:border-sidebar focus:ring-sidebar" id="empEmail" required="" type="email"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Pensum (%)</label>
+<input class="w-full border-gray-300 rounded-md shadow-sm focus:border-sidebar focus:ring-sidebar" id="empPensum" max="100" min="1" required="" type="number"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Jahressoll (h)</label>
+<input class="w-full border-gray-300 rounded-md shadow-sm focus:border-sidebar focus:ring-sidebar" id="empSoll" min="1" required="" type="number"/>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-3">
+<button class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeModal()" type="button">Abbrechen</button>
+<button class="px-4 py-2 bg-sidebar text-white rounded-md text-sm font-medium hover:bg-sidebarHover transition-colors" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
 <script data-purpose="view-switching">
     function switchView(viewId) {
       // Hide all views
@@ -375,5 +449,89 @@
 
     // Initialize with Zeiterfassung view active to match initial code state
     switchView('zeiterfassung');
+
+    // Employee Management Logic
+    function deleteEmployee(id) {
+      if(confirm('Möchten Sie diesen Mitarbeiter wirklich löschen?')) {
+        document.getElementById(id).remove();
+        // In a real application, you would also delete from Firestore here
+        console.log(`Deleted employee ${id} from Firestore`);
+      }
+    }
+
+    function openNewEmployeeModal() {
+      document.getElementById('modalTitle').innerText = 'Neuer Mitarbeiter';
+      document.getElementById('employeeForm').reset();
+      document.getElementById('editEmpId').value = '';
+      document.getElementById('employeeModal').classList.remove('hidden');
+    }
+
+    function editEmployee(id) {
+      const row = document.getElementById(id);
+      const name = row.querySelector('[data-field="name"]').innerText;
+      const email = row.querySelector('[data-field="email"]').innerText;
+      const pensum = row.querySelector('[data-field="pensum"]').innerText.replace('%', '');
+      const soll = row.querySelector('[data-field="soll"]').innerText;
+
+      document.getElementById('modalTitle').innerText = 'Mitarbeiter bearbeiten';
+      document.getElementById('editEmpId').value = id;
+      document.getElementById('empName').value = name;
+      document.getElementById('empEmail').value = email;
+      document.getElementById('empPensum').value = pensum;
+      document.getElementById('empSoll').value = soll;
+      
+      document.getElementById('employeeModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('employeeModal').classList.add('hidden');
+    }
+
+    function saveEmployee(e) {
+      e.preventDefault();
+      const id = document.getElementById('editEmpId').value;
+      const name = document.getElementById('empName').value;
+      const email = document.getElementById('empEmail').value;
+      const pensum = document.getElementById('empPensum').value + '%';
+      const soll = document.getElementById('empSoll').value;
+
+      if (id) {
+        // Edit existing
+        const row = document.getElementById(id);
+        row.querySelector('[data-field="name"]').innerText = name;
+        row.querySelector('[data-field="email"]').innerText = email;
+        row.querySelector('[data-field="pensum"]').innerText = pensum;
+        row.querySelector('[data-field="soll"]').innerText = soll;
+        // In a real application, update Firestore here
+        console.log(`Updated employee ${id} in Firestore`);
+      } else {
+        // Add new
+        const newId = 'emp-' + Date.now();
+        const tbody = document.querySelector('#employeeTable tbody');
+        const tr = document.createElement('tr');
+        tr.id = newId;
+        tr.className = 'hover:bg-gray-50';
+        tr.innerHTML = `
+          <td class="px-6 py-4 font-medium text-gray-900" data-field="name">${name}</td>
+          <td class="px-6 py-4 text-gray-500" data-field="email">${email}</td>
+          <td class="px-6 py-4 text-gray-900" data-field="pensum">${pensum}</td>
+          <td class="px-6 py-4 text-gray-900" data-field="soll">${soll}</td>
+          <td class="px-6 py-4 text-gray-500">
+            <div class="flex gap-2">
+              <button onclick="editEmployee('${newId}')" class="hover:text-sidebar transition-colors" title="Bearbeiten">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              </button>
+              <button onclick="deleteEmployee('${newId}')" class="hover:text-danger transition-colors" title="Löschen">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+        // In a real application, save to Firestore here
+        console.log(`Added new employee to Firestore`);
+      }
+      closeModal();
+    }
   </script>
 </body></html>
