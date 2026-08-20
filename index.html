@@ -12,53 +12,53 @@
     theme: {
       extend: {
         "colors": {
-                "tertiary": "#7b2600",
-                "surface-tint": "#0c56d0",
-                "secondary-fixed": "#e1e2e4",
-                "on-primary-fixed-variant": "#0040a2",
-                "outline-variant": "#c3c6d6",
-                "inverse-surface": "#1d3052",
-                "on-primary-container": "#c4d2ff",
-                "on-secondary": "#ffffff",
-                "surface-dim": "#cadaff",
-                "on-tertiary-fixed": "#380d00",
-                "surface-variant": "#d7e2ff",
-                "on-secondary-fixed-variant": "#444749",
-                "secondary": "#5c5f60",
-                "outline": "#737685",
-                "on-secondary-fixed": "#191c1e",
-                "on-tertiary-fixed-variant": "#812800",
-                "primary-container": "#0052cc",
-                "on-surface-variant": "#434654",
-                "on-primary-fixed": "#001848",
-                "error-container": "#ffdad6",
-                "surface-bright": "#f9f9ff",
-                "on-error-container": "#93000a",
-                "on-surface": "#041b3c",
-                "inverse-primary": "#b2c5ff",
-                "surface-container-lowest": "#ffffff",
-                "error": "#ba1a1a",
-                "on-primary": "#ffffff",
-                "on-tertiary": "#ffffff",
-                "primary-fixed": "#dae2ff",
-                "tertiary-fixed": "#ffdbcf",
-                "primary-fixed-dim": "#b2c5ff",
-                "background": "#f9f9ff",
-                "secondary-container": "#dee0e2",
-                "surface-container-low": "#f1f3ff",
-                "primary": "#003d9b",
-                "surface-container-highest": "#d7e2ff",
-                "on-background": "#041b3c",
-                "secondary-fixed-dim": "#c5c6c8",
-                "tertiary-fixed-dim": "#ffb59b",
-                "on-error": "#ffffff",
                 "surface-container-high": "#e0e8ff",
+                "primary-fixed": "#dae2ff",
+                "outline": "#737685",
                 "tertiary-container": "#a33500",
-                "on-tertiary-container": "#ffc6b2",
-                "surface": "#f9f9ff",
+                "on-background": "#041b3c",
+                "surface-container-low": "#f1f3ff",
                 "on-secondary-container": "#606365",
+                "on-primary-fixed-variant": "#0040a2",
+                "primary-container": "#0052cc",
+                "on-secondary": "#ffffff",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#d7e2ff",
+                "secondary": "#5c5f60",
+                "error": "#ba1a1a",
+                "surface-tint": "#0c56d0",
+                "surface": "#f9f9ff",
+                "on-tertiary": "#ffffff",
+                "primary-fixed-dim": "#b2c5ff",
+                "surface-dim": "#cadaff",
+                "secondary-container": "#dee0e2",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#434654",
+                "secondary-fixed": "#e1e2e4",
+                "on-tertiary-fixed": "#380d00",
+                "primary": "#003d9b",
+                "surface-bright": "#f9f9ff",
+                "on-primary": "#ffffff",
+                "inverse-primary": "#b2c5ff",
+                "on-primary-fixed": "#001848",
                 "surface-container": "#e8edff",
-                "inverse-on-surface": "#edf0ff"
+                "inverse-surface": "#1d3052",
+                "on-tertiary-fixed-variant": "#812800",
+                "on-secondary-fixed-variant": "#444749",
+                "outline-variant": "#c3c6d6",
+                "background": "#f9f9ff",
+                "on-error": "#ffffff",
+                "tertiary-fixed": "#ffdbcf",
+                "surface-variant": "#d7e2ff",
+                "tertiary-fixed-dim": "#ffb59b",
+                "error-container": "#ffdad6",
+                "inverse-on-surface": "#edf0ff",
+                "on-surface": "#041b3c",
+                "on-secondary-fixed": "#191c1e",
+                "on-primary-container": "#c4d2ff",
+                "on-tertiary-container": "#ffc6b2",
+                "tertiary": "#7b2600",
+                "secondary-fixed-dim": "#c5c6c8"
         },
         "borderRadius": {
                 "DEFAULT": "0.25rem",
@@ -67,27 +67,27 @@
                 "full": "9999px"
         },
         "spacing": {
-                "unit": "8px",
-                "stack-lg": "48px",
-                "stack-sm": "12px",
-                "stack-md": "24px",
                 "gutter": "24px",
-                "container-max": "800px"
+                "unit": "8px",
+                "stack-sm": "12px",
+                "stack-lg": "48px",
+                "container-max": "800px",
+                "stack-md": "24px"
         },
         "fontFamily": {
-                "body-lg": [
-                        "Work Sans"
-                ],
                 "headline-lg-mobile": [
                         "Work Sans"
                 ],
-                "body-md": [
+                "label-caps": [
                         "Work Sans"
                 ],
                 "headline-md": [
                         "Work Sans"
                 ],
-                "label-caps": [
+                "body-lg": [
+                        "Work Sans"
+                ],
+                "body-md": [
                         "Work Sans"
                 ],
                 "headline-lg": [
@@ -95,13 +95,6 @@
                 ]
         },
         "fontSize": {
-                "body-lg": [
-                        "18px",
-                        {
-                                "lineHeight": "28px",
-                                "fontWeight": "400"
-                        }
-                ],
                 "headline-lg-mobile": [
                         "32px",
                         {
@@ -109,11 +102,12 @@
                                 "fontWeight": "700"
                         }
                 ],
-                "body-md": [
-                        "16px",
+                "label-caps": [
+                        "12px",
                         {
-                                "lineHeight": "24px",
-                                "fontWeight": "400"
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
                         }
                 ],
                 "headline-md": [
@@ -123,12 +117,18 @@
                                 "fontWeight": "600"
                         }
                 ],
-                "label-caps": [
-                        "12px",
+                "body-lg": [
+                        "18px",
                         {
-                                "lineHeight": "16px",
-                                "letterSpacing": "0.05em",
-                                "fontWeight": "700"
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
                         }
                 ],
                 "headline-lg": [
@@ -179,6 +179,10 @@
 <button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="time">
 <span class="material-symbols-outlined">schedule</span>
 <span class="text-sm font-semibold">Zeiterfassung</span>
+</button>
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="daily-overview">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-semibold">Tagesübersicht</span>
 </button>
 <button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports">
 <span class="material-symbols-outlined">description</span>
@@ -497,6 +501,26 @@
     </button>
 </div>
 </section>
+<!-- 3b. Tagesübersicht View -->
+<section class="view-section" id="view-daily-overview">
+<p class="text-on-surface-variant mb-6 text-sm">Übersicht aller erfassten Zeiteinträge.</p>
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr class="text-xs text-on-surface-variant uppercase font-bold">
+<th class="px-6 py-4">Datum</th>
+<th class="px-6 py-4">Mitarbeiter</th>
+<th class="px-6 py-4">Vormittag</th>
+<th class="px-6 py-4">Nachmittag</th>
+<th class="px-6 py-4 text-right">Total (h)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="daily-overview-table-body">
+<!-- Populated by JS -->
+</tbody>
+</table>
+</div>
+</section>
 <!-- 4. Reports View -->
 <section class="view-section" id="view-reports">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -585,6 +609,7 @@
             'dashboard': 'Dashboard',
             'management': 'Mitarbeiter',
             'time': 'Zeiterfassung',
+            'daily-overview': 'Tagesübersicht',
             'reports': 'Berichte'
         };
 
@@ -621,6 +646,8 @@
             
             if(viewId === 'dashboard') {
                 updateDashboard();
+            } else if (viewId === 'daily-overview') {
+                updateDailyOverview();
             }
         }
 
@@ -717,6 +744,42 @@
             }
         }
 
+        // Update Daily Overview
+        function updateDailyOverview() {
+            const tbody = document.getElementById('daily-overview-table-body');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            const entries = JSON.parse(localStorage.getItem('timeEntries') || '[]');
+            
+            // Sort by date descending
+            entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            entries.forEach(entry => {
+                const emp = predefinedEmployees.find(e => e.id === entry.employeeId);
+                const empName = emp ? emp.name : 'Unbekannt';
+                
+                const vDiff = parseTimeStr(entry.vormittag.ende) - parseTimeStr(entry.vormittag.beginn);
+                const nDiff = parseTimeStr(entry.nachmittag.ende) - parseTimeStr(entry.nachmittag.beginn);
+                const totalHours = (vDiff > 0 ? vDiff : 0) + (nDiff > 0 ? nDiff : 0);
+
+                const row = document.createElement('tr');
+                row.className = "hover:bg-surface-container-lowest transition-colors";
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-sm">${new Date(entry.date).toLocaleDateString('de-CH')}</td>
+                    <td class="px-6 py-4 text-sm font-bold">${empName}</td>
+                    <td class="px-6 py-4 text-sm">${entry.vormittag.beginn} - ${entry.vormittag.ende}</td>
+                    <td class="px-6 py-4 text-sm">${entry.nachmittag.beginn} - ${entry.nachmittag.ende}</td>
+                    <td class="px-6 py-4 text-right text-sm font-mono font-bold">${formatTime(totalHours)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            if(entries.length === 0) {
+                 tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-sm text-center text-on-surface-variant">Keine Einträge vorhanden.</td></tr>`;
+            }
+        }
+
 
         // 3. Employee Selection Logic (Time Tracking)
         const predefinedEmployees = [
@@ -756,13 +819,7 @@
         }
 
         document.getElementById('addNewEntryGlobal').addEventListener('click', () => {
-            const types = ["Check-in", "Check-out", "Pause", "Task Completed"];
-            db.collection("activities").add({
-                user: "Thomas Döltschi",
-                type: types[Math.floor(Math.random() * types.length)],
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                status: "success"
-            }).catch(e => console.error("Error adding doc: ", e));
+            switchView('time');
         });
 
         // 5. Management Logic
@@ -881,7 +938,13 @@
                 localStorage.setItem('timeEntries', JSON.stringify(entries));
                 
                 updateDashboard();
+                if(document.getElementById('view-daily-overview').classList.contains('active')) {
+                     updateDailyOverview();
+                }
                 alert("Eintrag erfolgreich gespeichert!");
+                
+                // Switch to daily overview after save
+                switchView('daily-overview');
             });
         }
 
