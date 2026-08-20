@@ -214,32 +214,142 @@
 </div>
 </header>
 <!-- View Containers -->
-<div class="flex-1 overflow-y-auto p-8" id="view-container">
+<div class="flex-1 overflow-y-auto p-8 bg-surface-container-lowest" id="view-container">
 <!-- 1. Dashboard View -->
 <section class="view-section active" id="view-dashboard">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">AKTIVE MITGLIEDER</p>
-<h3 class="text-3xl font-bold">24 / 28</h3>
+<p class="text-on-surface-variant mb-6 text-sm" id="dashboard-subtitle">Übersicht für August 2026</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+<!-- Card 1 -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-6">
+<div>
+<h3 class="text-lg font-bold text-on-surface">Nicole De Pretto</h3>
+<p class="text-sm text-on-surface-variant mt-1">Pensum: 57%</p>
 </div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">TEAM GESUNDHEIT</p>
-<h3 class="text-3xl font-bold">92%</h3>
+<div>
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider mb-2">AKTUELLER MONAT</p>
+<div class="flex justify-between items-end">
+<div>
+<div class="text-4xl font-bold leading-none text-on-surface">0:00</div>
+<div class="text-xs text-on-surface-variant mt-2">geleistet von 52:08 Soll</div>
 </div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">AUSSTEHEND</p>
-<h3 class="text-3xl font-bold text-error">12</h3>
+<div class="text-right">
+<div class="text-error font-bold text-sm mb-1">-52:08</div>
+<div class="text-[10px] text-error font-bold uppercase tracking-wider">FEHLSTUNDEN</div>
 </div>
 </div>
-<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
-<div class="p-6 border-b border-surface-container flex justify-between items-center">
-<h3 class="font-bold">Neueste Aktivitäten</h3>
-<button class="text-primary text-sm font-semibold hover:underline" onclick="switchView('reports')">Alle ansehen</button>
 </div>
-<div class="divide-y divide-surface-container" id="activitiesList">
-<div class="p-6 flex items-center justify-center text-outline text-sm italic">
-                        Keine Aktivitäten vorhanden.
-                    </div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider">JAHRESFORTSCHRITT</p>
+<span class="text-sm font-bold text-on-surface">2%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-inverse-surface h-full rounded-full" style="width: 2%"></div>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>7:00 h</span>
+<span>408:40 h (Soll)</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-6">
+<div>
+<h3 class="text-lg font-bold text-on-surface">Michelle Dreifuss</h3>
+<p class="text-sm text-on-surface-variant mt-1">Pensum: 100%</p>
+</div>
+<div>
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider mb-2">AKTUELLER MONAT</p>
+<div class="flex justify-between items-end">
+<div>
+<div class="text-4xl font-bold leading-none text-on-surface">0:00</div>
+<div class="text-xs text-on-surface-variant mt-2">geleistet von 160:31 Soll</div>
+</div>
+<div class="text-right">
+<div class="text-error font-bold text-sm mb-1">-160:31</div>
+<div class="text-[10px] text-error font-bold uppercase tracking-wider">FEHLSTUNDEN</div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider">JAHRESFORTSCHRITT</p>
+<span class="text-sm font-bold text-on-surface">1%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-inverse-surface h-full rounded-full" style="width: 1%"></div>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>8:30 h</span>
+<span>1258:16 h (Soll)</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-6">
+<div>
+<h3 class="text-lg font-bold text-on-surface">Manuel Schoch</h3>
+<p class="text-sm text-on-surface-variant mt-1">Pensum: 100%</p>
+</div>
+<div>
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider mb-2">AKTUELLER MONAT</p>
+<div class="flex justify-between items-end">
+<div>
+<div class="text-4xl font-bold leading-none text-on-surface">0:00</div>
+<div class="text-xs text-on-surface-variant mt-2">geleistet von 160:31 Soll</div>
+</div>
+<div class="text-right">
+<div class="text-error font-bold text-sm mb-1">-160:31</div>
+<div class="text-[10px] text-error font-bold uppercase tracking-wider">FEHLSTUNDEN</div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider">JAHRESFORTSCHRITT</p>
+<span class="text-sm font-bold text-on-surface">0%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-inverse-surface h-full rounded-full" style="width: 0%"></div>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>0:00 h</span>
+<span>1258:16 h (Soll)</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-6">
+<div>
+<h3 class="text-lg font-bold text-on-surface">Seline Steinmann</h3>
+<p class="text-sm text-on-surface-variant mt-1">Pensum: 92%</p>
+</div>
+<div>
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider mb-2">AKTUELLER MONAT</p>
+<div class="flex justify-between items-end">
+<div>
+<div class="text-4xl font-bold leading-none text-on-surface">49:45</div>
+<div class="text-xs text-on-surface-variant mt-2">geleistet von 135:53 Soll</div>
+</div>
+<div class="text-right">
+<div class="text-error font-bold text-sm mb-1">-86:08</div>
+<div class="text-[10px] text-error font-bold uppercase tracking-wider">FEHLSTUNDEN</div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider">JAHRESFORTSCHRITT</p>
+<span class="text-sm font-bold text-on-surface">5%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-inverse-surface h-full rounded-full" style="width: 5%"></div>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>57:45 h</span>
+<span>1065:09 h (Soll)</span>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -459,6 +569,11 @@
             // Update Header Title
             if (viewNames[viewId]) {
                 viewTitle.textContent = viewNames[viewId];
+                // Handle optional subtitle logic if needed
+                const dashSubtitle = document.getElementById('dashboard-subtitle');
+                if (dashSubtitle) {
+                    dashSubtitle.style.display = viewId === 'dashboard' ? 'block' : 'none';
+                }
             }
 
             // Scroll view to top
@@ -524,38 +639,7 @@
 
         // 4. Live Dashboard Logic
         function loadActivities() {
-            const activitiesList = document.getElementById('activitiesList');
-            db.collection("activities").orderBy("timestamp", "desc").limit(5).onSnapshot((querySnapshot) => {
-                if (querySnapshot.empty) {
-                    activitiesList.innerHTML = '<div class="p-6 flex items-center justify-center text-outline text-sm italic">Keine Aktivitäten vorhanden.</div>';
-                    return;
-                }
-                activitiesList.innerHTML = '';
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const date = data.timestamp ? data.timestamp.toDate() : new Date();
-                    const timeString = date.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
-                    
-                    const div = document.createElement('div');
-                    div.className = "p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors";
-                    div.innerHTML = `
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white">
-                                <span class="material-symbols-outlined">person</span>
-                            </div>
-                            <div>
-                                <p class="text-sm font-bold">${data.user}</p>
-                                <p class="text-[10px] text-outline">${data.type}</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm font-medium font-mono">${timeString}</p>
-                            <p class="text-[10px] text-primary font-bold uppercase">${data.status}</p>
-                        </div>
-                    `;
-                    activitiesList.appendChild(div);
-                });
-            });
+            // Activities section was removed in the new design, stub function to avoid errors if called
         }
 
         document.getElementById('addNewEntryGlobal').addEventListener('click', () => {
