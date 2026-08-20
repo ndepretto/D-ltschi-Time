@@ -168,23 +168,23 @@
 </div>
 </div>
 <div class="flex flex-col h-full py-2 gap-1 overflow-y-auto sidebar-scroll" id="main-nav">
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer nav-item-active" data-view="dashboard">
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer nav-item-active" data-view="dashboard" type="button">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="text-sm font-semibold">Dashboard</span>
 </button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="management">
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="management" type="button">
 <span class="material-symbols-outlined">group</span>
 <span class="text-sm font-semibold">Mitarbeiter</span>
 </button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="time">
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="time" type="button">
 <span class="material-symbols-outlined">schedule</span>
 <span class="text-sm font-semibold">Zeiterfassung</span>
 </button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="daily-overview">
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="daily-overview" type="button">
 <span class="material-symbols-outlined">calendar_today</span>
 <span class="text-sm font-semibold">Tagesübersicht</span>
 </button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports">
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-6 py-4 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports" type="button">
 <span class="material-symbols-outlined">description</span>
 <span class="text-sm font-semibold">Berichte</span>
 </button>
@@ -690,11 +690,12 @@
         if (initialHash && viewNames[initialHash]) {
             switchView(initialHash);
         } else {
-            updateDashboard(); // Run on initial load if no hash or dashboard is default
+            switchView('dashboard'); // Run on initial load if no hash or dashboard is default
         }
 
         navButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
                 switchView(btn.getAttribute('data-view'));
             });
         });
