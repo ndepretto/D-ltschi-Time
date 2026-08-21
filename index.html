@@ -637,7 +637,7 @@
             'reports': 'Berichte'
         };
 
-        function switchView(viewId) {
+        function showView(viewId) {
             // Update UI visibility
             sections.forEach(sec => sec.classList.remove('active'));
             const targetSection = document.getElementById(`view-${viewId}`);
@@ -679,24 +679,24 @@
         window.addEventListener('popstate', () => {
             const hash = window.location.hash.replace('#', '');
             if (hash && viewNames[hash]) {
-                switchView(hash);
+                showView(hash);
             } else {
-                switchView('dashboard');
+                showView('dashboard');
             }
         });
 
         // Initial view load based on hash
         const initialHash = window.location.hash.replace('#', '');
         if (initialHash && viewNames[initialHash]) {
-            switchView(initialHash);
+            showView(initialHash);
         } else {
-            switchView('dashboard'); // Run on initial load if no hash or dashboard is default
+            showView('dashboard'); // Run on initial load if no hash or dashboard is default
         }
 
         navButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                switchView(btn.getAttribute('data-view'));
+                showView(btn.getAttribute('data-view'));
             });
         });
 
@@ -844,7 +844,7 @@
         }
 
         document.getElementById('addNewEntryGlobal').addEventListener('click', () => {
-            switchView('time');
+            showView('time');
         });
 
         // 5. Management Logic
@@ -969,7 +969,7 @@
                 alert("Eintrag erfolgreich gespeichert!");
                 
                 // Switch to daily overview after save
-                switchView('daily-overview');
+                showView('daily-overview');
             });
         }
 
