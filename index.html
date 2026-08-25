@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-
-<html lang="de-CH"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de-CH"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - All-in-One SPA</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
@@ -168,32 +166,32 @@
 </div>
 </div>
 <nav class="flex flex-col h-full py-2 gap-1 overflow-y-auto sidebar-scroll" id="main-nav">
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer nav-item-active" data-view="dashboard">
+<button class="nav-btn flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer nav-item-active" data-view="dashboard">
 <span class="material-symbols-outlined">dashboard</span>
-<span class="text-sm font-semibold">Dashboard</span>
+<span class="text-sm font-semibold text-white font-bold">Dashboard</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="employees">
+<button class="nav-btn flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="employees">
 <span class="material-symbols-outlined">group</span>
-<span class="text-sm font-semibold">Mitarbeiter</span>
+<span class="text-sm font-semibold text-white font-bold">Mitarbeiter</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="tracking">
+<button class="nav-btn flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="tracking">
 <span class="material-symbols-outlined">timer</span>
-<span class="text-sm font-semibold">Zeiterfassung</span>
+<span class="text-sm font-semibold text-white font-bold">Zeiterfassung</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="daily">
+<button class="nav-btn flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="daily">
 <span class="material-symbols-outlined">calendar_today</span>
-<span class="text-sm font-semibold">Tagesübersicht</span>
+<span class="text-sm font-semibold text-white font-bold">Tagesübersicht</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports">
+<button class="nav-btn flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports">
 <span class="material-symbols-outlined">analytics</span>
-<span class="text-sm font-semibold">Berichte</span>
+<span class="text-sm font-semibold text-white font-bold">Berichte</span>
 </button>
 </nav>
 </div>
 <div class="mt-auto border-t border-white/10 p-4">
-<a class="text-outline flex items-center px-4 py-3 gap-3 hover:bg-error/20 hover:text-error-container transition-all duration-200 cursor-pointer rounded" href="#">
+<a class="flex items-center px-4 py-3 gap-3 hover:bg-error/20 hover:text-error-container transition-all duration-200 cursor-pointer rounded" href="#">
 <span class="material-symbols-outlined">logout</span>
-<span class="text-sm font-semibold">Abmelden</span>
+<span class="text-sm font-semibold text-white font-bold">Abmelden</span>
 </a>
 </div>
 </aside>
@@ -208,7 +206,7 @@
 <div class="flex items-center gap-6">
 <div class="hidden lg:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant">
 <span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text"/>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text">
 </div>
 <div class="flex items-center gap-4">
 <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2" id="addNewEntryGlobal">
@@ -276,31 +274,31 @@
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="trackDate" required="" type="date"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="trackDate" required="" type="date">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Vormittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningIn" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningIn" type="time">
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningOut" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningOut" type="time">
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Nachmittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonIn" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonIn" type="time">
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonOut" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonOut" type="time">
 </div>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Notiz (Optional)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="trackNote" placeholder="Projekt, Abwesenheit..." type="text"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="trackNote" placeholder="Projekt, Abwesenheit..." type="text">
 </div>
 <button class="w-full bg-primary text-white py-2.5 rounded-lg text-sm font-bold mt-4" type="submit">Eintrag speichern</button>
 </form>
@@ -344,11 +342,11 @@
 </div>
 <div class="flex flex-col gap-1 flex-1 min-w-[150px]">
 <label class="text-xs font-bold text-on-surface-variant">Von Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateFrom" type="date"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateFrom" type="date">
 </div>
 <div class="flex flex-col gap-1 flex-1 min-w-[150px]">
 <label class="text-xs font-bold text-on-surface-variant">Bis Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateTo" type="date"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateTo" type="date">
 </div>
 <div class="flex gap-2">
 <button class="bg-surface-container text-on-surface px-4 py-2 rounded-lg text-sm font-bold" id="resetDailyFilter">Zurücksetzen</button>
@@ -443,24 +441,24 @@
 <button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeMgmtModal">close</button>
 </div>
 <form class="p-6 space-y-4" id="addEmployeeForm">
-<input id="empId" type="hidden"/>
+<input id="empId" type="hidden">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empName">Name</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empName" placeholder="z.B. Lukas Müller" required="" type="text"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empName" placeholder="z.B. Lukas Müller" required="" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empPensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empPensum" max="100" min="10" placeholder="100" required="" type="number"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empPensum" max="100" min="10" placeholder="100" required="" type="number">
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empSoll">Sollstunden / Tag</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empSoll" placeholder="8.4" required="" step="0.1" type="number"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empSoll" placeholder="8.4" required="" step="0.1" type="number">
 </div>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empBase">Übertrag Vormonat (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empBase" placeholder="0" required="" step="0.01" type="number"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empBase" placeholder="0" required="" step="0.01" type="number">
 </div>
 <div class="flex gap-3 pt-4">
 <button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelMgmtModal" type="button">Abbrechen</button>
@@ -477,33 +475,33 @@
 <button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeEditDailyModal">close</button>
 </div>
 <form class="p-6 space-y-4" id="editDailyForm">
-<input id="editDailyId" type="hidden"/>
+<input id="editDailyId" type="hidden">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Mitarbeiter</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" disabled="" id="editDailyEmployee" type="text"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" disabled="" id="editDailyEmployee" type="text">
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editDailyDate" required="" type="date"/>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editDailyDate" required="" type="date">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Vormittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningIn" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningIn" type="time">
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningOut" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningOut" type="time">
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Nachmittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonIn" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonIn" type="time">
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonOut" type="time"/>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonOut" type="time">
 </div>
 </div>
 <div class="flex gap-3 pt-4">
@@ -1028,4 +1026,6 @@
         renderEmployees(); // Populates selects needed for tracking
         switchView('dashboard'); // Default view
     </script>
+
+
 </body></html>
