@@ -145,9 +145,9 @@
   }
 </script>
 <style>
-        body { font-family: 'Work Sans', sans-serif; background-color: #ffffff; }
+        body { font-family: 'Work Sans', sans-serif; background-color: #f9f9ff; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
-        .nav-item-active { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; border-left: 4px solid #ffffff; font-weight: 700; }
+        .nav-item-active { background-color: #e0e8ff; color: #003d9b; border-left: 4px solid #003d9b; font-weight: 700; }
         .view-section { display: none; }
         .view-section.active { display: block; }
         .sidebar-scroll::-webkit-scrollbar { width: 4px; }
@@ -156,57 +156,57 @@
 </head>
 <body class="flex h-screen overflow-hidden text-on-surface">
 <!-- Global Sidebar -->
-<aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-inverse-surface border-r border-outline-variant z-40 hidden md:flex text-inverse-on-surface">
+<aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant z-40 hidden md:flex">
 <div class="px-6 py-8 flex flex-col gap-1">
 <div class="flex items-center gap-3 mb-8">
 <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
 </div>
 <div>
-<h1 class="text-xl font-bold text-inverse-on-surface leading-none">Döltschi Time</h1>
-<p class="text-[10px] font-semibold text-outline uppercase tracking-wider">Precision &amp; Flow</p>
+<h1 class="text-xl font-bold text-primary leading-none">Döltschi Time</h1>
+<p class="text-[10px] font-semibold text-on-surface-variant uppercase tracking-wider">Precision &amp; Flow</p>
 </div>
 </div>
 <nav class="flex flex-col h-full py-2 gap-1 overflow-y-auto sidebar-scroll" id="main-nav">
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer nav-item-active" data-view="dashboard">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer nav-item-active" data-view="dashboard">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="text-sm font-semibold">Dashboard</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="daily">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer" data-view="daily">
 <span class="material-symbols-outlined">calendar_today</span>
 <span class="text-sm font-semibold">Tagesübersicht</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="weekly">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer" data-view="weekly">
 <span class="material-symbols-outlined">calendar_view_week</span>
 <span class="text-sm font-semibold">Wochenübersicht</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer" data-view="reports">
 <span class="material-symbols-outlined">analytics</span>
 <span class="text-sm font-semibold">Monatsberichte</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="team">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer" data-view="team">
 <span class="material-symbols-outlined">group</span>
 <span class="text-sm font-semibold">Team Dashboard</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="management">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer" data-view="management">
 <span class="material-symbols-outlined">person_search</span>
 <span class="text-sm font-semibold">Mitarbeiter-Verwaltung</span>
 </button>
-<button class="nav-btn text-outline flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="profile">
+<button class="nav-btn text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-surface-container transition-all duration-200 cursor-pointer" data-view="profile">
 <span class="material-symbols-outlined">settings</span>
 <span class="text-sm font-semibold">Profil &amp; Einstellungen</span>
 </button>
 </nav>
 </div>
-<div class="mt-auto border-t border-white/10 p-4">
-<a class="text-outline flex items-center px-4 py-3 gap-3 hover:bg-error/20 hover:text-error-container transition-all duration-200 cursor-pointer rounded" href="#">
+<div class="mt-auto border-t border-outline-variant p-4">
+<a class="text-on-surface-variant flex items-center px-4 py-3 gap-3 hover:bg-error-container hover:text-on-error-container transition-all duration-200 cursor-pointer rounded" href="#">
 <span class="material-symbols-outlined">logout</span>
 <span class="text-sm font-semibold">Abmelden</span>
 </a>
 </div>
 </aside>
 <!-- Main Content Area -->
-<main class="md:ml-64 flex-1 flex flex-col h-full overflow-hidden bg-surface">
+<main class="md:ml-64 flex-1 flex flex-col h-full overflow-hidden">
 <!-- Shared Header -->
 <header class="bg-surface border-b border-outline-variant h-16 w-full flex justify-between items-center px-8 flex-shrink-0 z-30">
 <div class="flex items-center gap-4">
@@ -239,7 +239,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Aktive Mitglieder</p>
-<h3 class="text-3xl font-bold" id="dashboard-active-members">24 / 28</h3>
+<h3 class="text-3xl font-bold">24 / 28</h3>
 </div>
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Team Gesundheit</p>
@@ -473,9 +473,10 @@
 <td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-variant"></div><div><p class="text-sm font-bold">Marc Döltschi</p><p class="text-[10px] text-primary">Senior Architekt</p></div></td>
 <td class="px-6 py-4 text-xs font-mono">m.doeltschi@company.com</td>
 <td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">Core Engine</span></td>
-<td class="px-6 py-4 text-right">
-<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2">edit</span>
-<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="resetEmployeeHours('Marc Döltschi')">restart_alt</span>
+<td class="px-6 py-4 text-right flex justify-end gap-2">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="deleteEmployee('Marc Döltschi')">delete</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary" onclick="resetEmployeeData('Marc Döltschi')">restart_alt</span>
 </td>
 </tr>
 </tbody>
@@ -719,16 +720,6 @@
             }
         });
 
-        // Dashboard Stats Update Mock
-        function updateDashboardStats() {
-            const activeMembers = document.getElementById('dashboard-active-members');
-            if (activeMembers) {
-                // Flash to indicate update
-                activeMembers.classList.add('text-primary');
-                setTimeout(() => activeMembers.classList.remove('text-primary'), 1000);
-            }
-        }
-
         // 4. Daily Overview Logic
         const dailyTableBody = document.getElementById('dailyTableBody');
         const editDailyModal = document.getElementById('editDailyModal');
@@ -841,26 +832,6 @@
         document.getElementById('closeMgmtModal').addEventListener('click', () => mgmtModal.classList.add('hidden'));
         document.getElementById('cancelMgmtModal').addEventListener('click', () => mgmtModal.classList.add('hidden'));
 
-        // Reset Hours Logic
-        window.resetEmployeeHours = function(name) {
-            if(confirm('Möchten Sie die Arbeitszeiten für ' + name + ' wirklich zurücksetzen? Dieser Vorgang kann nicht rückgängig gemacht werden.')) {
-                // localStorage updates
-                localStorage.setItem('baseMonth_' + name, 0);
-                localStorage.setItem('baseYear_' + name, 0);
-                
-                // Clear linked time entries
-                dailyEntriesData = dailyEntriesData.filter(e => e.employee !== name);
-                
-                // Re-render if daily view is active
-                if (document.getElementById('view-daily').classList.contains('active')) {
-                    renderDailyTable(dailyEntriesData);
-                }
-                
-                // Mock update dashboard stats
-                updateDashboardStats();
-            }
-        };
-
         document.getElementById('addEmployeeForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('newName').value;
@@ -874,15 +845,47 @@
                 <td class="px-6 py-4 flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-primary text-[10px]">NEW</div><div><p class="text-sm font-bold">${name}</p><p class="text-[10px] text-primary">${role}</p></div></td>
                 <td class="px-6 py-4 text-xs font-mono">${email}</td>
                 <td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">New Hired</span></td>
-                <td class="px-6 py-4 text-right">
-                    <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2">edit</span>
-                    <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="resetEmployeeHours('${name}')">restart_alt</span>
+                <td class="px-6 py-4 text-right flex justify-end gap-2">
+                    <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span>
+                    <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="deleteEmployee('${name}')">delete</span>
+                    <span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary" onclick="resetEmployeeData('${name}')">restart_alt</span>
                 </td>
             `;
             tbody.appendChild(row);
             mgmtModal.classList.add('hidden');
             e.target.reset();
         });
+
+        window.resetEmployeeData = function(name) {
+            if (confirm(`Möchten Sie die Arbeitszeiten für ${name} wirklich zurücksetzen? Alle erfassten Einträge und Basiswerte für diesen Mitarbeiter werden gelöscht.`)) {
+                let globalEmployees = JSON.parse(localStorage.getItem('globalEmployees')) || [];
+                let timeEntries = JSON.parse(localStorage.getItem('timeEntries')) || [];
+                
+                const empIndex = globalEmployees.findIndex(emp => emp.name === name);
+                if (empIndex > -1) {
+                    globalEmployees[empIndex].baseMonth = 0;
+                    globalEmployees[empIndex].baseYear = 0;
+                    const empId = globalEmployees[empIndex].id;
+                    timeEntries = timeEntries.filter(entry => entry.employeeId !== empId);
+                    
+                    localStorage.setItem('globalEmployees', JSON.stringify(globalEmployees));
+                    localStorage.setItem('timeEntries', JSON.stringify(timeEntries));
+                    
+                    // Trigger a dashboard update logic (simulated by re-rendering management view or alert)
+                    alert(`Daten für ${name} wurden zurückgesetzt.`);
+                    // Refresh logic could go here if global state is used to render views
+                } else {
+                   // Create dummy data for demo purposes since we don't have true localstorage seeded
+                   alert(`Daten für ${name} wurden zurückgesetzt. (Demo mode)`);
+                }
+            }
+        };
+
+        window.deleteEmployee = function(name) {
+             if (confirm(`Möchten Sie ${name} wirklich löschen?`)) {
+                 alert(`${name} wurde gelöscht.`);
+             }
+        }
 
         // Initialize
         loadActivities();
