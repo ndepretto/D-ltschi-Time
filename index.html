@@ -1,73 +1,82 @@
 <!DOCTYPE html>
 
-<html lang="de-CH"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
-          tailwind.config = {
-            darkMode: "class",
-            theme: {
-              extend: {
-                "colors": {
-                        "on-primary-fixed": "#001848",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "surface-variant": "#d7e2ff",
-                        "on-secondary-container": "#606365",
-                        "background": "#f9f9ff",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "primary": "#003d9b",
-                        "outline": "#737685",
-                        "tertiary-container": "#a33500",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-primary": "#ffffff",
-                        "surface": "#f9f9ff",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "outline-variant": "#c3c6d6",
-                        "primary-fixed": "#dae2ff",
-                        "on-primary-container": "#c4d2ff",
-                        "inverse-primary": "#b2c5ff",
-                        "surface-container-highest": "#d7e2ff",
-                        "surface-container-high": "#e0e8ff",
-                        "on-surface": "#041b3c",
-                        "on-error-container": "#93000a",
-                        "on-tertiary-fixed-variant": "#812800",
-                        "inverse-surface": "#1d3052",
-                        "surface-bright": "#f9f9ff",
-                        "on-secondary-fixed": "#191c1e",
-                        "error-container": "#ffdad6",
-                        "on-background": "#041b3c",
-                        "on-tertiary-container": "#ffc6b2",
-                        "on-secondary-fixed-variant": "#444749",
-                        "on-error": "#ffffff",
-                        "surface-tint": "#0c56d0",
-                        "on-secondary": "#ffffff",
-                        "surface-dim": "#cadaff",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary": "#5c5f60",
-                        "on-surface-variant": "#434654",
-                        "primary-container": "#0052cc",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed": "#380d00",
-                        "tertiary": "#7b2600",
-                        "surface-container-low": "#f1f3ff",
-                        "surface-container": "#e8edff",
-                        "inverse-on-surface": "#edf0ff",
-                        "secondary-container": "#dee0e2"
-                },
-                "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                },
-                "fontFamily": {
-                        "body": ["IBM Plex Sans", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
+<html lang="de-CH"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        try{
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-primary-fixed": "#001848",
+                            "on-primary-fixed-variant": "#0040a2",
+                            "surface-variant": "#d7e2ff",
+                            "on-secondary-container": "#606365",
+                            "background": "#f9f9ff",
+                            "tertiary-fixed-dim": "#ffb59b",
+                            "primary": "#003d9b",
+                            "outline": "#737685",
+                            "tertiary-container": "#a33500",
+                            "secondary-fixed-dim": "#c5c6c8",
+                            "secondary-fixed": "#e1e2e4",
+                            "on-primary": "#ffffff",
+                            "surface": "#f9f9ff",
+                            "error": "#ba1a1a",
+                            "primary-fixed-dim": "#b2c5ff",
+                            "tertiary-fixed": "#ffdbcf",
+                            "outline-variant": "#c3c6d6",
+                            "primary-fixed": "#dae2ff",
+                            "on-primary-container": "#c4d2ff",
+                            "inverse-primary": "#b2c5ff",
+                            "surface-container-highest": "#d7e2ff",
+                            "surface-container-high": "#e0e8ff",
+                            "on-surface": "#041b3c",
+                            "on-error-container": "#93000a",
+                            "on-tertiary-fixed-variant": "#812800",
+                            "inverse-surface": "#1d3052",
+                            "surface-bright": "#f9f9ff",
+                            "on-secondary-fixed": "#191c1e",
+                            "error-container": "#ffdad6",
+                            "on-background": "#041b3c",
+                            "on-tertiary-container": "#ffc6b2",
+                            "on-secondary-fixed-variant": "#444749",
+                            "on-error": "#ffffff",
+                            "surface-tint": "#0c56d0",
+                            "on-secondary": "#ffffff",
+                            "surface-dim": "#cadaff",
+                            "surface-container-lowest": "#ffffff",
+                            "secondary": "#5c5f60",
+                            "on-surface-variant": "#434654",
+                            "primary-container": "#0052cc",
+                            "on-tertiary": "#ffffff",
+                            "on-tertiary-fixed": "#380d00",
+                            "tertiary": "#7b2600",
+                            "surface-container-low": "#f1f3ff",
+                            "surface-container": "#e8edff",
+                            "inverse-on-surface": "#edf0ff",
+                            "secondary-container": "#dee0e2"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                        },
+                        "fontFamily": {
+                            "body": ["IBM Plex Sans", "sans-serif"],
+                            "mono": ["JetBrains Mono", "monospace"]
+                        }
+                    }
                 }
-              }
             }
-          }
-    }catch(_e){}</script></head><body class="flex h-screen overflow-hidden text-on-surface">
+        }catch(_e){}
+    </script>
+</head>
+<body class="flex h-screen overflow-hidden text-on-surface font-body">
 <!-- Global Sidebar -->
 <aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-inverse-surface border-r border-outline-variant z-40 hidden md:flex text-white">
 <div class="px-6 py-8 flex flex-col gap-1">
@@ -104,10 +113,6 @@
 </nav>
 </div>
 <div class="mt-auto border-t border-white/10 p-4 space-y-2">
-<button class="w-full text-white flex items-center px-4 py-3 gap-3 hover:bg-surface-variant/20 transition-all duration-200 cursor-pointer rounded-lg" id="resetDataBtn">
-<span class="material-symbols-outlined">restart_alt</span>
-<span class="text-sm font-bold">Daten zurücksetzen</span>
-</button>
 <a class="text-white flex items-center px-4 py-3 gap-3 hover:bg-error/20 hover:text-error-container transition-all duration-200 cursor-pointer rounded-lg" href="#">
 <span class="material-symbols-outlined">logout</span>
 <span class="text-sm font-bold">Abmelden</span>
@@ -130,14 +135,14 @@
 <div class="flex items-center gap-4">
 <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2" id="addNewEntryGlobal">
 <span class="material-symbols-outlined text-sm">add</span> Neuer Eintrag
-                    </button>
+                </button>
 <button class="relative hover:bg-surface-container-low transition-colors p-2 rounded-full">
 <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
 <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
 </button>
 <button class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant bg-primary-container flex items-center justify-center text-primary text-xs font-bold hover:ring-2 hover:ring-primary transition-all" id="profile-btn">
-                        MD
-                    </button>
+                    MD
+                </button>
 </div>
 </div>
 </header>
@@ -148,22 +153,23 @@
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Aktive Mitglieder</p>
-<h3 class="text-3xl font-bold">24 / 28</h3>
+<h3 class="text-3xl font-bold" id="dash-active-members">0 / 0</h3>
 </div>
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Team Gesundheit</p>
-<h3 class="text-3xl font-bold">92%</h3>
+<h3 class="text-3xl font-bold" id="dash-team-health">0%</h3>
 </div>
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Ausstehend</p>
-<h3 class="text-3xl font-bold text-error">12</h3>
+<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Jahresfortschritt</p>
+<h3 class="text-3xl font-bold text-primary" id="dash-yearly-progress">0%</h3>
 </div>
 <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Gesamtstunden</p>
-<h3 class="text-3xl font-bold">1,840h</h3>
+<h3 class="text-3xl font-bold" id="dash-total-hours">0h</h3>
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8">
+<!-- Days placeholders -->
 <div class="bg-white border-2 border-primary rounded-xl p-4 shadow-sm">
 <div class="mb-4 border-b pb-2 flex justify-between items-start">
 <div><span class="block text-[10px] text-primary uppercase font-bold">Mittwoch</span><span class="text-xl font-bold">18. Okt.</span></div>
@@ -172,11 +178,11 @@
 <div class="space-y-4">
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-xs font-mono border border-outline-variant rounded p-1 text-center" value="07:45 - 12:15"/>
+<input class="w-full text-xs font-mono border border-outline-variant rounded p-1 text-center" readonly="" value="07:45 - 12:15"/>
 </div>
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-xs font-mono border border-outline-variant rounded p-1 text-center" placeholder="--:-- - --:--"/>
+<input class="w-full text-xs font-mono border border-outline-variant rounded p-1 text-center" placeholder="--:-- - --:--" readonly=""/>
 </div>
 </div>
 </div>
@@ -199,14 +205,12 @@
 <button class="text-primary text-sm font-semibold hover:underline" id="view-reports-btn">Alle ansehen</button>
 </div>
 <div class="divide-y divide-surface-container" id="activitiesList">
-<div class="p-6 flex items-center justify-center text-outline text-sm italic">
-                            Keine Aktivitäten vorhanden.
-                        </div>
+<div class="p-6 flex items-center justify-center text-outline text-sm italic">Lade Aktivitäten...</div>
 </div>
 </div>
 </section>
 <!-- 2. Weekly Overview View -->
-<section class="view-section" id="view-weekly">
+<section class="view-section hidden" id="view-weekly">
 <div class="max-w-2xl mx-auto bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
 <h2 class="text-lg font-bold">Zeiterfassung</h2>
@@ -215,7 +219,7 @@
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Mitarbeiter auswählen</label>
 <select class="rounded-lg border-outline-variant text-sm p-2" id="timeUserSelect" required="">
-<!-- populated by js -->
+<option value="">Lade Mitarbeiter...</option>
 </select>
 </div>
 <div class="grid grid-cols-2 gap-6">
@@ -251,16 +255,16 @@
 </div>
 </section>
 <!-- 4. Reports View -->
-<section class="view-section" id="view-reports">
+<section class="view-section hidden" id="view-reports">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
 <div class="md:col-span-2 bg-white p-6 rounded-xl border border-outline-variant flex flex-col justify-between">
-<span class="text-xs font-bold text-outline uppercase tracking-wider">Gesamtstunden (Okt)</span>
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Gesamtstunden (Jahr)</span>
 <div class="flex items-baseline gap-2 mt-2">
-<h3 class="text-3xl font-bold text-primary">168.5</h3>
-<span class="text-sm text-on-surface-variant">/ 160.0h Ziel</span>
+<h3 class="text-3xl font-bold text-primary" id="report-total-hours">0</h3>
+<span class="text-sm text-on-surface-variant" id="report-target-hours">/ 0h Ziel</span>
 </div>
 <div class="mt-4 w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-<div class="bg-tertiary-container h-full w-[85%]"></div>
+<div class="bg-tertiary-container h-full" id="report-progress-bar" style="width: 0%"></div>
 </div>
 </div>
 <div class="bg-white p-6 rounded-xl border border-outline-variant">
@@ -277,13 +281,13 @@
 <table class="w-full text-left">
 <thead><tr class="text-[10px] text-outline uppercase border-b border-surface-container"><th class="px-6 py-4">Mitarbeiter</th><th class="px-6 py-4 text-right">Ist-Stunden</th><th class="px-6 py-4 text-right">Soll-Stunden</th><th class="px-6 py-4">Status</th></tr></thead>
 <tbody class="divide-y divide-surface-container" id="reports-table-body">
-<!-- Populated by js -->
+<tr><td class="px-6 py-4 text-center text-sm text-outline italic" colspan="4">Lade Berichte...</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 <!-- 5. Management View -->
-<section class="view-section" id="view-management">
+<section class="view-section hidden" id="view-management">
 <div class="flex justify-between items-end mb-6">
 <div>
 <h3 class="text-2xl font-bold mb-1">Mitarbeiter-Verwaltung</h3>
@@ -297,13 +301,13 @@
 <tr class="text-[10px] text-outline uppercase font-bold"><th class="px-6 py-4">Name &amp; Rolle</th><th class="px-6 py-4">Email</th><th class="px-6 py-4">Pensum</th><th class="px-6 py-4 text-right">Jahressoll</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="mgmt-table-body">
-<!-- Populated by JS -->
+<tr><td class="px-6 py-4 text-center text-sm text-outline italic" colspan="5">Lade Mitarbeiter...</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 <!-- 6. Profile View -->
-<section class="view-section" id="view-profile">
+<section class="view-section hidden" id="view-profile">
 <div class="max-w-4xl mx-auto space-y-8">
 <div class="bg-white border border-outline-variant rounded-xl p-8 flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden shadow-sm">
 <div class="w-32 h-32 rounded-xl bg-surface-container-high border-2 border-primary overflow-hidden">
@@ -328,27 +332,6 @@
 <h4 class="text-xs font-bold text-outline uppercase mb-4">Wochenziel</h4>
 <div class="flex items-baseline gap-2"><span class="text-4xl font-bold font-mono">42.5</span><span class="text-sm text-outline">Stunden</span></div>
 <div class="mt-4 flex gap-1"><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-surface-container rounded-full"></div></div>
-</div>
-</div>
-<div class="bg-white border border-outline-variant rounded-xl p-8">
-<h3 class="text-lg font-bold mb-6">Benutzer wechseln</h3>
-<div class="flex gap-8 overflow-x-auto pb-2">
-<button class="flex flex-col items-center gap-2 min-w-[80px] group">
-<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-primary font-bold">NI</div>
-<span class="text-xs font-bold">Nicole</span>
-</button>
-<button class="flex flex-col items-center gap-2 min-w-[80px] group">
-<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-primary font-bold">MI</div>
-<span class="text-xs font-bold">Michelle</span>
-</button>
-<button class="flex flex-col items-center gap-2 min-w-[80px] group">
-<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-primary font-bold">MA</div>
-<span class="text-xs font-bold">Manuel</span>
-</button>
-<button class="flex flex-col items-center gap-2 min-w-[80px] group">
-<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-primary font-bold">SE</div>
-<span class="text-xs font-bold">Seline</span>
-</button>
 </div>
 </div>
 </div>
@@ -383,7 +366,7 @@
 <input class="rounded-lg border-outline-variant text-sm p-2" id="newPensum" max="100" min="10" placeholder="100" required="" type="number"/>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newTarget">Jahressoll (h)</label>
+<label class="text-xs font-bold text-on-surface-variant" for="newTarget">Jahresarbeitszeit (h)</label>
 <input class="rounded-lg border-outline-variant text-sm p-2" id="newTarget" min="0" placeholder="1840" required="" type="number"/>
 </div>
 </div>
@@ -394,32 +377,29 @@
 </form>
 </div>
 </div>
-<!-- Local Simulation Scripts -->
-<script>
-    const DEFAULT_EMPLOYEES = [
-        { id: '1', name: 'Nicole De Pretto', role: 'Design', email: 'nicole@company.com', team: 'Design', target: 1840, pensum: 100 },
-        { id: '2', name: 'Michelle Dreifuss', role: 'Engineering', email: 'michelle@company.com', team: 'Engineering', target: 1472, pensum: 80 },
-        { id: '3', name: 'Seline Steinmann', role: 'Marketing', email: 'seline@company.com', team: 'Marketing', target: 1840, pensum: 100 },
-        { id: '4', name: 'Manuel Schoch', role: 'Management', email: 'manuel@company.com', team: 'Management', target: 1840, pensum: 100 }
-    ];
+<!-- Firebase Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    let globalActivities = JSON.parse(localStorage.getItem('doeltschi_activities')) || [];
-    let globalEmployees = JSON.parse(localStorage.getItem('doeltschi_employees')) || [...DEFAULT_EMPLOYEES];
-    let timeEntries = JSON.parse(localStorage.getItem('doeltschi_time')) || [];
+    const firebaseConfig = {
+        apiKey: "AIzaSyCLe1TDW9n_ayT-vraWhNcWiDRNH2-5JE0",
+        authDomain: "zeiterfassung-a5893.firebaseapp.com",
+        projectId: "zeiterfassung-a5893",
+        storageBucket: "zeiterfassung-a5893.firebasestorage.app",
+        messagingSenderId: "863255539210",
+        appId: "1:863255539210:web:68c922f1c881bba856b9f3",
+        measurementId: "G-JZM4W91FXN"
+    };
 
-    function saveData() {
-        localStorage.setItem('doeltschi_activities', JSON.stringify(globalActivities));
-        localStorage.setItem('doeltschi_employees', JSON.stringify(globalEmployees));
-        localStorage.setItem('doeltschi_time', JSON.stringify(timeEntries));
-        renderActivities();
-        renderEmployees();
-        renderReports();
-        updateSelects();
-    }
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-    /**
-     * View Navigation Logic
-     */
+    // Global state
+    let globalEmployees = [];
+    let globalActivities = [];
+
+    // Helper functions for UI
     const navButtons = document.querySelectorAll('.nav-btn');
     const sections = document.querySelectorAll('.view-section');
     const viewTitle = document.getElementById('current-view-title');
@@ -428,15 +408,20 @@
         'dashboard': 'Dashboard',
         'weekly': 'Zeiterfassung',
         'reports': 'Berichte',
-        'team': 'Team Dashboard',
         'management': 'Mitarbeiter',
         'profile': 'Profil & Einstellungen'
     };
 
-    function switchView(viewId) {
-        sections.forEach(sec => sec.classList.remove('active'));
+    window.switchView = function(viewId) {
+        sections.forEach(sec => {
+            sec.classList.remove('active');
+            sec.classList.add('hidden');
+        });
         const targetSection = document.getElementById(`view-${viewId}`);
-        if (targetSection) targetSection.classList.add('active');
+        if (targetSection) {
+            targetSection.classList.add('active');
+            targetSection.classList.remove('hidden');
+        }
         
         navButtons.forEach(btn => {
             btn.classList.remove('nav-item-active', 'bg-white/10');
@@ -449,11 +434,11 @@
         if (viewNames[viewId]) viewTitle.textContent = viewNames[viewId];
         document.getElementById('view-container').scrollTop = 0;
         history.pushState(null, null, `#${viewId}`);
-    }
+    };
 
     window.addEventListener('popstate', () => {
         const hash = window.location.hash.replace('#', '');
-        switchView(hash && viewNames[hash] ? hash : 'dashboard');
+        if(hash) switchView(hash && viewNames[hash] ? hash : 'dashboard');
     });
 
     navButtons.forEach(btn => {
@@ -467,9 +452,45 @@
         document.getElementById('profile-btn').addEventListener('click', () => switchView('profile'));
     }
 
-    /**
-     * UI Rendering Logic
-     */
+
+    // Firestore Real-time Listeners
+    onSnapshot(collection(db, "employees"), (snapshot) => {
+        globalEmployees = [];
+        snapshot.forEach((doc) => {
+            globalEmployees.push({ id: doc.id, ...doc.data() });
+        });
+        renderEmployees();
+        updateSelects();
+        updateDashboard();
+        renderReports();
+    });
+
+    onSnapshot(query(collection(db, "activities"), orderBy("timestamp", "desc")), (snapshot) => {
+        globalActivities = [];
+        snapshot.forEach((doc) => {
+            globalActivities.push({ id: doc.id, ...doc.data() });
+        });
+        renderActivities();
+    });
+
+    async function initialSync() {
+         const empSnapshot = await getDocs(collection(db, "employees"));
+         if(empSnapshot.empty) {
+             const defaultEmployees = [
+                { name: 'Nicole De Pretto', role: 'Design', email: 'nicole@company.com', team: 'Design', target: 1840, pensum: 100 },
+                { name: 'Michelle Dreifuss', role: 'Engineering', email: 'michelle@company.com', team: 'Engineering', target: 1472, pensum: 80 },
+                { name: 'Seline Steinmann', role: 'Marketing', email: 'seline@company.com', team: 'Marketing', target: 1840, pensum: 100 },
+                { name: 'Manuel Schoch', role: 'Management', email: 'manuel@company.com', team: 'Management', target: 1840, pensum: 100 }
+            ];
+            for (let emp of defaultEmployees) {
+                await addDoc(collection(db, "employees"), emp);
+            }
+         }
+    }
+    initialSync();
+
+
+    // UI Rendering Functions
     function updateSelects() {
         const select = document.getElementById('timeUserSelect');
         if(!select) return;
@@ -485,15 +506,16 @@
     function renderActivities() {
         const activitiesList = document.getElementById('activitiesList');
         if(!activitiesList) return;
+        
         if (globalActivities.length === 0) {
             activitiesList.innerHTML = '<div class="p-6 flex items-center justify-center text-outline text-sm italic">Keine Aktivitäten vorhanden.</div>';
             return;
         }
 
-        const sorted = [...globalActivities].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 5);
+        const sorted = [...globalActivities].slice(0, 5);
         
         activitiesList.innerHTML = '';
-        sorted.forEach((item, index) => {
+        sorted.forEach((item) => {
             const date = item.timestamp ? new Date(item.timestamp) : new Date();
             const timeString = date.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
             
@@ -514,9 +536,13 @@
                         <p class="text-sm font-medium font-mono">${timeString}</p>
                         <p class="text-[10px] text-tertiary-container font-bold uppercase">${item.status || 'success'}</p>
                     </div>
-                    <button class="material-symbols-outlined text-outline hover:text-error opacity-0 group-hover:opacity-100 transition-opacity" onclick="deleteActivity('${item.id}')">delete</button>
+                    <button class="material-symbols-outlined text-outline hover:text-error opacity-0 group-hover:opacity-100 transition-opacity" data-id="${item.id}">delete</button>
                 </div>
             `;
+            const delBtn = div.querySelector('button');
+            delBtn.addEventListener('click', async () => {
+                 await deleteDoc(doc(db, "activities", item.id));
+            });
             activitiesList.appendChild(div);
         });
     }
@@ -545,12 +571,43 @@
                 <td class="px-6 py-4 text-right font-mono">${emp.target || 1840}h</td>
                 <td class="px-6 py-4 text-right">
                     <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" onclick="deleteEmployee('${emp.id}')">delete</span>
+                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="${emp.id}">delete</span>
                     </div>
                 </td>
             `;
+            const delBtn = row.querySelector('.material-symbols-outlined.cursor-pointer');
+            delBtn.addEventListener('click', async () => {
+                 if(confirm(`Mitarbeiter ${emp.name} löschen?`)) {
+                    await deleteDoc(doc(db, "employees", emp.id));
+                 }
+            });
             tbody.appendChild(row);
         });
+    }
+
+    function updateDashboard() {
+        let totalTarget = 0;
+        let totalCurrentHours = 0; // Mock calculation for now based on activities or random
+        
+        globalEmployees.forEach(emp => {
+            totalTarget += parseInt(emp.target || 1840);
+            totalCurrentHours += (parseInt(emp.target || 1840) * (Math.random() * 0.2 + 0.7)); // Mock logic
+        });
+
+        document.getElementById('dash-active-members').textContent = `${globalEmployees.length} / 28`;
+        
+        // Mock team health
+        document.getElementById('dash-team-health').textContent = `92%`;
+        
+        const yearlyProgress = totalTarget > 0 ? (totalCurrentHours / totalTarget) * 100 : 0;
+        document.getElementById('dash-yearly-progress').textContent = `${Math.round(yearlyProgress)}%`;
+        
+        document.getElementById('dash-total-hours').textContent = `${Math.round(totalCurrentHours)}h`;
+
+        // Update Reports Summary
+        document.getElementById('report-total-hours').textContent = Math.round(totalCurrentHours);
+        document.getElementById('report-target-hours').textContent = `/ ${totalTarget}h Ziel`;
+        document.getElementById('report-progress-bar').style.width = `${Math.min(100, Math.round(yearlyProgress))}%`;
     }
 
     function renderReports() {
@@ -560,64 +617,42 @@
         tbody.innerHTML = '';
         
         globalEmployees.forEach(emp => {
+            const target = parseInt(emp.target || 1840);
             // mock actual hours for display
-            const istHours = (emp.target * (Math.random() * 0.2 + 0.7)).toFixed(1);
-            const status = (istHours >= emp.target * 0.9) ? 'bg-tertiary-fixed text-[8px] font-bold' : 'bg-surface-variant text-[8px] font-bold';
-            const statusText = (istHours >= emp.target * 0.9) ? 'ON TRACK' : 'BEHIND';
+            const istHours = (target * (Math.random() * 0.2 + 0.7)).toFixed(1);
+            const status = (istHours >= target * 0.9) ? 'bg-tertiary-fixed text-[8px] font-bold' : 'bg-surface-variant text-[8px] font-bold';
+            const statusText = (istHours >= target * 0.9) ? 'ON TRACK' : 'BEHIND';
 
             const row = document.createElement('tr');
             row.className = "hover:bg-surface-container-low";
             row.innerHTML = `
                 <td class="px-6 py-4 text-sm font-bold">${emp.name}</td>
                 <td class="px-6 py-4 text-right font-mono">${istHours}h</td>
-                <td class="px-6 py-4 text-right font-mono">${emp.target}h</td>
+                <td class="px-6 py-4 text-right font-mono">${target}h</td>
                 <td class="px-6 py-4"><span class="px-2 py-0.5 rounded-full uppercase ${status}">${statusText}</span></td>
             `;
             tbody.appendChild(row);
         });
     }
 
-    /**
-     * Action Handlers
-     */
-    window.deleteActivity = function(id) {
-        globalActivities = globalActivities.filter(a => a.id !== id);
-        saveData();
-    }
-
-    window.deleteEmployee = function(id) {
-        globalEmployees = globalEmployees.filter(e => e.id !== id);
-        saveData();
-    }
-
-    document.getElementById('resetDataBtn').addEventListener('click', () => {
-        if(confirm("Möchten Sie wirklich alle Daten auf den Ursprungszustand zurücksetzen?")) {
-            globalActivities = [];
-            timeEntries = [];
-            globalEmployees = [...DEFAULT_EMPLOYEES];
-            saveData();
-        }
-    });
-
-    document.getElementById('addNewEntryGlobal').addEventListener('click', () => {
+    // Action Handlers
+    document.getElementById('addNewEntryGlobal').addEventListener('click', async () => {
         const types = ["Check-in", "Check-out", "Pause", "Task Completed"];
-        const users = globalEmployees.length > 0 ? globalEmployees : DEFAULT_EMPLOYEES;
-        const randomUser = users[Math.floor(Math.random() * users.length)].name;
+        const randomUser = globalEmployees.length > 0 ? globalEmployees[Math.floor(Math.random() * globalEmployees.length)].name : "Unbekannt";
+        
         const newEntry = {
-            id: Date.now().toString(),
             user: randomUser,
             type: types[Math.floor(Math.random() * types.length)],
             timestamp: new Date().toISOString(),
             status: "success"
         };
         
-        globalActivities.unshift(newEntry);
-        saveData();
+        await addDoc(collection(db, "activities"), newEntry);
     });
 
     // Time Entry Form
     if(document.getElementById('timeEntryForm')) {
-        document.getElementById('timeEntryForm').addEventListener('submit', (e) => {
+        document.getElementById('timeEntryForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const userId = document.getElementById('timeUserSelect').value;
             if(!userId) return alert("Bitte wähle einen Mitarbeiter aus.");
@@ -625,7 +660,6 @@
             const emp = globalEmployees.find(e => e.id === userId);
             
             const entry = {
-                id: Date.now().toString(),
                 userId: userId,
                 morningFrom: document.getElementById('morningFrom').value,
                 morningTo: document.getElementById('morningTo').value,
@@ -634,18 +668,15 @@
                 date: new Date().toISOString()
             };
 
-            timeEntries.push(entry);
+            await addDoc(collection(db, "timeEntries"), entry);
             
-            // Also add an activity log
-            globalActivities.unshift({
-                id: Date.now().toString(),
+            await addDoc(collection(db, "activities"), {
                 user: emp ? emp.name : 'Unbekannt',
                 type: 'Zeit erfasst',
                 timestamp: new Date().toISOString(),
                 status: 'success'
             });
 
-            saveData();
             e.target.reset();
             alert("Zeit erfolgreich erfasst.");
         });
@@ -659,21 +690,19 @@
     document.getElementById('closeMgmtModal').addEventListener('click', () => mgmtModal.classList.add('hidden'));
     document.getElementById('cancelMgmtModal').addEventListener('click', () => mgmtModal.classList.add('hidden'));
 
-    document.getElementById('addEmployeeForm').addEventListener('submit', (e) => {
+    document.getElementById('addEmployeeForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const newEmp = {
-            id: Date.now().toString(),
             name: document.getElementById('newName').value,
             role: document.getElementById('newRole').value,
             email: document.getElementById('newEmail').value,
             team: "Neu Hinzugefügt",
-            pensum: document.getElementById('newPensum').value,
-            target: document.getElementById('newTarget').value
+            pensum: parseInt(document.getElementById('newPensum').value),
+            target: parseInt(document.getElementById('newTarget').value)
         };
         
-        globalEmployees.push(newEmp);
-        saveData();
+        await addDoc(collection(db, "employees"), newEmp);
         mgmtModal.classList.add('hidden');
         e.target.reset();
     });
@@ -685,13 +714,12 @@
         sidebar.classList.toggle('flex');
     });
 
-    // Initial render
-    updateSelects();
-    renderActivities();
-    renderEmployees();
-    renderReports();
-    
-    // Switch to dashboard by default if no hash
-    const currentHash = window.location.hash.replace('#', '');
-    switchView(currentHash && viewNames[currentHash] ? currentHash : 'dashboard');
-</script></body></html>
+    // Handle initial hash load correctly
+    const initialHash = window.location.hash.replace('#', '');
+    if(initialHash && viewNames[initialHash]) {
+        switchView(initialHash);
+    } else {
+        switchView('dashboard');
+    }
+</script>
+</body></html>
