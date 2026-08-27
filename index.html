@@ -154,22 +154,9 @@
 <div class="flex-1 overflow-y-auto p-8" id="view-container">
 <!-- 1. Dashboard View -->
 <section class="view-section active" id="view-dashboard">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Aktive Mitglieder</p>
-<h3 class="text-3xl font-bold" id="dash-active-members">0 / 0</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Team Gesundheit</p>
-<h3 class="text-3xl font-bold" id="dash-team-health">0%</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Jahresfortschritt</p>
-<h3 class="text-3xl font-bold text-primary" id="dash-yearly-progress">0%</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Gesamtstunden</p>
-<h3 class="text-3xl font-bold" id="dash-total-hours">0h</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="dashboard-employee-cards">
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Lade Mitarbeiter...</p>
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8">
@@ -759,28 +746,61 @@
     }
 
     function updateDashboard() {
+        const cardsContainer = document.getElementById('dashboard-employee-cards');
         let totalTarget = 0;
-        let totalCurrentHours = 0; // Mock calculation for now based on activities or random
-        
-        globalEmployees.forEach(emp => {
-            totalTarget += parseInt(emp.target || 1840);
-            totalCurrentHours += (parseInt(emp.target || 1840) * (Math.random() * 0.2 + 0.7)); // Mock logic
-        });
+        let totalCurrentHours = 0;
 
-        document.getElementById('dash-active-members').textContent = `${globalEmployees.length} / 28`;
-        
-        // Mock team health
-        document.getElementById('dash-team-health').textContent = `92%`;
-        
-        const yearlyProgress = totalTarget > 0 ? (totalCurrentHours / totalTarget) * 100 : 0;
-        document.getElementById('dash-yearly-progress').textContent = `${Math.round(yearlyProgress)}%`;
-        
-        document.getElementById('dash-total-hours').textContent = `${Math.round(totalCurrentHours)}h`;
+        if (cardsContainer && globalEmployees.length > 0) {
+            cardsContainer.innerHTML = '';
+            
+            globalEmployees.forEach(emp => {
+                const target = parseInt(emp.target || 1840);
+                const istHours = (target * (Math.random() * 0.2 + 0.7)).toFixed(1);
+                totalTarget += target;
+                totalCurrentHours += parseFloat(istHours);
+
+                const monthlyTarget = Math.round(target / 12);
+                const monthlyIst = Math.round(monthlyTarget * (Math.random() * 0.2 + 0.7));
+                const remaining = monthlyTarget - monthlyIst;
+                
+                const progressPercent = Math.min(100, Math.round((parseFloat(istHours) / target) * 100));
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">${emp.name}</p>
+                        <div class="flex items-baseline gap-2">
+                            <h3 class="text-3xl font-bold">${monthlyIst}</h3>
+                            <span class="text-sm text-outline font-bold">/ ${monthlyTarget} h</span>
+                        </div>
+                        <p class="text-xs ${remaining > 0 ? 'text-tertiary-container' : 'text-primary'} font-bold mt-1">noch ${Math.max(0, remaining)}h diesen Monat</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="flex justify-between text-[10px] font-bold text-outline mb-1 uppercase">
+                            <span>Jahresfortschritt</span>
+                            <span>${progressPercent}%</span>
+                        </div>
+                        <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+                            <div class="bg-primary h-full" style="width: ${progressPercent}%"></div>
+                        </div>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
 
         // Update Reports Summary
-        document.getElementById('report-total-hours').textContent = Math.round(totalCurrentHours);
-        document.getElementById('report-target-hours').textContent = `/ ${totalTarget}h Ziel`;
-        document.getElementById('report-progress-bar').style.width = `${Math.min(100, Math.round(yearlyProgress))}%`;
+        const reportTotal = document.getElementById('report-total-hours');
+        if (reportTotal) {
+            reportTotal.textContent = Math.round(totalCurrentHours);
+            const reportTarget = document.getElementById('report-target-hours');
+            if (reportTarget) reportTarget.textContent = `/ ${totalTarget}h Ziel`;
+            
+            const yearlyProgress = totalTarget > 0 ? (totalCurrentHours / totalTarget) * 100 : 0;
+            const reportProgress = document.getElementById('report-progress-bar');
+            if (reportProgress) reportProgress.style.width = `${Math.min(100, Math.round(yearlyProgress))}%`;
+        }
     }
 
     function renderReports() {
