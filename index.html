@@ -94,6 +94,10 @@
 <span class="material-symbols-outlined">dashboard</span>
 <span class="text-sm font-bold">Dashboard</span>
 </button>
+<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="daily">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-sm font-bold">Tagesübersicht</span>
+</button>
 <button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="management">
 <span class="material-symbols-outlined">person_search</span>
 <span class="text-sm font-bold">Mitarbeiter</span>
@@ -209,7 +213,41 @@
 </div>
 </div>
 </section>
-<!-- 2. Weekly Overview View -->
+<!-- 2. Daily View -->
+<section class="view-section hidden" id="view-daily">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div>
+<h3 class="text-2xl font-bold mb-1">Tagesübersicht</h3>
+<p class="text-sm text-on-surface-variant">Alle erfassten Zeiten pro Tag im Detail.</p>
+</div>
+<div class="flex items-center gap-3 bg-white p-2 rounded-lg border border-outline-variant shadow-sm">
+<select class="rounded-lg border-outline-variant text-sm p-1.5" id="dailyFilterUser">
+<option value="all">Alle Mitarbeiter</option>
+</select>
+<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterFrom" type="date"/>
+<span class="text-outline text-sm">-</span>
+<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterTo" type="date"/>
+</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr class="text-[10px] text-outline uppercase font-bold">
+<th class="px-6 py-4">Datum</th>
+<th class="px-6 py-4">Mitarbeiter</th>
+<th class="px-6 py-4">Vormittag</th>
+<th class="px-6 py-4">Nachmittag</th>
+<th class="px-6 py-4 text-right">Total</th>
+<th class="px-6 py-4 text-right">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="daily-table-body">
+<tr><td class="px-6 py-4 text-center text-sm text-outline italic" colspan="6">Lade Einträge...</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 3. Weekly Overview View -->
 <section class="view-section hidden" id="view-weekly">
 <div class="max-w-2xl mx-auto bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
@@ -380,7 +418,7 @@
 <!-- Firebase Integration -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, deleteDoc, updateDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyCLe1TDW9n_ayT-vraWhNcWiDRNH2-5JE0",
@@ -398,6 +436,7 @@
     // Global state
     let globalEmployees = [];
     let globalActivities = [];
+    let globalTimeEntries = [];
 
     // Helper functions for UI
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -406,6 +445,7 @@
 
     const viewNames = {
         'dashboard': 'Dashboard',
+        'daily': 'Tagesübersicht',
         'weekly': 'Zeiterfassung',
         'reports': 'Berichte',
         'management': 'Mitarbeiter',
@@ -473,6 +513,14 @@
         renderActivities();
     });
 
+    onSnapshot(query(collection(db, "timeEntries"), orderBy("date", "desc")), (snapshot) => {
+        globalTimeEntries = [];
+        snapshot.forEach((doc) => {
+            globalTimeEntries.push({ id: doc.id, ...doc.data() });
+        });
+        renderDailyEntries();
+    });
+
     async function initialSync() {
          const empSnapshot = await getDocs(collection(db, "employees"));
          if(empSnapshot.empty) {
@@ -493,14 +541,122 @@
     // UI Rendering Functions
     function updateSelects() {
         const select = document.getElementById('timeUserSelect');
-        if(!select) return;
-        select.innerHTML = '<option value="">Bitte wählen...</option>';
-        globalEmployees.forEach(emp => {
-            const opt = document.createElement('option');
-            opt.value = emp.id;
-            opt.textContent = emp.name;
-            select.appendChild(opt);
+        const dailyFilterUser = document.getElementById('dailyFilterUser');
+        if(select) {
+            select.innerHTML = '<option value="">Bitte wählen...</option>';
+            globalEmployees.forEach(emp => {
+                const opt = document.createElement('option');
+                opt.value = emp.id;
+                opt.textContent = emp.name;
+                select.appendChild(opt);
+            });
+        }
+        if(dailyFilterUser) {
+            const currentVal = dailyFilterUser.value;
+            dailyFilterUser.innerHTML = '<option value="all">Alle Mitarbeiter</option>';
+            globalEmployees.forEach(emp => {
+                const opt = document.createElement('option');
+                opt.value = emp.id;
+                opt.textContent = emp.name;
+                dailyFilterUser.appendChild(opt);
+            });
+            dailyFilterUser.value = currentVal;
+        }
+    }
+
+    function calculateTotalHours(morningFrom, morningTo, afternoonFrom, afternoonTo) {
+        let total = 0;
+        const timeToHours = (t) => {
+            if(!t) return 0;
+            const [h, m] = t.split(':').map(Number);
+            return h + m/60;
+        };
+        
+        if (morningFrom && morningTo) {
+            total += timeToHours(morningTo) - timeToHours(morningFrom);
+        }
+        if (afternoonFrom && afternoonTo) {
+            total += timeToHours(afternoonTo) - timeToHours(afternoonFrom);
+        }
+        return total > 0 ? total.toFixed(2) : '0.00';
+    }
+
+    function renderDailyEntries() {
+        const tbody = document.getElementById('daily-table-body');
+        if (!tbody) return;
+        
+        const filterUser = document.getElementById('dailyFilterUser')?.value || 'all';
+        const filterFrom = document.getElementById('dailyFilterFrom')?.value;
+        const filterTo = document.getElementById('dailyFilterTo')?.value;
+
+        let filteredEntries = globalTimeEntries;
+
+        if (filterUser !== 'all') {
+            filteredEntries = filteredEntries.filter(e => e.userId === filterUser);
+        }
+        if (filterFrom) {
+            const fromDate = new Date(filterFrom).toISOString();
+            filteredEntries = filteredEntries.filter(e => e.date >= fromDate);
+        }
+        if (filterTo) {
+            const toDate = new Date(filterTo);
+            toDate.setHours(23, 59, 59, 999);
+            filteredEntries = filteredEntries.filter(e => e.date <= toDate.toISOString());
+        }
+
+        if (filteredEntries.length === 0) {
+            tbody.innerHTML = '<tr><td class="px-6 py-4 text-center text-sm text-outline italic" colspan="6">Keine Einträge gefunden.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = '';
+        
+        filteredEntries.forEach(entry => {
+            const emp = globalEmployees.find(e => e.id === entry.userId);
+            const empName = emp ? emp.name : 'Unbekannt';
+            const dateStr = entry.date ? new Date(entry.date).toLocaleDateString('de-CH') : '-';
+            
+            const morningStr = (entry.morningFrom && entry.morningTo) ? `${entry.morningFrom} - ${entry.morningTo}` : '-';
+            const afternoonStr = (entry.afternoonFrom && entry.afternoonTo) ? `${entry.afternoonFrom} - ${entry.afternoonTo}` : '-';
+            const totalHours = calculateTotalHours(entry.morningFrom, entry.morningTo, entry.afternoonFrom, entry.afternoonTo);
+
+            const row = document.createElement('tr');
+            row.className = "hover:bg-surface-container-low border-t border-outline-variant group";
+            row.innerHTML = `
+                <td class="px-6 py-4 text-sm font-medium">${dateStr}</td>
+                <td class="px-6 py-4 text-sm font-bold">${empName}</td>
+                <td class="px-6 py-4 text-sm font-mono text-on-surface-variant">${morningStr}</td>
+                <td class="px-6 py-4 text-sm font-mono text-on-surface-variant">${afternoonStr}</td>
+                <td class="px-6 py-4 text-right text-sm font-bold font-mono">${totalHours}h</td>
+                <td class="px-6 py-4 text-right">
+                    <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary" data-edit-id="${entry.id}">edit</span>
+                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-delete-id="${entry.id}">delete</span>
+                    </div>
+                </td>
+            `;
+            
+            const deleteBtn = row.querySelector(`[data-delete-id="${entry.id}"]`);
+            deleteBtn.addEventListener('click', async () => {
+                if(confirm('Diesen Eintrag wirklich löschen?')) {
+                    await deleteDoc(doc(db, "timeEntries", entry.id));
+                }
+            });
+
+            // Very basic edit - could be expanded to open the form
+            const editBtn = row.querySelector(`[data-edit-id="${entry.id}"]`);
+            editBtn.addEventListener('click', () => {
+                alert('Bearbeiten (Demo): Würde Formular mit Daten füllen.');
+            });
+
+            tbody.appendChild(row);
         });
+    }
+
+    if(document.getElementById('dailyFilterUser')) {
+        document.getElementById('dailyFilterUser').addEventListener('change', renderDailyEntries);
+        document.getElementById('dailyFilterFrom').addEventListener('change', renderDailyEntries);
+        document.getElementById('dailyFilterTo').addEventListener('change', renderDailyEntries);
     }
 
     function renderActivities() {
@@ -571,11 +727,28 @@
                 <td class="px-6 py-4 text-right font-mono">${emp.target || 1840}h</td>
                 <td class="px-6 py-4 text-right">
                     <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary mr-2" title="Zeiten zurücksetzen" data-reset-id="${emp.id}">restart_alt</span>
                         <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="${emp.id}">delete</span>
                     </div>
                 </td>
             `;
-            const delBtn = row.querySelector('.material-symbols-outlined.cursor-pointer');
+            
+            const resetBtn = row.querySelector(`[data-reset-id="${emp.id}"]`);
+            resetBtn.addEventListener('click', async () => {
+                if(confirm(`Zeiten für Mitarbeiter ${emp.name} unwiderruflich zurücksetzen?`)) {
+                    // Fetch all time entries for this user and delete them
+                    const q = query(collection(db, "timeEntries"), where("userId", "==", emp.id));
+                    const snapshot = await getDocs(q);
+                    const deletePromises = [];
+                    snapshot.forEach(docSnap => {
+                        deletePromises.push(deleteDoc(doc(db, "timeEntries", docSnap.id)));
+                    });
+                    await Promise.all(deletePromises);
+                    alert(`Zeiten für ${emp.name} wurden zurückgesetzt.`);
+                }
+            });
+
+            const delBtn = row.querySelector(`[data-id="${emp.id}"]`);
             delBtn.addEventListener('click', async () => {
                  if(confirm(`Mitarbeiter ${emp.name} löschen?`)) {
                     await deleteDoc(doc(db, "employees", emp.id));
