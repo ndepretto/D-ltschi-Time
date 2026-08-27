@@ -1,9 +1,11 @@
-<!DOCTYPE html><html lang="de-CH"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="de-CH"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - All-in-One SPA</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
@@ -206,7 +208,7 @@
 <div class="flex items-center gap-6">
 <div class="hidden lg:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant">
 <span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text">
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text"/>
 </div>
 <div class="flex items-center gap-4">
 <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2" id="addNewEntryGlobal">
@@ -226,7 +228,7 @@
 <div class="flex-1 overflow-y-auto p-8" id="view-container">
 <!-- 1. Dashboard View -->
 <section class="view-section active" id="view-dashboard">
-<p class="text-sm text-on-surface-variant mb-6">Übersicht für aktuellen Monat</p>
+<p class="text-sm text-on-surface-variant mb-6">Übersicht für aktuellen Monat und Jahresfortschritt</p>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="dashboard-cards-container">
 <!-- Populated via JS -->
 </div>
@@ -248,6 +250,7 @@
 <th class="px-6 py-4">Name</th>
 <th class="px-6 py-4">Pensum (%)</th>
 <th class="px-6 py-4">Soll/Tag (h)</th>
+<th class="px-6 py-4">Jahressoll (h)</th>
 <th class="px-6 py-4">Übertrag Vormonat (h)</th>
 <th class="px-6 py-4 text-right">Aktionen</th>
 </tr>
@@ -274,31 +277,31 @@
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="trackDate" required="" type="date">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="trackDate" required="" type="date"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Vormittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningIn" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningIn" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningOut" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackMorningOut" type="time"/>
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Nachmittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonIn" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonIn" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonOut" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="trackAfternoonOut" type="time"/>
 </div>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Notiz (Optional)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="trackNote" placeholder="Projekt, Abwesenheit..." type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="trackNote" placeholder="Projekt, Abwesenheit..." type="text"/>
 </div>
 <button class="w-full bg-primary text-white py-2.5 rounded-lg text-sm font-bold mt-4" type="submit">Eintrag speichern</button>
 </form>
@@ -342,11 +345,11 @@
 </div>
 <div class="flex flex-col gap-1 flex-1 min-w-[150px]">
 <label class="text-xs font-bold text-on-surface-variant">Von Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateFrom" type="date">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateFrom" type="date"/>
 </div>
 <div class="flex flex-col gap-1 flex-1 min-w-[150px]">
 <label class="text-xs font-bold text-on-surface-variant">Bis Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateTo" type="date">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" id="filterDateTo" type="date"/>
 </div>
 <div class="flex gap-2">
 <button class="bg-surface-container text-on-surface px-4 py-2 rounded-lg text-sm font-bold" id="resetDailyFilter">Zurücksetzen</button>
@@ -441,24 +444,30 @@
 <button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeMgmtModal">close</button>
 </div>
 <form class="p-6 space-y-4" id="addEmployeeForm">
-<input id="empId" type="hidden">
+<input id="empId" type="hidden"/>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empName">Name</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empName" placeholder="z.B. Lukas Müller" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empName" placeholder="z.B. Lukas Müller" required="" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empPensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empPensum" max="100" min="10" placeholder="100" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empPensum" max="100" min="10" placeholder="100" required="" type="number"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empSoll">Sollstunden / Tag</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empSoll" placeholder="8.4" required="" step="0.1" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empSoll" placeholder="8.4" required="" step="0.1" type="number"/>
 </div>
 </div>
+<div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="empBase">Übertrag Vormonat (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="empBase" placeholder="0" required="" step="0.01" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empBase" placeholder="0" required="" step="0.01" type="number"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-on-surface-variant" for="empSollJahr">Jahressoll (h)</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="empSollJahr" placeholder="1890" required="" step="0.1" type="number"/>
+</div>
 </div>
 <div class="flex gap-3 pt-4">
 <button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelMgmtModal" type="button">Abbrechen</button>
@@ -475,33 +484,33 @@
 <button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeEditDailyModal">close</button>
 </div>
 <form class="p-6 space-y-4" id="editDailyForm">
-<input id="editDailyId" type="hidden">
+<input id="editDailyId" type="hidden"/>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Mitarbeiter</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" disabled="" id="editDailyEmployee" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface-container-low" disabled="" id="editDailyEmployee" type="text"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Datum</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editDailyDate" required="" type="date">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editDailyDate" required="" type="date"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Vormittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningIn" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningIn" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningOut" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningOut" type="time"/>
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Nachmittag Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonIn" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonIn" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonOut" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonOut" type="time"/>
 </div>
 </div>
 <div class="flex gap-3 pt-4">
@@ -514,10 +523,10 @@
 <script>
         // Data Models & State
         const defaultEmployees = [
-            { id: '1', name: 'Nicole De Pretto', pensum: 100, sollTag: 8.4, baseMonth: -12.5 },
-            { id: '2', name: 'Michelle Dreifuss', pensum: 80, sollTag: 6.72, baseMonth: 5.2 },
-            { id: '3', name: 'Seline Steinmann', pensum: 100, sollTag: 8.4, baseMonth: 0 },
-            { id: '4', name: 'Manuel Schoch', pensum: 60, sollTag: 5.04, baseMonth: 1.5 }
+            { id: '1', name: 'Nicole De Pretto', pensum: 100, sollTag: 8.4, baseMonth: -12.5, sollJahr: 1890 },
+            { id: '2', name: 'Michelle Dreifuss', pensum: 80, sollTag: 6.72, baseMonth: 5.2, sollJahr: 1512 },
+            { id: '3', name: 'Seline Steinmann', pensum: 100, sollTag: 8.4, baseMonth: 0, sollJahr: 1890 },
+            { id: '4', name: 'Manuel Schoch', pensum: 60, sollTag: 5.04, baseMonth: 1.5, sollJahr: 1077 }
         ];
 
         const defaultEntries = [
@@ -527,12 +536,12 @@
             { id: 'e4', empId: '2', date: '2023-10-17', mIn: '08:00', mOut: '12:00', aIn: '', aOut: '', note: 'Krank Nachmittag' }
         ];
 
-        let employees = JSON.parse(localStorage.getItem('dt_employees')) || defaultEmployees;
-        let timeEntries = JSON.parse(localStorage.getItem('dt_entries')) || defaultEntries;
+        let employees = JSON.parse(localStorage.getItem('dt_employees_v2')) || defaultEmployees;
+        let timeEntries = JSON.parse(localStorage.getItem('dt_entries_v2')) || defaultEntries;
 
         function saveData() {
-            localStorage.setItem('dt_employees', JSON.stringify(employees));
-            localStorage.setItem('dt_entries', JSON.stringify(timeEntries));
+            localStorage.setItem('dt_employees_v2', JSON.stringify(employees));
+            localStorage.setItem('dt_entries_v2', JSON.stringify(timeEntries));
         }
 
         // Helper Functions
@@ -638,8 +647,9 @@
                 const saldoMonat = istMonat - sollMonat;
                 
                 // Simulate Yearly progress
-                const sollJahr = sollMonat * 12;
+                const sollJahr = emp.sollJahr || (sollMonat * 12);
                 const istJahr = istMonat + emp.baseMonth + (sollMonat * 5); // Demo simulated YTD
+                const verbleibendJahr = sollJahr - istJahr;
                 
                 const progressPct = sollJahr > 0 ? Math.min(Math.round((istJahr / sollJahr) * 100), 100) : 0;
                 
@@ -674,8 +684,11 @@
                             <div class="bg-outline h-2 rounded-full" style="width: ${progressPct}%"></div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-xs text-on-surface-variant">${formatTimeDisplay(istJahr)} h</span>
-                            <span class="text-xs text-on-surface-variant">${formatTimeDisplay(sollJahr)} h (Soll)</span>
+                            <span class="text-xs text-on-surface-variant font-bold">${formatTimeDisplay(istJahr)} h <span class="font-normal">geleistet</span></span>
+                            <span class="text-xs text-on-surface-variant font-bold">${formatTimeDisplay(sollJahr)} h <span class="font-normal">Soll</span></span>
+                        </div>
+                        <div class="mt-2 text-right">
+                            <span class="text-xs text-outline">Noch zu leisten: <strong class="${verbleibendJahr < 0 ? 'text-primary' : 'text-on-surface-variant'}">${formatTimeDisplay(verbleibendJahr)} h</strong></span>
                         </div>
                     </div>
                 `;
@@ -708,6 +721,7 @@
                     <td class="px-6 py-4 font-bold text-sm">${emp.name}</td>
                     <td class="px-6 py-4 text-sm">${emp.pensum}%</td>
                     <td class="px-6 py-4 font-mono text-sm">${formatHours(emp.sollTag)}</td>
+                    <td class="px-6 py-4 font-mono text-sm">${emp.sollJahr ? formatHours(emp.sollJahr) : '--'}</td>
                     <td class="px-6 py-4 font-mono text-sm ${emp.baseMonth < 0 ? 'text-error' : 'text-primary'}">${emp.baseMonth > 0 ? '+' : ''}${formatHours(emp.baseMonth)}</td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex justify-end gap-2">
@@ -743,14 +757,15 @@
             const pensum = parseInt(document.getElementById('empPensum').value);
             const soll = parseFloat(document.getElementById('empSoll').value);
             const base = parseFloat(document.getElementById('empBase').value);
+            const sollJahr = parseFloat(document.getElementById('empSollJahr').value);
 
             if(id) {
                 const idx = employees.findIndex(e => e.id === id);
                 if(idx > -1) {
-                    employees[idx] = { id, name, pensum, sollTag: soll, baseMonth: base };
+                    employees[idx] = { id, name, pensum, sollTag: soll, baseMonth: base, sollJahr };
                 }
             } else {
-                employees.push({ id: generateId(), name, pensum, sollTag: soll, baseMonth: base });
+                employees.push({ id: generateId(), name, pensum, sollTag: soll, baseMonth: base, sollJahr });
             }
             saveData();
             renderEmployees();
@@ -765,6 +780,7 @@
                 document.getElementById('empPensum').value = emp.pensum;
                 document.getElementById('empSoll').value = emp.sollTag;
                 document.getElementById('empBase').value = emp.baseMonth;
+                document.getElementById('empSollJahr').value = emp.sollJahr || (emp.sollTag * 20 * 12);
                 document.getElementById('employeeModalTitle').textContent = 'Mitarbeiter bearbeiten';
                 empModal.classList.remove('hidden');
             }
@@ -1026,6 +1042,4 @@
         renderEmployees(); // Populates selects needed for tracking
         switchView('dashboard'); // Default view
     </script>
-
-
 </body></html>
