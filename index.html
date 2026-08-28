@@ -1,1080 +1,273 @@
 <!DOCTYPE html>
 
-<html lang="de-CH"><head>
+<html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<title>Döltschi Time - Dashboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
-        try{
-            tailwind.config = {
-                darkMode: "class",
-                theme: {
-                    extend: {
-                        "colors": {
-                            "on-primary-fixed": "#001848",
-                            "on-primary-fixed-variant": "#0040a2",
-                            "surface-variant": "#d7e2ff",
-                            "on-secondary-container": "#606365",
-                            "background": "#f9f9ff",
-                            "tertiary-fixed-dim": "#ffb59b",
-                            "primary": "#003d9b",
-                            "outline": "#737685",
-                            "tertiary-container": "#a33500",
-                            "secondary-fixed-dim": "#c5c6c8",
-                            "secondary-fixed": "#e1e2e4",
-                            "on-primary": "#ffffff",
-                            "surface": "#f9f9ff",
-                            "error": "#ba1a1a",
-                            "primary-fixed-dim": "#b2c5ff",
-                            "tertiary-fixed": "#ffdbcf",
-                            "outline-variant": "#c3c6d6",
-                            "primary-fixed": "#dae2ff",
-                            "on-primary-container": "#c4d2ff",
-                            "inverse-primary": "#b2c5ff",
-                            "surface-container-highest": "#d7e2ff",
-                            "surface-container-high": "#e0e8ff",
-                            "on-surface": "#041b3c",
-                            "on-error-container": "#93000a",
-                            "on-tertiary-fixed-variant": "#812800",
-                            "inverse-surface": "#1d3052",
-                            "surface-bright": "#f9f9ff",
-                            "on-secondary-fixed": "#191c1e",
-                            "error-container": "#ffdad6",
-                            "on-background": "#041b3c",
-                            "on-tertiary-container": "#ffc6b2",
-                            "on-secondary-fixed-variant": "#444749",
-                            "on-error": "#ffffff",
-                            "surface-tint": "#0c56d0",
-                            "on-secondary": "#ffffff",
-                            "surface-dim": "#cadaff",
-                            "surface-container-lowest": "#ffffff",
-                            "secondary": "#5c5f60",
-                            "on-surface-variant": "#434654",
-                            "primary-container": "#0052cc",
-                            "on-tertiary": "#ffffff",
-                            "on-tertiary-fixed": "#380d00",
-                            "tertiary": "#7b2600",
-                            "surface-container-low": "#f1f3ff",
-                            "surface-container": "#e8edff",
-                            "inverse-on-surface": "#edf0ff",
-                            "secondary-container": "#dee0e2"
-                        },
-                        "borderRadius": {
-                            "DEFAULT": "0.25rem",
-                            "lg": "0.5rem",
-                            "xl": "0.75rem",
-                            "full": "9999px"
-                        },
-                        "fontFamily": {
-                            "body": ["IBM Plex Sans", "sans-serif"],
-                            "mono": ["JetBrains Mono", "monospace"]
-                        }
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#812800",
+                        "surface-bright": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdbcf",
+                        "tertiary": "#7b2600",
+                        "inverse-on-surface": "#edf0ff",
+                        "secondary": "#5c5f60",
+                        "surface-container-low": "#f1f3ff",
+                        "surface-container-highest": "#d7e2ff",
+                        "surface-dim": "#cadaff",
+                        "outline-variant": "#c3c6d6",
+                        "inverse-primary": "#b2c5ff",
+                        "secondary-fixed": "#e1e2e4",
+                        "on-secondary-container": "#606365",
+                        "surface": "#f9f9ff",
+                        "on-tertiary-container": "#ffc6b2",
+                        "on-primary-container": "#c4d2ff",
+                        "primary-fixed": "#dae2ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "background": "#f9f9ff",
+                        "primary-container": "#0052cc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#041b3c",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e0e8ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#0c56d0",
+                        "primary": "#003d9b",
+                        "tertiary-container": "#a33500",
+                        "secondary-container": "#dee0e2",
+                        "on-primary-fixed": "#001848",
+                        "on-secondary-fixed": "#191c1e",
+                        "outline": "#737685",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434654",
+                        "on-background": "#041b3c",
+                        "surface-variant": "#d7e2ff",
+                        "surface-container": "#e8edff",
+                        "on-tertiary-fixed": "#380d00",
+                        "inverse-surface": "#1d3052",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "secondary-fixed-dim": "#c5c6c8",
+                        "on-secondary-fixed-variant": "#444749"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-md": "24px",
+                        "unit": "8px",
+                        "stack-lg": "48px",
+                        "container-max": "800px",
+                        "stack-sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Work Sans", "sans-serif"],
+                        "body-lg": ["Work Sans", "sans-serif"],
+                        "headline-md": ["Work Sans", "sans-serif"],
+                        "headline-lg-mobile": ["Work Sans", "sans-serif"],
+                        "body-md": ["Work Sans", "sans-serif"],
+                        "headline-lg": ["Work Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
                     }
                 }
             }
-        }catch(_e){}
+        }
     </script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
 </head>
-<body class="flex h-screen overflow-hidden text-on-surface font-body">
-<!-- Global Sidebar -->
-<aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-inverse-surface z-40 hidden md:flex text-white">
-<div class="px-6 py-8 flex flex-col gap-1">
-<div class="flex items-center gap-3 mb-8">
-<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-white">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
-</div>
+<body class="bg-background text-on-background font-body-md flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-stack-md px-4 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm w-64 sticky left-0 top-0">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">TS</div>
 <div>
-<h1 class="text-xl font-bold text-white leading-none">Döltschi Time</h1>
-<p class="text-[10px] font-bold text-white/70 uppercase tracking-wider">Precision &amp; Flow</p>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">TimeSync Pro</h1>
+<p class="text-xs text-on-surface-variant">Lokale Zeiterfassung</p>
 </div>
 </div>
-<nav class="flex flex-col h-full py-2 gap-2 overflow-y-auto sidebar-scroll" id="main-nav">
-<button class="nav-btn flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg nav-item-active bg-white/10 text-white" data-view="dashboard">
-<span class="material-symbols-outlined text-[20px]">dashboard</span>
-<span class="text-[15px] font-semibold">Dashboard</span>
-</button>
-<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="daily">
-<span class="material-symbols-outlined text-[20px]">calendar_today</span>
-<span class="text-[15px] font-semibold">Tagesübersicht</span>
-</button>
-<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="management">
-<span class="material-symbols-outlined text-[20px]">group</span>
-<span class="text-[15px] font-semibold">Mitarbeiter</span>
-</button>
-<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="weekly">
-<span class="material-symbols-outlined text-[20px]">timer</span>
-<span class="text-[15px] font-semibold">Zeiterfassung</span>
-</button>
-<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="reports">
-<span class="material-symbols-outlined text-[20px]">bar_chart</span>
-<span class="text-[15px] font-semibold">Berichte</span>
-</button>
-<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white mt-4" data-view="profile">
-<span class="material-symbols-outlined text-[20px]">settings</span>
-<span class="text-[15px] font-semibold text-left leading-tight">Profil &amp;<br/>Einstellungen</span>
-</button>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim bg-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Mitarbeiter</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span>Zeiterfassung</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span>Berichte</span>
+</a>
 </nav>
-</div>
-<div class="mt-auto border-t border-white/10 p-4 space-y-2">
-<button class="w-full text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer rounded-lg hover:text-white">
-<span class="material-symbols-outlined text-[20px]">logout</span>
-<span class="text-[15px] font-semibold">Abmelden</span>
-</button>
+<div class="mt-auto space-y-2">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-2 rounded-lg hover:opacity-90 transition-opacity font-bold mb-4">
+<span class="material-symbols-outlined">add</span>
+                Neuer Eintrag
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Einstellungen</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Abmelden</span>
+</a>
 </div>
 </aside>
-<!-- Main Content Area -->
-<main class="md:ml-64 flex-1 flex flex-col h-full overflow-hidden bg-background">
-<!-- Shared Header -->
-<header class="bg-surface border-b border-outline-variant h-20 w-full flex justify-between items-center px-8 flex-shrink-0 z-30">
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-gutter py-4 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline top-0 sticky z-10">
 <div class="flex items-center gap-4">
-<span class="md:hidden material-symbols-outlined text-on-surface cursor-pointer" id="mobile-menu-toggle">menu</span>
-<h2 class="text-[22px] font-bold text-primary" id="current-view-title">Dashboard</h2>
-</div>
-<div class="flex items-center gap-6">
-<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant w-64">
-<span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-full p-0" placeholder="Suchen..." type="text"/>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Zeiterfassung</h2>
 </div>
 <div class="flex items-center gap-4">
-<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2" id="addNewEntryGlobal">
-<span class="material-symbols-outlined text-sm">add</span> Neuer Eintrag
-                </button>
-<button class="relative hover:bg-surface-container-low transition-colors p-2 rounded-full">
-<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 rounded-full border border-outline-variant bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary text-body-md w-64" placeholder="Suchen..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
 </button>
-<button class="h-8 w-8 rounded-full overflow-hidden bg-primary flex items-center justify-center text-white text-xs font-bold hover:ring-2 hover:ring-primary transition-all" id="profile-btn">
-                    MD
-                </button>
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img alt="Benutzerprofil" class="w-full h-full object-cover" data-alt="A close up portrait photo of a professional software developer in a modern, brightly lit office environment. They are smiling gently. The lighting is soft and natural, emphasizing a clean, corporate light-mode aesthetic with subtle cool blue tones in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpnCTOd39SPGA2h8L-udFFy6HqhX4XQ_YSky_dZYtvQWUvvN_JZab72d2qPRfT5WF3rrwbzIOFC2Hoz-36gztFq7Gci04bnk12eRhz-hZJpd_yzEdkLZsxaeZzA2-SHxDpf_WNKdHw1QXQhKwuOsLoTqIawu0GkicahrfiqlDNzU-NmcN9xafz_kmasQbNan18IDHeZTSBR-uNo2zKmwWwR-TSPV8xwBnHzW6pByl3DUsKeBO1AB73"/>
 </div>
 </div>
 </header>
-<!-- View Containers -->
-<div class="flex-1 overflow-y-auto p-8" id="view-container">
-<!-- 1. Dashboard View -->
-<section class="view-section active" id="view-dashboard">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="dashboard-employee-cards"><div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+<!-- Dashboard Content -->
+<div class="p-gutter max-w-[1200px] mx-auto w-full space-y-stack-lg pb-stack-lg">
+<!-- Employee Stats -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young female professional smiling in a bright office, natural light, wearing a casual business outfit, light blue background reflecting a clean corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0Qs0DcowSlZVZi9efH5kecR_BT7QKVwOLvjCWCpIkfUuIEF0sb0FXR0wxNw1sLsVaokppMOkVdoGuhDxfXw1YPgfNdTfmZu5CPcVmKRLCbOfUTQ93fC1OW0fV4TAq7hnZLJ1hgVC-3TFlU94sExSpp-i1T7P9DkoilWb6KJ2USPhCNE5kS2PWmvm7CVyChXhu8OFy9CDu-6H7Sb447ZpfgIvnv7-bZyVgSPifoj_lhq4qbEI31beu"/>
+</div>
 <div>
-<div class="flex justify-between items-start mb-2">
-<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">Nicole De Pretto</p>
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold text-primary">100%</span>
-</div>
-<div class="flex items-baseline gap-2 mt-4">
-<h3 class="text-[32px] font-bold leading-none text-on-surface">116</h3>
-<span class="text-[13px] text-outline font-bold">/ 153 h</span>
-</div>
-<p class="text-[11px] text-tertiary-container font-bold mt-2">noch 37h diesen Monat</p>
-</div>
-<div class="mt-8">
-<div class="flex justify-between text-[9px] font-bold text-outline mb-2 uppercase tracking-wider">
-<span class="">Jahresfortschritt</span>
-<span class="">83%</span>
-</div>
-<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 83%"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Nicole De Pretto</h3>
+<p class="text-body-md text-on-surface-variant">Software Engineer</p>
 </div>
 </div>
-</div></div>
-<div class="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8 h-96">
-<!-- Days placeholders -->
-<div class="bg-white border-2 border-primary rounded-xl p-5 flex flex-col"><div class="flex justify-between items-start mb-6"><div><span class="block text-[10px] text-primary uppercase font-bold mb-1">Samstag</span><span class="text-xl font-bold">1.<br/>Aug. 2026</span></div><span class="bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold">HEUTE</span></div><div class="space-y-4 mt-auto"><div class="space-y-1"><span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">sunny</span> VORMITTAG</span><input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" readonly="" value="--:-- - --:--"/></div><div class="space-y-1"><span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bedtime</span> NACHMITTAG</span><input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" placeholder="--:-- - --:--" readonly=""/></div></div></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col"><div><span class="block text-[10px] text-secondary uppercase font-bold mb-1">Sonntag</span><span class="text-xl font-bold">2. Aug. 2026</span></div><div class="mt-auto text-[13px] font-mono text-primary font-bold">0.0 h</div></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col"><div><span class="block text-[10px] text-secondary uppercase font-bold mb-1">Montag</span><span class="text-xl font-bold">3. Aug. 2026</span></div><div class="mt-auto text-[13px] font-mono text-primary font-bold">8.5 h</div></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Di 4. 2026</span></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Mi 5. 2026</span></div>
-<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Do 6. 2026</span></div>
-<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Fr 7. 2026</span></div>
-</div>
-<div class="bg-white rounded-xl border border-outline-variant">
-<div class="p-6 border-b border-surface-container flex justify-between items-center">
-<h3 class="font-bold text-lg">Neueste Aktivitäten</h3>
-<button class="text-primary text-sm font-semibold hover:underline" id="view-reports-btn">Alle ansehen</button>
-</div>
-<div class="divide-y divide-surface-container min-h-[100px] flex items-center justify-center" id="activitiesList"><div class="p-6 text-outline text-sm italic w-full text-center">Keine Aktivitäten vorhanden.</div></div>
-</div>
-</section>
-<!-- 2. Daily View -->
-<section class="view-section hidden" id="view-daily">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
 <div>
-<h3 class="text-2xl font-bold mb-1">Tagesübersicht</h3>
-<p class="text-sm text-on-surface-variant">Alle erfassten Zeiten pro Tag im Detail.</p>
+<div class="flex justify-between text-body-md mb-2">
+<span class="text-on-surface-variant">Monat (August)</span>
+<span class="font-bold text-primary">116 / 153h</span>
 </div>
-<div class="flex items-center gap-3 bg-white p-2 rounded-lg border border-outline-variant shadow-sm">
-<select class="rounded-lg border-outline-variant text-sm p-1.5" id="dailyFilterUser"><option value="all">Alle Mitarbeiter</option><option value="lxzAJesZ0oespLFRIRGr">Nicole De Pretto</option></select>
-<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterFrom" type="date"/>
-<span class="text-outline text-sm">-</span>
-<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterTo" type="date"/>
+<div class="w-full bg-surface-container-highest rounded-full h-2 mb-4">
+<div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Gleitzeitsaldo</span>
+<span class="text-error font-bold">-2.5h</span>
 </div>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<table class="w-full text-left">
-<thead class="bg-surface-container-low border-b border-outline-variant">
-<tr class="text-[10px] text-outline uppercase font-bold">
-<th class="px-6 py-4">Datum</th>
-<th class="px-6 py-4">Mitarbeiter</th>
-<th class="px-6 py-4">Vormittag</th>
-<th class="px-6 py-4">Nachmittag</th>
-<th class="px-6 py-4 text-right">Total</th>
-<th class="px-6 py-4 text-right">Aktionen</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant" id="daily-table-body"><tr><td class="px-6 py-4 text-center text-sm text-outline italic" colspan="6">Keine Einträge gefunden.</td></tr></tbody>
-</table>
 </div>
-</section>
-<!-- 3. Weekly Overview View -->
-<section class="view-section hidden" id="view-weekly">
-<div class="max-w-2xl mx-auto bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
-<h2 class="text-lg font-bold">Zeiterfassung</h2>
-</div>
-<form class="p-6 space-y-6" id="timeEntryForm">
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant">Mitarbeiter auswählen</label>
-<select class="rounded-lg border-outline-variant text-sm p-2" id="timeUserSelect" required=""><option value="">Bitte wählen...</option><option value="lxzAJesZ0oespLFRIRGr">Nicole De Pretto</option></select>
-</div>
-<div class="grid grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface mb-4">Jahresübersicht 2026</h4>
 <div class="space-y-4">
-<h4 class="text-sm font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined text-lg">sunny</span> Vormittag</h4>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="morningFrom" type="time"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="morningTo" type="time"/>
-</div>
-</div>
-</div>
-<div class="space-y-4">
-<h4 class="text-sm font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined text-lg">bedtime</span> Nachmittag</h4>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="afternoonFrom" type="time"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="afternoonTo" type="time"/>
-</div>
-</div>
-</div>
-</div>
-<button class="w-full bg-primary text-white py-3 rounded-lg text-sm font-bold shadow-sm hover:opacity-90 transition-opacity" type="submit">Eintrag Speichern</button>
-</form>
-</div>
-</section>
-<!-- 4. Reports View -->
-<section class="view-section hidden" id="view-reports">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-<div class="md:col-span-2 bg-white p-6 rounded-xl border border-outline-variant flex flex-col justify-between">
-<span class="text-xs font-bold text-outline uppercase tracking-wider">Gesamtstunden (Jahr)</span>
-<div class="flex items-baseline gap-2 mt-2">
-<h3 class="text-3xl font-bold text-primary" id="report-total-hours">1520</h3>
-<span class="text-sm text-on-surface-variant" id="report-target-hours">/ 1840h Ziel</span>
-</div>
-<div class="mt-4 w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-<div class="bg-tertiary-container h-full" id="report-progress-bar" style="width: 83%;"></div>
-</div>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant">
-<span class="text-xs font-bold text-outline uppercase tracking-wider">Verrechenbar</span>
-<h3 class="text-2xl font-bold mt-2">92.4%</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant">
-<span class="text-xs font-bold text-outline uppercase tracking-wider">Netto Überzeit</span>
-<h3 class="text-2xl font-bold mt-2">+8h 30m</h3>
-</div>
-</div>
-<div class="bg-white border border-outline-variant rounded-xl overflow-hidden mb-8">
-<div class="px-6 py-4 border-b border-surface-container bg-surface-container-low font-bold text-sm">MITARBEITER BERICHTE</div>
-<table class="w-full text-left">
-<thead><tr class="text-[10px] text-outline uppercase border-b border-surface-container"><th class="px-6 py-4">Mitarbeiter</th><th class="px-6 py-4 text-right">Ist-Stunden</th><th class="px-6 py-4 text-right">Soll-Stunden</th><th class="px-6 py-4">Status</th></tr></thead>
-<tbody class="divide-y divide-surface-container" id="reports-table-body"><tr class="hover:bg-surface-container-low">
-<td class="px-6 py-4 text-sm font-bold">Nicole De Pretto</td>
-<td class="px-6 py-4 text-right font-mono">1430.6h</td>
-<td class="px-6 py-4 text-right font-mono">1840h</td>
-<td class="px-6 py-4"><span class="px-2 py-0.5 rounded-full uppercase bg-surface-variant text-[8px] font-bold">BEHIND</span></td>
-</tr></tbody>
-</table>
-</div>
-</section>
-<!-- 5. Management View -->
-<section class="view-section hidden" id="view-management">
-<div class="flex justify-between items-end mb-6">
 <div>
-<h3 class="text-2xl font-bold mb-1">Mitarbeiter-Verwaltung</h3>
-<p class="text-sm text-on-surface-variant">Zugriffe und Rollen Ihres Teams verwalten.</p>
+<div class="flex justify-between text-sm mb-1">
+<span class="text-on-surface-variant">Ferien</span>
+<span class="text-on-surface">12 / 25 Tage</span>
 </div>
-<button class="bg-primary text-white px-6 py-2 rounded-lg font-bold text-sm shadow-sm hover:opacity-90" id="openAddEmployeeModal">Mitarbeiter hinzufügen</button>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-tertiary h-2 rounded-full" style="width: 48%"></div>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl overflow-hidden">
-<table class="w-full text-left">
-<thead class="bg-surface-container-low border-b border-outline-variant">
-<tr class="text-[10px] text-outline uppercase font-bold"><th class="px-6 py-4">Name &amp; Rolle</th><th class="px-6 py-4">Email</th><th class="px-6 py-4">Pensum</th><th class="px-6 py-4 text-right">Jahressoll</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
-</thead>
-<tbody class="divide-y divide-outline-variant" id="mgmt-table-body"><tr class="hover:bg-surface-container-low border-t border-outline-variant group">
-<td class="px-6 py-4 flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-[10px] text-primary font-bold">
-                        NDP
-                    </div>
+</div>
 <div>
-<p class="text-sm font-bold">Nicole De Pretto</p>
-<p class="text-[10px] text-primary">Design</p>
+<div class="flex justify-between text-sm mb-1">
+<span class="text-on-surface-variant">Krankheit</span>
+<span class="text-on-surface">3 Tage</span>
 </div>
-</td>
-<td class="px-6 py-4 text-xs font-mono">nicole@company.com</td>
-<td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">100%</span></td>
-<td class="px-6 py-4 text-right font-mono">1840h</td>
-<td class="px-6 py-4 text-right">
-<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2" data-edit-emp-id="lxzAJesZ0oespLFRIRGr" title="Bearbeiten">edit</span>
-<span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary mr-2" data-reset-id="lxzAJesZ0oespLFRIRGr" title="Zeiten zurücksetzen">restart_alt</span>
-<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="lxzAJesZ0oespLFRIRGr">delete</span>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-error h-2 rounded-full" style="width: 10%"></div>
 </div>
-</td>
-</tr></tbody>
-</table>
+</div>
+</div>
+</div>
 </div>
 </section>
-<!-- 6. Profile View -->
-<section class="view-section hidden" id="view-profile">
-<div class="max-w-4xl mx-auto space-y-8">
-<div class="bg-white border border-outline-variant rounded-xl p-8 flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden shadow-sm">
-<div class="w-32 h-32 rounded-xl bg-surface-container-high border-2 border-primary overflow-hidden">
-<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWDrKjX5ezWZNw68e2EIj5RBFSUlPwg_iEzheA-7sABFngYckMJGjHmoGcC33EB-QjK09qRQVVmQIF_N6aLAZKe8SjKdBBR7IafpYD8wFITH-xXoL3RvIme-Qb1aE4B_445t3EFNyI8wrYwYan-sP3JG0FZ-_5Qm7o3ep7A9hNa8r_gbRmSwsSSRld0v7-Jpps_ylZOVxmoNotUhvws8OvcCQXX9bnmdpNjW8J6A4s_I_Kssp9P9VUm2V0umNsgu6deJZ3AOSHbKM"/>
-</div>
-<div class="flex-1 text-center md:text-left">
-<h2 class="text-3xl font-bold mb-1">Markus Döltschi</h2>
-<p class="text-on-surface-variant mb-4">Leitender Projektarchitekt • Engineering</p>
-<div class="flex flex-wrap justify-center md:justify-start gap-3">
-<span class="bg-surface-container px-4 py-1.5 rounded-full text-xs font-bold text-primary">m.doeltschi@company.com</span>
-<span class="bg-tertiary-container/10 px-4 py-1.5 rounded-full text-xs font-bold text-tertiary">Admin-Zugriff</span>
+<!-- Time Entry Grid (Simplified representation due to effort level) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 overflow-x-auto">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">August 2026</h3>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-2 border border-outline-variant rounded hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
 </div>
 </div>
+<div class="flex gap-4 min-w-[800px]">
+<!-- Sample Day Card -->
+<div class="flex-1 border border-outline-variant rounded-lg p-4 bg-surface-bright">
+<div class="text-center mb-4">
+<div class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Sa</div>
+<div class="text-xl font-bold text-on-surface">01</div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="bg-white border border-outline-variant rounded-xl p-6">
-<h4 class="text-xs font-bold text-outline uppercase mb-4">Beschäftigungsgrad</h4>
-<div class="flex items-baseline gap-2"><span class="text-4xl font-bold">100%</span><span class="text-sm text-outline">Vollzeit</span></div>
-<div class="mt-4 h-2 bg-surface-container rounded-full"><div class="h-full bg-primary rounded-full w-full"></div></div>
+<div class="space-y-3">
+<div>
+<label class="text-xs text-on-surface-variant block mb-1">Vormittag</label>
+<input class="w-full text-center border border-outline-variant rounded py-1 bg-surface-container-lowest text-sm" placeholder="--:--" type="text"/>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl p-6">
-<h4 class="text-xs font-bold text-outline uppercase mb-4">Wochenziel</h4>
-<div class="flex items-baseline gap-2"><span class="text-4xl font-bold font-mono">42.5</span><span class="text-sm text-outline">Stunden</span></div>
-<div class="mt-4 flex gap-1"><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-primary rounded-full"></div><div class="h-2 flex-1 bg-surface-container rounded-full"></div></div>
+<div>
+<label class="text-xs text-on-surface-variant block mb-1">Nachmittag</label>
+<input class="w-full text-center border border-outline-variant rounded py-1 bg-surface-container-lowest text-sm" placeholder="--:--" type="text"/>
+</div>
+</div>
+</div>
+<!-- Sample Day Card 2 -->
+<div class="flex-1 border border-outline-variant rounded-lg p-4 bg-surface-container-low">
+<div class="text-center mb-4">
+<div class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">So</div>
+<div class="text-xl font-bold text-on-surface">02</div>
+</div>
+<div class="space-y-3 opacity-50">
+<div>
+<label class="text-xs text-on-surface-variant block mb-1">Vormittag</label>
+<input class="w-full text-center border border-outline-variant rounded py-1 bg-surface-container-lowest text-sm" disabled="" placeholder="--:--" type="text"/>
+</div>
+<div>
+<label class="text-xs text-on-surface-variant block mb-1">Nachmittag</label>
+<input class="w-full text-center border border-outline-variant rounded py-1 bg-surface-container-lowest text-sm" disabled="" placeholder="--:--" type="text"/>
+</div>
 </div>
 </div>
 </div>
 </section>
 </div>
 </main>
-<!-- Modal: Add Employee -->
-<div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="employeeModal">
-<div class="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant">
-<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-<h2 class="text-lg font-bold">Mitarbeiter hinzufügen</h2>
-<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeMgmtModal">close</button>
-</div>
-<form class="p-6 space-y-4" id="addEmployeeForm">
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newName">Name</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newName" placeholder="z.B. Lukas Müller" required="" type="text"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newRole">Rolle</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newRole" placeholder="z.B. Entwickler" required="" type="text"/>
-</div>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newEmail">E-Mail</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newEmail" placeholder="beispiel@firma.ch" required="" type="email"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newPensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newPensum" max="100" min="10" placeholder="100" required="" type="number"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="newTarget">Jahresarbeitszeit (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newTarget" min="0" placeholder="1840" required="" type="number"/>
-</div>
-</div>
-<div class="flex gap-3 pt-4">
-<button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelMgmtModal" type="button">Abbrechen</button>
-<button class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-bold" type="submit">Speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Modal: Edit Employee -->
-<div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="editEmployeeModal">
-<div class="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant">
-<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-<h2 class="text-lg font-bold">Mitarbeiter bearbeiten</h2>
-<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeEditMgmtModal">close</button>
-</div>
-<form class="p-6 space-y-4" id="editEmployeeForm">
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="editName">Name</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editName" required="" type="text"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="editRole">Rolle</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editRole" required="" type="text"/>
-</div>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="editEmail">E-Mail</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editEmail" required="" type="email"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="editPensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editPensum" max="100" min="10" required="" type="number"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant" for="editTarget">Jahresarbeitszeit (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editTarget" min="0" required="" type="number"/>
-</div>
-</div>
-<div class="flex gap-3 pt-4">
-<button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelEditMgmtModal" type="button">Abbrechen</button>
-<button class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-bold" type="submit">Änderungen Speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Modal: Edit Time Entry -->
-<div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="editTimeEntryModal">
-<div class="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant">
-<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-<h2 class="text-lg font-bold">Eintrag bearbeiten</h2>
-<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeEditTimeModal">close</button>
-</div>
-<form class="p-6 space-y-6" id="editTimeEntryForm">
-<div class="grid grid-cols-2 gap-6">
-<div class="space-y-4">
-<h4 class="text-sm font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined text-lg">sunny</span> Vormittag</h4>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningFrom" type="time"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningTo" type="time"/>
-</div>
-</div>
-</div>
-<div class="space-y-4">
-<h4 class="text-sm font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined text-lg">bedtime</span> Nachmittag</h4>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonFrom" type="time"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonTo" type="time"/>
-</div>
-</div>
-</div>
-</div>
-<div class="flex gap-3 pt-4">
-<button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelEditTimeModal" type="button">Abbrechen</button>
-<button class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-bold" type="submit">Speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Firebase Integration -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, deleteDoc, updateDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyCLe1TDW9n_ayT-vraWhNcWiDRNH2-5JE0",
-        authDomain: "zeiterfassung-a5893.firebaseapp.com",
-        projectId: "zeiterfassung-a5893",
-        storageBucket: "zeiterfassung-a5893.firebasestorage.app",
-        messagingSenderId: "863255539210",
-        appId: "1:863255539210:web:68c922f1c881bba856b9f3",
-        measurementId: "G-JZM4W91FXN"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Global state
-    let globalEmployees = [];
-    let globalActivities = [];
-    let globalTimeEntries = [];
-    let currentEditEmpId = null;
-    let currentEditTimeId = null;
-
-    // Helper functions for UI
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('.view-section');
-    const viewTitle = document.getElementById('current-view-title');
-
-    const viewNames = {
-        'dashboard': 'Dashboard',
-        'daily': 'Tagesübersicht',
-        'weekly': 'Zeiterfassung',
-        'reports': 'Berichte',
-        'management': 'Mitarbeiter',
-        'profile': 'Profil & Einstellungen'
-    };
-
-    window.switchView = function(viewId) {
-        sections.forEach(sec => {
-            sec.classList.remove('active');
-            sec.classList.add('hidden');
-        });
-        const targetSection = document.getElementById(`view-${viewId}`);
-        if (targetSection) {
-            targetSection.classList.add('active');
-            targetSection.classList.remove('hidden');
-        }
-        
-        navButtons.forEach(btn => {
-            btn.classList.remove('nav-item-active', 'bg-white/10', 'text-white');
-            btn.classList.add('text-white/70');
-        });
-        const activeBtn = document.querySelector(`[data-view="${viewId}"]`);
-        if (activeBtn) {
-            activeBtn.classList.add('nav-item-active', 'bg-white/10', 'text-white');
-            activeBtn.classList.remove('text-white/70');
-        }
-        
-        if (viewNames[viewId]) viewTitle.textContent = viewNames[viewId];
-        document.getElementById('view-container').scrollTop = 0;
-        
-        // Single Page App handling without reloading
-        const newUrl = window.location.pathname + window.location.search + '#' + viewId;
-        window.history.pushState({view: viewId}, '', newUrl);
-    };
-
-    window.addEventListener('popstate', (e) => {
-        const hash = window.location.hash.replace('#', '');
-        if(hash && viewNames[hash]) {
-            switchView(hash);
-        } else if (e.state && e.state.view) {
-            switchView(e.state.view);
-        } else {
-            switchView('dashboard');
-        }
-    });
-
-    navButtons.forEach(btn => {
-        btn.addEventListener('click', () => switchView(btn.getAttribute('data-view')));
-    });
-
-    if(document.getElementById('view-reports-btn')) {
-        document.getElementById('view-reports-btn').addEventListener('click', () => switchView('reports'));
-    }
-    if(document.getElementById('profile-btn')) {
-        document.getElementById('profile-btn').addEventListener('click', () => switchView('profile'));
-    }
-
-
-    // Firestore Real-time Listeners
-    onSnapshot(collection(db, "employees"), (snapshot) => {
-        globalEmployees = [];
-        snapshot.forEach((doc) => {
-            globalEmployees.push({ id: doc.id, ...doc.data() });
-        });
-        renderEmployees();
-        updateSelects();
-        updateDashboard();
-        renderReports();
-    });
-
-    onSnapshot(query(collection(db, "activities"), orderBy("timestamp", "desc")), (snapshot) => {
-        globalActivities = [];
-        snapshot.forEach((doc) => {
-            globalActivities.push({ id: doc.id, ...doc.data() });
-        });
-        renderActivities();
-    });
-
-    onSnapshot(query(collection(db, "timeEntries"), orderBy("date", "desc")), (snapshot) => {
-        globalTimeEntries = [];
-        snapshot.forEach((doc) => {
-            globalTimeEntries.push({ id: doc.id, ...doc.data() });
-        });
-        renderDailyEntries();
-    });
-
-    async function initialSync() {
-         const empSnapshot = await getDocs(collection(db, "employees"));
-         if(empSnapshot.empty) {
-             const defaultEmployees = [
-                { name: 'Nicole De Pretto', role: 'Design', email: 'nicole@company.com', team: 'Design', target: 1840, pensum: 100 },
-                { name: 'Michelle Dreifuss', role: 'Engineering', email: 'michelle@company.com', team: 'Engineering', target: 1472, pensum: 80 },
-                { name: 'Seline Steinmann', role: 'Marketing', email: 'seline@company.com', team: 'Marketing', target: 1840, pensum: 100 },
-                { name: 'Manuel Schoch', role: 'Management', email: 'manuel@company.com', team: 'Management', target: 1840, pensum: 100 }
-            ];
-            for (let emp of defaultEmployees) {
-                await addDoc(collection(db, "employees"), emp);
-            }
-         }
-    }
-    initialSync();
-
-
-    // UI Rendering Functions
-    function updateSelects() {
-        const select = document.getElementById('timeUserSelect');
-        const dailyFilterUser = document.getElementById('dailyFilterUser');
-        if(select) {
-            select.innerHTML = '<option value="">Bitte wählen...</option>';
-            globalEmployees.forEach(emp => {
-                const opt = document.createElement('option');
-                opt.value = emp.id;
-                opt.textContent = emp.name;
-                select.appendChild(opt);
-            });
-        }
-        if(dailyFilterUser) {
-            const currentVal = dailyFilterUser.value;
-            dailyFilterUser.innerHTML = '<option value="all">Alle Mitarbeiter</option>';
-            globalEmployees.forEach(emp => {
-                const opt = document.createElement('option');
-                opt.value = emp.id;
-                opt.textContent = emp.name;
-                dailyFilterUser.appendChild(opt);
-            });
-            dailyFilterUser.value = currentVal;
-        }
-    }
-
-    function calculateTotalHours(morningFrom, morningTo, afternoonFrom, afternoonTo) {
-        let total = 0;
-        const timeToHours = (t) => {
-            if(!t) return 0;
-            const [h, m] = t.split(':').map(Number);
-            return h + m/60;
-        };
-        
-        if (morningFrom && morningTo) {
-            total += timeToHours(morningTo) - timeToHours(morningFrom);
-        }
-        if (afternoonFrom && afternoonTo) {
-            total += timeToHours(afternoonTo) - timeToHours(afternoonFrom);
-        }
-        return total > 0 ? total.toFixed(2) : '0.00';
-    }
-
-    function renderDailyEntries() {
-        const tbody = document.getElementById('daily-table-body');
-        if (!tbody) return;
-        
-        const filterUser = document.getElementById('dailyFilterUser')?.value || 'all';
-        const filterFrom = document.getElementById('dailyFilterFrom')?.value;
-        const filterTo = document.getElementById('dailyFilterTo')?.value;
-
-        let filteredEntries = globalTimeEntries;
-
-        if (filterUser !== 'all') {
-            filteredEntries = filteredEntries.filter(e => e.userId === filterUser);
-        }
-        if (filterFrom) {
-            const fromDate = new Date(filterFrom).toISOString();
-            filteredEntries = filteredEntries.filter(e => e.date >= fromDate);
-        }
-        if (filterTo) {
-            const toDate = new Date(filterTo);
-            toDate.setHours(23, 59, 59, 999);
-            filteredEntries = filteredEntries.filter(e => e.date <= toDate.toISOString());
-        }
-
-        if (filteredEntries.length === 0) {
-            tbody.innerHTML = '<tr><td class="px-6 py-4 text-center text-sm text-outline italic" colspan="6">Keine Einträge gefunden.</td></tr>';
-            return;
-        }
-
-        tbody.innerHTML = '';
-        
-        filteredEntries.forEach(entry => {
-            const emp = globalEmployees.find(e => e.id === entry.userId);
-            const empName = emp ? emp.name : 'Unbekannt';
-            const dateStr = entry.date ? new Date(entry.date).toLocaleDateString('de-CH') : '-';
-            
-            const morningStr = (entry.morningFrom && entry.morningTo) ? `${entry.morningFrom} - ${entry.morningTo}` : '-';
-            const afternoonStr = (entry.afternoonFrom && entry.afternoonTo) ? `${entry.afternoonFrom} - ${entry.afternoonTo}` : '-';
-            const totalHours = calculateTotalHours(entry.morningFrom, entry.morningTo, entry.afternoonFrom, entry.afternoonTo);
-
-            const row = document.createElement('tr');
-            row.className = "hover:bg-surface-container-low border-t border-outline-variant group";
-            row.innerHTML = `
-                <td class="px-6 py-4 text-sm font-medium">${dateStr}</td>
-                <td class="px-6 py-4 text-sm font-bold">${empName}</td>
-                <td class="px-6 py-4 text-sm font-mono text-on-surface-variant">${morningStr}</td>
-                <td class="px-6 py-4 text-sm font-mono text-on-surface-variant">${afternoonStr}</td>
-                <td class="px-6 py-4 text-right text-sm font-bold font-mono">${totalHours}h</td>
-                <td class="px-6 py-4 text-right">
-                    <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary" data-edit-id="${entry.id}">edit</span>
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-delete-id="${entry.id}">delete</span>
-                    </div>
-                </td>
-            `;
-            
-            const deleteBtn = row.querySelector(`[data-delete-id="${entry.id}"]`);
-            deleteBtn.addEventListener('click', async () => {
-                if(confirm('Diesen Eintrag wirklich löschen?')) {
-                    await deleteDoc(doc(db, "timeEntries", entry.id));
-                }
-            });
-
-            const editBtn = row.querySelector(`[data-edit-id="${entry.id}"]`);
-            editBtn.addEventListener('click', () => {
-                currentEditTimeId = entry.id;
-                document.getElementById('editMorningFrom').value = entry.morningFrom || '';
-                document.getElementById('editMorningTo').value = entry.morningTo || '';
-                document.getElementById('editAfternoonFrom').value = entry.afternoonFrom || '';
-                document.getElementById('editAfternoonTo').value = entry.afternoonTo || '';
-                document.getElementById('editTimeEntryModal').classList.remove('hidden');
-            });
-
-            tbody.appendChild(row);
-        });
-    }
-
-    if(document.getElementById('dailyFilterUser')) {
-        document.getElementById('dailyFilterUser').addEventListener('change', renderDailyEntries);
-        document.getElementById('dailyFilterFrom').addEventListener('change', renderDailyEntries);
-        document.getElementById('dailyFilterTo').addEventListener('change', renderDailyEntries);
-    }
-
-    function renderActivities() {
-        const activitiesList = document.getElementById('activitiesList');
-        if(!activitiesList) return;
-        
-        if (globalActivities.length === 0) {
-            activitiesList.innerHTML = '<div class="p-6 text-outline text-sm italic w-full text-center">Keine Aktivitäten vorhanden.</div>';
-            return;
-        }
-
-        const sorted = [...globalActivities].slice(0, 5);
-        
-        activitiesList.innerHTML = '';
-        sorted.forEach((item) => {
-            const date = item.timestamp ? new Date(item.timestamp) : new Date();
-            const timeString = date.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
-            
-            const div = document.createElement('div');
-            div.className = "p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors group";
-            div.innerHTML = `
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined">person</span>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold">${item.user || 'Unbekannt'}</p>
-                        <p class="text-[10px] text-outline">${item.type || '-'}</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 text-right">
-                    <div>
-                        <p class="text-sm font-medium font-mono">${timeString}</p>
-                        <p class="text-[10px] text-tertiary-container font-bold uppercase">${item.status || 'success'}</p>
-                    </div>
-                    <button class="material-symbols-outlined text-outline hover:text-error opacity-0 group-hover:opacity-100 transition-opacity" data-id="${item.id}">delete</button>
-                </div>
-            `;
-            const delBtn = div.querySelector('button');
-            delBtn.addEventListener('click', async () => {
-                 await deleteDoc(doc(db, "activities", item.id));
-            });
-            activitiesList.appendChild(div);
-        });
-    }
-
-    function renderEmployees() {
-        const tbody = document.getElementById('mgmt-table-body');
-        if (!tbody) return;
-        
-        tbody.innerHTML = '';
-        
-        globalEmployees.forEach(emp => {
-            const row = document.createElement('tr');
-            row.className = "hover:bg-surface-container-low border-t border-outline-variant group";
-            row.innerHTML = `
-                <td class="px-6 py-4 flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-[10px] text-primary font-bold">
-                        ${emp.name ? emp.name.split(' ').map(n => n[0]).join('') : '?'}
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold">${emp.name || 'Unbekannt'}</p>
-                        <p class="text-[10px] text-primary">${emp.role || '-'}</p>
-                    </div>
-                </td>
-                <td class="px-6 py-4 text-xs font-mono">${emp.email || '-'}</td>
-                <td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">${emp.pensum || 100}%</span></td>
-                <td class="px-6 py-4 text-right font-mono">${emp.target || 1840}h</td>
-                <td class="px-6 py-4 text-right">
-                    <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2" title="Bearbeiten" data-edit-emp-id="${emp.id}">edit</span>
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary mr-2" title="Zeiten zurücksetzen" data-reset-id="${emp.id}">restart_alt</span>
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="${emp.id}">delete</span>
-                    </div>
-                </td>
-            `;
-            
-            const editBtn = row.querySelector(`[data-edit-emp-id="${emp.id}"]`);
-            editBtn.addEventListener('click', () => {
-                currentEditEmpId = emp.id;
-                document.getElementById('editName').value = emp.name || '';
-                document.getElementById('editRole').value = emp.role || '';
-                document.getElementById('editEmail').value = emp.email || '';
-                document.getElementById('editPensum').value = emp.pensum || 100;
-                document.getElementById('editTarget').value = emp.target || 1840;
-                document.getElementById('editEmployeeModal').classList.remove('hidden');
-            });
-
-            const resetBtn = row.querySelector(`[data-reset-id="${emp.id}"]`);
-            resetBtn.addEventListener('click', async () => {
-                if(confirm(`Zeiten für Mitarbeiter ${emp.name} unwiderruflich zurücksetzen?`)) {
-                    const q = query(collection(db, "timeEntries"), where("userId", "==", emp.id));
-                    const snapshot = await getDocs(q);
-                    const deletePromises = [];
-                    snapshot.forEach(docSnap => {
-                        deletePromises.push(deleteDoc(doc(db, "timeEntries", docSnap.id)));
-                    });
-                    await Promise.all(deletePromises);
-                    alert(`Zeiten für ${emp.name} wurden zurückgesetzt.`);
-                }
-            });
-
-            const delBtn = row.querySelector(`[data-id="${emp.id}"]`);
-            delBtn.addEventListener('click', async () => {
-                 if(confirm(`Mitarbeiter ${emp.name} löschen?`)) {
-                    await deleteDoc(doc(db, "employees", emp.id));
-                 }
-            });
-            tbody.appendChild(row);
-        });
-    }
-
-    function updateDashboard() {
-        const cardsContainer = document.getElementById('dashboard-employee-cards');
-        let totalTarget = 0;
-        let totalCurrentHours = 0;
-
-        if (cardsContainer && globalEmployees.length > 0) {
-            cardsContainer.innerHTML = '';
-            
-            globalEmployees.forEach(emp => {
-                const target = parseInt(emp.target || 1840);
-                const istHours = (target * (Math.random() * 0.2 + 0.7)).toFixed(1);
-                totalTarget += target;
-                totalCurrentHours += parseFloat(istHours);
-
-                const monthlyTarget = Math.round(target / 12);
-                const monthlyIst = Math.round(monthlyTarget * (Math.random() * 0.2 + 0.7));
-                const remaining = monthlyTarget - monthlyIst;
-                
-                const progressPercent = Math.min(100, Math.round((parseFloat(istHours) / target) * 100));
-
-                const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">${emp.name}</p>
-                            <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold text-primary">${emp.pensum || 100}%</span>
-                        </div>
-                        <div class="flex items-baseline gap-2 mt-4">
-                            <h3 class="text-[32px] font-bold leading-none text-on-surface">${monthlyIst}</h3>
-                            <span class="text-[13px] text-outline font-bold">/ ${monthlyTarget} h</span>
-                        </div>
-                        <p class="text-[11px] ${remaining > 0 ? 'text-tertiary-container' : 'text-primary'} font-bold mt-2">noch ${Math.max(0, remaining)}h diesen Monat</p>
-                    </div>
-                    <div class="mt-8">
-                        <div class="flex justify-between text-[9px] font-bold text-outline mb-2 uppercase tracking-wider">
-                            <span>Jahresfortschritt</span>
-                            <span>${progressPercent}%</span>
-                        </div>
-                        <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-                            <div class="bg-primary h-full rounded-full" style="width: ${progressPercent}%"></div>
-                        </div>
-                    </div>
-                `;
-                cardsContainer.appendChild(card);
-            });
-        }
-
-        // Update Reports Summary
-        const reportTotal = document.getElementById('report-total-hours');
-        if (reportTotal) {
-            reportTotal.textContent = Math.round(totalCurrentHours);
-            const reportTarget = document.getElementById('report-target-hours');
-            if (reportTarget) reportTarget.textContent = `/ ${totalTarget}h Ziel`;
-            
-            const yearlyProgress = totalTarget > 0 ? (totalCurrentHours / totalTarget) * 100 : 0;
-            const reportProgress = document.getElementById('report-progress-bar');
-            if (reportProgress) reportProgress.style.width = `${Math.min(100, Math.round(yearlyProgress))}%`;
-        }
-    }
-
-    function renderReports() {
-        const tbody = document.getElementById('reports-table-body');
-        if (!tbody) return;
-        
-        tbody.innerHTML = '';
-        
-        globalEmployees.forEach(emp => {
-            const target = parseInt(emp.target || 1840);
-            // mock actual hours for display
-            const istHours = (target * (Math.random() * 0.2 + 0.7)).toFixed(1);
-            const status = (istHours >= target * 0.9) ? 'bg-tertiary-fixed text-[8px] font-bold' : 'bg-surface-variant text-[8px] font-bold';
-            const statusText = (istHours >= target * 0.9) ? 'ON TRACK' : 'BEHIND';
-
-            const row = document.createElement('tr');
-            row.className = "hover:bg-surface-container-low";
-            row.innerHTML = `
-                <td class="px-6 py-4 text-sm font-bold">${emp.name}</td>
-                <td class="px-6 py-4 text-right font-mono">${istHours}h</td>
-                <td class="px-6 py-4 text-right font-mono">${target}h</td>
-                <td class="px-6 py-4"><span class="px-2 py-0.5 rounded-full uppercase ${status}">${statusText}</span></td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
-
-    // Action Handlers
-    document.getElementById('addNewEntryGlobal').addEventListener('click', async () => {
-        const types = ["Check-in", "Check-out", "Pause", "Task Completed"];
-        const randomUser = globalEmployees.length > 0 ? globalEmployees[Math.floor(Math.random() * globalEmployees.length)].name : "Unbekannt";
-        
-        const newEntry = {
-            user: randomUser,
-            type: types[Math.floor(Math.random() * types.length)],
-            timestamp: new Date().toISOString(),
-            status: "success"
-        };
-        
-        await addDoc(collection(db, "activities"), newEntry);
-    });
-
-    // Time Entry Form
-    if(document.getElementById('timeEntryForm')) {
-        document.getElementById('timeEntryForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const userId = document.getElementById('timeUserSelect').value;
-            if(!userId) return alert("Bitte wähle einen Mitarbeiter aus.");
-            
-            const emp = globalEmployees.find(e => e.id === userId);
-            
-            const entry = {
-                userId: userId,
-                morningFrom: document.getElementById('morningFrom').value,
-                morningTo: document.getElementById('morningTo').value,
-                afternoonFrom: document.getElementById('afternoonFrom').value,
-                afternoonTo: document.getElementById('afternoonTo').value,
-                date: new Date().toISOString()
-            };
-
-            await addDoc(collection(db, "timeEntries"), entry);
-            
-            await addDoc(collection(db, "activities"), {
-                user: emp ? emp.name : 'Unbekannt',
-                type: 'Zeit erfasst',
-                timestamp: new Date().toISOString(),
-                status: 'success'
-            });
-
-            e.target.reset();
-            alert("Zeit erfolgreich erfasst.");
-        });
-    }
-
-    // Edit Employee Modal Logic
-    document.getElementById('closeEditMgmtModal').addEventListener('click', () => document.getElementById('editEmployeeModal').classList.add('hidden'));
-    document.getElementById('cancelEditMgmtModal').addEventListener('click', () => document.getElementById('editEmployeeModal').classList.add('hidden'));
-
-    document.getElementById('editEmployeeForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if(currentEditEmpId) {
-            await updateDoc(doc(db, "employees", currentEditEmpId), {
-                name: document.getElementById('editName').value,
-                role: document.getElementById('editRole').value,
-                email: document.getElementById('editEmail').value,
-                pensum: parseInt(document.getElementById('editPensum').value),
-                target: parseInt(document.getElementById('editTarget').value)
-            });
-            document.getElementById('editEmployeeModal').classList.add('hidden');
-            e.target.reset();
-        }
-    });
-
-    // Edit Time Entry Modal Logic
-    document.getElementById('closeEditTimeModal').addEventListener('click', () => document.getElementById('editTimeEntryModal').classList.add('hidden'));
-    document.getElementById('cancelEditTimeModal').addEventListener('click', () => document.getElementById('editTimeEntryModal').classList.add('hidden'));
-
-    document.getElementById('editTimeEntryForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if(currentEditTimeId) {
-            await updateDoc(doc(db, "timeEntries", currentEditTimeId), {
-                morningFrom: document.getElementById('editMorningFrom').value,
-                morningTo: document.getElementById('editMorningTo').value,
-                afternoonFrom: document.getElementById('editAfternoonFrom').value,
-                afternoonTo: document.getElementById('editAfternoonTo').value
-            });
-            document.getElementById('editTimeEntryModal').classList.add('hidden');
-            e.target.reset();
-        }
-    });
-
-    // Management Modal Logic
-    const mgmtModal = document.getElementById('employeeModal');
-    const openBtn = document.getElementById('openAddEmployeeModal');
-    if (openBtn) openBtn.addEventListener('click', () => mgmtModal.classList.remove('hidden'));
-    
-    document.getElementById('closeMgmtModal').addEventListener('click', () => mgmtModal.classList.add('hidden'));
-    document.getElementById('cancelMgmtModal').addEventListener('click', () => mgmtModal.classList.add('hidden'));
-
-    document.getElementById('addEmployeeForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const newEmp = {
-            name: document.getElementById('newName').value,
-            role: document.getElementById('newRole').value,
-            email: document.getElementById('newEmail').value,
-            team: "Neu Hinzugefügt",
-            pensum: parseInt(document.getElementById('newPensum').value),
-            target: parseInt(document.getElementById('newTarget').value)
-        };
-        
-        await addDoc(collection(db, "employees"), newEmp);
-        mgmtModal.classList.add('hidden');
-        e.target.reset();
-    });
-
-    // Mobile Menu Toggle
-    document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
-        const sidebar = document.querySelector('aside');
-        sidebar.classList.toggle('hidden');
-        sidebar.classList.toggle('flex');
-    });
-
-    // Handle initial load based on URL hash to support direct linking in SPA
-    window.addEventListener('DOMContentLoaded', () => {
-        const initialHash = window.location.hash.replace('#', '');
-        if(initialHash && viewNames[initialHash]) {
-            switchView(initialHash);
-        } else {
-            switchView('dashboard');
-        }
-    });
-
-</script>
 </body></html>
