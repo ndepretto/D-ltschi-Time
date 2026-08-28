@@ -114,6 +114,10 @@
 <span class="material-symbols-outlined">schedule</span>
 <span class="text-sm font-semibold">Zeiterfassung</span>
 </button>
+<button class="nav-btn text-primary-fixed-dim flex items-center px-4 py-3 rounded-lg gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer" data-view="tagesuebersicht">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="text-sm font-semibold">Tagesübersicht</span>
+</button>
 <button class="nav-btn text-primary-fixed-dim flex items-center px-4 py-3 rounded-lg gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer" data-view="reports">
 <span class="material-symbols-outlined">analytics</span>
 <span class="text-sm font-semibold">Berichte</span>
@@ -159,79 +163,8 @@
 <div class="flex-1 overflow-y-auto p-8" id="view-container">
 <!-- 1. Dashboard View -->
 <section class="view-section active" id="view-dashboard">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-<!-- Nicole De Pretto -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 text-primary flex items-center justify-center font-bold">ND</div>
-<div>
-<h4 class="font-bold text-sm">Nicole De Pretto</h4>
-<p class="text-[10px] text-on-surface-variant">Architektin</p>
-</div>
-</div>
-<div class="mt-2">
-<p class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Geleistet / Jahressoll</p>
-<div class="flex items-baseline gap-2">
-<span class="text-2xl font-bold font-mono text-primary">1'240h</span>
-<span class="text-sm font-medium text-secondary">/ 2'080h</span>
-</div>
-<div class="mt-2 w-full bg-surface-container rounded-full h-1.5"><div class="bg-primary h-full w-[60%] rounded-full"></div></div>
-</div>
-</div>
-<!-- Michelle Dreifuss -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 text-primary flex items-center justify-center font-bold">MD</div>
-<div>
-<h4 class="font-bold text-sm">Michelle Dreifuss</h4>
-<p class="text-[10px] text-on-surface-variant">Projektleiterin</p>
-</div>
-</div>
-<div class="mt-2">
-<p class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Geleistet / Jahressoll</p>
-<div class="flex items-baseline gap-2">
-<span class="text-2xl font-bold font-mono text-primary">980h</span>
-<span class="text-sm font-medium text-secondary">/ 1'664h</span>
-</div>
-<div class="mt-2 w-full bg-surface-container rounded-full h-1.5"><div class="bg-primary h-full w-[58%] rounded-full"></div></div>
-</div>
-</div>
-<!-- Manuel Schoch -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 text-primary flex items-center justify-center font-bold">MS</div>
-<div>
-<h4 class="font-bold text-sm">Manuel Schoch</h4>
-<p class="text-[10px] text-on-surface-variant">Zeichner</p>
-</div>
-</div>
-<div class="mt-2">
-<p class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Geleistet / Jahressoll</p>
-<div class="flex items-baseline gap-2">
-<span class="text-2xl font-bold font-mono text-primary">1'420h</span>
-<span class="text-sm font-medium text-secondary">/ 2'080h</span>
-</div>
-<div class="mt-2 w-full bg-surface-container rounded-full h-1.5"><div class="bg-primary h-full w-[68%] rounded-full"></div></div>
-</div>
-</div>
-<!-- Seline Steinmann -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 text-primary flex items-center justify-center font-bold">SS</div>
-<div>
-<h4 class="font-bold text-sm">Seline Steinmann</h4>
-<p class="text-[10px] text-on-surface-variant">Administration</p>
-</div>
-</div>
-<div class="mt-2">
-<p class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Geleistet / Jahressoll</p>
-<div class="flex items-baseline gap-2">
-<span class="text-2xl font-bold font-mono text-primary">850h</span>
-<span class="text-sm font-medium text-secondary">/ 1'248h</span>
-</div>
-<div class="mt-2 w-full bg-surface-container rounded-full h-1.5"><div class="bg-primary h-full w-[68%] rounded-full"></div></div>
-</div>
-</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="dashboard-cards-container">
+<!-- Dashboard cards will be rendered here dynamically -->
 </div>
 </section>
 <!-- 2. Management View -->
@@ -247,8 +180,8 @@
 </div>
 <div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="p-4 border-b border-outline-variant flex gap-2 bg-surface-container-low">
-<button class="px-3 py-1.5 rounded-full border border-primary text-primary text-sm font-bold bg-primary-container/10">Alle (4)</button>
-<button class="px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant text-sm hover:bg-surface-variant/50 transition-colors">Aktiv (4)</button>
+<button class="px-3 py-1.5 rounded-full border border-primary text-primary text-sm font-bold bg-primary-container/10">Alle (<span id="total-employees-count">4</span>)</button>
+<button class="px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant text-sm hover:bg-surface-variant/50 transition-colors">Aktiv (<span id="active-employees-count">4</span>)</button>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left">
@@ -325,6 +258,31 @@
 </div>
 </div>
 <div class="mt-4 text-center text-sm font-mono text-primary font-bold">8.5 h</div>
+</div>
+</div>
+</section>
+<!-- 3.5 Tagesübersicht View -->
+<section class="view-section" id="view-tagesuebersicht">
+<div class="mb-6">
+<h3 class="text-2xl font-bold mb-1">Tagesübersicht</h3>
+<p class="text-sm text-on-surface-variant">Übersicht aller erfassten Zeiteinträge.</p>
+</div>
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-lowest border-b border-outline-variant">
+<tr class="text-[10px] text-outline uppercase font-bold tracking-wider">
+<th class="px-6 py-4">Datum</th>
+<th class="px-6 py-4">Mitarbeiter</th>
+<th class="px-6 py-4">Zeiten</th>
+<th class="px-6 py-4">Total</th>
+<th class="px-6 py-4 text-right">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="tagesuebersicht-table-body">
+<!-- JS injected -->
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -429,6 +387,7 @@
             'dashboard': 'Dashboard',
             'management': 'Mitarbeiter-Verwaltung',
             'zeiterfassung': 'Zeiterfassung',
+            'tagesuebersicht': 'Tagesübersicht',
             'reports': 'Berichte',
             'profile': 'Einstellungen'
         };
@@ -463,7 +422,7 @@
             });
         });
 
-        // 3. Employee Management Logic
+        // 3. Data Management
         const defaultEmployees = [
             { id: '1', firstName: 'Nicole', lastName: 'De Pretto', role: 'Architektin', email: 'n.depretto@timesync.ch', pensum: 100, jahressoll: 2080 },
             { id: '2', firstName: 'Michelle', lastName: 'Dreifuss', role: 'Projektleiterin', email: 'm.dreifuss@timesync.ch', pensum: 80, jahressoll: 1664 },
@@ -472,10 +431,55 @@
         ];
 
         let employees = JSON.parse(localStorage.getItem('timesync_employees')) || defaultEmployees;
+        
+        let timeEntries = JSON.parse(localStorage.getItem('timesync_entries')) || [
+            { id: 'entry-1', empId: '1', date: '2023-10-18', vm: '07:45 - 12:15', nm: '13:00 - 17:30', total: 9.0 },
+            { id: 'entry-2', empId: '2', date: '2023-10-17', vm: '08:00 - 12:00', nm: '13:00 - 17:30', total: 8.5 }
+        ];
+
+        function calculateGeleistet(empId) {
+            // Mock Firestore calculation
+            return timeEntries.filter(e => e.empId === empId).reduce((acc, curr) => acc + curr.total, 0);
+        }
+        
+        function renderDashboard() {
+            const container = document.getElementById('dashboard-cards-container');
+            container.innerHTML = '';
+            employees.forEach(emp => {
+                const geleistet = calculateGeleistet(emp.id);
+                // Initial values based on original mock + calculated
+                const displayGeleistet = geleistet + (emp.id === '1' ? 1240 : emp.id === '2' ? 980 : emp.id === '3' ? 1420 : 850);
+                const percent = Math.min(100, (displayGeleistet / emp.jahressoll) * 100);
+                const initials = emp.firstName.charAt(0) + emp.lastName.charAt(0);
+                
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2';
+                card.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 text-primary flex items-center justify-center font-bold">${initials}</div>
+                        <div>
+                            <h4 class="font-bold text-sm">${emp.firstName} ${emp.lastName}</h4>
+                            <p class="text-[10px] text-on-surface-variant">${emp.role}</p>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Geleistet / Jahressoll</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold font-mono text-primary">${displayGeleistet.toLocaleString('de-CH')}h</span>
+                            <span class="text-sm font-medium text-secondary">/ ${emp.jahressoll.toLocaleString('de-CH')}h</span>
+                        </div>
+                        <div class="mt-2 w-full bg-surface-container rounded-full h-1.5"><div class="bg-primary h-full rounded-full" style="width: ${percent}%"></div></div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
         function renderEmployees() {
             const tbody = document.getElementById('mgmt-table-body');
             tbody.innerHTML = '';
+            document.getElementById('total-employees-count').textContent = employees.length;
+            document.getElementById('active-employees-count').textContent = employees.length;
 
             employees.forEach(emp => {
                 const initials = emp.firstName.charAt(0) + emp.lastName.charAt(0);
@@ -505,6 +509,40 @@
             });
             localStorage.setItem('timesync_employees', JSON.stringify(employees));
         }
+
+        function renderTagesuebersicht() {
+            const tbody = document.getElementById('tagesuebersicht-table-body');
+            tbody.innerHTML = '';
+            
+            timeEntries.forEach(entry => {
+                const emp = employees.find(e => e.id === entry.empId) || { firstName: 'Unbekannt', lastName: '' };
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-container-low transition-colors duration-200 group';
+                tr.innerHTML = `
+                    <td class="px-6 py-4 text-sm font-bold">${entry.date}</td>
+                    <td class="px-6 py-4 text-sm">${emp.firstName} ${emp.lastName}</td>
+                    <td class="px-6 py-4 text-xs font-mono text-on-surface-variant">VM: ${entry.vm || '-'} | NM: ${entry.nm || '-'}</td>
+                    <td class="px-6 py-4 text-sm font-bold text-primary">${entry.total}h</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="p-2 text-on-surface-variant hover:text-error rounded-full hover:bg-error-container/50 transition-colors" onclick="deleteTimeEntry('${entry.id}')" title="Löschen">
+                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            localStorage.setItem('timesync_entries', JSON.stringify(timeEntries));
+        }
+
+        window.deleteTimeEntry = function(id) {
+            if(confirm('Zeiteintrag wirklich löschen?')) {
+                timeEntries = timeEntries.filter(e => e.id !== id);
+                renderTagesuebersicht();
+                renderDashboard();
+            }
+        };
 
         const empModal = document.getElementById('employeeModal');
         const empForm = document.getElementById('employeeForm');
@@ -538,6 +576,7 @@
             if(confirm('Mitarbeiter wirklich löschen?')) {
                 employees = employees.filter(e => e.id !== id);
                 renderEmployees();
+                renderDashboard();
             }
         };
 
@@ -562,6 +601,7 @@
             }
             
             renderEmployees();
+            renderDashboard();
             empModal.classList.add('hidden');
         });
 
@@ -575,6 +615,8 @@
         });
 
         // Initialize
+        renderDashboard();
         renderEmployees();
+        renderTagesuebersicht();
     </script>
 </body></html>
