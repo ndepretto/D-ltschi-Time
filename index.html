@@ -5,77 +5,149 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - All-in-One SPA</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-fixed": "#001848",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "surface-variant": "#d7e2ff",
-                        "on-secondary-container": "#606365",
-                        "background": "#f9f9ff",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "primary": "#003d9b",
-                        "outline": "#737685",
-                        "tertiary-container": "#a33500",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-primary": "#ffffff",
-                        "surface": "#f9f9ff",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "outline-variant": "#c3c6d6",
-                        "primary-fixed": "#dae2ff",
-                        "on-primary-container": "#c4d2ff",
-                        "inverse-primary": "#b2c5ff",
-                        "surface-container-highest": "#d7e2ff",
-                        "surface-container-high": "#e0e8ff",
-                        "on-surface": "#041b3c",
-                        "on-error-container": "#93000a",
-                        "on-tertiary-fixed-variant": "#812800",
-                        "inverse-surface": "#1d3052",
-                        "surface-bright": "#f9f9ff",
-                        "on-secondary-fixed": "#191c1e",
-                        "error-container": "#ffdad6",
-                        "on-background": "#041b3c",
-                        "on-tertiary-container": "#ffc6b2",
-                        "on-secondary-fixed-variant": "#444749",
-                        "on-error": "#ffffff",
-                        "surface-tint": "#0c56d0",
-                        "on-secondary": "#ffffff",
-                        "surface-dim": "#cadaff",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary": "#5c5f60",
-                        "on-surface-variant": "#434654",
-                        "primary-container": "#0052cc",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed": "#380d00",
-                        "tertiary": "#7b2600",
-                        "surface-container-low": "#f1f3ff",
-                        "surface-container": "#e8edff",
-                        "inverse-on-surface": "#edf0ff",
-                        "secondary-container": "#dee0e2"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "body": ["IBM Plex Sans", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
-                    }
-                }
-            }
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "primary-fixed-dim": "#b2c5ff",
+                "on-primary-fixed-variant": "#0040a2",
+                "background": "#f9f9ff",
+                "secondary-fixed": "#e1e2e4",
+                "surface": "#f9f9ff",
+                "on-background": "#041b3c",
+                "tertiary": "#7b2600",
+                "on-error": "#ffffff",
+                "on-secondary-fixed-variant": "#444749",
+                "on-secondary-fixed": "#191c1e",
+                "on-secondary-container": "#606365",
+                "primary": "#003d9b",
+                "surface-dim": "#cadaff",
+                "on-error-container": "#93000a",
+                "surface-bright": "#f9f9ff",
+                "primary-container": "#0052cc",
+                "inverse-on-surface": "#edf0ff",
+                "on-tertiary-fixed": "#380d00",
+                "surface-container": "#e8edff",
+                "secondary-fixed-dim": "#c5c6c8",
+                "surface-container-high": "#e0e8ff",
+                "on-surface-variant": "#434654",
+                "outline-variant": "#c3c6d6",
+                "primary-fixed": "#dae2ff",
+                "inverse-primary": "#b2c5ff",
+                "tertiary-fixed-dim": "#ffb59b",
+                "on-primary-container": "#c4d2ff",
+                "on-surface": "#041b3c",
+                "error-container": "#ffdad6",
+                "surface-tint": "#0c56d0",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#a33500",
+                "on-tertiary-container": "#ffc6b2",
+                "secondary": "#5c5f60",
+                "surface-variant": "#d7e2ff",
+                "surface-container-highest": "#d7e2ff",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-fixed": "#001848",
+                "tertiary-fixed": "#ffdbcf",
+                "secondary-container": "#dee0e2",
+                "outline": "#737685",
+                "inverse-surface": "#1d3052",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f1f3ff",
+                "error": "#ba1a1a",
+                "on-tertiary-fixed-variant": "#812800",
+                "on-primary": "#ffffff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "stack-md": "24px",
+                "stack-lg": "48px",
+                "stack-sm": "12px",
+                "unit": "8px",
+                "container-max": "800px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "headline-lg-mobile": [
+                        "Work Sans"
+                ],
+                "headline-md": [
+                        "Work Sans"
+                ],
+                "headline-lg": [
+                        "Work Sans"
+                ],
+                "label-caps": [
+                        "Work Sans"
+                ],
+                "body-md": [
+                        "Work Sans"
+                ],
+                "body-lg": [
+                        "Work Sans"
+                ],
+                "body": ["Work Sans", "sans-serif"],
+                "mono": ["JetBrains Mono", "monospace"]
+        },
+        "fontSize": {
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ]
         }
-    </script>
+},
+    },
+  }
+</script>
 <style>
-        body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f9f9ff; }
+        body { font-family: 'Work Sans', sans-serif; background-color: #f9f9ff; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
         .nav-item-active { background-color: rgba(178, 197, 255, 0.15); color: #b2c5ff; border-left: 4px solid #b2c5ff; font-weight: 700; }
         .view-section { display: none; }
@@ -174,6 +246,10 @@
 </button>
 <button class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant bg-primary-container flex items-center justify-center text-primary text-xs font-bold hover:ring-2 hover:ring-primary transition-all">
                     TD
+                </button>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface-variant px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ml-2 flex items-center gap-1 border border-outline-variant" id="logout-btn">
+<span class="material-symbols-outlined text-[16px]">logout</span>
+                    Logout
                 </button>
 </div>
 </div>
@@ -484,11 +560,15 @@
     const loginForm = document.getElementById('login-form');
     const passwordInput = document.getElementById('team-password');
     const loginError = document.getElementById('login-error');
+    const logoutBtn = document.getElementById('logout-btn');
 
     function checkAuth() {
         const isAuth = localStorage.getItem('dt_authenticated');
         if (isAuth === 'true') {
             showApp();
+        } else {
+            loginOverlay.classList.remove('hidden-auth');
+            appContent.classList.remove('visible-auth');
         }
     }
 
@@ -511,8 +591,20 @@
         }
     });
 
+    if(logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('dt_authenticated');
+            passwordInput.value = '';
+            loginError.classList.add('hidden');
+            loginOverlay.classList.remove('hidden-auth');
+            appContent.classList.remove('visible-auth');
+        });
+    }
+
     // Check auth on load
-    checkAuth();
+    document.addEventListener("DOMContentLoaded", () => {
+        checkAuth();
+    });
     // -------------------
 
     // 1. Firebase Configuration (Persisted)
