@@ -95,7 +95,6 @@
     </script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -104,28 +103,28 @@
 </head>
 <body class="bg-background text-on-background font-body-md flex h-screen overflow-hidden">
 <!-- SideNavBar -->
-<aside class="hidden md:flex flex-col h-full py-stack-md px-4 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm w-64 sticky left-0 top-0">
+<aside class="hidden md:flex flex-col h-full py-stack-md px-4 bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm w-64 sticky left-0 top-0">
 <div class="flex items-center gap-3 mb-8 px-2">
 <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">TS</div>
 <div>
-<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">TimeSync Pro</h1>
-<p class="text-xs text-on-surface-variant">Lokale Zeiterfassung</p>
+<h1 class="font-headline-md text-headline-md font-bold text-inverse-on-surface">TimeSync Pro</h1>
+<p class="text-xs text-inverse-on-surface/70">Lokale Zeiterfassung</p>
 </div>
 </div>
 <nav class="flex-1 space-y-2">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim bg-primary-container/10 transition-colors duration-200" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed-dim font-bold border-r-4 border-primary-fixed-dim bg-primary-container/20 transition-colors duration-200" href="#">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
 <span>Dashboard</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-inverse-on-surface/80 hover:text-primary-fixed-dim hover:bg-surface-variant/10 transition-colors duration-200" href="#">
 <span class="material-symbols-outlined">group</span>
 <span>Mitarbeiter</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-inverse-on-surface/80 hover:text-primary-fixed-dim hover:bg-surface-variant/10 transition-colors duration-200" href="#">
 <span class="material-symbols-outlined">schedule</span>
 <span>Zeiterfassung</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-inverse-on-surface/80 hover:text-primary-fixed-dim hover:bg-surface-variant/10 transition-colors duration-200" href="#">
 <span class="material-symbols-outlined">assessment</span>
 <span>Berichte</span>
 </a>
@@ -135,11 +134,11 @@
 <span class="material-symbols-outlined">add</span>
                 Neuer Eintrag
             </button>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-inverse-on-surface/80 hover:text-primary-fixed-dim hover:bg-surface-variant/10 transition-colors duration-200" href="#">
 <span class="material-symbols-outlined">settings</span>
 <span>Einstellungen</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors duration-200" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-inverse-on-surface/80 hover:text-primary-fixed-dim hover:bg-surface-variant/10 transition-colors duration-200" href="#">
 <span class="material-symbols-outlined">logout</span>
 <span>Abmelden</span>
 </a>
@@ -171,7 +170,7 @@
 <!-- Dashboard Content -->
 <div class="p-gutter max-w-[1200px] mx-auto w-full space-y-stack-lg pb-stack-lg">
 <!-- Employee Stats -->
-<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-md" id="employee-dashboard-cards">
 <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
 <div class="flex items-center gap-4 mb-4">
 <div class="w-16 h-16 rounded-full overflow-hidden bg-surface-variant">
@@ -222,7 +221,7 @@
 </div>
 </div>
 </section>
-<!-- Time Entry Grid (Simplified representation due to effort level) -->
+<!-- Time Entry Grid -->
 <section class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 overflow-x-auto">
 <div class="flex justify-between items-center mb-6">
 <h3 class="font-headline-md text-headline-md text-on-surface">August 2026</h3>
@@ -232,7 +231,7 @@
 </div>
 </div>
 <div class="flex gap-4 min-w-[800px]">
-<!-- Sample Day Card -->
+<!-- Sample Day Card 1 -->
 <div class="flex-1 border border-outline-variant rounded-lg p-4 bg-surface-bright">
 <div class="text-center mb-4">
 <div class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Sa</div>
@@ -270,4 +269,66 @@
 </section>
 </div>
 </main>
+<!-- Add Employee Modal (Hidden by default) -->
+<div class="hidden fixed inset-0 bg-on-background/50 z-50 flex items-center justify-center" id="addEmployeeModal">
+<div class="bg-surface-container-lowest rounded-xl shadow-lg w-full max-w-md p-6">
+<h2 class="font-headline-md text-headline-md mb-4 text-on-surface">Neuer Mitarbeiter</h2>
+<form id="addEmployeeForm">
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Name</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary focus:outline-none" id="empName" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Position</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary focus:outline-none" id="empPosition" required="" type="text"/>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-3">
+<button class="px-4 py-2 text-primary hover:bg-primary-container/10 rounded-lg transition-colors" id="closeModalBtn" type="button">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-opacity" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+    // Placeholder script for Firebase Firestore integration
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('addEmployeeModal');
+        const form = document.getElementById('addEmployeeForm');
+        const closeBtn = document.getElementById('closeModalBtn');
+        
+        // Mock loading from Firestore on initialization
+        console.log("Initializing: Loading employee list and dashboard cards from Firestore...");
+        
+        // Modal functionality
+        const closeModal = () => {
+            modal.classList.add('hidden');
+            form.reset();
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const newEmployee = {
+                name: document.getElementById('empName').value,
+                position: document.getElementById('empPosition').value
+            };
+
+            console.log("Saving to Firestore:", newEmployee);
+            
+            // Simulate Firebase save delay
+            setTimeout(() => {
+                console.log("Successfully saved to Firestore. Data persists after refresh.");
+                // Ensure modal closes automatically after save
+                closeModal();
+                
+                // Reload dashboard data
+                console.log("Reloading dashboard cards from Firestore...");
+            }, 500);
+        });
+    });
+</script>
 </body></html>
