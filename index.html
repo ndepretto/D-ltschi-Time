@@ -122,7 +122,10 @@
 <span class="material-symbols-outlined">analytics</span>
 <span class="text-sm font-semibold">Berichte</span>
 </button>
-</nav>
+<button class="nav-btn text-primary-fixed-dim flex items-center px-4 py-3 rounded-lg gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer" data-view="calendar">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-sm font-semibold">Kalender</span>
+</button></nav>
 </div>
 <div class="mt-auto border-t border-white/10 p-4">
 <button class="nav-btn text-primary-fixed-dim flex items-center px-4 py-3 rounded-lg gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer w-full text-left" data-view="profile">
@@ -318,7 +321,33 @@
 <p class="text-on-surface-variant">Einstellungen hier.</p>
 </div>
 </section>
+<section class="view-section" id="view-calendar">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-2xl font-bold mb-1">Kalender</h3>
+<p class="text-sm text-on-surface-variant">Übersicht Ihrer Arbeitsstunden im Monatsverlauf.</p>
 </div>
+<div class="flex items-center gap-2 bg-white border border-outline-variant rounded-lg p-1">
+<button class="p-1 hover:bg-surface-container-low rounded transition-colors" id="prev-month"><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="text-sm font-bold px-4" id="calendar-month-label">August 2026</span>
+<button class="p-1 hover:bg-surface-container-low rounded transition-colors" id="next-month"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="grid grid-cols-7 border-b border-outline-variant bg-surface-container-low">
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">Mo</div>
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">Di</div>
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">Mi</div>
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">Do</div>
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">Fr</div>
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">Sa</div>
+<div class="py-3 text-center text-[10px] font-bold text-outline uppercase">So</div>
+</div>
+<div class="grid grid-cols-7 divide-x divide-y divide-outline-variant" id="calendar-grid">
+<!-- Calendar days injected via JS -->
+</div>
+</div>
+</section></div>
 </main>
 <!-- Modal: Employee Management -->
 <div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="employeeModal">
