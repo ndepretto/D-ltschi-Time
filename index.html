@@ -102,25 +102,21 @@
 <span class="material-symbols-outlined">dashboard</span>
 <span class="text-sm font-semibold">Dashboard</span>
 </button>
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="management">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-semibold">Mitarbeiter</span>
+</button>
 <button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="weekly">
-<span class="material-symbols-outlined">calendar_view_week</span>
-<span class="text-sm font-semibold">Wochenübersicht</span>
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-sm font-semibold">Zeiterfassung</span>
+</button>
+<button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="team">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-semibold">Tagesübersicht</span>
 </button>
 <button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="reports">
 <span class="material-symbols-outlined">analytics</span>
-<span class="text-sm font-semibold">Monatsberichte</span>
-</button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="team">
-<span class="material-symbols-outlined">group</span>
-<span class="text-sm font-semibold">Team Dashboard</span>
-</button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="management">
-<span class="material-symbols-outlined">person_search</span>
-<span class="text-sm font-semibold">Mitarbeiter-Verwaltung</span>
-</button>
-<button class="nav-btn text-inverse-on-surface/80 flex items-center px-4 py-3 gap-3 hover:bg-white/5 transition-all duration-200 cursor-pointer" data-view="profile">
-<span class="material-symbols-outlined">settings</span>
-<span class="text-sm font-semibold">Profil &amp; Einstellungen</span>
+<span class="text-sm font-semibold">Berichte</span>
 </button>
 </nav>
 </div>
@@ -162,29 +158,142 @@
 <div class="flex-1 overflow-y-auto p-8" id="view-container">
 <!-- 1. Dashboard View -->
 <section class="view-section active" id="view-dashboard">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Aktive Mitglieder</p>
-<h3 class="text-3xl font-bold">24 / 28</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Team Gesundheit</p>
-<h3 class="text-3xl font-bold">92%</h3>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Ausstehend</p>
-<h3 class="text-3xl font-bold text-error">12</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Nicole De Pretto -->
+<div class="bg-white border border-outline-variant p-6 rounded-xl shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold text-sm">ND</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Nicole De Pretto</h3>
+<p class="text-xs text-on-surface-variant">Architektin FH</p>
 </div>
 </div>
-<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
-<div class="p-6 border-b border-surface-container flex justify-between items-center">
-<h3 class="font-bold">Neueste Aktivitäten</h3>
-<button class="text-primary text-sm font-semibold hover:underline" onclick="switchView('reports')">Alle ansehen</button>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">Pensum</p>
+<p class="text-sm font-semibold">80%</p>
 </div>
-<div class="divide-y divide-surface-container" id="activitiesList">
-<div class="p-6 flex items-center justify-center text-outline text-sm italic">
-                        Lade Aktivitäten...
-                    </div>
+<div class="pt-2 border-t border-surface-container">
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-2">Aktueller Monat (Okt)</p>
+<div class="flex justify-between items-baseline mb-1">
+<span class="text-2xl font-bold font-mono text-on-surface">112.5h</span>
+<span class="text-sm font-mono text-on-surface-variant">/ 135h</span>
+</div>
+<p class="text-xs font-semibold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+            22.5 FEHLSTUNDEN
+        </p>
+</div>
+<div class="mt-auto pt-4">
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">Jahresfortschritt</span>
+<span class="text-[10px] font-mono font-semibold">1240 / 1472h</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 84%"></div>
+</div>
+</div>
+</div>
+<!-- Michelle Dreifuss -->
+<div class="bg-white border border-outline-variant p-6 rounded-xl shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-sm">MD</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Michelle Dreifuss</h3>
+<p class="text-xs text-on-surface-variant">Bauleiterin</p>
+</div>
+</div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">Pensum</p>
+<p class="text-sm font-semibold">100%</p>
+</div>
+<div class="pt-2 border-t border-surface-container">
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-2">Aktueller Monat (Okt)</p>
+<div class="flex justify-between items-baseline mb-1">
+<span class="text-2xl font-bold font-mono text-on-surface">148.0h</span>
+<span class="text-sm font-mono text-on-surface-variant">/ 168h</span>
+</div>
+<p class="text-xs font-semibold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+            20.0 FEHLSTUNDEN
+        </p>
+</div>
+<div class="mt-auto pt-4">
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">Jahresfortschritt</span>
+<span class="text-[10px] font-mono font-semibold">1520 / 1840h</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 82%"></div>
+</div>
+</div>
+</div>
+<!-- Manuel Schoch -->
+<div class="bg-white border border-outline-variant p-6 rounded-xl shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-secondary font-bold text-sm">MS</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Manuel Schoch</h3>
+<p class="text-xs text-on-surface-variant">Junior Architekt</p>
+</div>
+</div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">Pensum</p>
+<p class="text-sm font-semibold">100%</p>
+</div>
+<div class="pt-2 border-t border-surface-container">
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-2">Aktueller Monat (Okt)</p>
+<div class="flex justify-between items-baseline mb-1">
+<span class="text-2xl font-bold font-mono text-on-surface">172.5h</span>
+<span class="text-sm font-mono text-on-surface-variant">/ 168h</span>
+</div>
+<p class="text-xs font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+            +4.5 ÜBERSTUNDEN
+        </p>
+</div>
+<div class="mt-auto pt-4">
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">Jahresfortschritt</span>
+<span class="text-[10px] font-mono font-semibold">1480 / 1840h</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<!-- Seline Steinmann -->
+<div class="bg-white border border-outline-variant p-6 rounded-xl shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-sm">SS</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Seline Steinmann</h3>
+<p class="text-xs text-on-surface-variant">Praktikantin</p>
+</div>
+</div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">Pensum</p>
+<p class="text-sm font-semibold">60%</p>
+</div>
+<div class="pt-2 border-t border-surface-container">
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-2">Aktueller Monat (Okt)</p>
+<div class="flex justify-between items-baseline mb-1">
+<span class="text-2xl font-bold font-mono text-on-surface">85.0h</span>
+<span class="text-sm font-mono text-on-surface-variant">/ 100h</span>
+</div>
+<p class="text-xs font-semibold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+            15.0 FEHLSTUNDEN
+        </p>
+</div>
+<div class="mt-auto pt-4">
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">Jahresfortschritt</span>
+<span class="text-[10px] font-mono font-semibold">910 / 1104h</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 82%"></div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -274,9 +383,9 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"><!-- Nicole -->
 <div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
 <div class="flex items-center gap-3 mb-4">
-<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold text-xs">NW</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold text-xs">ND</div>
 <div>
-<h4 class="text-sm font-bold">Nicole Wicki</h4>
+<h4 class="text-sm font-bold">Nicole De Pretto</h4>
 <p class="text-[10px] text-outline">Architektin FH</p>
 </div>
 </div>
@@ -292,9 +401,9 @@
 <!-- Michelle -->
 <div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
 <div class="flex items-center gap-3 mb-4">
-<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-xs">MB</div>
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-xs">MD</div>
 <div>
-<h4 class="text-sm font-bold">Michelle Blaser</h4>
+<h4 class="text-sm font-bold">Michelle Dreifuss</h4>
 <p class="text-[10px] text-outline">Bauleiterin</p>
 </div>
 </div>
@@ -312,7 +421,7 @@
 <div class="flex items-center gap-3 mb-4">
 <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary font-bold text-xs">MS</div>
 <div>
-<h4 class="text-sm font-bold">Manuel Schmid</h4>
+<h4 class="text-sm font-bold">Manuel Schoch</h4>
 <p class="text-[10px] text-outline">Junior Architekt</p>
 </div>
 </div>
@@ -328,9 +437,9 @@
 <!-- Seline -->
 <div class="bg-white border border-outline-variant p-5 rounded-xl hover:shadow-md transition-shadow">
 <div class="flex items-center gap-3 mb-4">
-<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs">SF</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs">SS</div>
 <div>
-<h4 class="text-sm font-bold">Seline Frei</h4>
+<h4 class="text-sm font-bold">Seline Steinmann</h4>
 <p class="text-[10px] text-outline">Praktikantin</p>
 </div>
 </div>
@@ -532,10 +641,10 @@
 
         const viewNames = {
             'dashboard': 'Dashboard',
-            'weekly': 'Wochenübersicht',
-            'reports': 'Monatsberichte',
-            'team': 'Team Dashboard',
-            'management': 'Mitarbeiter-Verwaltung',
+            'weekly': 'Zeiterfassung',
+            'reports': 'Berichte',
+            'team': 'Tagesübersicht',
+            'management': 'Mitarbeiter',
             'profile': 'Profil & Einstellungen'
         };
 
@@ -591,40 +700,42 @@
         // 3. Live Dashboard Logic
         function loadActivities() {
             const activitiesList = document.getElementById('activitiesList');
-            db.collection("activities").orderBy("timestamp", "desc").limit(5).onSnapshot((querySnapshot) => {
-                if (querySnapshot.empty) {
-                    activitiesList.innerHTML = '<div class="p-6 flex items-center justify-center text-outline text-sm italic">Keine Aktivitäten vorhanden.</div>';
-                    return;
-                }
-                activitiesList.innerHTML = '';
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const date = data.timestamp ? data.timestamp.toDate() : new Date();
-                    const timeString = date.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
-                    
-                    let absenceText = data.absence && data.absence !== 'Keine' ? ` - ${data.absence}` : '';
-                    let statusColor = data.absence === 'Krankheit' ? 'text-primary' : 'text-tertiary-container';
-
-                    const div = document.createElement('div');
-                    div.className = "p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors";
-                    div.innerHTML = `
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary">
-                                <span class="material-symbols-outlined">person</span>
+            if(activitiesList) {
+                db.collection("activities").orderBy("timestamp", "desc").limit(5).onSnapshot((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        activitiesList.innerHTML = '<div class="p-6 flex items-center justify-center text-outline text-sm italic">Keine Aktivitäten vorhanden.</div>';
+                        return;
+                    }
+                    activitiesList.innerHTML = '';
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const date = data.timestamp ? data.timestamp.toDate() : new Date();
+                        const timeString = date.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
+                        
+                        let absenceText = data.absence && data.absence !== 'Keine' ? ` - ${data.absence}` : '';
+                        let statusColor = data.absence === 'Krankheit' ? 'text-primary' : 'text-tertiary-container';
+    
+                        const div = document.createElement('div');
+                        div.className = "p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors";
+                        div.innerHTML = `
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined">person</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold">${data.user}</p>
+                                    <p class="text-[10px] text-outline">${data.type}${absenceText}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-sm font-bold">${data.user}</p>
-                                <p class="text-[10px] text-outline">${data.type}${absenceText}</p>
+                            <div class="text-right">
+                                <p class="text-sm font-medium font-mono">${timeString}</p>
+                                <p class="text-[10px] ${statusColor} font-bold uppercase">${data.status}</p>
                             </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm font-medium font-mono">${timeString}</p>
-                            <p class="text-[10px] ${statusColor} font-bold uppercase">${data.status}</p>
-                        </div>
-                    `;
-                    activitiesList.appendChild(div);
+                        `;
+                        activitiesList.appendChild(div);
+                    });
                 });
-            });
+            }
         }
 
         // New Entry Modal Logic
