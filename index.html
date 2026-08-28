@@ -1,7 +1,9 @@
-<!DOCTYPE html><html lang="de-CH"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+<!DOCTYPE html>
+
+<html lang="de-CH"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
         try{
@@ -110,7 +112,7 @@
 </button>
 <button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white mt-4" data-view="profile">
 <span class="material-symbols-outlined text-[20px]">settings</span>
-<span class="text-[15px] font-semibold text-left leading-tight">Profil &amp;<br>Einstellungen</span>
+<span class="text-[15px] font-semibold text-left leading-tight">Profil &amp;<br/>Einstellungen</span>
 </button>
 </nav>
 </div>
@@ -132,7 +134,7 @@
 <div class="flex items-center gap-6">
 <div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant w-64">
 <span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-full p-0" placeholder="Suchen..." type="text">
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full p-0" placeholder="Suchen..." type="text"/>
 </div>
 <div class="flex items-center gap-4">
 <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2" id="addNewEntryGlobal">
@@ -153,36 +155,36 @@
 <!-- 1. Dashboard View -->
 <section class="view-section active" id="view-dashboard">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="dashboard-employee-cards"><div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">Nicole De Pretto</p>
-                            <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold text-primary">100%</span>
-                        </div>
-                        <div class="flex items-baseline gap-2 mt-4">
-                            <h3 class="text-[32px] font-bold leading-none text-on-surface">116</h3>
-                            <span class="text-[13px] text-outline font-bold">/ 153 h</span>
-                        </div>
-                        <p class="text-[11px] text-tertiary-container font-bold mt-2">noch 37h diesen Monat</p>
-                    </div>
-                    <div class="mt-8">
-                        <div class="flex justify-between text-[9px] font-bold text-outline mb-2 uppercase tracking-wider">
-                            <span class="">Jahresfortschritt</span>
-                            <span class="">83%</span>
-                        </div>
-                        <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-                            <div class="bg-primary h-full rounded-full" style="width: 83%"></div>
-                        </div>
-                    </div>
-                </div></div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">Nicole De Pretto</p>
+<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold text-primary">100%</span>
+</div>
+<div class="flex items-baseline gap-2 mt-4">
+<h3 class="text-[32px] font-bold leading-none text-on-surface">116</h3>
+<span class="text-[13px] text-outline font-bold">/ 153 h</span>
+</div>
+<p class="text-[11px] text-tertiary-container font-bold mt-2">noch 37h diesen Monat</p>
+</div>
+<div class="mt-8">
+<div class="flex justify-between text-[9px] font-bold text-outline mb-2 uppercase tracking-wider">
+<span class="">Jahresfortschritt</span>
+<span class="">83%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 83%"></div>
+</div>
+</div>
+</div></div>
 <div class="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8 h-96">
 <!-- Days placeholders -->
-<div class="bg-white border-2 border-primary rounded-xl p-5 flex flex-col"><div class="flex justify-between items-start mb-6"><div><span class="block text-[10px] text-primary uppercase font-bold mb-1">Samstag</span><span class="text-xl font-bold">1.<br>Aug.</span></div><span class="bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold">HEUTE</span></div><div class="space-y-4 mt-auto"><div class="space-y-1"><span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">sunny</span> VORMITTAG</span><input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" readonly="" value="--:-- - --:--"></div><div class="space-y-1"><span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bedtime</span> NACHMITTAG</span><input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" placeholder="--:-- - --:--" readonly=""></div></div></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col"><div><span class="block text-[10px] text-secondary uppercase font-bold mb-1">Sonntag</span><span class="text-xl font-bold">2. Aug.</span></div><div class="mt-auto text-[13px] font-mono text-primary font-bold">0.0 h</div></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col"><div><span class="block text-[10px] text-secondary uppercase font-bold mb-1">Montag</span><span class="text-xl font-bold">3. Aug.</span></div><div class="mt-auto text-[13px] font-mono text-primary font-bold">8.5 h</div></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Di 4.</span></div>
-<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Mi 5.</span></div>
-<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Do 6.</span></div>
-<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Fr 7.</span></div>
+<div class="bg-white border-2 border-primary rounded-xl p-5 flex flex-col"><div class="flex justify-between items-start mb-6"><div><span class="block text-[10px] text-primary uppercase font-bold mb-1">Samstag</span><span class="text-xl font-bold">1.<br/>Aug. 2026</span></div><span class="bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold">HEUTE</span></div><div class="space-y-4 mt-auto"><div class="space-y-1"><span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">sunny</span> VORMITTAG</span><input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" readonly="" value="--:-- - --:--"/></div><div class="space-y-1"><span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bedtime</span> NACHMITTAG</span><input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" placeholder="--:-- - --:--" readonly=""/></div></div></div>
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col"><div><span class="block text-[10px] text-secondary uppercase font-bold mb-1">Sonntag</span><span class="text-xl font-bold">2. Aug. 2026</span></div><div class="mt-auto text-[13px] font-mono text-primary font-bold">0.0 h</div></div>
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col"><div><span class="block text-[10px] text-secondary uppercase font-bold mb-1">Montag</span><span class="text-xl font-bold">3. Aug. 2026</span></div><div class="mt-auto text-[13px] font-mono text-primary font-bold">8.5 h</div></div>
+<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Di 4. 2026</span></div>
+<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Mi 5. 2026</span></div>
+<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Do 6. 2026</span></div>
+<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Fr 7. 2026</span></div>
 </div>
 <div class="bg-white rounded-xl border border-outline-variant">
 <div class="p-6 border-b border-surface-container flex justify-between items-center">
@@ -201,9 +203,9 @@
 </div>
 <div class="flex items-center gap-3 bg-white p-2 rounded-lg border border-outline-variant shadow-sm">
 <select class="rounded-lg border-outline-variant text-sm p-1.5" id="dailyFilterUser"><option value="all">Alle Mitarbeiter</option><option value="lxzAJesZ0oespLFRIRGr">Nicole De Pretto</option></select>
-<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterFrom" type="date">
+<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterFrom" type="date"/>
 <span class="text-outline text-sm">-</span>
-<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterTo" type="date">
+<input class="rounded-lg border-outline-variant text-sm p-1.5 font-mono" id="dailyFilterTo" type="date"/>
 </div>
 </div>
 <div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
@@ -239,11 +241,11 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="morningFrom" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="morningFrom" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="morningTo" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="morningTo" type="time"/>
 </div>
 </div>
 </div>
@@ -252,11 +254,11 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="afternoonFrom" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="afternoonFrom" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="afternoonTo" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="afternoonTo" type="time"/>
 </div>
 </div>
 </div>
@@ -292,11 +294,11 @@
 <table class="w-full text-left">
 <thead><tr class="text-[10px] text-outline uppercase border-b border-surface-container"><th class="px-6 py-4">Mitarbeiter</th><th class="px-6 py-4 text-right">Ist-Stunden</th><th class="px-6 py-4 text-right">Soll-Stunden</th><th class="px-6 py-4">Status</th></tr></thead>
 <tbody class="divide-y divide-surface-container" id="reports-table-body"><tr class="hover:bg-surface-container-low">
-                <td class="px-6 py-4 text-sm font-bold">Nicole De Pretto</td>
-                <td class="px-6 py-4 text-right font-mono">1430.6h</td>
-                <td class="px-6 py-4 text-right font-mono">1840h</td>
-                <td class="px-6 py-4"><span class="px-2 py-0.5 rounded-full uppercase bg-surface-variant text-[8px] font-bold">BEHIND</span></td>
-            </tr></tbody>
+<td class="px-6 py-4 text-sm font-bold">Nicole De Pretto</td>
+<td class="px-6 py-4 text-right font-mono">1430.6h</td>
+<td class="px-6 py-4 text-right font-mono">1840h</td>
+<td class="px-6 py-4"><span class="px-2 py-0.5 rounded-full uppercase bg-surface-variant text-[8px] font-bold">BEHIND</span></td>
+</tr></tbody>
 </table>
 </div>
 </section>
@@ -315,26 +317,26 @@
 <tr class="text-[10px] text-outline uppercase font-bold"><th class="px-6 py-4">Name &amp; Rolle</th><th class="px-6 py-4">Email</th><th class="px-6 py-4">Pensum</th><th class="px-6 py-4 text-right">Jahressoll</th><th class="px-6 py-4 text-right">Aktionen</th></tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="mgmt-table-body"><tr class="hover:bg-surface-container-low border-t border-outline-variant group">
-                <td class="px-6 py-4 flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-[10px] text-primary font-bold">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-[10px] text-primary font-bold">
                         NDP
                     </div>
-                    <div>
-                        <p class="text-sm font-bold">Nicole De Pretto</p>
-                        <p class="text-[10px] text-primary">Design</p>
-                    </div>
-                </td>
-                <td class="px-6 py-4 text-xs font-mono">nicole@company.com</td>
-                <td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">100%</span></td>
-                <td class="px-6 py-4 text-right font-mono">1840h</td>
-                <td class="px-6 py-4 text-right">
-                    <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2" title="Bearbeiten" data-edit-emp-id="lxzAJesZ0oespLFRIRGr">edit</span>
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary mr-2" title="Zeiten zurücksetzen" data-reset-id="lxzAJesZ0oespLFRIRGr">restart_alt</span>
-                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="lxzAJesZ0oespLFRIRGr">delete</span>
-                    </div>
-                </td>
-            </tr></tbody>
+<div>
+<p class="text-sm font-bold">Nicole De Pretto</p>
+<p class="text-[10px] text-primary">Design</p>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono">nicole@company.com</td>
+<td class="px-6 py-4"><span class="bg-surface-container px-3 py-1 rounded-full text-[10px] font-bold">100%</span></td>
+<td class="px-6 py-4 text-right font-mono">1840h</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2" data-edit-emp-id="lxzAJesZ0oespLFRIRGr" title="Bearbeiten">edit</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary mr-2" data-reset-id="lxzAJesZ0oespLFRIRGr" title="Zeiten zurücksetzen">restart_alt</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="lxzAJesZ0oespLFRIRGr">delete</span>
+</div>
+</td>
+</tr></tbody>
 </table>
 </div>
 </section>
@@ -343,7 +345,7 @@
 <div class="max-w-4xl mx-auto space-y-8">
 <div class="bg-white border border-outline-variant rounded-xl p-8 flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden shadow-sm">
 <div class="w-32 h-32 rounded-xl bg-surface-container-high border-2 border-primary overflow-hidden">
-<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWDrKjX5ezWZNw68e2EIj5RBFSUlPwg_iEzheA-7sABFngYckMJGjHmoGcC33EB-QjK09qRQVVmQIF_N6aLAZKe8SjKdBBR7IafpYD8wFITH-xXoL3RvIme-Qb1aE4B_445t3EFNyI8wrYwYan-sP3JG0FZ-_5Qm7o3ep7A9hNa8r_gbRmSwsSSRld0v7-Jpps_ylZOVxmoNotUhvws8OvcCQXX9bnmdpNjW8J6A4s_I_Kssp9P9VUm2V0umNsgu6deJZ3AOSHbKM">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWDrKjX5ezWZNw68e2EIj5RBFSUlPwg_iEzheA-7sABFngYckMJGjHmoGcC33EB-QjK09qRQVVmQIF_N6aLAZKe8SjKdBBR7IafpYD8wFITH-xXoL3RvIme-Qb1aE4B_445t3EFNyI8wrYwYan-sP3JG0FZ-_5Qm7o3ep7A9hNa8r_gbRmSwsSSRld0v7-Jpps_ylZOVxmoNotUhvws8OvcCQXX9bnmdpNjW8J6A4s_I_Kssp9P9VUm2V0umNsgu6deJZ3AOSHbKM"/>
 </div>
 <div class="flex-1 text-center md:text-left">
 <h2 class="text-3xl font-bold mb-1">Markus Döltschi</h2>
@@ -381,25 +383,25 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="newName">Name</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newName" placeholder="z.B. Lukas Müller" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newName" placeholder="z.B. Lukas Müller" required="" type="text"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="newRole">Rolle</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newRole" placeholder="z.B. Entwickler" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newRole" placeholder="z.B. Entwickler" required="" type="text"/>
 </div>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="newEmail">E-Mail</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newEmail" placeholder="beispiel@firma.ch" required="" type="email">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newEmail" placeholder="beispiel@firma.ch" required="" type="email"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="newPensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newPensum" max="100" min="10" placeholder="100" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newPensum" max="100" min="10" placeholder="100" required="" type="number"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="newTarget">Jahresarbeitszeit (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="newTarget" min="0" placeholder="1840" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="newTarget" min="0" placeholder="1840" required="" type="number"/>
 </div>
 </div>
 <div class="flex gap-3 pt-4">
@@ -420,25 +422,25 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="editName">Name</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editName" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editName" required="" type="text"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="editRole">Rolle</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editRole" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editRole" required="" type="text"/>
 </div>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="editEmail">E-Mail</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editEmail" required="" type="email">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editEmail" required="" type="email"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="editPensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editPensum" max="100" min="10" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editPensum" max="100" min="10" required="" type="number"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface-variant" for="editTarget">Jahresarbeitszeit (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2" id="editTarget" min="0" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editTarget" min="0" required="" type="number"/>
 </div>
 </div>
 <div class="flex gap-3 pt-4">
@@ -462,11 +464,11 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningFrom" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningFrom" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningTo" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningTo" type="time"/>
 </div>
 </div>
 </div>
@@ -475,11 +477,11 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Von</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonFrom" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonFrom" type="time"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonTo" type="time">
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonTo" type="time"/>
 </div>
 </div>
 </div>
@@ -1075,6 +1077,4 @@
     });
 
 </script>
-
-
 </body></html>
