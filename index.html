@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- COPY THIS CODE FOR GITHUB PAGES --><!DOCTYPE html>
 
 <html lang="de-CH"><head>
 <meta charset="utf-8"/>
@@ -78,10 +78,10 @@
 </head>
 <body class="flex h-screen overflow-hidden text-on-surface font-body">
 <!-- Global Sidebar -->
-<aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-inverse-surface border-r border-outline-variant z-40 hidden md:flex text-white">
+<aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-inverse-surface z-40 hidden md:flex text-white">
 <div class="px-6 py-8 flex flex-col gap-1">
 <div class="flex items-center gap-3 mb-8">
-<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white border border-white/20">
+<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-white">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
 </div>
 <div>
@@ -89,52 +89,52 @@
 <p class="text-[10px] font-bold text-white/70 uppercase tracking-wider">Precision &amp; Flow</p>
 </div>
 </div>
-<nav class="flex flex-col h-full py-2 gap-1 overflow-y-auto sidebar-scroll" id="main-nav">
-<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer nav-item-active bg-white/10 rounded-lg" data-view="dashboard">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="text-sm font-bold">Dashboard</span>
+<nav class="flex flex-col h-full py-2 gap-2 overflow-y-auto sidebar-scroll" id="main-nav">
+<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer nav-item-active bg-white/10 rounded-lg text-white" data-view="dashboard">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-[15px] font-semibold">Dashboard</span>
 </button>
-<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="daily">
-<span class="material-symbols-outlined">event_note</span>
-<span class="text-sm font-bold">Tagesübersicht</span>
+<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="daily">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="text-[15px] font-semibold">Tagesübersicht</span>
 </button>
-<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="management">
-<span class="material-symbols-outlined">person_search</span>
-<span class="text-sm font-bold">Mitarbeiter</span>
+<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="management">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-[15px] font-semibold">Mitarbeiter</span>
 </button>
-<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="weekly">
-<span class="material-symbols-outlined">timer</span>
-<span class="text-sm font-bold">Zeiterfassung</span>
+<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="weekly">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span class="text-[15px] font-semibold">Zeiterfassung</span>
 </button>
-<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="reports">
-<span class="material-symbols-outlined">analytics</span>
-<span class="text-sm font-bold">Berichte</span>
+<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white" data-view="reports">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-[15px] font-semibold">Berichte</span>
 </button>
-<button class="nav-btn text-white flex items-center px-4 py-3 gap-3 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg" data-view="profile">
-<span class="material-symbols-outlined">settings</span>
-<span class="text-sm font-bold">Profil &amp; Einstellungen</span>
+<button class="nav-btn text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg hover:text-white mt-4" data-view="profile">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-[15px] font-semibold text-left leading-tight">Profil &amp;<br/>Einstellungen</span>
 </button>
 </nav>
 </div>
 <div class="mt-auto border-t border-white/10 p-4 space-y-2">
-<a class="text-white flex items-center px-4 py-3 gap-3 hover:bg-error/20 hover:text-error-container transition-all duration-200 cursor-pointer rounded-lg" href="#">
-<span class="material-symbols-outlined">logout</span>
-<span class="text-sm font-bold">Abmelden</span>
-</a>
+<button class="w-full text-white/70 flex items-center px-4 py-3 gap-4 hover:bg-white/5 transition-all duration-200 cursor-pointer rounded-lg hover:text-white">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-[15px] font-semibold">Abmelden</span>
+</button>
 </div>
 </aside>
 <!-- Main Content Area -->
 <main class="md:ml-64 flex-1 flex flex-col h-full overflow-hidden bg-background">
 <!-- Shared Header -->
-<header class="bg-surface border-b border-outline-variant h-16 w-full flex justify-between items-center px-8 flex-shrink-0 z-30">
+<header class="bg-surface border-b border-outline-variant h-20 w-full flex justify-between items-center px-8 flex-shrink-0 z-30">
 <div class="flex items-center gap-4">
 <span class="md:hidden material-symbols-outlined text-on-surface cursor-pointer" id="mobile-menu-toggle">menu</span>
-<h2 class="text-xl font-bold text-primary" id="current-view-title">Dashboard</h2>
+<h2 class="text-[22px] font-bold text-primary" id="current-view-title">Dashboard</h2>
 </div>
 <div class="flex items-center gap-6">
-<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant w-64">
 <span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text"/>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full p-0" placeholder="Suchen..." type="text"/>
 </div>
 <div class="flex items-center gap-4">
 <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2" id="addNewEntryGlobal">
@@ -144,7 +144,7 @@
 <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
 <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
 </button>
-<button class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant bg-primary-container flex items-center justify-center text-primary text-xs font-bold hover:ring-2 hover:ring-primary transition-all" id="profile-btn">
+<button class="h-8 w-8 rounded-full overflow-hidden bg-primary flex items-center justify-center text-white text-xs font-bold hover:ring-2 hover:ring-primary transition-all" id="profile-btn">
                     MD
                 </button>
 </div>
@@ -159,44 +159,53 @@
 <p class="text-xs text-on-surface-variant uppercase font-bold mb-2">Lade Mitarbeiter...</p>
 </div>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8">
+<div class="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8 h-96">
 <!-- Days placeholders -->
-<div class="bg-white border-2 border-primary rounded-xl p-4 shadow-sm">
-<div class="mb-4 border-b pb-2 flex justify-between items-start">
-<div><span class="block text-[10px] text-primary uppercase font-bold">Mittwoch</span><span class="text-xl font-bold">18. Okt.</span></div>
-<span class="bg-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold">HEUTE</span>
+<div class="bg-white border-2 border-primary rounded-xl p-5 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="block text-[10px] text-primary uppercase font-bold mb-1">Mittwoch</span>
+<span class="text-xl font-bold">18.<br/>Okt.</span>
 </div>
-<div class="space-y-4">
+<span class="bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold">HEUTE</span>
+</div>
+<div class="space-y-4 mt-auto">
 <div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-xs font-mono border border-outline-variant rounded p-1 text-center" readonly="" value="07:45 - 12:15"/>
+<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">sunny</span> VORMITTAG</span>
+<input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" readonly="" value="07:45 - 12:15"/>
 </div>
 <div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-xs font-mono border border-outline-variant rounded p-1 text-center" placeholder="--:-- - --:--" readonly=""/>
+<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bedtime</span> NACHMITTAG</span>
+<input class="w-full text-[13px] font-mono border border-outline-variant rounded p-1.5 text-center" placeholder="--:-- - --:--" readonly=""/>
 </div>
 </div>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl p-4 opacity-75">
-<span class="block text-[10px] text-secondary uppercase font-bold">Montag</span><span class="text-xl font-bold">16. Okt.</span>
-<div class="mt-4 text-xs font-mono text-primary font-bold">8.5 h</div>
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col">
+<div>
+<span class="block text-[10px] text-secondary uppercase font-bold mb-1">Montag</span>
+<span class="text-xl font-bold">16. Okt.</span>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl p-4 opacity-75">
-<span class="block text-[10px] text-secondary uppercase font-bold">Dienstag</span><span class="text-xl font-bold">17. Okt.</span>
-<div class="mt-4 text-xs font-mono text-primary font-bold">8.5 h</div>
+<div class="mt-auto text-[13px] font-mono text-primary font-bold">8.5 h</div>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl p-4 opacity-75"><span class="text-[10px] text-secondary font-bold">Do 19.</span></div>
-<div class="bg-white border border-outline-variant rounded-xl p-4 opacity-75"><span class="text-[10px] text-secondary font-bold">Fr 20.</span></div>
-<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-4 grayscale"><span class="text-[10px] text-secondary font-bold">Sa 21.</span></div>
-<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-4 grayscale"><span class="text-[10px] text-secondary font-bold">So 22.</span></div>
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex flex-col">
+<div>
+<span class="block text-[10px] text-secondary uppercase font-bold mb-1">Dienstag</span>
+<span class="text-xl font-bold">17. Okt.</span>
 </div>
-<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="mt-auto text-[13px] font-mono text-primary font-bold">8.5 h</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Do 19.</span></div>
+<div class="bg-white border border-outline-variant rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Fr 20.</span></div>
+<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">Sa 21.</span></div>
+<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-5"><span class="text-[11px] text-secondary font-bold">So 22.</span></div>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant">
 <div class="p-6 border-b border-surface-container flex justify-between items-center">
-<h3 class="font-bold">Neueste Aktivitäten</h3>
+<h3 class="font-bold text-lg">Neueste Aktivitäten</h3>
 <button class="text-primary text-sm font-semibold hover:underline" id="view-reports-btn">Alle ansehen</button>
 </div>
-<div class="divide-y divide-surface-container" id="activitiesList">
-<div class="p-6 flex items-center justify-center text-outline text-sm italic">Lade Aktivitäten...</div>
+<div class="divide-y divide-surface-container min-h-[100px] flex items-center justify-center" id="activitiesList">
+<div class="p-6 text-outline text-sm italic">Lade Aktivitäten...</div>
 </div>
 </div>
 </section>
@@ -451,21 +460,32 @@
         }
         
         navButtons.forEach(btn => {
-            btn.classList.remove('nav-item-active', 'bg-white/10');
+            btn.classList.remove('nav-item-active', 'bg-white/10', 'text-white');
+            btn.classList.add('text-white/70');
         });
         const activeBtn = document.querySelector(`[data-view="${viewId}"]`);
         if (activeBtn) {
-            activeBtn.classList.add('nav-item-active', 'bg-white/10');
+            activeBtn.classList.add('nav-item-active', 'bg-white/10', 'text-white');
+            activeBtn.classList.remove('text-white/70');
         }
         
         if (viewNames[viewId]) viewTitle.textContent = viewNames[viewId];
         document.getElementById('view-container').scrollTop = 0;
-        history.pushState(null, null, `#${viewId}`);
+        
+        // Single Page App handling without reloading
+        const newUrl = window.location.pathname + window.location.search + '#' + viewId;
+        window.history.pushState({view: viewId}, '', newUrl);
     };
 
-    window.addEventListener('popstate', () => {
+    window.addEventListener('popstate', (e) => {
         const hash = window.location.hash.replace('#', '');
-        if(hash) switchView(hash && viewNames[hash] ? hash : 'dashboard');
+        if(hash && viewNames[hash]) {
+            switchView(hash);
+        } else if (e.state && e.state.view) {
+            switchView(e.state.view);
+        } else {
+            switchView('dashboard');
+        }
     });
 
     navButtons.forEach(btn => {
@@ -651,7 +671,7 @@
         if(!activitiesList) return;
         
         if (globalActivities.length === 0) {
-            activitiesList.innerHTML = '<div class="p-6 flex items-center justify-center text-outline text-sm italic">Keine Aktivitäten vorhanden.</div>';
+            activitiesList.innerHTML = '<div class="p-6 text-outline text-sm italic w-full text-center">Keine Aktivitäten vorhanden.</div>';
             return;
         }
 
@@ -770,22 +790,22 @@
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-start mb-2">
-                            <p class="text-xs text-on-surface-variant uppercase font-bold">${emp.name}</p>
-                            <span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-primary">${emp.pensum || 100}%</span>
+                            <p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">${emp.name}</p>
+                            <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold text-primary">${emp.pensum || 100}%</span>
                         </div>
-                        <div class="flex items-baseline gap-2">
-                            <h3 class="text-3xl font-bold">${monthlyIst}</h3>
-                            <span class="text-sm text-outline font-bold">/ ${monthlyTarget} h</span>
+                        <div class="flex items-baseline gap-2 mt-4">
+                            <h3 class="text-[32px] font-bold leading-none text-on-surface">${monthlyIst}</h3>
+                            <span class="text-[13px] text-outline font-bold">/ ${monthlyTarget} h</span>
                         </div>
-                        <p class="text-xs ${remaining > 0 ? 'text-tertiary-container' : 'text-primary'} font-bold mt-1">noch ${Math.max(0, remaining)}h diesen Monat</p>
+                        <p class="text-[11px] ${remaining > 0 ? 'text-tertiary-container' : 'text-primary'} font-bold mt-2">noch ${Math.max(0, remaining)}h diesen Monat</p>
                     </div>
-                    <div class="mt-6">
-                        <div class="flex justify-between text-[10px] font-bold text-outline mb-1 uppercase">
+                    <div class="mt-8">
+                        <div class="flex justify-between text-[9px] font-bold text-outline mb-2 uppercase tracking-wider">
                             <span>Jahresfortschritt</span>
                             <span>${progressPercent}%</span>
                         </div>
                         <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
-                            <div class="bg-primary h-full" style="width: ${progressPercent}%"></div>
+                            <div class="bg-primary h-full rounded-full" style="width: ${progressPercent}%"></div>
                         </div>
                     </div>
                 `;
@@ -910,12 +930,15 @@
         sidebar.classList.toggle('flex');
     });
 
-    // Handle initial hash load correctly
-    const initialHash = window.location.hash.replace('#', '');
-    if(initialHash && viewNames[initialHash]) {
-        switchView(initialHash);
-    } else {
-        switchView('dashboard');
-    }
+    // Handle initial load based on URL hash to support direct linking in SPA
+    window.addEventListener('DOMContentLoaded', () => {
+        const initialHash = window.location.hash.replace('#', '');
+        if(initialHash && viewNames[initialHash]) {
+            switchView(initialHash);
+        } else {
+            switchView('dashboard');
+        }
+    });
+
 </script>
 </body></html>
