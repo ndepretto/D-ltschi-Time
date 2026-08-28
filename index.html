@@ -554,9 +554,7 @@
         let employees = JSON.parse(localStorage.getItem('timesync_employees')) || defaultEmployees;
         
         let timeEntries = JSON.parse(localStorage.getItem('timesync_entries')) || [
-            { id: 'entry-1', empId: '1', date: '2026-08-01', vm: '07:45 - 12:15', nm: '13:00 - 17:30', total: 9.0 },
-            { id: 'entry-2', empId: '2', date: '2026-07-31', vm: '08:00 - 12:00', nm: '13:00 - 17:30', total: 8.5 },
-            { id: 'entry-3', empId: '1', date: '2026-07-30', vm: '07:30 - 12:00', nm: '13:00 - 17:00', total: 8.5 }
+            { id: 'entry-1', empId: '1', date: '2026-08-01', vm: '07:45 - 12:15', nm: '13:00 - 17:30', total: 9.0 }
         ];
 
         function populateEmployeeDropdown() {
@@ -573,7 +571,7 @@
         }
 
         function calculateGeleistet(empId) {
-            return timeEntries.filter(e => e.empId === empId).reduce((acc, curr) => acc + curr.total, 0);
+            return timeEntries.filter(e => e.empId === empId && e.date >= '2026-08-01').reduce((acc, curr) => acc + curr.total, 0);
         }
         
         function renderDashboard() {
@@ -581,8 +579,7 @@
             container.innerHTML = '';
             employees.forEach(emp => {
                 const geleistet = calculateGeleistet(emp.id);
-                // Initial values based on original mock + calculated
-                const displayGeleistet = geleistet + (emp.id === '1' ? 1240 : emp.id === '2' ? 980 : emp.id === '3' ? 1420 : 850);
+                const displayGeleistet = geleistet;
                 const percent = Math.min(100, (displayGeleistet / emp.jahressoll) * 100);
                 const initials = emp.firstName.charAt(0) + emp.lastName.charAt(0);
                 
