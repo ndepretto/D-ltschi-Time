@@ -82,9 +82,39 @@
         .view-section.active { display: block; }
         .sidebar-scroll::-webkit-scrollbar { width: 4px; }
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #434654; border-radius: 10px; }
+        
+        #login-overlay { transition: opacity 0.4s ease, visibility 0.4s ease; }
+        #login-overlay.hidden-auth { opacity: 0; visibility: hidden; pointer-events: none; }
+        #app-content { transition: opacity 0.4s ease; opacity: 0; visibility: hidden; }
+        #app-content.visible-auth { opacity: 1; visibility: visible; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden text-on-surface">
+<!-- Login Overlay -->
+<div class="fixed inset-0 z-[100] bg-inverse-surface flex items-center justify-center" id="login-overlay">
+<div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-8 border border-outline-variant flex flex-col items-center">
+<div class="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-on-primary mb-6 shadow-lg">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<h1 class="text-2xl font-bold text-on-surface mb-2 text-center">Döltschi Time</h1>
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-8 text-center">Precision &amp; Flow</p>
+<form class="w-full flex flex-col gap-4" id="login-form">
+<div>
+<label class="sr-only" for="team-password">Passwort</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface border border-outline-variant rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="team-password" placeholder="Team Passwort" required="" type="password"/>
+</div>
+<p class="text-error text-xs font-semibold mt-2 hidden text-center" id="login-error">Falsches Passwort. Bitte versuchen Sie es erneut.</p>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2" type="submit">
+<span>Anmelden</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+</div>
+</div>
+<div class="flex h-screen w-full overflow-hidden" id="app-content">
 <!-- Global Sidebar -->
 <aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-inverse-surface border-r border-outline-variant z-40 hidden md:flex">
 <div class="px-6 py-8 flex flex-col gap-1">
@@ -319,6 +349,7 @@
 </section>
 </div>
 </main>
+</div> <!-- End App Content -->
 <!-- Modal: New Entry (from header button) -->
 <div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="newEntryModal">
 <div class="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant">
@@ -446,6 +477,44 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script>
+    // --- Auth Logic ---
+    const APP_PASSWORD = "team2024";
+    const loginOverlay = document.getElementById('login-overlay');
+    const appContent = document.getElementById('app-content');
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('team-password');
+    const loginError = document.getElementById('login-error');
+
+    function checkAuth() {
+        const isAuth = localStorage.getItem('dt_authenticated');
+        if (isAuth === 'true') {
+            showApp();
+        }
+    }
+
+    function showApp() {
+        loginOverlay.classList.add('hidden-auth');
+        appContent.classList.add('visible-auth');
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pwd = passwordInput.value;
+        if (pwd === APP_PASSWORD) {
+            localStorage.setItem('dt_authenticated', 'true');
+            loginError.classList.add('hidden');
+            showApp();
+        } else {
+            loginError.classList.remove('hidden');
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+    });
+
+    // Check auth on load
+    checkAuth();
+    // -------------------
+
     // 1. Firebase Configuration (Persisted)
     const firebaseConfig = {
         apiKey: "AIzaSyDUcNBEBX9FUbRLnbFY99Iq877cVbZrCqQ",
