@@ -1,4 +1,4 @@
-<!-- COPY THIS CODE FOR GITHUB PAGES --><!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="de-CH"><head>
 <meta charset="utf-8"/>
@@ -411,6 +411,88 @@
 </form>
 </div>
 </div>
+<!-- Modal: Edit Employee -->
+<div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="editEmployeeModal">
+<div class="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="text-lg font-bold">Mitarbeiter bearbeiten</h2>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeEditMgmtModal">close</button>
+</div>
+<form class="p-6 space-y-4" id="editEmployeeForm">
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-on-surface-variant" for="editName">Name</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editName" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-on-surface-variant" for="editRole">Rolle</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editRole" required="" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-on-surface-variant" for="editEmail">E-Mail</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editEmail" required="" type="email"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-on-surface-variant" for="editPensum">Pensum (%)</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editPensum" max="100" min="10" required="" type="number"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-on-surface-variant" for="editTarget">Jahresarbeitszeit (h)</label>
+<input class="rounded-lg border-outline-variant text-sm p-2" id="editTarget" min="0" required="" type="number"/>
+</div>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelEditMgmtModal" type="button">Abbrechen</button>
+<button class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-bold" type="submit">Änderungen Speichern</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Modal: Edit Time Entry -->
+<div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="editTimeEntryModal">
+<div class="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="text-lg font-bold">Eintrag bearbeiten</h2>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container rounded-full p-1" id="closeEditTimeModal">close</button>
+</div>
+<form class="p-6 space-y-6" id="editTimeEntryForm">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-4">
+<h4 class="text-sm font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined text-lg">sunny</span> Vormittag</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-on-surface-variant">Von</label>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningFrom" type="time"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editMorningTo" type="time"/>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="text-sm font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined text-lg">bedtime</span> Nachmittag</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-on-surface-variant">Von</label>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonFrom" type="time"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-on-surface-variant">Bis</label>
+<input class="rounded-lg border-outline-variant text-sm p-2 font-mono" id="editAfternoonTo" type="time"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 py-2.5 border border-outline-variant rounded-lg text-sm font-bold text-on-surface-variant" id="cancelEditTimeModal" type="button">Abbrechen</button>
+<button class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-bold" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
 <!-- Firebase Integration -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -433,6 +515,8 @@
     let globalEmployees = [];
     let globalActivities = [];
     let globalTimeEntries = [];
+    let currentEditEmpId = null;
+    let currentEditTimeId = null;
 
     // Helper functions for UI
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -650,10 +734,14 @@
                 }
             });
 
-            // Very basic edit - could be expanded to open the form
             const editBtn = row.querySelector(`[data-edit-id="${entry.id}"]`);
             editBtn.addEventListener('click', () => {
-                alert('Bearbeiten (Demo): Würde Formular mit Daten füllen.');
+                currentEditTimeId = entry.id;
+                document.getElementById('editMorningFrom').value = entry.morningFrom || '';
+                document.getElementById('editMorningTo').value = entry.morningTo || '';
+                document.getElementById('editAfternoonFrom').value = entry.afternoonFrom || '';
+                document.getElementById('editAfternoonTo').value = entry.afternoonTo || '';
+                document.getElementById('editTimeEntryModal').classList.remove('hidden');
             });
 
             tbody.appendChild(row);
@@ -734,16 +822,27 @@
                 <td class="px-6 py-4 text-right font-mono">${emp.target || 1840}h</td>
                 <td class="px-6 py-4 text-right">
                     <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary mr-2" title="Bearbeiten" data-edit-emp-id="${emp.id}">edit</span>
                         <span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary mr-2" title="Zeiten zurücksetzen" data-reset-id="${emp.id}">restart_alt</span>
                         <span class="material-symbols-outlined text-outline cursor-pointer hover:text-error" data-id="${emp.id}">delete</span>
                     </div>
                 </td>
             `;
             
+            const editBtn = row.querySelector(`[data-edit-emp-id="${emp.id}"]`);
+            editBtn.addEventListener('click', () => {
+                currentEditEmpId = emp.id;
+                document.getElementById('editName').value = emp.name || '';
+                document.getElementById('editRole').value = emp.role || '';
+                document.getElementById('editEmail').value = emp.email || '';
+                document.getElementById('editPensum').value = emp.pensum || 100;
+                document.getElementById('editTarget').value = emp.target || 1840;
+                document.getElementById('editEmployeeModal').classList.remove('hidden');
+            });
+
             const resetBtn = row.querySelector(`[data-reset-id="${emp.id}"]`);
             resetBtn.addEventListener('click', async () => {
                 if(confirm(`Zeiten für Mitarbeiter ${emp.name} unwiderruflich zurücksetzen?`)) {
-                    // Fetch all time entries for this user and delete them
                     const q = query(collection(db, "timeEntries"), where("userId", "==", emp.id));
                     const snapshot = await getDocs(q);
                     const deletePromises = [];
@@ -897,6 +996,41 @@
             alert("Zeit erfolgreich erfasst.");
         });
     }
+
+    // Edit Employee Modal Logic
+    document.getElementById('closeEditMgmtModal').addEventListener('click', () => document.getElementById('editEmployeeModal').classList.add('hidden'));
+    document.getElementById('cancelEditMgmtModal').addEventListener('click', () => document.getElementById('editEmployeeModal').classList.add('hidden'));
+
+    document.getElementById('editEmployeeForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if(currentEditEmpId) {
+            await updateDoc(doc(db, "employees", currentEditEmpId), {
+                name: document.getElementById('editName').value,
+                role: document.getElementById('editRole').value,
+                email: document.getElementById('editEmail').value,
+                pensum: parseInt(document.getElementById('editPensum').value),
+                target: parseInt(document.getElementById('editTarget').value)
+            });
+            document.getElementById('editEmployeeModal').classList.add('hidden');
+        }
+    });
+
+    // Edit Time Entry Modal Logic
+    document.getElementById('closeEditTimeModal').addEventListener('click', () => document.getElementById('editTimeEntryModal').classList.add('hidden'));
+    document.getElementById('cancelEditTimeModal').addEventListener('click', () => document.getElementById('editTimeEntryModal').classList.add('hidden'));
+
+    document.getElementById('editTimeEntryForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if(currentEditTimeId) {
+            await updateDoc(doc(db, "timeEntries", currentEditTimeId), {
+                morningFrom: document.getElementById('editMorningFrom').value,
+                morningTo: document.getElementById('editMorningTo').value,
+                afternoonFrom: document.getElementById('editAfternoonFrom').value,
+                afternoonTo: document.getElementById('editAfternoonTo').value
+            });
+            document.getElementById('editTimeEntryModal').classList.add('hidden');
+        }
+    });
 
     // Management Modal Logic
     const mgmtModal = document.getElementById('employeeModal');
