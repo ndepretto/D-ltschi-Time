@@ -211,7 +211,7 @@
 <!-- Active Day -->
 <div class="bg-white border-2 border-primary rounded-xl p-4 shadow-sm flex flex-col">
 <div class="mb-4 border-b pb-2 flex justify-between items-start">
-<div><span class="block text-[10px] text-primary uppercase font-bold">Mittwoch</span><span class="text-xl font-bold">18. Okt.</span></div>
+<div><span class="block text-[10px] text-primary uppercase font-bold">Samstag</span><span class="text-xl font-bold">1. Aug.</span></div>
 <span class="bg-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold">HEUTE</span>
 </div>
 <div class="space-y-4 flex-1">
@@ -229,7 +229,7 @@
 <!-- Past Days -->
 <div class="bg-white border border-outline-variant rounded-xl p-4 flex flex-col">
 <div class="mb-4 border-b pb-2">
-<span class="block text-[10px] text-secondary uppercase font-bold">Dienstag</span><span class="text-xl font-bold">17. Okt.</span>
+<span class="block text-[10px] text-secondary uppercase font-bold">Freitag</span><span class="text-xl font-bold">31. Juli</span>
 </div>
 <div class="space-y-4 flex-1">
 <div class="space-y-1">
@@ -245,7 +245,7 @@
 </div>
 <div class="bg-white border border-outline-variant rounded-xl p-4 flex flex-col">
 <div class="mb-4 border-b pb-2">
-<span class="block text-[10px] text-secondary uppercase font-bold">Montag</span><span class="text-xl font-bold">16. Okt.</span>
+<span class="block text-[10px] text-secondary uppercase font-bold">Donnerstag</span><span class="text-xl font-bold">30. Juli</span>
 </div>
 <div class="space-y-4 flex-1">
 <div class="space-y-1">
@@ -294,7 +294,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 <div class="bg-white p-6 rounded-xl border border-outline-variant flex flex-col justify-between">
-<span class="text-xs font-bold text-outline uppercase tracking-wider">Gesamtstunden (Okt)</span>
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Gesamtstunden (Aug)</span>
 <div class="flex items-baseline gap-2 mt-2">
 <h3 class="text-3xl font-bold text-primary">168.5</h3>
 <span class="text-sm text-on-surface-variant">/ 160.0h Ziel</span>
@@ -433,8 +433,8 @@
         let employees = JSON.parse(localStorage.getItem('timesync_employees')) || defaultEmployees;
         
         let timeEntries = JSON.parse(localStorage.getItem('timesync_entries')) || [
-            { id: 'entry-1', empId: '1', date: '2023-10-18', vm: '07:45 - 12:15', nm: '13:00 - 17:30', total: 9.0 },
-            { id: 'entry-2', empId: '2', date: '2023-10-17', vm: '08:00 - 12:00', nm: '13:00 - 17:30', total: 8.5 }
+            { id: 'entry-1', empId: '1', date: '2026-08-01', vm: '07:45 - 12:15', nm: '13:00 - 17:30', total: 9.0 },
+            { id: 'entry-2', empId: '2', date: '2026-07-31', vm: '08:00 - 12:00', nm: '13:00 - 17:30', total: 8.5 }
         ];
 
         function calculateGeleistet(empId) {
