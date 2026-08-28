@@ -1012,6 +1012,7 @@
                 target: parseInt(document.getElementById('editTarget').value)
             });
             document.getElementById('editEmployeeModal').classList.add('hidden');
+            e.target.reset();
         }
     });
 
@@ -1029,6 +1030,7 @@
                 afternoonTo: document.getElementById('editAfternoonTo').value
             });
             document.getElementById('editTimeEntryModal').classList.add('hidden');
+            e.target.reset();
         }
     });
 
