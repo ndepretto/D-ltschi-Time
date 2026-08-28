@@ -278,70 +278,63 @@
 </div>
 </div>
 </section>
-<!-- 3. Zeiterfassung (Tageskarten) View -->
+<!-- 3. Zeiterfassung View -->
 <section class="view-section" id="view-zeiterfassung">
 <div class="mb-6">
 <h3 class="text-2xl font-bold mb-1">Zeiterfassung</h3>
 <p class="text-sm text-on-surface-variant">Erfassen und bearbeiten Sie Ihre täglichen Arbeitszeiten.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-<!-- Active Day -->
-<div class="bg-white border-2 border-primary rounded-xl p-4 shadow-sm flex flex-col">
-<div class="mb-4 border-b pb-2 flex flex-col gap-2">
-<div class="flex justify-between items-center mb-1">
-<span class="block text-[10px] text-primary uppercase font-bold">Neuer Eintrag</span>
-<span class="bg-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold">AKTIV</span>
-</div>
-<label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Mitarbeiter auswählen</label>
-<select class="w-full text-sm border border-outline-variant rounded p-1.5 focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer mb-2" id="zeiterfassung-employee">
+<div class="bg-white border border-outline-variant rounded-xl p-8 shadow-sm max-w-2xl">
+<div class="space-y-6">
+<!-- Mitarbeiter -->
+<div>
+<label class="block text-sm font-bold text-on-surface mb-2">1. Mitarbeiter auswählen</label>
+<select class="w-full text-sm border border-outline-variant rounded-lg p-3 bg-surface focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer" id="zeiterfassung-employee">
 <!-- Injected by JS -->
 </select>
-<input class="w-full text-sm font-bold border border-outline-variant rounded p-1.5 focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer" id="zeiterfassung-date" type="date" value="2026-08-14"/>
 </div>
-<div class="space-y-4 flex-1">
-<div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center focus:border-primary focus:ring-1 focus:ring-primary" id="zeiterfassung-vm" value="07:45 - 12:15"/>
+<!-- Datum -->
+<div>
+<label class="block text-sm font-bold text-on-surface mb-2">2. Datum</label>
+<input class="w-full text-sm font-bold border border-outline-variant rounded-lg p-3 bg-surface focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer" id="zeiterfassung-date" type="date" value="2026-08-14"/>
 </div>
-<div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center focus:border-primary focus:ring-1 focus:ring-primary" id="zeiterfassung-nm" placeholder="--:-- - --:--"/>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Vormittag -->
+<div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant">
+<div class="flex items-center gap-2 mb-4 text-primary font-bold">
+<span class="material-symbols-outlined">sunny</span>
+<span class="text-sm">Vormittag</span>
 </div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1">Beginn</label>
+<input class="w-full text-sm font-mono border border-outline-variant rounded-lg p-2.5 text-center focus:border-primary focus:ring-1 focus:ring-primary bg-white" id="zeiterfassung-vm-start" type="time" value="08:00"/>
 </div>
-<button class="mt-4 w-full bg-primary text-white py-2 rounded-lg text-xs font-bold hover:bg-primary/90 transition-colors" id="save-zeiterfassung-btn">Speichern</button>
-</div>
-<!-- Past Days -->
-<div class="bg-white border border-outline-variant rounded-xl p-4 flex flex-col">
-<div class="mb-4 border-b pb-2">
-<span class="block text-[10px] text-secondary uppercase font-bold">Freitag</span><span class="text-xl font-bold">31.07.2026</span>
-</div>
-<div class="space-y-4 flex-1">
-<div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="08:00 - 12:00"/>
-</div>
-<div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="13:00 - 17:30"/>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1">Ende</label>
+<input class="w-full text-sm font-mono border border-outline-variant rounded-lg p-2.5 text-center focus:border-primary focus:ring-1 focus:ring-primary bg-white" id="zeiterfassung-vm-end" type="time" value="12:00"/>
 </div>
 </div>
-<div class="mt-4 text-center text-sm font-mono text-primary font-bold">8.5 h</div>
 </div>
-<div class="bg-white border border-outline-variant rounded-xl p-4 flex flex-col">
-<div class="mb-4 border-b pb-2">
-<span class="block text-[10px] text-secondary uppercase font-bold">Donnerstag</span><span class="text-xl font-bold">30.07.2026</span>
+<!-- Nachmittag -->
+<div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant">
+<div class="flex items-center gap-2 mb-4 text-primary font-bold">
+<span class="material-symbols-outlined">bedtime</span>
+<span class="text-sm">Nachmittag</span>
 </div>
-<div class="space-y-4 flex-1">
-<div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="07:30 - 12:00"/>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1">Beginn</label>
+<input class="w-full text-sm font-mono border border-outline-variant rounded-lg p-2.5 text-center focus:border-primary focus:ring-1 focus:ring-primary bg-white" id="zeiterfassung-nm-start" type="time" value="13:00"/>
 </div>
-<div class="space-y-1">
-<span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="13:00 - 17:00"/>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1">Ende</label>
+<input class="w-full text-sm font-mono border border-outline-variant rounded-lg p-2.5 text-center focus:border-primary focus:ring-1 focus:ring-primary bg-white" id="zeiterfassung-nm-end" type="time" value="17:00"/>
 </div>
 </div>
-<div class="mt-4 text-center text-sm font-mono text-primary font-bold">8.5 h</div>
+</div>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-4 rounded-xl text-sm font-bold hover:bg-primary/90 transition-colors shadow-sm" id="save-zeiterfassung-btn">Eintrag speichern</button>
 </div>
 </div>
 </section>
@@ -743,8 +736,10 @@
         // Time Tracking Entry
         document.getElementById('save-zeiterfassung-btn')?.addEventListener('click', () => {
             const dateStr = document.getElementById('zeiterfassung-date').value;
-            const vm = document.getElementById('zeiterfassung-vm').value;
-            const nm = document.getElementById('zeiterfassung-nm').value;
+            const vmStart = document.getElementById('zeiterfassung-vm-start').value;
+            const vmEnd = document.getElementById('zeiterfassung-vm-end').value;
+            const nmStart = document.getElementById('zeiterfassung-nm-start').value;
+            const nmEnd = document.getElementById('zeiterfassung-nm-end').value;
             const empId = document.getElementById('zeiterfassung-employee').value;
             
             if(!dateStr) {
@@ -752,10 +747,23 @@
                 return;
             }
 
-            // Simple mock logic to calculate total hours (assuming approx 8.5h if both filled)
-            let total = 0;
-            if (vm && vm !== '--:-- - --:--') total += 4.5;
-            if (nm && nm !== '--:-- - --:--') total += 4.0;
+            const vm = (vmStart && vmEnd) ? `${vmStart} - ${vmEnd}` : '';
+            const nm = (nmStart && nmEnd) ? `${nmStart} - ${nmEnd}` : '';
+
+            function timeDiff(start, end) {
+                if(!start || !end) return 0;
+                let [sh, sm] = start.split(':').map(Number);
+                let [eh, em] = end.split(':').map(Number);
+                let diff = (eh + em/60) - (sh + sm/60);
+                return diff > 0 ? diff : 0;
+            }
+
+            const total = timeDiff(vmStart, vmEnd) + timeDiff(nmStart, nmEnd);
+
+            if (total <= 0) {
+                 alert('Bitte gültige Zeiten eingeben.');
+                 return;
+            }
 
             const newEntry = {
                 id: 'entry-' + Date.now(),
@@ -763,7 +771,7 @@
                 date: dateStr,
                 vm: vm,
                 nm: nm,
-                total: total
+                total: parseFloat(total.toFixed(2))
             };
 
             timeEntries.push(newEntry);
@@ -772,7 +780,8 @@
             alert('Zeiten für ' + formatCHDate(dateStr) + ' erfolgreich gespeichert.');
             
             // Reset form partly
-            document.getElementById('zeiterfassung-nm').value = '';
+            document.getElementById('zeiterfassung-nm-start').value = '';
+            document.getElementById('zeiterfassung-nm-end').value = '';
         });
 
 
