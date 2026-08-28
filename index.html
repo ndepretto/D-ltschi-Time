@@ -1,79 +1,155 @@
-<!DOCTYPE html><html lang="de-CH"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="de-CH"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - All-in-One SPA</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-fixed": "#001848",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "surface-variant": "#d7e2ff",
-                        "on-secondary-container": "#606365",
-                        "background": "#f9f9ff",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "primary": "#003d9b",
-                        "outline": "#737685",
-                        "tertiary-container": "#a33500",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-primary": "#ffffff",
-                        "surface": "#f9f9ff",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "outline-variant": "#c3c6d6",
-                        "primary-fixed": "#dae2ff",
-                        "on-primary-container": "#c4d2ff",
-                        "inverse-primary": "#b2c5ff",
-                        "surface-container-highest": "#d7e2ff",
-                        "surface-container-high": "#e0e8ff",
-                        "on-surface": "#041b3c",
-                        "on-error-container": "#93000a",
-                        "on-tertiary-fixed-variant": "#812800",
-                        "inverse-surface": "#1d3052",
-                        "surface-bright": "#f9f9ff",
-                        "on-secondary-fixed": "#191c1e",
-                        "error-container": "#ffdad6",
-                        "on-background": "#041b3c",
-                        "on-tertiary-container": "#ffc6b2",
-                        "on-secondary-fixed-variant": "#444749",
-                        "on-error": "#ffffff",
-                        "surface-tint": "#0c56d0",
-                        "on-secondary": "#ffffff",
-                        "surface-dim": "#cadaff",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary": "#5c5f60",
-                        "on-surface-variant": "#434654",
-                        "primary-container": "#0052cc",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed": "#380d00",
-                        "tertiary": "#7b2600",
-                        "surface-container-low": "#f1f3ff",
-                        "surface-container": "#e8edff",
-                        "inverse-on-surface": "#edf0ff",
-                        "secondary-container": "#dee0e2"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "body": ["IBM Plex Sans", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
-                    }
-                }
-            }
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-highest": "#d7e2ff",
+                "on-surface-variant": "#434654",
+                "on-secondary-fixed-variant": "#444749",
+                "on-primary-fixed-variant": "#0040a2",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed": "#ffdbcf",
+                "primary": "#003d9b",
+                "primary-container": "#0052cc",
+                "secondary-fixed-dim": "#c5c6c8",
+                "secondary-fixed": "#e1e2e4",
+                "tertiary-fixed-dim": "#ffb59b",
+                "inverse-on-surface": "#edf0ff",
+                "surface-container-high": "#e0e8ff",
+                "error": "#ba1a1a",
+                "surface-tint": "#0c56d0",
+                "on-primary-container": "#c4d2ff",
+                "error-container": "#ffdad6",
+                "secondary-container": "#dee0e2",
+                "inverse-primary": "#b2c5ff",
+                "outline": "#737685",
+                "secondary": "#5c5f60",
+                "outline-variant": "#c3c6d6",
+                "on-surface": "#041b3c",
+                "primary-fixed-dim": "#b2c5ff",
+                "on-secondary-container": "#606365",
+                "on-tertiary-fixed-variant": "#812800",
+                "on-background": "#041b3c",
+                "on-tertiary-fixed": "#380d00",
+                "surface-bright": "#f9f9ff",
+                "on-error": "#ffffff",
+                "inverse-surface": "#1d3052",
+                "surface": "#f9f9ff",
+                "surface-variant": "#d7e2ff",
+                "on-primary": "#ffffff",
+                "surface-dim": "#cadaff",
+                "tertiary": "#7b2600",
+                "on-secondary": "#ffffff",
+                "primary-fixed": "#dae2ff",
+                "background": "#f9f9ff",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed": "#001848",
+                "surface-container-low": "#f1f3ff",
+                "on-error-container": "#93000a",
+                "on-secondary-fixed": "#191c1e",
+                "surface-container": "#e8edff",
+                "tertiary-container": "#a33500",
+                "on-tertiary-container": "#ffc6b2"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "800px",
+                "gutter": "24px",
+                "stack-sm": "12px",
+                "stack-lg": "48px",
+                "stack-md": "24px",
+                "unit": "8px"
+        },
+        "fontFamily": {
+                "body": [
+                        "Work Sans", "sans-serif"
+                ],
+                "label-caps": [
+                        "Work Sans"
+                ],
+                "headline-md": [
+                        "Work Sans"
+                ],
+                "body-lg": [
+                        "Work Sans"
+                ],
+                "body-md": [
+                        "Work Sans"
+                ],
+                "headline-lg-mobile": [
+                        "Work Sans"
+                ],
+                "headline-lg": [
+                        "Work Sans"
+                ]
+        },
+        "fontSize": {
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ]
         }
-    </script>
+},
+    },
+  }
+</script>
 <style>
-        body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f9f9ff; }
+        body { font-family: 'Work Sans', sans-serif; background-color: #f9f9ff; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
         .nav-item-active { background-color: #003d9b; color: #ffffff; font-weight: 700; }
         .nav-item-active .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
@@ -147,7 +223,7 @@
 <div class="flex items-center gap-6">
 <div class="hidden lg:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant">
 <span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text">
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 p-0" placeholder="Suchen..." type="text"/>
 </div>
 <div class="flex items-center gap-4">
 <button class="relative hover:bg-surface-container-low transition-colors p-2 rounded-full">
@@ -181,8 +257,8 @@
 </div>
 <div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="p-4 border-b border-outline-variant flex gap-2 bg-surface-container-low">
-<button class="px-3 py-1.5 rounded-full border border-primary text-primary text-sm font-bold bg-primary-container/10">Alle (<span id="total-employees-count" class="">4</span>)</button>
-<button class="px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant text-sm hover:bg-surface-variant/50 transition-colors">Aktiv (<span id="active-employees-count" class="">4</span>)</button>
+<button class="px-3 py-1.5 rounded-full border border-primary text-primary text-sm font-bold bg-primary-container/10">Alle (<span class="" id="total-employees-count">4</span>)</button>
+<button class="px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant text-sm hover:bg-surface-variant/50 transition-colors">Aktiv (<span class="" id="active-employees-count">4</span>)</button>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left">
@@ -216,22 +292,23 @@
 <span class="block text-[10px] text-primary uppercase font-bold">Neuer Eintrag</span>
 <span class="bg-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold">AKTIV</span>
 </div>
-<label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Mitarbeiter auswählen</label><select class="w-full text-sm border border-outline-variant rounded p-1.5 focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer mb-2" id="zeiterfassung-employee">
+<label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase">Mitarbeiter auswählen</label>
+<select class="w-full text-sm border border-outline-variant rounded p-1.5 focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer mb-2" id="zeiterfassung-employee">
 <!-- Injected by JS -->
 </select>
-<input class="w-full text-sm font-bold border border-outline-variant rounded p-1.5 focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer" id="zeiterfassung-date" type="date" value="2026-08-14">
+<input class="w-full text-sm font-bold border border-outline-variant rounded p-1.5 focus:border-primary focus:ring-1 focus:ring-primary text-on-surface cursor-pointer" id="zeiterfassung-date" type="date" value="2026-08-14"/>
 </div>
 <div class="space-y-4 flex-1">
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center focus:border-primary focus:ring-1 focus:ring-primary" id="zeiterfassung-vm" value="07:45 - 12:15">
+<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center focus:border-primary focus:ring-1 focus:ring-primary" id="zeiterfassung-vm" value="07:45 - 12:15"/>
 </div>
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center focus:border-primary focus:ring-1 focus:ring-primary" id="zeiterfassung-nm" placeholder="--:-- - --:--">
+<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center focus:border-primary focus:ring-1 focus:ring-primary" id="zeiterfassung-nm" placeholder="--:-- - --:--"/>
 </div>
 </div>
-<button class="mt-4 w-full bg-primary/10 text-primary py-2 rounded-lg text-xs font-bold hover:bg-primary/20 transition-colors" id="save-zeiterfassung-btn">Speichern</button>
+<button class="mt-4 w-full bg-primary text-white py-2 rounded-lg text-xs font-bold hover:bg-primary/90 transition-colors" id="save-zeiterfassung-btn">Speichern</button>
 </div>
 <!-- Past Days -->
 <div class="bg-white border border-outline-variant rounded-xl p-4 flex flex-col">
@@ -241,11 +318,11 @@
 <div class="space-y-4 flex-1">
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="08:00 - 12:00">
+<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="08:00 - 12:00"/>
 </div>
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="13:00 - 17:30">
+<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="13:00 - 17:30"/>
 </div>
 </div>
 <div class="mt-4 text-center text-sm font-mono text-primary font-bold">8.5 h</div>
@@ -257,11 +334,11 @@
 <div class="space-y-4 flex-1">
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">sunny</span> VORMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="07:30 - 12:00">
+<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="07:30 - 12:00"/>
 </div>
 <div class="space-y-1">
 <span class="text-[10px] font-bold text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-xs">bedtime</span> NACHMITTAG</span>
-<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="13:00 - 17:00">
+<input class="w-full text-sm font-mono border border-outline-variant rounded p-1.5 text-center" value="13:00 - 17:00"/>
 </div>
 </div>
 <div class="mt-4 text-center text-sm font-mono text-primary font-bold">8.5 h</div>
@@ -273,7 +350,7 @@
 <div class="mb-6">
 <h3 class="text-2xl font-bold mb-1">Tagesübersicht</h3>
 <p class="text-sm text-on-surface-variant">Übersicht aller erfassten Zeiteinträge.</p>
-<div class="mt-4 flex items-center gap-4 bg-surface-container-low p-3 rounded-lg border border-outline-variant"><div class="flex flex-col"><span class="text-[10px] font-bold text-outline uppercase">Daten verwalten</span><span class="text-xs text-on-surface-variant">Alle Einträge eines Monats löschen</span></div><div class="flex gap-2 ml-auto"><select id="clear-month-select" class="text-xs border-outline-variant rounded bg-surface p-1"><option value="07">Juli</option><option value="08">August</option></select><button onclick="if(confirm('Alle Einträge für diesen Monat wirklich löschen?')) { const m = document.getElementById('clear-month-select').value; timeEntries = timeEntries.filter(e =&gt; !e.date.includes('-' + m + '-')); renderTagesuebersicht(); renderDashboard(); alert('Daten gelöscht.'); }" class="bg-error/10 text-error px-3 py-1 rounded text-xs font-bold hover:bg-error hover:text-white transition-colors">Monat leeren</button></div></div></div>
+<div class="mt-4 flex items-center gap-4 bg-surface-container-low p-3 rounded-lg border border-outline-variant"><div class="flex flex-col"><span class="text-[10px] font-bold text-outline uppercase">Daten verwalten</span><span class="text-xs text-on-surface-variant">Alle Einträge eines Monats löschen</span></div><div class="flex gap-2 ml-auto"><select class="text-xs border-outline-variant rounded bg-surface p-1" id="clear-month-select"><option value="07">Juli</option><option value="08">August</option></select><button class="bg-error/10 text-error px-3 py-1 rounded text-xs font-bold hover:bg-error hover:text-white transition-colors" onclick="if(confirm('Alle Einträge für diesen Monat wirklich löschen?')) { const m = document.getElementById('clear-month-select').value; timeEntries = timeEntries.filter(e =&gt; !e.date.includes('-' + m + '-')); renderTagesuebersicht(); renderDashboard(); alert('Daten gelöscht.'); }">Monat leeren</button></div></div></div>
 <div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="overflow-x-auto">
 <table class="w-full text-left">
@@ -358,33 +435,33 @@
 <button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors p-1" id="closeMgmtModal">close</button>
 </div>
 <form class="p-6 space-y-4" id="employeeForm">
-<input id="empId" type="hidden">
+<input id="empId" type="hidden"/>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface" for="firstName">Vorname</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="firstName" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="firstName" required="" type="text"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface" for="lastName">Nachname</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="lastName" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="lastName" required="" type="text"/>
 </div>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface" for="email">E-Mail</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="email" required="" type="email">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="email" required="" type="email"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface" for="role">Rolle / Titel</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="role" required="" type="text">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="role" required="" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface" for="pensum">Pensum (%)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="pensum" max="100" min="1" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="pensum" max="100" min="1" required="" type="number"/>
 </div>
 <div class="flex flex-col gap-1">
 <label class="text-xs font-bold text-on-surface" for="jahressoll">Jahressoll (h)</label>
-<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="jahressoll" required="" type="number">
+<input class="rounded-lg border-outline-variant text-sm p-2 bg-surface focus:border-primary focus:ring-1 focus:ring-primary" id="jahressoll" required="" type="number"/>
 </div>
 </div>
 <div class="flex gap-3 pt-4 border-t border-outline-variant mt-4">
@@ -478,7 +555,8 @@
         
         let timeEntries = JSON.parse(localStorage.getItem('timesync_entries')) || [
             { id: 'entry-1', empId: '1', date: '2026-08-01', vm: '07:45 - 12:15', nm: '13:00 - 17:30', total: 9.0 },
-            { id: 'entry-2', empId: '2', date: '2026-07-31', vm: '08:00 - 12:00', nm: '13:00 - 17:30', total: 8.5 }
+            { id: 'entry-2', empId: '2', date: '2026-07-31', vm: '08:00 - 12:00', nm: '13:00 - 17:30', total: 8.5 },
+            { id: 'entry-3', empId: '1', date: '2026-07-30', vm: '07:30 - 12:00', nm: '13:00 - 17:00', total: 8.5 }
         ];
 
         function populateEmployeeDropdown() {
@@ -584,7 +662,7 @@
                     <td class="px-6 py-4 text-xs font-mono text-on-surface-variant">VM: ${entry.vm || '-'} | NM: ${entry.nm || '-'}</td>
                     <td class="px-6 py-4 text-sm font-bold text-primary">${entry.total}h</td>
                     <td class="px-6 py-4 text-right">
-                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="flex justify-end gap-2 opacity-100 transition-opacity">
                             <button class="p-2 text-on-surface-variant hover:text-error rounded-full hover:bg-error-container/50 transition-colors" onclick="deleteTimeEntry('${entry.id}')" title="Löschen">
                                 <span class="material-symbols-outlined text-[20px]">delete</span>
                             </button>
@@ -715,6 +793,4 @@
         renderDashboard();
         renderTagesuebersicht();
     </script>
-
-
 </body></html>
