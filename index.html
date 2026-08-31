@@ -315,7 +315,7 @@
 <!-- Options dynamically populated -->
 </select>
 </div>
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-3 gap-4">
 <div class="space-y-2">
 <label class="font-label-bold text-label-bold block">Vormittag (h)</label>
 <input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-morning" required="" step="0.25" type="number" value="4"/>
@@ -324,16 +324,22 @@
 <label class="font-label-bold text-label-bold block">Nachmittag (h)</label>
 <input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-afternoon" required="" step="0.25" type="number" value="4.5"/>
 </div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Abend / Nacht (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-evening" step="0.25" type="number" value="0"/>
+</div>
 </div>
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold block">Abwesenheit (Optional)</label>
-<select class="w-full border border-outline-variant rounded-lg p-3 bg-surface" id="time-absence-select">
+<label class="font-label-bold text-label-bold block">Abwesenheit / Bemerkung (Optional)</label>
+<select class="w-full border border-outline-variant rounded-lg p-3 bg-surface" id="time-absence-select" onchange="toggleCustomAbsence()">
 <option value="">Keine</option>
 <option value="Ferien">Ferien</option>
 <option value="Krankheit">Krankheit</option>
 <option value="Militär">Militär</option>
 <option value="Feiertag">Feiertag</option>
+<option value="Andere">Andere...</option>
 </select>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface hidden mt-2" id="time-custom-absence" placeholder="Bemerkung eingeben..." type="text"/>
 </div>
 <div class="flex justify-end pt-4">
 <button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" type="submit">Eintrag speichern</button>
@@ -365,13 +371,14 @@
 <th class="p-4 text-left font-label-bold text-label-bold">Mitarbeiter</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Vormittag</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Nachmittag</th>
+<th class="p-4 text-center font-label-bold text-label-bold">Abend/Nacht</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Total</th>
 <th class="p-4 text-left font-label-bold text-label-bold">Status</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="daily-table-body">
 <!-- Populated dynamically -->
-<tr><td class="p-4 text-center text-outline" colspan="5">Lade Einträge...</td></tr>
+<tr><td class="p-4 text-center text-outline" colspan="6">Lade Einträge...</td></tr>
 </tbody>
 </table>
 </div>
@@ -752,7 +759,7 @@
             const today = new Date().toISOString().split('T')[0];
             
             timeEntries.forEach(entry => {
-                total += (Number(entry.morning) + Number(entry.afternoon));
+                total += (Number(entry.morning || 0) + Number(entry.afternoon || 0) + Number(entry.evening || 0));
                 if(entry.date === today && entry.absence) absences++;
             });
 
@@ -765,13 +772,14 @@
                 recent.innerHTML = timeEntries.slice(-3).reverse().map(e => {
                     const emp = globalEmployees.find(emp => emp.id === e.employeeId);
                     const name = emp ? `${emp.firstName} ${emp.lastName}` : 'Unbekannt';
+                    const absText = e.absence === 'Andere' ? e.customAbsence : e.absence;
                     return `
                     <div class="p-4 flex items-center justify-between hover:bg-surface-container-low">
                         <div>
                             <p class="font-label-bold text-label-bold">${name}</p>
-                            <p class="text-body-sm text-on-surface-variant">${e.date} ${e.absence ? '('+e.absence+')' : ''}</p>
+                            <p class="text-body-sm text-on-surface-variant">${e.date} ${absText ? '('+absText+')' : ''}</p>
                         </div>
-                        <span class="font-mono-data bg-surface-container-highest px-2 py-1 rounded text-label-sm">${Number(e.morning)+Number(e.afternoon)}h</span>
+                        <span class="font-mono-data bg-surface-container-highest px-2 py-1 rounded text-label-sm">${(Number(e.morning || 0)+Number(e.afternoon || 0)+Number(e.evening || 0)).toFixed(2)}h</span>
                     </div>`;
                 }).join('') || '<div class="p-4 text-center text-outline text-label-sm">Keine Einträge</div>';
             }
@@ -850,11 +858,26 @@
             document.getElementById('time-current-date').textContent = (dStr === todayStr) ? 'Heute' : dStr;
         }
 
+        window.toggleCustomAbsence = function() {
+            const select = document.getElementById('time-absence-select');
+            const customInput = document.getElementById('time-custom-absence');
+            if (select.value === 'Andere') {
+                customInput.classList.remove('hidden');
+                customInput.required = true;
+            } else {
+                customInput.classList.add('hidden');
+                customInput.required = false;
+                customInput.value = '';
+            }
+        }
+
         window.saveTimeEntry = async function() {
             const empId = document.getElementById('time-employee-select').value;
-            const morn = Number(document.getElementById('time-morning').value);
-            const aft = Number(document.getElementById('time-afternoon').value);
+            const morn = Number(document.getElementById('time-morning').value || 0);
+            const aft = Number(document.getElementById('time-afternoon').value || 0);
+            const eve = Number(document.getElementById('time-evening').value || 0);
             const abs = document.getElementById('time-absence-select').value;
+            const customAbs = document.getElementById('time-custom-absence').value;
             const dateStr = formatDate(currentTrackingDate);
             
             const entry = {
@@ -863,7 +886,9 @@
                 date: dateStr,
                 morning: morn,
                 afternoon: aft,
+                evening: eve,
                 absence: abs,
+                customAbsence: customAbs,
                 timestamp: new Date().toISOString()
             };
 
@@ -884,6 +909,8 @@
             document.getElementById('time-entry-form').reset();
             document.getElementById('time-morning').value = "4";
             document.getElementById('time-afternoon').value = "4.5";
+            document.getElementById('time-evening').value = "0";
+            toggleCustomAbsence();
         }
 
 
@@ -908,7 +935,7 @@
             tbody.innerHTML = '';
             
             if(globalEmployees.length === 0) {
-                 tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-outline">Keine Mitarbeiter.</td></tr>';
+                 tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-outline">Keine Mitarbeiter.</td></tr>';
                  return;
             }
 
@@ -917,17 +944,19 @@
             globalEmployees.forEach(emp => {
                 const entry = timeEntries.find(e => e.employeeId === emp.id && e.date === dStr);
                 
-                let morn = '-', aft = '-', total = '-', status = '<span class="text-outline">Nicht erfasst</span>';
+                let morn = '-', aft = '-', eve = '-', total = '-', status = '<span class="text-outline">Nicht erfasst</span>';
                 let rowClass = 'hover:bg-surface-container-low group';
 
                 if (entry) {
                     hasEntries = true;
-                    morn = entry.morning + 'h';
-                    aft = entry.afternoon + 'h';
-                    total = (Number(entry.morning) + Number(entry.afternoon)) + 'h';
+                    morn = entry.morning ? entry.morning + 'h' : '-';
+                    aft = entry.afternoon ? entry.afternoon + 'h' : '-';
+                    eve = entry.evening ? entry.evening + 'h' : '-';
+                    total = (Number(entry.morning || 0) + Number(entry.afternoon || 0) + Number(entry.evening || 0)) + 'h';
                     
                     if(entry.absence) {
-                        status = `<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-label-sm">${entry.absence}</span>`;
+                        const absText = entry.absence === 'Andere' ? entry.customAbsence : entry.absence;
+                        status = `<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-label-sm">${absText}</span>`;
                         rowClass += ' bg-surface-container-lowest';
                     } else {
                         status = `<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded text-label-sm">Anwesend</span>`;
@@ -939,6 +968,7 @@
                     <td class="p-4 font-label-bold text-label-bold">${emp.firstName} ${emp.lastName}</td>
                     <td class="p-4 text-center font-mono-data">${morn}</td>
                     <td class="p-4 text-center font-mono-data">${aft}</td>
+                    <td class="p-4 text-center font-mono-data">${eve}</td>
                     <td class="p-4 text-center font-mono-data font-bold">${total}</td>
                     <td class="p-4">${status}</td>
                 </tr>`;
@@ -955,7 +985,7 @@
                 // Very naive monthly calculation based on current entries
                 let ist = 0;
                 timeEntries.forEach(e => {
-                    if(e.employeeId === emp.id) ist += (Number(e.morning) + Number(e.afternoon));
+                    if(e.employeeId === emp.id) ist += (Number(e.morning || 0) + Number(e.afternoon || 0) + Number(e.evening || 0));
                 });
                 
                 // Mock soll for month (yearly / 12)
