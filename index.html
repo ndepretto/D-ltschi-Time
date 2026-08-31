@@ -333,8 +333,12 @@
 </div>
 </div>
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold block">Abend / Spät (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-evening" step="0.25" type="number" value="0"/>
+<label class="font-label-bold text-label-bold block">Abend / Spät</label>
+<div class="flex items-center gap-2">
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-evening-start" type="time" value=""/>
+<span>-</span>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-evening-end" type="time" value=""/>
+</div>
 </div>
 </div>
 <div class="space-y-2">
@@ -381,7 +385,7 @@
 <th class="p-4 text-center font-label-bold text-label-bold">Vormittag</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Nachmittag</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Abend/Spät</th>
-<th class="p-4 text-center font-label-bold text-label-bold">Total (h)</th>
+<th class="p-4 text-center font-label-bold text-label-bold bg-surface-container">Total (h)</th>
 <th class="p-4 text-left font-label-bold text-label-bold">Status / Bemerkung</th>
 <th class="p-4 text-right font-label-bold text-label-bold">Aktionen</th>
 </tr>
@@ -539,8 +543,12 @@
 </div>
 </div>
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold block">Abend / Spät (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-eve" step="0.25" type="number" value="0"/>
+<label class="font-label-bold text-label-bold block">Abend / Spät</label>
+<div class="flex items-center gap-2">
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-eve-start" type="time"/>
+<span>-</span>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-eve-end" type="time"/>
+</div>
 </div>
 </div>
 <div class="space-y-2">
@@ -939,7 +947,8 @@
             const mornEnd = document.getElementById('time-morning-end').value;
             const aftStart = document.getElementById('time-afternoon-start').value;
             const aftEnd = document.getElementById('time-afternoon-end').value;
-            const eve = Number(document.getElementById('time-evening').value || 0);
+            const eveStart = document.getElementById('time-evening-start').value;
+            const eveEnd = document.getElementById('time-evening-end').value;
             const abs = document.getElementById('time-absence-select').value;
             const customAbs = document.getElementById('time-custom-absence').value;
             const dateStr = formatDate(currentTrackingDate);
@@ -954,6 +963,7 @@
 
             const morn = calcHours(mornStart, mornEnd);
             const aft = calcHours(aftStart, aftEnd);
+            const eve = calcHours(eveStart, eveEnd);
 
             const entry = {
                 id: 't_' + Date.now(),
@@ -966,6 +976,8 @@
                 afternoonStart: aftStart,
                 afternoonEnd: aftEnd,
                 evening: eve,
+                eveningStart: eveStart,
+                eveningEnd: eveEnd,
                 absence: abs,
                 customAbsence: customAbs,
                 timestamp: new Date().toISOString()
@@ -990,7 +1002,8 @@
             document.getElementById('time-morning-end').value = "12:00";
             document.getElementById('time-afternoon-start').value = "13:00";
             document.getElementById('time-afternoon-end').value = "17:30";
-            document.getElementById('time-evening').value = "0";
+            document.getElementById('time-evening-start').value = "";
+            document.getElementById('time-evening-end').value = "";
             toggleCustomAbsence();
         }
 
@@ -1005,7 +1018,8 @@
             document.getElementById('edit-time-morn-end').value = entry.morningEnd || '';
             document.getElementById('edit-time-aft-start').value = entry.afternoonStart || '';
             document.getElementById('edit-time-aft-end').value = entry.afternoonEnd || '';
-            document.getElementById('edit-time-eve').value = entry.evening || 0;
+            document.getElementById('edit-time-eve-start').value = entry.eveningStart || '';
+            document.getElementById('edit-time-eve-end').value = entry.eveningEnd || '';
             
             document.getElementById('edit-time-abs').value = entry.absence || '';
             toggleEditCustomAbsence();
@@ -1040,7 +1054,8 @@
             const mornEnd = document.getElementById('edit-time-morn-end').value;
             const aftStart = document.getElementById('edit-time-aft-start').value;
             const aftEnd = document.getElementById('edit-time-aft-end').value;
-            const eve = Number(document.getElementById('edit-time-eve').value || 0);
+            const eveStart = document.getElementById('edit-time-eve-start').value;
+            const eveEnd = document.getElementById('edit-time-eve-end').value;
             const abs = document.getElementById('edit-time-abs').value;
             const customAbs = document.getElementById('edit-time-custom-abs').value;
             
@@ -1054,6 +1069,7 @@
 
             const morn = calcHours(mornStart, mornEnd);
             const aft = calcHours(aftStart, aftEnd);
+            const eve = calcHours(eveStart, eveEnd);
 
             const updatedEntry = {
                 id: id,
@@ -1066,6 +1082,8 @@
                 afternoonStart: aftStart,
                 afternoonEnd: aftEnd,
                 evening: eve,
+                eveningStart: eveStart,
+                eveningEnd: eveEnd,
                 absence: abs,
                 customAbsence: customAbs,
                 timestamp: new Date().toISOString()
@@ -1130,7 +1148,7 @@
                     hasEntries = true;
                     morn = entry.morningStart && entry.morningEnd ? `${entry.morningStart} - ${entry.morningEnd}` : (entry.morning ? entry.morning + 'h' : '-');
                     aft = entry.afternoonStart && entry.afternoonEnd ? `${entry.afternoonStart} - ${entry.afternoonEnd}` : (entry.afternoon ? entry.afternoon + 'h' : '-');
-                    eve = entry.evening ? entry.evening + 'h' : '-';
+                    eve = entry.eveningStart && entry.eveningEnd ? `${entry.eveningStart} - ${entry.eveningEnd}` : (entry.evening ? entry.evening + 'h' : '-');
                     total = (Number(entry.morning || 0) + Number(entry.afternoon || 0) + Number(entry.evening || 0)).toFixed(2) + 'h';
                     
                     if(entry.absence) {
@@ -1152,7 +1170,7 @@
                     <td class="p-4 text-center font-mono-data">${morn}</td>
                     <td class="p-4 text-center font-mono-data">${aft}</td>
                     <td class="p-4 text-center font-mono-data">${eve}</td>
-                    <td class="p-4 text-center font-mono-data font-bold">${total}</td>
+                    <td class="p-4 text-center font-mono-data font-bold bg-surface-container">${total}</td>
                     <td class="p-4">${status}</td>
                     <td class="p-4 text-right">${actionButtons}</td>
                 </tr>`;
