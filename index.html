@@ -317,15 +317,23 @@
 </div>
 <div class="grid grid-cols-3 gap-4">
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold block">Vormittag (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-morning" required="" step="0.25" type="number" value="4"/>
+<label class="font-label-bold text-label-bold block">Vormittag</label>
+<div class="flex items-center gap-2">
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-morning-start" type="time" value="08:00"/>
+<span>-</span>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-morning-end" type="time" value="12:00"/>
+</div>
 </div>
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold block">Nachmittag (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-afternoon" required="" step="0.25" type="number" value="4.5"/>
+<label class="font-label-bold text-label-bold block">Nachmittag</label>
+<div class="flex items-center gap-2">
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-afternoon-start" type="time" value="13:00"/>
+<span>-</span>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-afternoon-end" type="time" value="17:30"/>
+</div>
 </div>
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold block">Abend / Nacht (h)</label>
+<label class="font-label-bold text-label-bold block">Abend / Spät (h)</label>
 <input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="time-evening" step="0.25" type="number" value="0"/>
 </div>
 </div>
@@ -371,9 +379,9 @@
 <th class="p-4 text-left font-label-bold text-label-bold">Mitarbeiter</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Vormittag</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Nachmittag</th>
-<th class="p-4 text-center font-label-bold text-label-bold">Abend/Nacht</th>
-<th class="p-4 text-center font-label-bold text-label-bold">Total</th>
-<th class="p-4 text-left font-label-bold text-label-bold">Status</th>
+<th class="p-4 text-center font-label-bold text-label-bold">Abend/Spät</th>
+<th class="p-4 text-center font-label-bold text-label-bold">Total (h)</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Status / Bemerkung</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="daily-table-body">
@@ -873,19 +881,36 @@
 
         window.saveTimeEntry = async function() {
             const empId = document.getElementById('time-employee-select').value;
-            const morn = Number(document.getElementById('time-morning').value || 0);
-            const aft = Number(document.getElementById('time-afternoon').value || 0);
+            const mornStart = document.getElementById('time-morning-start').value;
+            const mornEnd = document.getElementById('time-morning-end').value;
+            const aftStart = document.getElementById('time-afternoon-start').value;
+            const aftEnd = document.getElementById('time-afternoon-end').value;
             const eve = Number(document.getElementById('time-evening').value || 0);
             const abs = document.getElementById('time-absence-select').value;
             const customAbs = document.getElementById('time-custom-absence').value;
             const dateStr = formatDate(currentTrackingDate);
             
+            const calcHours = (start, end) => {
+                if (!start || !end) return 0;
+                const [h1, m1] = start.split(':').map(Number);
+                const [h2, m2] = end.split(':').map(Number);
+                let diff = (h2 + m2/60) - (h1 + m1/60);
+                return diff > 0 ? diff : 0;
+            };
+
+            const morn = calcHours(mornStart, mornEnd);
+            const aft = calcHours(aftStart, aftEnd);
+
             const entry = {
                 id: 't_' + Date.now(),
                 employeeId: empId,
                 date: dateStr,
                 morning: morn,
+                morningStart: mornStart,
+                morningEnd: mornEnd,
                 afternoon: aft,
+                afternoonStart: aftStart,
+                afternoonEnd: aftEnd,
                 evening: eve,
                 absence: abs,
                 customAbsence: customAbs,
@@ -907,8 +932,10 @@
             setTimeout(() => suc.classList.add('hidden'), 3000);
             
             document.getElementById('time-entry-form').reset();
-            document.getElementById('time-morning').value = "4";
-            document.getElementById('time-afternoon').value = "4.5";
+            document.getElementById('time-morning-start').value = "08:00";
+            document.getElementById('time-morning-end').value = "12:00";
+            document.getElementById('time-afternoon-start').value = "13:00";
+            document.getElementById('time-afternoon-end').value = "17:30";
             document.getElementById('time-evening').value = "0";
             toggleCustomAbsence();
         }
@@ -949,10 +976,10 @@
 
                 if (entry) {
                     hasEntries = true;
-                    morn = entry.morning ? entry.morning + 'h' : '-';
-                    aft = entry.afternoon ? entry.afternoon + 'h' : '-';
+                    morn = entry.morningStart && entry.morningEnd ? `${entry.morningStart} - ${entry.morningEnd}` : (entry.morning ? entry.morning + 'h' : '-');
+                    aft = entry.afternoonStart && entry.afternoonEnd ? `${entry.afternoonStart} - ${entry.afternoonEnd}` : (entry.afternoon ? entry.afternoon + 'h' : '-');
                     eve = entry.evening ? entry.evening + 'h' : '-';
-                    total = (Number(entry.morning || 0) + Number(entry.afternoon || 0) + Number(entry.evening || 0)) + 'h';
+                    total = (Number(entry.morning || 0) + Number(entry.afternoon || 0) + Number(entry.evening || 0)).toFixed(2) + 'h';
                     
                     if(entry.absence) {
                         const absText = entry.absence === 'Andere' ? entry.customAbsence : entry.absence;
