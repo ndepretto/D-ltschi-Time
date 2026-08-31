@@ -369,6 +369,7 @@
 <div class="flex border border-outline-variant rounded-lg overflow-hidden">
 <button class="px-4 py-2 hover:bg-surface-container transition-colors" onclick="changeDailyDate(-1)"><span class="material-symbols-outlined">chevron_left</span></button>
 <button class="px-6 py-2 border-x border-outline-variant font-label-bold text-label-bold" onclick="resetDailyDate()">Heute</button>
+<button class="px-4 py-2 border-r border-outline-variant hover:bg-surface-container transition-colors" onclick="resetDailyDate()" title="Zurücksetzen"><span class="material-symbols-outlined">refresh</span></button>
 <button class="px-4 py-2 hover:bg-surface-container transition-colors" onclick="changeDailyDate(1)"><span class="material-symbols-outlined">chevron_right</span></button>
 </div>
 </div>
@@ -382,11 +383,12 @@
 <th class="p-4 text-center font-label-bold text-label-bold">Abend/Spät</th>
 <th class="p-4 text-center font-label-bold text-label-bold">Total (h)</th>
 <th class="p-4 text-left font-label-bold text-label-bold">Status / Bemerkung</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Aktionen</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="daily-table-body">
 <!-- Populated dynamically -->
-<tr><td class="p-4 text-center text-outline" colspan="6">Lade Einträge...</td></tr>
+<tr><td class="p-4 text-center text-outline" colspan="7">Lade Einträge...</td></tr>
 </tbody>
 </table>
 </div>
@@ -503,6 +505,58 @@
 </div>
 <div class="pt-6 flex gap-3">
 <button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container transition-colors" onclick="toggleModal('employee-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90 transition-opacity" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Modal: Edit Time -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="time-modal">
+<div class="bg-surface rounded-xl shadow-2xl max-w-2xl w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md">Zeiteintrag bearbeiten</h3>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-modal')"><span class="material-symbols-outlined">close</span></button>
+</div>
+<form class="p-6 space-y-6" onsubmit="event.preventDefault(); updateTimeEntry();">
+<input id="edit-time-id" type="hidden" value=""/>
+<input id="edit-time-emp-id" type="hidden" value=""/>
+<input id="edit-time-date" type="hidden" value=""/>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Vormittag</label>
+<div class="flex items-center gap-2">
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-morn-start" type="time"/>
+<span>-</span>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-morn-end" type="time"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Nachmittag</label>
+<div class="flex items-center gap-2">
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-aft-start" type="time"/>
+<span>-</span>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-aft-end" type="time"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Abend / Spät (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface font-mono-data" id="edit-time-eve" step="0.25" type="number" value="0"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold block">Abwesenheit / Bemerkung</label>
+<select class="w-full border border-outline-variant rounded-lg p-3 bg-surface" id="edit-time-abs" onchange="toggleEditCustomAbsence()">
+<option value="">Keine</option>
+<option value="Ferien">Ferien</option>
+<option value="Krankheit">Krankheit</option>
+<option value="Militär">Militär</option>
+<option value="Feiertag">Feiertag</option>
+<option value="Andere">Andere...</option>
+</select>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface hidden mt-2" id="edit-time-custom-abs" placeholder="Bemerkung eingeben..." type="text"/>
+</div>
+<div class="pt-6 flex gap-3">
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container transition-colors" onclick="toggleModal('time-modal')" type="button">Abbrechen</button>
 <button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90 transition-opacity" type="submit">Speichern</button>
 </div>
 </form>
@@ -940,6 +994,103 @@
             toggleCustomAbsence();
         }
 
+        window.openEditTimeModal = function(id) {
+            const entry = timeEntries.find(e => e.id === id);
+            if(!entry) return;
+            document.getElementById('edit-time-id').value = entry.id;
+            document.getElementById('edit-time-emp-id').value = entry.employeeId;
+            document.getElementById('edit-time-date').value = entry.date;
+            
+            document.getElementById('edit-time-morn-start').value = entry.morningStart || '';
+            document.getElementById('edit-time-morn-end').value = entry.morningEnd || '';
+            document.getElementById('edit-time-aft-start').value = entry.afternoonStart || '';
+            document.getElementById('edit-time-aft-end').value = entry.afternoonEnd || '';
+            document.getElementById('edit-time-eve').value = entry.evening || 0;
+            
+            document.getElementById('edit-time-abs').value = entry.absence || '';
+            toggleEditCustomAbsence();
+            if(entry.absence === 'Andere') {
+                document.getElementById('edit-time-custom-abs').value = entry.customAbsence || '';
+            } else {
+                document.getElementById('edit-time-custom-abs').value = '';
+            }
+            
+            toggleModal('time-modal');
+        }
+
+        window.toggleEditCustomAbsence = function() {
+            const select = document.getElementById('edit-time-abs');
+            const customInput = document.getElementById('edit-time-custom-abs');
+            if (select.value === 'Andere') {
+                customInput.classList.remove('hidden');
+                customInput.required = true;
+            } else {
+                customInput.classList.add('hidden');
+                customInput.required = false;
+                customInput.value = '';
+            }
+        }
+
+        window.updateTimeEntry = async function() {
+            const id = document.getElementById('edit-time-id').value;
+            const empId = document.getElementById('edit-time-emp-id').value;
+            const dateStr = document.getElementById('edit-time-date').value;
+            
+            const mornStart = document.getElementById('edit-time-morn-start').value;
+            const mornEnd = document.getElementById('edit-time-morn-end').value;
+            const aftStart = document.getElementById('edit-time-aft-start').value;
+            const aftEnd = document.getElementById('edit-time-aft-end').value;
+            const eve = Number(document.getElementById('edit-time-eve').value || 0);
+            const abs = document.getElementById('edit-time-abs').value;
+            const customAbs = document.getElementById('edit-time-custom-abs').value;
+            
+            const calcHours = (start, end) => {
+                if (!start || !end) return 0;
+                const [h1, m1] = start.split(':').map(Number);
+                const [h2, m2] = end.split(':').map(Number);
+                let diff = (h2 + m2/60) - (h1 + m1/60);
+                return diff > 0 ? diff : 0;
+            };
+
+            const morn = calcHours(mornStart, mornEnd);
+            const aft = calcHours(aftStart, aftEnd);
+
+            const updatedEntry = {
+                id: id,
+                employeeId: empId,
+                date: dateStr,
+                morning: morn,
+                morningStart: mornStart,
+                morningEnd: mornEnd,
+                afternoon: aft,
+                afternoonStart: aftStart,
+                afternoonEnd: aftEnd,
+                evening: eve,
+                absence: abs,
+                customAbsence: customAbs,
+                timestamp: new Date().toISOString()
+            };
+
+            if(isOnline && db) {
+                await setDoc(doc(db, TIME_KEY, id), updatedEntry);
+            } else {
+                const idx = timeEntries.findIndex(e => e.id === id);
+                if(idx > -1) timeEntries[idx] = updatedEntry;
+                saveLocalData();
+            }
+            toggleModal('time-modal');
+        }
+
+        window.deleteTimeEntry = async function(id) {
+            if(!confirm("Eintrag wirklich löschen?")) return;
+            if(isOnline && db) {
+                await deleteDoc(doc(db, TIME_KEY, id));
+            } else {
+                timeEntries = timeEntries.filter(e => e.id !== id);
+                saveLocalData();
+            }
+        }
+
 
         // --- Daily Overview ---
         let currentDailyDate = new Date();
@@ -962,7 +1113,7 @@
             tbody.innerHTML = '';
             
             if(globalEmployees.length === 0) {
-                 tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-outline">Keine Mitarbeiter.</td></tr>';
+                 tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-outline">Keine Mitarbeiter.</td></tr>';
                  return;
             }
 
@@ -973,6 +1124,7 @@
                 
                 let morn = '-', aft = '-', eve = '-', total = '-', status = '<span class="text-outline">Nicht erfasst</span>';
                 let rowClass = 'hover:bg-surface-container-low group';
+                let actionButtons = '';
 
                 if (entry) {
                     hasEntries = true;
@@ -988,6 +1140,10 @@
                     } else {
                         status = `<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded text-label-sm">Anwesend</span>`;
                     }
+                    actionButtons = `
+                        <button class="text-primary hover:bg-surface-container-highest p-2 rounded transition-colors" onclick="openEditTimeModal('${entry.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                        <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${entry.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                    `;
                 }
 
                 tbody.innerHTML += `
@@ -998,6 +1154,7 @@
                     <td class="p-4 text-center font-mono-data">${eve}</td>
                     <td class="p-4 text-center font-mono-data font-bold">${total}</td>
                     <td class="p-4">${status}</td>
+                    <td class="p-4 text-right">${actionButtons}</td>
                 </tr>`;
             });
         }
