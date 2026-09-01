@@ -6,7 +6,6 @@
 <title>Döltschi Time - Präzision &amp; Flow</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
 <!-- Tailwind Configuration -->
 <script id="tailwind-config">
       tailwind.config = {
@@ -351,6 +350,7 @@ Lade Daten...
 <th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
 <th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend</th>
 <th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total (h)</th>
+<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Aktionen</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="daily-table-body">
@@ -731,8 +731,10 @@ Lade Daten...
                         <td class="p-4">${data.percentage}%</td>
                         <td class="p-4">${data.annualHours || '-'}h</td>
                         <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
-                        <td class="p-4 text-right">
-                        <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')"><span class="material-symbols-outlined">delete</span></button>
+                        <td class="p-4 text-right flex justify-end gap-2">
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded transition-colors" title="Zurücksetzen"><span class="material-symbols-outlined">refresh</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
 
@@ -815,6 +817,10 @@ Lade Daten...
                              ${data.eveningFrom && data.eveningTo ? `${data.eveningFrom}-${data.eveningTo}` : (evening > 0 ? evening+'h' : '-')}
                         </td>
                         <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
+                        <td class="p-4 text-right flex justify-end gap-2">
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                        </td>
                     </tr>`;
 
                     if(entryCount <= 5) {
@@ -832,7 +838,7 @@ Lade Daten...
                 });
 
                 if(entryCount === 0) {
-                     dailyBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
+                     dailyBody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
                      document.getElementById('recent-activities').innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
                      document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
                 } else {
