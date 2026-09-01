@@ -387,7 +387,7 @@ Lade Daten...
 <section class="hidden view-transition space-y-6" id="view-management">
 <div class="flex justify-between items-center">
 <h2 class="font-headline-lg text-headline-lg">Mitarbeiter</h2>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2" onclick="toggleModal('employee-modal')">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2" onclick="openEmployeeModal()">
 <span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
                     </button>
 </div>
@@ -472,7 +472,7 @@ Lade Daten...
 <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="employee-modal">
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
-<h3 class="font-headline-md text-headline-md">Mitarbeiter hinzufügen</h3>
+<h3 class="font-headline-md text-headline-md" id="employee-modal-title">Mitarbeiter hinzufügen/bearbeiten</h3>
 <button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')"><span class="material-symbols-outlined">close</span></button>
 </div>
 <form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployeeForm();">
@@ -518,7 +518,7 @@ Lade Daten...
 <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="time-entry-modal">
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
-<h3 class="font-headline-md text-headline-md">Zeit erfassen</h3>
+<h3 class="font-headline-md text-headline-md" id="time-entry-modal-title">Zeit erfassen/bearbeiten</h3>
 <button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')"><span class="material-symbols-outlined">close</span></button>
 </div>
 <form class="p-6 space-y-4" onsubmit="event.preventDefault(); submitTimeEntry();">
@@ -566,7 +566,7 @@ Lade Daten...
 <!-- Firebase Simulation & SPA Logic -->
 <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, deleteDoc, query, orderBy } 
+        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, deleteDoc, query, orderBy, getDoc } 
             from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Firebase Config Placeholder
@@ -625,6 +625,9 @@ Lade Daten...
         // Firebase & Auth Logic
         let db;
         let employeesData = {};
+        let currentEditEmployeeId = null;
+        let currentEditTimeEntryId = null;
+        let timeEntriesData = {};
         
         function setDbStatus(isConnected) {
             const icon = document.getElementById('db-icon');
@@ -732,8 +735,7 @@ Lade Daten...
                         <td class="p-4">${data.annualHours || '-'}h</td>
                         <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
                         <td class="p-4 text-right flex justify-end gap-2">
-                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded transition-colors" title="Zurücksetzen"><span class="material-symbols-outlined">refresh</span></button>
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('${doc.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
                             <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
@@ -777,9 +779,12 @@ Lade Daten...
                 // Aggregations
                 const employeeTotals = {};
                 const dailyTotals = {}; // for weekly view aggregate
+                
+                timeEntriesData = {};
 
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
+                    timeEntriesData[docSnap.id] = data;
                     const emp = employeesData[data.employeeId] || { firstName: 'Unbekannt', lastName: '' };
                     const empName = `${emp.firstName} ${emp.lastName}`;
                     
@@ -818,8 +823,8 @@ Lade Daten...
                         </td>
                         <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
                         <td class="p-4 text-right flex justify-end gap-2">
-                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${docSnap.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${docSnap.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
 
@@ -874,6 +879,30 @@ Lade Daten...
              });
         }
 
+        window.openEmployeeModal = function() {
+            currentEditEmployeeId = null;
+            document.getElementById('emp-first-name').value = '';
+            document.getElementById('emp-last-name').value = '';
+            document.getElementById('emp-email').value = '';
+            document.getElementById('emp-percentage').value = '100';
+            document.getElementById('emp-annual-hours').value = '2080';
+            document.getElementById('emp-role').value = 'Mitarbeiter';
+            toggleModal('employee-modal');
+        }
+
+        window.editEmployee = function(id) {
+            const emp = employeesData[id];
+            if(!emp) return;
+            currentEditEmployeeId = id;
+            document.getElementById('emp-first-name').value = emp.firstName || '';
+            document.getElementById('emp-last-name').value = emp.lastName || '';
+            document.getElementById('emp-email').value = emp.email || '';
+            document.getElementById('emp-percentage').value = emp.percentage || '100';
+            document.getElementById('emp-annual-hours').value = emp.annualHours || '2080';
+            document.getElementById('emp-role').value = emp.role || 'Mitarbeiter';
+            toggleModal('employee-modal');
+        }
+
         window.saveEmployeeForm = async function() {
             if(!db) return;
             const data = {
@@ -882,15 +911,19 @@ Lade Daten...
                 email: document.getElementById('emp-email').value,
                 percentage: document.getElementById('emp-percentage').value,
                 annualHours: document.getElementById('emp-annual-hours').value,
-                role: document.getElementById('emp-role').value,
-                createdAt: new Date().toISOString()
+                role: document.getElementById('emp-role').value
             };
 
             try {
-                await addDoc(collection(db, "employees"), data);
+                if(currentEditEmployeeId) {
+                    await updateDoc(doc(db, "employees", currentEditEmployeeId), data);
+                } else {
+                    data.createdAt = new Date().toISOString();
+                    await addDoc(collection(db, "employees"), data);
+                }
                 toggleModal('employee-modal');
             } catch(e) {
-                console.error("Error adding employee: ", e);
+                console.error("Error saving employee: ", e);
             }
         };
 
@@ -904,7 +937,9 @@ Lade Daten...
         }
 
         window.openTimeEntryModal = function() {
+            currentEditTimeEntryId = null;
             document.getElementById('entry-date').valueAsDate = new Date();
+            document.getElementById('entry-employee').value = '';
             document.getElementById('entry-morning-from').value = '';
             document.getElementById('entry-morning-to').value = '';
             document.getElementById('entry-afternoon-from').value = '';
@@ -913,6 +948,31 @@ Lade Daten...
             document.getElementById('entry-evening-to').value = '';
             document.getElementById('entry-notes').value = '';
             toggleModal('time-entry-modal');
+        }
+
+        window.editTimeEntry = function(id) {
+            const entry = timeEntriesData[id];
+            if(!entry) return;
+            currentEditTimeEntryId = id;
+            document.getElementById('entry-employee').value = entry.employeeId || '';
+            document.getElementById('entry-date').value = entry.date || '';
+            document.getElementById('entry-morning-from').value = entry.morningFrom || '';
+            document.getElementById('entry-morning-to').value = entry.morningTo || '';
+            document.getElementById('entry-afternoon-from').value = entry.afternoonFrom || '';
+            document.getElementById('entry-afternoon-to').value = entry.afternoonTo || '';
+            document.getElementById('entry-evening-from').value = entry.eveningFrom || '';
+            document.getElementById('entry-evening-to').value = entry.eveningTo || '';
+            document.getElementById('entry-notes').value = entry.notes || '';
+            toggleModal('time-entry-modal');
+        }
+
+        window.deleteTimeEntry = async function(id) {
+            if(!db || !confirm("Eintrag wirklich löschen?")) return;
+            try {
+                await deleteDoc(doc(db, "timeEntries", id));
+            } catch(e) {
+                console.error("Error deleting time entry: ", e);
+            }
         }
 
         window.submitTimeEntry = async function() {
@@ -932,12 +992,16 @@ Lade Daten...
                 afternoonTo: document.getElementById('entry-afternoon-to').value,
                 eveningFrom: document.getElementById('entry-evening-from').value,
                 eveningTo: document.getElementById('entry-evening-to').value,
-                notes: document.getElementById('entry-notes').value,
-                createdAt: new Date().toISOString()
+                notes: document.getElementById('entry-notes').value
             };
 
             try {
-                await addDoc(collection(db, "timeEntries"), data);
+                if(currentEditTimeEntryId) {
+                    await updateDoc(doc(db, "timeEntries", currentEditTimeEntryId), data);
+                } else {
+                    data.createdAt = new Date().toISOString();
+                    await addDoc(collection(db, "timeEntries"), data);
+                }
                 toggleModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
