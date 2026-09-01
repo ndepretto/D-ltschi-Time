@@ -148,21 +148,13 @@
 <span class="material-symbols-outlined">today</span>
 <span>Tagesübersicht</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-weekly" onclick="showView('weekly')">
-<span class="material-symbols-outlined">calendar_view_week</span>
-<span>Wochenübersicht</span>
-</button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-reports" onclick="showView('reports')">
 <span class="material-symbols-outlined">analytics</span>
 <span>Berichte</span>
 </button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-management" onclick="showView('management')">
 <span class="material-symbols-outlined">group</span>
-<span>Verwaltung</span>
-</button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-settings" onclick="showView('settings')">
-<span class="material-symbols-outlined">settings</span>
-<span>Einstellungen</span>
+<span>Mitarbeiter</span>
 </button>
 </nav>
 <div class="mt-auto border-t border-outline-variant pt-4 space-y-1">
@@ -342,35 +334,6 @@ Lade Daten...
 </table>
 </div>
 </section>
-<!-- Weekly Log View -->
-<section class="hidden view-transition space-y-6" id="view-weekly">
-<div class="flex justify-between items-center">
-<div>
-<h2 class="font-headline-lg text-headline-lg">Wochenübersicht</h2>
-<p class="text-on-surface-variant">Aggregation pro Tag</p>
-</div>
-</div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
-<table class="w-full border-collapse">
-<thead>
-<tr class="bg-surface-container-low">
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Einträge</th>
-<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total Stunden</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant" id="weekly-table-body">
-<!-- Dynamic Population -->
-</tbody>
-<tfoot>
-<tr class="bg-surface-container-low font-headline-md">
-<td class="p-4 text-right font-label-bold text-label-bold" colspan="2">Total</td>
-<td class="p-4 text-right font-mono-data text-mono-data text-primary" id="weekly-total">0.00h</td>
-</tr>
-</tfoot>
-</table>
-</div>
-</section>
 <!-- Reports View -->
 <section class="hidden view-transition space-y-8" id="view-reports">
 <div class="flex justify-between items-center">
@@ -396,7 +359,7 @@ Lade Daten...
 <!-- Management View -->
 <section class="hidden view-transition space-y-6" id="view-management">
 <div class="flex justify-between items-center">
-<h2 class="font-headline-lg text-headline-lg">Verwaltung Mitarbeitende</h2>
+<h2 class="font-headline-lg text-headline-lg">Mitarbeiter</h2>
 <button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2" onclick="toggleModal('employee-modal')">
 <span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
                     </button>
@@ -577,7 +540,7 @@ Lade Daten...
 
         // UI State Management
         window.showView = function(viewId) {
-            const views = ['dashboard', 'tracking', 'daily', 'weekly', 'reports', 'management', 'settings', 'profile'];
+            const views = ['dashboard', 'tracking', 'daily', 'reports', 'management', 'settings', 'profile'];
             
             views.forEach(v => {
                 const element = document.getElementById(`view-${v}`);
@@ -810,7 +773,6 @@ Lade Daten...
                 if(entryCount === 0) {
                      dailyBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
                      document.getElementById('recent-activities').innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
-                     document.getElementById('weekly-table-body').innerHTML = '<tr><td colspan="3" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
                      document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="2" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
                 } else {
                      dailyBody.innerHTML = dailyHtml;
@@ -828,24 +790,10 @@ Lade Daten...
                          `;
                      }
                      document.getElementById('reports-table-body').innerHTML = repHtml;
-
-                     // Populate Weekly / Aggregate View
-                     let wHtml = '';
-                     for (const [dateStr, agg] of Object.entries(dailyTotals)) {
-                         wHtml += `
-                         <tr>
-                            <td class="p-4">${dateStr}</td>
-                            <td class="p-4">${agg.count}</td>
-                            <td class="p-4 text-right font-mono-data">${agg.hours.toFixed(2)}h</td>
-                         </tr>
-                         `;
-                     }
-                     document.getElementById('weekly-table-body').innerHTML = wHtml;
                 }
                 
                 document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
                 document.getElementById('dashboard-entry-count').textContent = entryCount;
-                document.getElementById('weekly-total').textContent = `${totalHours.toFixed(2)}h`;
 
              }, (error) => {
                  console.error("Error listening to time entries:", error);
