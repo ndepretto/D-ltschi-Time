@@ -140,6 +140,10 @@
 <span class="material-symbols-outlined">dashboard</span>
 <span>Dashboard</span>
 </button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-tracking" onclick="showView('tracking')">
+<span class="material-symbols-outlined">schedule</span>
+<span>Zeiterfassung</span>
+</button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-daily" onclick="showView('daily')">
 <span class="material-symbols-outlined">today</span>
 <span>Tagesübersicht</span>
@@ -267,6 +271,46 @@ Lade Daten...
 </div>
 </div>
 </div>
+</div>
+</section>
+<!-- Tracking View -->
+<section class="hidden view-transition space-y-6" id="view-tracking">
+<div class="flex justify-between items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Zeiterfassung</h2>
+<p class="text-on-surface-variant">Arbeitszeiten eintragen</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 max-w-2xl">
+<form class="space-y-4" onsubmit="event.preventDefault(); submitTimeEntryForm();">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Mitarbeiter</label>
+<select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-employee" required="">
+<!-- populated from DB -->
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Datum</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-date" required="" type="date"/>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Vormittag (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-morning" max="12" min="0" step="0.25" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Nachmittag (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-afternoon" max="12" min="0" step="0.25" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Abend (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-evening" max="12" min="0" step="0.25" type="number"/>
+</div>
+</div>
+<div class="pt-6">
+<button class="w-full px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Eintrag speichern</button>
+</div>
+</form>
 </div>
 </section>
 <!-- Daily Log View -->
@@ -533,7 +577,7 @@ Lade Daten...
 
         // UI State Management
         window.showView = function(viewId) {
-            const views = ['dashboard', 'daily', 'weekly', 'reports', 'management', 'settings', 'profile'];
+            const views = ['dashboard', 'tracking', 'daily', 'weekly', 'reports', 'management', 'settings', 'profile'];
             
             views.forEach(v => {
                 const element = document.getElementById(`view-${v}`);
@@ -641,6 +685,7 @@ Lade Daten...
                 setDbStatus(true);
                 const list = document.getElementById('employee-list');
                 const empSelect = document.getElementById('entry-employee');
+                const trackSelect = document.getElementById('tracking-employee');
                 
                 if(snapshot.empty) {
                     // Seed initial specific employees
@@ -660,6 +705,7 @@ Lade Daten...
 
                 list.innerHTML = '';
                 empSelect.innerHTML = '<option value="">Bitte wählen...</option>';
+                if(trackSelect) trackSelect.innerHTML = '<option value="">Bitte wählen...</option>';
                 let count = 0;
                 employeesData = {};
 
@@ -685,6 +731,7 @@ Lade Daten...
                     </tr>`;
 
                     empSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
+                    if(trackSelect) trackSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
                 });
 
                 // Update Dashboard stats
@@ -867,9 +914,38 @@ Lade Daten...
             }
         }
 
+        window.submitTimeEntryForm = async function() {
+            if(!db) return;
+            const empId = document.getElementById('tracking-employee').value;
+            if(!empId) {
+                alert("Bitte Mitarbeiter wählen");
+                return;
+            }
+
+            const data = {
+                employeeId: empId,
+                date: document.getElementById('tracking-date').value,
+                morning: document.getElementById('tracking-morning').value || 0,
+                afternoon: document.getElementById('tracking-afternoon').value || 0,
+                evening: document.getElementById('tracking-evening').value || 0,
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                await addDoc(collection(db, "timeEntries"), data);
+                alert("Eintrag erfolgreich gespeichert!");
+                document.getElementById('tracking-morning').value = '';
+                document.getElementById('tracking-afternoon').value = '';
+                document.getElementById('tracking-evening').value = '';
+            } catch(e) {
+                console.error("Error saving time entry: ", e);
+            }
+        }
+
         // Initialize UI
         window.onload = () => {
             showView('dashboard');
+            document.getElementById('tracking-date').valueAsDate = new Date();
             // Data loading waits for auth
         };
     </script>
