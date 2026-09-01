@@ -371,7 +371,9 @@ Lade Daten...
 <thead class="bg-surface-container-low">
 <tr>
 <th class="p-4 text-left font-label-bold text-label-bold">Mitarbeiter</th>
-<th class="p-4 text-right font-label-bold text-label-bold">Total Stunden</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Jahresarbeitszeit (h)</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Total Stunden (h)</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Saldo (h)</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="reports-table-body">
@@ -396,6 +398,7 @@ Lade Daten...
 <th class="p-4 text-left font-label-bold text-label-bold">Name</th>
 <th class="p-4 text-left font-label-bold text-label-bold">E-Mail</th>
 <th class="p-4 text-left font-label-bold text-label-bold">Beschäftigungsgrad</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Jahresarbeitszeit</th>
 <th class="p-4 text-left font-label-bold text-label-bold">Rolle</th>
 <th class="p-4 text-right font-label-bold text-label-bold">Aktionen</th>
 </tr>
@@ -403,7 +406,7 @@ Lade Daten...
 <tbody class="divide-y divide-outline-variant" id="employee-list">
 <!-- Firebase Data -->
 <tr>
-<td class="p-4 text-center text-outline" colspan="5">Daten werden geladen...</td>
+<td class="p-4 text-center text-outline" colspan="6">Daten werden geladen...</td>
 </tr>
 </tbody>
 </table>
@@ -493,12 +496,16 @@ Lade Daten...
 <input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-percentage" required="" type="number" value="100"/>
 </div>
 <div class="space-y-1">
+<label class="text-label-bold font-label-bold">Jahresarbeitszeit (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-annual-hours" required="" type="number" value="2080"/>
+</div>
+</div>
+<div class="space-y-1">
 <label class="text-label-bold font-label-bold">Rolle</label>
 <select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role">
 <option value="Mitarbeiter">Mitarbeiter</option>
 <option value="Administrator">Administrator</option>
 </select>
-</div>
 </div>
 <div class="pt-6 flex gap-3">
 <button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('employee-modal')" type="button">Abbrechen</button>
@@ -688,10 +695,10 @@ Lade Daten...
                 if(snapshot.empty) {
                     // Seed initial specific employees
                     const initialEmployees = [
-                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 57, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
-                        { firstName: 'Michelle', lastName: 'Dreifuss', email: 'michelle@doeltschi-time.ch', percentage: 100, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
-                        { firstName: 'Manuel', lastName: 'Schoch', email: 'manuel@doeltschi-time.ch', percentage: 100, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
-                        { firstName: 'Seline', lastName: 'Steinmann', email: 'seline@doeltschi-time.ch', percentage: 92, role: 'Mitarbeiter', createdAt: new Date().toISOString() }
+                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 57, annualHours: 1185.6, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Michelle', lastName: 'Dreifuss', email: 'michelle@doeltschi-time.ch', percentage: 100, annualHours: 2080, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Manuel', lastName: 'Schoch', email: 'manuel@doeltschi-time.ch', percentage: 100, annualHours: 2080, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Seline', lastName: 'Steinmann', email: 'seline@doeltschi-time.ch', percentage: 92, annualHours: 1913.6, role: 'Mitarbeiter', createdAt: new Date().toISOString() }
                     ];
                     for (const emp of initialEmployees) {
                         try {
@@ -722,6 +729,7 @@ Lade Daten...
                         </td>
                         <td class="p-4 text-on-surface-variant">${data.email}</td>
                         <td class="p-4">${data.percentage}%</td>
+                        <td class="p-4">${data.annualHours || '-'}h</td>
                         <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
                         <td class="p-4 text-right">
                         <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')"><span class="material-symbols-outlined">delete</span></button>
@@ -826,19 +834,25 @@ Lade Daten...
                 if(entryCount === 0) {
                      dailyBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
                      document.getElementById('recent-activities').innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
-                     document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="2" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
+                     document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
                 } else {
                      dailyBody.innerHTML = dailyHtml;
                      document.getElementById('recent-activities').innerHTML = recentHtml;
                      
                      // Populate Reports
                      let repHtml = '';
-                     for (const [empId, hrs] of Object.entries(employeeTotals)) {
-                         const e = employeesData[empId] || { firstName: 'Unbekannt', lastName: '' };
+                     for (const [empId, empData] of Object.entries(employeesData)) {
+                         const hrs = employeeTotals[empId] || 0;
+                         const annual = parseFloat(empData.annualHours) || 0;
+                         const saldo = hrs - annual;
+                         const saldoColor = saldo >= 0 ? 'text-tertiary' : 'text-error';
+                         
                          repHtml += `
                          <tr>
-                            <td class="p-4">${e.firstName} ${e.lastName}</td>
+                            <td class="p-4">${empData.firstName} ${empData.lastName}</td>
+                            <td class="p-4 text-right font-mono-data">${annual > 0 ? annual + 'h' : '-'}</td>
                             <td class="p-4 text-right font-mono-data">${hrs.toFixed(2)}h</td>
+                            <td class="p-4 text-right font-mono-data ${saldoColor} font-bold">${saldo > 0 ? '+' : ''}${saldo.toFixed(2)}h</td>
                          </tr>
                          `;
                      }
@@ -861,6 +875,7 @@ Lade Daten...
                 lastName: document.getElementById('emp-last-name').value,
                 email: document.getElementById('emp-email').value,
                 percentage: document.getElementById('emp-percentage').value,
+                annualHours: document.getElementById('emp-annual-hours').value,
                 role: document.getElementById('emp-role').value,
                 createdAt: new Date().toISOString()
             };
