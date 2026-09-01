@@ -111,7 +111,7 @@
             font-family: 'IBM Plex Sans', sans-serif;
             background-color: #f8f9ff;
         }
-        input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #0058bc !important;
             box-shadow: 0 0 0 2px rgba(0, 88, 188, 0.1);
@@ -129,7 +129,7 @@
 <p class="text-error text-label-sm mt-2 hidden" id="auth-error">Falsches Passwort</p>
 </div>
 </div>
-<!-- SideNavBar (Authority: JSON & Style Guidance) -->
+<!-- SideNavBar -->
 <aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50" id="sidebar">
 <div class="mb-6 px-2">
 <h1 class="font-headline-md text-headline-md text-primary">Döltschi Time</h1>
@@ -139,6 +139,10 @@
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100 active-nav-item" id="nav-dashboard" onclick="showView('dashboard')">
 <span class="material-symbols-outlined">dashboard</span>
 <span>Dashboard</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-daily" onclick="showView('daily')">
+<span class="material-symbols-outlined">today</span>
+<span>Tagesübersicht</span>
 </button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-weekly" onclick="showView('weekly')">
 <span class="material-symbols-outlined">calendar_view_week</span>
@@ -199,7 +203,7 @@
 <h2 class="font-headline-lg text-headline-lg">Dashboard</h2>
 <p class="text-on-surface-variant">Willkommen zurück, Administrator.</p>
 </div>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="openTimeEntryModal()">
                         Neuer Eintrag
                     </button>
 </div>
@@ -223,15 +227,15 @@
 <span class="text-primary font-label-bold text-label-bold">Optimal</span>
 </div>
 <div>
-<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Durchschnittliche Arbeitszeit</p>
-<h3 class="font-headline-lg text-headline-lg" id="dashboard-avg-hours">-- h</h3>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Einträge Total</p>
+<h3 class="font-headline-lg text-headline-lg" id="dashboard-entry-count">--</h3>
 </div>
 </div>
 <!-- Pending Approvals Card -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
-<span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">pending_actions</span>
-<span class="text-error font-label-bold text-label-bold">Dringend</span>
+<span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">schedule</span>
+<span class="text-error font-label-bold text-label-bold">Live</span>
 </div>
 <div>
 <p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Gesamtarbeitsstunden</p>
@@ -253,11 +257,11 @@
 <div class="bg-outline-variant w-full" style="height: 10%"></div>
 </div>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
 <div class="p-6 border-b border-outline-variant">
 <h4 class="font-label-bold text-label-bold">Neueste Aktivitäten</h4>
 </div>
-<div class="divide-y divide-outline-variant" id="recent-activities">
+<div class="divide-y divide-outline-variant flex-1 overflow-y-auto" id="recent-activities">
 <div class="p-4 flex items-center justify-center text-outline text-label-sm">
 Lade Daten...
 </div>
@@ -265,17 +269,41 @@ Lade Daten...
 </div>
 </div>
 </section>
+<!-- Daily Log View -->
+<section class="hidden view-transition space-y-6" id="view-daily">
+<div class="flex justify-between items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Tagesübersicht</h2>
+<p class="text-on-surface-variant">Alle Einträge</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="openTimeEntryModal()">
+    Neuer Eintrag
+</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Datum</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Mitarbeiter</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend</th>
+<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total (h)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="daily-table-body">
+<!-- Dynamic Population -->
+</tbody>
+</table>
+</div>
+</section>
 <!-- Weekly Log View -->
 <section class="hidden view-transition space-y-6" id="view-weekly">
 <div class="flex justify-between items-center">
 <div>
 <h2 class="font-headline-lg text-headline-lg">Wochenübersicht</h2>
-<p class="text-on-surface-variant">KW 42, 14. Okt - 20. Okt 2024</p>
-</div>
-<div class="flex border border-outline-variant rounded-lg overflow-hidden">
-<button class="px-4 py-2 hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
-<button class="px-6 py-2 border-x border-outline-variant font-label-bold text-label-bold">Heute</button>
-<button class="px-4 py-2 hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+<p class="text-on-surface-variant">Aggregation pro Tag</p>
 </div>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
@@ -283,9 +311,8 @@ Lade Daten...
 <thead>
 <tr class="bg-surface-container-low">
 <th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
-<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Einträge</th>
+<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total Stunden</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="weekly-table-body">
@@ -293,112 +320,33 @@ Lade Daten...
 </tbody>
 <tfoot>
 <tr class="bg-surface-container-low font-headline-md">
-<td class="p-4 text-right font-label-bold text-label-bold" colspan="3">Total Woche</td>
+<td class="p-4 text-right font-label-bold text-label-bold" colspan="2">Total</td>
 <td class="p-4 text-right font-mono-data text-mono-data text-primary" id="weekly-total">0.00h</td>
 </tr>
 </tfoot>
 </table>
-</div>
-<div class="flex justify-end gap-3">
-<button class="px-6 py-2 border border-primary text-primary rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="saveTimeEntries()">Speichern</button>
-<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90">Freigeben</button>
 </div>
 </section>
 <!-- Reports View -->
 <section class="hidden view-transition space-y-8" id="view-reports">
 <div class="flex justify-between items-center">
 <h2 class="font-headline-lg text-headline-lg">Berichte</h2>
-<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 font-label-bold text-label-bold">
-<option>Oktober 2024</option>
-<option>September 2024</option>
-<option>August 2024</option>
-</select>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
-<h4 class="font-label-bold text-label-bold mb-8">Produktivitätsanalyse</h4>
-<div class="h-64 w-full flex items-end justify-between px-4 pb-8 border-b border-outline-variant gap-2">
-<!-- Simple custom bars for visualization -->
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary w-full max-w-[40px] rounded-t-sm" style="height: 70%"></div>
-<span class="text-label-sm mt-2">KW 39</span>
-</div>
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary w-full max-w-[40px] rounded-t-sm" style="height: 85%"></div>
-<span class="text-label-sm mt-2">KW 40</span>
-</div>
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary w-full max-w-[40px] rounded-t-sm" style="height: 60%"></div>
-<span class="text-label-sm mt-2">KW 41</span>
-</div>
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary-container w-full max-w-[40px] rounded-t-sm" style="height: 90%"></div>
-<span class="text-label-sm mt-2">KW 42</span>
-</div>
-</div>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
-<h4 class="font-label-bold text-label-bold mb-6">Projektverteilung</h4>
-<div class="space-y-4">
-<div>
-<div class="flex justify-between text-body-sm mb-1">
-<span>Projekt Alpha</span>
-<span>45%</span>
-</div>
-<div class="h-2 bg-secondary-container rounded-full overflow-hidden">
-<div class="h-full bg-primary" style="width: 45%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-body-sm mb-1">
-<span>Internes</span>
-<span>30%</span>
-</div>
-<div class="h-2 bg-secondary-container rounded-full overflow-hidden">
-<div class="h-full bg-tertiary-container" style="width: 30%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-body-sm mb-1">
-<span>Support</span>
-<span>25%</span>
-</div>
-<div class="h-2 bg-secondary-container rounded-full overflow-hidden">
-<div class="h-full bg-secondary" style="width: 25%"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<h4 class="font-label-bold text-label-bold mb-6">Mitarbeiter Stunden Total</h4>
+<div class="overflow-x-auto">
 <table class="w-full">
 <thead class="bg-surface-container-low">
 <tr>
-<th class="p-4 text-left font-label-bold text-label-bold">Projekt</th>
-<th class="p-4 text-left font-label-bold text-label-bold">Stunden</th>
-<th class="p-4 text-left font-label-bold text-label-bold">Fortschritt</th>
-<th class="p-4 text-right font-label-bold text-label-bold">Status</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Mitarbeiter</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Total Stunden</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="p-4 font-body-lg text-body-lg">Entwicklung Dashboard</td>
-<td class="p-4 font-mono-data text-mono-data">142.5h</td>
-<td class="p-4">
-<div class="w-24 h-1.5 bg-secondary-container rounded-full"><div class="h-full bg-primary w-2/3"></div></div>
-</td>
-<td class="p-4 text-right"><span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded text-label-sm">Aktiv</span></td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="p-4 font-body-lg text-body-lg">Reporting Modul</td>
-<td class="p-4 font-mono-data text-mono-data">88.0h</td>
-<td class="p-4">
-<div class="w-24 h-1.5 bg-secondary-container rounded-full"><div class="h-full bg-primary w-full"></div></div>
-</td>
-<td class="p-4 text-right"><span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-label-sm">Abgeschlossen</span></td>
-</tr>
+<tbody class="divide-y divide-outline-variant" id="reports-table-body">
+<!-- Dynamically filled -->
 </tbody>
 </table>
+</div>
 </div>
 </section>
 <!-- Management View -->
@@ -527,10 +475,49 @@ Lade Daten...
 </form>
 </div>
 </div>
+<!-- Modal: Time Entry -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="time-entry-modal">
+<div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md">Zeit erfassen</h3>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')"><span class="material-symbols-outlined">close</span></button>
+</div>
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); submitTimeEntry();">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Mitarbeiter</label>
+<select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-employee" required="">
+<!-- populated from DB -->
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Datum</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-date" required="" type="date"/>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Vormittag (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-morning" max="12" min="0" step="0.25" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Nachmittag (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-afternoon" max="12" min="0" step="0.25" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Abend (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-evening" max="12" min="0" step="0.25" type="number"/>
+</div>
+</div>
+<div class="pt-6 flex gap-3">
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('time-entry-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
 <!-- Firebase Simulation & SPA Logic -->
 <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, deleteDoc } 
+        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, deleteDoc, query, orderBy } 
             from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Firebase Config Placeholder
@@ -546,7 +533,7 @@ Lade Daten...
 
         // UI State Management
         window.showView = function(viewId) {
-            const views = ['dashboard', 'weekly', 'reports', 'management', 'settings', 'profile'];
+            const views = ['dashboard', 'daily', 'weekly', 'reports', 'management', 'settings', 'profile'];
             
             views.forEach(v => {
                 const element = document.getElementById(`view-${v}`);
@@ -588,6 +575,7 @@ Lade Daten...
 
         // Firebase & Auth Logic
         let db;
+        let employeesData = {};
         
         function setDbStatus(isConnected) {
             const icon = document.getElementById('db-icon');
@@ -645,22 +633,39 @@ Lade Daten...
             }
         }
 
-        function syncEmployees() {
+        async function syncEmployees() {
             if (!db) return;
             const empRef = collection(db, "employees");
-            onSnapshot(empRef, (snapshot) => {
+            
+            onSnapshot(empRef, async (snapshot) => {
                 setDbStatus(true);
                 const list = document.getElementById('employee-list');
-                list.innerHTML = '';
-                
-                let count = 0;
+                const empSelect = document.getElementById('entry-employee');
                 
                 if(snapshot.empty) {
-                    list.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-outline">Keine Mitarbeiter gefunden.</td></tr>';
+                    // Seed initial specific employees
+                    const initialEmployees = [
+                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 57, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Michelle', lastName: 'Dreifuss', email: 'michelle@doeltschi-time.ch', percentage: 100, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Manuel', lastName: 'Schoch', email: 'manuel@doeltschi-time.ch', percentage: 100, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Seline', lastName: 'Steinmann', email: 'seline@doeltschi-time.ch', percentage: 92, role: 'Mitarbeiter', createdAt: new Date().toISOString() }
+                    ];
+                    for (const emp of initialEmployees) {
+                        try {
+                            await addDoc(collection(db, "employees"), emp);
+                        } catch(e) { console.error(e) }
+                    }
+                    return; // Next snapshot will handle rendering
                 }
+
+                list.innerHTML = '';
+                empSelect.innerHTML = '<option value="">Bitte wählen...</option>';
+                let count = 0;
+                employeesData = {};
 
                 snapshot.forEach((doc) => {
                     const data = doc.data();
+                    employeesData[doc.id] = data;
                     count++;
                     const initials = (data.firstName?.charAt(0) || '') + (data.lastName?.charAt(0) || '');
                     const roleClass = data.role === 'Administrator' ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-on-surface-variant';
@@ -678,6 +683,8 @@ Lade Daten...
                         <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
+
+                    empSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
                 });
 
                 // Update Dashboard stats
@@ -692,57 +699,106 @@ Lade Daten...
         function syncTimeEntries() {
              if (!db) return;
              const timeRef = collection(db, "timeEntries");
-             onSnapshot(timeRef, (snapshot) => {
+             const q = query(timeRef, orderBy("date", "desc"));
+             
+             onSnapshot(q, (snapshot) => {
                 setDbStatus(true);
                 let totalHours = 0;
                 let entryCount = 0;
 
-                // Build weekly view HTML
-                const weeklyBody = document.getElementById('weekly-table-body');
-                let weeklyHtml = '';
-                
-                // Assuming simple flat structure for demo purposes
+                const dailyBody = document.getElementById('daily-table-body');
+                let dailyHtml = '';
+                let recentHtml = '';
+
+                // Aggregations
+                const employeeTotals = {};
+                const dailyTotals = {}; // for weekly view aggregate
+
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
-                    totalHours += (data.hours || 0);
-                    entryCount++;
+                    const emp = employeesData[data.employeeId] || { firstName: 'Unbekannt', lastName: '' };
+                    const empName = `${emp.firstName} ${emp.lastName}`;
                     
-                    // Simple mock rendering for weekly view based on entries
+                    const morning = parseFloat(data.morning) || 0;
+                    const afternoon = parseFloat(data.afternoon) || 0;
+                    const evening = parseFloat(data.evening) || 0;
+                    const total = morning + afternoon + evening;
+                    
+                    totalHours += total;
+                    entryCount++;
+
+                    // Employee Totals (Reports)
+                    if(!employeeTotals[data.employeeId]) employeeTotals[data.employeeId] = 0;
+                    employeeTotals[data.employeeId] += total;
+
+                    // Daily Totals (Weekly View)
+                    if(!dailyTotals[data.date]) dailyTotals[data.date] = { count: 0, hours: 0 };
+                    dailyTotals[data.date].count++;
+                    dailyTotals[data.date].hours += total;
+                    
+                    dailyHtml += `
+                    <tr class="hover:bg-surface-container-low group">
+                        <td class="p-4"><p class="font-label-bold text-label-bold">${data.date}</p></td>
+                        <td class="p-4 text-on-surface-variant">${empName}</td>
+                        <td class="p-4 font-mono-data text-mono-data">${morning > 0 ? morning+'h' : '-'}</td>
+                        <td class="p-4 font-mono-data text-mono-data">${afternoon > 0 ? afternoon+'h' : '-'}</td>
+                        <td class="p-4 font-mono-data text-mono-data">${evening > 0 ? evening+'h' : '-'}</td>
+                        <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
+                    </tr>`;
+
                     if(entryCount <= 5) {
-                        weeklyHtml += `
-                        <tr class="hover:bg-surface-container-low group">
-                            <td class="p-4"><p class="font-label-bold text-label-bold">${data.day || 'Tag'}</p></td>
-                            <td class="p-4 font-mono-data text-mono-data">${data.morning || '--:--'}</td>
-                            <td class="p-4 font-mono-data text-mono-data">${data.afternoon || '--:--'}</td>
-                            <td class="p-4 text-right font-mono-data text-mono-data">${(data.hours || 0).toFixed(2)}h</td>
-                        </tr>`;
+                        recentHtml += `
+                        <div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-bold text-primary">ZE</div>
+                            <div class="flex-1">
+                                <p class="font-label-bold text-label-bold">${empName}</p>
+                                <p class="text-body-sm text-on-surface-variant">${data.date} - ${total}h erfasst</p>
+                            </div>
+                            <span class="text-label-sm text-outline">Live</span>
+                        </div>
+                        `;
                     }
                 });
 
                 if(entryCount === 0) {
-                     weeklyBody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Einträge.</td></tr>';
-                     document.getElementById('dashboard-total-hours').textContent = "0h";
-                     document.getElementById('dashboard-avg-hours').textContent = "0h";
+                     dailyBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
+                     document.getElementById('recent-activities').innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
+                     document.getElementById('weekly-table-body').innerHTML = '<tr><td colspan="3" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
+                     document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="2" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
                 } else {
-                     if(weeklyHtml) weeklyBody.innerHTML = weeklyHtml;
-                     document.getElementById('weekly-total').textContent = `${totalHours.toFixed(2)}h`;
+                     dailyBody.innerHTML = dailyHtml;
+                     document.getElementById('recent-activities').innerHTML = recentHtml;
                      
-                     // Dashboard updates
-                     document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
-                     const avg = (totalHours / Math.max(1, entryCount)).toFixed(1);
-                     document.getElementById('dashboard-avg-hours').textContent = `${avg}h`;
-                     
-                     document.getElementById('recent-activities').innerHTML = `
-                        <div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-bold text-primary">DB</div>
-                            <div class="flex-1">
-                                <p class="font-label-bold text-label-bold">Letzter DB Sync</p>
-                                <p class="text-body-sm text-on-surface-variant">${entryCount} Einträge geladen</p>
-                            </div>
-                            <span class="text-label-sm text-outline">Live</span>
-                        </div>
-                     `;
+                     // Populate Reports
+                     let repHtml = '';
+                     for (const [empId, hrs] of Object.entries(employeeTotals)) {
+                         const e = employeesData[empId] || { firstName: 'Unbekannt', lastName: '' };
+                         repHtml += `
+                         <tr>
+                            <td class="p-4">${e.firstName} ${e.lastName}</td>
+                            <td class="p-4 text-right font-mono-data">${hrs.toFixed(2)}h</td>
+                         </tr>
+                         `;
+                     }
+                     document.getElementById('reports-table-body').innerHTML = repHtml;
+
+                     // Populate Weekly / Aggregate View
+                     let wHtml = '';
+                     for (const [dateStr, agg] of Object.entries(dailyTotals)) {
+                         wHtml += `
+                         <tr>
+                            <td class="p-4">${dateStr}</td>
+                            <td class="p-4">${agg.count}</td>
+                            <td class="p-4 text-right font-mono-data">${agg.hours.toFixed(2)}h</td>
+                         </tr>
+                         `;
+                     }
+                     document.getElementById('weekly-table-body').innerHTML = wHtml;
                 }
+                
+                document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
+                document.getElementById('dashboard-entry-count').textContent = entryCount;
+                document.getElementById('weekly-total').textContent = `${totalHours.toFixed(2)}h`;
 
              }, (error) => {
                  console.error("Error listening to time entries:", error);
@@ -764,7 +820,6 @@ Lade Daten...
             try {
                 await addDoc(collection(db, "employees"), data);
                 toggleModal('employee-modal');
-                // form reset manually if needed
             } catch(e) {
                 console.error("Error adding employee: ", e);
             }
@@ -779,20 +834,36 @@ Lade Daten...
             }
         }
 
-        window.saveTimeEntries = async function() {
-            // Mock function to demonstrate adding to collection
+        window.openTimeEntryModal = function() {
+            document.getElementById('entry-date').valueAsDate = new Date();
+            document.getElementById('entry-morning').value = '';
+            document.getElementById('entry-afternoon').value = '';
+            document.getElementById('entry-evening').value = '';
+            toggleModal('time-entry-modal');
+        }
+
+        window.submitTimeEntry = async function() {
             if(!db) return;
+            const empId = document.getElementById('entry-employee').value;
+            if(!empId) {
+                alert("Bitte Mitarbeiter wählen");
+                return;
+            }
+
+            const data = {
+                employeeId: empId,
+                date: document.getElementById('entry-date').value,
+                morning: document.getElementById('entry-morning').value || 0,
+                afternoon: document.getElementById('entry-afternoon').value || 0,
+                evening: document.getElementById('entry-evening').value || 0,
+                createdAt: new Date().toISOString()
+            };
+
             try {
-                await addDoc(collection(db, "timeEntries"), {
-                    day: "Neu",
-                    morning: "08:00 - 12:00",
-                    afternoon: "13:00 - 17:00",
-                    hours: 8,
-                    timestamp: new Date().toISOString()
-                });
-                alert("Gespeichert (Mock)");
+                await addDoc(collection(db, "timeEntries"), data);
+                toggleModal('time-entry-modal');
             } catch(e) {
-                console.error(e);
+                console.error("Error saving time entry: ", e);
             }
         }
 
