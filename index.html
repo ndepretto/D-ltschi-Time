@@ -285,19 +285,44 @@ Lade Daten...
 <label class="text-label-bold font-label-bold">Datum</label>
 <input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-date" required="" type="date"/>
 </div>
-<div class="grid grid-cols-3 gap-4">
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Vormittag (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-morning" max="12" min="0" step="0.25" type="number"/>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-3">
+<h4 class="text-label-bold font-label-bold border-b border-outline-variant pb-1">Vormittag</h4>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Von</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-morning-from" type="time"/>
 </div>
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Nachmittag (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-afternoon" max="12" min="0" step="0.25" type="number"/>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Bis</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-morning-to" type="time"/>
 </div>
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Abend (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-evening" max="12" min="0" step="0.25" type="number"/>
 </div>
+<div class="space-y-3">
+<h4 class="text-label-bold font-label-bold border-b border-outline-variant pb-1">Nachmittag</h4>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Von</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-afternoon-from" type="time"/>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Bis</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-afternoon-to" type="time"/>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="text-label-bold font-label-bold border-b border-outline-variant pb-1">Abend</h4>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Von</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-evening-from" type="time"/>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Bis</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-evening-to" type="time"/>
+</div>
+</div>
+</div>
+<div class="space-y-1 mt-4">
+<label class="text-label-bold font-label-bold">Bemerkungen / Sitzungen</label>
+<textarea class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-notes" rows="3"></textarea>
 </div>
 <div class="pt-6">
 <button class="w-full px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Eintrag speichern</button>
@@ -500,18 +525,28 @@ Lade Daten...
 <label class="text-label-bold font-label-bold">Datum</label>
 <input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-date" required="" type="date"/>
 </div>
-<div class="grid grid-cols-3 gap-4">
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Vormittag (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-morning" max="12" min="0" step="0.25" type="number"/>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-4">
+<label class="text-label-bold font-label-bold w-20">Vormittag</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-morning-from" type="time"/>
+<span class="text-on-surface-variant">-</span>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-morning-to" type="time"/>
 </div>
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Nachmittag (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-afternoon" max="12" min="0" step="0.25" type="number"/>
+<div class="flex items-center gap-4">
+<label class="text-label-bold font-label-bold w-20">Nachmittag</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-afternoon-from" type="time"/>
+<span class="text-on-surface-variant">-</span>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-afternoon-to" type="time"/>
 </div>
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Abend (h)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-evening" max="12" min="0" step="0.25" type="number"/>
+<div class="flex items-center gap-4">
+<label class="text-label-bold font-label-bold w-20">Abend</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-evening-from" type="time"/>
+<span class="text-on-surface-variant">-</span>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-evening-to" type="time"/>
+</div>
+<div class="space-y-1 mt-2">
+<label class="text-label-bold font-label-bold">Bemerkungen</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-notes" type="text"/>
 </div>
 </div>
 <div class="pt-6 flex gap-3">
@@ -706,6 +741,15 @@ Lade Daten...
             });
         }
 
+        function calculateHours(from, to) {
+            if(!from || !to) return 0;
+            const [h1, m1] = from.split(':').map(Number);
+            const [h2, m2] = to.split(':').map(Number);
+            let diff = (h2 * 60 + m2) - (h1 * 60 + m1);
+            if(diff < 0) diff += 24 * 60; // handle over midnight
+            return diff / 60;
+        }
+
         function syncTimeEntries() {
              if (!db) return;
              const timeRef = collection(db, "timeEntries");
@@ -729,9 +773,9 @@ Lade Daten...
                     const emp = employeesData[data.employeeId] || { firstName: 'Unbekannt', lastName: '' };
                     const empName = `${emp.firstName} ${emp.lastName}`;
                     
-                    const morning = parseFloat(data.morning) || 0;
-                    const afternoon = parseFloat(data.afternoon) || 0;
-                    const evening = parseFloat(data.evening) || 0;
+                    const morning = data.morningHours || calculateHours(data.morningFrom, data.morningTo) || parseFloat(data.morning) || 0;
+                    const afternoon = data.afternoonHours || calculateHours(data.afternoonFrom, data.afternoonTo) || parseFloat(data.afternoon) || 0;
+                    const evening = data.eveningHours || calculateHours(data.eveningFrom, data.eveningTo) || parseFloat(data.evening) || 0;
                     const total = morning + afternoon + evening;
                     
                     totalHours += total;
@@ -748,11 +792,20 @@ Lade Daten...
                     
                     dailyHtml += `
                     <tr class="hover:bg-surface-container-low group">
-                        <td class="p-4"><p class="font-label-bold text-label-bold">${data.date}</p></td>
+                        <td class="p-4">
+                            <p class="font-label-bold text-label-bold">${data.date}</p>
+                            ${data.notes ? `<p class="text-label-sm text-on-surface-variant truncate max-w-xs" title="${data.notes}">${data.notes}</p>` : ''}
+                        </td>
                         <td class="p-4 text-on-surface-variant">${empName}</td>
-                        <td class="p-4 font-mono-data text-mono-data">${morning > 0 ? morning+'h' : '-'}</td>
-                        <td class="p-4 font-mono-data text-mono-data">${afternoon > 0 ? afternoon+'h' : '-'}</td>
-                        <td class="p-4 font-mono-data text-mono-data">${evening > 0 ? evening+'h' : '-'}</td>
+                        <td class="p-4 font-mono-data text-mono-data">
+                            ${data.morningFrom && data.morningTo ? `${data.morningFrom}-${data.morningTo}` : (morning > 0 ? morning+'h' : '-')}
+                        </td>
+                        <td class="p-4 font-mono-data text-mono-data">
+                             ${data.afternoonFrom && data.afternoonTo ? `${data.afternoonFrom}-${data.afternoonTo}` : (afternoon > 0 ? afternoon+'h' : '-')}
+                        </td>
+                        <td class="p-4 font-mono-data text-mono-data">
+                             ${data.eveningFrom && data.eveningTo ? `${data.eveningFrom}-${data.eveningTo}` : (evening > 0 ? evening+'h' : '-')}
+                        </td>
                         <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
                     </tr>`;
 
@@ -762,7 +815,7 @@ Lade Daten...
                             <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-bold text-primary">ZE</div>
                             <div class="flex-1">
                                 <p class="font-label-bold text-label-bold">${empName}</p>
-                                <p class="text-body-sm text-on-surface-variant">${data.date} - ${total}h erfasst</p>
+                                <p class="text-body-sm text-on-surface-variant">${data.date} - ${total.toFixed(2)}h erfasst</p>
                             </div>
                             <span class="text-label-sm text-outline">Live</span>
                         </div>
@@ -831,9 +884,13 @@ Lade Daten...
 
         window.openTimeEntryModal = function() {
             document.getElementById('entry-date').valueAsDate = new Date();
-            document.getElementById('entry-morning').value = '';
-            document.getElementById('entry-afternoon').value = '';
-            document.getElementById('entry-evening').value = '';
+            document.getElementById('entry-morning-from').value = '';
+            document.getElementById('entry-morning-to').value = '';
+            document.getElementById('entry-afternoon-from').value = '';
+            document.getElementById('entry-afternoon-to').value = '';
+            document.getElementById('entry-evening-from').value = '';
+            document.getElementById('entry-evening-to').value = '';
+            document.getElementById('entry-notes').value = '';
             toggleModal('time-entry-modal');
         }
 
@@ -848,9 +905,13 @@ Lade Daten...
             const data = {
                 employeeId: empId,
                 date: document.getElementById('entry-date').value,
-                morning: document.getElementById('entry-morning').value || 0,
-                afternoon: document.getElementById('entry-afternoon').value || 0,
-                evening: document.getElementById('entry-evening').value || 0,
+                morningFrom: document.getElementById('entry-morning-from').value,
+                morningTo: document.getElementById('entry-morning-to').value,
+                afternoonFrom: document.getElementById('entry-afternoon-from').value,
+                afternoonTo: document.getElementById('entry-afternoon-to').value,
+                eveningFrom: document.getElementById('entry-evening-from').value,
+                eveningTo: document.getElementById('entry-evening-to').value,
+                notes: document.getElementById('entry-notes').value,
                 createdAt: new Date().toISOString()
             };
 
@@ -873,18 +934,26 @@ Lade Daten...
             const data = {
                 employeeId: empId,
                 date: document.getElementById('tracking-date').value,
-                morning: document.getElementById('tracking-morning').value || 0,
-                afternoon: document.getElementById('tracking-afternoon').value || 0,
-                evening: document.getElementById('tracking-evening').value || 0,
+                morningFrom: document.getElementById('tracking-morning-from').value,
+                morningTo: document.getElementById('tracking-morning-to').value,
+                afternoonFrom: document.getElementById('tracking-afternoon-from').value,
+                afternoonTo: document.getElementById('tracking-afternoon-to').value,
+                eveningFrom: document.getElementById('tracking-evening-from').value,
+                eveningTo: document.getElementById('tracking-evening-to').value,
+                notes: document.getElementById('tracking-notes').value,
                 createdAt: new Date().toISOString()
             };
 
             try {
                 await addDoc(collection(db, "timeEntries"), data);
                 alert("Eintrag erfolgreich gespeichert!");
-                document.getElementById('tracking-morning').value = '';
-                document.getElementById('tracking-afternoon').value = '';
-                document.getElementById('tracking-evening').value = '';
+                document.getElementById('tracking-morning-from').value = '';
+                document.getElementById('tracking-morning-to').value = '';
+                document.getElementById('tracking-afternoon-from').value = '';
+                document.getElementById('tracking-afternoon-to').value = '';
+                document.getElementById('tracking-evening-from').value = '';
+                document.getElementById('tracking-evening-to').value = '';
+                document.getElementById('tracking-notes').value = '';
             } catch(e) {
                 console.error("Error saving time entry: ", e);
             }
