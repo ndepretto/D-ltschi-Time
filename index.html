@@ -109,18 +109,30 @@
         body {
             font-family: 'IBM Plex Sans', sans-serif;
             background-color: #f8f9ff;
+            background-image: radial-gradient(#d8e2ff 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-        input:focus, select:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #0058bc !important;
             box-shadow: 0 0 0 2px rgba(0, 88, 188, 0.1);
         }
+        
+        #global-loader {
+            transition: opacity 0.3s ease-out;
+        }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden text-on-surface">
+<!-- Global Loading Overlay -->
+<div class="fixed inset-0 bg-surface z-[300] flex flex-col items-center justify-center" id="global-loader">
+<span class="material-symbols-outlined text-primary text-6xl animate-spin mb-4">hourglass_empty</span>
+<h2 class="font-headline-md text-headline-md text-primary">Daten werden geladen...</h2>
+</div>
 <!-- Auth Overlay -->
-<div class="fixed inset-0 bg-surface z-[200] flex items-center justify-center" id="auth-overlay">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-xl border border-outline-variant max-w-sm w-full space-y-4 text-center">
+<div class="fixed inset-0 bg-surface z-[200] flex items-center justify-center hidden" id="auth-overlay">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-xl border border-outline-variant max-w-sm w-full space-y-4 text-center relative">
+<div class="absolute inset-0 bg-white/50 rounded-xl backdrop-blur-sm -z-10 pointer-events-none"></div>
 <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Login</h2>
 <p class="text-on-surface-variant text-body-sm mb-4">Bitte Passwort eingeben um fortzufahren.</p>
 <input class="w-full border border-outline-variant rounded-lg p-3 font-body-lg" id="auth-password" placeholder="Passwort" type="password"/>
@@ -129,7 +141,7 @@
 </div>
 </div>
 <!-- SideNavBar -->
-<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50" id="sidebar">
+<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container/90 backdrop-blur-md border-r border-outline-variant flex flex-col py-6 px-4 gap-4 z-50 shadow-sm" id="sidebar">
 <div class="mb-6 px-2">
 <h1 class="font-headline-md text-headline-md text-primary">Döltschi Time</h1>
 <p class="text-on-surface-variant font-label-bold text-label-bold">Precision &amp; Flow</p>
@@ -161,26 +173,26 @@
 <span class="material-symbols-outlined">contact_support</span>
 <span>Support</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest" onclick="location.reload()">
 <span class="material-symbols-outlined">logout</span>
 <span>Abmelden</span>
 </button>
 </div>
 </aside>
 <!-- Main Content Area -->
-<main class="ml-64 flex-1 flex flex-col min-w-0">
+<main class="ml-64 flex-1 flex flex-col min-w-0 bg-transparent">
 <!-- TopNavBar -->
-<header class="h-16 px-margin-desktop bg-surface border-b border-outline-variant flex justify-between items-center sticky top-0 z-40">
+<header class="h-16 px-margin-desktop bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center sticky top-0 z-40">
 <div class="flex items-center gap-4 flex-1 max-w-xl">
 <div class="relative w-full">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-sm text-body-sm focus:ring-2 focus:ring-primary" placeholder="Suchen..." type="text"/>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-transparent rounded-full font-body-sm text-body-sm focus:bg-surface-container-lowest focus:border-outline-variant" placeholder="Suchen..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-2" title="Datenbank-Status">
-<span class="material-symbols-outlined text-outline transition-colors duration-300" id="db-icon">cloud_off</span>
-<span class="text-label-sm font-label-bold text-outline transition-colors duration-300" id="db-text">Offline</span>
+<span class="material-symbols-outlined text-outline transition-colors duration-300" id="db-icon">cloud_sync</span>
+<span class="text-label-sm font-label-bold text-outline transition-colors duration-300" id="db-text">Verbinde...</span>
 </div>
 <div class="flex gap-4 text-outline border-l border-outline-variant pl-6">
 <span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
@@ -190,7 +202,7 @@
 </div>
 </header>
 <!-- View Containers -->
-<div class="flex-1 overflow-y-auto p-margin-desktop" id="view-content">
+<div class="flex-1 overflow-y-auto p-margin-desktop bg-transparent" id="view-content">
 <!-- Dashboard View -->
 <section class="view-transition space-y-8" id="view-dashboard">
 <div class="flex justify-between items-end">
@@ -205,7 +217,7 @@
 <!-- Bento Grid Layout -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
 <!-- Active Members Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
 <span class="material-symbols-outlined text-primary-container p-2 bg-primary-fixed rounded-lg">person</span>
 <span class="text-tertiary font-label-bold text-label-bold flex items-center gap-1">+4% <span class="material-symbols-outlined text-sm">trending_up</span></span>
@@ -216,7 +228,7 @@
 </div>
 </div>
 <!-- Team Health Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
 <span class="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-lg">monitoring</span>
 <span class="text-primary font-label-bold text-label-bold">Optimal</span>
@@ -227,7 +239,7 @@
 </div>
 </div>
 <!-- Pending Approvals Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
 <span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">schedule</span>
 <span class="text-error font-label-bold text-label-bold">Live</span>
@@ -240,7 +252,7 @@
 </div>
 <!-- Productivity Section -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 h-80 relative overflow-hidden">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6 h-80 relative overflow-hidden">
 <h4 class="font-label-bold text-label-bold mb-4">Wöchentliche Arbeitsstunden</h4>
 <div class="absolute inset-0 flex items-end px-6 pb-12 gap-4">
 <div class="bg-primary-container w-full" style="height: 60%"></div>
@@ -252,7 +264,7 @@
 <div class="bg-outline-variant w-full" style="height: 10%"></div>
 </div>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl overflow-hidden flex flex-col">
 <div class="p-6 border-b border-outline-variant">
 <h4 class="font-label-bold text-label-bold">Neueste Aktivitäten</h4>
 </div>
@@ -272,7 +284,7 @@ Lade Daten...
 <p class="text-on-surface-variant">Arbeitszeiten eintragen</p>
 </div>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 max-w-2xl">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6 max-w-2xl">
 <form class="space-y-4" onsubmit="event.preventDefault(); submitTimeEntryForm();">
 <div class="space-y-1">
 <label class="text-label-bold font-label-bold">Mitarbeiter</label>
@@ -324,7 +336,7 @@ Lade Daten...
 <textarea class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-notes" rows="3"></textarea>
 </div>
 <div class="pt-6">
-<button class="w-full px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Eintrag speichern</button>
+<button class="w-full px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90 transition-opacity" type="submit">Eintrag speichern</button>
 </div>
 </form>
 </div>
@@ -340,7 +352,7 @@ Lade Daten...
     Neuer Eintrag
 </button>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
 <table class="w-full border-collapse">
 <thead>
 <tr class="bg-surface-container-low">
@@ -364,7 +376,7 @@ Lade Daten...
 <div class="flex justify-between items-center">
 <h2 class="font-headline-lg text-headline-lg">Berichte</h2>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6">
 <h4 class="font-label-bold text-label-bold mb-6">Mitarbeiter Stunden Total</h4>
 <div class="overflow-x-auto">
 <table class="w-full">
@@ -387,11 +399,11 @@ Lade Daten...
 <section class="hidden view-transition space-y-6" id="view-management">
 <div class="flex justify-between items-center">
 <h2 class="font-headline-lg text-headline-lg">Mitarbeiter</h2>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2" onclick="openEmployeeModal()">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2 hover:opacity-90 transition-opacity" onclick="openEmployeeModal()">
 <span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
                     </button>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl overflow-hidden">
 <table class="w-full" id="employee-table">
 <thead class="bg-surface-container-low">
 <tr>
@@ -416,25 +428,25 @@ Lade Daten...
 <section class="hidden view-transition space-y-8" id="view-settings">
 <h2 class="font-headline-lg text-headline-lg">Einstellungen</h2>
 <div class="max-w-3xl space-y-6">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-8">
 <h4 class="font-headline-md text-headline-md mb-6">Persönliche Informationen</h4>
 <div class="grid grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="font-label-bold text-label-bold text-on-surface-variant">Vorname</label>
-<input class="w-full border border-outline-variant rounded-lg p-3" type="text" value="Thomas"/>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface-container-lowest" type="text" value="Thomas"/>
 </div>
 <div class="space-y-2">
 <label class="font-label-bold text-label-bold text-on-surface-variant">Nachname</label>
-<input class="w-full border border-outline-variant rounded-lg p-3" type="text" value="Döltschi"/>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface-container-lowest" type="text" value="Döltschi"/>
 </div>
 <div class="col-span-2 space-y-2">
 <label class="font-label-bold text-label-bold text-on-surface-variant">E-Mail Adresse</label>
-<input class="w-full border border-outline-variant rounded-lg p-3" type="email" value="thomas.d@doeltschi-time.ch"/>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface-container-lowest" type="email" value="thomas.d@doeltschi-time.ch"/>
 </div>
 </div>
-<button class="mt-8 bg-primary text-on-primary px-6 py-3 rounded-lg font-label-bold text-label-bold">Änderungen speichern</button>
+<button class="mt-8 bg-primary text-on-primary px-6 py-3 rounded-lg font-label-bold text-label-bold hover:opacity-90">Änderungen speichern</button>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-8">
 <h4 class="font-headline-md text-headline-md mb-4 text-error">Gefahrenzone</h4>
 <p class="text-on-surface-variant mb-6">Das Löschen Ihres Kontos ist permanent und kann nicht rückgängig gemacht werden.</p>
 <button class="border border-error text-error px-6 py-3 rounded-lg font-label-bold text-label-bold hover:bg-error-container transition-colors">Konto löschen</button>
@@ -451,7 +463,7 @@ Lade Daten...
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6">
 <h4 class="font-label-bold text-label-bold mb-4">Konto wechseln</h4>
 <div class="space-y-2">
 <div class="p-3 bg-surface-container flex items-center justify-between rounded-lg cursor-pointer">
@@ -469,11 +481,11 @@ Lade Daten...
 </div>
 </main>
 <!-- Modal: Add Employee -->
-<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="employee-modal">
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 transition-opacity" id="employee-modal">
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
 <h3 class="font-headline-md text-headline-md" id="employee-modal-title">Mitarbeiter hinzufügen/bearbeiten</h3>
-<button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')"><span class="material-symbols-outlined">close</span></button>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
 </div>
 <form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployeeForm();">
 <div class="grid grid-cols-2 gap-4">
@@ -506,17 +518,17 @@ Lade Daten...
 </div>
 <div class="pt-6 flex gap-3">
 <button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('employee-modal')" type="button">Abbrechen</button>
-<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Speichern</button>
+<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" id="emp-submit-btn" type="submit">Speichern</button>
 </div>
 </form>
 </div>
 </div>
 <!-- Modal: Time Entry -->
-<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="time-entry-modal">
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 transition-opacity" id="time-entry-modal">
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
 <h3 class="font-headline-md text-headline-md" id="time-entry-modal-title">Zeit erfassen/bearbeiten</h3>
-<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')"><span class="material-symbols-outlined">close</span></button>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
 </div>
 <form class="p-6 space-y-4" onsubmit="event.preventDefault(); submitTimeEntry();">
 <div class="space-y-1">
@@ -555,7 +567,7 @@ Lade Daten...
 </div>
 <div class="pt-6 flex gap-3">
 <button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('time-entry-modal')" type="button">Abbrechen</button>
-<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Speichern</button>
+<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" id="entry-submit-btn" type="submit">Speichern</button>
 </div>
 </form>
 </div>
@@ -608,6 +620,18 @@ Lade Daten...
             document.getElementById('view-content').scrollTop = 0;
         }
 
+        window.openModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        window.closeModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
         window.toggleModal = function(modalId) {
             const modal = document.getElementById(modalId);
             if (modal.classList.contains('hidden')) {
@@ -625,7 +649,18 @@ Lade Daten...
         let currentEditEmployeeId = null;
         let currentEditTimeEntryId = null;
         let timeEntriesData = {};
+        let dataLoadedFlags = { employees: false, timeEntries: false };
         
+        function hideGlobalLoader() {
+            if(dataLoadedFlags.employees && dataLoadedFlags.timeEntries) {
+                const loader = document.getElementById('global-loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 300);
+            }
+        }
+
         function setDbStatus(isConnected) {
             const icon = document.getElementById('db-icon');
             const text = document.getElementById('db-text');
@@ -650,10 +685,15 @@ Lade Daten...
             }
         }
 
+        // Check if previously authenticated
+        const isAuthenticated = sessionStorage.getItem('auth_token') === 'Willma';
+
         window.checkAuth = function() {
             const pwd = document.getElementById('auth-password').value;
             if (pwd === 'Willma') {
+                sessionStorage.setItem('auth_token', 'Willma');
                 document.getElementById('auth-overlay').classList.add('hidden');
+                document.getElementById('global-loader').classList.remove('hidden');
                 initFirebase();
             } else {
                 document.getElementById('auth-error').classList.remove('hidden');
@@ -679,6 +719,10 @@ Lade Daten...
             } catch (error) {
                 console.error("Firebase init failed:", error);
                 setDbStatus(false);
+                // Hide loader anyway if failed so it doesn't block forever
+                dataLoadedFlags.employees = true;
+                dataLoadedFlags.timeEntries = true;
+                hideGlobalLoader();
             }
         }
 
@@ -695,7 +739,7 @@ Lade Daten...
                 if(snapshot.empty) {
                     // Seed initial specific employees
                     const initialEmployees = [
-                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 57, annualHours: 1162.8, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
                         { firstName: 'Michelle', lastName: 'Dreifuss', email: 'michelle@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
                         { firstName: 'Manuel', lastName: 'Schoch', email: 'manuel@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
                         { firstName: 'Seline', lastName: 'Steinmann', email: 'seline@doeltschi-time.ch', percentage: 92, annualHours: 1876.8, role: 'Mitarbeiter', createdAt: new Date().toISOString() }
@@ -744,6 +788,9 @@ Lade Daten...
                 // Update Dashboard stats
                 document.getElementById('dashboard-active-members').textContent = `${count} / ${count}`;
 
+                dataLoadedFlags.employees = true;
+                hideGlobalLoader();
+
             }, (error) => {
                 console.error("Error listening to employees:", error);
                 setDbStatus(false);
@@ -762,7 +809,7 @@ Lade Daten...
         function syncTimeEntries() {
              if (!db) return;
              const timeRef = collection(db, "timeEntries");
-             const q = query(timeRef, orderBy("date", "desc"));
+             const q = query(timeRef); // Fetch all without order by to prevent index missing error
              
              onSnapshot(q, (snapshot) => {
                 setDbStatus(true);
@@ -779,9 +826,16 @@ Lade Daten...
                 
                 timeEntriesData = {};
 
+                let entries = [];
                 snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    timeEntriesData[docSnap.id] = data;
+                    entries.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                
+                // Sort client side to avoid Firebase index requirement
+                entries.sort((a, b) => (b.date > a.date) ? 1 : ((a.date > b.date) ? -1 : 0));
+
+                entries.forEach(data => {
+                    timeEntriesData[data.id] = data;
                     const emp = employeesData[data.employeeId] || { firstName: 'Unbekannt', lastName: '' };
                     const empName = `${emp.firstName} ${emp.lastName}`;
                     
@@ -820,8 +874,8 @@ Lade Daten...
                         </td>
                         <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
                         <td class="p-4 text-right flex justify-end gap-2">
-                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${docSnap.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${docSnap.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${data.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${data.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
 
@@ -870,6 +924,9 @@ Lade Daten...
                 document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
                 document.getElementById('dashboard-entry-count').textContent = entryCount;
 
+                dataLoadedFlags.timeEntries = true;
+                hideGlobalLoader();
+
              }, (error) => {
                  console.error("Error listening to time entries:", error);
                  setDbStatus(false);
@@ -878,6 +935,7 @@ Lade Daten...
 
         window.openEmployeeModal = function() {
             currentEditEmployeeId = null;
+            document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             document.getElementById('emp-first-name').value = '';
             document.getElementById('emp-last-name').value = '';
             document.getElementById('emp-email').value = '';
@@ -891,6 +949,7 @@ Lade Daten...
             const emp = employeesData[id];
             if(!emp) return;
             currentEditEmployeeId = id;
+            document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
             document.getElementById('emp-first-name').value = emp.firstName || '';
             document.getElementById('emp-last-name').value = emp.lastName || '';
             document.getElementById('emp-email').value = emp.email || '';
@@ -902,6 +961,12 @@ Lade Daten...
 
         window.saveEmployeeForm = async function() {
             if(!db) return;
+            
+            const btn = document.getElementById('emp-submit-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Speichert...';
+            btn.disabled = true;
+
             const data = {
                 firstName: document.getElementById('emp-first-name').value,
                 lastName: document.getElementById('emp-last-name').value,
@@ -918,9 +983,15 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "employees"), data);
                 }
+                console.log("Mitarbeiter erfolgreich gespeichert!");
+                alert("Mitarbeiter erfolgreich gespeichert!");
                 toggleModal('employee-modal');
             } catch(e) {
                 console.error("Error saving employee: ", e);
+                alert("Fehler beim Speichern des Mitarbeiters.");
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
             }
         };
 
@@ -935,6 +1006,7 @@ Lade Daten...
 
         window.openTimeEntryModal = function() {
             currentEditTimeEntryId = null;
+            document.getElementById('time-entry-modal-title').textContent = 'Zeit erfassen';
             document.getElementById('entry-date').valueAsDate = new Date();
             document.getElementById('entry-employee').value = '';
             document.getElementById('entry-morning-from').value = '';
@@ -951,6 +1023,7 @@ Lade Daten...
             const entry = timeEntriesData[id];
             if(!entry) return;
             currentEditTimeEntryId = id;
+            document.getElementById('time-entry-modal-title').textContent = 'Zeit bearbeiten';
             document.getElementById('entry-employee').value = entry.employeeId || '';
             document.getElementById('entry-date').value = entry.date || '';
             document.getElementById('entry-morning-from').value = entry.morningFrom || '';
@@ -980,6 +1053,11 @@ Lade Daten...
                 return;
             }
 
+            const btn = document.getElementById('entry-submit-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Speichert...';
+            btn.disabled = true;
+
             const data = {
                 employeeId: empId,
                 date: document.getElementById('entry-date').value,
@@ -999,9 +1077,15 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "timeEntries"), data);
                 }
+                console.log("Zeiteintrag erfolgreich gespeichert!");
+                alert("Zeiteintrag erfolgreich gespeichert!");
                 toggleModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
+                alert("Fehler beim Speichern des Zeiteintrags.");
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
             }
         }
 
@@ -1038,6 +1122,7 @@ Lade Daten...
                 document.getElementById('tracking-notes').value = '';
             } catch(e) {
                 console.error("Error saving time entry: ", e);
+                alert("Fehler beim Speichern.");
             }
         }
 
@@ -1045,7 +1130,14 @@ Lade Daten...
         window.onload = () => {
             showView('dashboard');
             document.getElementById('tracking-date').valueAsDate = new Date();
-            // Data loading waits for auth
+            
+            // Bypass auth screen if already authenticated
+            if (isAuthenticated) {
+                initFirebase();
+            } else {
+                document.getElementById('auth-overlay').classList.remove('hidden');
+                document.getElementById('global-loader').classList.add('hidden');
+            }
         };
     </script>
 </body></html>
