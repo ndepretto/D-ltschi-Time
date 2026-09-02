@@ -771,7 +771,8 @@ Lade Daten...
                     for (const emp of initialEmployees) {
                         try {
                             await addDoc(collection(db, "employees"), emp);
-                        } catch(e) { console.error(e) }
+                            console.log("Initial employee seeded:", emp.firstName);
+                        } catch(e) { console.error("Failed seeding employee:", e) }
                     }
                     return; // Next snapshot will handle rendering
                 }
@@ -998,7 +999,10 @@ Lade Daten...
         }
 
         window.saveEmployeeForm = async function() {
-            if(!db) return;
+            if(!db) {
+                console.error("No database connection available to save employee.");
+                return;
+            }
             
             const btn = document.getElementById('emp-submit-btn');
             const originalText = btn.textContent;
@@ -1017,15 +1021,16 @@ Lade Daten...
             try {
                 if(currentEditEmployeeId) {
                     await updateDoc(doc(db, "employees", currentEditEmployeeId), data);
+                    console.log("Mitarbeiter erfolgreich aktualisiert!");
                 } else {
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "employees"), data);
+                    console.log("Mitarbeiter erfolgreich gespeichert!");
                 }
-                console.log("Mitarbeiter erfolgreich gespeichert!");
                 window.closeModal('employee-modal');
             } catch(e) {
                 console.error("Error saving employee: ", e);
-                alert("Fehler beim Speichern des Mitarbeiters.");
+                alert("Fehler beim Speichern des Mitarbeiters. Details in Konsole.");
             } finally {
                 btn.textContent = originalText;
                 btn.disabled = false;
@@ -1036,6 +1041,7 @@ Lade Daten...
             if(!db || !confirm("Wirklich löschen?")) return;
             try {
                 await deleteDoc(doc(db, "employees", id));
+                console.log("Mitarbeiter erfolgreich gelöscht.");
             } catch(e) {
                 console.error("Error deleting employee: ", e);
             }
@@ -1077,13 +1083,17 @@ Lade Daten...
             if(!db || !confirm("Eintrag wirklich löschen?")) return;
             try {
                 await deleteDoc(doc(db, "timeEntries", id));
+                console.log("Zeiteintrag erfolgreich gelöscht.");
             } catch(e) {
                 console.error("Error deleting time entry: ", e);
             }
         }
 
         window.submitTimeEntry = async function() {
-            if(!db) return;
+            if(!db) {
+                console.error("No database connection available to save time entry.");
+                return;
+            }
             const empId = document.getElementById('entry-employee').value;
             if(!empId) {
                 alert("Bitte Mitarbeiter wählen");
@@ -1110,15 +1120,16 @@ Lade Daten...
             try {
                 if(currentEditTimeEntryId) {
                     await updateDoc(doc(db, "timeEntries", currentEditTimeEntryId), data);
+                    console.log("Zeiteintrag erfolgreich aktualisiert!");
                 } else {
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "timeEntries"), data);
+                    console.log("Zeiteintrag erfolgreich gespeichert!");
                 }
-                console.log("Zeiteintrag erfolgreich gespeichert!");
                 window.closeModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
-                alert("Fehler beim Speichern des Zeiteintrags.");
+                alert("Fehler beim Speichern des Zeiteintrags. Details in Konsole.");
             } finally {
                 btn.textContent = originalText;
                 btn.disabled = false;
@@ -1126,7 +1137,10 @@ Lade Daten...
         }
 
         window.submitTimeEntryForm = async function() {
-            if(!db) return;
+            if(!db) {
+                console.error("No database connection available to save time entry from form.");
+                return;
+            }
             const empId = document.getElementById('tracking-employee').value;
             if(!empId) {
                 alert("Bitte Mitarbeiter wählen");
@@ -1148,6 +1162,7 @@ Lade Daten...
 
             try {
                 await addDoc(collection(db, "timeEntries"), data);
+                console.log("Zeiteintrag (Formular) erfolgreich gespeichert!");
                 alert("Eintrag erfolgreich gespeichert!");
                 document.getElementById('tracking-morning-from').value = '';
                 document.getElementById('tracking-morning-to').value = '';
@@ -1158,7 +1173,7 @@ Lade Daten...
                 document.getElementById('tracking-notes').value = '';
             } catch(e) {
                 console.error("Error saving time entry: ", e);
-                alert("Fehler beim Speichern.");
+                alert("Fehler beim Speichern. Details in Konsole.");
             }
         }
 
@@ -1170,8 +1185,10 @@ Lade Daten...
             
             // Bypass auth screen if already authenticated
             if (isAuthenticated) {
+                console.log("User already authenticated. Initializing Firebase...");
                 initFirebase();
             } else {
+                console.log("User not authenticated. Showing auth overlay.");
                 const authOverlay = document.getElementById('auth-overlay');
                 if (authOverlay) authOverlay.classList.remove('hidden');
                 
