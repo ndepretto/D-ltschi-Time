@@ -762,7 +762,7 @@ Lade Daten...
         function syncTimeEntries() {
              if (!db) return;
              const timeRef = collection(db, "timeEntries");
-             const q = query(timeRef, orderBy("date", "desc"));
+             const q = query(timeRef); // Fetch all without order by to prevent index missing error
              
              onSnapshot(q, (snapshot) => {
                 setDbStatus(true);
@@ -779,9 +779,16 @@ Lade Daten...
                 
                 timeEntriesData = {};
 
+                let entries = [];
                 snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    timeEntriesData[docSnap.id] = data;
+                    entries.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                
+                // Sort client side to avoid Firebase index requirement
+                entries.sort((a, b) => (b.date > a.date) ? 1 : ((a.date > b.date) ? -1 : 0));
+
+                entries.forEach(data => {
+                    timeEntriesData[data.id] = data;
                     const emp = employeesData[data.employeeId] || { firstName: 'Unbekannt', lastName: '' };
                     const empName = `${emp.firstName} ${emp.lastName}`;
                     
@@ -820,8 +827,8 @@ Lade Daten...
                         </td>
                         <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
                         <td class="p-4 text-right flex justify-end gap-2">
-                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${docSnap.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${docSnap.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${data.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${data.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
 
@@ -911,6 +918,8 @@ Lade Daten...
                 role: document.getElementById('emp-role').value
             };
 
+            toggleModal('employee-modal');
+
             try {
                 if(currentEditEmployeeId) {
                     await updateDoc(doc(db, "employees", currentEditEmployeeId), data);
@@ -918,7 +927,6 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "employees"), data);
                 }
-                toggleModal('employee-modal');
             } catch(e) {
                 console.error("Error saving employee: ", e);
             }
@@ -992,6 +1000,8 @@ Lade Daten...
                 notes: document.getElementById('entry-notes').value
             };
 
+            toggleModal('time-entry-modal');
+
             try {
                 if(currentEditTimeEntryId) {
                     await updateDoc(doc(db, "timeEntries", currentEditTimeEntryId), data);
@@ -999,7 +1009,6 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "timeEntries"), data);
                 }
-                toggleModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
             }
