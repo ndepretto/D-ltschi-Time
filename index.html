@@ -1001,14 +1001,13 @@ Lade Daten...
         window.saveEmployeeForm = async function() {
             if(!db) {
                 console.error("No database connection available to save employee.");
+                alert("Verbindungsfehler zur Datenbank.");
                 return;
             }
             
-            const btn = document.getElementById('emp-submit-btn');
-            const originalText = btn.textContent;
-            btn.textContent = 'Speichert...';
-            btn.disabled = true;
-
+            // Force close modal immediately to improve perceived performance
+            window.closeModal('employee-modal');
+            
             const data = {
                 firstName: document.getElementById('emp-first-name').value,
                 lastName: document.getElementById('emp-last-name').value,
@@ -1027,13 +1026,9 @@ Lade Daten...
                     await addDoc(collection(db, "employees"), data);
                     console.log("Mitarbeiter erfolgreich gespeichert!");
                 }
-                window.closeModal('employee-modal');
             } catch(e) {
                 console.error("Error saving employee: ", e);
                 alert("Fehler beim Speichern des Mitarbeiters. Details in Konsole.");
-            } finally {
-                btn.textContent = originalText;
-                btn.disabled = false;
             }
         };
 
@@ -1092,6 +1087,7 @@ Lade Daten...
         window.submitTimeEntry = async function() {
             if(!db) {
                 console.error("No database connection available to save time entry.");
+                alert("Verbindungsfehler zur Datenbank.");
                 return;
             }
             const empId = document.getElementById('entry-employee').value;
@@ -1100,10 +1096,8 @@ Lade Daten...
                 return;
             }
 
-            const btn = document.getElementById('entry-submit-btn');
-            const originalText = btn.textContent;
-            btn.textContent = 'Speichert...';
-            btn.disabled = true;
+            // Force close modal immediately to improve perceived performance
+            window.closeModal('time-entry-modal');
 
             const data = {
                 employeeId: empId,
@@ -1126,19 +1120,16 @@ Lade Daten...
                     await addDoc(collection(db, "timeEntries"), data);
                     console.log("Zeiteintrag erfolgreich gespeichert!");
                 }
-                window.closeModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
                 alert("Fehler beim Speichern des Zeiteintrags. Details in Konsole.");
-            } finally {
-                btn.textContent = originalText;
-                btn.disabled = false;
             }
         }
 
         window.submitTimeEntryForm = async function() {
             if(!db) {
                 console.error("No database connection available to save time entry from form.");
+                alert("Verbindungsfehler zur Datenbank.");
                 return;
             }
             const empId = document.getElementById('tracking-employee').value;
