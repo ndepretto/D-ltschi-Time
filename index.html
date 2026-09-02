@@ -147,23 +147,23 @@
 <p class="text-on-surface-variant font-label-bold text-label-bold">Precision &amp; Flow</p>
 </div>
 <nav class="flex-1 space-y-1">
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100 active-nav-item" id="nav-dashboard" onclick="showView('dashboard')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100 active-nav-item" id="nav-dashboard" onclick="window.showView('dashboard')">
 <span class="material-symbols-outlined">dashboard</span>
 <span>Dashboard</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-tracking" onclick="showView('tracking')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-tracking" onclick="window.showView('tracking')">
 <span class="material-symbols-outlined">schedule</span>
 <span>Zeiterfassung</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-daily" onclick="showView('daily')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-daily" onclick="window.showView('daily')">
 <span class="material-symbols-outlined">today</span>
 <span>Tagesübersicht</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-reports" onclick="showView('reports')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-reports" onclick="window.showView('reports')">
 <span class="material-symbols-outlined">analytics</span>
 <span>Berichte</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-management" onclick="showView('management')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-management" onclick="window.showView('management')">
 <span class="material-symbols-outlined">group</span>
 <span>Mitarbeiter</span>
 </button>
@@ -197,7 +197,7 @@
 <div class="flex gap-4 text-outline border-l border-outline-variant pl-6">
 <span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
 <span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">help</span>
-<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="showView('profile')">account_circle</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="window.showView('profile')">account_circle</span>
 </div>
 </div>
 </header>
@@ -210,7 +210,7 @@
 <h2 class="font-headline-lg text-headline-lg">Dashboard</h2>
 <p class="text-on-surface-variant">Willkommen zurück, Administrator.</p>
 </div>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="openTimeEntryModal()">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="window.openTimeEntryModal()">
                         Neuer Eintrag
                     </button>
 </div>
@@ -285,7 +285,7 @@ Lade Daten...
 </div>
 </div>
 <div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-xl p-6 max-w-2xl">
-<form class="space-y-4" onsubmit="event.preventDefault(); submitTimeEntryForm();">
+<form class="space-y-4" onsubmit="event.preventDefault(); window.submitTimeEntryForm();">
 <div class="space-y-1">
 <label class="text-label-bold font-label-bold">Mitarbeiter</label>
 <select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-employee" required="">
@@ -348,7 +348,7 @@ Lade Daten...
 <h2 class="font-headline-lg text-headline-lg">Tagesübersicht</h2>
 <p class="text-on-surface-variant">Alle Einträge</p>
 </div>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="openTimeEntryModal()">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="window.openTimeEntryModal()">
     Neuer Eintrag
 </button>
 </div>
@@ -399,7 +399,7 @@ Lade Daten...
 <section class="hidden view-transition space-y-6" id="view-management">
 <div class="flex justify-between items-center">
 <h2 class="font-headline-lg text-headline-lg">Mitarbeiter</h2>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2 hover:opacity-90 transition-opacity" onclick="openEmployeeModal()">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2 hover:opacity-90 transition-opacity" onclick="window.openEmployeeModal()">
 <span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
                     </button>
 </div>
@@ -485,9 +485,9 @@ Lade Daten...
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
 <h3 class="font-headline-md text-headline-md" id="employee-modal-title">Mitarbeiter hinzufügen/bearbeiten</h3>
-<button class="text-outline hover:text-on-surface" onclick="closeModal('employee-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
+<button class="text-outline hover:text-on-surface" onclick="window.closeModal('employee-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
 </div>
-<form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployeeForm();">
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); window.saveEmployeeForm();">
 <div class="grid grid-cols-2 gap-4">
 <div class="space-y-1">
 <label class="text-label-bold font-label-bold">Vorname</label>
@@ -517,7 +517,7 @@ Lade Daten...
 <input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role" placeholder="z.B. Mitarbeiter" type="text"/>
 </div>
 <div class="pt-6 flex gap-3">
-<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="closeModal('employee-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="window.closeModal('employee-modal')" type="button">Abbrechen</button>
 <button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" id="emp-submit-btn" type="submit">Speichern</button>
 </div>
 </form>
@@ -528,9 +528,9 @@ Lade Daten...
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
 <h3 class="font-headline-md text-headline-md" id="time-entry-modal-title">Zeit erfassen/bearbeiten</h3>
-<button class="text-outline hover:text-on-surface" onclick="closeModal('time-entry-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
+<button class="text-outline hover:text-on-surface" onclick="window.closeModal('time-entry-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
 </div>
-<form class="p-6 space-y-4" onsubmit="event.preventDefault(); submitTimeEntry();">
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); window.submitTimeEntry();">
 <div class="space-y-1">
 <label class="text-label-bold font-label-bold">Mitarbeiter</label>
 <select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-employee" required="">
@@ -566,7 +566,7 @@ Lade Daten...
 </div>
 </div>
 <div class="pt-6 flex gap-3">
-<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="closeModal('time-entry-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="window.closeModal('time-entry-modal')" type="button">Abbrechen</button>
 <button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" id="entry-submit-btn" type="submit">Speichern</button>
 </div>
 </form>
@@ -623,8 +623,10 @@ Lade Daten...
 
         window.openModal = function(modalId) {
             const modal = document.getElementById(modalId);
-            modal.style.display = 'flex';
-            modal.classList.remove('hidden');
+            if(modal) {
+                modal.style.display = 'flex';
+                modal.classList.remove('hidden');
+            }
         }
 
         window.closeModal = function(modalId) {
@@ -637,7 +639,7 @@ Lade Daten...
 
         window.toggleModal = function(modalId) {
             const modal = document.getElementById(modalId);
-            if (modal.classList.contains('hidden')) {
+            if (modal && modal.classList.contains('hidden')) {
                 window.openModal(modalId);
             } else {
                 window.closeModal(modalId);
@@ -783,9 +785,9 @@ Lade Daten...
                 let count = 0;
                 employeesData = {};
 
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    employeesData[doc.id] = data;
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    employeesData[docSnap.id] = data;
                     count++;
                     const initials = (data.firstName?.charAt(0) || '') + (data.lastName?.charAt(0) || '');
                     const roleClass = data.role === 'Administrator' ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-on-surface-variant';
@@ -802,14 +804,14 @@ Lade Daten...
                             <td class="p-4">${data.annualHours || '-'}h</td>
                             <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
                             <td class="p-4 text-right flex justify-end gap-2">
-                                <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('${doc.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                                <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                                <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="window.editEmployee('${docSnap.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                                <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="window.deleteEmployee('${docSnap.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                             </td>
                         </tr>`;
                     }
 
-                    if(empSelect) empSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
-                    if(trackSelect) trackSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
+                    if(empSelect) empSelect.innerHTML += `<option value="${docSnap.id}">${data.firstName} ${data.lastName}</option>`;
+                    if(trackSelect) trackSelect.innerHTML += `<option value="${docSnap.id}">${data.firstName} ${data.lastName}</option>`;
                 });
 
                 // Update Dashboard stats
@@ -904,8 +906,8 @@ Lade Daten...
                         </td>
                         <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
                         <td class="p-4 text-right flex justify-end gap-2">
-                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${data.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${data.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="window.editTimeEntry('${data.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="window.deleteTimeEntry('${data.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
                         </td>
                     </tr>`;
 
@@ -981,7 +983,7 @@ Lade Daten...
             document.getElementById('emp-percentage').value = '100';
             document.getElementById('emp-annual-hours').value = '2080';
             document.getElementById('emp-role').value = 'Mitarbeiter';
-            openModal('employee-modal');
+            window.openModal('employee-modal');
         }
 
         window.editEmployee = function(id) {
@@ -995,7 +997,7 @@ Lade Daten...
             document.getElementById('emp-percentage').value = emp.percentage || '100';
             document.getElementById('emp-annual-hours').value = emp.annualHours || '2080';
             document.getElementById('emp-role').value = emp.role || 'Mitarbeiter';
-            openModal('employee-modal');
+            window.openModal('employee-modal');
         }
 
         window.saveEmployeeForm = async function() {
@@ -1054,7 +1056,7 @@ Lade Daten...
             document.getElementById('entry-evening-from').value = '';
             document.getElementById('entry-evening-to').value = '';
             document.getElementById('entry-notes').value = '';
-            openModal('time-entry-modal');
+            window.openModal('time-entry-modal');
         }
 
         window.editTimeEntry = function(id) {
@@ -1071,7 +1073,7 @@ Lade Daten...
             document.getElementById('entry-evening-from').value = entry.eveningFrom || '';
             document.getElementById('entry-evening-to').value = entry.eveningTo || '';
             document.getElementById('entry-notes').value = entry.notes || '';
-            openModal('time-entry-modal');
+            window.openModal('time-entry-modal');
         }
 
         window.deleteTimeEntry = async function(id) {
@@ -1170,7 +1172,7 @@ Lade Daten...
 
         // Initialize UI
         window.onload = () => {
-            showView('dashboard');
+            window.showView('dashboard');
             const trackingDate = document.getElementById('tracking-date');
             if (trackingDate) trackingDate.valueAsDate = new Date();
             
