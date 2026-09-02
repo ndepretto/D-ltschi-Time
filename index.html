@@ -161,7 +161,7 @@
 <span class="material-symbols-outlined">contact_support</span>
 <span>Support</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest" onclick="location.reload()">
 <span class="material-symbols-outlined">logout</span>
 <span>Abmelden</span>
 </button>
@@ -473,7 +473,7 @@ Lade Daten...
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
 <h3 class="font-headline-md text-headline-md" id="employee-modal-title">Mitarbeiter hinzufügen/bearbeiten</h3>
-<button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')"><span class="material-symbols-outlined">close</span></button>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
 </div>
 <form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployeeForm();">
 <div class="grid grid-cols-2 gap-4">
@@ -516,7 +516,7 @@ Lade Daten...
 <div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
 <h3 class="font-headline-md text-headline-md" id="time-entry-modal-title">Zeit erfassen/bearbeiten</h3>
-<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')"><span class="material-symbols-outlined">close</span></button>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')" type="button"><span class="material-symbols-outlined">close</span></button>
 </div>
 <form class="p-6 space-y-4" onsubmit="event.preventDefault(); submitTimeEntry();">
 <div class="space-y-1">
@@ -650,9 +650,13 @@ Lade Daten...
             }
         }
 
+        // Check if previously authenticated
+        const isAuthenticated = sessionStorage.getItem('auth_token') === 'Willma';
+
         window.checkAuth = function() {
             const pwd = document.getElementById('auth-password').value;
             if (pwd === 'Willma') {
+                sessionStorage.setItem('auth_token', 'Willma');
                 document.getElementById('auth-overlay').classList.add('hidden');
                 initFirebase();
             } else {
@@ -918,8 +922,6 @@ Lade Daten...
                 role: document.getElementById('emp-role').value
             };
 
-            toggleModal('employee-modal');
-
             try {
                 if(currentEditEmployeeId) {
                     await updateDoc(doc(db, "employees", currentEditEmployeeId), data);
@@ -927,8 +929,10 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "employees"), data);
                 }
+                toggleModal('employee-modal');
             } catch(e) {
                 console.error("Error saving employee: ", e);
+                alert("Fehler beim Speichern des Mitarbeiters.");
             }
         };
 
@@ -1000,8 +1004,6 @@ Lade Daten...
                 notes: document.getElementById('entry-notes').value
             };
 
-            toggleModal('time-entry-modal');
-
             try {
                 if(currentEditTimeEntryId) {
                     await updateDoc(doc(db, "timeEntries", currentEditTimeEntryId), data);
@@ -1009,8 +1011,10 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "timeEntries"), data);
                 }
+                toggleModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
+                alert("Fehler beim Speichern des Zeiteintrags.");
             }
         }
 
@@ -1047,6 +1051,7 @@ Lade Daten...
                 document.getElementById('tracking-notes').value = '';
             } catch(e) {
                 console.error("Error saving time entry: ", e);
+                alert("Fehler beim Speichern.");
             }
         }
 
@@ -1054,7 +1059,12 @@ Lade Daten...
         window.onload = () => {
             showView('dashboard');
             document.getElementById('tracking-date').valueAsDate = new Date();
-            // Data loading waits for auth
+            
+            // Bypass auth screen if already authenticated
+            if (isAuthenticated) {
+                document.getElementById('auth-overlay').classList.add('hidden');
+                initFirebase();
+            }
         };
     </script>
 </body></html>
