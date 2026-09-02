@@ -617,7 +617,8 @@ Lade Daten...
             });
 
             // Scroll main to top
-            document.getElementById('view-content').scrollTop = 0;
+            const contentArea = document.getElementById('view-content');
+            if (contentArea) contentArea.scrollTop = 0;
         }
 
         window.openModal = function(modalId) {
@@ -654,10 +655,12 @@ Lade Daten...
         function hideGlobalLoader() {
             if(dataLoadedFlags.employees && dataLoadedFlags.timeEntries) {
                 const loader = document.getElementById('global-loader');
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.classList.add('hidden');
-                }, 300);
+                if (loader && !loader.classList.contains('hidden')) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.classList.add('hidden');
+                    }, 300);
+                }
             }
         }
 
@@ -665,18 +668,22 @@ Lade Daten...
             const icon = document.getElementById('db-icon');
             const text = document.getElementById('db-text');
             if (isConnected) {
-                icon.textContent = 'cloud_done';
-                icon.classList.remove('text-outline', 'text-error');
-                icon.classList.add('text-tertiary');
+                if (icon) {
+                    icon.textContent = 'cloud_done';
+                    icon.classList.remove('text-outline', 'text-error');
+                    icon.classList.add('text-tertiary');
+                }
                 if (text) {
                     text.textContent = 'Cloud Aktiv';
                     text.classList.remove('text-outline', 'text-error');
                     text.classList.add('text-tertiary');
                 }
             } else {
-                icon.textContent = 'cloud_off';
-                icon.classList.remove('text-outline', 'text-tertiary');
-                icon.classList.add('text-error');
+                if (icon) {
+                    icon.textContent = 'cloud_off';
+                    icon.classList.remove('text-outline', 'text-tertiary');
+                    icon.classList.add('text-error');
+                }
                 if (text) {
                     text.textContent = 'Offline';
                     text.classList.remove('text-outline', 'text-tertiary');
@@ -693,7 +700,8 @@ Lade Daten...
             if (pwd === 'Willma') {
                 sessionStorage.setItem('auth_token', 'Willma');
                 document.getElementById('auth-overlay').classList.add('hidden');
-                document.getElementById('global-loader').classList.remove('hidden');
+                const globalLoader = document.getElementById('global-loader');
+                if (globalLoader) globalLoader.classList.remove('hidden');
                 initFirebase();
             } else {
                 document.getElementById('auth-error').classList.remove('hidden');
@@ -701,13 +709,25 @@ Lade Daten...
         }
 
         // Allow enter key in password field
-        document.getElementById('auth-password').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkAuth();
-            }
-        });
+        const authPasswordField = document.getElementById('auth-password');
+        if (authPasswordField) {
+            authPasswordField.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    window.checkAuth();
+                }
+            });
+        }
 
         function initFirebase() {
+            // Fail-safe timeout to hide loader if Firebase takes too long or fails silently
+            setTimeout(() => {
+                const loader = document.getElementById('global-loader');
+                if (loader && !loader.classList.contains('hidden')) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.classList.add('hidden'), 300);
+                }
+            }, 2500);
+
             try {
                 const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
@@ -752,8 +772,8 @@ Lade Daten...
                     return; // Next snapshot will handle rendering
                 }
 
-                list.innerHTML = '';
-                empSelect.innerHTML = '<option value="">Bitte wählen...</option>';
+                if(list) list.innerHTML = '';
+                if(empSelect) empSelect.innerHTML = '<option value="">Bitte wählen...</option>';
                 if(trackSelect) trackSelect.innerHTML = '<option value="">Bitte wählen...</option>';
                 let count = 0;
                 employeesData = {};
@@ -765,28 +785,31 @@ Lade Daten...
                     const initials = (data.firstName?.charAt(0) || '') + (data.lastName?.charAt(0) || '');
                     const roleClass = data.role === 'Administrator' ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-on-surface-variant';
                     
-                    list.innerHTML += `
-                    <tr>
-                        <td class="p-4 flex items-center gap-3">
-                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-on-primary text-label-bold">${initials}</div>
-                        <span class="font-body-lg text-body-lg">${data.firstName} ${data.lastName}</span>
-                        </td>
-                        <td class="p-4 text-on-surface-variant">${data.email}</td>
-                        <td class="p-4">${data.percentage}%</td>
-                        <td class="p-4">${data.annualHours || '-'}h</td>
-                        <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
-                        <td class="p-4 text-right flex justify-end gap-2">
-                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('${doc.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
-                        </td>
-                    </tr>`;
+                    if (list) {
+                        list.innerHTML += `
+                        <tr>
+                            <td class="p-4 flex items-center gap-3">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-on-primary text-label-bold">${initials}</div>
+                            <span class="font-body-lg text-body-lg">${data.firstName} ${data.lastName}</span>
+                            </td>
+                            <td class="p-4 text-on-surface-variant">${data.email}</td>
+                            <td class="p-4">${data.percentage}%</td>
+                            <td class="p-4">${data.annualHours || '-'}h</td>
+                            <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
+                            <td class="p-4 text-right flex justify-end gap-2">
+                                <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('${doc.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                                <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                            </td>
+                        </tr>`;
+                    }
 
-                    empSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
+                    if(empSelect) empSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
                     if(trackSelect) trackSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
                 });
 
                 // Update Dashboard stats
-                document.getElementById('dashboard-active-members').textContent = `${count} / ${count}`;
+                const dashboardMembers = document.getElementById('dashboard-active-members');
+                if (dashboardMembers) dashboardMembers.textContent = `${count} / ${count}`;
 
                 dataLoadedFlags.employees = true;
                 hideGlobalLoader();
@@ -794,6 +817,8 @@ Lade Daten...
             }, (error) => {
                 console.error("Error listening to employees:", error);
                 setDbStatus(false);
+                dataLoadedFlags.employees = true;
+                hideGlobalLoader();
             });
         }
 
@@ -894,12 +919,15 @@ Lade Daten...
                 });
 
                 if(entryCount === 0) {
-                     dailyBody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
-                     document.getElementById('recent-activities').innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
-                     document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
+                     if (dailyBody) dailyBody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
+                     const recentActivities = document.getElementById('recent-activities');
+                     if (recentActivities) recentActivities.innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
+                     const reportsTable = document.getElementById('reports-table-body');
+                     if (reportsTable) reportsTable.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
                 } else {
-                     dailyBody.innerHTML = dailyHtml;
-                     document.getElementById('recent-activities').innerHTML = recentHtml;
+                     if (dailyBody) dailyBody.innerHTML = dailyHtml;
+                     const recentActivities = document.getElementById('recent-activities');
+                     if (recentActivities) recentActivities.innerHTML = recentHtml;
                      
                      // Populate Reports
                      let repHtml = '';
@@ -918,11 +946,15 @@ Lade Daten...
                          </tr>
                          `;
                      }
-                     document.getElementById('reports-table-body').innerHTML = repHtml;
+                     const reportsTable = document.getElementById('reports-table-body');
+                     if (reportsTable) reportsTable.innerHTML = repHtml;
                 }
                 
-                document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
-                document.getElementById('dashboard-entry-count').textContent = entryCount;
+                const dashboardTotal = document.getElementById('dashboard-total-hours');
+                if (dashboardTotal) dashboardTotal.textContent = `${totalHours.toFixed(1)}h`;
+                
+                const dashboardEntryCount = document.getElementById('dashboard-entry-count');
+                if (dashboardEntryCount) dashboardEntryCount.textContent = entryCount;
 
                 dataLoadedFlags.timeEntries = true;
                 hideGlobalLoader();
@@ -930,6 +962,8 @@ Lade Daten...
              }, (error) => {
                  console.error("Error listening to time entries:", error);
                  setDbStatus(false);
+                 dataLoadedFlags.timeEntries = true;
+                 hideGlobalLoader();
              });
         }
 
@@ -1129,14 +1163,18 @@ Lade Daten...
         // Initialize UI
         window.onload = () => {
             showView('dashboard');
-            document.getElementById('tracking-date').valueAsDate = new Date();
+            const trackingDate = document.getElementById('tracking-date');
+            if (trackingDate) trackingDate.valueAsDate = new Date();
             
             // Bypass auth screen if already authenticated
             if (isAuthenticated) {
                 initFirebase();
             } else {
-                document.getElementById('auth-overlay').classList.remove('hidden');
-                document.getElementById('global-loader').classList.add('hidden');
+                const authOverlay = document.getElementById('auth-overlay');
+                if (authOverlay) authOverlay.classList.remove('hidden');
+                
+                const globalLoader = document.getElementById('global-loader');
+                if (globalLoader) globalLoader.classList.add('hidden');
             }
         };
     </script>
