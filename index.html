@@ -670,6 +670,7 @@ Lade Daten...
             const icon = document.getElementById('db-icon');
             const text = document.getElementById('db-text');
             if (isConnected) {
+                console.log("Firestore connection active");
                 if (icon) {
                     icon.textContent = 'cloud_done';
                     icon.classList.remove('text-outline', 'text-error');
@@ -681,6 +682,7 @@ Lade Daten...
                     text.classList.add('text-tertiary');
                 }
             } else {
+                console.log("Firestore connection inactive or failed");
                 if (icon) {
                     icon.textContent = 'cloud_off';
                     icon.classList.remove('text-outline', 'text-tertiary');
@@ -719,6 +721,7 @@ Lade Daten...
         }
 
         function initFirebase() {
+            console.log("Initializing Firebase...");
             const loader = document.getElementById('global-loader');
             if (loader) {
                 loader.classList.remove('hidden');
@@ -729,6 +732,7 @@ Lade Daten...
             setTimeout(() => {
                 const loader = document.getElementById('global-loader');
                 if (loader && !loader.classList.contains('hidden')) {
+                    console.warn("Global loader timeout reached.");
                     loader.style.opacity = '0';
                     setTimeout(() => loader.classList.add('hidden'), 300);
                 }
@@ -754,35 +758,30 @@ Lade Daten...
 
         async function syncEmployees() {
             if (!db) return;
+            console.log("Setting up employee real-time listener...");
             const empRef = collection(db, "employees");
             
             onSnapshot(empRef, async (snapshot) => {
+                console.log(`Employees update received: ${snapshot.size} records`);
                 setDbStatus(true);
                 const list = document.getElementById('employee-list');
                 const empSelect = document.getElementById('entry-employee');
                 const trackSelect = document.getElementById('tracking-employee');
                 
                 if(snapshot.empty) {
-                    // Seed initial specific employees
-                    const initialEmployees = [
-                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
-                        { firstName: 'Michelle', lastName: 'Dreifuss', email: 'michelle@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
-                        { firstName: 'Manuel', lastName: 'Schoch', email: 'manuel@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
-                        { firstName: 'Seline', lastName: 'Steinmann', email: 'seline@doeltschi-time.ch', percentage: 92, annualHours: 1876.8, role: 'Mitarbeiter', createdAt: new Date().toISOString() }
-                    ];
-                    for (const emp of initialEmployees) {
-                        try {
-                            await addDoc(collection(db, "employees"), emp);
-                            console.log("Initial employee seeded:", emp.firstName);
-                        } catch(e) { console.error("Failed seeding employee:", e) }
-                    }
-                    return; // Next snapshot will handle rendering
+                    console.log("Employee collection empty. Triggering seed if necessary.");
+                    // Only seed if we truly know it's empty, otherwise wait
+                    dataLoadedFlags.employees = true;
+                    hideGlobalLoader();
+                    return; 
                 }
 
                 if(list) list.innerHTML = '';
                 if(empSelect) empSelect.innerHTML = '<option value="">Bitte wählen...</option>';
                 if(trackSelect) trackSelect.innerHTML = '<option value="">Bitte wählen...</option>';
                 let count = 0;
+                
+                // Only clear before repopulating from snapshot
                 employeesData = {};
 
                 snapshot.forEach((docSnap) => {
@@ -840,10 +839,12 @@ Lade Daten...
 
         function syncTimeEntries() {
              if (!db) return;
+             console.log("Setting up time entries real-time listener...");
              const timeRef = collection(db, "timeEntries");
              const q = query(timeRef); // Fetch all without order by to prevent index missing error
              
              onSnapshot(q, (snapshot) => {
+                console.log(`Time entries update received: ${snapshot.size} records`);
                 setDbStatus(true);
                 let totalHours = 0;
                 let entryCount = 0;
@@ -856,6 +857,7 @@ Lade Daten...
                 const employeeTotals = {};
                 const dailyTotals = {}; // for weekly view aggregate
                 
+                // Clear before repopulating
                 timeEntriesData = {};
 
                 let entries = [];
@@ -1021,9 +1023,11 @@ Lade Daten...
 
             try {
                 if(currentEditEmployeeId) {
+                    console.log("Updating employee:", currentEditEmployeeId);
                     await updateDoc(doc(db, "employees", currentEditEmployeeId), data);
                     console.log("Mitarbeiter erfolgreich aktualisiert!");
                 } else {
+                    console.log("Adding new employee.");
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "employees"), data);
                     console.log("Mitarbeiter erfolgreich gespeichert!");
@@ -1037,6 +1041,7 @@ Lade Daten...
         window.deleteEmployee = async function(id) {
             if(!db || !confirm("Wirklich löschen?")) return;
             try {
+                console.log("Deleting employee:", id);
                 await deleteDoc(doc(db, "employees", id));
                 console.log("Mitarbeiter erfolgreich gelöscht.");
             } catch(e) {
@@ -1079,6 +1084,7 @@ Lade Daten...
         window.deleteTimeEntry = async function(id) {
             if(!db || !confirm("Eintrag wirklich löschen?")) return;
             try {
+                console.log("Deleting time entry:", id);
                 await deleteDoc(doc(db, "timeEntries", id));
                 console.log("Zeiteintrag erfolgreich gelöscht.");
             } catch(e) {
@@ -1115,9 +1121,11 @@ Lade Daten...
 
             try {
                 if(currentEditTimeEntryId) {
+                    console.log("Updating time entry:", currentEditTimeEntryId);
                     await updateDoc(doc(db, "timeEntries", currentEditTimeEntryId), data);
                     console.log("Zeiteintrag erfolgreich aktualisiert!");
                 } else {
+                    console.log("Adding new time entry.");
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "timeEntries"), data);
                     console.log("Zeiteintrag erfolgreich gespeichert!");
@@ -1154,6 +1162,7 @@ Lade Daten...
             };
 
             try {
+                console.log("Saving time entry from form...");
                 await addDoc(collection(db, "timeEntries"), data);
                 console.log("Zeiteintrag (Formular) erfolgreich gespeichert!");
                 alert("Eintrag erfolgreich gespeichert!");
