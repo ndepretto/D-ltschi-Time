@@ -125,7 +125,7 @@
 </head>
 <body class="flex h-screen overflow-hidden text-on-surface">
 <!-- Global Loading Overlay -->
-<div class="fixed inset-0 bg-surface z-[300] flex flex-col items-center justify-center" id="global-loader">
+<div class="fixed inset-0 bg-surface z-[300] flex flex-col items-center justify-center hidden" id="global-loader">
 <span class="material-symbols-outlined text-primary text-6xl animate-spin mb-4">hourglass_empty</span>
 <h2 class="font-headline-md text-headline-md text-primary">Daten werden geladen...</h2>
 </div>
@@ -136,7 +136,7 @@
 <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Login</h2>
 <p class="text-on-surface-variant text-body-sm mb-4">Bitte Passwort eingeben um fortzufahren.</p>
 <input class="w-full border border-outline-variant rounded-lg p-3 font-body-lg" id="auth-password" placeholder="Passwort" type="password"/>
-<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" onclick="checkAuth()">Anmelden</button>
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" onclick="window.checkAuth()">Anmelden</button>
 <p class="text-error text-label-sm mt-2 hidden" id="auth-error">Falsches Passwort</p>
 </div>
 </div>
@@ -700,8 +700,6 @@ Lade Daten...
             if (pwd === 'Willma') {
                 sessionStorage.setItem('auth_token', 'Willma');
                 document.getElementById('auth-overlay').classList.add('hidden');
-                const globalLoader = document.getElementById('global-loader');
-                if (globalLoader) globalLoader.classList.remove('hidden');
                 initFirebase();
             } else {
                 document.getElementById('auth-error').classList.remove('hidden');
@@ -719,6 +717,12 @@ Lade Daten...
         }
 
         function initFirebase() {
+            const loader = document.getElementById('global-loader');
+            if (loader) {
+                loader.classList.remove('hidden');
+                loader.style.opacity = '1';
+            }
+
             // Fail-safe timeout to hide loader if Firebase takes too long or fails silently
             setTimeout(() => {
                 const loader = document.getElementById('global-loader');
