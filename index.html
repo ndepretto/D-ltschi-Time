@@ -1030,7 +1030,7 @@ Lade Daten...
                 }
             } catch(e) {
                 console.error("Error saving employee: ", e);
-                alert("Fehler beim Speichern des Mitarbeiters. Details in Konsole.");
+                alert("Fehler beim Speichern des Mitarbeiters. Möglicherweise fehlen Berechtigungen oder die Verbindung ist unterbrochen. (" + e.message + ")");
             }
         };
 
@@ -1124,7 +1124,7 @@ Lade Daten...
                 }
             } catch(e) {
                 console.error("Error saving time entry: ", e);
-                alert("Fehler beim Speichern des Zeiteintrags. Details in Konsole.");
+                alert("Fehler beim Speichern des Zeiteintrags. Möglicherweise fehlen Berechtigungen oder die Verbindung ist unterbrochen. (" + e.message + ")");
             }
         }
 
@@ -1166,7 +1166,7 @@ Lade Daten...
                 document.getElementById('tracking-notes').value = '';
             } catch(e) {
                 console.error("Error saving time entry: ", e);
-                alert("Fehler beim Speichern. Details in Konsole.");
+                alert("Fehler beim Speichern. Möglicherweise fehlen Berechtigungen oder die Verbindung ist unterbrochen. (" + e.message + ")");
             }
         }
 
