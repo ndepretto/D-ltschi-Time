@@ -1,1 +1,1051 @@
-l <!DOCTYPE html> <html lang="de-CH"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Döltschi Time | Master System</title> <script src="https://cdn.tailwindcss.com"></script> <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <style> @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'); body { font-family: 'Inter', sans-serif; } .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); } .modal.active { display: flex; } .view { display: none; } .view.active { display: block; } </style> </head> <body class="bg-slate-50 min-h-screen text-slate-900"> <!-- Firebase SDKs --> <script type="module"> import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"; import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"; // --- FIREBASE KONFIGURATION --- const firebaseConfig = { apiKey: "AIzaSyDUcNbEBX9FUbRLnbFY99Iq877cVbZrCqQ", authDomain: "doeltschi-time.firebaseapp.com", projectId: "doeltschi-time", storageBucket: "doeltschi-time.appspot.com", messagingSenderId: "367375263641", appId: "1:367375263641:web:1270222f67605d8f760920" }; const app = initializeApp(firebaseConfig); const db = getFirestore(app); // State & Data let currentUser = null; let isAdmin = false; let employees = []; let timeEntries = []; const ADMIN_PW = "Willma"; // APP INITIALISIERUNG (Wartet auf Cloud-Daten) async function initApp() { console.log("Initialisiere Döltschi Time Master..."); // Mitarbeiter aus Cloud laden oder Defaults setzen const empSnap = await getDocs(collection(db, "employees")); if (empSnap.empty) { const defaults = [ { id: "1", name: "Nicole De Pretto", pensum: 100, role: "Geschäftsführung", targetHours: 2080 }, { id: "2", name: "Michelle Dreifuss", pensum: 100, role: "Leitung", targetHours: 2080 }, { id: "3", name: "Manuel Schoch", pensum: 80, role: "Mitarbeiter", targetHours: 1664 }, { id: "4", name: "Seline Steinmann", pensum: 92, role: "Mitarbeiter", targetHours: 1913 } ]; for (let e of defaults) { await setDoc(doc(db, "employees", e.id), e); } employees = defaults; } else { employees = empSnap.docs.map(d => d.data()); } // Realtime Sync für Zeitbuchungen onSnapshot(collection(db, "timeEntries"), (snapshot) => { timeEntries = snapshot.docs.map(d => d.data()); renderDashboard(); renderEntries(); }); renderEmployeeList(); showView('login-view'); } // NAVIGATION window.showView = (id) => { document.querySelectorAll('.view').forEach(v => v.classList.remove('active')); document.getElementById(id).classList.add('active'); if (id === 'dashboard-view') renderDashboard(); }; // LOGIN window.handleLogin = () => { const pw = document.getElementById('login-pw').value; if (pw === ADMIN_PW) { isAdmin = true; showView('dashboard-view'); } else { alert("Falsches Passwort!"); } }; // MODAL LOGIK window.openModal = (id) => document.getElementById(id).classList.add('active'); window.closeModal = (id) => document.getElementById(id).classList.remove('active'); // ZEITERFASSUNG SPEICHERN window.saveTime = async () => { const date = document.getElementById('entry-date').value; const empId = document.getElementById('entry-emp').value; const type = document.getElementById('entry-type').value; const start = document.getElementById('entry-start').value; const end = document.getElementById('entry-end').value; if (!date || !empId) return alert("Bitte alle Felder ausfüllen!"); // Modal SOFORT schliessen (User Experience) closeModal('time-modal'); const entry = { id: Date.now().toString(), date, empId, type, start, end, timestamp: new Date().toISOString() }; await setDoc(doc(db, "timeEntries", entry.id), entry); console.log("Zeit gespeichert"); }; // MITARBEITER SPEICHERN window.saveEmployee = async () => { const name = document.getElementById('emp-name').value; const role = document.getElementById('emp-role').value; const pensum = document.getElementById('emp-pensum').value; if (!name) return; closeModal('emp-modal'); const newEmp = { id: Date.now().toString(), name, role, pensum: parseFloat(pensum), targetHours: (2080 * (pensum/100)).toFixed(0) }; await setDoc(doc(db, "employees", newEmp.id), newEmp); employees.push(newEmp); renderEmployeeList(); }; // RENDERING function renderEmployeeList() { const list = document.getElementById('employee-list'); const select = document.getElementById('entry-emp'); if (!list) return; list.innerHTML = employees.map(e => ` <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center"> <div> <p class="font-bold text-slate-800">${e.name}</p> <p class="text-xs text-slate-500">${e.role} (${e.pensum}%)</p> </div> <button class="text-slate-400 hover:text-red-500"><i class="material-icons">delete</i></button> </div> `).join(''); select.innerHTML = employees.map(e => `<option value="${e.id}">${e.name}</option>`).join(''); } function renderDashboard() { // Dashboard Logik für Stundenberechnung console.log("Dashboard aktualisiert"); } function renderEntries() { const container = document.getElementById('entries-table'); if (!container) return; container.innerHTML = timeEntries.sort((a,b) => b.date.localeCompare(a.date)).map(t => { const emp = employees.find(e => e.id === t.empId); return ` <tr class="border-b border-slate-100 text-sm"> <td class="py-3 px-4">${t.date}</td> <td class="py-3 px-4 font-medium">${emp ? emp.name : 'Unbekannt'}</td> <td class="py-3 px-4">${t.start || '-'} - ${t.end || '-'}</td> <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-50 text-blue-600 rounded text-xs">${t.type}</span></td> </tr> `; }).join(''); } window.onload = initApp; </script> <!-- VIEWS --> <!-- Login View --> <div id="login-view" class="view flex items-center justify-center min-h-screen"> <div class="bg-white p-12 rounded-[2rem] shadow-2xl w-full max-w-md text-center border border-slate-100"> <div class="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg"> <i class="material-icons text-white text-4xl">schedule</i> </div> <h1 class="text-4xl font-black text-slate-900 mb-2">Döltschi Time</h1> <p class="text-slate-400 mb-10 font-medium">Administrator Login</p> <input type="password" id="login-pw" placeholder="Passwort eingeben..." class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 mb-4 outline-none focus:border-blue-600 transition-all text-center font-bold"> <button onclick="handleLogin()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">Anmelden</button> </div> </div> <!-- Main Dashboard View --> <div id="dashboard-view" class="view"> <header class="bg-white border-b border-slate-200 sticky top-0 z-50"> <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"> <div class="flex items-center gap-3"> <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center"><i class="material-icons text-white">schedule</i></div> <span class="text-xl font-bold tracking-tight">Döltschi <span class="text-blue-600">Time</span></span> </div> <nav class="flex gap-4"> <button onclick="showView('dashboard-view')" class="px-4 py-2 text-blue-600 font-bold border-b-2 border-blue-600">Übersicht</button> <button onclick="showView('employee-view')" class="px-4 py-2 text-slate-500 font-medium hover:text-blue-600">Team</button> <button onclick="window.location.reload()" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-red-50 hover:text-red-600 transition-all"><i class="material-icons">logout</i></button> </nav> </div> </header> <main class="max-w-7xl mx-auto px-6 py-12"> <div class="flex justify-between items-end mb-12"> <div> <h2 class="text-5xl font-black text-slate-900 tracking-tight">Dashboard</h2> <p class="text-slate-400 font-medium mt-2">Willkommen zurück in der Zeiterfassung.</p> </div> <button onclick="openModal('time-modal')" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all"> <i class="material-icons">add</i> Zeit erfassen </button> </div> <div class="bg-white rounded-[2rem] border border-slate-200 overflow-hidden shadow-sm"> <table class="w-full text-left border-collapse"> <thead class="bg-slate-50 text-slate-400 text-xs font-bold uppercase tracking-wider"> <tr> <th class="py-4 px-6">Datum</th> <th class="py-4 px-6">Mitarbeiter</th> <th class="py-4 px-6">Zeitraum</th> <th class="py-4 px-6">Typ</th> </tr> </thead> <tbody id="entries-table"> <!-- Einträge kommen aus JS --> </tbody> </table> </div> </main> </div> <!-- Team/Employee View --> <div id="employee-view" class="view"> <!-- Ähnlich aufgebaut wie Dashboard, zeigt Employee List --> <header class="bg-white border-b border-slate-200"> <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"> <div class="flex items-center gap-3"> <span class="text-xl font-bold tracking-tight">Döltschi <span class="text-blue-600">Time</span></span> </div> <nav class="flex gap-4"> <button onclick="showView('dashboard-view')" class="px-4 py-2 text-slate-500 font-medium">Übersicht</button> <button onclick="showView('employee-view')" class="px-4 py-2 text-blue-600 font-bold border-b-2 border-blue-600">Team</button> </nav> </div> </header> <main class="max-w-7xl mx-auto px-6 py-12"> <div class="flex justify-between items-center mb-8"> <h2 class="text-4xl font-black">Team Verwaltung</h2> <button onclick="openModal('emp-modal')" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold">+ Mitarbeiter</button> </div> <div id="employee-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"> <!-- JS Injektion --> </div> </main> </div> <!-- MODALS --> <!-- Zeiterfassung Modal --> <div id="time-modal" class="modal"> <div class="bg-white p-10 rounded-3xl w-full max-w-lg shadow-2xl"> <h3 class="text-2xl font-bold mb-6">Zeit buchen</h3> <div class="space-y-4"> <input type="date" id="entry-date" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none"> <select id="entry-emp" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none"> <!-- Aus JS --> </select> <select id="entry-type" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none"> <option>Arbeit</option> <option>Ferien</option> <option>Krankheit</option> <option>Militär</option> </select> <div class="grid grid-cols-2 gap-4"> <input type="time" id="entry-start" class="p-4 bg-slate-50 border border-slate-100 rounded-xl"> <input type="time" id="entry-end" class="p-4 bg-slate-50 border border-slate-100 rounded-xl"> </div> <div class="flex gap-4 mt-8"> <button onclick="closeModal('time-modal')" class="flex-1 py-4 font-bold text-slate-400">Abbrechen</button> <button onclick="saveTime()" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100">Speichern</button> </div> </div> </div> </div> <!-- Mitarbeiter Modal --> <div id="emp-modal" class="modal"> <div class="bg-white p-10 rounded-3xl w-full max-w-lg shadow-2xl"> <h3 class="text-2xl font-bold mb-6">Neuer Mitarbeiter</h3> <div class="space-y-4"> <input type="text" id="emp-name" placeholder="Name Vorname" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl"> <input type="text" id="emp-role" placeholder="Rolle (Freitext)" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl"> <input type="number" id="emp-pensum" placeholder="Pensum %" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl"> <div class="flex gap-4 mt-8"> <button onclick="closeModal('emp-modal')" class="flex-1 py-4 font-bold text-slate-400">Abbrechen</button> <button onclick="saveEmployee()" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-2xl">Mitarbeiter anlegen</button> </div> </div> </div> </div> </body> </html> ```
+<!DOCTYPE html>
+
+<html lang="de-CH"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Döltschi Time - Präzision &amp; Flow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-error-container": "#93000a",
+                "error": "#ba1a1a",
+                "on-primary": "#ffffff",
+                "tertiary-container": "#006947",
+                "surface-dim": "#cbdbf5",
+                "tertiary": "#004f34",
+                "outline-variant": "#c2c6d5",
+                "on-tertiary-fixed-variant": "#005236",
+                "on-primary-fixed": "#001a41",
+                "primary-container": "#0058bc",
+                "on-surface-variant": "#424753",
+                "secondary-fixed": "#dde3ea",
+                "on-primary-fixed-variant": "#004494",
+                "on-secondary-fixed-variant": "#41484d",
+                "on-background": "#0b1c30",
+                "outline": "#727784",
+                "on-primary-container": "#c3d4ff",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-fixed": "#002113",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#d3e4fe",
+                "primary-fixed": "#d8e2ff",
+                "secondary-container": "#dde3ea",
+                "surface-tint": "#095bbf",
+                "secondary-fixed-dim": "#c1c7ce",
+                "inverse-surface": "#213145",
+                "surface-container-low": "#eff4ff",
+                "on-secondary-fixed": "#161c21",
+                "surface-container-highest": "#d3e4fe",
+                "error-container": "#ffdad6",
+                "background": "#f8f9ff",
+                "on-tertiary-container": "#5fecb0",
+                "tertiary-fixed-dim": "#4edea3",
+                "surface-container-high": "#dce9ff",
+                "primary-fixed-dim": "#adc6ff",
+                "on-tertiary": "#ffffff",
+                "surface-bright": "#f8f9ff",
+                "inverse-on-surface": "#eaf1ff",
+                "surface-container": "#e5eeff",
+                "tertiary-fixed": "#6ffbbe",
+                "surface": "#f8f9ff",
+                "primary": "#00418f",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#5f656b",
+                "on-surface": "#0b1c30",
+                "secondary": "#595f65",
+                "inverse-primary": "#adc6ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "max-width": "1280px",
+                "margin-desktop": "32px",
+                "margin-mobile": "16px",
+                "gutter": "16px",
+                "base": "4px"
+            },
+            "fontFamily": {
+                "label-bold": ["IBM Plex Sans"],
+                "headline-md": ["IBM Plex Sans"],
+                "headline-lg": ["IBM Plex Sans"],
+                "mono-data": ["JetBrains Mono"],
+                "body-sm": ["IBM Plex Sans"],
+                "body-lg": ["IBM Plex Sans"]
+            },
+            "fontSize": {
+                "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-nav-item {
+            background-color: #ffffff;
+            color: #00418f;
+        }
+        .view-transition {
+            transition: opacity 0.2s ease-in-out;
+        }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #f8f9ff;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0058bc !important;
+            box-shadow: 0 0 0 2px rgba(0, 88, 188, 0.1);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-on-surface">
+<!-- Auth Overlay -->
+<div class="fixed inset-0 bg-surface z-[200] flex items-center justify-center" id="auth-overlay">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-xl border border-outline-variant max-w-sm w-full space-y-4 text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Login</h2>
+<p class="text-on-surface-variant text-body-sm mb-4">Bitte Passwort eingeben um fortzufahren.</p>
+<input class="w-full border border-outline-variant rounded-lg p-3 font-body-lg" id="auth-password" placeholder="Passwort" type="password"/>
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" onclick="checkAuth()">Anmelden</button>
+<p class="text-error text-label-sm mt-2 hidden" id="auth-error">Falsches Passwort</p>
+</div>
+</div>
+<!-- SideNavBar -->
+<aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50" id="sidebar">
+<div class="mb-6 px-2">
+<h1 class="font-headline-md text-headline-md text-primary">Döltschi Time</h1>
+<p class="text-on-surface-variant font-label-bold text-label-bold">Precision &amp; Flow</p>
+</div>
+<nav class="flex-1 space-y-1">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100 active-nav-item" id="nav-dashboard" onclick="showView('dashboard')">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-tracking" onclick="showView('tracking')">
+<span class="material-symbols-outlined">schedule</span>
+<span>Zeiterfassung</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-daily" onclick="showView('daily')">
+<span class="material-symbols-outlined">today</span>
+<span>Tagesübersicht</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-reports" onclick="showView('reports')">
+<span class="material-symbols-outlined">analytics</span>
+<span>Berichte</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-management" onclick="showView('management')">
+<span class="material-symbols-outlined">group</span>
+<span>Mitarbeiter</span>
+</button>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4 space-y-1">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">contact_support</span>
+<span>Support</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">logout</span>
+<span>Abmelden</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="h-16 px-margin-desktop bg-surface border-b border-outline-variant flex justify-between items-center sticky top-0 z-40">
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-sm text-body-sm focus:ring-2 focus:ring-primary" placeholder="Suchen..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2" title="Datenbank-Status">
+<span class="material-symbols-outlined text-outline transition-colors duration-300" id="db-icon">cloud_off</span>
+<span class="text-label-sm font-label-bold text-outline transition-colors duration-300" id="db-text">Offline</span>
+</div>
+<div class="flex gap-4 text-outline border-l border-outline-variant pl-6">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">help</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="showView('profile')">account_circle</span>
+</div>
+</div>
+</header>
+<!-- View Containers -->
+<div class="flex-1 overflow-y-auto p-margin-desktop" id="view-content">
+<!-- Dashboard View -->
+<section class="view-transition space-y-8" id="view-dashboard">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Dashboard</h2>
+<p class="text-on-surface-variant">Willkommen zurück, Administrator.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="openTimeEntryModal()">
+                        Neuer Eintrag
+                    </button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Active Members Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-primary-container p-2 bg-primary-fixed rounded-lg">person</span>
+<span class="text-tertiary font-label-bold text-label-bold flex items-center gap-1">+4% <span class="material-symbols-outlined text-sm">trending_up</span></span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Aktive Mitglieder</p>
+<h3 class="font-headline-lg text-headline-lg" id="dashboard-active-members">-- / --</h3>
+</div>
+</div>
+<!-- Team Health Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-lg">monitoring</span>
+<span class="text-primary font-label-bold text-label-bold">Optimal</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Einträge Total</p>
+<h3 class="font-headline-lg text-headline-lg" id="dashboard-entry-count">--</h3>
+</div>
+</div>
+<!-- Pending Approvals Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">schedule</span>
+<span class="text-error font-label-bold text-label-bold">Live</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Gesamtarbeitsstunden</p>
+<h3 class="font-headline-lg text-headline-lg" id="dashboard-total-hours">--</h3>
+</div>
+</div>
+</div>
+<!-- Productivity Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 h-80 relative overflow-hidden">
+<h4 class="font-label-bold text-label-bold mb-4">Wöchentliche Arbeitsstunden</h4>
+<div class="absolute inset-0 flex items-end px-6 pb-12 gap-4">
+<div class="bg-primary-container w-full" style="height: 60%"></div>
+<div class="bg-primary-container w-full" style="height: 85%"></div>
+<div class="bg-primary-container w-full" style="height: 70%"></div>
+<div class="bg-primary-container w-full" style="height: 95%"></div>
+<div class="bg-primary-container w-full" style="height: 40%"></div>
+<div class="bg-outline-variant w-full" style="height: 10%"></div>
+<div class="bg-outline-variant w-full" style="height: 10%"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant">
+<h4 class="font-label-bold text-label-bold">Neueste Aktivitäten</h4>
+</div>
+<div class="divide-y divide-outline-variant flex-1 overflow-y-auto" id="recent-activities">
+<div class="p-4 flex items-center justify-center text-outline text-label-sm">
+Lade Daten...
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tracking View -->
+<section class="hidden view-transition space-y-6" id="view-tracking">
+<div class="flex justify-between items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Zeiterfassung</h2>
+<p class="text-on-surface-variant">Arbeitszeiten eintragen</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 max-w-2xl">
+<form class="space-y-4" onsubmit="event.preventDefault(); submitTimeEntryForm();">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Mitarbeiter</label>
+<select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-employee" required="">
+<!-- populated from DB -->
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Datum</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-date" required="" type="date"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-3">
+<h4 class="text-label-bold font-label-bold border-b border-outline-variant pb-1">Vormittag</h4>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Von</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-morning-from" type="time"/>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Bis</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-morning-to" type="time"/>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="text-label-bold font-label-bold border-b border-outline-variant pb-1">Nachmittag</h4>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Von</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-afternoon-from" type="time"/>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Bis</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-afternoon-to" type="time"/>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="text-label-bold font-label-bold border-b border-outline-variant pb-1">Abend</h4>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Von</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-evening-from" type="time"/>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-bold w-8">Bis</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-evening-to" type="time"/>
+</div>
+</div>
+</div>
+<div class="space-y-1 mt-4">
+<label class="text-label-bold font-label-bold">Bemerkungen / Sitzungen</label>
+<textarea class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="tracking-notes" rows="3"></textarea>
+</div>
+<div class="pt-6">
+<button class="w-full px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Eintrag speichern</button>
+</div>
+</form>
+</div>
+</section>
+<!-- Daily Log View -->
+<section class="hidden view-transition space-y-6" id="view-daily">
+<div class="flex justify-between items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Tagesübersicht</h2>
+<p class="text-on-surface-variant">Alle Einträge</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="openTimeEntryModal()">
+    Neuer Eintrag
+</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Datum</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Mitarbeiter</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend</th>
+<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total (h)</th>
+<th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="daily-table-body">
+<!-- Dynamic Population -->
+</tbody>
+</table>
+</div>
+</section>
+<!-- Reports View -->
+<section class="hidden view-transition space-y-8" id="view-reports">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-lg text-headline-lg">Berichte</h2>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<h4 class="font-label-bold text-label-bold mb-6">Mitarbeiter Stunden Total</h4>
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="p-4 text-left font-label-bold text-label-bold">Mitarbeiter</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Jahresarbeitszeit (h)</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Total Stunden (h)</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Saldo (h)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="reports-table-body">
+<!-- Dynamically filled -->
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Management View -->
+<section class="hidden view-transition space-y-6" id="view-management">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-lg text-headline-lg">Mitarbeiter</h2>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2" onclick="openEmployeeModal()">
+<span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
+                    </button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<table class="w-full" id="employee-table">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="p-4 text-left font-label-bold text-label-bold">Name</th>
+<th class="p-4 text-left font-label-bold text-label-bold">E-Mail</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Beschäftigungsgrad</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Jahresarbeitszeit</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Rolle</th>
+<th class="p-4 text-right font-label-bold text-label-bold">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="employee-list">
+<!-- Firebase Data -->
+<tr>
+<td class="p-4 text-center text-outline" colspan="6">Daten werden geladen...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Profile/Settings View -->
+<section class="hidden view-transition space-y-8" id="view-settings">
+<h2 class="font-headline-lg text-headline-lg">Einstellungen</h2>
+<div class="max-w-3xl space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+<h4 class="font-headline-md text-headline-md mb-6">Persönliche Informationen</h4>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant">Vorname</label>
+<input class="w-full border border-outline-variant rounded-lg p-3" type="text" value="Thomas"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant">Nachname</label>
+<input class="w-full border border-outline-variant rounded-lg p-3" type="text" value="Döltschi"/>
+</div>
+<div class="col-span-2 space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant">E-Mail Adresse</label>
+<input class="w-full border border-outline-variant rounded-lg p-3" type="email" value="thomas.d@doeltschi-time.ch"/>
+</div>
+</div>
+<button class="mt-8 bg-primary text-on-primary px-6 py-3 rounded-lg font-label-bold text-label-bold">Änderungen speichern</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+<h4 class="font-headline-md text-headline-md mb-4 text-error">Gefahrenzone</h4>
+<p class="text-on-surface-variant mb-6">Das Löschen Ihres Kontos ist permanent und kann nicht rückgängig gemacht werden.</p>
+<button class="border border-error text-error px-6 py-3 rounded-lg font-label-bold text-label-bold hover:bg-error-container transition-colors">Konto löschen</button>
+</div>
+</div>
+</section>
+<!-- Profile View (Contextual Switch) -->
+<section class="hidden view-transition space-y-8" id="view-profile">
+<div class="flex items-center gap-6">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-on-primary text-4xl font-bold shadow-lg">TD</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg">Thomas Döltschi</h2>
+<p class="text-on-surface-variant">Administrator | Döltschi AG</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<h4 class="font-label-bold text-label-bold mb-4">Konto wechseln</h4>
+<div class="space-y-2">
+<div class="p-3 bg-surface-container flex items-center justify-between rounded-lg cursor-pointer">
+<span class="font-body-lg">Döltschi AG (Main)</span>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="p-3 hover:bg-surface-container-low flex items-center justify-between rounded-lg cursor-pointer border border-transparent hover:border-outline-variant transition-all">
+<span class="font-body-lg">Bau-Service Gmbh</span>
+<span class="material-symbols-outlined text-outline">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Modal: Add Employee -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="employee-modal">
+<div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md" id="employee-modal-title">Mitarbeiter hinzufügen/bearbeiten</h3>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')"><span class="material-symbols-outlined">close</span></button>
+</div>
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployeeForm();">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Vorname</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-first-name" required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Nachname</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-last-name" required="" type="text"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">E-Mail Adresse</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-email" required="" type="email"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Beschäftigungsgrad (%)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-percentage" required="" type="number" value="100"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Jahresarbeitszeit (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-annual-hours" required="" type="number" value="2080"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Rolle</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role" placeholder="z.B. Mitarbeiter" type="text"/>
+</div>
+<div class="pt-6 flex gap-3">
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('employee-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Modal: Time Entry -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="time-entry-modal">
+<div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md" id="time-entry-modal-title">Zeit erfassen/bearbeiten</h3>
+<button class="text-outline hover:text-on-surface" onclick="toggleModal('time-entry-modal')"><span class="material-symbols-outlined">close</span></button>
+</div>
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); submitTimeEntry();">
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Mitarbeiter</label>
+<select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-employee" required="">
+<!-- populated from DB -->
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-bold font-label-bold">Datum</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-date" required="" type="date"/>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-4">
+<label class="text-label-bold font-label-bold w-20">Vormittag</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-morning-from" type="time"/>
+<span class="text-on-surface-variant">-</span>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-morning-to" type="time"/>
+</div>
+<div class="flex items-center gap-4">
+<label class="text-label-bold font-label-bold w-20">Nachmittag</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-afternoon-from" type="time"/>
+<span class="text-on-surface-variant">-</span>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-afternoon-to" type="time"/>
+</div>
+<div class="flex items-center gap-4">
+<label class="text-label-bold font-label-bold w-20">Abend</label>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-evening-from" type="time"/>
+<span class="text-on-surface-variant">-</span>
+<input class="flex-1 border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-evening-to" type="time"/>
+</div>
+<div class="space-y-1 mt-2">
+<label class="text-label-bold font-label-bold">Bemerkungen</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="entry-notes" type="text"/>
+</div>
+</div>
+<div class="pt-6 flex gap-3">
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('time-entry-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Firebase Simulation & SPA Logic -->
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, deleteDoc, query, orderBy, getDoc } 
+            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase Config Placeholder
+        const firebaseConfig = {
+            apiKey: "AIzaSyDUcNBEBX9FUbRLnbFY99Iq877cVbZrCqQ",
+            authDomain: "doeltschi-time.firebaseapp.com",
+            projectId: "doeltschi-time",
+            storageBucket: "doeltschi-time.firebasestorage.app",
+            messagingSenderId: "799791230026",
+            appId: "1:799791230026:web:f2e573a06947ab78f8cab3",
+            measurementId: "G-4WYSMFZ9ED"
+        };
+
+        // UI State Management
+        window.showView = function(viewId) {
+            const views = ['dashboard', 'tracking', 'daily', 'reports', 'management', 'settings', 'profile'];
+            
+            views.forEach(v => {
+                const element = document.getElementById(`view-${v}`);
+                if (element) {
+                    if (v === viewId) {
+                        element.classList.remove('hidden');
+                        element.style.opacity = '0';
+                        setTimeout(() => element.style.opacity = '1', 50);
+                    } else {
+                        element.classList.add('hidden');
+                    }
+                }
+
+                // Update Nav Active States
+                const navBtn = document.getElementById(`nav-${v}`);
+                if (navBtn) {
+                    if (v === viewId) {
+                        navBtn.classList.add('active-nav-item');
+                    } else {
+                        navBtn.classList.remove('active-nav-item');
+                    }
+                }
+            });
+
+            // Scroll main to top
+            document.getElementById('view-content').scrollTop = 0;
+        }
+
+        window.toggleModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        // Firebase & Auth Logic
+        let db;
+        let employeesData = {};
+        let currentEditEmployeeId = null;
+        let currentEditTimeEntryId = null;
+        let timeEntriesData = {};
+        
+        function setDbStatus(isConnected) {
+            const icon = document.getElementById('db-icon');
+            const text = document.getElementById('db-text');
+            if (isConnected) {
+                icon.textContent = 'cloud_done';
+                icon.classList.remove('text-outline', 'text-error');
+                icon.classList.add('text-tertiary');
+                if (text) {
+                    text.textContent = 'Cloud Aktiv';
+                    text.classList.remove('text-outline', 'text-error');
+                    text.classList.add('text-tertiary');
+                }
+            } else {
+                icon.textContent = 'cloud_off';
+                icon.classList.remove('text-outline', 'text-tertiary');
+                icon.classList.add('text-error');
+                if (text) {
+                    text.textContent = 'Offline';
+                    text.classList.remove('text-outline', 'text-tertiary');
+                    text.classList.add('text-error');
+                }
+            }
+        }
+
+        window.checkAuth = function() {
+            const pwd = document.getElementById('auth-password').value;
+            if (pwd === 'Willma') {
+                document.getElementById('auth-overlay').classList.add('hidden');
+                initFirebase();
+            } else {
+                document.getElementById('auth-error').classList.remove('hidden');
+            }
+        }
+
+        // Allow enter key in password field
+        document.getElementById('auth-password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkAuth();
+            }
+        });
+
+        function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                
+                // Initialize real-time listeners
+                syncEmployees();
+                syncTimeEntries();
+                
+            } catch (error) {
+                console.error("Firebase init failed:", error);
+                setDbStatus(false);
+            }
+        }
+
+        async function syncEmployees() {
+            if (!db) return;
+            const empRef = collection(db, "employees");
+            
+            onSnapshot(empRef, async (snapshot) => {
+                setDbStatus(true);
+                const list = document.getElementById('employee-list');
+                const empSelect = document.getElementById('entry-employee');
+                const trackSelect = document.getElementById('tracking-employee');
+                
+                if(snapshot.empty) {
+                    // Seed initial specific employees
+                    const initialEmployees = [
+                        { firstName: 'Nicole', lastName: 'De Pretto', email: 'nicole@doeltschi-time.ch', percentage: 57, annualHours: 1162.8, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Michelle', lastName: 'Dreifuss', email: 'michelle@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Manuel', lastName: 'Schoch', email: 'manuel@doeltschi-time.ch', percentage: 100, annualHours: 2040, role: 'Mitarbeiter', createdAt: new Date().toISOString() },
+                        { firstName: 'Seline', lastName: 'Steinmann', email: 'seline@doeltschi-time.ch', percentage: 92, annualHours: 1876.8, role: 'Mitarbeiter', createdAt: new Date().toISOString() }
+                    ];
+                    for (const emp of initialEmployees) {
+                        try {
+                            await addDoc(collection(db, "employees"), emp);
+                        } catch(e) { console.error(e) }
+                    }
+                    return; // Next snapshot will handle rendering
+                }
+
+                list.innerHTML = '';
+                empSelect.innerHTML = '<option value="">Bitte wählen...</option>';
+                if(trackSelect) trackSelect.innerHTML = '<option value="">Bitte wählen...</option>';
+                let count = 0;
+                employeesData = {};
+
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    employeesData[doc.id] = data;
+                    count++;
+                    const initials = (data.firstName?.charAt(0) || '') + (data.lastName?.charAt(0) || '');
+                    const roleClass = data.role === 'Administrator' ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-on-surface-variant';
+                    
+                    list.innerHTML += `
+                    <tr>
+                        <td class="p-4 flex items-center gap-3">
+                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-on-primary text-label-bold">${initials}</div>
+                        <span class="font-body-lg text-body-lg">${data.firstName} ${data.lastName}</span>
+                        </td>
+                        <td class="p-4 text-on-surface-variant">${data.email}</td>
+                        <td class="p-4">${data.percentage}%</td>
+                        <td class="p-4">${data.annualHours || '-'}h</td>
+                        <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
+                        <td class="p-4 text-right flex justify-end gap-2">
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('${doc.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                        </td>
+                    </tr>`;
+
+                    empSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
+                    if(trackSelect) trackSelect.innerHTML += `<option value="${doc.id}">${data.firstName} ${data.lastName}</option>`;
+                });
+
+                // Update Dashboard stats
+                document.getElementById('dashboard-active-members').textContent = `${count} / ${count}`;
+
+            }, (error) => {
+                console.error("Error listening to employees:", error);
+                setDbStatus(false);
+            });
+        }
+
+        function calculateHours(from, to) {
+            if(!from || !to) return 0;
+            const [h1, m1] = from.split(':').map(Number);
+            const [h2, m2] = to.split(':').map(Number);
+            let diff = (h2 * 60 + m2) - (h1 * 60 + m1);
+            if(diff < 0) diff += 24 * 60; // handle over midnight
+            return diff / 60;
+        }
+
+        function syncTimeEntries() {
+             if (!db) return;
+             const timeRef = collection(db, "timeEntries");
+             const q = query(timeRef, orderBy("date", "desc"));
+             
+             onSnapshot(q, (snapshot) => {
+                setDbStatus(true);
+                let totalHours = 0;
+                let entryCount = 0;
+
+                const dailyBody = document.getElementById('daily-table-body');
+                let dailyHtml = '';
+                let recentHtml = '';
+
+                // Aggregations
+                const employeeTotals = {};
+                const dailyTotals = {}; // for weekly view aggregate
+                
+                timeEntriesData = {};
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    timeEntriesData[docSnap.id] = data;
+                    const emp = employeesData[data.employeeId] || { firstName: 'Unbekannt', lastName: '' };
+                    const empName = `${emp.firstName} ${emp.lastName}`;
+                    
+                    const morning = data.morningHours || calculateHours(data.morningFrom, data.morningTo) || parseFloat(data.morning) || 0;
+                    const afternoon = data.afternoonHours || calculateHours(data.afternoonFrom, data.afternoonTo) || parseFloat(data.afternoon) || 0;
+                    const evening = data.eveningHours || calculateHours(data.eveningFrom, data.eveningTo) || parseFloat(data.evening) || 0;
+                    const total = morning + afternoon + evening;
+                    
+                    totalHours += total;
+                    entryCount++;
+
+                    // Employee Totals (Reports)
+                    if(!employeeTotals[data.employeeId]) employeeTotals[data.employeeId] = 0;
+                    employeeTotals[data.employeeId] += total;
+
+                    // Daily Totals (Weekly View)
+                    if(!dailyTotals[data.date]) dailyTotals[data.date] = { count: 0, hours: 0 };
+                    dailyTotals[data.date].count++;
+                    dailyTotals[data.date].hours += total;
+                    
+                    dailyHtml += `
+                    <tr class="hover:bg-surface-container-low group">
+                        <td class="p-4">
+                            <p class="font-label-bold text-label-bold">${data.date}</p>
+                            ${data.notes ? `<p class="text-label-sm text-on-surface-variant truncate max-w-xs" title="${data.notes}">${data.notes}</p>` : ''}
+                        </td>
+                        <td class="p-4 text-on-surface-variant">${empName}</td>
+                        <td class="p-4 font-mono-data text-mono-data">
+                            ${data.morningFrom && data.morningTo ? `${data.morningFrom}-${data.morningTo}` : (morning > 0 ? morning+'h' : '-')}
+                        </td>
+                        <td class="p-4 font-mono-data text-mono-data">
+                             ${data.afternoonFrom && data.afternoonTo ? `${data.afternoonFrom}-${data.afternoonTo}` : (afternoon > 0 ? afternoon+'h' : '-')}
+                        </td>
+                        <td class="p-4 font-mono-data text-mono-data">
+                             ${data.eveningFrom && data.eveningTo ? `${data.eveningFrom}-${data.eveningTo}` : (evening > 0 ? evening+'h' : '-')}
+                        </td>
+                        <td class="p-4 text-right font-mono-data text-mono-data font-bold">${total.toFixed(2)}h</td>
+                        <td class="p-4 text-right flex justify-end gap-2">
+                            <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editTimeEntry('${docSnap.id}')" title="Bearbeiten"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteTimeEntry('${docSnap.id}')" title="Löschen"><span class="material-symbols-outlined">delete</span></button>
+                        </td>
+                    </tr>`;
+
+                    if(entryCount <= 5) {
+                        recentHtml += `
+                        <div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-bold text-primary">ZE</div>
+                            <div class="flex-1">
+                                <p class="font-label-bold text-label-bold">${empName}</p>
+                                <p class="text-body-sm text-on-surface-variant">${data.date} - ${total.toFixed(2)}h erfasst</p>
+                            </div>
+                            <span class="text-label-sm text-outline">Live</span>
+                        </div>
+                        `;
+                    }
+                });
+
+                if(entryCount === 0) {
+                     dailyBody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-outline">Keine Einträge vorhanden.</td></tr>';
+                     document.getElementById('recent-activities').innerHTML = '<div class="p-4 text-center text-outline">Keine Aktivitäten</div>';
+                     document.getElementById('reports-table-body').innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Daten.</td></tr>';
+                } else {
+                     dailyBody.innerHTML = dailyHtml;
+                     document.getElementById('recent-activities').innerHTML = recentHtml;
+                     
+                     // Populate Reports
+                     let repHtml = '';
+                     for (const [empId, empData] of Object.entries(employeesData)) {
+                         const hrs = employeeTotals[empId] || 0;
+                         const annual = parseFloat(empData.annualHours) || 0;
+                         const saldo = hrs - annual;
+                         const saldoColor = saldo >= 0 ? 'text-tertiary' : 'text-error';
+                         
+                         repHtml += `
+                         <tr>
+                            <td class="p-4">${empData.firstName} ${empData.lastName}</td>
+                            <td class="p-4 text-right font-mono-data">${annual > 0 ? annual + 'h' : '-'}</td>
+                            <td class="p-4 text-right font-mono-data">${hrs.toFixed(2)}h</td>
+                            <td class="p-4 text-right font-mono-data ${saldoColor} font-bold">${saldo > 0 ? '+' : ''}${saldo.toFixed(2)}h</td>
+                         </tr>
+                         `;
+                     }
+                     document.getElementById('reports-table-body').innerHTML = repHtml;
+                }
+                
+                document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
+                document.getElementById('dashboard-entry-count').textContent = entryCount;
+
+             }, (error) => {
+                 console.error("Error listening to time entries:", error);
+                 setDbStatus(false);
+             });
+        }
+
+        window.openEmployeeModal = function() {
+            currentEditEmployeeId = null;
+            document.getElementById('emp-first-name').value = '';
+            document.getElementById('emp-last-name').value = '';
+            document.getElementById('emp-email').value = '';
+            document.getElementById('emp-percentage').value = '100';
+            document.getElementById('emp-annual-hours').value = '2080';
+            document.getElementById('emp-role').value = 'Mitarbeiter';
+            toggleModal('employee-modal');
+        }
+
+        window.editEmployee = function(id) {
+            const emp = employeesData[id];
+            if(!emp) return;
+            currentEditEmployeeId = id;
+            document.getElementById('emp-first-name').value = emp.firstName || '';
+            document.getElementById('emp-last-name').value = emp.lastName || '';
+            document.getElementById('emp-email').value = emp.email || '';
+            document.getElementById('emp-percentage').value = emp.percentage || '100';
+            document.getElementById('emp-annual-hours').value = emp.annualHours || '2080';
+            document.getElementById('emp-role').value = emp.role || 'Mitarbeiter';
+            toggleModal('employee-modal');
+        }
+
+        window.saveEmployeeForm = async function() {
+            if(!db) return;
+            const data = {
+                firstName: document.getElementById('emp-first-name').value,
+                lastName: document.getElementById('emp-last-name').value,
+                email: document.getElementById('emp-email').value,
+                percentage: document.getElementById('emp-percentage').value,
+                annualHours: document.getElementById('emp-annual-hours').value,
+                role: document.getElementById('emp-role').value
+            };
+
+            try {
+                if(currentEditEmployeeId) {
+                    await updateDoc(doc(db, "employees", currentEditEmployeeId), data);
+                } else {
+                    data.createdAt = new Date().toISOString();
+                    await addDoc(collection(db, "employees"), data);
+                }
+                toggleModal('employee-modal');
+            } catch(e) {
+                console.error("Error saving employee: ", e);
+            }
+        };
+
+        window.deleteEmployee = async function(id) {
+            if(!db || !confirm("Wirklich löschen?")) return;
+            try {
+                await deleteDoc(doc(db, "employees", id));
+            } catch(e) {
+                console.error("Error deleting employee: ", e);
+            }
+        }
+
+        window.openTimeEntryModal = function() {
+            currentEditTimeEntryId = null;
+            document.getElementById('entry-date').valueAsDate = new Date();
+            document.getElementById('entry-employee').value = '';
+            document.getElementById('entry-morning-from').value = '';
+            document.getElementById('entry-morning-to').value = '';
+            document.getElementById('entry-afternoon-from').value = '';
+            document.getElementById('entry-afternoon-to').value = '';
+            document.getElementById('entry-evening-from').value = '';
+            document.getElementById('entry-evening-to').value = '';
+            document.getElementById('entry-notes').value = '';
+            toggleModal('time-entry-modal');
+        }
+
+        window.editTimeEntry = function(id) {
+            const entry = timeEntriesData[id];
+            if(!entry) return;
+            currentEditTimeEntryId = id;
+            document.getElementById('entry-employee').value = entry.employeeId || '';
+            document.getElementById('entry-date').value = entry.date || '';
+            document.getElementById('entry-morning-from').value = entry.morningFrom || '';
+            document.getElementById('entry-morning-to').value = entry.morningTo || '';
+            document.getElementById('entry-afternoon-from').value = entry.afternoonFrom || '';
+            document.getElementById('entry-afternoon-to').value = entry.afternoonTo || '';
+            document.getElementById('entry-evening-from').value = entry.eveningFrom || '';
+            document.getElementById('entry-evening-to').value = entry.eveningTo || '';
+            document.getElementById('entry-notes').value = entry.notes || '';
+            toggleModal('time-entry-modal');
+        }
+
+        window.deleteTimeEntry = async function(id) {
+            if(!db || !confirm("Eintrag wirklich löschen?")) return;
+            try {
+                await deleteDoc(doc(db, "timeEntries", id));
+            } catch(e) {
+                console.error("Error deleting time entry: ", e);
+            }
+        }
+
+        window.submitTimeEntry = async function() {
+            if(!db) return;
+            const empId = document.getElementById('entry-employee').value;
+            if(!empId) {
+                alert("Bitte Mitarbeiter wählen");
+                return;
+            }
+
+            const data = {
+                employeeId: empId,
+                date: document.getElementById('entry-date').value,
+                morningFrom: document.getElementById('entry-morning-from').value,
+                morningTo: document.getElementById('entry-morning-to').value,
+                afternoonFrom: document.getElementById('entry-afternoon-from').value,
+                afternoonTo: document.getElementById('entry-afternoon-to').value,
+                eveningFrom: document.getElementById('entry-evening-from').value,
+                eveningTo: document.getElementById('entry-evening-to').value,
+                notes: document.getElementById('entry-notes').value
+            };
+
+            try {
+                if(currentEditTimeEntryId) {
+                    await updateDoc(doc(db, "timeEntries", currentEditTimeEntryId), data);
+                } else {
+                    data.createdAt = new Date().toISOString();
+                    await addDoc(collection(db, "timeEntries"), data);
+                }
+                toggleModal('time-entry-modal');
+            } catch(e) {
+                console.error("Error saving time entry: ", e);
+            }
+        }
+
+        window.submitTimeEntryForm = async function() {
+            if(!db) return;
+            const empId = document.getElementById('tracking-employee').value;
+            if(!empId) {
+                alert("Bitte Mitarbeiter wählen");
+                return;
+            }
+
+            const data = {
+                employeeId: empId,
+                date: document.getElementById('tracking-date').value,
+                morningFrom: document.getElementById('tracking-morning-from').value,
+                morningTo: document.getElementById('tracking-morning-to').value,
+                afternoonFrom: document.getElementById('tracking-afternoon-from').value,
+                afternoonTo: document.getElementById('tracking-afternoon-to').value,
+                eveningFrom: document.getElementById('tracking-evening-from').value,
+                eveningTo: document.getElementById('tracking-evening-to').value,
+                notes: document.getElementById('tracking-notes').value,
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                await addDoc(collection(db, "timeEntries"), data);
+                alert("Eintrag erfolgreich gespeichert!");
+                document.getElementById('tracking-morning-from').value = '';
+                document.getElementById('tracking-morning-to').value = '';
+                document.getElementById('tracking-afternoon-from').value = '';
+                document.getElementById('tracking-afternoon-to').value = '';
+                document.getElementById('tracking-evening-from').value = '';
+                document.getElementById('tracking-evening-to').value = '';
+                document.getElementById('tracking-notes').value = '';
+            } catch(e) {
+                console.error("Error saving time entry: ", e);
+            }
+        }
+
+        // Initialize UI
+        window.onload = () => {
+            showView('dashboard');
+            document.getElementById('tracking-date').valueAsDate = new Date();
+            // Data loading waits for auth
+        };
+    </script>
+</body></html>
