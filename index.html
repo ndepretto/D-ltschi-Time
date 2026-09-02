@@ -910,8 +910,6 @@ Lade Daten...
                 annualHours: document.getElementById('emp-annual-hours').value,
                 role: document.getElementById('emp-role').value
             };
-            
-            toggleModal('employee-modal');
 
             try {
                 if(currentEditEmployeeId) {
@@ -920,6 +918,7 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "employees"), data);
                 }
+                toggleModal('employee-modal');
             } catch(e) {
                 console.error("Error saving employee: ", e);
             }
@@ -992,8 +991,6 @@ Lade Daten...
                 eveningTo: document.getElementById('entry-evening-to').value,
                 notes: document.getElementById('entry-notes').value
             };
-            
-            toggleModal('time-entry-modal');
 
             try {
                 if(currentEditTimeEntryId) {
@@ -1002,6 +999,7 @@ Lade Daten...
                     data.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "timeEntries"), data);
                 }
+                toggleModal('time-entry-modal');
             } catch(e) {
                 console.error("Error saving time entry: ", e);
             }
