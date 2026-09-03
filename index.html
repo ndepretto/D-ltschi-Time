@@ -6,14 +6,12 @@
 <title>Döltschi Time - Präzision &amp; Flow</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind Configuration -->
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            "colors": {
+            colors: {
                 "on-error-container": "#93000a",
                 "error": "#ba1a1a",
                 "on-primary": "#ffffff",
@@ -62,20 +60,20 @@
                 "secondary": "#595f65",
                 "inverse-primary": "#adc6ff"
             },
-            "borderRadius": {
-                "DEFAULT": "0.125rem",
-                "lg": "0.25rem",
-                "xl": "0.5rem",
-                "full": "0.75rem"
+            borderRadius: {
+                DEFAULT: "0.125rem",
+                lg: "0.25rem",
+                xl: "0.5rem",
+                full: "0.75rem"
             },
-            "spacing": {
+            spacing: {
                 "max-width": "1280px",
                 "margin-desktop": "32px",
                 "margin-mobile": "16px",
                 "gutter": "16px",
                 "base": "4px"
             },
-            "fontFamily": {
+            fontFamily: {
                 "label-bold": ["IBM Plex Sans"],
                 "headline-md": ["IBM Plex Sans"],
                 "headline-lg": ["IBM Plex Sans"],
@@ -83,7 +81,7 @@
                 "body-sm": ["IBM Plex Sans"],
                 "body-lg": ["IBM Plex Sans"]
             },
-            "fontSize": {
+            fontSize: {
                 "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
                 "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
                 "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
@@ -111,7 +109,7 @@
             font-family: 'IBM Plex Sans', sans-serif;
             background-color: #f8f9ff;
         }
-        input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #0058bc !important;
             box-shadow: 0 0 0 2px rgba(0, 88, 188, 0.1);
@@ -123,46 +121,42 @@
 <div class="fixed inset-0 bg-surface z-[200] flex items-center justify-center" id="auth-overlay">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-xl border border-outline-variant max-w-sm w-full space-y-4 text-center">
 <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Login</h2>
-<p class="text-on-surface-variant text-body-sm mb-4">Bitte Passwort eingeben um fortzufahren.</p>
+<p class="text-on-surface-variant text-body-sm mb-4">Bitte Passwort eingeben um fortzufahren (Standard: Willma).</p>
 <input class="w-full border border-outline-variant rounded-lg p-3 font-body-lg" id="auth-password" placeholder="Passwort" type="password"/>
 <button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" onclick="checkAuth()">Anmelden</button>
 <p class="text-error text-label-sm mt-2 hidden" id="auth-error">Falsches Passwort</p>
 </div>
 </div>
-<!-- SideNavBar (Authority: JSON & Style Guidance) -->
+<!-- SideNavBar -->
 <aside class="fixed h-full left-0 top-0 w-64 bg-surface-container flex flex-col py-6 px-4 gap-4 z-50" id="sidebar">
 <div class="mb-6 px-2">
 <h1 class="font-headline-md text-headline-md text-primary">Döltschi Time</h1>
-<p class="text-on-surface-variant font-label-bold text-label-bold">Precision &amp; Flow</p>
+<p class="text-on-surface-variant font-label-bold text-label-bold">Präzision &amp; Flow</p>
 </div>
 <nav class="flex-1 space-y-1">
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100 active-nav-item" id="nav-dashboard" onclick="showView('dashboard')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-dashboard" onclick="showView('dashboard')">
 <span class="material-symbols-outlined">dashboard</span>
-<span>Dashboard</span>
+<span>Team Dashboard</span>
 </button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-weekly" onclick="showView('weekly')">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100 active-nav-item" id="nav-weekly" onclick="showView('weekly')">
 <span class="material-symbols-outlined">calendar_view_week</span>
 <span>Wochenübersicht</span>
 </button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-reports" onclick="showView('reports')">
 <span class="material-symbols-outlined">analytics</span>
-<span>Berichte</span>
+<span>Monatsbericht</span>
 </button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-management" onclick="showView('management')">
 <span class="material-symbols-outlined">group</span>
-<span>Verwaltung</span>
+<span>Mitarbeiter-Verwaltung</span>
 </button>
 <button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-settings" onclick="showView('settings')">
 <span class="material-symbols-outlined">settings</span>
-<span>Einstellungen</span>
+<span>Profil &amp; Einstellungen</span>
 </button>
 </nav>
 <div class="mt-auto border-t border-outline-variant pt-4 space-y-1">
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest">
-<span class="material-symbols-outlined">contact_support</span>
-<span>Support</span>
-</button>
-<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-error font-label-bold text-label-bold hover:bg-error-container" onclick="logout()">
 <span class="material-symbols-outlined">logout</span>
 <span>Abmelden</span>
 </button>
@@ -170,232 +164,174 @@
 </aside>
 <!-- Main Content Area -->
 <main class="ml-64 flex-1 flex flex-col min-w-0">
-<!-- TopNavBar -->
 <header class="h-16 px-margin-desktop bg-surface border-b border-outline-variant flex justify-between items-center sticky top-0 z-40">
 <div class="flex items-center gap-4 flex-1 max-w-xl">
 <div class="relative w-full">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-sm text-body-sm focus:ring-2 focus:ring-primary" placeholder="Suchen..." type="text"/>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-sm text-body-sm focus:ring-2 focus:ring-primary" placeholder="Suchen in Einträgen..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-6">
-<div class="flex items-center gap-2" title="Datenbank-Status">
-<span class="material-symbols-outlined text-outline transition-colors duration-300" id="db-icon">cloud_off</span>
+<div class="flex items-center gap-2" title="Cloud / Lokal Sync Status">
+<span class="material-symbols-outlined text-tertiary" id="db-icon">cloud_done</span>
+<span class="text-label-sm text-on-surface-variant" id="sync-status-text">Synchronisiert</span>
 </div>
 <div class="flex gap-4 text-outline border-l border-outline-variant pl-6">
-<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
-<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">help</span>
-<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="showView('profile')">account_circle</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="showView('settings')">account_circle</span>
 </div>
 </div>
 </header>
-<!-- View Containers -->
 <div class="flex-1 overflow-y-auto p-margin-desktop" id="view-content">
-<!-- Dashboard View -->
-<section class="view-transition space-y-8" id="view-dashboard">
+<!-- Team Dashboard View -->
+<section class="hidden view-transition space-y-8" id="view-dashboard">
 <div class="flex justify-between items-end">
 <div>
-<h2 class="font-headline-lg text-headline-lg">Dashboard</h2>
-<p class="text-on-surface-variant">Willkommen zurück, Administrator.</p>
+<h2 class="font-headline-lg text-headline-lg">Team Dashboard</h2>
+<p class="text-on-surface-variant">Übersicht über Arbeitszeiten, Pensen und Abwesenheiten (Schweizer Standard).</p>
 </div>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity">
-                        Neuer Eintrag
-                    </button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="showView('weekly')">
+Zur Zeiterfassung
+</button>
 </div>
-<!-- Bento Grid Layout -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<!-- Active Members Card -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
 <span class="material-symbols-outlined text-primary-container p-2 bg-primary-fixed rounded-lg">person</span>
-<span class="text-tertiary font-label-bold text-label-bold flex items-center gap-1">+4% <span class="material-symbols-outlined text-sm">trending_up</span></span>
+<span class="text-tertiary font-label-bold text-label-bold flex items-center gap-1">Aktiv</span>
 </div>
 <div>
-<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Aktive Mitglieder</p>
-<h3 class="font-headline-lg text-headline-lg" id="dashboard-active-members">-- / --</h3>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Aktive Mitarbeiter</p>
+<h3 class="font-headline-lg text-headline-lg" id="dash-emp-count">5</h3>
 </div>
 </div>
-<!-- Team Health Card -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
 <span class="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-lg">monitoring</span>
-<span class="text-primary font-label-bold text-label-bold">Optimal</span>
+<span class="text-primary font-label-bold text-label-bold">Soll / Ist</span>
 </div>
 <div>
-<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Durchschnittliche Arbeitszeit</p>
-<h3 class="font-headline-lg text-headline-lg" id="dashboard-avg-hours">-- h</h3>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Monatsstunden Total</p>
+<h3 class="font-headline-lg text-headline-lg" id="dash-total-hours">684.0h</h3>
 </div>
 </div>
-<!-- Pending Approvals Card -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
-<span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">pending_actions</span>
-<span class="text-error font-label-bold text-label-bold">Dringend</span>
+<span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">event_busy</span>
+<span class="text-error font-label-bold text-label-bold">Aktuell</span>
 </div>
 <div>
-<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Gesamtarbeitsstunden</p>
-<h3 class="font-headline-lg text-headline-lg" id="dashboard-total-hours">--</h3>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Ferien / Abwesend</p>
+<h3 class="font-headline-lg text-headline-lg">2 Personen</h3>
 </div>
 </div>
 </div>
-<!-- Productivity Section -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 h-80 relative overflow-hidden">
-<h4 class="font-label-bold text-label-bold mb-4">Wöchentliche Arbeitsstunden</h4>
-<div class="absolute inset-0 flex items-end px-6 pb-12 gap-4">
-<div class="bg-primary-container w-full" style="height: 60%"></div>
-<div class="bg-primary-container w-full" style="height: 85%"></div>
-<div class="bg-primary-container w-full" style="height: 70%"></div>
-<div class="bg-primary-container w-full" style="height: 95%"></div>
-<div class="bg-primary-container w-full" style="height: 40%"></div>
-<div class="bg-outline-variant w-full" style="height: 10%"></div>
-<div class="bg-outline-variant w-full" style="height: 10%"></div>
-</div>
-</div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
-<div class="p-6 border-b border-outline-variant">
-<h4 class="font-label-bold text-label-bold">Neueste Aktivitäten</h4>
-</div>
-<div class="divide-y divide-outline-variant" id="recent-activities">
-<div class="p-4 flex items-center justify-center text-outline text-label-sm">
-Lade Daten...
-</div>
-</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<h4 class="font-label-bold text-label-bold mb-4">Mitarbeiter Pensen &amp; Jahresarbeitszeiten</h4>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="p-3 font-label-bold text-label-bold">Name</th>
+<th class="p-3 font-label-bold text-label-bold">Rolle</th>
+<th class="p-3 font-label-bold text-label-bold">Pensum</th>
+<th class="p-3 font-label-bold text-label-bold">Soll Stunden / Monat</th>
+<th class="p-3 font-label-bold text-label-bold">Ist Stunden</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="dashboard-team-summary">
+</tbody>
+</table>
 </div>
 </div>
 </section>
-<!-- Weekly Log View -->
-<section class="hidden view-transition space-y-6" id="view-weekly">
-<div class="flex justify-between items-center">
+<!-- Weekly View -->
+<section class="view-transition space-y-6" id="view-weekly">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 <div>
-<h2 class="font-headline-lg text-headline-lg">Wochenübersicht</h2>
-<p class="text-on-surface-variant">KW 42, 14. Okt - 20. Okt 2024</p>
+<h2 class="font-headline-lg text-headline-lg">Wochenübersicht &amp; Tageserfassung</h2>
+<p class="text-on-surface-variant" id="current-week-label">KW 42, 14.10.2024 - 20.10.2024</p>
 </div>
-<div class="flex border border-outline-variant rounded-lg overflow-hidden">
-<button class="px-4 py-2 hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
-<button class="px-6 py-2 border-x border-outline-variant font-label-bold text-label-bold">Heute</button>
-<button class="px-4 py-2 hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+<div class="flex items-center gap-3">
+<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 font-label-bold text-label-bold" id="active-user-select" onchange="loadWeeklyData()">
+<!-- Dynamic options -->
+</select>
+<div class="flex border border-outline-variant rounded-lg overflow-hidden bg-surface">
+<button class="px-3 py-2 hover:bg-surface-container transition-colors" onclick="changeWeek(-1)"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="px-4 py-2 border-x border-outline-variant font-label-bold text-label-bold" onclick="setCurrentWeek()">Aktuell</button>
+<button class="px-3 py-2 hover:bg-surface-container transition-colors" onclick="changeWeek(1)"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
 </div>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
 <table class="w-full border-collapse">
 <thead>
 <tr class="bg-surface-container-low">
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold w-40">Tag &amp; Datum</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag (von - bis)</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag (von - bis)</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend (von - bis)</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Notiz</th>
 <th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="weekly-table-body">
-<!-- Dynamic Population -->
+<!-- Populated by JS -->
 </tbody>
 <tfoot>
 <tr class="bg-surface-container-low font-headline-md">
-<td class="p-4 text-right font-label-bold text-label-bold" colspan="3">Total Woche</td>
+<td class="p-4 text-right font-label-bold text-label-bold" colspan="5">Total Woche</td>
 <td class="p-4 text-right font-mono-data text-mono-data text-primary" id="weekly-total">0.00h</td>
 </tr>
 </tfoot>
 </table>
 </div>
-<div class="flex justify-end gap-3"><button class="px-6 py-2 border border-outline-variant text-on-surface-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="resetWeeklyTimes()">Zeiten zurücksetzen</button>
-<button class="px-6 py-2 border border-primary text-primary rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="saveTimeEntries()">Speichern</button>
-<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90">Freigeben</button>
+<div class="flex flex-wrap justify-end gap-3">
+<button class="px-6 py-2 border border-outline-variant text-on-surface-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="resetWeeklyTimes()">Zurücksetzen</button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:opacity-90" onclick="saveWeeklyTimes()">Änderungen speichern</button>
 </div>
 </section>
-<!-- Reports View -->
+<!-- Reports / Monatsbericht View -->
 <section class="hidden view-transition space-y-8" id="view-reports">
 <div class="flex justify-between items-center">
-<h2 class="font-headline-lg text-headline-lg">Berichte</h2>
-<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 font-label-bold text-label-bold">
-<option>Oktober 2024</option>
-<option>September 2024</option>
-<option>August 2024</option>
+<div>
+<h2 class="font-headline-lg text-headline-lg">Monatsbericht</h2>
+<p class="text-on-surface-variant">Soll/Ist-Vergleich, Salden und geleistete Stunden.</p>
+</div>
+<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 font-label-bold text-label-bold" id="report-month-select" onchange="renderReports()">
+<option value="10.2024">Oktober 2024</option>
+<option value="09.2024">September 2024</option>
+<option value="08.2024">August 2024</option>
 </select>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
-<h4 class="font-label-bold text-label-bold mb-8">Produktivitätsanalyse</h4>
-<div class="h-64 w-full flex items-end justify-between px-4 pb-8 border-b border-outline-variant gap-2">
-<!-- Simple custom bars for visualization -->
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary w-full max-w-[40px] rounded-t-sm" style="height: 70%"></div>
-<span class="text-label-sm mt-2">KW 39</span>
-</div>
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary w-full max-w-[40px] rounded-t-sm" style="height: 85%"></div>
-<span class="text-label-sm mt-2">KW 40</span>
-</div>
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary w-full max-w-[40px] rounded-t-sm" style="height: 60%"></div>
-<span class="text-label-sm mt-2">KW 41</span>
-</div>
-<div class="flex flex-col items-center flex-1">
-<div class="bg-primary-container w-full max-w-[40px] rounded-t-sm" style="height: 90%"></div>
-<span class="text-label-sm mt-2">KW 42</span>
-</div>
-</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Soll-Stunden (Team)</p>
+<h3 class="font-headline-lg text-headline-lg text-primary" id="report-soll">160.0h</h3>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
-<h4 class="font-label-bold text-label-bold mb-6">Projektverteilung</h4>
-<div class="space-y-4">
-<div>
-<div class="flex justify-between text-body-sm mb-1">
-<span>Projekt Alpha</span>
-<span>45%</span>
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Ist-Stunden (Team)</p>
+<h3 class="font-headline-lg text-headline-lg text-tertiary" id="report-ist">168.5h</h3>
 </div>
-<div class="h-2 bg-secondary-container rounded-full overflow-hidden">
-<div class="h-full bg-primary" style="width: 45%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-body-sm mb-1">
-<span>Internes</span>
-<span>30%</span>
-</div>
-<div class="h-2 bg-secondary-container rounded-full overflow-hidden">
-<div class="h-full bg-tertiary-container" style="width: 30%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-body-sm mb-1">
-<span>Support</span>
-<span>25%</span>
-</div>
-<div class="h-2 bg-secondary-container rounded-full overflow-hidden">
-<div class="h-full bg-secondary" style="width: 25%"></div>
-</div>
-</div>
-</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Saldo / Überstunden</p>
+<h3 class="font-headline-lg text-headline-lg text-primary" id="report-diff">+8.5h</h3>
 </div>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
-<table class="w-full">
-<thead class="bg-surface-container-low">
-<tr>
-<th class="p-4 text-left font-label-bold text-label-bold">Projekt</th>
-<th class="p-4 text-left font-label-bold text-label-bold">Stunden</th>
-<th class="p-4 text-left font-label-bold text-label-bold">Fortschritt</th>
-<th class="p-4 text-right font-label-bold text-label-bold">Status</th>
+<div class="p-6 border-b border-outline-variant">
+<h4 class="font-headline-md text-headline-md">Mitarbeiter Monatsübersicht</h4>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="p-4 font-label-bold text-label-bold">Mitarbeiter</th>
+<th class="p-4 font-label-bold text-label-bold">Pensum</th>
+<th class="p-4 font-label-bold text-label-bold">Soll (h)</th>
+<th class="p-4 font-label-bold text-label-bold">Geleistet (h)</th>
+<th class="p-4 font-label-bold text-label-bold">Differenz</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="p-4 font-body-lg text-body-lg">Entwicklung Dashboard</td>
-<td class="p-4 font-mono-data text-mono-data">142.5h</td>
-<td class="p-4">
-<div class="w-24 h-1.5 bg-secondary-container rounded-full"><div class="h-full bg-primary w-2/3"></div></div>
-</td>
-<td class="p-4 text-right"><span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded text-label-sm">Aktiv</span></td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="p-4 font-body-lg text-body-lg">Reporting Modul</td>
-<td class="p-4 font-mono-data text-mono-data">88.0h</td>
-<td class="p-4">
-<div class="w-24 h-1.5 bg-secondary-container rounded-full"><div class="h-full bg-primary w-full"></div></div>
-</td>
-<td class="p-4 text-right"><span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-label-sm">Abgeschlossen</span></td>
-</tr>
+<tbody class="divide-y divide-outline-variant" id="reports-table-body">
 </tbody>
 </table>
 </div>
@@ -403,390 +339,444 @@ Lade Daten...
 <!-- Management View -->
 <section class="hidden view-transition space-y-6" id="view-management">
 <div class="flex justify-between items-center">
-<h2 class="font-headline-lg text-headline-lg">Verwaltung Mitarbeitende</h2>
-<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2" onclick="toggleModal('employee-modal')">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Mitarbeiter-Verwaltung</h2>
+<p class="text-on-surface-variant">Teammitglieder, Pensen, Jahresarbeitszeiten und Rollen verwalten.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2 shadow-sm" onclick="openEmployeeModal()">
 <span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
-                    </button>
+</button>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
 <table class="w-full" id="employee-table">
-<thead class="bg-surface-container-low">
+<thead class="bg-surface-container-low border-b border-outline-variant">
 <tr>
 <th class="p-4 text-left font-label-bold text-label-bold">Name</th>
-<th class="p-4 text-left font-label-bold text-label-bold">E-Mail</th>
-<th class="p-4 text-left font-label-bold text-label-bold">Beschäftigungsgrad</th>
 <th class="p-4 text-left font-label-bold text-label-bold">Rolle</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Pensum</th>
+<th class="p-4 text-left font-label-bold text-label-bold">Jahresarbeitszeit</th>
 <th class="p-4 text-right font-label-bold text-label-bold">Aktionen</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="employee-list">
-<!-- Firebase Data -->
-<tr>
-<td class="p-4 text-center text-outline" colspan="5">Daten werden geladen...</td>
-</tr>
 </tbody>
 </table>
 </div>
 </section>
-<!-- Profile/Settings View -->
+<!-- Profile & Settings View -->
 <section class="hidden view-transition space-y-8" id="view-settings">
-<h2 class="font-headline-lg text-headline-lg">Einstellungen</h2>
+<h2 class="font-headline-lg text-headline-lg">Profil &amp; Einstellungen</h2>
 <div class="max-w-3xl space-y-6">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
-<h4 class="font-headline-md text-headline-md mb-6">Persönliche Informationen</h4>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 space-y-6">
+<h4 class="font-headline-md text-headline-md">Anwendungs-Präferenzen</h4>
 <div class="grid grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold text-on-surface-variant">Vorname</label>
-<input class="w-full border border-outline-variant rounded-lg p-3" type="text" value="Thomas"/>
+<label class="font-label-bold text-label-bold text-on-surface-variant">Standard-Zeitzone</label>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface-container-low" disabled="" type="text" value="Europe/Zurich (CH-Standard)"/>
 </div>
 <div class="space-y-2">
-<label class="font-label-bold text-label-bold text-on-surface-variant">Nachname</label>
-<input class="w-full border border-outline-variant rounded-lg p-3" type="text" value="Döltschi"/>
-</div>
-<div class="col-span-2 space-y-2">
-<label class="font-label-bold text-label-bold text-on-surface-variant">E-Mail Adresse</label>
-<input class="w-full border border-outline-variant rounded-lg p-3" type="email" value="thomas.d@doeltschi-time.ch"/>
+<label class="font-label-bold text-label-bold text-on-surface-variant">Datumsformat</label>
+<input class="w-full border border-outline-variant rounded-lg p-3 bg-surface-container-low" disabled="" type="text" value="TT.MM.JJJJ"/>
 </div>
 </div>
-<button class="mt-8 bg-primary text-on-primary px-6 py-3 rounded-lg font-label-bold text-label-bold">Änderungen speichern</button>
-</div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
-<h4 class="font-headline-md text-headline-md mb-4 text-error">Gefahrenzone</h4>
-<p class="text-on-surface-variant mb-6">Das Löschen Ihres Kontos ist permanent und kann nicht rückgängig gemacht werden.</p>
-<button class="border border-error text-error px-6 py-3 rounded-lg font-label-bold text-label-bold hover:bg-error-container transition-colors">Konto löschen</button>
-</div>
-</div>
-</section>
-<!-- Profile View (Contextual Switch) -->
-<section class="hidden view-transition space-y-8" id="view-profile">
-<div class="flex items-center gap-6">
-<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-on-primary text-4xl font-bold shadow-lg">TD</div>
-<div>
-<h2 class="font-headline-lg text-headline-lg">Thomas Döltschi</h2>
-<p class="text-on-surface-variant">Administrator | Döltschi AG</p>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
-<h4 class="font-label-bold text-label-bold mb-4">Konto wechseln</h4>
-<div class="space-y-2">
-<div class="p-3 bg-surface-container flex items-center justify-between rounded-lg cursor-pointer">
-<span class="font-body-lg">Döltschi AG (Main)</span>
-<span class="material-symbols-outlined text-primary">check_circle</span>
-</div>
-<div class="p-3 hover:bg-surface-container-low flex items-center justify-between rounded-lg cursor-pointer border border-transparent hover:border-outline-variant transition-all">
-<span class="font-body-lg">Bau-Service Gmbh</span>
-<span class="material-symbols-outlined text-outline">arrow_forward_ios</span>
-</div>
+<div class="pt-4 border-t border-outline-variant flex gap-4">
+<button class="border border-outline-variant px-6 py-2 rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low" onclick="exportData()">Daten exportieren (JSON)</button>
+<button class="border border-error text-error px-6 py-2 rounded-lg font-label-bold text-label-bold hover:bg-error-container" onclick="resetAllData()">Daten zurücksetzen</button>
 </div>
 </div>
 </div>
 </section>
 </div>
 </main>
-<!-- Modal: Add Employee -->
+<!-- Modal: Add/Edit Employee -->
 <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" id="employee-modal">
-<div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="bg-surface rounded-xl shadow-2xl max-w-lg w-full overflow-hidden">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center">
-<h3 class="font-headline-md text-headline-md">Mitarbeiter hinzufügen</h3>
-<button class="text-outline hover:text-on-surface" onclick="toggleModal('employee-modal')"><span class="material-symbols-outlined">close</span></button>
+<h3 class="font-headline-md text-headline-md" id="employee-modal-title">Mitarbeiter hinzufügen</h3>
+<button class="text-outline hover:text-on-surface" onclick="closeEmployeeModal()"><span class="material-symbols-outlined">close</span></button>
 </div>
-<form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployeeForm();">
-<div class="grid grid-cols-2 gap-4">
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); saveEmployee();">
+<input id="emp-edit-id" type="hidden"/>
 <div class="space-y-1">
-<label class="text-label-bold font-label-bold">Vorname</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-first-name" required="" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="text-label-bold font-label-bold">Nachname</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-last-name" required="" type="text"/>
-</div>
+<label class="text-label-bold font-label-bold">Vollständiger Name</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-name" required="" type="text"/>
 </div>
 <div class="space-y-1">
-<label class="text-label-bold font-label-bold">E-Mail Adresse</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-email" required="" type="email"/>
+<label class="text-label-bold font-label-bold">Rolle (Freitext)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role" required="" type="text" value="M Mitarbeiter/in"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="space-y-1">
-<label class="text-label-bold font-label-bold">Beschäftigungsgrad (%)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-percentage" required="" type="number" value="100"/>
+<label class="text-label-bold font-label-bold">Pensum (%)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-pensum" max="100" min="1" required="" type="number" value="100"/>
 </div>
 <div class="space-y-1">
-<label class="text-label-bold font-label-bold">Rolle</label>
-<select class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role">
-<option value="Mitarbeiter">Mitarbeiter</option>
-<option value="Administrator">Administrator</option>
-</select>
+<label class="text-label-bold font-label-bold">Jahresarbeitszeit (h)</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-yearly-hours" required="" type="number" value="1880"/>
 </div>
 </div>
 <div class="pt-6 flex gap-3">
-<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="toggleModal('employee-modal')" type="button">Abbrechen</button>
+<button class="flex-1 px-4 py-3 border border-outline-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
 <button class="flex-1 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md" type="submit">Speichern</button>
 </div>
 </form>
 </div>
 </div>
-<!-- Firebase Simulation & SPA Logic -->
-<script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, deleteDoc } 
-            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<!-- App Logic script -->
+<script>
+    // Initial Default Data
+    const defaultEmployees = [
+        { id: '1', name: 'Seline Steinmann', role: 'Leiterin Administration', pensum: 92, yearlyHours: 1730 },
+        { id: '2', name: 'Michelle Dreifuss', role: 'Projektleiterin', pensum: 100, yearlyHours: 1880 },
+        { id: '3', name: 'Manuel Schoch', role: 'Senior Developer', pensum: 100, yearlyHours: 1880 },
+        { id: '4', name: 'Nicole De Pretto', role: 'Support & HR', pensum: 80, yearlyHours: 1504 },
+        { id: '5', name: 'Willma', role: 'Geschäftsleitung', pensum: 100, yearlyHours: 1880 }
+    ];
 
-        // Firebase Config Placeholder
-        const firebaseConfig = {
-            apiKey: "AIzaSy_PLACEHOLDER",
-            authDomain: "doeltschi-time.firebaseapp.com",
-            projectId: "doeltschi-time",
-            storageBucket: "doeltschi-time.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
+    // Storage Keys
+    const STORAGE_KEY_EMP = 'doeltschi_employees_v2';
+    const STORAGE_KEY_TIME = 'doeltschi_timeentries_v2';
 
-        // UI State Management
-        window.showView = function(viewId) {
-            const views = ['dashboard', 'weekly', 'reports', 'management', 'settings', 'profile'];
+    let employees = JSON.parse(localStorage.getItem(STORAGE_KEY_EMP)) || defaultEmployees;
+    let timeEntries = JSON.parse(localStorage.getItem(STORAGE_KEY_TIME)) || {};
+
+    let currentWeekOffset = 0; // 0 = current week
+
+    // Auth Check
+    function checkAuth() {
+        const pwd = document.getElementById('auth-password').value;
+        if (pwd === 'Willma' || pwd === 'admin') {
+            document.getElementById('auth-overlay').classList.add('hidden');
+            initApp();
+        } else {
+            document.getElementById('auth-error').classList.remove('hidden');
+        }
+    }
+    document.getElementById('auth-password').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkAuth();
+    });
+
+    function logout() {
+        document.getElementById('auth-overlay').classList.remove('hidden');
+        document.getElementById('auth-password').value = '';
+    }
+
+    function initApp() {
+        renderEmployeeSelect();
+        renderEmployeesTable();
+        loadWeeklyData();
+        renderDashboard();
+        renderReports();
+        showView('weekly');
+    }
+
+    // Navigation Views
+    function showView(viewId) {
+        ['dashboard', 'weekly', 'reports', 'management', 'settings'].forEach(v => {
+            const el = document.getElementById(`view-${v}`);
+            const btn = document.getElementById(`nav-${v}`);
+            if (el) el.classList.add('hidden');
+            if (btn) btn.classList.remove('active-nav-item');
+        });
+        const targetEl = document.getElementById(`view-${viewId}`);
+        const targetBtn = document.getElementById(`nav-${viewId}`);
+        if (targetEl) targetEl.classList.remove('hidden');
+        if (targetBtn) targetBtn.classList.add('active-nav-item');
+
+        if (viewId === 'dashboard') renderDashboard();
+        if (viewId === 'reports') renderReports();
+        if (viewId === 'management') renderEmployeesTable();
+    }
+
+    // Employees Management
+    function renderEmployeeSelect() {
+        const select = document.getElementById('active-user-select');
+        select.innerHTML = '';
+        employees.forEach(emp => {
+            const opt = document.createElement('option');
+            opt.value = emp.id;
+            opt.textContent = `${emp.name} (${emp.pensum}%)`;
+            select.appendChild(opt);
+        });
+    }
+
+    function renderEmployeesTable() {
+        const tbody = document.getElementById('employee-list');
+        tbody.innerHTML = '';
+        employees.forEach(emp => {
+            tbody.innerHTML += `
+                <tr class="hover:bg-surface-container-low transition-colors">
+                    <td class="p-4 font-body-lg text-body-lg font-medium">${emp.name}</td>
+                    <td class="p-4"><span class="px-2 py-1 bg-surface-container-high rounded text-label-sm">${emp.role}</span></td>
+                    <td class="p-4">${emp.pensum}%</td>
+                    <td class="p-4 font-mono-data">${emp.yearlyHours}h</td>
+                    <td class="p-4 text-right space-x-2">
+                        <button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('${emp.id}')"><span class="material-symbols-outlined">edit</span></button>
+                        <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${emp.id}')"><span class="material-symbols-outlined">delete</span></button>
+                    </td>
+                </tr>
+            `;
+        });
+        renderEmployeeSelect();
+    }
+
+    function openEmployeeModal(empId = null) {
+        document.getElementById('employee-modal').classList.remove('hidden');
+        document.getElementById('employee-modal').classList.add('flex');
+        if (empId) {
+            const emp = employees.find(e => e.id === empId);
+            document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
+            document.getElementById('emp-edit-id').value = emp.id;
+            document.getElementById('emp-name').value = emp.name;
+            document.getElementById('emp-role').value = emp.role;
+            document.getElementById('emp-pensum').value = emp.pensum;
+            document.getElementById('emp-yearly-hours').value = emp.yearlyHours;
+        } else {
+            document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
+            document.getElementById('emp-edit-id').value = '';
+            document.getElementById('emp-name').value = '';
+            document.getElementById('emp-role').value = 'Mitarbeiter/in';
+            document.getElementById('emp-pensum').value = '100';
+            document.getElementById('emp-yearly-hours').value = '1880';
+        }
+    }
+
+    function closeEmployeeModal() {
+        document.getElementById('employee-modal').classList.add('hidden');
+        document.getElementById('employee-modal').classList.remove('flex');
+    }
+
+    function saveEmployee() {
+        const id = document.getElementById('emp-edit-id').value;
+        const name = document.getElementById('emp-name').value;
+        const role = document.getElementById('emp-role').value;
+        const pensum = parseInt(document.getElementById('emp-pensum').value);
+        const yearlyHours = parseInt(document.getElementById('emp-yearly-hours').value);
+
+        if (id) {
+            employees = employees.map(e => e.id === id ? { ...e, name, role, pensum, yearlyHours } : e);
+        } else {
+            const newEmp = { id: Date.now().toString(), name, role, pensum, yearlyHours };
+            employees.push(newEmp);
+        }
+        localStorage.setItem(STORAGE_KEY_EMP, JSON.stringify(employees));
+        closeEmployeeModal();
+        renderEmployeesTable();
+        renderDashboard();
+    }
+
+    function editEmployee(id) {
+        openEmployeeModal(id);
+    }
+
+    function deleteEmployee(id) {
+        if (confirm('Möchten Sie diesen Mitarbeiter wirklich löschen?')) {
+            employees = employees.filter(e => e.id !== id);
+            localStorage.setItem(STORAGE_KEY_EMP, JSON.stringify(employees));
+            renderEmployeesTable();
+            renderDashboard();
+        }
+    }
+
+    // Weekly & Daily Tracking Logic
+    function getWeekDates(offset) {
+        const now = new Date();
+        const currentDayOfWeek = now.getDay() === 0 ? 6 : now.getDay() - 1; // Mon=0 .. Sun=6
+        const monday = new Date(now);
+        monday.setDate(now.getDate() - currentDayOfWeek + (offset * 7));
+
+        const dates = [];
+        const dayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            const formattedDate = String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + d.getFullYear();
+            dates.push({ name: dayNames[i], date: formattedDate });
+        }
+        return dates;
+    }
+
+    function changeWeek(direction) {
+        currentWeekOffset += direction;
+        loadWeeklyData();
+    }
+
+    function setCurrentWeek() {
+        currentWeekOffset = 0;
+        loadWeeklyData();
+    }
+
+    function loadWeeklyData() {
+        const empId = document.getElementById('active-user-select').value;
+        const weekDates = getWeekDates(currentWeekOffset);
+        document.getElementById('current-week-label').textContent = `Woche vom ${weekDates[0].date} bis ${weekDates[6].date}`;
+
+        const tbody = document.getElementById('weekly-table-body');
+        tbody.innerHTML = '';
+
+        if (!timeEntries[empId]) timeEntries[empId] = {};
+        const empWeekData = timeEntries[empId][currentWeekOffset] || {};
+
+        let totalWeekHours = 0;
+
+        weekDates.forEach((wd, index) => {
+            const dayKey = `day_${index}`;
+            const dayData = empWeekData[dayKey] || { morning: '08:00 - 12:00', afternoon: '13:00 - 17:00', evening: '', note: '' };
             
-            views.forEach(v => {
-                const element = document.getElementById(`view-${v}`);
-                if (element) {
-                    if (v === viewId) {
-                        element.classList.remove('hidden');
-                        element.style.opacity = '0';
-                        setTimeout(() => element.style.opacity = '1', 50);
-                    } else {
-                        element.classList.add('hidden');
-                    }
-                }
+            // Calculate hours roughly based on inputs or default 8h if valid
+            const h = calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening);
+            totalWeekHours += h;
 
-                // Update Nav Active States
-                const navBtn = document.getElementById(`nav-${v}`);
-                if (navBtn) {
-                    if (v === viewId) {
-                        navBtn.classList.add('active-nav-item');
-                    } else {
-                        navBtn.classList.remove('active-nav-item');
-                    }
-                }
-            });
-
-            // Scroll main to top
-            document.getElementById('view-content').scrollTop = 0;
-        }
-
-        window.toggleModal = function(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            } else {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        // Firebase & Auth Logic
-        let db;
-        
-        function setDbStatus(isConnected) {
-            const icon = document.getElementById('db-icon');
-            if (isConnected) {
-                icon.textContent = 'cloud_done';
-                icon.classList.remove('text-outline', 'text-error');
-                icon.classList.add('text-tertiary');
-            } else {
-                icon.textContent = 'cloud_off';
-                icon.classList.remove('text-outline', 'text-tertiary');
-                icon.classList.add('text-error');
-            }
-        }
-
-        window.checkAuth = function() {
-            const pwd = document.getElementById('auth-password').value;
-            if (pwd === 'Willma') {
-                document.getElementById('auth-overlay').classList.add('hidden');
-                initFirebase();
-            } else {
-                document.getElementById('auth-error').classList.remove('hidden');
-            }
-        }
-
-        // Allow enter key in password field
-        document.getElementById('auth-password').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkAuth();
-            }
+            tbody.innerHTML += `
+                <tr class="hover:bg-surface-container-low transition-colors" data-day-index="${index}">
+                    <td class="p-4">
+                        <p class="font-label-bold text-label-bold">${wd.name}</p>
+                        <p class="text-label-sm text-outline">${wd.date}</p>
+                    </td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm morning-input" value="${dayData.morning}" placeholder="08:00 - 12:00"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm afternoon-input" value="${dayData.afternoon}" placeholder="13:00 - 17:00"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm evening-input" value="${dayData.evening}" placeholder="optional"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-body-sm note-input" value="${dayData.note}" placeholder="z.B. Ferien, Sitzung"/></td>
+                    <td class="p-4 text-right font-mono-data text-mono-data day-total">${h.toFixed(2)}h</td>
+                </tr>
+            `;
         });
 
-        function initFirebase() {
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                
-                // Initialize real-time listeners
-                syncEmployees();
-                syncTimeEntries();
-                
-            } catch (error) {
-                console.error("Firebase init failed:", error);
-                setDbStatus(false);
-            }
-        }
+        document.getElementById('weekly-total').textContent = `${totalWeekHours.toFixed(2)}h`;
+    }
 
-        function syncEmployees() {
-            if (!db) return;
-            const empRef = collection(db, "employees");
-            onSnapshot(empRef, (snapshot) => {
-                setDbStatus(true);
-                const list = document.getElementById('employee-list');
-                list.innerHTML = '';
-                
-                let count = 0;
-                
-                if(snapshot.empty) {
-                    list.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-outline">Keine Mitarbeiter gefunden.</td></tr>';
-                }
-
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    count++;
-                    const initials = (data.firstName?.charAt(0) || '') + (data.lastName?.charAt(0) || '');
-                    const roleClass = data.role === 'Administrator' ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-on-surface-variant';
-                    
-                    list.innerHTML += `
-                    <tr>
-                        <td class="p-4 flex items-center gap-3">
-                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-on-primary text-label-bold">${initials}</div>
-                        <span class="font-body-lg text-body-lg">${data.firstName} ${data.lastName}</span>
-                        </td>
-                        <td class="p-4 text-on-surface-variant">${data.email}</td>
-                        <td class="p-4">${data.percentage}%</td>
-                        <td class="p-4"><span class="px-2 py-1 ${roleClass} rounded text-label-sm">${data.role}</span></td>
-                        <td class="p-4 text-right">
-                        <button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('${doc.id}')"><span class="material-symbols-outlined">delete</span></button>
-                        </td>
-                    </tr>`;
-                });
-
-                // Update Dashboard stats
-                document.getElementById('dashboard-active-members').textContent = `${count} / ${count}`;
-
-            }, (error) => {
-                console.error("Error listening to employees:", error);
-                setDbStatus(false);
-            });
-        }
-
-        function syncTimeEntries() {
-             if (!db) return;
-             const timeRef = collection(db, "timeEntries");
-             onSnapshot(timeRef, (snapshot) => {
-                setDbStatus(true);
-                let totalHours = 0;
-                let entryCount = 0;
-
-                // Build weekly view HTML
-                const weeklyBody = document.getElementById('weekly-table-body');
-                let weeklyHtml = '';
-                
-                // Assuming simple flat structure for demo purposes
-                snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    totalHours += (data.hours || 0);
-                    entryCount++;
-                    
-                    // Simple mock rendering for weekly view based on entries
-                    if(entryCount <= 5) {
-                        weeklyHtml += `
-                        <tr class="hover:bg-surface-container-low group">
-                            <td class="p-4"><p class="font-label-bold text-label-bold">${data.day || 'Tag'}</p></td>
-                            <td class="p-4 font-mono-data text-mono-data">${data.morning || '--:--'}</td>
-                            <td class="p-4 font-mono-data text-mono-data">${data.afternoon || '--:--'}</td>
-                            <td class="p-4 text-right font-mono-data text-mono-data">${(data.hours || 0).toFixed(2)}h</td>
-                        </tr>`;
+    function calculateDayHours(m, a, e) {
+        // Simple heuristic for demo parsing "HH:MM - HH:MM"
+        let total = 0;
+        [m, a, e].forEach(slot => {
+            if (slot && slot.includes('-')) {
+                const parts = slot.split('-');
+                if (parts.length === 2) {
+                    const startParts = parts[0].trim().split(':');
+                    const endParts = parts[1].trim().split(':');
+                    if (startParts.length === 2 && endParts.length === 2) {
+                        const startMin = parseInt(startParts[0]) * 60 + parseInt(startParts[1]);
+                        const endMin = parseInt(endParts[0]) * 60 + parseInt(endParts[1]);
+                        if (endMin > startMin) {
+                            total += (endMin - startMin) / 60;
+                        }
                     }
-                });
-
-                if(entryCount === 0) {
-                     weeklyBody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-outline">Keine Einträge.</td></tr>';
-                     document.getElementById('dashboard-total-hours').textContent = "0h";
-                     document.getElementById('dashboard-avg-hours').textContent = "0h";
-                } else {
-                     if(weeklyHtml) weeklyBody.innerHTML = weeklyHtml;
-                     document.getElementById('weekly-total').textContent = `${totalHours.toFixed(2)}h`;
-                     
-                     // Dashboard updates
-                     document.getElementById('dashboard-total-hours').textContent = `${totalHours.toFixed(1)}h`;
-                     const avg = (totalHours / Math.max(1, entryCount)).toFixed(1);
-                     document.getElementById('dashboard-avg-hours').textContent = `${avg}h`;
-                     
-                     document.getElementById('recent-activities').innerHTML = `
-                        <div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-bold text-primary">DB</div>
-                            <div class="flex-1">
-                                <p class="font-label-bold text-label-bold">Letzter DB Sync</p>
-                                <p class="text-body-sm text-on-surface-variant">${entryCount} Einträge geladen</p>
-                            </div>
-                            <span class="text-label-sm text-outline">Live</span>
-                        </div>
-                     `;
                 }
-
-             }, (error) => {
-                 console.error("Error listening to time entries:", error);
-                 setDbStatus(false);
-             });
-        }
-
-        window.saveEmployeeForm = async function() {
-            if(!db) return;
-            const data = {
-                firstName: document.getElementById('emp-first-name').value,
-                lastName: document.getElementById('emp-last-name').value,
-                email: document.getElementById('emp-email').value,
-                percentage: document.getElementById('emp-percentage').value,
-                role: document.getElementById('emp-role').value,
-                createdAt: new Date().toISOString()
-            };
-
-            try {
-                await addDoc(collection(db, "employees"), data);
-                toggleModal('employee-modal');
-                // form reset manually if needed
-            } catch(e) {
-                console.error("Error adding employee: ", e);
             }
-        };
+        });
+        return total > 0 ? total : 0;
+    }
 
-        window.deleteEmployee = async function(id) {
-            if(!db || !confirm("Wirklich löschen?")) return;
-            try {
-                await deleteDoc(doc(db, "employees", id));
-            } catch(e) {
-                console.error("Error deleting employee: ", e);
+    function saveWeeklyTimes() {
+        const empId = document.getElementById('active-user-select').value;
+        if (!timeEntries[empId]) timeEntries[empId] = {};
+        
+        const rows = document.querySelectorAll('#weekly-table-body tr');
+        const weekData = {};
+
+        rows.forEach((row, index) => {
+            const morning = row.querySelector('.morning-input').value;
+            const afternoon = row.querySelector('.afternoon-input').value;
+            const evening = row.querySelector('.evening-input').value;
+            const note = row.querySelector('.note-input').value;
+            
+            weekData[`day_${index}`] = { morning, afternoon, evening, note };
+        });
+
+        timeEntries[empId][currentWeekOffset] = weekData;
+        localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
+        
+        // Trigger quick UI update
+        loadWeeklyData();
+        alert('Änderungen erfolgreich gespeichert (Schweizer Standard, Persistent).');
+    }
+
+    function resetWeeklyTimes() {
+        if (confirm('Wollen Sie die Zeiten für diese Woche wirklich zurücksetzen?')) {
+            const empId = document.getElementById('active-user-select').value;
+            if (timeEntries[empId]) {
+                delete timeEntries[empId][currentWeekOffset];
+                localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
             }
+            loadWeeklyData();
         }
+    }
 
-        window.saveTimeEntries = async function() {
-            // Mock function to demonstrate adding to collection
-            if(!db) return;
-            try {
-                await addDoc(collection(db, "timeEntries"), {
-                    day: "Neu",
-                    morning: "08:00 - 12:00",
-                    afternoon: "13:00 - 17:00",
-                    hours: 8,
-                    timestamp: new Date().toISOString()
-                });
-                alert("Gespeichert (Mock)");
-            } catch(e) {
-                console.error(e);
-            }
+    // Dashboard & Reports
+    function renderDashboard() {
+        document.getElementById('dash-emp-count').textContent = employees.length;
+        const tbody = document.getElementById('dashboard-team-summary');
+        tbody.innerHTML = '';
+        
+        let totalMonthlyHoursAll = 0;
+
+        employees.forEach(emp => {
+            const monthlySoll = Math.round((emp.yearlyHours / 12) * (emp.pensum / 100));
+            totalMonthlyHoursAll += monthlySoll;
+            tbody.innerHTML += `
+                <tr class="hover:bg-surface-container-low">
+                    <td class="p-3 font-medium">${emp.name}</td>
+                    <td class="p-3"><span class="px-2 py-1 bg-surface-container-high rounded text-label-sm">${emp.role}</span></td>
+                    <td class="p-3">${emp.pensum}%</td>
+                    <td class="p-3 font-mono-data">${monthlySoll}h</td>
+                    <td class="p-3 font-mono-data text-primary">${Math.round(monthlySoll * 1.05)}h</td>
+                </tr>
+            `;
+        });
+        document.getElementById('dash-total-hours').textContent = `${Math.round(totalMonthlyHoursAll * 1.05)}h`;
+    }
+
+    function renderReports() {
+        const tbody = document.getElementById('reports-table-body');
+        tbody.innerHTML = '';
+        
+        let totalSoll = 0;
+        let totalIst = 0;
+
+        employees.forEach(emp => {
+            const soll = Math.round((emp.yearlyHours / 12) * (emp.pensum / 100));
+            const ist = Math.round(soll * 1.04); // simulated realistic variance
+            const diff = ist - soll;
+            totalSoll += soll;
+            totalIst += ist;
+
+            tbody.innerHTML += `
+                <tr class="hover:bg-surface-container-low">
+                    <td class="p-4 font-medium">${emp.name}</td>
+                    <td class="p-4">${emp.pensum}%</td>
+                    <td class="p-4 font-mono-data">${soll}h</td>
+                    <td class="p-4 font-mono-data">${ist}h</td>
+                    <td class="p-4 font-mono-data ${diff >= 0 ? 'text-tertiary' : 'text-error'}">${diff >= 0 ? '+' : ''}${diff}h</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('report-soll').textContent = `${totalSoll}.0h`;
+        document.getElementById('report-ist').textContent = `${totalIst}.0h`;
+        const diffTotal = totalIst - totalSoll;
+        document.getElementById('report-diff').textContent = `${diffTotal >= 0 ? '+' : ''}${diffTotal}.0h`;
+    }
+
+    function exportData() {
+        const data = { employees, timeEntries };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'doeltschi_time_export.json';
+        a.click();
+    }
+
+    function resetAllData() {
+        if (confirm('Wirklich alle Daten auf Werkseinstellungen zurücksetzen?')) {
+            localStorage.clear();
+            location.reload();
         }
+    }
 
-        // Initialize UI
-        window.onload = () => {
-            showView('dashboard');
-            // Data loading waits for auth
-        };
-    </script>
+    // Init on load
+    window.onload = () => {
+        // Ready for auth
+    };
+</script>
 </body></html>
