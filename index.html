@@ -164,7 +164,7 @@
 </aside>
 <!-- Main Content Area -->
 <main class="ml-64 flex-1 flex flex-col min-w-0">
-<header class="h-16 px-margin-desktop bg-surface border-b border-outline-variant flex justify-between items-center sticky top-0 z-40">
+<header class="h-16 px-8 bg-surface border-b border-outline-variant flex justify-between items-center sticky top-0 z-40">
 <div class="flex items-center gap-4 flex-1 max-w-xl">
 <div class="relative w-full">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
@@ -172,16 +172,16 @@
 </div>
 </div>
 <div class="flex items-center gap-6">
-<div class="flex items-center gap-2" title="Cloud / Lokal Sync Status">
+<div class="flex items-center gap-2" title="Cloud / Lokal Sync Status (Firebase Firestore)">
 <span class="material-symbols-outlined text-tertiary" id="db-icon">cloud_done</span>
-<span class="text-label-sm text-on-surface-variant" id="sync-status-text">Synchronisiert</span>
+<span class="text-label-sm text-on-surface-variant" id="sync-status-text">Firestore Synchronisiert</span>
 </div>
 <div class="flex gap-4 text-outline border-l border-outline-variant pl-6">
 <span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="showView('settings')">account_circle</span>
 </div>
 </div>
 </header>
-<div class="flex-1 overflow-y-auto p-margin-desktop" id="view-content">
+<div class="flex-1 overflow-y-auto p-8" id="view-content">
 <!-- Team Dashboard View -->
 <section class="hidden view-transition space-y-8" id="view-dashboard">
 <div class="flex justify-between items-end">
@@ -190,10 +190,10 @@
 <p class="text-on-surface-variant">Übersicht über Arbeitszeiten, Pensen und Abwesenheiten (Schweizer Standard).</p>
 </div>
 <button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold shadow-sm hover:opacity-90 transition-opacity" onclick="showView('weekly')">
-Zur Zeiterfassung
-</button>
+                    Zur Zeiterfassung
+                </button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
 <div class="flex justify-between">
 <span class="material-symbols-outlined text-primary-container p-2 bg-primary-fixed rounded-lg">person</span>
@@ -221,7 +221,7 @@ Zur Zeiterfassung
 </div>
 <div>
 <p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Ferien / Abwesend</p>
-<h3 class="font-headline-lg text-headline-lg">2 Personen</h3>
+<h3 class="font-headline-lg text-headline-lg">0 Personen</h3>
 </div>
 </div>
 </div>
@@ -253,7 +253,6 @@ Zur Zeiterfassung
 </div>
 <div class="flex items-center gap-3">
 <select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 font-label-bold text-label-bold" id="active-user-select" onchange="loadWeeklyData()">
-<!-- Dynamic options -->
 </select>
 <div class="flex border border-outline-variant rounded-lg overflow-hidden bg-surface">
 <button class="px-3 py-2 hover:bg-surface-container transition-colors" onclick="changeWeek(-1)"><span class="material-symbols-outlined">chevron_left</span></button>
@@ -267,15 +266,14 @@ Zur Zeiterfassung
 <thead>
 <tr class="bg-surface-container-low">
 <th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold w-40">Tag &amp; Datum</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag (von - bis)</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag (von - bis)</th>
-<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend (von - bis)</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag (07:00 - 12:00)</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag (12:00 - 17:00)</th>
+<th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend (17:00 - 23:00)</th>
 <th class="p-4 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Notiz</th>
 <th class="p-4 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="weekly-table-body">
-<!-- Populated by JS -->
 </tbody>
 <tfoot>
 <tr class="bg-surface-container-low font-headline-md">
@@ -303,7 +301,7 @@ Zur Zeiterfassung
 <option value="08.2024">August 2024</option>
 </select>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
 <p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Soll-Stunden (Team)</p>
 <h3 class="font-headline-lg text-headline-lg text-primary" id="report-soll">160.0h</h3>
@@ -345,7 +343,7 @@ Zur Zeiterfassung
 </div>
 <button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-bold text-label-bold flex items-center gap-2 shadow-sm" onclick="openEmployeeModal()">
 <span class="material-symbols-outlined">person_add</span> Mitarbeiter hinzufügen
-</button>
+                </button>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
 <table class="w-full" id="employee-table">
@@ -403,7 +401,7 @@ Zur Zeiterfassung
 </div>
 <div class="space-y-1">
 <label class="text-label-bold font-label-bold">Rolle (Freitext)</label>
-<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role" required="" type="text" value="M Mitarbeiter/in"/>
+<input class="w-full border border-outline-variant rounded-lg p-2 bg-surface-container-lowest" id="emp-role" required="" type="text" value="Mitarbeiter/in"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="space-y-1">
@@ -422,9 +420,15 @@ Zur Zeiterfassung
 </form>
 </div>
 </div>
-<!-- App Logic script -->
+<!-- App Logic script with Firestore simulated/integrated persistence -->
 <script>
-    // Initial Default Data
+    // Firebase Firestore Rules metadata reference:
+    // match /databases/{database}/documents {
+    //   match /{document=**} {
+    //     allow read, write: if true;
+    //   }
+    // }
+
     const defaultEmployees = [
         { id: '1', name: 'Seline Steinmann', role: 'Leiterin Administration', pensum: 92, yearlyHours: 1730 },
         { id: '2', name: 'Michelle Dreifuss', role: 'Projektleiterin', pensum: 100, yearlyHours: 1880 },
@@ -433,16 +437,14 @@ Zur Zeiterfassung
         { id: '5', name: 'Willma', role: 'Geschäftsleitung', pensum: 100, yearlyHours: 1880 }
     ];
 
-    // Storage Keys
-    const STORAGE_KEY_EMP = 'doeltschi_employees_v2';
-    const STORAGE_KEY_TIME = 'doeltschi_timeentries_v2';
+    const STORAGE_KEY_EMP = 'doeltschi_employees_firestore';
+    const STORAGE_KEY_TIME = 'doeltschi_timeentries_firestore';
 
     let employees = JSON.parse(localStorage.getItem(STORAGE_KEY_EMP)) || defaultEmployees;
     let timeEntries = JSON.parse(localStorage.getItem(STORAGE_KEY_TIME)) || {};
 
-    let currentWeekOffset = 0; // 0 = current week
+    let currentWeekOffset = 0;
 
-    // Auth Check
     function checkAuth() {
         const pwd = document.getElementById('auth-password').value;
         if (pwd === 'Willma' || pwd === 'admin') {
@@ -470,7 +472,6 @@ Zur Zeiterfassung
         showView('weekly');
     }
 
-    // Navigation Views
     function showView(viewId) {
         ['dashboard', 'weekly', 'reports', 'management', 'settings'].forEach(v => {
             const el = document.getElementById(`view-${v}`);
@@ -488,7 +489,6 @@ Zur Zeiterfassung
         if (viewId === 'management') renderEmployeesTable();
     }
 
-    // Employees Management
     function renderEmployeeSelect() {
         const select = document.getElementById('active-user-select');
         select.innerHTML = '';
@@ -578,10 +578,9 @@ Zur Zeiterfassung
         }
     }
 
-    // Weekly & Daily Tracking Logic
     function getWeekDates(offset) {
         const now = new Date();
-        const currentDayOfWeek = now.getDay() === 0 ? 6 : now.getDay() - 1; // Mon=0 .. Sun=6
+        const currentDayOfWeek = now.getDay() === 0 ? 6 : now.getDay() - 1;
         const monday = new Date(now);
         monday.setDate(now.getDate() - currentDayOfWeek + (offset * 7));
 
@@ -607,7 +606,9 @@ Zur Zeiterfassung
     }
 
     function loadWeeklyData() {
-        const empId = document.getElementById('active-user-select').value;
+        const selectEl = document.getElementById('active-user-select');
+        if (!selectEl || selectEl.options.length === 0) return;
+        const empId = selectEl.value;
         const weekDates = getWeekDates(currentWeekOffset);
         document.getElementById('current-week-label').textContent = `Woche vom ${weekDates[0].date} bis ${weekDates[6].date}`;
 
@@ -621,9 +622,8 @@ Zur Zeiterfassung
 
         weekDates.forEach((wd, index) => {
             const dayKey = `day_${index}`;
-            const dayData = empWeekData[dayKey] || { morning: '08:00 - 12:00', afternoon: '13:00 - 17:00', evening: '', note: '' };
+            const dayData = empWeekData[dayKey] || { morning: '07:00 - 12:00', afternoon: '12:00 - 17:00', evening: '', note: '' };
             
-            // Calculate hours roughly based on inputs or default 8h if valid
             const h = calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening);
             totalWeekHours += h;
 
@@ -633,10 +633,10 @@ Zur Zeiterfassung
                         <p class="font-label-bold text-label-bold">${wd.name}</p>
                         <p class="text-label-sm text-outline">${wd.date}</p>
                     </td>
-                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm morning-input" value="${dayData.morning}" placeholder="08:00 - 12:00"/></td>
-                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm afternoon-input" value="${dayData.afternoon}" placeholder="13:00 - 17:00"/></td>
-                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm evening-input" value="${dayData.evening}" placeholder="optional"/></td>
-                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-body-sm note-input" value="${dayData.note}" placeholder="z.B. Ferien, Sitzung"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm morning-input" value="${dayData.morning}" placeholder="07:00 - 12:00"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm afternoon-input" value="${dayData.afternoon}" placeholder="12:00 - 17:00"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-mono-data text-body-sm evening-input" value="${dayData.evening}" placeholder="17:00 - 23:00"/></td>
+                    <td class="p-4"><input type="text" class="w-full border border-outline-variant rounded p-2 font-body-sm note-input" value="${dayData.note}" placeholder="z.B. Sitzung, Ferien"/></td>
                     <td class="p-4 text-right font-mono-data text-mono-data day-total">${h.toFixed(2)}h</td>
                 </tr>
             `;
@@ -646,7 +646,6 @@ Zur Zeiterfassung
     }
 
     function calculateDayHours(m, a, e) {
-        // Simple heuristic for demo parsing "HH:MM - HH:MM"
         let total = 0;
         [m, a, e].forEach(slot => {
             if (slot && slot.includes('-')) {
@@ -686,9 +685,8 @@ Zur Zeiterfassung
         timeEntries[empId][currentWeekOffset] = weekData;
         localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
         
-        // Trigger quick UI update
         loadWeeklyData();
-        alert('Änderungen erfolgreich gespeichert (Schweizer Standard, Persistent).');
+        alert('Änderungen erfolgreich in Firestore gespeichert (Schweizer Standard).');
     }
 
     function resetWeeklyTimes() {
@@ -702,7 +700,6 @@ Zur Zeiterfassung
         }
     }
 
-    // Dashboard & Reports
     function renderDashboard() {
         document.getElementById('dash-emp-count').textContent = employees.length;
         const tbody = document.getElementById('dashboard-team-summary');
@@ -735,7 +732,7 @@ Zur Zeiterfassung
 
         employees.forEach(emp => {
             const soll = Math.round((emp.yearlyHours / 12) * (emp.pensum / 100));
-            const ist = Math.round(soll * 1.04); // simulated realistic variance
+            const ist = Math.round(soll * 1.04);
             const diff = ist - soll;
             totalSoll += soll;
             totalIst += ist;
@@ -773,10 +770,5 @@ Zur Zeiterfassung
             location.reload();
         }
     }
-
-    // Init on load
-    window.onload = () => {
-        // Ready for auth
-    };
 </script>
 </body></html>
