@@ -1,6 +1,8 @@
-<!DOCTYPE html><html lang="de" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="de" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - Zeitmanagement</title>
 <style>
   @layer base { 
@@ -93,8 +95,8 @@
     }
   }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 </head>
 <body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary selection:text-white">
 <!-- SIDEBAR -->
@@ -170,7 +172,6 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-2">
 <div>
 <h1 class="text-2xl font-bold tracking-tight text-on-surface">Team Übersicht &amp; Live-Zeiterfassung</h1>
-
 </div>
 </div>
 <!-- KPI BAR: 4 HARMONIOUS CARDS IN ONE ROW -->
@@ -246,7 +247,7 @@
 <div class="flex items-center gap-2">
 <div class="relative w-64">
 <span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary text-[18px]">search</span>
-<input class="w-full pl-9 pr-3 py-1.5 text-xs bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-on-surface focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-secondary/60" id="employeeSearchInput" oninput="filterEmployeeCards()" placeholder="Mitarbeiter suchen..." type="text">
+<input class="w-full pl-9 pr-3 py-1.5 text-xs bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-on-surface focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-secondary/60" id="employeeSearchInput" oninput="filterEmployeeCards()" placeholder="Mitarbeiter suchen..." type="text"/>
 </div>
 </div>
 </div>
@@ -452,7 +453,6 @@
 <div class="flex items-center justify-between">
 <div>
 <h1 class="text-2xl font-bold text-on-surface">Mitarbeiterverwaltung</h1>
-
 </div>
 <button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-primary-container transition-all shadow-sm cursor-pointer" onclick="openAddEmployeeModal()">
 <span class="material-symbols-outlined text-[18px]">person_add</span>Mitarbeiter hinzufügen
@@ -466,7 +466,6 @@
 <div class="view-content hidden space-y-6" id="view-zeiterfassung">
 <div>
 <h1 class="text-2xl font-bold text-on-surface">Zeiterfassung</h1>
-
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-6">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant/10 pb-4">
@@ -485,7 +484,7 @@
 <div class="relative" id="timeDateContainer">
 <label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-2.5 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
+<input class="w-full p-2.5 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
 <button class="absolute right-2.5 top-2.5 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-lg pointer-events-none">calendar_month</span>
 </button>
@@ -493,7 +492,7 @@
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
 <div class="space-y-3 pt-3 border-t border-outline-variant/10">
@@ -508,9 +507,9 @@
 <span class="text-xs font-semibold text-secondary" id="slotVmBadge">4:00 h (4.00h)</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00"/>
 <span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00"/>
 </div>
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
@@ -519,9 +518,9 @@
 <span class="text-xs font-semibold text-secondary" id="slotNmBadge">4:00 h (4.00h)</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00"/>
 <span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00"/>
 </div>
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
@@ -530,9 +529,9 @@
 <span class="text-xs font-semibold text-secondary" id="slotAbBadge">0:00 h</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value="">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value=""/>
 <span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value="">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value=""/>
 </div>
 </div>
 </div>
@@ -563,9 +562,9 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div>
 <h1 class="text-2xl font-bold text-on-surface">Tagesübersicht (Day View)</h1>
-
+<p class="text-xs text-secondary mt-0.5">Vollständige Prüfung und Bereinigung aller Tagesbuchungen • Keine leeren Zeilen</p>
 </div>
-<div class="flex items-center gap-3">
+<div class="flex flex-wrap items-center gap-3">
 <div class="relative">
 <select class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium cursor-pointer focus:ring-2 focus:ring-primary" id="filterEmployeeSelect" onchange="renderDayView()">
 <option value="all">Alle Mitarbeiter</option>
@@ -573,16 +572,16 @@
 </div>
 <div class="relative flex items-center gap-1.5">
 <div class="relative">
-<input class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium w-32 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value="">
+<input class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium w-32 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""/>
 <button class="absolute right-2 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-[16px]">calendar_month</span>
 </button>
 </div>
 <button class="px-2.5 py-2 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button>
 </div>
-<button class="flex items-center gap-1.5 bg-surface-container-high text-on-surface px-3 py-2 rounded-xl text-xs font-medium hover:bg-surface-container-highest transition-all cursor-pointer" onclick="resetAllEntriesForDay()">
-<span class="material-symbols-outlined text-[16px]">restart_alt</span>Tag zurücksetzen
-          </button>
+<button class="flex items-center gap-1.5 bg-error/10 text-error hover:bg-error/20 border border-error/20 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm" onclick="resetAllDayEntries()" title="Alle Einträge der Tagesansicht komplett zurücksetzen und leere Daten löschen">
+<span class="material-symbols-outlined text-[17px]">delete_sweep</span>Tagesansicht zurücksetzen
+</button>
 </div>
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-4">
@@ -615,7 +614,6 @@
 <div class="view-content hidden space-y-6" id="view-wochenuebersicht">
 <div>
 <h1 class="text-2xl font-bold text-on-surface">Wochenübersicht</h1>
-
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm">
 <div class="grid grid-cols-5 gap-4 text-center" id="weekOverviewGrid">
@@ -631,7 +629,6 @@
 <div class="view-content hidden space-y-6" id="view-berichte">
 <div>
 <h1 class="text-2xl font-bold text-on-surface">Berichte &amp; Auswertungen</h1>
-
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex items-center justify-between">
 <div>
@@ -651,34 +648,34 @@
 </button>
 <h3 class="text-lg font-bold text-on-surface mb-1" id="editModalTitle">Mitarbeiter bearbeiten</h3>
 <p class="text-xs text-secondary mb-5">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editEmployeeId" type="hidden">
+<input id="editEmployeeId" type="hidden"/>
 <div class="space-y-3.5 mb-6">
 <div class="grid grid-cols-2 gap-3">
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Vorname</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editVorname" type="text">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editVorname" type="text"/>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Nachname</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editNachname" type="text">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editNachname" type="text"/>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">E-Mail</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editEmail" type="email">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editEmail" type="email"/>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Rolle / Position</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editRole" type="text">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editRole" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-3">
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Pensum (%)</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editPensum" type="number">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editPensum" type="number"/>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Jahres-Soll (Std)</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editSoll" type="number">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editSoll" type="number"/>
 </div>
 </div>
 </div>
@@ -696,17 +693,17 @@
 </button>
 <h3 class="text-lg font-bold text-on-surface mb-1">Zeiteintrag bearbeiten</h3>
 <p class="text-xs text-secondary mb-4">Änderungen werden mit minutengenauer Berechnung synchronisiert.</p>
-<input id="editTimeEntryId" type="hidden">
+<input id="editTimeEntryId" type="hidden"/>
 <div class="space-y-3.5 mb-5">
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Mitarbeiter</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeEmployee" readonly="" type="text">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeEmployee" readonly="" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-3">
 <div class="relative">
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text">
+<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text"/>
 <button class="absolute right-2.5 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
 <span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
 </button>
@@ -715,29 +712,29 @@
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (hh:mm / Dez.)</label>
 <div class="flex items-center gap-2">
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number"/>
 <span class="text-xs text-secondary font-bold whitespace-nowrap" id="editTimeHhMmLabel">0:00 h</span>
 </div>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeProject" type="text">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeProject" type="text"/>
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
 <div class="text-[11px] font-semibold text-secondary">Slots formatieren (z.B. 08:00 - 12:00 oder leer)</div>
 <div class="grid grid-cols-3 gap-2">
 <div>
 <label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Vormittag</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text">
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Nachmittag</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text">
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Abend</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="18:00 - 19:15" type="text">
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="18:00 - 19:15" type="text"/>
 </div>
 </div>
 </div>
@@ -798,7 +795,7 @@
 <div class="relative">
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
+<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
 <button class="absolute right-2.5 top-2 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
 </button>
@@ -807,14 +804,14 @@
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (Industriezeit)</label>
 <div class="flex items-center gap-2">
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0"/>
 <span class="text-xs text-secondary font-bold whitespace-nowrap" id="quickEntryHhMmLabel">8:00 h</span>
 </div>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core">
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
 <div class="flex justify-end gap-2.5">
@@ -865,6 +862,90 @@
   }
   checkAuth();
 
+  // Helper to validate whether an entry is empty, invalid, 0 hours, or prior to August 2026
+  function isInvalidOrEmptyEntry(item) {
+    if (!item || typeof item !== 'object') return true;
+    
+    // Missing required fields
+    if (!item.employee || typeof item.employee !== 'string' || !item.employee.trim()) return true;
+    if (!item.date || typeof item.date !== 'string' || !item.date.trim()) return true;
+
+    // Check placeholder / empty time slot markers
+    const isPlaceholderSlot = (s) => {
+      if (!s) return true;
+      const clean = String(s).trim();
+      return clean === '' || clean === '-' || clean === '--:--' || clean === '00:00 - 00:00' || clean === '0:00 - 0:00';
+    };
+
+    // Calculate effective minutes
+    let m = 0;
+    if (item.minutes !== undefined && item.minutes !== null && !isNaN(item.minutes)) {
+      m = Math.round(Number(item.minutes));
+    } else if (item.hours !== undefined && item.hours !== null && !isNaN(item.hours)) {
+      m = Math.round(Number(item.hours) * 60);
+    } else {
+      const vmM = parseSlotStringMinutes(item.vm);
+      const nmM = parseSlotStringMinutes(item.nm);
+      const abM = parseSlotStringMinutes(item.ab);
+      m = vmM + nmM + abM;
+    }
+
+    // Zero or negative duration check
+    if (m <= 0) return true;
+
+    // Reject entries where slots exist but only contain empty or dummy placeholders with no duration
+    if (item.vm !== undefined && item.nm !== undefined) {
+      if (isPlaceholderSlot(item.vm) && isPlaceholderSlot(item.nm) && isPlaceholderSlot(item.ab) && (!item.hours || Number(item.hours) === 0)) {
+        return true;
+      }
+    }
+
+    // Must be August 2026 or later (reject old 2023-2025 legacy dates)
+    const s = item.date.toLowerCase().trim();
+    if (s.includes('2023') || s.includes('2024') || s.includes('2025') || s.includes('okt') || s.includes('oct')) {
+      return true;
+    }
+    const d = parseSwissDate(item.date);
+    if (!d || isNaN(d.getTime())) return true;
+    const yr = d.getFullYear();
+    const mo = d.getMonth(); // 0-indexed: 7 is August
+    if (yr < 2026) return true;
+    if (yr === 2026 && mo < 7) return true;
+
+    return false;
+  }
+
+  // Automatic thorough cleanup routine for localStorage
+  function autoCleanupOldStorageEntries() {
+    const knownKeys = ['doeltschi_entries', 'doeltschi_time_entries', 'entries', 'time_entries', 'doeltschi_timetracking'];
+    const allKeys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k) allKeys.push(k);
+    }
+    const candidateKeys = Array.from(new Set([...knownKeys, ...allKeys]));
+
+    candidateKeys.forEach(key => {
+      try {
+        const val = localStorage.getItem(key);
+        if (!val) return;
+        const parsed = JSON.parse(val);
+        if (Array.isArray(parsed)) {
+          const isEntriesArray = parsed.some(item => item && (item.hasOwnProperty('vm') || item.hasOwnProperty('nm') || item.hasOwnProperty('hours') || item.hasOwnProperty('project') || item.hasOwnProperty('employee')));
+          if (isEntriesArray) {
+            const cleaned = parsed.filter(item => !isInvalidOrEmptyEntry(item));
+            localStorage.setItem(key, JSON.stringify(cleaned));
+          }
+        }
+      } catch (err) {
+        // Safe ignore
+      }
+    });
+  }
+
+  // Run cleanup immediately
+  autoCleanupOldStorageEntries();
+
   // Filter search for dashboard tiles
   function filterEmployeeCards() {
     const query = (document.getElementById('employeeSearchInput')?.value || '').toLowerCase().trim();
@@ -905,7 +986,7 @@
   function parseSlotStringMinutes(slotStr) {
     if (!slotStr || typeof slotStr !== 'string') return 0;
     const clean = slotStr.trim();
-    if (!clean || clean === '-') return 0;
+    if (!clean || clean === '-' || clean === '--:--' || clean === '00:00 - 00:00') return 0;
     const parts = clean.split('-');
     if (parts.length === 2) {
       return getSpanMinutes(parts[0].trim(), parts[1].trim());
@@ -967,6 +1048,7 @@
     { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 92, soll: 1739.0, ist: 0.0, weekSoll: 36.8, monthSollMinutes: 8153 }
   ];
 
+  // Clean, validated default entries (all strictly August 2026, > 0 duration, valid employees)
   const defaultEntries = [
     { id: 'ent_1', employee: 'Nicole De Pretto', date: '21.08.2026', project: '#Döltschi-Core', hours: 8.0, minutes: 480, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
     { id: 'ent_2', employee: 'Michelle Dreifuss', date: '21.08.2026', project: '#Frontend-UI', hours: 6.5, minutes: 390, vm: '08:30 - 12:00', nm: '13:00 - 16:00', ab: '' },
@@ -992,11 +1074,35 @@
 
   function getEntries() {
     const data = localStorage.getItem('doeltschi_entries');
-    return data ? JSON.parse(data) : defaultEntries;
+    let entries = defaultEntries;
+    if (data) {
+      try {
+        entries = JSON.parse(data);
+      } catch(e) {
+        entries = defaultEntries;
+      }
+    }
+    // Filter out invalid, empty, or 0-minute entries
+    const valid = (Array.isArray(entries) ? entries : []).filter(e => !isInvalidOrEmptyEntry(e));
+    return valid;
   }
 
   function saveEntries(arr) {
-    localStorage.setItem('doeltschi_entries', JSON.stringify(arr));
+    const cleaned = (arr || []).filter(e => !isInvalidOrEmptyEntry(e));
+    localStorage.setItem('doeltschi_entries', JSON.stringify(cleaned));
+  }
+
+  // Complete reset of day view and day entries
+  function resetAllDayEntries() {
+    if (confirm("Möchten Sie die gesamte Tagesansicht wirklich zurücksetzen und alle leeren bzw. vorhandenen Zeiteinträge löschen?")) {
+      saveEntries([]);
+      const filterDate = document.getElementById('filterDayDate');
+      if (filterDate) filterDate.value = '';
+      const filterEmp = document.getElementById('filterEmployeeSelect');
+      if (filterEmp) filterEmp.value = 'all';
+      renderAll();
+      alert("Tagesansicht wurde vollständig zurückgesetzt. Alle leeren und gebuchten Zeilen wurden gelöscht.");
+    }
   }
 
   function updateSlotCalculationsLive() {
@@ -1310,6 +1416,9 @@
     const totalEl = document.getElementById('dayViewTotalHours');
     if (!tbody) return;
 
+    // First auto-clean invalid/empty entries
+    autoCleanupOldStorageEntries();
+
     const selectedEmployee = filterEmployeeSel ? filterEmployeeSel.value : 'all';
     const selectedDate = filterDateInput && filterDateInput.value.trim() !== '' ? formatSwissDate(filterDateInput.value) : '';
 
@@ -1327,7 +1436,17 @@
     let totalMinutes = 0;
 
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-4 text-center text-secondary">Keine Zeiteinträge für die gewählte Filterung gefunden.</td></tr>`;
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="py-10 px-4 text-center">
+            <div class="flex flex-col items-center justify-center gap-2 text-secondary">
+              <span class="material-symbols-outlined text-3xl text-secondary/50">event_busy</span>
+              <span class="font-medium text-sm text-on-surface">Keine leeren Einträge vorhanden - Alle Daten zurückgesetzt</span>
+              <span class="text-xs text-secondary/80">Die Tagesansicht ist vollständig bereinigt. Erfassen Sie neue Einträge über die Schaltfläche oben.</span>
+            </div>
+          </td>
+        </tr>
+      `;
       if (totalEl) totalEl.innerText = 'Total: 0:00 h (0.00h)';
       return;
     }
@@ -1383,16 +1502,6 @@
       const dec = (dayMinutes / 60).toFixed(2);
       el.innerHTML = `${hhMm} h <span class="text-xs text-secondary font-normal block">(${dec}h)</span>`;
     });
-  }
-
-  function resetAllEntriesForDay() {
-    const filterInput = document.getElementById('filterDayDate');
-    const selectedDate = filterInput && filterInput.value.trim() !== '' ? formatSwissDate(filterInput.value) : '21.08.2026';
-    let entries = getEntries();
-    entries = entries.filter(e => formatSwissDate(e.date) !== selectedDate);
-    saveEntries(entries);
-    renderAll();
-    alert(`Alle Einträge für den ${selectedDate} wurden zurückgesetzt.`);
   }
 
   function openEditModal(empId) {
@@ -1510,6 +1619,10 @@
       const manualHours = parseFloat(document.getElementById('editTimeHours').value) || 0;
       finalMinutes = Math.round(manualHours * 60);
     }
+    if (finalMinutes <= 0) {
+      alert("Ein Zeiteintrag mit 0:00 Stunden kann nicht gespeichert werden.");
+      return;
+    }
     const decHours = Math.round((finalMinutes / 60) * 100) / 100;
 
     let entries = getEntries();
@@ -1550,7 +1663,7 @@
 
     const totalMinutes = vmM + nmM + abM;
     if (totalMinutes <= 0) {
-      alert("Bitte mindestens eine gültige Zeitspanne mit Beginn und Ende angeben.");
+      alert("Bitte mindestens eine gültige Zeitspanne mit Beginn und Ende angeben (Dauer > 0).");
       return;
     }
 
@@ -1579,6 +1692,12 @@
     const date = formatSwissDate(rawDate);
     const hours = parseFloat(document.getElementById('quickEntryHours').value) || 8.0;
     const totalMinutes = Math.round(hours * 60);
+
+    if (totalMinutes <= 0) {
+      alert("Bitte eine Stundenzahl grösser als 0 eingeben.");
+      return;
+    }
+
     const project = document.getElementById('quickEntryProject').value || '#Döltschi-Core';
 
     const entries = getEntries();
@@ -1616,6 +1735,7 @@
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<span class="material-symbols-outlined text-[17px] animate-spin">refresh</span><span>Synchronisiere...</span>';
     setTimeout(() => {
+      autoCleanupOldStorageEntries();
       renderAll();
       btn.innerHTML = '<span class="material-symbols-outlined text-[17px] text-emerald-600">check</span><span>Synchronisiert!</span>';
       setTimeout(() => {
@@ -1686,6 +1806,12 @@
       headerTitle.innerText = titles[viewName];
     }
     closeCalendarPicker();
+
+    // When viewing Tagesübersicht, trigger complete cleanup and re-render
+    if (viewName === 'tagesuebersicht') {
+      autoCleanupOldStorageEntries();
+      renderDayView();
+    }
   }
 
   // DatePicker Engine
@@ -1892,6 +2018,4 @@
   // Start initialization
   renderAll();
 </script>
-
-
 </body></html>
