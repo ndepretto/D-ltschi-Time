@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 
 <html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"primary":"#003d9b","primary-fixed":"#dae2ff","secondary":"#5c5f60","outline":"#737685","tertiary-fixed-dim":"#ffb59b","on-primary-container":"#c4d2ff","on-primary-fixed":"#001848","surface-tint":"#0c56d0","tertiary-container":"#a33500","on-error-container":"#93000a","surface-container-low":"#f1f3ff","surface-container-high":"#e0e8ff","on-primary-fixed-variant":"#0040a2","tertiary-fixed":"#ffdbcf","surface-container-lowest":"#ffffff","secondary-fixed":"#e1e2e4","surface-container-highest":"#d7e2ff","surface":"#f9f9ff","on-surface":"#041b3c","on-tertiary-container":"#ffc6b2","on-tertiary-fixed-variant":"#812800","secondary-container":"#dee0e2","secondary-fixed-dim":"#c5c6c8","inverse-on-surface":"#edf0ff","on-secondary-fixed":"#191c1e","error":"#ba1a1a","on-tertiary-fixed":"#380d00","on-primary":"#ffffff","on-error":"#ffffff","surface-variant":"#d7e2ff","outline-variant":"#c3c6d6","error-container":"#ffdad6","on-secondary-container":"#606365","on-secondary":"#ffffff","on-secondary-fixed-variant":"#444749","background":"#f9f9ff","surface-container":"#e8edff","inverse-primary":"#b2c5ff","on-surface-variant":"#434654","tertiary":"#7b2600","surface-dim":"#cadaff","surface-bright":"#f9f9ff","primary-container":"#0052cc","on-tertiary":"#ffffff","on-background":"#041b3c","primary-fixed-dim":"#b2c5ff","inverse-surface":"#1d3052"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"stack-md":"24px","stack-lg":"48px","gutter":"24px","container-max":"800px","stack-sm":"12px","unit":"8px"},"fontFamily":{"headline-md":["Work Sans"],"headline-lg-mobile":["Work Sans"],"body-md":["Work Sans"],"body-lg":["Work Sans"],"headline-lg":["Work Sans"],"label-caps":["Work Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["32px",{"lineHeight":"38px","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}};</script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-xl"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-16">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" id="sidebar-nav"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer" data-path="dashboard" onclick="switchView('dashboard')"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="mitarbeiter" onclick="switchView('mitarbeiter')"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="zeiterfassung" onclick="switchView('zeiterfassung')"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="wochenuebersicht" onclick="switchView('wochenuebersicht')"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="berichte" onclick="switchView('berichte')"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen">
+<!-- VIEW: DASHBOARD -->
+<div class="view-content" id="view-dashboard">
+<div class="flex flex-col w-full pb-16">
 <!-- Hero / Header Section -->
 <div class="px-8 pt-8 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-outline-variant/20 bg-surface-container-low/50">
 <div>
 <div class="flex items-center gap-2 mb-1">
 <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-caps text-[10px]">LIVE CLOUD SYNC</span>
-<span class="text-xs text-secondary">Firebase Firestore Connected</span>
+<span class="text-xs text-secondary">Firebase Firestore Connected (Passwort: Willma)</span>
 </div>
-<h1 class="font-headline-lg text-on-surface">Team Dashboard & Live-Zeiterfassung</h1>
+<h1 class="font-headline-lg text-on-surface">Team Dashboard &amp; Live-Zeiterfassung</h1>
 <p class="text-body-md text-on-surface-variant">Übersicht aller Mitarbeiter, Pensen, Soll/Ist-Stunden und Jahresfortschritte.</p>
 </div>
 <div class="flex items-center gap-3">
@@ -180,7 +183,7 @@
                 </div>
 <div>
 <h3 class="text-body-lg font-bold text-on-surface">Manuel Schoch</h3>
-<span class="text-xs text-secondary">Fullstack & DevOps</span>
+<span class="text-xs text-secondary">Fullstack &amp; DevOps</span>
 </div>
 </div>
 <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">100% Pensum</span>
@@ -227,7 +230,7 @@
                 </div>
 <div>
 <h3 class="text-body-lg font-bold text-on-surface">Seline Steinmann</h3>
-<span class="text-xs text-secondary">UX Research & QA</span>
+<span class="text-xs text-secondary">UX Research &amp; QA</span>
 </div>
 </div>
 <span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-bold">90% Pensum</span>
@@ -306,6 +309,105 @@
 </div>
 </div>
 </div>
+</div>
+</div>
+<!-- VIEW: MITARBEITER -->
+<div class="view-content hidden" id="view-mitarbeiter">
+<div class="p-8 space-y-6">
+<h1 class="font-headline-lg text-on-surface">Mitarbeiterverwaltung</h1>
+<p class="text-body-md text-on-surface-variant">Verwaltung der Teammitglieder, Pensen und Kontaktdaten.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<h3 class="font-bold text-body-lg">Nicole De Pretto</h3>
+<p class="text-secondary text-xs">Projektleiterin / Design</p>
+<div class="mt-4 text-sm space-y-1">
+<div>Pensum: 100% (40h/Woche)</div>
+<div>E-Mail: nicole.depretto@doeltschi.ch</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<h3 class="font-bold text-body-lg">Michelle Dreifuss</h3>
+<p class="text-secondary text-xs">Frontend Engineer</p>
+<div class="mt-4 text-sm space-y-1">
+<div>Pensum: 80% (32h/Woche)</div>
+<div>E-Mail: michelle.dreifuss@doeltschi.ch</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<h3 class="font-bold text-body-lg">Manuel Schoch</h3>
+<p class="text-secondary text-xs">Fullstack &amp; DevOps</p>
+<div class="mt-4 text-sm space-y-1">
+<div>Pensum: 100% (40h/Woche)</div>
+<div>E-Mail: manuel.schoch@doeltschi.ch</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<h3 class="font-bold text-body-lg">Seline Steinmann</h3>
+<p class="text-secondary text-xs">UX Research &amp; QA</p>
+<div class="mt-4 text-sm space-y-1">
+<div>Pensum: 90% (36h/Woche)</div>
+<div>E-Mail: seline.steinmann@doeltschi.ch</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- VIEW: ZEITERFASSUNG -->
+<div class="view-content hidden" id="view-zeiterfassung">
+<div class="p-8 space-y-6">
+<h1 class="font-headline-lg text-on-surface">Zeiterfassung</h1>
+<p class="text-body-md text-on-surface-variant">Erfassen und Verwalten von Arbeitsstunden und Projekten.</p>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
+<h3 class="font-bold text-body-lg">Aktuelle Einträge dieser Woche</h3>
+<div class="space-y-2">
+<div class="p-3 bg-surface-container-low rounded-xl flex justify-between items-center">
+<div>
+<div class="font-medium">Manuel Schoch • Sprint Planning &amp; Core Features</div>
+<div class="text-xs text-secondary">24.10.2024 • 8.0 Stunden</div>
+</div>
+<span class="text-primary font-bold">+8.0h</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-xl flex justify-between items-center">
+<div>
+<div class="font-medium">Nicole De Pretto • UI Design System</div>
+<div class="text-xs text-secondary">24.10.2024 • 8.5 Stunden</div>
+</div>
+<span class="text-primary font-bold">+8.5h</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- VIEW: WOCHENUEBERSICHT -->
+<div class="view-content hidden" id="view-wochenuebersicht">
+<div class="p-8 space-y-6">
+<h1 class="font-headline-lg text-on-surface">Wochenübersicht</h1>
+<p class="text-body-md text-on-surface-variant">Kalenderbasierte Wochenansicht aller gebuchten Stunden.</p>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<div class="grid grid-cols-5 gap-4 text-center">
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG</div><div class="text-lg font-bold mt-2">32h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG</div><div class="text-lg font-bold mt-2">31h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH</div><div class="text-lg font-bold mt-2">30.5h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG</div><div class="text-lg font-bold mt-2">35h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG</div><div class="text-lg font-bold mt-2">20h</div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- VIEW: BERICHTE -->
+<div class="view-content hidden" id="view-berichte">
+<div class="p-8 space-y-6">
+<h1 class="font-headline-lg text-on-surface">Berichte &amp; Auswertungen</h1>
+<p class="text-body-md text-on-surface-variant">Monats- und Jahresberichte zum Exportieren.</p>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex items-center justify-between">
+<div>
+<h3 class="font-bold text-body-lg">Jahresbericht 2024 (PDF)</h3>
+<p class="text-secondary text-xs">Detaillierte Auswertung aller Überstunden und Ferienguthaben.</p>
+</div>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-medium" onclick="alert('Bericht wird generiert...')">Bericht herunterladen</button>
+</div>
+</div>
+</div>
 <!-- Interactive Detail Modal (Hidden by default) -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="detailModal">
 <div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative animate-in fade-in zoom-in duration-200">
@@ -364,12 +466,12 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Projekt / Notiz</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" placeholder="z.B. Sprint Planning & Core Features" type="text"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" placeholder="z.B. Sprint Planning &amp; Core Features" type="text"/>
 </div>
 </div>
 <div class="flex justify-end gap-3">
 <button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium" onclick="closeNewEntryModal()">Abbrechen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="saveNewEntry()">Speichern & Sync</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="saveNewEntry()">Speichern &amp; Sync</button>
 </div>
 </div>
 </div>
@@ -404,8 +506,45 @@
     }
 
     function saveNewEntry() {
-      alert('Eintrag erfolgreich gespeichert und an Firebase übertragen!');
+      alert('Eintrag erfolgreich gespeichert und an Firebase übertragen! (Passwort: Willma)');
       closeNewEntryModal();
     }
+
+    function switchView(viewName) {
+      // Hide all views
+      const views = document.querySelectorAll('.view-content');
+      views.forEach(v => v.classList.add('hidden'));
+
+      // Show selected view
+      const targetView = document.getElementById('view-' + viewName);
+      if (targetView) {
+        targetView.classList.remove('hidden');
+      }
+
+      // Update sidebar active states
+      const navLinks = document.querySelectorAll('#sidebar-nav a');
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-path') === viewName) {
+          link.className = "flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer";
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.className = "flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer";
+          link.removeAttribute('aria-current');
+        }
+      });
+
+      // Update Header Title
+      const titles = {
+        'dashboard': 'Zeitmanagement',
+        'mitarbeiter': 'Mitarbeiter',
+        'zeiterfassung': 'Zeiterfassung',
+        'wochenuebersicht': 'Wochenübersicht',
+        'berichte': 'Berichte'
+      };
+      const headerTitle = document.getElementById('header-title');
+      if (headerTitle && titles[viewName]) {
+        headerTitle.innerText = titles[viewName];
+      }
+    }
   </script>
-</div></main></div></body></html>
+</main></div></body></html>
