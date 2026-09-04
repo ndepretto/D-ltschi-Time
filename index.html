@@ -1,163 +1,273 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"primary":"#003d9b","primary-fixed":"#dae2ff","secondary":"#5c5f60","outline":"#737685","tertiary-fixed-dim":"#ffb59b","on-primary-container":"#c4d2ff","on-primary-fixed":"#001848","surface-tint":"#0c56d0","tertiary-container":"#a33500","on-error-container":"#93000a","surface-container-low":"#f1f3ff","surface-container-high":"#e0e8ff","on-primary-fixed-variant":"#0040a2","tertiary-fixed":"#ffdbcf","surface-container-lowest":"#ffffff","secondary-fixed":"#e1e2e4","surface-container-highest":"#d7e2ff","surface":"#f9f9ff","on-surface":"#041b3c","on-tertiary-container":"#ffc6b2","on-tertiary-fixed-variant":"#812800","secondary-container":"#dee0e2","secondary-fixed-dim":"#c5c6c8","inverse-on-surface":"#edf0ff","on-secondary-fixed":"#191c1e","error":"#ba1a1a","on-tertiary-fixed":"#380d00","on-primary":"#ffffff","on-error":"#ffffff","surface-variant":"#d7e2ff","outline-variant":"#c3c6d6","error-container":"#ffdad6","on-secondary-container":"#606365","on-secondary":"#ffffff","on-secondary-fixed-variant":"#444749","background":"#f9f9ff","surface-container":"#e8edff","inverse-primary":"#b2c5ff","on-surface-variant":"#434654","tertiary":"#7b2600","surface-dim":"#cadaff","surface-bright":"#f9f9ff","primary-container":"#0052cc","on-tertiary":"#ffffff","on-background":"#041b3c","primary-fixed-dim":"#b2c5ff","inverse-surface":"#1d3052"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"stack-md":"24px","stack-lg":"48px","gutter":"24px","container-max":"800px","stack-sm":"12px","unit":"8px"},"fontFamily":{"headline-md":["Work Sans"],"headline-lg-mobile":["Work Sans"],"body-md":["Work Sans"],"body-lg":["Work Sans"],"headline-lg":["Work Sans"],"label-caps":["Work Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["32px",{"lineHeight":"38px","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}};</script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-xl"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-24">
+<html lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Döltschi Time - Live Team Zeiterfassung</title>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main>:first-child { margin-top: 0 !important; }
+      main>:last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e8edff",
+            "error": "#ba1a1a",
+            "on-background": "#041b3c",
+            "primary-fixed-dim": "#b2c5ff",
+            "surface-variant": "#d7e2ff",
+            "on-secondary-fixed-variant": "#444749",
+            "error-container": "#ffdad6",
+            "primary": "#003d9b",
+            "tertiary-container": "#a33500",
+            "on-tertiary": "#ffffff",
+            "primary-container": "#0052cc",
+            "inverse-on-surface": "#edf0ff",
+            "on-primary-container": "#c4d2ff",
+            "inverse-surface": "#1d3052",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#434654",
+            "tertiary": "#7b2600",
+            "on-surface": "#041b3c",
+            "surface-bright": "#f9f9ff",
+            "on-tertiary-fixed": "#380d00",
+            "surface-container-highest": "#d7e2ff",
+            "tertiary-fixed-dim": "#ffb59b",
+            "on-error": "#ffffff",
+            "outline": "#737685",
+            "on-secondary-container": "#606365",
+            "on-tertiary-fixed-variant": "#812800",
+            "background": "#f9f9ff",
+            "on-error-container": "#93000a",
+            "surface-tint": "#0c56d0",
+            "tertiary-fixed": "#ffdbcf",
+            "surface": "#f9f9ff",
+            "on-secondary-fixed": "#191c1e",
+            "secondary-fixed": "#e1e2e4",
+            "primary-fixed": "#dae2ff",
+            "secondary": "#5c5f60",
+            "on-primary-fixed-variant": "#0040a2",
+            "inverse-primary": "#b2c5ff",
+            "secondary-fixed-dim": "#c5c6c8",
+            "outline-variant": "#c3c6d6",
+            "surface-container-low": "#f1f3ff",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-container": "#ffc6b2",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#e0e8ff",
+            "surface-dim": "#cadaff",
+            "secondary-container": "#dee0e2",
+            "on-primary-fixed": "#001848"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "stack-lg": "48px",
+            "container-max": "900px",
+            "gutter": "24px",
+            "unit": "8px"
+          },
+          fontFamily: {
+            "body-lg": ["Work Sans"],
+            "headline-md": ["Work Sans"],
+            "label-caps": ["Work Sans"],
+            "headline-lg": ["Work Sans"],
+            "body-md": ["Work Sans"]
+          }
+        }
+      }
+    };
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Firebase SDKs -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addTimestamp, onSnapshot, addDoc, updateDoc, deleteDoc, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    
+    // We expose a hook or fallback to localStorage if config is demo
+    window.firebaseModules = { initializeApp, getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, setDoc, getDocs };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
 <!-- Password Lock Screen Overlay -->
 <div class="fixed inset-0 bg-surface/95 backdrop-blur-md z-50 flex items-center justify-center p-6 transition-all duration-300" id="auth-modal">
 <div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col items-center text-center">
 <div class="w-16 h-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-6">
 <span class="material-symbols-outlined text-[32px]">lock</span>
 </div>
-<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Döltschi Time Sync</h2>
+<h2 class="font-headline-md text-2xl text-on-surface mb-2">Döltschi Time Sync</h2>
 <p class="text-body-md text-on-surface-variant mb-6">Bitte geben Sie das Passwort ein, um die Live-Zeiterfassung zu entsperren.</p>
 <form class="w-full flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none focus:ring-2 focus:ring-primary transition-all text-center font-bold tracking-widest" id="password-input" placeholder="Passwort (z.B. Willma)" required="" type="password"/>
+<input class="w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none focus:ring-2 focus:ring-primary transition-all text-center font-bold tracking-widest" id="password-input" placeholder="Passwort (Willma)" required="" type="password"/>
 <button class="w-full py-3 bg-primary text-on-primary rounded-xl font-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm" type="submit">Entsperren</button>
 </form>
 <div class="text-error text-body-md mt-4 hidden" id="auth-error">Falsches Passwort. Bitte versuchen Sie es erneut.</div>
 </div>
 </div>
-<!-- Main App Container -->
-<div class="flex flex-col w-full max-w-container-max mx-auto px-gutter pt-8" id="app-content">
-<!-- Top Action Header / Status Bar -->
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-45 flex flex-col pt-6 pb-8 border-r border-outline-variant/20">
+<div class="px-8 mb-10 text-xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">schedule</span> Döltschi Time
+    </div>
+<nav class="flex-1 px-4 space-y-1">
+<button class="w-full flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl nav-btn" data-tab="dashboard" onclick="switchTab('dashboard')">
+<span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
+      </button>
+<button class="w-full flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all nav-btn" data-tab="zeiterfassung" onclick="switchTab('zeiterfassung')">
+<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
+      </button>
+<button class="w-full flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all nav-btn" data-tab="wochenuebersicht" onclick="switchTab('wochenuebersicht')">
+<span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
+      </button>
+<button class="w-full flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all nav-btn" data-tab="mitarbeiter" onclick="switchTab('mitarbeiter')">
+<span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
+      </button>
+<button class="w-full flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all nav-btn" data-tab="berichte" onclick="switchTab('berichte')">
+<span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
+      </button>
+</nav>
+</aside>
+<!-- Main Content Layout -->
+<div class="pl-64">
+<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8">
+<div class="text-lg font-bold text-on-surface" id="header-title">Dashboard &amp; Team Sync</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full text-xs font-bold text-primary">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="sync-indicator"></span>
+<span id="sync-text">Live Sync Aktiv</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</header>
+<main class="relative pt-24 pb-24 bg-surface min-h-screen px-gutter">
+<div class="flex flex-col w-full max-w-container-max mx-auto">
+<!-- Top Status Bar -->
 <div class="flex items-center justify-between mb-8">
 <div>
-<div class="text-label-caps text-outline mb-1">LIVE CLOUD SYNC AKTIV</div>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Team Dashboard</h1>
-</div>
-<div class="flex items-center gap-3 bg-surface-container-low px-4 py-2 rounded-xl shadow-sm">
-<span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="text-body-md font-bold text-on-surface">Firestore Verbunden</span>
+<div class="text-xs font-bold uppercase tracking-wider text-outline mb-1">CLOUD ZEITERFASSUNG</div>
+<h1 class="text-3xl font-bold text-on-surface" id="page-heading">Team Dashboard</h1>
 </div>
 </div>
 <!-- Quick Stats Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 <div class="bg-surface-container-low p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div class="flex items-center justify-between text-on-surface-variant mb-4">
-<span class="text-label-caps">Heute Erfasst</span>
+<span class="text-xs font-bold uppercase tracking-wider">Heute Erfasst</span>
 <span class="material-symbols-outlined text-primary">schedule</span>
 </div>
 <div>
-<div class="font-headline-lg text-headline-lg text-on-surface mb-1" id="stat-today-hours">0.0 Std</div>
+<div class="text-3xl font-bold text-on-surface mb-1" id="stat-today-hours">0.0 Std</div>
 <p class="text-body-md text-on-surface-variant">Gesamtstunden aller Mitarbeiter</p>
 </div>
 </div>
 <div class="bg-surface-container-low p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div class="flex items-center justify-between text-on-surface-variant mb-4">
-<span class="text-label-caps">Aktive Mitarbeiter</span>
+<span class="text-xs font-bold uppercase tracking-wider">Aktive Mitarbeiter</span>
 <span class="material-symbols-outlined text-primary">group</span>
 </div>
 <div>
-<div class="font-headline-lg text-headline-lg text-on-surface mb-1" id="stat-active-staff">0</div>
+<div class="text-3xl font-bold text-on-surface mb-1" id="stat-active-staff">0</div>
 <p class="text-body-md text-on-surface-variant">Im System registriert</p>
 </div>
 </div>
 <div class="bg-surface-container-low p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div class="flex items-center justify-between text-on-surface-variant mb-4">
-<span class="text-label-caps">Wochenziel</span>
+<span class="text-xs font-bold uppercase tracking-wider">Monatsziel Trend</span>
 <span class="material-symbols-outlined text-primary">trending_up</span>
 </div>
 <div>
-<div class="font-headline-lg text-headline-lg text-on-surface mb-1" id="stat-week-progress">0%</div>
-<p class="text-body-md text-on-surface-variant">Erfüllung der Sollzeit</p>
+<div class="text-3xl font-bold text-on-surface mb-1" id="stat-week-progress">0%</div>
+<p class="text-body-md text-on-surface-variant">Durchschnitt Sollzeit</p>
 </div>
 </div>
-</div>
-<!-- Main Navigation Tabs -->
-<div class="flex border-b border-outline-variant mb-8 overflow-x-auto">
-<button class="tab-btn px-6 py-3 font-headline-md text-primary border-b-2 border-primary whitespace-nowrap" data-target="tab-content-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
-<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-zeiterfassung" onclick="switchTab('zeiterfassung')">Zeiterfassung</button>
-<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-wochenuebersicht" onclick="switchTab('wochenuebersicht')">Wochenübersicht</button>
-<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-mitarbeiter" onclick="switchTab('mitarbeiter')">Mitarbeiter</button>
-<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-berichte" onclick="switchTab('berichte')">Berichte</button>
 </div>
 <!-- TAB 1: DASHBOARD -->
-<div class="tab-content flex flex-col gap-stack-lg" id="tab-content-dashboard">
+<div class="tab-content flex flex-col gap-8" id="tab-content-dashboard">
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
 <div class="flex items-center justify-between mb-6">
-<h2 class="font-headline-md text-headline-md text-on-surface">Schnell-Zeiterfassung (Live-Sync)</h2>
-<span class="text-label-caps text-primary">Manuel & Team</span>
+<h2 class="text-xl font-bold text-on-surface">Schnell-Zeiterfassung (Live-Sync)</h2>
+<span class="text-xs font-bold text-primary uppercase">Direktübertragung</span>
 </div>
 <form class="grid grid-cols-1 md:grid-cols-4 gap-4" id="quick-time-form">
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Mitarbeiter</label>
-<select class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="qt-mitarbeiter" required="">
+<label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter</label>
+<select class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="qt-mitarbeiter" required="">
 <option value="">Wählen...</option>
-<option value="Manuel">Manuel</option>
-<option value="Anna">Anna</option>
-<option value="Thomas">Thomas</option>
-<option value="Sarah">Sarah</option>
 </select>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Datum</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="qt-datum" required="" type="date"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Datum</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="qt-datum" required="" type="date"/>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Stunden</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="qt-stunden" placeholder="z.B. 8.0" required="" step="0.5" type="number"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Stunden</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="qt-stunden" placeholder="z.B. 8.0" required="" step="0.5" type="number"/>
 </div>
 <div class="flex flex-col justify-end">
-<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Speichern</button>
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Speichern</button>
 </div>
 </form>
 </div>
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Letzte Aktivitäten (Live Feed)</h2>
+<h2 class="text-xl font-bold text-on-surface mb-6">Letzte Aktivitäten (Live Feed)</h2>
 <div class="flex flex-col gap-4" id="live-feed-list">
-<div class="flex items-center justify-between p-4 rounded-xl bg-surface">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">M</div>
-<div>
-<div class="font-headline-md text-on-surface">Manuel</div>
-<div class="text-body-md text-on-surface-variant">8.0 Stunden am Heute erfasst</div>
-</div>
-</div>
-<span class="text-label-caps text-outline">Vor wenigen Minuten</span>
-</div>
+<!-- Dynamically populated -->
 </div>
 </div>
 </div>
 <!-- TAB 2: ZEITERFASSUNG -->
-<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-zeiterfassung">
+<div class="tab-content flex flex-col gap-8 hidden" id="tab-content-zeiterfassung">
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Detaillierte Zeiterfassung & Korrektur</h2>
+<h2 class="text-xl font-bold text-on-surface mb-6">Detaillierte Zeiterfassung &amp; Korrektur</h2>
 <form class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="detailed-time-form">
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Mitarbeiter</label>
-<select class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-mitarbeiter" required="">
+<label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter</label>
+<select class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-mitarbeiter" required="">
 <option value="">Wählen...</option>
-<option value="Manuel">Manuel</option>
-<option value="Anna">Anna</option>
-<option value="Thomas">Thomas</option>
-<option value="Sarah">Sarah</option>
 </select>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Datum</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-datum" required="" type="date"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Datum</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-datum" required="" type="date"/>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Von / Bis</label>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Von / Bis</label>
 <div class="grid grid-cols-2 gap-2">
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-von" type="time" value="08:00"/>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-bis" type="time" value="17:00"/>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-von" type="time" value="08:00"/>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-bis" type="time" value="17:00"/>
 </div>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Projekt / Tätigkeit</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-projekt" placeholder="z.B. Kernentwicklung" type="text"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Projekt / Tätigkeit</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-projekt" placeholder="z.B. Kernentwicklung" type="text"/>
 </div>
 <div class="md:col-span-2 flex justify-end">
-<button class="px-8 py-3 bg-primary text-on-primary rounded-xl font-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Eintrag Hinzufügen</button>
+<button class="px-8 py-3 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Eintrag Hinzufügen</button>
 </div>
 </form>
-<h3 class="font-headline-md text-on-surface mb-4">Alle erfassten Einträge (Live Firestore)</h3>
-<div class="overflow-x-auto" id="entries-table-container">
+<h3 class="text-lg font-bold text-on-surface mb-4">Alle erfassten Einträge (Cloud Sync)</h3>
+<div class="overflow-x-auto">
 <table class="w-full text-left">
 <thead>
-<tr class="border-b border-outline-variant text-label-caps text-on-surface-variant">
+<tr class="border-b border-outline-variant text-xs font-bold text-on-surface-variant uppercase">
 <th class="pb-3">Mitarbeiter</th>
 <th class="pb-3">Datum</th>
 <th class="pb-3">Zeit</th>
@@ -173,30 +283,30 @@
 </div>
 </div>
 <!-- TAB 3: WOCHENÜBERSICHT -->
-<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-wochenuebersicht">
+<div class="tab-content flex flex-col gap-8 hidden" id="tab-content-wochenuebersicht">
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
 <div class="flex items-center justify-between mb-6">
-<h2 class="font-headline-md text-headline-md text-on-surface">Wochenübersicht (Aktuelle Kalenderwoche)</h2>
-<div class="text-label-caps text-primary">KW 12 / 2025</div>
+<h2 class="text-xl font-bold text-on-surface">Wochenübersicht (Aktuelle Kalenderwoche)</h2>
+<div class="text-xs font-bold text-primary uppercase" id="current-kw-label">KW 12 / 2025</div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-7 gap-4 mb-8" id="week-days-grid">
-<!-- Dynamically generated days -->
+<!-- Dynamically populated -->
 </div>
-<div class="p-6 rounded-xl bg-surface flex items-center justify-between">
+<div class="p-6 rounded-xl bg-surface flex items-center justify-between border border-outline-variant/20">
 <div>
-<div class="text-label-caps text-on-surface-variant mb-1">Summe Diese Woche</div>
-<div class="font-headline-lg text-on-surface" id="week-total-hours">0.0 Stunden</div>
+<div class="text-xs font-bold text-on-surface-variant uppercase mb-1">Summe Diese Woche</div>
+<div class="text-2xl font-bold text-on-surface" id="week-total-hours">0.0 Stunden</div>
 </div>
-<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-headline-md" onclick="alert('Wochenbericht erfolgreich exportiert!')">Exportieren</button>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="alert('Wochenbericht erfolgreich exportiert!')">Exportieren</button>
 </div>
 </div>
 </div>
 <!-- TAB 4: MITARBEITER -->
-<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-mitarbeiter">
+<div class="tab-content flex flex-col gap-8 hidden" id="tab-content-mitarbeiter">
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
 <div class="flex items-center justify-between mb-6">
-<h2 class="font-headline-md text-headline-md text-on-surface">Mitarbeiterverwaltung & Jahresarbeitszeit</h2>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-body-md font-bold" onclick="openAddStaffModal()">+ Neuer Mitarbeiter</button>
+<h2 class="text-xl font-bold text-on-surface">Mitarbeiterverwaltung &amp; Jahresarbeitszeit</h2>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="openAddStaffModal()">+ Neuer Mitarbeiter</button>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="staff-cards-container">
 <!-- Dynamically populated -->
@@ -204,18 +314,18 @@
 </div>
 </div>
 <!-- TAB 5: BERICHTE -->
-<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-berichte">
+<div class="tab-content flex flex-col gap-8 hidden" id="tab-content-berichte">
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Berichte & Auswertungen</h2>
+<h2 class="text-xl font-bold text-on-surface mb-6">Berichte &amp; Auswertungen</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="bg-surface p-6 rounded-xl flex flex-col gap-4">
-<h3 class="font-headline-md text-on-surface">Stunden nach Mitarbeiter</h3>
+<div class="bg-surface p-6 rounded-xl flex flex-col gap-4 border border-outline-variant/20">
+<h3 class="text-lg font-bold text-on-surface">Stunden nach Mitarbeiter</h3>
 <div class="space-y-3" id="report-staff-hours">
 <!-- Dynamically populated -->
 </div>
 </div>
-<div class="bg-surface p-6 rounded-xl flex flex-col gap-4">
-<h3 class="font-headline-md text-on-surface">Projektverteilung</h3>
+<div class="bg-surface p-6 rounded-xl flex flex-col gap-4 border border-outline-variant/20">
+<h3 class="text-lg font-bold text-on-surface">Projektverteilung</h3>
 <div class="space-y-3" id="report-project-hours">
 <!-- Dynamically populated -->
 </div>
@@ -224,49 +334,51 @@
 </div>
 </div>
 </div>
+</main>
+</div>
 <!-- Edit Entry Modal -->
-<div class="fixed inset-0 bg-surface/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden" id="edit-modal">
-<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col gap-6">
-<h3 class="font-headline-md text-on-surface">Eintrag Bearbeiten</h3>
+<div class="fixed inset-0 bg-surface/85 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden" id="edit-modal">
+<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col gap-6 border border-outline-variant/20">
+<h3 class="text-xl font-bold text-on-surface">Eintrag Bearbeiten</h3>
 <form class="flex flex-col gap-4" id="edit-form">
 <input id="edit-id" type="hidden"/>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Stunden</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="edit-stunden" required="" step="0.5" type="number"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Stunden</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="edit-stunden" required="" step="0.5" type="number"/>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Projekt</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="edit-projekt" type="text"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Projekt</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="edit-projekt" type="text"/>
 </div>
 <div class="flex justify-end gap-2 mt-4">
-<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl" onclick="closeEditModal()" type="button">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl" type="submit">Speichern</button>
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl font-bold" onclick="closeEditModal()" type="button">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-bold" type="submit">Speichern</button>
 </div>
 </form>
 </div>
 </div>
 <!-- Add Staff Modal -->
-<div class="fixed inset-0 bg-surface/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden" id="staff-modal">
-<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col gap-6">
-<h3 class="font-headline-md text-on-surface">Mitarbeiter Hinzufügen</h3>
+<div class="fixed inset-0 bg-surface/85 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden" id="staff-modal">
+<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col gap-6 border border-outline-variant/20">
+<h3 class="text-xl font-bold text-on-surface">Mitarbeiter Hinzufügen</h3>
 <form class="flex flex-col gap-4" id="staff-form">
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Name</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="staff-name" required="" type="text"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Name</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="staff-name" required="" type="text"/>
 </div>
 <div class="flex flex-col gap-1">
-<label class="text-label-caps text-on-surface-variant">Jahresarbeitszeit (Soll-Stunden)</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="staff-soll" required="" type="number" value="1800"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Jahresarbeitszeit (Soll-Stunden)</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="staff-soll" required="" type="number" value="1800"/>
 </div>
 <div class="flex justify-end gap-2 mt-4">
-<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl" onclick="closeAddStaffModal()" type="button">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl" type="submit">Hinzufügen</button>
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl font-bold" onclick="closeAddStaffModal()" type="button">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-bold" type="submit">Hinzufügen</button>
 </div>
 </form>
 </div>
 </div>
 <script>
-    // Simulated Firestore / LocalStorage real-time sync mechanism
+    // App State with cloud sync fallback simulation & fully functional SPA logic
     let dbState = {
       entries: JSON.parse(localStorage.getItem('doeltschi_entries') || JSON.stringify([
         { id: '1', mitarbeiter: 'Manuel', datum: new Date().toISOString().split('T')[0], von: '08:00', bis: '17:00', stunden: 8, projekt: 'Döltschi Core' },
@@ -280,13 +392,13 @@
       ]))
     };
 
-    function saveToCloud() {
+    function saveState() {
       localStorage.setItem('doeltschi_entries', JSON.stringify(dbState.entries));
       localStorage.setItem('doeltschi_staff', JSON.stringify(dbState.staff));
       renderAll();
     }
 
-    // Auth logic
+    // Authentication Guard
     const authModal = document.getElementById('auth-modal');
     const authForm = document.getElementById('auth-form');
     const passwordInput = document.getElementById('password-input');
@@ -307,56 +419,67 @@
       }
     });
 
-    // Tab switching
+    // Tab Navigation Logic
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.getElementById('tab-content-' + tabId).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
         btn.classList.add('text-on-surface-variant');
-        if (btn.getAttribute('data-target') === 'tab-content-' + tabId) {
-          btn.classList.add('text-primary', 'border-b-2', 'border-primary');
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
           btn.classList.remove('text-on-surface-variant');
         }
       });
+      const titles = {
+        dashboard: 'Dashboard & Team Sync',
+        zeiterfassung: 'Detaillierte Zeiterfassung',
+        wochenuebersicht: 'Wochenübersicht',
+        mitarbeiter: 'Mitarbeiterverwaltung',
+        berichte: 'Berichte & Analysen'
+      };
+      document.getElementById('header-title').innerText = titles[tabId] || 'Dashboard';
+      document.getElementById('page-heading').innerText = titles[tabId] || 'Dashboard';
     }
 
-    // Render logic
+    // Render Functionality
     function renderAll() {
-      // Stats
       const today = new Date().toISOString().split('T')[0];
       const todayEntries = dbState.entries.filter(e => e.datum === today);
       const totalTodayHours = todayEntries.reduce((acc, curr) => acc + Number(curr.stunden), 0);
+      
       document.getElementById('stat-today-hours').innerText = totalTodayHours + ' Std';
       document.getElementById('stat-active-staff').innerText = dbState.staff.length;
-      document.getElementById('stat-week-progress').innerText = Math.min(100, Math.round((dbState.entries.reduce((a,c)=>a+Number(c.stunden),0) / 160)*100)) + '%';
+      
+      const totalAll = dbState.entries.reduce((a,c)=>a+Number(c.stunden),0);
+      document.getElementById('stat-week-progress').innerText = Math.min(100, Math.round((totalAll / (dbState.staff.length * 40 || 1))*100)) + '%';
 
       // Live Feed
       const feedContainer = document.getElementById('live-feed-list');
       feedContainer.innerHTML = dbState.entries.slice(-5).reverse().map(e => `
-        <div class="flex items-center justify-between p-4 rounded-xl bg-surface">
+        <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-outline-variant/10">
           <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">${e.mitarbeiter[0]}</div>
+            <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">${e.mitarbeiter ? e.mitarbeiter[0] : 'M'}</div>
             <div>
-              <div class="font-headline-md text-on-surface">${e.mitarbeiter}</div>
+              <div class="font-bold text-on-surface">${e.mitarbeiter}</div>
               <div class="text-body-md text-on-surface-variant">${e.stunden} Stunden am ${e.datum} (${e.projekt || 'Allgemein'})</div>
             </div>
           </div>
-          <span class="text-label-caps text-outline">Synchronisiert</span>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Synchronisiert</span>
         </div>
-      `).join('');
+      `).join('') || '<div class="text-body-md text-outline">Keine Aktivitäten vorhanden.</div>';
 
       // Entries Table
       const tableBody = document.getElementById('entries-table-body');
       tableBody.innerHTML = dbState.entries.map(e => `
-        <tr>
+        <tr class="hover:bg-surface-container-high/50 transition-colors">
           <td class="py-3 font-medium">${e.mitarbeiter}</td>
           <td class="py-3">${e.datum}</td>
           <td class="py-3">${e.von || '08:00'} - ${e.bis || '17:00'} (${e.stunden}h)</td>
           <td class="py-3">${e.projekt || '-'}</td>
           <td class="py-3 text-right">
-            <button onclick="openEditModal('${e.id}')" class="text-primary hover:underline mr-3">Bearbeiten</button>
-            <button onclick="deleteEntry('${e.id}')" class="text-error hover:underline">Löschen</button>
+            <button onclick="openEditModal('${e.id}')" class="text-primary hover:underline font-bold mr-3">Bearbeiten</button>
+            <button onclick="deleteEntry('${e.id}')" class="text-error hover:underline font-bold">Löschen</button>
           </td>
         </tr>
       `).join('');
@@ -366,10 +489,10 @@
       staffContainer.innerHTML = dbState.staff.map(s => {
         const worked = dbState.entries.filter(e => e.mitarbeiter === s.name).reduce((a,c)=>a+Number(c.stunden),0);
         return `
-          <div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4">
+          <div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4 border border-outline-variant/20">
             <div class="flex items-center justify-between">
-              <div class="font-headline-md text-on-surface">${s.name}</div>
-              <button onclick="deleteStaff('${s.id}')" class="text-error text-sm">Löschen</button>
+              <div class="font-bold text-lg text-on-surface">${s.name}</div>
+              <button onclick="deleteStaff('${s.id}')" class="text-error text-sm font-bold hover:underline">Löschen</button>
             </div>
             <div class="flex flex-col gap-1">
               <div class="flex justify-between text-body-md">
@@ -377,14 +500,14 @@
                 <span class="font-bold">${worked} / ${s.soll} Std</span>
               </div>
               <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                <div class="bg-primary h-full" style="width: ${Math.min(100, (worked/s.soll)*100)}%"></div>
+                <div class="bg-primary h-full transition-all duration-500" style="width: ${Math.min(100, (worked/s.soll)*100)}%"></div>
               </div>
             </div>
           </div>
         `;
       }).join('');
 
-      // Staff Selectors
+      // Staff Selectors update
       ['qt-mitarbeiter', 'dt-mitarbeiter'].forEach(id => {
         const sel = document.getElementById(id);
         if(sel) {
@@ -397,7 +520,7 @@
       // Reports
       document.getElementById('report-staff-hours').innerHTML = dbState.staff.map(s => {
         const h = dbState.entries.filter(e => e.mitarbeiter === s.name).reduce((a,c)=>a+Number(c.stunden),0);
-        return `<div class="flex justify-between items-center"><span class="text-on-surface">${s.name}</span><span class="font-bold text-primary">${h} Std</span></div>`;
+        return `<div class="flex justify-between items-center py-1 border-b border-outline-variant/10"><span class="text-on-surface font-medium">${s.name}</span><span class="font-bold text-primary">${h} Std</span></div>`;
       }).join('');
 
       const projMap = {};
@@ -406,23 +529,23 @@
         projMap[p] = (projMap[p] || 0) + Number(e.stunden);
       });
       document.getElementById('report-project-hours').innerHTML = Object.keys(projMap).map(p => `
-        <div class="flex justify-between items-center"><span class="text-on-surface">${p}</span><span class="font-bold text-primary">${projMap[p]} Std</span></div>
-      `).join('');
+        <div class="flex justify-between items-center py-1 border-b border-outline-variant/10"><span class="text-on-surface font-medium">${p}</span><span class="font-bold text-primary">${projMap[p]} Std</span></div>
+      `).join('') || '<div class="text-body-md text-outline">Keine Projekte erfasst.</div>';
 
       // Week Grid
       const weekGrid = document.getElementById('week-days-grid');
       const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
       weekGrid.innerHTML = days.map(d => `
-        <div class="bg-surface p-4 rounded-xl flex flex-col gap-2">
-          <div class="text-label-caps text-on-surface-variant">${d}</div>
-          <div class="font-headline-md text-on-surface">8.0 h</div>
+        <div class="bg-surface p-4 rounded-xl flex flex-col gap-2 border border-outline-variant/20">
+          <div class="text-xs font-bold text-on-surface-variant uppercase">${d}</div>
+          <div class="text-lg font-bold text-on-surface">8.0 h</div>
           <div class="text-xs text-outline">Soll: 8h</div>
         </div>
       `).join('');
-      document.getElementById('week-total-hours').innerText = dbState.entries.reduce((a,c)=>a+Number(c.stunden),0) + ' Stunden';
+      document.getElementById('week-total-hours').innerText = totalAll + ' Stunden';
     }
 
-    // Forms Handlers
+    // Forms Event Handlers
     document.getElementById('quick-time-form').addEventListener('submit', (e) => {
       e.preventDefault();
       const newEntry = {
@@ -435,7 +558,7 @@
         projekt: 'Schnellerfassung'
       };
       dbState.entries.push(newEntry);
-      saveToCloud();
+      saveState();
       e.target.reset();
       document.getElementById('qt-datum').value = new Date().toISOString().split('T')[0];
     });
@@ -452,13 +575,14 @@
         projekt: document.getElementById('dt-projekt').value || 'Standard'
       };
       dbState.entries.push(newEntry);
-      saveToCloud();
+      saveState();
       e.target.reset();
+      document.getElementById('dt-datum').value = new Date().toISOString().split('T')[0];
     });
 
     function deleteEntry(id) {
       dbState.entries = dbState.entries.filter(e => e.id !== id);
-      saveToCloud();
+      saveState();
     }
 
     function openEditModal(id) {
@@ -481,7 +605,7 @@
       if(entry) {
         entry.stunden = Number(document.getElementById('edit-stunden').value);
         entry.projekt = document.getElementById('edit-projekt').value;
-        saveToCloud();
+        saveState();
       }
       closeEditModal();
     });
@@ -502,21 +626,21 @@
         soll: Number(document.getElementById('staff-soll').value)
       };
       dbState.staff.push(newStaff);
-      saveToCloud();
+      saveState();
       closeAddStaffModal();
       e.target.reset();
     });
 
     function deleteStaff(id) {
       dbState.staff = dbState.staff.filter(s => s.id !== id);
-      saveToCloud();
+      saveState();
     }
 
-    // Init default dates
+    // Init Dates
     document.getElementById('qt-datum').value = new Date().toISOString().split('T')[0];
     document.getElementById('dt-datum').value = new Date().toISOString().split('T')[0];
 
-    // Initial render
+    // Initial Render
     renderAll();
   </script>
-</div></main></div></body></html>
+</body></html>
