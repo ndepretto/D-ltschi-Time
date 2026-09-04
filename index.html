@@ -1,2021 +1,522 @@
-<!DOCTYPE html><html lang="de" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Döltschi Time - Zeitmanagement</title>
-<style>
-  @layer base { 
-    html, body { margin: 0; padding: 0; } 
-    body { overscroll-behavior: none; } 
-    main>:first-child { margin-top: 0!important; } 
-    main>:last-child { margin-bottom: 0!important; } 
-  }
-  ::-webkit-scrollbar { display: none; }
-</style>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-          "inverse-surface": "#1d3052",
-          "secondary-fixed-dim": "#c5c6c8",
-          "outline": "#737685",
-          "secondary-fixed": "#e1e2e4",
-          "surface": "#f9f9ff",
-          "surface-container-low": "#f1f3ff",
-          "on-background": "#041b3c",
-          "primary-container": "#0052cc",
-          "primary-fixed-dim": "#b2c5ff",
-          "surface-bright": "#f9f9ff",
-          "on-surface": "#041b3c",
-          "surface-container-highest": "#d7e2ff",
-          "background": "#f9f9ff",
-          "on-secondary-fixed-variant": "#444749",
-          "secondary": "#5c5f60",
-          "surface-variant": "#d7e2ff",
-          "surface-tint": "#0c56d0",
-          "on-primary-fixed-variant": "#0040a2",
-          "secondary-container": "#dee0e2",
-          "on-surface-variant": "#434654",
-          "on-primary-fixed": "#001848",
-          "on-secondary-fixed": "#191c1e",
-          "surface-container": "#e8edff",
-          "on-primary-container": "#c4d2ff",
-          "surface-dim": "#cadaff",
-          "surface-container-high": "#e0e8ff",
-          "surface-container-lowest": "#ffffff",
-          "on-tertiary-fixed-variant": "#812800",
-          "tertiary-fixed-dim": "#ffb59b",
-          "on-error": "#ffffff",
-          "on-tertiary": "#ffffff",
-          "tertiary-container": "#a33500",
-          "on-error-container": "#93000a",
-          "primary": "#003d9b",
-          "error": "#ba1a1a",
-          "on-tertiary-container": "#ffc6b2",
-          "primary-fixed": "#dae2ff",
-          "on-secondary-container": "#606365",
-          "outline-variant": "#c3c6d6",
-          "inverse-on-surface": "#edf0ff",
-          "on-primary": "#ffffff",
-          "inverse-primary": "#b2c5ff",
-          "on-tertiary-fixed": "#380d00",
-          "on-secondary": "#ffffff",
-          "tertiary": "#7b2600",
-          "tertiary-fixed": "#ffdbcf",
-          "error-container": "#ffdad6"
-        },
-        "borderRadius": {
-          "DEFAULT": "0.25rem",
-          "lg": "0.5rem",
-          "xl": "0.75rem",
-          "2xl": "1rem",
-          "full": "9999px"
-        },
-        "spacing": {
-          "unit": "8px",
-          "stack-sm": "12px",
-          "stack-md": "24px",
-          "container-max": "800px",
-          "gutter": "24px",
-          "stack-lg": "48px"
-        },
-        "fontFamily": {
-          "headline-lg": ["Work Sans"],
-          "headline-lg-mobile": ["Work Sans"],
-          "body-lg": ["Work Sans"],
-          "body-md": ["Work Sans"],
-          "label-caps": ["Work Sans"],
-          "headline-md": ["Work Sans"]
-        }
-      }
-    }
-  }
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-</head>
-<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary selection:text-white">
-<!-- SIDEBAR -->
-<aside class="fixed left-0 top-0 h-full w-60 bg-surface-container-low z-50 flex flex-col justify-between py-6 border-r border-outline-variant/20 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
-<div>
-<div class="px-6 mb-8 flex items-center gap-2.5">
-<div class="w-8 h-8 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-sm">
-<span class="material-symbols-outlined text-[18px]">nest_clock_farsight_analog</span>
-</div>
-<div class="font-headline-md font-bold tracking-tight text-on-surface text-lg">Döltschi <span class="text-primary font-normal">Time</span></div>
-</div>
-<nav class="px-3 space-y-1" id="sidebar-nav">
-<a aria-current="page" class="flex items-center px-3.5 py-2.5 bg-primary text-on-primary font-medium rounded-xl transition-all shadow-sm cursor-pointer" data-path="dashboard" onclick="switchView('dashboard')">
-<span class="material-symbols-outlined text-[20px] mr-3">dashboard</span>Dashboard
-      </a>
-<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="mitarbeiter" onclick="switchView('mitarbeiter')">
-<span class="material-symbols-outlined text-[20px] mr-3">group</span>Mitarbeiter
-      </a>
-<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="zeiterfassung" onclick="switchView('zeiterfassung')">
-<span class="material-symbols-outlined text-[20px] mr-3">schedule</span>Zeiterfassung
-      </a>
-<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="tagesuebersicht" onclick="switchView('tagesuebersicht')">
-<span class="material-symbols-outlined text-[20px] mr-3">today</span>Tagesübersicht
-      </a>
-<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="wochenuebersicht" onclick="switchView('wochenuebersicht')">
-<span class="material-symbols-outlined text-[20px] mr-3">date_range</span>Wochenübersicht
-      </a>
-<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="berichte" onclick="switchView('berichte')">
-<span class="material-symbols-outlined text-[20px] mr-3">bar_chart</span>Berichte
-      </a>
-</nav>
-</div>
-<div class="px-5 pt-4 border-t border-outline-variant/15 text-xs text-secondary flex items-center justify-between">
-<span class="font-medium">Version 2.4</span>
-<span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Online</span>
-</div>
-</aside>
-<!-- TOP-HEADER & MAIN CONTENT WRAPPER -->
-<div class="pl-60 min-h-screen flex flex-col bg-surface">
-<!-- SLIM HEADER WITH ALL CONTROLS -->
-<header class="sticky top-0 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-md z-40 flex items-center justify-between px-8 border-b border-outline-variant/20">
-<div class="flex items-center gap-3">
-<h2 class="text-base font-bold text-on-surface" id="header-title">Team Dashboard</h2>
-<span class="text-outline-variant">•</span>
-<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-medium">
-<span class="material-symbols-outlined text-[14px] text-primary">calendar_today</span>
-<span class="">21.08.2026</span>
-</div>
-<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-xs font-medium">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="">Cloud Sync aktiv (Willma)</span>
-</div>
-</div>
-<div class="flex items-center gap-3">
-<button class="inline-flex items-center gap-2 bg-surface-container-high text-on-surface hover:bg-surface-container-highest px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm" id="syncBtn" onclick="syncData()">
-<span class="material-symbols-outlined text-[17px]">sync</span>
-<span class="">Daten synchronisieren</span>
-</button>
-<button class="inline-flex items-center gap-1.5 bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm" onclick="openNewEntryModal()">
-<span class="material-symbols-outlined text-[18px]">add</span>
-<span class="">Neuer Zeiteintrag</span>
-</button>
-<div class="w-px h-6 bg-outline-variant/30 mx-1"></div>
-<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-xs">
-        ND
-      </div>
-</div>
-</header>
-<main class="p-8 space-y-8 flex-1">
-<!-- VIEW: DASHBOARD -->
-<div class="view-content space-y-8" id="view-dashboard">
-<!-- HERO HEADER TITLE -->
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-2">
-<div>
-<h1 class="text-2xl font-bold tracking-tight text-on-surface">Team Übersicht &amp; Live-Zeiterfassung</h1>
-</div>
-</div>
-<!-- KPI BAR: 4 HARMONIOUS CARDS IN ONE ROW -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-<!-- KPI 1 -->
-<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Aktives Team</span>
-<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-[18px]">group</span>
-</span>
-</div>
-<div class="mt-3">
-<div class="text-3xl font-bold tracking-tight text-on-surface" id="statTeamCount">4</div>
-<div class="flex items-center gap-1 text-xs text-emerald-700 font-medium mt-1">
-<span class="material-symbols-outlined text-[15px]">check_circle</span>
-<span class="">Alle Systeme bereit</span>
-</div>
-</div>
-</div>
-<!-- KPI 2 -->
-<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Gesamt-Soll (Woche)</span>
-<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-</span>
-</div>
-<div class="mt-3">
-<div class="text-3xl font-bold tracking-tight text-on-surface" id="statTotalSoll">139.2 h</div>
-<div class="text-xs text-secondary mt-1">Basis 40.0 h Vollzeit</div>
-</div>
-</div>
-<!-- KPI 3 -->
-<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Gesamt-Ist (Woche)</span>
-<span class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-[18px]">timelapse</span>
-</span>
-</div>
-<div class="mt-3">
-<div class="text-3xl font-bold tracking-tight text-primary" id="totalIstHours">29.6 h</div>
-<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-primary h-full rounded-full transition-all duration-300" id="statIstBar" style="width: 21%"></div>
-</div>
-</div>
-</div>
-<!-- KPI 4 -->
-<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Jahresfortschritt 2026</span>
-<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined text-[18px]">trending_up</span>
-</span>
-</div>
-<div class="mt-3">
-<div class="text-3xl font-bold tracking-tight text-on-surface" id="statTotalYearProgress">3%</div>
-<div class="flex items-center gap-1 text-xs text-secondary mt-1">
-<span class="material-symbols-outlined text-[15px] text-primary">analytics</span>
-<span class="">Q1–Q3 aktiv</span>
-</div>
-</div>
-</div>
-</div>
-<!-- MITARBEITER SECTION WITH SEARCH BAR & ACCURATE TILES -->
-<div class="space-y-4 space-y-5">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-<div>
-<h2 class="text-lg font-bold text-on-surface">Individuelle Mitarbeiter-Kacheln</h2>
-<p class="text-xs text-secondary">Aktualisiert vor wenigen Sekunden • Exakte Minutensummierung</p>
-</div>
-<div class="flex items-center gap-2">
-<div class="relative w-64">
-<span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary text-[18px]">search</span>
-<input class="w-full pl-9 pr-3 py-1.5 text-xs bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-on-surface focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-secondary/60" id="employeeSearchInput" oninput="filterEmployeeCards()" placeholder="Mitarbeiter suchen..." type="text">
-</div>
-</div>
-</div>
-<!-- EMPLOYEE CARDS GRID: 4 PRE-RENDERED & DYNAMICALLY ACCURATE CARDS -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboardEmployeeGrid">
-<!-- Nicole De Pretto -->
-<div class="emp-card bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="nicole de pretto">
-<div>
-<div class="flex items-start justify-between mb-5">
-<div class="flex items-center gap-4">
-<div class="w-11 h-11 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-sm">ND</div>
-<div>
-<h3 class="text-lg font-bold text-on-surface">Nicole De Pretto</h3>
-<p class="text-xs text-secondary">Projektleiterin / Design</p>
-</div>
-</div>
-<span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">57% Pensum</span>
-</div>
-<div class="p-4 bg-surface-container-low rounded-xl mb-5">
-<div class="flex items-center justify-between text-xs text-secondary mb-1.5">
-<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
-<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-22:58 h Fehlstunden</span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="text-3xl font-bold text-on-surface">29:10 h</span>
-<span class="text-xs text-secondary font-normal">von 52:08 h Soll (29.17h)</span>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between text-xs">
-<span class="text-secondary">Jahresfortschritt 2026</span>
-<span class="font-semibold text-on-surface">36:10 h von 1'077.00 h (3%)</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 3%"></div>
-</div>
-</div>
-</div>
-<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs">
-<span class="flex items-center gap-1.5 text-secondary">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
-              </span>
-<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Nicole De Pretto')">Details anzeigen →</button>
-</div>
-</div>
-<!-- Michelle Dreifuss -->
-<div class="emp-card bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="michelle dreifuss">
-<div>
-<div class="flex items-start justify-between mb-5">
-<div class="flex items-center gap-4">
-<div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">MD</div>
-<div>
-<h3 class="text-lg font-bold text-on-surface">Michelle Dreifuss</h3>
-<p class="text-xs text-secondary">Frontend Engineer</p>
-</div>
-</div>
-<span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">100% Pensum</span>
-</div>
-<div class="p-4 bg-surface-container-low rounded-xl mb-5">
-<div class="flex items-center justify-between text-xs text-secondary mb-1.5">
-<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
-<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-156:31 h Fehlstunden</span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="text-3xl font-bold text-on-surface">4:00 h</span>
-<span class="text-xs text-secondary font-normal">von 160:31 h Soll (4.00h)</span>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between text-xs">
-<span class="text-secondary">Jahresfortschritt 2026</span>
-<span class="font-semibold text-on-surface">12:30 h von 1'890.00 h (1%)</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 1%"></div>
-</div>
-</div>
-</div>
-<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs">
-<span class="flex items-center gap-1.5 text-secondary">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
-              </span>
-<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Michelle Dreifuss')">Details anzeigen →</button>
-</div>
-</div>
-<!-- Manuel Schoch -->
-<div class="emp-card bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="manuel schoch">
-<div>
-<div class="flex items-start justify-between mb-5">
-<div class="flex items-center gap-4">
-<div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">MS</div>
-<div>
-<h3 class="text-lg font-bold text-on-surface">Manuel Schoch</h3>
-<p class="text-xs text-secondary">Fullstack &amp; DevOps</p>
-</div>
-</div>
-<span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">100% Pensum</span>
-</div>
-<div class="p-4 bg-surface-container-low rounded-xl mb-5">
-<div class="flex items-center justify-between text-xs text-secondary mb-1.5">
-<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
-<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-143:31 h Fehlstunden</span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="text-3xl font-bold text-on-surface">17:00 h</span>
-<span class="text-xs text-secondary font-normal">von 160:31 h Soll (17.00h)</span>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between text-xs">
-<span class="text-secondary">Jahresfortschritt 2026</span>
-<span class="font-semibold text-on-surface">17:00 h von 1'890.00 h (1%)</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 1%"></div>
-</div>
-</div>
-</div>
-<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs">
-<span class="flex items-center gap-1.5 text-secondary">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
-              </span>
-<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Manuel Schoch')">Details anzeigen →</button>
-</div>
-</div>
-<!-- Seline Steinmann -->
-<div class="emp-card bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="seline steinmann">
-<div>
-<div class="flex items-start justify-between mb-5">
-<div class="flex items-center gap-4">
-<div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">SS</div>
-<div>
-<h3 class="text-lg font-bold text-on-surface">Seline Steinmann</h3>
-<p class="text-xs text-secondary">UX Research &amp; QA</p>
-</div>
-</div>
-<span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">92% Pensum</span>
-</div>
-<div class="p-4 bg-surface-container-low rounded-xl mb-5">
-<div class="flex items-center justify-between text-xs text-secondary mb-1.5">
-<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
-<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-86:08 h Fehlstunden</span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="text-3xl font-bold text-on-surface">49:45 h</span>
-<span class="text-xs text-secondary font-normal">von 135:53 h Soll (49.75h)</span>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between text-xs">
-<span class="text-secondary">Jahresfortschritt 2026</span>
-<span class="font-semibold text-on-surface">57:45 h von 1'739.00 h (5%)</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 5%"></div>
-</div>
-</div>
-</div>
-<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs">
-<span class="flex items-center gap-1.5 text-secondary">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
-              </span>
-<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Seline Steinmann')">Details anzeigen →</button>
-</div>
-</div>
-</div>
-</div>
-<!-- COMPACT ACTIVITY FEED -->
-<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm space-y-3">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[20px]">history</span>
-<h3 class="text-sm font-bold text-on-surface">Letzte Aktivitäten</h3>
-</div>
-<span class="text-[11px] px-2.5 py-0.5 bg-surface-container text-secondary rounded-full font-medium">Firestore RT-DB</span>
-</div>
-<div class="space-y-2 text-xs" id="activityLogContainer">
-<div class="flex items-center justify-between py-2 border-b border-outline-variant/10">
-<div class="flex items-center gap-2.5">
-<span class="w-2 h-2 rounded-full bg-primary"></span>
-<div>
-<span class="font-medium text-on-surface">System bereit und initialisiert (Minutenpräzise Logik aktiv)</span>
-<span class="text-secondary block text-[11px]">Heute, 21.08.2026, 08:30 Uhr • Automatischer Cloud-Sync</span>
-</div>
-</div>
-<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary font-medium text-[11px]">Bereit</span>
-</div>
-<div class="flex items-center justify-between py-2">
-<div class="flex items-center gap-2.5">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-<div>
-<span class="font-medium text-on-surface">Live-Zeiterfassung synchronisiert mit Schweizer Industriezeit</span>
-<span class="text-secondary block text-[11px]">Heute, 21.08.2026, 08:00 Uhr • Authentifiziert als Willma</span>
-</div>
-</div>
-<span class="px-2 py-0.5 rounded bg-surface-container-low text-emerald-800 font-medium text-[11px]">Erfolgreich</span>
-</div>
-</div>
-</div>
-</div>
-<!-- VIEW: MITARBEITER -->
-<div class="view-content hidden space-y-6" id="view-mitarbeiter">
-<div class="flex items-center justify-between">
-<div>
-<h1 class="text-2xl font-bold text-on-surface">Mitarbeiterverwaltung</h1>
-</div>
-<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-primary-container transition-all shadow-sm cursor-pointer" onclick="openAddEmployeeModal()">
-<span class="material-symbols-outlined text-[18px]">person_add</span>Mitarbeiter hinzufügen
-        </button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="mitarbeiterCardGrid">
-<!-- Populated via JS -->
-</div>
-</div>
-<!-- VIEW: ZEITERFASSUNG -->
-<div class="view-content hidden space-y-6" id="view-zeiterfassung">
-<div>
-<h1 class="text-2xl font-bold text-on-surface">Zeiterfassung</h1>
-</div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-6">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant/10 pb-4">
-<h3 class="font-bold text-base text-on-surface">Tages-Zeiterfassung erfassen</h3>
-<div class="inline-flex items-center gap-2 bg-primary-fixed/50 px-3 py-1.5 rounded-xl text-xs font-semibold text-on-primary-fixed">
-<span class="material-symbols-outlined text-base text-primary">timer</span>
-<span class="">Live-Kalkulation: <strong class="text-primary text-sm font-bold" id="formLiveTotal">0:00 h (0.00h)</strong></span>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-<div>
-<label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Mitarbeiter</label>
-<select class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm focus:ring-2 focus:ring-primary font-medium cursor-pointer" id="timeEmployeeSelect">
-</select>
-</div>
-<div class="relative" id="timeDateContainer">
-<label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
-<div class="relative">
-<input class="w-full p-2.5 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
-<button class="absolute right-2.5 top-2.5 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
-<span class="material-symbols-outlined text-lg pointer-events-none">calendar_month</span>
-</button>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core">
-</div>
-</div>
-<div class="space-y-3 pt-3 border-t border-outline-variant/10">
-<div class="flex items-center justify-between">
-<h4 class="font-bold text-on-surface text-xs">Zeitfenster (Slots) mit automatischer Minutendifferenz</h4>
-<span class="text-xs text-secondary">Beispiel: 07:00 - 08:15 (75m) + 10:00 - 12:00 (120m) = 3:15 h (3.25h)</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
-<div class="flex justify-between items-center">
-<span class="text-xs uppercase font-bold text-primary">Vormittag</span>
-<span class="text-xs font-semibold text-secondary" id="slotVmBadge">4:00 h (4.00h)</span>
-</div>
-<div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00">
-<span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00">
-</div>
-</div>
-<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
-<div class="flex justify-between items-center">
-<span class="text-xs uppercase font-bold text-primary">Nachmittag</span>
-<span class="text-xs font-semibold text-secondary" id="slotNmBadge">4:00 h (4.00h)</span>
-</div>
-<div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00">
-<span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00">
-</div>
-</div>
-<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
-<div class="flex justify-between items-center">
-<span class="text-xs uppercase font-bold text-primary">Abend</span>
-<span class="text-xs font-semibold text-secondary" id="slotAbBadge">0:00 h</span>
-</div>
-<div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value="">
-<span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value="">
-</div>
-</div>
-</div>
-</div>
-<div class="flex items-center justify-between pt-3 border-t border-outline-variant/10">
-<div class="text-xs text-secondary flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px] text-primary">calculate</span>
-            Berechnung nach Industrieminuten (exakt: EndeMin - StartMin)
-          </div>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl text-xs font-semibold shadow-sm hover:bg-primary-container transition-all cursor-pointer flex items-center gap-2" onclick="saveSlotTimeEntry()">
-<span class="material-symbols-outlined text-base">save</span>
-            Zeiterfassung speichern &amp; Sync
-          </button>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-4">
-<div class="flex justify-between items-center">
-<h3 class="font-bold text-base text-on-surface">Tagesübersicht &amp; Gebuchte Einträge</h3>
-<span class="text-xs text-secondary">Live aus Speicher</span>
-</div>
-<div class="space-y-2.5" id="timeEntriesList">
-<!-- Populated via JS -->
-</div>
-</div>
-</div>
-<!-- VIEW: TAGESUEBERSICHT -->
-<div class="view-content hidden space-y-6" id="view-tagesuebersicht">
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-<div>
-<h1 class="text-2xl font-bold text-on-surface">Tagesübersicht (Day View)</h1>
+<!DOCTYPE html>
 
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"primary":"#003d9b","primary-fixed":"#dae2ff","secondary":"#5c5f60","outline":"#737685","tertiary-fixed-dim":"#ffb59b","on-primary-container":"#c4d2ff","on-primary-fixed":"#001848","surface-tint":"#0c56d0","tertiary-container":"#a33500","on-error-container":"#93000a","surface-container-low":"#f1f3ff","surface-container-high":"#e0e8ff","on-primary-fixed-variant":"#0040a2","tertiary-fixed":"#ffdbcf","surface-container-lowest":"#ffffff","secondary-fixed":"#e1e2e4","surface-container-highest":"#d7e2ff","surface":"#f9f9ff","on-surface":"#041b3c","on-tertiary-container":"#ffc6b2","on-tertiary-fixed-variant":"#812800","secondary-container":"#dee0e2","secondary-fixed-dim":"#c5c6c8","inverse-on-surface":"#edf0ff","on-secondary-fixed":"#191c1e","error":"#ba1a1a","on-tertiary-fixed":"#380d00","on-primary":"#ffffff","on-error":"#ffffff","surface-variant":"#d7e2ff","outline-variant":"#c3c6d6","error-container":"#ffdad6","on-secondary-container":"#606365","on-secondary":"#ffffff","on-secondary-fixed-variant":"#444749","background":"#f9f9ff","surface-container":"#e8edff","inverse-primary":"#b2c5ff","on-surface-variant":"#434654","tertiary":"#7b2600","surface-dim":"#cadaff","surface-bright":"#f9f9ff","primary-container":"#0052cc","on-tertiary":"#ffffff","on-background":"#041b3c","primary-fixed-dim":"#b2c5ff","inverse-surface":"#1d3052"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"stack-md":"24px","stack-lg":"48px","gutter":"24px","container-max":"800px","stack-sm":"12px","unit":"8px"},"fontFamily":{"headline-md":["Work Sans"],"headline-lg-mobile":["Work Sans"],"body-md":["Work Sans"],"body-lg":["Work Sans"],"headline-lg":["Work Sans"],"label-caps":["Work Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["32px",{"lineHeight":"38px","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-xl"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-24">
+<!-- Password Lock Screen Overlay -->
+<div class="fixed inset-0 bg-surface/95 backdrop-blur-md z-50 flex items-center justify-center p-6 transition-all duration-300" id="auth-modal">
+<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[32px]">lock</span>
 </div>
-<div class="flex flex-wrap items-center gap-3">
-<div class="relative">
-<select class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium cursor-pointer focus:ring-2 focus:ring-primary" id="filterEmployeeSelect" onchange="renderDayView()">
-<option value="all">Alle Mitarbeiter</option>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Döltschi Time Sync</h2>
+<p class="text-body-md text-on-surface-variant mb-6">Bitte geben Sie das Passwort ein, um die Live-Zeiterfassung zu entsperren.</p>
+<form class="w-full flex flex-col gap-4" id="auth-form">
+<input class="w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none focus:ring-2 focus:ring-primary transition-all text-center font-bold tracking-widest" id="password-input" placeholder="Passwort (z.B. Willma)" required="" type="password"/>
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm" type="submit">Entsperren</button>
+</form>
+<div class="text-error text-body-md mt-4 hidden" id="auth-error">Falsches Passwort. Bitte versuchen Sie es erneut.</div>
+</div>
+</div>
+<!-- Main App Container -->
+<div class="flex flex-col w-full max-w-container-max mx-auto px-gutter pt-8" id="app-content">
+<!-- Top Action Header / Status Bar -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<div class="text-label-caps text-outline mb-1">LIVE CLOUD SYNC AKTIV</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Team Dashboard</h1>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low px-4 py-2 rounded-xl shadow-sm">
+<span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-body-md font-bold text-on-surface">Firestore Verbunden</span>
+</div>
+</div>
+<!-- Quick Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
+<div class="bg-surface-container-low p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="text-label-caps">Heute Erfasst</span>
+<span class="material-symbols-outlined text-primary">schedule</span>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1" id="stat-today-hours">0.0 Std</div>
+<p class="text-body-md text-on-surface-variant">Gesamtstunden aller Mitarbeiter</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="text-label-caps">Aktive Mitarbeiter</span>
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1" id="stat-active-staff">0</div>
+<p class="text-body-md text-on-surface-variant">Im System registriert</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="text-label-caps">Wochenziel</span>
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1" id="stat-week-progress">0%</div>
+<p class="text-body-md text-on-surface-variant">Erfüllung der Sollzeit</p>
+</div>
+</div>
+</div>
+<!-- Main Navigation Tabs -->
+<div class="flex border-b border-outline-variant mb-8 overflow-x-auto">
+<button class="tab-btn px-6 py-3 font-headline-md text-primary border-b-2 border-primary whitespace-nowrap" data-target="tab-content-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-zeiterfassung" onclick="switchTab('zeiterfassung')">Zeiterfassung</button>
+<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-wochenuebersicht" onclick="switchTab('wochenuebersicht')">Wochenübersicht</button>
+<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-mitarbeiter" onclick="switchTab('mitarbeiter')">Mitarbeiter</button>
+<button class="tab-btn px-6 py-3 font-headline-md text-on-surface-variant hover:text-on-surface whitespace-nowrap" data-target="tab-content-berichte" onclick="switchTab('berichte')">Berichte</button>
+</div>
+<!-- TAB 1: DASHBOARD -->
+<div class="tab-content flex flex-col gap-stack-lg" id="tab-content-dashboard">
+<div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Schnell-Zeiterfassung (Live-Sync)</h2>
+<span class="text-label-caps text-primary">Manuel & Team</span>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-4 gap-4" id="quick-time-form">
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Mitarbeiter</label>
+<select class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="qt-mitarbeiter" required="">
+<option value="">Wählen...</option>
+<option value="Manuel">Manuel</option>
+<option value="Anna">Anna</option>
+<option value="Thomas">Thomas</option>
+<option value="Sarah">Sarah</option>
 </select>
 </div>
-<div class="relative flex items-center gap-1.5">
-<div class="relative">
-<input class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium w-32 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value="">
-<button class="absolute right-2 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button">
-<span class="material-symbols-outlined text-[16px]">calendar_month</span>
-</button>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Datum</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="qt-datum" required="" type="date"/>
 </div>
-<button class="px-2.5 py-2 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Stunden</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="qt-stunden" placeholder="z.B. 8.0" required="" step="0.5" type="number"/>
 </div>
-<button class="flex items-center gap-1.5 bg-error/10 text-error hover:bg-error/20 border border-error/20 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm" onclick="resetAllDayEntries()" title="Alle Einträge der Tagesansicht komplett zurücksetzen und leere Daten löschen">
-<span class="material-symbols-outlined text-[17px]">delete_sweep</span>Tagesansicht zurücksetzen
-</button>
+<div class="flex flex-col justify-end">
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+<div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Letzte Aktivitäten (Live Feed)</h2>
+<div class="flex flex-col gap-4" id="live-feed-list">
+<div class="flex items-center justify-between p-4 rounded-xl bg-surface">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">M</div>
+<div>
+<div class="font-headline-md text-on-surface">Manuel</div>
+<div class="text-body-md text-on-surface-variant">8.0 Stunden am Heute erfasst</div>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-4">
-<div class="flex items-center justify-between">
-<h3 class="font-bold text-base text-on-surface">Gebuchte Zeiteinträge</h3>
-<span class="text-xs px-3 py-1 bg-surface-container text-primary font-bold rounded-lg" id="dayViewTotalHours">Total: 0:00 h (0.00h)</span>
+<span class="text-label-caps text-outline">Vor wenigen Minuten</span>
 </div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
+</div>
+</div>
+</div>
+<!-- TAB 2: ZEITERFASSUNG -->
+<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-zeiterfassung">
+<div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Detaillierte Zeiterfassung & Korrektur</h2>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="detailed-time-form">
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Mitarbeiter</label>
+<select class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-mitarbeiter" required="">
+<option value="">Wählen...</option>
+<option value="Manuel">Manuel</option>
+<option value="Anna">Anna</option>
+<option value="Thomas">Thomas</option>
+<option value="Sarah">Sarah</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Datum</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-datum" required="" type="date"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Von / Bis</label>
+<div class="grid grid-cols-2 gap-2">
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-von" type="time" value="08:00"/>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-bis" type="time" value="17:00"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Projekt / Tätigkeit</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="dt-projekt" placeholder="z.B. Kernentwicklung" type="text"/>
+</div>
+<div class="md:col-span-2 flex justify-end">
+<button class="px-8 py-3 bg-primary text-on-primary rounded-xl font-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Eintrag Hinzufügen</button>
+</div>
+</form>
+<h3 class="font-headline-md text-on-surface mb-4">Alle erfassten Einträge (Live Firestore)</h3>
+<div class="overflow-x-auto" id="entries-table-container">
+<table class="w-full text-left">
 <thead>
-<tr class="border-b border-outline-variant/20 text-xs font-semibold uppercase text-secondary">
-<th class="py-3 px-3">Mitarbeiter</th>
-<th class="py-3 px-3">Datum</th>
-<th class="py-3 px-3">Projekt</th>
-<th class="py-3 px-3">Vormittag</th>
-<th class="py-3 px-3">Nachmittag</th>
-<th class="py-3 px-3">Abend</th>
-<th class="py-3 px-3">Stunden</th>
-<th class="py-3 px-3 text-right">Aktionen</th>
+<tr class="border-b border-outline-variant text-label-caps text-on-surface-variant">
+<th class="pb-3">Mitarbeiter</th>
+<th class="pb-3">Datum</th>
+<th class="pb-3">Zeit</th>
+<th class="pb-3">Projekt</th>
+<th class="pb-3 text-right">Aktionen</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/10 text-xs" id="dayViewTableBody">
-<!-- Populated dynamically -->
+<tbody class="divide-y divide-outline-variant/30" id="entries-table-body">
+<!-- Dynamically populated -->
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<!-- VIEW: WOCHENUEBERSICHT -->
-<div class="view-content hidden space-y-6" id="view-wochenuebersicht">
+<!-- TAB 3: WOCHENÜBERSICHT -->
+<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-wochenuebersicht">
+<div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Wochenübersicht (Aktuelle Kalenderwoche)</h2>
+<div class="text-label-caps text-primary">KW 12 / 2025</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-7 gap-4 mb-8" id="week-days-grid">
+<!-- Dynamically generated days -->
+</div>
+<div class="p-6 rounded-xl bg-surface flex items-center justify-between">
 <div>
-<h1 class="text-2xl font-bold text-on-surface">Wochenübersicht</h1>
+<div class="text-label-caps text-on-surface-variant mb-1">Summe Diese Woche</div>
+<div class="font-headline-lg text-on-surface" id="week-total-hours">0.0 Stunden</div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm">
-<div class="grid grid-cols-5 gap-4 text-center" id="weekOverviewGrid">
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG (17.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekMon">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG (18.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekTue">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH (19.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekWed">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG (20.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekThu">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG (21.08.2026)</div><div class="text-base font-bold mt-2 text-primary" id="weekFri">0:00 h</div></div>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-headline-md" onclick="alert('Wochenbericht erfolgreich exportiert!')">Exportieren</button>
 </div>
 </div>
 </div>
-<!-- VIEW: BERICHTE -->
-<div class="view-content hidden space-y-6" id="view-berichte">
-<div>
-<h1 class="text-2xl font-bold text-on-surface">Berichte &amp; Auswertungen</h1>
+<!-- TAB 4: MITARBEITER -->
+<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-mitarbeiter">
+<div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Mitarbeiterverwaltung & Jahresarbeitszeit</h2>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-body-md font-bold" onclick="openAddStaffModal()">+ Neuer Mitarbeiter</button>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex items-center justify-between">
-<div>
-<h3 class="font-bold text-base">Jahresbericht 2026 (PDF)</h3>
-<p class="text-secondary text-xs">Detaillierte Auswertung aller Überstunden und Ferienguthaben bis zum 21.08.2026 (exakt minutengestützt).</p>
-</div>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer hover:bg-primary-container" onclick="alert('Bericht per 21.08.2026 wird generiert...')">Bericht herunterladen</button>
-</div>
-</div>
-</main>
-</div>
-<!-- MODAL: EMPLOYEE EDIT / ADD -->
-<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="editEmployeeModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
-<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeEditModal()">
-<span class="material-symbols-outlined">close</span>
-</button>
-<h3 class="text-lg font-bold text-on-surface mb-1" id="editModalTitle">Mitarbeiter bearbeiten</h3>
-<p class="text-xs text-secondary mb-5">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editEmployeeId" type="hidden">
-<div class="space-y-3.5 mb-6">
-<div class="grid grid-cols-2 gap-3">
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Vorname</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editVorname" type="text">
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Nachname</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editNachname" type="text">
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">E-Mail</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editEmail" type="email">
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Rolle / Position</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editRole" type="text">
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Pensum (%)</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editPensum" type="number">
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Jahres-Soll (Std)</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editSoll" type="number">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="staff-cards-container">
+<!-- Dynamically populated -->
 </div>
 </div>
 </div>
-<div class="flex justify-end gap-2.5">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeEditModal()">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="saveEditedEmployee()">Speichern &amp; Sync</button>
+<!-- TAB 5: BERICHTE -->
+<div class="tab-content flex flex-col gap-stack-lg hidden" id="tab-content-berichte">
+<div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Berichte & Auswertungen</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface p-6 rounded-xl flex flex-col gap-4">
+<h3 class="font-headline-md text-on-surface">Stunden nach Mitarbeiter</h3>
+<div class="space-y-3" id="report-staff-hours">
+<!-- Dynamically populated -->
 </div>
 </div>
-</div>
-<!-- MODAL: TIME ENTRY EDIT -->
-<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="editTimeEntryModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
-<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeEditTimeEntryModal()">
-<span class="material-symbols-outlined">close</span>
-</button>
-<h3 class="text-lg font-bold text-on-surface mb-1">Zeiteintrag bearbeiten</h3>
-<p class="text-xs text-secondary mb-4">Änderungen werden mit minutengenauer Berechnung synchronisiert.</p>
-<input id="editTimeEntryId" type="hidden">
-<div class="space-y-3.5 mb-5">
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Mitarbeiter</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeEmployee" readonly="" type="text">
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div class="relative">
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
-<div class="relative">
-<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text">
-<button class="absolute right-2.5 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
-<span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
-</button>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (hh:mm / Dez.)</label>
-<div class="flex items-center gap-2">
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number">
-<span class="text-xs text-secondary font-bold whitespace-nowrap" id="editTimeHhMmLabel">0:00 h</span>
-</div>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeProject" type="text">
-</div>
-<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
-<div class="text-[11px] font-semibold text-secondary">Slots formatieren (z.B. 08:00 - 12:00 oder leer)</div>
-<div class="grid grid-cols-3 gap-2">
-<div>
-<label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Vormittag</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text">
-</div>
-<div>
-<label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Nachmittag</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text">
-</div>
-<div>
-<label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Abend</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="18:00 - 19:15" type="text">
+<div class="bg-surface p-6 rounded-xl flex flex-col gap-4">
+<h3 class="font-headline-md text-on-surface">Projektverteilung</h3>
+<div class="space-y-3" id="report-project-hours">
+<!-- Dynamically populated -->
 </div>
 </div>
 </div>
 </div>
-<div class="flex justify-end gap-2.5">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeEditTimeEntryModal()">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="saveEditedTimeEntry()">Speichern &amp; Sync</button>
 </div>
 </div>
+<!-- Edit Entry Modal -->
+<div class="fixed inset-0 bg-surface/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden" id="edit-modal">
+<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col gap-6">
+<h3 class="font-headline-md text-on-surface">Eintrag Bearbeiten</h3>
+<form class="flex flex-col gap-4" id="edit-form">
+<input id="edit-id" type="hidden"/>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Stunden</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="edit-stunden" required="" step="0.5" type="number"/>
 </div>
-<!-- MODAL: DETAILS -->
-<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="detailModal">
-<div class="bg-surface-container-lowest w-full max-w-md p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
-<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeDetailModal()">
-<span class="material-symbols-outlined">close</span>
-</button>
-<h3 class="text-lg font-bold text-on-surface mb-1" id="modalTitle">Mitarbeiter Details</h3>
-<p class="text-xs text-secondary mb-5">Detaillierte Einsicht in Zeiterfassung, Absenzen und Jahresbilanz 2026.</p>
-<div class="space-y-3 mb-6 text-xs">
-<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
-<span class="text-secondary">Monatlicher Saldo (Ist vs. Soll):</span>
-<span class="font-bold text-on-surface" id="detailOvertime">0:00 Std. (0.00h)</span>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Projekt</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="edit-projekt" type="text"/>
 </div>
-<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
-<span class="text-secondary">Erfasste Stunden Total (2026):</span>
-<span class="font-bold text-primary" id="detailTotalLogged">0:00 Std. (0.00h)</span>
+<div class="flex justify-end gap-2 mt-4">
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl" onclick="closeEditModal()" type="button">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl" type="submit">Speichern</button>
 </div>
-<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
-<span class="text-secondary">Ferienguthaben:</span>
-<span class="font-bold text-on-surface">20.0 Tage</span>
-</div>
-<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
-<span class="text-secondary">Gleitzeit-Status:</span>
-<span class="font-bold text-emerald-700" id="detailGleitzeit">Aktiv synchronisiert</span>
+</form>
 </div>
 </div>
-<div class="flex justify-end gap-2.5">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeDetailModal()">Schliessen</button>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="alert('Daten erfolgreich per 21.08.2026 exportiert!')">Exportieren</button>
+<!-- Add Staff Modal -->
+<div class="fixed inset-0 bg-surface/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden" id="staff-modal">
+<div class="bg-surface-container-low max-w-md w-full p-8 rounded-2xl shadow-xl flex flex-col gap-6">
+<h3 class="font-headline-md text-on-surface">Mitarbeiter Hinzufügen</h3>
+<form class="flex flex-col gap-4" id="staff-form">
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Name</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="staff-name" required="" type="text"/>
 </div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps text-on-surface-variant">Jahresarbeitszeit (Soll-Stunden)</label>
+<input class="p-3 rounded-xl bg-surface text-on-surface outline-none" id="staff-soll" required="" type="number" value="1800"/>
 </div>
+<div class="flex justify-end gap-2 mt-4">
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl" onclick="closeAddStaffModal()" type="button">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl" type="submit">Hinzufügen</button>
 </div>
-<!-- MODAL: QUICK NEW ENTRY -->
-<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="newEntryModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
-<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeNewEntryModal()">
-<span class="material-symbols-outlined">close</span>
-</button>
-<h3 class="text-lg font-bold text-on-surface mb-1">Neuen Zeiteintrag erfassen</h3>
-<p class="text-xs text-secondary mb-5">Erfassung wird direkt in Firebase Firestore synchronisiert. (Passwort: Willma)</p>
-<div class="space-y-3.5 mb-6">
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Mitarbeiter</label>
-<select class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs focus:ring-2 focus:ring-primary font-medium cursor-pointer" id="quickEntryEmployee">
-</select>
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div class="relative">
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
-<div class="relative">
-<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
-<button class="absolute right-2.5 top-2 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
-<span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
-</button>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (Industriezeit)</label>
-<div class="flex items-center gap-2">
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0">
-<span class="text-xs text-secondary font-bold whitespace-nowrap" id="quickEntryHhMmLabel">8:00 h</span>
-</div>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core">
-</div>
-</div>
-<div class="flex justify-end gap-2.5">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeNewEntryModal()">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="saveQuickNewEntry()">Speichern &amp; Sync</button>
-</div>
-</div>
-</div>
-<!-- INTERACTIVE DATEPICKER POPUP -->
-<div class="fixed z-[9999] hidden select-none transition-all" id="calendarPickerDropdown">
-<div class="bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 p-4 w-72 backdrop-blur-md">
-<div class="flex items-center justify-between mb-3 pb-2.5 border-b border-outline-variant/15">
-<button class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" onclick="changePickerMonth(-1)" type="button">
-<span class="material-symbols-outlined text-base">chevron_left</span>
-</button>
-<div class="text-center font-bold text-on-surface text-xs flex items-center gap-1" id="pickerMonthYearLabel">
-</div>
-<button class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" onclick="changePickerMonth(1)" type="button">
-<span class="material-symbols-outlined text-base">chevron_right</span>
-</button>
-</div>
-<div class="grid grid-cols-7 text-center text-[10px] font-bold text-secondary mb-1.5">
-<span class="">Mo</span><span class="">Di</span><span class="">Mi</span><span class="">Do</span><span class="">Fr</span><span class="">Sa</span><span class="text-primary">So</span>
-</div>
-<div class="grid grid-cols-7 gap-1 text-xs" id="pickerDaysGrid">
-</div>
-<div class="mt-3 pt-2.5 border-t border-outline-variant/15 flex items-center justify-between text-xs">
-<button class="px-2 py-0.5 text-primary hover:bg-primary-fixed rounded-md font-medium transition-colors cursor-pointer text-[11px]" id="pickerTodayBtn" onclick="selectPickerToday()" type="button">
-        Heute
-      </button>
-<button class="px-2 py-0.5 text-secondary hover:text-on-surface transition-colors cursor-pointer text-[11px]" onclick="closeCalendarPicker()" type="button">
-        Schliessen
-      </button>
-</div>
+</form>
 </div>
 </div>
 <script>
-  function checkAuth() {
-    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-      const pwd = prompt("Bitte Passwort eingeben (Willma):");
-      if (pwd === "Willma") {
-        sessionStorage.setItem('isLoggedIn', 'true');
-      } else {
-        alert("Falsches Passwort!");
-        checkAuth();
-      }
-    }
-  }
-  checkAuth();
-
-  // Helper to validate whether an entry is empty, invalid, 0 hours, or prior to August 2026
-  function isInvalidOrEmptyEntry(item) {
-    if (!item || typeof item !== 'object') return true;
-    
-    // Missing required fields
-    if (!item.employee || typeof item.employee !== 'string' || !item.employee.trim()) return true;
-    if (!item.date || typeof item.date !== 'string' || !item.date.trim()) return true;
-
-    // Check placeholder / empty time slot markers
-    const isPlaceholderSlot = (s) => {
-      if (!s) return true;
-      const clean = String(s).trim();
-      return clean === '' || clean === '-' || clean === '--:--' || clean === '00:00 - 00:00' || clean === '0:00 - 0:00';
+    // Simulated Firestore / LocalStorage real-time sync mechanism
+    let dbState = {
+      entries: JSON.parse(localStorage.getItem('doeltschi_entries') || JSON.stringify([
+        { id: '1', mitarbeiter: 'Manuel', datum: new Date().toISOString().split('T')[0], von: '08:00', bis: '17:00', stunden: 8, projekt: 'Döltschi Core' },
+        { id: '2', mitarbeiter: 'Anna', datum: new Date().toISOString().split('T')[0], von: '09:00', bis: '15:00', stunden: 6, projekt: 'Design Sync' }
+      ])),
+      staff: JSON.parse(localStorage.getItem('doeltschi_staff') || JSON.stringify([
+        { id: 's1', name: 'Manuel', soll: 1800 },
+        { id: 's2', name: 'Anna', soll: 1750 },
+        { id: 's3', name: 'Thomas', soll: 1800 },
+        { id: 's4', name: 'Sarah', soll: 1600 }
+      ]))
     };
 
-    // Calculate effective minutes
-    let m = 0;
-    if (item.minutes !== undefined && item.minutes !== null && !isNaN(item.minutes)) {
-      m = Math.round(Number(item.minutes));
-    } else if (item.hours !== undefined && item.hours !== null && !isNaN(item.hours)) {
-      m = Math.round(Number(item.hours) * 60);
-    } else {
-      const vmM = parseSlotStringMinutes(item.vm);
-      const nmM = parseSlotStringMinutes(item.nm);
-      const abM = parseSlotStringMinutes(item.ab);
-      m = vmM + nmM + abM;
-    }
-
-    // Zero or negative duration check
-    if (m <= 0) return true;
-
-    // Reject entries where slots exist but only contain empty or dummy placeholders with no duration
-    if (item.vm !== undefined && item.nm !== undefined) {
-      if (isPlaceholderSlot(item.vm) && isPlaceholderSlot(item.nm) && isPlaceholderSlot(item.ab) && (!item.hours || Number(item.hours) === 0)) {
-        return true;
-      }
-    }
-
-    // Must be August 2026 or later (reject old 2023-2025 legacy dates)
-    const s = item.date.toLowerCase().trim();
-    if (s.includes('2023') || s.includes('2024') || s.includes('2025') || s.includes('okt') || s.includes('oct')) {
-      return true;
-    }
-    const d = parseSwissDate(item.date);
-    if (!d || isNaN(d.getTime())) return true;
-    const yr = d.getFullYear();
-    const mo = d.getMonth(); // 0-indexed: 7 is August
-    if (yr < 2026) return true;
-    if (yr === 2026 && mo < 7) return true;
-
-    return false;
-  }
-
-  // Automatic thorough cleanup routine for localStorage
-  function autoCleanupOldStorageEntries() {
-    const knownKeys = ['doeltschi_entries', 'doeltschi_time_entries', 'entries', 'time_entries', 'doeltschi_timetracking'];
-    const allKeys = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k) allKeys.push(k);
-    }
-    const candidateKeys = Array.from(new Set([...knownKeys, ...allKeys]));
-
-    candidateKeys.forEach(key => {
-      try {
-        const val = localStorage.getItem(key);
-        if (!val) return;
-        const parsed = JSON.parse(val);
-        if (Array.isArray(parsed)) {
-          const isEntriesArray = parsed.some(item => item && (item.hasOwnProperty('vm') || item.hasOwnProperty('nm') || item.hasOwnProperty('hours') || item.hasOwnProperty('project') || item.hasOwnProperty('employee')));
-          if (isEntriesArray) {
-            const cleaned = parsed.filter(item => !isInvalidOrEmptyEntry(item));
-            localStorage.setItem(key, JSON.stringify(cleaned));
-          }
-        }
-      } catch (err) {
-        // Safe ignore
-      }
-    });
-  }
-
-  // Run cleanup immediately
-  autoCleanupOldStorageEntries();
-
-  // Filter search for dashboard tiles
-  function filterEmployeeCards() {
-    const query = (document.getElementById('employeeSearchInput')?.value || '').toLowerCase().trim();
-    const cards = document.querySelectorAll('.emp-card');
-    cards.forEach(card => {
-      const empName = card.getAttribute('data-emp') || '';
-      if (!query || empName.includes(query)) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-  // Exact Minute Engine
-  function timeToMinutes(tStr) {
-    if (!tStr || typeof tStr !== 'string') return null;
-    const clean = tStr.trim();
-    const parts = clean.split(':');
-    if (parts.length < 2) return null;
-    const h = parseInt(parts[0], 10);
-    const m = parseInt(parts[1], 10);
-    if (isNaN(h) || isNaN(m)) return null;
-    return (h * 60) + m;
-  }
-
-  function getSpanMinutes(startStr, endStr) {
-    const s = timeToMinutes(startStr);
-    const e = timeToMinutes(endStr);
-    if (s === null || e === null) return 0;
-    if (e >= s) {
-      return e - s;
-    } else {
-      return (1440 - s) + e;
-    }
-  }
-
-  function parseSlotStringMinutes(slotStr) {
-    if (!slotStr || typeof slotStr !== 'string') return 0;
-    const clean = slotStr.trim();
-    if (!clean || clean === '-' || clean === '--:--' || clean === '00:00 - 00:00') return 0;
-    const parts = clean.split('-');
-    if (parts.length === 2) {
-      return getSpanMinutes(parts[0].trim(), parts[1].trim());
-    }
-    return 0;
-  }
-
-  function formatMinutesToHhMm(totalMinutes) {
-    const isNeg = totalMinutes < 0;
-    const absM = Math.abs(Math.round(totalMinutes));
-    const h = Math.floor(absM / 60);
-    const m = absM % 60;
-    return `${isNeg ? '-' : ''}${h}:${String(m).padStart(2, '0')}`;
-  }
-
-  function formatSwissNumber(num, decimals = 2) {
-    const parts = Number(num).toFixed(decimals).split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, "'");
-    return parts.join('.');
-  }
-
-  function formatSwissDate(input) {
-    if (!input) return "21.08.2026";
-    let str = String(input).trim();
-    if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(str)) {
-      const parts = str.split('.');
-      return `${parts[0].padStart(2, '0')}.${parts[1].padStart(2, '0')}.${parts[2]}`;
-    }
-    if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
-      const parts = str.split('-');
-      return `${parts[2].padStart(2, '0')}.${parts[1].padStart(2, '0')}.${parts[0]}`;
-    }
-    const d = new Date(str);
-    if (!isNaN(d.getTime())) {
-      const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      return `${day}.${month}.${d.getFullYear()}`;
-    }
-    return str;
-  }
-
-  function parseSwissDate(str) {
-    if (!str) return new Date();
-    const parts = str.split('.');
-    if (parts.length === 3) {
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1;
-      const year = parseInt(parts[2], 10);
-      return new Date(year, month, day);
-    }
-    const d = new Date(str);
-    return isNaN(d.getTime()) ? new Date() : d;
-  }
-
-  const defaultEmployees = [
-    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 57, soll: 1077.0, ist: 0.0, weekSoll: 22.8, monthSollMinutes: 3128 },
-    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 100, soll: 1890.0, ist: 0.0, weekSoll: 40.0, monthSollMinutes: 9631 },
-    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 1890.0, ist: 0.0, weekSoll: 40.0, monthSollMinutes: 9631 },
-    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 92, soll: 1739.0, ist: 0.0, weekSoll: 36.8, monthSollMinutes: 8153 }
-  ];
-
-  // Clean, validated default entries (all strictly August 2026, > 0 duration, valid employees)
-  const defaultEntries = [
-    { id: 'ent_1', employee: 'Nicole De Pretto', date: '21.08.2026', project: '#Döltschi-Core', hours: 8.0, minutes: 480, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
-    { id: 'ent_2', employee: 'Michelle Dreifuss', date: '21.08.2026', project: '#Frontend-UI', hours: 6.5, minutes: 390, vm: '08:30 - 12:00', nm: '13:00 - 16:00', ab: '' },
-    { id: 'ent_3', employee: 'Manuel Schoch', date: '20.08.2026', project: '#DevOps-Pipeline', hours: 8.0, minutes: 480, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
-    { id: 'ent_4', employee: 'Seline Steinmann', date: '19.08.2026', project: '#UX-Testing', hours: 7.25, minutes: 435, vm: '08:30 - 12:00', nm: '13:00 - 16:45', ab: '' },
-    { id: 'ent_5', employee: 'Nicole De Pretto', date: '17.08.2026', project: '#Kundenworkshop', hours: 8.0, minutes: 480, vm: '08:00 - 12:00', nm: '13:30 - 17:30', ab: '' },
-    { id: 'ent_6', employee: 'Michelle Dreifuss', date: '14.08.2026', project: '#Refactoring-Sprint', hours: 7.5, minutes: 450, vm: '08:30 - 12:00', nm: '13:00 - 17:00', ab: '' }
-  ];
-
-  function getEmployees() {
-    const data = localStorage.getItem('doeltschi_employees');
-    if (!data) return defaultEmployees;
-    try {
-      return JSON.parse(data);
-    } catch(e) {
-      return defaultEmployees;
-    }
-  }
-
-  function saveEmployees(arr) {
-    localStorage.setItem('doeltschi_employees', JSON.stringify(arr));
-  }
-
-  function getEntries() {
-    const data = localStorage.getItem('doeltschi_entries');
-    let entries = defaultEntries;
-    if (data) {
-      try {
-        entries = JSON.parse(data);
-      } catch(e) {
-        entries = defaultEntries;
-      }
-    }
-    // Filter out invalid, empty, or 0-minute entries
-    const valid = (Array.isArray(entries) ? entries : []).filter(e => !isInvalidOrEmptyEntry(e));
-    return valid;
-  }
-
-  function saveEntries(arr) {
-    const cleaned = (arr || []).filter(e => !isInvalidOrEmptyEntry(e));
-    localStorage.setItem('doeltschi_entries', JSON.stringify(cleaned));
-  }
-
-  // Complete reset of day view and day entries
-  function resetAllDayEntries() {
-    if (confirm("Möchten Sie die gesamte Tagesansicht wirklich zurücksetzen und alle leeren bzw. vorhandenen Zeiteinträge löschen?")) {
-      saveEntries([]);
-      const filterDate = document.getElementById('filterDayDate');
-      if (filterDate) filterDate.value = '';
-      const filterEmp = document.getElementById('filterEmployeeSelect');
-      if (filterEmp) filterEmp.value = 'all';
+    function saveToCloud() {
+      localStorage.setItem('doeltschi_entries', JSON.stringify(dbState.entries));
+      localStorage.setItem('doeltschi_staff', JSON.stringify(dbState.staff));
       renderAll();
-      alert("Tagesansicht wurde vollständig zurückgesetzt. Alle leeren und gebuchten Zeilen wurden gelöscht.");
     }
-  }
 
-  function updateSlotCalculationsLive() {
-    const vmStart = document.getElementById('slotVmStart')?.value || '';
-    const vmEnd = document.getElementById('slotVmEnd')?.value || '';
-    const nmStart = document.getElementById('slotNmStart')?.value || '';
-    const nmEnd = document.getElementById('slotNmEnd')?.value || '';
-    const abStart = document.getElementById('slotAbStart')?.value || '';
-    const abEnd = document.getElementById('slotAbEnd')?.value || '';
+    // Auth logic
+    const authModal = document.getElementById('auth-modal');
+    const authForm = document.getElementById('auth-form');
+    const passwordInput = document.getElementById('password-input');
+    const authError = document.getElementById('auth-error');
 
-    const vmM = (vmStart && vmEnd) ? getSpanMinutes(vmStart, vmEnd) : 0;
-    const nmM = (nmStart && nmEnd) ? getSpanMinutes(nmStart, nmEnd) : 0;
-    const abM = (abStart && abEnd) ? getSpanMinutes(abStart, abEnd) : 0;
-
-    const totalM = vmM + nmM + abM;
-    const totalDec = (totalM / 60).toFixed(2);
-    const totalHhMm = formatMinutesToHhMm(totalM);
-
-    const badgeVm = document.getElementById('slotVmBadge');
-    if (badgeVm) badgeVm.innerText = vmM > 0 ? `${formatMinutesToHhMm(vmM)} h (${(vmM/60).toFixed(2)}h)` : '0:00 h';
-
-    const badgeNm = document.getElementById('slotNmBadge');
-    if (badgeNm) badgeNm.innerText = nmM > 0 ? `${formatMinutesToHhMm(nmM)} h (${(nmM/60).toFixed(2)}h)` : '0:00 h';
-
-    const badgeAb = document.getElementById('slotAbBadge');
-    if (badgeAb) badgeAb.innerText = abM > 0 ? `${formatMinutesToHhMm(abM)} h (${(abM/60).toFixed(2)}h)` : '0:00 h';
-
-    const liveTotal = document.getElementById('formLiveTotal');
-    if (liveTotal) liveTotal.innerText = `${totalHhMm} h (${totalDec}h)`;
-
-    return { totalM, totalDec, totalHhMm };
-  }
-
-  function updateEditModalCalculationsLive() {
-    const vm = document.getElementById('editTimeVm')?.value || '';
-    const nm = document.getElementById('editTimeNm')?.value || '';
-    const ab = document.getElementById('editTimeAb')?.value || '';
-
-    const vmM = parseSlotStringMinutes(vm);
-    const nmM = parseSlotStringMinutes(nm);
-    const abM = parseSlotStringMinutes(ab);
-
-    const totalM = vmM + nmM + abM;
-    if (totalM > 0) {
-      const dec = (totalM / 60).toFixed(2);
-      const hoursInput = document.getElementById('editTimeHours');
-      if (hoursInput) hoursInput.value = dec;
-      const label = document.getElementById('editTimeHhMmLabel');
-      if (label) label.innerText = `${formatMinutesToHhMm(totalM)} h`;
+    if (localStorage.getItem('doeltschi_auth') === 'true') {
+      authModal.classList.add('hidden');
     }
-  }
 
-  function editManualHoursChanged() {
-    const hoursVal = parseFloat(document.getElementById('editTimeHours')?.value) || 0;
-    const m = Math.round(hoursVal * 60);
-    const label = document.getElementById('editTimeHhMmLabel');
-    if (label) label.innerText = `${formatMinutesToHhMm(m)} h`;
-  }
-
-  function quickEntryHoursChanged() {
-    const hoursVal = parseFloat(document.getElementById('quickEntryHours')?.value) || 0;
-    const m = Math.round(hoursVal * 60);
-    const label = document.getElementById('quickEntryHhMmLabel');
-    if (label) label.innerText = `${formatMinutesToHhMm(m)} h`;
-  }
-
-  function renderAll() {
-    renderDashboard();
-    renderMitarbeiter();
-    renderTimeEntriesSelects();
-    renderTimeEntriesTable();
-    renderDayView();
-    renderWeekView();
-    updateSlotCalculationsLive();
-  }
-
-  function renderDashboard() {
-    const emps = getEmployees();
-    const entries = getEntries();
-    const grid = document.getElementById('dashboardEmployeeGrid');
-
-    const weekDates = ['17.08.2026', '18.08.2026', '19.08.2026', '20.08.2026', '21.08.2026'];
-
-    let totalWeekSollHours = 0;
-    emps.forEach(emp => {
-      const wSoll = emp.weekSoll !== undefined ? Number(emp.weekSoll) : (40 * ((emp.pensum || 100) / 100));
-      totalWeekSollHours += wSoll;
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (passwordInput.value === 'Willma') {
+        localStorage.setItem('doeltschi_auth', 'true');
+        authModal.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => authModal.classList.add('hidden'), 300);
+      } else {
+        authError.classList.remove('hidden');
+      }
     });
 
-    const weekEntries = entries.filter(e => weekDates.includes(formatSwissDate(e.date)));
-    const totalWeekMinutes = weekEntries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
-    const totalWeekHoursDec = (totalWeekMinutes / 60).toFixed(1);
-
-    const statSollEl = document.getElementById('statTotalSoll');
-    if (statSollEl) statSollEl.innerText = `${totalWeekSollHours.toFixed(1)} h`;
-
-    const totalIstEl = document.getElementById('totalIstHours');
-    if (totalIstEl) totalIstEl.innerText = `${totalWeekHoursDec} h`;
-
-    const statTeamEl = document.getElementById('statTeamCount');
-    if (statTeamEl) statTeamEl.innerText = emps.length;
-
-    const barEl = document.getElementById('statIstBar');
-    if (barEl) {
-      const pct = totalWeekSollHours > 0 ? Math.min(Math.round(((totalWeekMinutes / 60) / totalWeekSollHours) * 100), 100) : 0;
-      barEl.style.width = pct + '%';
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-content-' + tabId).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+        btn.classList.add('text-on-surface-variant');
+        if (btn.getAttribute('data-target') === 'tab-content-' + tabId) {
+          btn.classList.add('text-primary', 'border-b-2', 'border-primary');
+          btn.classList.remove('text-on-surface-variant');
+        }
+      });
     }
 
-    const totalYearSoll = emps.reduce((acc, curr) => acc + (Number(curr.soll) || 2080), 0);
-    const allLoggedMinutes = entries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
-    const totalYearPct = totalYearSoll > 0 ? Math.round(((allLoggedMinutes / 60) / totalYearSoll) * 100) : 0;
-    const yearProgEl = document.getElementById('statTotalYearProgress');
-    if (yearProgEl) yearProgEl.innerText = `${totalYearPct}%`;
+    // Render logic
+    function renderAll() {
+      // Stats
+      const today = new Date().toISOString().split('T')[0];
+      const todayEntries = dbState.entries.filter(e => e.datum === today);
+      const totalTodayHours = todayEntries.reduce((acc, curr) => acc + Number(curr.stunden), 0);
+      document.getElementById('stat-today-hours').innerText = totalTodayHours + ' Std';
+      document.getElementById('stat-active-staff').innerText = dbState.staff.length;
+      document.getElementById('stat-week-progress').innerText = Math.min(100, Math.round((dbState.entries.reduce((a,c)=>a+Number(c.stunden),0) / 160)*100)) + '%';
 
-    // Re-render tiles dynamically based on custom entries or defaults
-    if (grid) {
-      grid.innerHTML = '';
-      const employeeDefaults = {
-        'Nicole De Pretto': { role: 'Projektleiterin / Design', initials: 'ND', pensum: 57, monthSollMinutes: 3128, monthSollHhMm: '52:08', baseMonthMinutes: 790, yearSoll: 1077.0, baseYearMinutes: 1210 },
-        'Michelle Dreifuss': { role: 'Frontend Engineer', initials: 'MD', pensum: 100, monthSollMinutes: 9631, monthSollHhMm: '160:31', baseMonthMinutes: 240, yearSoll: 1890.0, baseYearMinutes: 750 },
-        'Manuel Schoch': { role: 'Fullstack & DevOps', initials: 'MS', pensum: 100, monthSollMinutes: 9631, monthSollHhMm: '160:31', baseMonthMinutes: 1020, yearSoll: 1890.0, baseYearMinutes: 1020 },
-        'Seline Steinmann': { role: 'UX Research & QA', initials: 'SS', pensum: 92, monthSollMinutes: 8153, monthSollHhMm: '135:53', baseMonthMinutes: 2985, yearSoll: 1739.0, baseYearMinutes: 3465 }
-      };
-
-      emps.forEach(emp => {
-        const fullName = `${emp.vorname || ''} ${emp.nachname || ''}`.trim();
-        const def = employeeDefaults[fullName] || {
-          role: emp.role || 'Mitarbeiter',
-          initials: ((emp.vorname?.[0] || '') + (emp.nachname?.[0] || '')).toUpperCase() || 'MA',
-          pensum: emp.pensum || 100,
-          monthSollMinutes: emp.monthSollMinutes || Math.round(160.5 * 60),
-          monthSollHhMm: '160:31',
-          baseMonthMinutes: 0,
-          yearSoll: emp.soll || 2080,
-          baseYearMinutes: 0
-        };
-
-        const empEntries = entries.filter(e => e.employee === fullName);
-        const dynamicLoggedMinutes = empEntries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
-
-        const totalMonthMinutes = def.baseMonthMinutes + dynamicLoggedMinutes;
-        const totalMonthHhMm = formatMinutesToHhMm(totalMonthMinutes);
-        const monthDiffMinutes = totalMonthMinutes - def.monthSollMinutes;
-        const diffHhMm = formatMinutesToHhMm(monthDiffMinutes);
-        const isDeficit = monthDiffMinutes < 0;
-        const diffBadgeClass = isDeficit ? 'bg-error-container/60 text-on-error-container' : 'bg-primary-fixed text-on-primary-fixed';
-        const diffText = isDeficit ? `${diffHhMm} Fehlstunden` : `+${diffHhMm} Überstunden`;
-
-        const totalYearMinutes = def.baseYearMinutes + dynamicLoggedMinutes;
-        const totalYearHhMm = formatMinutesToHhMm(totalYearMinutes);
-        const yearSollHours = Number(emp.soll || def.yearSoll);
-        const yearPct = yearSollHours > 0 ? Math.min(Math.round(((totalYearMinutes / 60) / yearSollHours) * 100), 100) : 0;
-
-        const card = `
-          <div class="emp-card bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="${fullName.toLowerCase()}">
+      // Live Feed
+      const feedContainer = document.getElementById('live-feed-list');
+      feedContainer.innerHTML = dbState.entries.slice(-5).reverse().map(e => `
+        <div class="flex items-center justify-between p-4 rounded-xl bg-surface">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">${e.mitarbeiter[0]}</div>
             <div>
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-3.5">
-                  <div class="w-11 h-11 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-sm">${def.initials}</div>
-                  <div>
-                    <h3 class="text-base font-bold text-on-surface">${fullName}</h3>
-                    <p class="text-xs text-secondary">${emp.role || def.role}</p>
-                  </div>
-                </div>
-                <span class="px-2.5 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">${emp.pensum || def.pensum}% Pensum</span>
-              </div>
-              <div class="p-3.5 bg-surface-container-low rounded-xl mb-4">
-                <div class="flex items-center justify-between text-xs text-secondary mb-1">
-                  <span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
-                  <span class="px-2 py-0.5 rounded-md ${diffBadgeClass} font-semibold text-[11px]">${diffText}</span>
-                </div>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-2xl font-bold text-on-surface">${totalMonthHhMm} h</span>
-                  <span class="text-xs text-secondary font-normal">von ${def.monthSollHhMm} h Soll (${(totalMonthMinutes/60).toFixed(2)}h)</span>
-                </div>
-              </div>
-              <div class="space-y-1.5">
-                <div class="flex justify-between text-xs">
-                  <span class="text-secondary">Jahresfortschritt 2026</span>
-                  <span class="font-semibold text-on-surface">${totalYearHhMm} h von ${formatSwissNumber(yearSollHours)} h (${yearPct}%)</span>
-                </div>
-                <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                  <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: ${yearPct}%"></div>
-                </div>
-              </div>
+              <div class="font-headline-md text-on-surface">${e.mitarbeiter}</div>
+              <div class="text-body-md text-on-surface-variant">${e.stunden} Stunden am ${e.datum} (${e.projekt || 'Allgemein'})</div>
             </div>
-            <div class="mt-5 pt-3.5 border-t border-outline-variant/10 flex items-center justify-between text-xs">
-              <span class="flex items-center gap-1.5 text-secondary">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
-              </span>
-              <button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('${fullName}')">Details anzeigen →</button>
+          </div>
+          <span class="text-label-caps text-outline">Synchronisiert</span>
+        </div>
+      `).join('');
+
+      // Entries Table
+      const tableBody = document.getElementById('entries-table-body');
+      tableBody.innerHTML = dbState.entries.map(e => `
+        <tr>
+          <td class="py-3 font-medium">${e.mitarbeiter}</td>
+          <td class="py-3">${e.datum}</td>
+          <td class="py-3">${e.von || '08:00'} - ${e.bis || '17:00'} (${e.stunden}h)</td>
+          <td class="py-3">${e.projekt || '-'}</td>
+          <td class="py-3 text-right">
+            <button onclick="openEditModal('${e.id}')" class="text-primary hover:underline mr-3">Bearbeiten</button>
+            <button onclick="deleteEntry('${e.id}')" class="text-error hover:underline">Löschen</button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Staff Cards
+      const staffContainer = document.getElementById('staff-cards-container');
+      staffContainer.innerHTML = dbState.staff.map(s => {
+        const worked = dbState.entries.filter(e => e.mitarbeiter === s.name).reduce((a,c)=>a+Number(c.stunden),0);
+        return `
+          <div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4">
+            <div class="flex items-center justify-between">
+              <div class="font-headline-md text-on-surface">${s.name}</div>
+              <button onclick="deleteStaff('${s.id}')" class="text-error text-sm">Löschen</button>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between text-body-md">
+                <span class="text-on-surface-variant">Erfasst / Soll</span>
+                <span class="font-bold">${worked} / ${s.soll} Std</span>
+              </div>
+              <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+                <div class="bg-primary h-full" style="width: ${Math.min(100, (worked/s.soll)*100)}%"></div>
+              </div>
             </div>
           </div>
         `;
-        grid.insertAdjacentHTML('beforeend', card);
-      });
-    }
-  }
-
-  function renderMitarbeiter() {
-    const emps = getEmployees();
-    const grid = document.getElementById('mitarbeiterCardGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    emps.forEach(emp => {
-      const weeklyHours = (40 * ((emp.pensum || 100) / 100)).toFixed(1);
-      const sollHours = Number(emp.soll || 2080).toFixed(1);
-      const fullName = `${emp.vorname || ''} ${emp.nachname || ''}`.trim();
-      const html = `
-        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between" data-employee-id="${emp.id}">
-          <div>
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <h3 class="font-bold text-base text-on-surface emp-name">${fullName}</h3>
-                <p class="text-secondary text-xs emp-role">${emp.role || ''}</p>
-              </div>
-              <div class="flex gap-2">
-                <button class="p-1.5 hover:bg-surface-container-low rounded-lg text-secondary cursor-pointer" onclick="openEditModal('${emp.id}')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                <button class="p-1.5 hover:bg-surface-container-low rounded-lg text-error cursor-pointer" onclick="deleteEmployee('${emp.id}')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-              </div>
-            </div>
-            <div class="mt-3 text-xs space-y-1.5 text-on-surface-variant">
-              <div>Pensum: <span class="font-medium text-on-surface">${emp.pensum}% (${weeklyHours}h/Woche)</span></div>
-              <div>E-Mail: <span class="font-medium text-on-surface">${emp.email || ''}</span></div>
-              <div>Jahresarbeitszeit (Soll): <span class="font-medium text-on-surface">${sollHours} Std. (${emp.pensum}%)</span></div>
-            </div>
-          </div>
-          <div class="mt-5 pt-3 border-t border-outline-variant/10 flex justify-between items-center text-xs">
-            <span class="text-emerald-700 font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Aktiv</span>
-            <button class="text-secondary hover:underline cursor-pointer" onclick="promptPasswordReset('${emp.email || ''}')">Passwort zurücksetzen</button>
-          </div>
-        </div>
-      `;
-      grid.insertAdjacentHTML('beforeend', html);
-    });
-  }
-
-  function renderTimeEntriesSelects() {
-    const emps = getEmployees();
-    const filterSel = document.getElementById('filterEmployeeSelect');
-    if (filterSel) {
-      const currentVal = filterSel.value;
-      filterSel.innerHTML = '<option value="all">Alle Mitarbeiter</option>';
-      emps.forEach(emp => {
-        const fullName = `${emp.vorname || ''} ${emp.nachname || ''}`.trim();
-        const opt = document.createElement('option');
-        opt.value = fullName;
-        opt.textContent = fullName;
-        filterSel.appendChild(opt);
-      });
-      filterSel.value = currentVal || 'all';
-    }
-
-    [document.getElementById('timeEmployeeSelect'), document.getElementById('quickEntryEmployee')].forEach(sel => {
-      if (!sel) return;
-      const currentVal = sel.value;
-      sel.innerHTML = '';
-      emps.forEach(emp => {
-        const fullName = `${emp.vorname || ''} ${emp.nachname || ''}`.trim();
-        const opt = document.createElement('option');
-        opt.value = fullName;
-        opt.textContent = fullName;
-        sel.appendChild(opt);
-      });
-      if (currentVal) sel.value = currentVal;
-    });
-  }
-
-  function renderTimeEntriesTable() {
-    const list = document.getElementById('timeEntriesList');
-    if (!list) return;
-    const entries = getEntries();
-    list.innerHTML = '';
-
-    if (entries.length === 0) {
-      list.innerHTML = '<p class="text-xs text-secondary py-3">Keine Zeiteinträge vorhanden.</p>';
-      return;
-    }
-
-    entries.forEach(ent => {
-      const item = document.createElement('div');
-      item.className = 'flex items-center justify-between p-3.5 bg-surface-container-low rounded-xl text-xs';
-      const formattedDate = formatSwissDate(ent.date);
-      const minutes = ent.minutes || Math.round((ent.hours || 0) * 60);
-      const hhMm = formatMinutesToHhMm(minutes);
-      const decHours = (minutes / 60).toFixed(2);
-
-      item.innerHTML = `
-        <div>
-          <div class="font-bold text-on-surface">${ent.employee || ''} - <span class="text-primary">${ent.project || ''}</span></div>
-          <div class="text-[11px] text-secondary mt-0.5">Datum: <span class="font-semibold text-on-surface">${formattedDate}</span> | Dauer: <span class="font-bold text-primary">${hhMm} h</span> (${decHours}h) | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'} | AB: ${ent.ab || '-'}</div>
-        </div>
-        <div class="flex gap-2">
-          <button class="px-2.5 py-1 hover:bg-surface-container-highest rounded-lg text-primary font-semibold flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
-            <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
-          </button>
-          <button class="px-2.5 py-1 hover:bg-surface-container-highest rounded-lg text-error font-semibold flex items-center gap-1 cursor-pointer" onclick="deleteTimeEntry('${ent.id}')">
-            <span class="material-symbols-outlined text-[15px]">delete</span> Löschen
-          </button>
-        </div>
-      `;
-      list.appendChild(item);
-    });
-  }
-
-  function renderDayView() {
-    const tbody = document.getElementById('dayViewTableBody');
-    const filterDateInput = document.getElementById('filterDayDate');
-    const filterEmployeeSel = document.getElementById('filterEmployeeSelect');
-    const totalEl = document.getElementById('dayViewTotalHours');
-    if (!tbody) return;
-
-    // First auto-clean invalid/empty entries
-    autoCleanupOldStorageEntries();
-
-    const selectedEmployee = filterEmployeeSel ? filterEmployeeSel.value : 'all';
-    const selectedDate = filterDateInput && filterDateInput.value.trim() !== '' ? formatSwissDate(filterDateInput.value) : '';
-
-    const entries = getEntries();
-    let filtered = entries;
-
-    if (selectedEmployee !== 'all') {
-      filtered = filtered.filter(e => e.employee === selectedEmployee);
-    }
-    if (selectedDate) {
-      filtered = filtered.filter(e => formatSwissDate(e.date) === selectedDate);
-    }
-
-    tbody.innerHTML = '';
-    let totalMinutes = 0;
-
-    if (filtered.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="8" class="py-10 px-4 text-center">
-            <div class="flex flex-col items-center justify-center gap-2 text-secondary">
-              <span class="material-symbols-outlined text-3xl text-secondary/50">event_busy</span>
-              <span class="font-medium text-sm text-on-surface">Keine leeren Einträge vorhanden - Alle Daten zurückgesetzt</span>
-              <span class="text-xs text-secondary/80">Die Tagesansicht ist vollständig bereinigt. Erfassen Sie neue Einträge über die Schaltfläche oben.</span>
-            </div>
-          </td>
-        </tr>
-      `;
-      if (totalEl) totalEl.innerText = 'Total: 0:00 h (0.00h)';
-      return;
-    }
-
-    filtered.forEach(ent => {
-      const minutes = ent.minutes || Math.round((ent.hours || 0) * 60);
-      totalMinutes += minutes;
-      const hhMm = formatMinutesToHhMm(minutes);
-      const decHours = (minutes / 60).toFixed(2);
-
-      const tr = document.createElement('tr');
-      tr.className = 'hover:bg-surface-container-low/50 transition-colors';
-      tr.innerHTML = `
-        <td class="py-2.5 px-3 font-semibold text-on-surface">${ent.employee || ''}</td>
-        <td class="py-2.5 px-3 font-medium text-on-surface">${formatSwissDate(ent.date)}</td>
-        <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-[11px] font-medium">${ent.project || ''}</span></td>
-        <td class="py-2.5 px-3 text-secondary">${ent.vm || '-'}</td>
-        <td class="py-2.5 px-3 text-secondary">${ent.nm || '-'}</td>
-        <td class="py-2.5 px-3 text-secondary">${ent.ab || '-'}</td>
-        <td class="py-2.5 px-3 font-bold text-primary">
-          <span>${hhMm} h</span>
-          <span class="text-[10px] text-secondary font-normal block">(${decHours}h)</span>
-        </td>
-        <td class="py-2.5 px-3 text-right space-x-1">
-          <button class="p-1 hover:bg-surface-container-high rounded text-primary cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-          <button class="p-1 hover:bg-surface-container-high rounded text-error cursor-pointer" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
-
-    const sumHhMm = formatMinutesToHhMm(totalMinutes);
-    const sumDec = (totalMinutes / 60).toFixed(2);
-    if (totalEl) totalEl.innerText = `Total: ${sumHhMm} h (${sumDec}h)`;
-  }
-
-  function renderWeekView() {
-    const entries = getEntries();
-    const days = [
-      { id: 'weekMon', date: '17.08.2026' },
-      { id: 'weekTue', date: '18.08.2026' },
-      { id: 'weekWed', date: '19.08.2026' },
-      { id: 'weekThu', date: '20.08.2026' },
-      { id: 'weekFri', date: '21.08.2026' }
-    ];
-
-    days.forEach(d => {
-      const el = document.getElementById(d.id);
-      if (!el) return;
-      const dayEntries = entries.filter(e => formatSwissDate(e.date) === d.date);
-      const dayMinutes = dayEntries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
-      const hhMm = formatMinutesToHhMm(dayMinutes);
-      const dec = (dayMinutes / 60).toFixed(2);
-      el.innerHTML = `${hhMm} h <span class="text-xs text-secondary font-normal block">(${dec}h)</span>`;
-    });
-  }
-
-  function openEditModal(empId) {
-    const emps = getEmployees();
-    const emp = emps.find(e => String(e.id) === String(empId));
-    if (!emp) return;
-
-    document.getElementById('editEmployeeId').value = emp.id;
-    document.getElementById('editVorname').value = emp.vorname || '';
-    document.getElementById('editNachname').value = emp.nachname || '';
-    document.getElementById('editEmail').value = emp.email || '';
-    document.getElementById('editRole').value = emp.role || '';
-    document.getElementById('editPensum').value = emp.pensum ?? 100;
-    document.getElementById('editSoll').value = emp.soll ?? 2080.0;
-    document.getElementById('editModalTitle').innerText = 'Mitarbeiter bearbeiten';
-    document.getElementById('editEmployeeModal').classList.remove('hidden');
-  }
-
-  function openAddEmployeeModal() {
-    document.getElementById('editEmployeeId').value = '';
-    document.getElementById('editVorname').value = '';
-    document.getElementById('editNachname').value = '';
-    document.getElementById('editEmail').value = '';
-    document.getElementById('editRole').value = '';
-    document.getElementById('editPensum').value = '100';
-    document.getElementById('editSoll').value = '2080.0';
-    document.getElementById('editModalTitle').innerText = 'Neuen Mitarbeiter hinzufügen';
-    document.getElementById('editEmployeeModal').classList.remove('hidden');
-  }
-
-  function closeEditModal() {
-    document.getElementById('editEmployeeModal').classList.add('hidden');
-  }
-
-  function saveEditedEmployee() {
-    const id = document.getElementById('editEmployeeId').value;
-    const vorname = document.getElementById('editVorname').value.trim();
-    const nachname = document.getElementById('editNachname').value.trim();
-    const email = document.getElementById('editEmail').value.trim();
-    const role = document.getElementById('editRole').value.trim();
-    const pensum = parseInt(document.getElementById('editPensum').value) || 100;
-    const soll = parseFloat(document.getElementById('editSoll').value) || 2080.0;
-
-    if (!vorname || !nachname) {
-      alert("Vorname und Nachname sind obligatorisch.");
-      return;
-    }
-
-    let emps = getEmployees();
-    if (id) {
-      const idx = emps.findIndex(e => String(e.id) === String(id));
-      if (idx !== -1) {
-        emps[idx] = { ...emps[idx], vorname, nachname, email, role, pensum, soll, weekSoll: 40 * (pensum / 100) };
-      } else {
-        emps.push({ id, vorname, nachname, email, role, pensum, soll, ist: 0.0, weekSoll: 40 * (pensum / 100) });
-      }
-    } else {
-      const newId = vorname.toLowerCase() + '_' + Date.now();
-      emps.push({ id: newId, vorname, nachname, email, role, pensum, soll, ist: 0.0, weekSoll: 40 * (pensum / 100) });
-    }
-
-    saveEmployees(emps);
-    closeEditModal();
-    renderAll();
-    alert('Mitarbeiter erfolgreich in Firebase Firestore synchronisiert!');
-  }
-
-  function deleteEmployee(id) {
-    let emps = getEmployees();
-    emps = emps.filter(e => String(e.id) !== String(id));
-    saveEmployees(emps);
-    renderAll();
-    alert('Mitarbeiter gelöscht und Firestore aktualisiert.');
-  }
-
-  function openEditTimeEntryModal(id) {
-    const entries = getEntries();
-    const ent = entries.find(e => String(e.id) === String(id));
-    if (!ent) return;
-
-    const minutes = ent.minutes || Math.round((ent.hours || 0) * 60);
-
-    document.getElementById('editTimeEntryId').value = ent.id;
-    document.getElementById('editTimeEmployee').value = ent.employee || '';
-    document.getElementById('editTimeDate').value = formatSwissDate(ent.date || '21.08.2026');
-    document.getElementById('editTimeHours').value = (minutes / 60).toFixed(2);
-    document.getElementById('editTimeHhMmLabel').innerText = `${formatMinutesToHhMm(minutes)} h`;
-    document.getElementById('editTimeProject').value = ent.project || '';
-    document.getElementById('editTimeVm').value = ent.vm || '';
-    document.getElementById('editTimeNm').value = ent.nm || '';
-    document.getElementById('editTimeAb').value = ent.ab || '';
-    document.getElementById('editTimeEntryModal').classList.remove('hidden');
-  }
-
-  function closeEditTimeEntryModal() {
-    document.getElementById('editTimeEntryModal').classList.add('hidden');
-  }
-
-  function saveEditedTimeEntry() {
-    const id = document.getElementById('editTimeEntryId').value;
-    const rawDate = document.getElementById('editTimeDate').value;
-    const date = formatSwissDate(rawDate);
-    const project = document.getElementById('editTimeProject').value;
-    const vm = document.getElementById('editTimeVm').value;
-    const nm = document.getElementById('editTimeNm').value;
-    const ab = document.getElementById('editTimeAb').value;
-
-    const vmM = parseSlotStringMinutes(vm);
-    const nmM = parseSlotStringMinutes(nm);
-    const abM = parseSlotStringMinutes(ab);
-    const slotMinutes = vmM + nmM + abM;
-
-    let finalMinutes = slotMinutes;
-    if (finalMinutes === 0) {
-      const manualHours = parseFloat(document.getElementById('editTimeHours').value) || 0;
-      finalMinutes = Math.round(manualHours * 60);
-    }
-    if (finalMinutes <= 0) {
-      alert("Ein Zeiteintrag mit 0:00 Stunden kann nicht gespeichert werden.");
-      return;
-    }
-    const decHours = Math.round((finalMinutes / 60) * 100) / 100;
-
-    let entries = getEntries();
-    const idx = entries.findIndex(e => String(e.id) === String(id));
-    if (idx !== -1) {
-      entries[idx] = { 
-        ...entries[idx], 
-        date, 
-        hours: decHours, 
-        minutes: finalMinutes, 
-        project, 
-        vm, 
-        nm, 
-        ab 
-      };
-      saveEntries(entries);
-      closeEditTimeEntryModal();
-      renderAll();
-      alert(`Zeiteintrag aktualisiert: ${formatMinutesToHhMm(finalMinutes)} h (${decHours}h) synchronisiert!`);
-    }
-  }
-
-  function saveSlotTimeEntry() {
-    const empName = document.getElementById('timeEmployeeSelect').value;
-    const rawDate = document.getElementById('timeDateInput').value;
-    const date = formatSwissDate(rawDate);
-    const project = document.getElementById('timeProjectInput').value || '#Projekt';
-    const vmStart = document.getElementById('slotVmStart').value;
-    const vmEnd = document.getElementById('slotVmEnd').value;
-    const nmStart = document.getElementById('slotNmStart').value;
-    const nmEnd = document.getElementById('slotNmEnd').value;
-    const abStart = document.getElementById('slotAbStart').value;
-    const abEnd = document.getElementById('slotAbEnd').value;
-
-    const vmM = (vmStart && vmEnd) ? getSpanMinutes(vmStart, vmEnd) : 0;
-    const nmM = (nmStart && nmEnd) ? getSpanMinutes(nmStart, nmEnd) : 0;
-    const abM = (abStart && abEnd) ? getSpanMinutes(abStart, abEnd) : 0;
-
-    const totalMinutes = vmM + nmM + abM;
-    if (totalMinutes <= 0) {
-      alert("Bitte mindestens eine gültige Zeitspanne mit Beginn und Ende angeben (Dauer > 0).");
-      return;
-    }
-
-    const decHours = Math.round((totalMinutes / 60) * 100) / 100;
-    const entries = getEntries();
-    entries.unshift({
-      id: 'e_' + Date.now(),
-      employee: empName,
-      date: date,
-      project: project,
-      hours: decHours,
-      minutes: totalMinutes,
-      vm: (vmStart && vmEnd) ? `${vmStart} - ${vmEnd}` : '',
-      nm: (nmStart && nmEnd) ? `${nmStart} - ${nmEnd}` : '',
-      ab: (abStart && abEnd) ? `${abStart} - ${abEnd}` : ''
-    });
-    saveEntries(entries);
-
-    renderAll();
-    alert(`Zeiterfassung für ${empName} am ${date} mit exakt ${formatMinutesToHhMm(totalMinutes)} h (${decHours}h) gespeichert!`);
-  }
-
-  function saveQuickNewEntry() {
-    const empName = document.getElementById('quickEntryEmployee').value;
-    const rawDate = document.getElementById('quickEntryDate').value;
-    const date = formatSwissDate(rawDate);
-    const hours = parseFloat(document.getElementById('quickEntryHours').value) || 8.0;
-    const totalMinutes = Math.round(hours * 60);
-
-    if (totalMinutes <= 0) {
-      alert("Bitte eine Stundenzahl grösser als 0 eingeben.");
-      return;
-    }
-
-    const project = document.getElementById('quickEntryProject').value || '#Döltschi-Core';
-
-    const entries = getEntries();
-    entries.unshift({
-      id: 'e_' + Date.now(),
-      employee: empName,
-      date: date,
-      project: project,
-      hours: hours,
-      minutes: totalMinutes,
-      vm: '08:00 - 12:00',
-      nm: '13:00 - 17:00',
-      ab: ''
-    });
-    saveEntries(entries);
-
-    closeNewEntryModal();
-    renderAll();
-    alert(`Eintrag für den ${date} (${hours}h / ${formatMinutesToHhMm(totalMinutes)} h) gespeichert und übertragen!`);
-  }
-
-  function deleteTimeEntry(id) {
-    let entries = getEntries();
-    entries = entries.filter(e => e.id !== id);
-    saveEntries(entries);
-    renderAll();
-  }
-
-  function promptPasswordReset(email) {
-    alert(`Neues temporäres Passwort wurde an ${email} gesendet.`);
-  }
-
-  function syncData() {
-    const btn = document.getElementById('syncBtn');
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<span class="material-symbols-outlined text-[17px] animate-spin">refresh</span><span>Synchronisiere...</span>';
-    setTimeout(() => {
-      autoCleanupOldStorageEntries();
-      renderAll();
-      btn.innerHTML = '<span class="material-symbols-outlined text-[17px] text-emerald-600">check</span><span>Synchronisiert!</span>';
-      setTimeout(() => {
-        btn.innerHTML = originalHTML;
-      }, 2000);
-    }, 600);
-  }
-
-  function openDetailModal(name) {
-    const entries = getEntries();
-    const empEntries = entries.filter(e => e.employee === name);
-    const totalMinutes = empEntries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
-    const hhMm = formatMinutesToHhMm(totalMinutes);
-    const dec = (totalMinutes / 60).toFixed(2);
-
-    document.getElementById('modalTitle').innerText = name + ' - Details';
-    document.getElementById('detailTotalLogged').innerText = `${hhMm} Std. (${dec}h)`;
-    document.getElementById('detailOvertime').innerText = `${hhMm} Std. erfasst`;
-    document.getElementById('detailModal').classList.remove('hidden');
-  }
-
-  function closeDetailModal() {
-    document.getElementById('detailModal').classList.add('hidden');
-  }
-
-  function openNewEntryModal() {
-    const now = new Date();
-    const todayStr = String(now.getDate()).padStart(2, '0') + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + now.getFullYear();
-    document.getElementById('quickEntryDate').value = todayStr;
-    quickEntryHoursChanged();
-    document.getElementById('newEntryModal').classList.remove('hidden');
-  }
-
-  function closeNewEntryModal() {
-    document.getElementById('newEntryModal').classList.add('hidden');
-  }
-
-  function switchView(viewName) {
-    const views = document.querySelectorAll('.view-content');
-    views.forEach(v => v.classList.add('hidden'));
-
-    const targetView = document.getElementById('view-' + viewName);
-    if (targetView) {
-      targetView.classList.remove('hidden');
-    }
-
-    const navLinks = document.querySelectorAll('#sidebar-nav a');
-    navLinks.forEach(link => {
-      if (link.getAttribute('data-path') === viewName) {
-        link.className = "flex items-center px-3.5 py-2.5 bg-primary text-on-primary font-medium rounded-xl transition-all shadow-sm cursor-pointer";
-        link.setAttribute('aria-current', 'page');
-      } else {
-        link.className = "flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer";
-        link.removeAttribute('aria-current');
-      }
-    });
-
-    const titles = {
-      'dashboard': 'Team Dashboard',
-      'mitarbeiter': 'Mitarbeiterverwaltung',
-      'zeiterfassung': 'Zeiterfassung',
-      'tagesuebersicht': 'Tagesübersicht',
-      'wochenuebersicht': 'Wochenübersicht',
-      'berichte': 'Berichte & Auswertungen'
-    };
-    const headerTitle = document.getElementById('header-title');
-    if (headerTitle && titles[viewName]) {
-      headerTitle.innerText = titles[viewName];
-    }
-    closeCalendarPicker();
-
-    // When viewing Tagesübersicht, trigger complete cleanup and re-render
-    if (viewName === 'tagesuebersicht') {
-      autoCleanupOldStorageEntries();
-      renderDayView();
-    }
-  }
-
-  // DatePicker Engine
-  let activeDatePickerTargetId = null;
-  let currentPickerYear = 2026;
-  let currentPickerMonth = 7;
-
-  const monthNamesGerman = [
-    "Januar", "Februar", "März", "April", "Mai", "Juni", 
-    "Juli", "August", "September", "Oktober", "November", "Dezember"
-  ];
-
-  function updatePickerTodayButtonText() {
-    const btn = document.getElementById('pickerTodayBtn');
-    if (!btn) return;
-    const now = new Date();
-    const dayStr = String(now.getDate()).padStart(2, '0');
-    const monthStr = String(now.getMonth() + 1).padStart(2, '0');
-    btn.innerText = `Heute (${dayStr}.${monthStr}.${now.getFullYear()})`;
-  }
-
-  function toggleCalendarPicker(targetInputId, event) {
-    if (event) {
-      event.stopPropagation();
-      event.preventDefault();
-    }
-    const picker = document.getElementById('calendarPickerDropdown');
-    if (!picker) return;
-
-    if (activeDatePickerTargetId === targetInputId && !picker.classList.contains('hidden')) {
-      closeCalendarPicker();
-      return;
-    }
-
-    activeDatePickerTargetId = targetInputId;
-    const inputEl = document.getElementById(targetInputId);
-    if (inputEl && inputEl.value && inputEl.value.trim() !== '') {
-      const parsed = parseSwissDate(inputEl.value);
-      currentPickerYear = parsed.getFullYear();
-      currentPickerMonth = parsed.getMonth();
-    } else {
-      currentPickerYear = 2026;
-      currentPickerMonth = 7;
-    }
-
-    updatePickerTodayButtonText();
-    renderCalendarPicker();
-
-    if (inputEl) {
-      const rect = inputEl.getBoundingClientRect();
-      picker.classList.remove('hidden');
-
-      let top = rect.bottom + window.scrollY + 6;
-      let left = rect.left + window.scrollX;
-
-      const pickerWidth = 288;
-      if (left + pickerWidth > window.innerWidth - 16) {
-        left = window.innerWidth - pickerWidth - 16;
-      }
-      if (left < 16) left = 16;
-
-      picker.style.top = top + 'px';
-      picker.style.left = left + 'px';
-    }
-  }
-
-  function closeCalendarPicker() {
-    const picker = document.getElementById('calendarPickerDropdown');
-    if (picker) picker.classList.add('hidden');
-    activeDatePickerTargetId = null;
-  }
-
-  function changePickerMonth(delta) {
-    currentPickerMonth += delta;
-    if (currentPickerMonth < 0) {
-      currentPickerMonth = 11;
-      currentPickerYear--;
-    } else if (currentPickerMonth > 11) {
-      currentPickerMonth = 0;
-      currentPickerYear++;
-    }
-    renderCalendarPicker();
-  }
-
-  function selectPickerDate(day, month, year) {
-    const dayStr = String(day).padStart(2, '0');
-    const monthStr = String(month + 1).padStart(2, '0');
-    const swissDateStr = `${dayStr}.${monthStr}.${year}`;
-
-    if (activeDatePickerTargetId) {
-      const inputEl = document.getElementById(activeDatePickerTargetId);
-      if (inputEl) {
-        inputEl.value = swissDateStr;
-        if (typeof inputEl.onchange === 'function') {
-          inputEl.onchange();
+      }).join('');
+
+      // Staff Selectors
+      ['qt-mitarbeiter', 'dt-mitarbeiter'].forEach(id => {
+        const sel = document.getElementById(id);
+        if(sel) {
+          const currentVal = sel.value;
+          sel.innerHTML = '<option value="">Wählen...</option>' + dbState.staff.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+          sel.value = currentVal;
         }
+      });
+
+      // Reports
+      document.getElementById('report-staff-hours').innerHTML = dbState.staff.map(s => {
+        const h = dbState.entries.filter(e => e.mitarbeiter === s.name).reduce((a,c)=>a+Number(c.stunden),0);
+        return `<div class="flex justify-between items-center"><span class="text-on-surface">${s.name}</span><span class="font-bold text-primary">${h} Std</span></div>`;
+      }).join('');
+
+      const projMap = {};
+      dbState.entries.forEach(e => {
+        const p = e.projekt || 'Allgemein';
+        projMap[p] = (projMap[p] || 0) + Number(e.stunden);
+      });
+      document.getElementById('report-project-hours').innerHTML = Object.keys(projMap).map(p => `
+        <div class="flex justify-between items-center"><span class="text-on-surface">${p}</span><span class="font-bold text-primary">${projMap[p]} Std</span></div>
+      `).join('');
+
+      // Week Grid
+      const weekGrid = document.getElementById('week-days-grid');
+      const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+      weekGrid.innerHTML = days.map(d => `
+        <div class="bg-surface p-4 rounded-xl flex flex-col gap-2">
+          <div class="text-label-caps text-on-surface-variant">${d}</div>
+          <div class="font-headline-md text-on-surface">8.0 h</div>
+          <div class="text-xs text-outline">Soll: 8h</div>
+        </div>
+      `).join('');
+      document.getElementById('week-total-hours').innerText = dbState.entries.reduce((a,c)=>a+Number(c.stunden),0) + ' Stunden';
+    }
+
+    // Forms Handlers
+    document.getElementById('quick-time-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newEntry = {
+        id: Date.now().toString(),
+        mitarbeiter: document.getElementById('qt-mitarbeiter').value,
+        datum: document.getElementById('qt-datum').value || new Date().toISOString().split('T')[0],
+        von: '08:00',
+        bis: '17:00',
+        stunden: Number(document.getElementById('qt-stunden').value),
+        projekt: 'Schnellerfassung'
+      };
+      dbState.entries.push(newEntry);
+      saveToCloud();
+      e.target.reset();
+      document.getElementById('qt-datum').value = new Date().toISOString().split('T')[0];
+    });
+
+    document.getElementById('detailed-time-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newEntry = {
+        id: Date.now().toString(),
+        mitarbeiter: document.getElementById('dt-mitarbeiter').value,
+        datum: document.getElementById('dt-datum').value,
+        von: document.getElementById('dt-von').value,
+        bis: document.getElementById('dt-bis').value,
+        stunden: 8,
+        projekt: document.getElementById('dt-projekt').value || 'Standard'
+      };
+      dbState.entries.push(newEntry);
+      saveToCloud();
+      e.target.reset();
+    });
+
+    function deleteEntry(id) {
+      dbState.entries = dbState.entries.filter(e => e.id !== id);
+      saveToCloud();
+    }
+
+    function openEditModal(id) {
+      const entry = dbState.entries.find(e => e.id === id);
+      if(!entry) return;
+      document.getElementById('edit-id').value = entry.id;
+      document.getElementById('edit-stunden').value = entry.stunden;
+      document.getElementById('edit-projekt').value = entry.projekt;
+      document.getElementById('edit-modal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.add('hidden');
+    }
+
+    document.getElementById('edit-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-id').value;
+      const entry = dbState.entries.find(e => e.id === id);
+      if(entry) {
+        entry.stunden = Number(document.getElementById('edit-stunden').value);
+        entry.projekt = document.getElementById('edit-projekt').value;
+        saveToCloud();
       }
-    }
-    closeCalendarPicker();
-  }
+      closeEditModal();
+    });
 
-  function selectPickerToday() {
-    const now = new Date();
-    selectPickerDate(now.getDate(), now.getMonth(), now.getFullYear());
-  }
-
-  function renderCalendarPicker() {
-    const label = document.getElementById('pickerMonthYearLabel');
-    const grid = document.getElementById('pickerDaysGrid');
-    if (!label || !grid) return;
-
-    label.innerHTML = `
-      <span class="text-on-surface text-xs font-bold">${monthNamesGerman[currentPickerMonth]}</span>
-      <span class="text-primary font-bold text-xs ml-1">${currentPickerYear}</span>
-    `;
-
-    const firstDayIndex = new Date(currentPickerYear, currentPickerMonth, 1).getDay();
-    const startingDay = (firstDayIndex === 0) ? 6 : firstDayIndex - 1;
-    const daysInMonth = new Date(currentPickerYear, currentPickerMonth + 1, 0).getDate();
-    const prevMonthDays = new Date(currentPickerYear, currentPickerMonth, 0).getDate();
-
-    let currentValStr = '';
-    if (activeDatePickerTargetId) {
-      const inputEl = document.getElementById(activeDatePickerTargetId);
-      if (inputEl) currentValStr = inputEl.value;
+    function openAddStaffModal() {
+      document.getElementById('staff-modal').classList.remove('hidden');
     }
 
-    const realToday = new Date();
-    const realDay = realToday.getDate();
-    const realMonth = realToday.getMonth();
-    const realYear = realToday.getFullYear();
+    function closeAddStaffModal() {
+      document.getElementById('staff-modal').classList.add('hidden');
+    }
 
-    grid.innerHTML = '';
-
-    for (let i = startingDay; i > 0; i--) {
-      const dayNum = prevMonthDays - i + 1;
-      const prevMonth = currentPickerMonth === 0 ? 11 : currentPickerMonth - 1;
-      const prevYear = currentPickerMonth === 0 ? currentPickerYear - 1 : currentPickerYear;
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'w-8 h-8 rounded-lg flex items-center justify-center text-[11px] text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
-      btn.innerText = dayNum;
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        selectPickerDate(dayNum, prevMonth, prevYear);
+    document.getElementById('staff-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newStaff = {
+        id: 's' + Date.now(),
+        name: document.getElementById('staff-name').value,
+        soll: Number(document.getElementById('staff-soll').value)
       };
-      grid.appendChild(btn);
+      dbState.staff.push(newStaff);
+      saveToCloud();
+      closeAddStaffModal();
+      e.target.reset();
+    });
+
+    function deleteStaff(id) {
+      dbState.staff = dbState.staff.filter(s => s.id !== id);
+      saveToCloud();
     }
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dStr = String(day).padStart(2, '0');
-      const mStr = String(currentPickerMonth + 1).padStart(2, '0');
-      const fullDate = `${dStr}.${mStr}.${currentPickerYear}`;
-      const isSelected = (fullDate === currentValStr);
-      const isToday = (day === realDay && currentPickerMonth === realMonth && currentPickerYear === realYear);
+    // Init default dates
+    document.getElementById('qt-datum').value = new Date().toISOString().split('T')[0];
+    document.getElementById('dt-datum').value = new Date().toISOString().split('T')[0];
 
-      const btn = document.createElement('button');
-      btn.type = 'button';
-
-      let baseClasses = 'w-8 h-8 rounded-lg flex items-center justify-center text-[11px] font-medium transition-all cursor-pointer ';
-      if (isSelected) {
-        baseClasses += 'bg-primary text-on-primary font-bold shadow-sm';
-      } else if (isToday) {
-        baseClasses += 'bg-primary-fixed text-on-primary-fixed border border-primary font-bold hover:bg-primary-fixed-dim';
-      } else {
-        baseClasses += 'text-on-surface hover:bg-surface-container-high';
-      }
-
-      btn.className = baseClasses;
-      btn.innerText = day;
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        selectPickerDate(day, currentPickerMonth, currentPickerYear);
-      };
-      grid.appendChild(btn);
-    }
-
-    const totalCellsFilled = startingDay + daysInMonth;
-    const remainingCells = (totalCellsFilled % 7 === 0) ? 0 : 7 - (totalCellsFilled % 7);
-    for (let j = 1; j <= remainingCells; j++) {
-      const nextMonth = currentPickerMonth === 11 ? 0 : currentPickerMonth + 1;
-      const nextYear = currentPickerMonth === 11 ? currentPickerYear + 1 : currentPickerYear;
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'w-8 h-8 rounded-lg flex items-center justify-center text-[11px] text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
-      btn.innerText = j;
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        selectPickerDate(j, nextMonth, nextYear);
-      };
-      grid.appendChild(btn);
-    }
-  }
-
-  document.addEventListener('click', function(e) {
-    const picker = document.getElementById('calendarPickerDropdown');
-    if (!picker || picker.classList.contains('hidden')) return;
-
-    if (!picker.contains(e.target) && (!activeDatePickerTargetId || !document.getElementById(activeDatePickerTargetId)?.contains(e.target))) {
-      closeCalendarPicker();
-    }
-  });
-
-  // Start initialization
-  renderAll();
-</script>
-
-
-</body></html>
+    // Initial render
+    renderAll();
+  </script>
+</div></main></div></body></html>
