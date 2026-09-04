@@ -112,6 +112,9 @@
 <a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="zeiterfassung" onclick="switchView('zeiterfassung')">
 <span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
     </a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="tagesuebersicht" onclick="switchView('tagesuebersicht')">
+<span class="material-symbols-outlined mr-3">today</span>Tagesübersicht
+    </a>
 <a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="wochenuebersicht" onclick="switchView('wochenuebersicht')">
 <span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
     </a>
@@ -313,6 +316,48 @@
 </div>
 </div>
 </div>
+<!-- VIEW: TAGESUEBERSICHT -->
+<div class="view-content hidden" id="view-tagesuebersicht">
+<div class="p-8 space-y-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-on-surface">Tagesübersicht (Day View)</h1>
+<p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots.</p>
+</div>
+<div class="flex items-center gap-3">
+<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm" id="filterDayDate" onchange="renderDayView()" type="date" value="2024-10-24"/>
+<button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all" onclick="resetAllEntriesForDay()">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>Tag zurücksetzen
+          </button>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-on-surface">Gebuchte Zeiteinträge für diesen Tag</h3>
+<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium" id="dayViewTotalHours">Total: 0h</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 text-label-caps text-secondary">
+<th class="py-3 px-4">Mitarbeiter</th>
+<th class="py-3 px-4">Datum</th>
+<th class="py-3 px-4">Projekt</th>
+<th class="py-3 px-4">Vormittag</th>
+<th class="py-3 px-4">Nachmittag</th>
+<th class="py-3 px-4">Abend</th>
+<th class="py-3 px-4">Stunden</th>
+<th class="py-3 px-4 text-right">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-sm" id="dayViewTableBody">
+<!-- Populated via JS -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 <!-- VIEW: WOCHENUEBERSICHT -->
 <div class="view-content hidden" id="view-wochenuebersicht">
 <div class="p-8 space-y-6">
@@ -385,6 +430,55 @@
 <div class="flex justify-end gap-3">
 <button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium" onclick="closeEditModal()">Abbrechen</button>
 <button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="saveEditedEmployee()">Speichern &amp; Sync</button>
+</div>
+</div>
+</div>
+<!-- MODAL: TIME ENTRY EDIT -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="editTimeEntryModal">
+<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative">
+<button class="absolute top-6 right-6 text-secondary hover:text-on-surface" onclick="closeEditTimeEntryModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h3 class="text-headline-md text-on-surface mb-2">Zeiteintrag bearbeiten</h3>
+<p class="text-body-md text-on-surface-variant mb-6">Änderungen werden mit Firebase Firestore synchronisiert.</p>
+<input id="editTimeEntryId" type="hidden"/>
+<div class="space-y-4 mb-8">
+<div>
+<label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeEmployee" readonly="" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-caps text-secondary mb-1">Datum</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeDate" type="date"/>
+</div>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Stunden</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeHours" step="0.5" type="number"/>
+</div>
+</div>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Projekt</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text"/>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div>
+<label class="block text-label-caps text-secondary mb-1">Vormittag</label>
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeVm" type="text"/>
+</div>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Nachmittag</label>
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeNm" type="text"/>
+</div>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Abend</label>
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeAb" type="text"/>
+</div>
+</div>
+</div>
+<div class="flex justify-end gap-3">
+<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium" onclick="closeEditTimeEntryModal()">Abbrechen</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="saveEditedTimeEntry()">Speichern &amp; Sync</button>
 </div>
 </div>
 </div>
@@ -489,6 +583,7 @@
     renderMitarbeiter();
     renderTimeEntriesSelects();
     renderTimeEntriesTable();
+    renderDayView();
   }
 
   function renderDashboard() {
@@ -579,8 +674,8 @@
                 <p class="text-secondary text-xs emp-role">${emp.role}</p>
               </div>
               <div class="flex gap-2">
-                <button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary" onclick="openEditModal('${emp.id}')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                <button class="p-2 hover:bg-surface-container-low rounded-lg text-error" onclick="deleteEmployee('${emp.id}')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+                <button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary cursor-pointer" onclick="openEditModal('${emp.id}')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+                <button class="p-2 hover:bg-surface-container-low rounded-lg text-error cursor-pointer" onclick="deleteEmployee('${emp.id}')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
               </div>
             </div>
             <div class="mt-4 text-sm space-y-1 text-on-surface-variant">
@@ -591,7 +686,7 @@
           </div>
           <div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
             <span class="text-primary font-medium">Aktiv</span>
-            <button class="text-secondary hover:underline" onclick="promptPasswordReset('${emp.email}')">Passwort zurücksetzen</button>
+            <button class="text-secondary hover:underline cursor-pointer" onclick="promptPasswordReset('${emp.email}')">Passwort zurücksetzen</button>
           </div>
         </div>
       `;
@@ -634,7 +729,10 @@
           <div class="text-xs text-secondary mt-1">Datum: ${ent.date} | Dauer: <span class="font-semibold text-on-surface">${ent.hours}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
         </div>
         <div class="flex gap-2">
-          <button class="p-2 hover:bg-surface-container-highest rounded-lg text-error text-xs font-medium flex items-center gap-1" onclick="deleteTimeEntry('${ent.id}')">
+          <button class="p-2 hover:bg-surface-container-highest rounded-lg text-primary text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
+            <span class="material-symbols-outlined text-[16px]">edit</span> Bearbeiten
+          </button>
+          <button class="p-2 hover:bg-surface-container-highest rounded-lg text-error text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="deleteTimeEntry('${ent.id}')">
             <span class="material-symbols-outlined text-[16px]">delete</span> Löschen
           </button>
         </div>
@@ -643,18 +741,75 @@
     });
   }
 
+  function renderDayView() {
+    const tbody = document.getElementById('dayViewTableBody');
+    const filterInput = document.getElementById('filterDayDate');
+    const totalEl = document.getElementById('dayViewTotalHours');
+    if (!tbody || !filterInput) return;
+
+    const selectedDate = filterInput.value;
+    const entries = getEntries();
+    const filtered = entries.filter(e => e.date === selectedDate);
+
+    tbody.innerHTML = '';
+    let dayTotal = 0;
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-4 text-center text-secondary">Keine Zeiteinträge für den ${selectedDate} gefunden.</td></tr>`;
+      if (totalEl) totalEl.innerText = 'Total: 0h';
+      return;
+    }
+
+    filtered.forEach(ent => {
+      dayTotal += Number(ent.hours || 0);
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-surface-container-low/50 transition-all';
+      tr.innerHTML = `
+        <td class="py-3 px-4 font-medium text-on-surface">${ent.employee}</td>
+        <td class="py-3 px-4 text-secondary text-xs">${ent.date}</td>
+        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">${ent.project}</span></td>
+        <td class="py-3 px-4 text-xs text-secondary">${ent.vm || '-'}</td>
+        <td class="py-3 px-4 text-xs text-secondary">${ent.nm || '-'}</td>
+        <td class="py-3 px-4 text-xs text-secondary">${ent.ab || '-'}</td>
+        <td class="py-3 px-4 font-bold text-primary">${ent.hours}h</td>
+        <td class="py-3 px-4 text-right space-x-1">
+          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    if (totalEl) totalEl.innerText = `Total: ${dayTotal.toFixed(1)}h`;
+  }
+
+  function resetAllEntriesForDay() {
+    const pwd = prompt("Passwort zur Bestätigung (Willma):");
+    if (pwd !== "Willma") {
+      if (pwd !== null) alert("Falsches Passwort!");
+      return;
+    }
+    const filterInput = document.getElementById('filterDayDate');
+    const selectedDate = filterInput ? filterInput.value : '';
+    let entries = getEntries();
+    entries = entries.filter(e => e.date !== selectedDate);
+    saveEntries(entries);
+    renderAll();
+    alert(`Alle Einträge für den ${selectedDate} wurden zurückgesetzt.`);
+  }
+
   function openEditModal(empId) {
     const emps = getEmployees();
-    const emp = emps.find(e => e.id === empId);
+    const emp = emps.find(e => String(e.id) === String(empId));
     if (!emp) return;
 
     document.getElementById('editEmployeeId').value = emp.id;
-    document.getElementById('editVorname').value = emp.vorname;
-    document.getElementById('editNachname').value = emp.nachname;
-    document.getElementById('editEmail').value = emp.email;
-    document.getElementById('editRole').value = emp.role;
-    document.getElementById('editPensum').value = emp.pensum;
-    document.getElementById('editSoll').value = emp.soll;
+    document.getElementById('editVorname').value = emp.vorname || '';
+    document.getElementById('editNachname').value = emp.nachname || '';
+    document.getElementById('editEmail').value = emp.email || '';
+    document.getElementById('editRole').value = emp.role || '';
+    document.getElementById('editPensum').value = emp.pensum ?? 100;
+    document.getElementById('editSoll').value = emp.soll ?? 2080;
     document.getElementById('editModalTitle').innerText = 'Mitarbeiter bearbeiten';
     document.getElementById('editEmployeeModal').classList.remove('hidden');
   }
@@ -697,9 +852,11 @@
 
     let emps = getEmployees();
     if (id) {
-      const idx = emps.findIndex(e => e.id === id);
+      const idx = emps.findIndex(e => String(e.id) === String(id));
       if (idx !== -1) {
         emps[idx] = { ...emps[idx], vorname, nachname, email, role, pensum, soll, weekSoll: 40 * (pensum / 100) };
+      } else {
+        emps.push({ id, vorname, nachname, email, role, pensum, soll, ist: 0.0, weekSoll: 40 * (pensum / 100) });
       }
     } else {
       const newId = vorname.toLowerCase() + '_' + Date.now();
@@ -712,6 +869,52 @@
     alert('Mitarbeiter erfolgreich in Firebase Firestore synchronisiert!');
   }
 
+  function openEditTimeEntryModal(id) {
+    const entries = getEntries();
+    const ent = entries.find(e => String(e.id) === String(id));
+    if (!ent) return;
+
+    document.getElementById('editTimeEntryId').value = ent.id;
+    document.getElementById('editTimeEmployee').value = ent.employee;
+    document.getElementById('editTimeDate').value = ent.date || '';
+    document.getElementById('editTimeHours').value = ent.hours || 8;
+    document.getElementById('editTimeProject').value = ent.project || '';
+    document.getElementById('editTimeVm').value = ent.vm || '';
+    document.getElementById('editTimeNm').value = ent.nm || '';
+    document.getElementById('editTimeAb').value = ent.ab || '';
+    document.getElementById('editTimeEntryModal').classList.remove('hidden');
+  }
+
+  function closeEditTimeEntryModal() {
+    document.getElementById('editTimeEntryModal').classList.add('hidden');
+  }
+
+  function saveEditedTimeEntry() {
+    const pwd = prompt("Passwort zur Bestätigung (Willma):");
+    if (pwd !== "Willma") {
+      if (pwd !== null) alert("Falsches Passwort!");
+      return;
+    }
+
+    const id = document.getElementById('editTimeEntryId').value;
+    const date = document.getElementById('editTimeDate').value;
+    const hours = parseFloat(document.getElementById('editTimeHours').value) || 0;
+    const project = document.getElementById('editTimeProject').value;
+    const vm = document.getElementById('editTimeVm').value;
+    const nm = document.getElementById('editTimeNm').value;
+    const ab = document.getElementById('editTimeAb').value;
+
+    let entries = getEntries();
+    const idx = entries.findIndex(e => String(e.id) === String(id));
+    if (idx !== -1) {
+      entries[idx] = { ...entries[idx], date, hours, project, vm, nm, ab };
+      saveEntries(entries);
+      closeEditTimeEntryModal();
+      renderAll();
+      alert('Zeiteintrag aktualisiert & Sync aktiv!');
+    }
+  }
+
   function deleteEmployee(id) {
     const pwd = prompt("Passwort zur Bestätigung eingeben (Willma):");
     if (pwd !== "Willma") {
@@ -719,7 +922,7 @@
       return;
     }
     let emps = getEmployees();
-    emps = emps.filter(e => e.id !== id);
+    emps = emps.filter(e => String(e.id) !== String(id));
     saveEmployees(emps);
     renderAll();
     alert('Mitarbeiter gelöscht und Firestore aktualisiert.');
@@ -879,6 +1082,7 @@
       'dashboard': 'Zeitmanagement',
       'mitarbeiter': 'Mitarbeiter',
       'zeiterfassung': 'Zeiterfassung',
+      'tagesuebersicht': 'Tagesübersicht',
       'wochenuebersicht': 'Wochenübersicht',
       'berichte': 'Berichte'
     };
