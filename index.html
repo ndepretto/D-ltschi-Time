@@ -1,6 +1,8 @@
-<!DOCTYPE html><html lang="de"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <style>
   @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main>:first-child { margin-top: 0!important; } main>:last-child { margin-bottom: 0!important; } }
   ::-webkit-scrollbar { display: none; }
@@ -94,8 +96,8 @@
     }
   }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
 </head>
 <body class="bg-surface font-body-md text-on-surface">
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8 border-r border-outline-variant/10">
@@ -196,9 +198,162 @@
 <h2 class="text-headline-md text-on-surface">Individuelle Mitarbeiter-Kacheln</h2>
 <span class="text-xs text-secondary">Aktualisiert vor wenigen Sekunden</span>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboardEmployeeGrid">
-<!-- Dynamically populated -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboardEmployeeGrid"><!-- Nicole De Pretto -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/15 flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">ND</div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Nicole De Pretto</h3>
+<span class="text-xs text-secondary">Projektleiterin / Design</span>
 </div>
+</div>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">57% Pensum</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-label-caps">AKTUELLER MONAT</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container text-on-error-container font-semibold text-[11px]">-22:58 Fehlstunden</span>
+</div>
+<div class="text-[24px] font-headline-md text-on-surface font-bold mt-1">
+        29:10 <span class="text-xs text-secondary font-normal">/ 52:08 Soll</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="text-on-surface font-semibold">36:10 h von 1'077.00 h Soll (3%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 3%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
+    </span>
+<button class="text-primary hover:underline font-medium cursor-pointer" onclick="openDetailModal('Nicole De Pretto')">Details anzeigen</button>
+</div>
+</div>
+<!-- Michelle Dreifuss -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/15 flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">MD</div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Michelle Dreifuss</h3>
+<span class="text-xs text-secondary">Frontend Engineer</span>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">100% Pensum</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-label-caps">AKTUELLER MONAT</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container text-on-error-container font-semibold text-[11px]">-156:31 Fehlstunden</span>
+</div>
+<div class="text-[24px] font-headline-md text-on-surface font-bold mt-1">
+        4:00 <span class="text-xs text-secondary font-normal">/ 160:31 Soll</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="text-on-surface font-semibold">12:30 h von 1'890.00 h Soll (1%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 1%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
+    </span>
+<button class="text-primary hover:underline font-medium cursor-pointer" onclick="openDetailModal('Michelle Dreifuss')">Details anzeigen</button>
+</div>
+</div>
+<!-- Manuel Schoch -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/15 flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">MS</div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Manuel Schoch</h3>
+<span class="text-xs text-secondary">Fullstack &amp; DevOps</span>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">100% Pensum</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-label-caps">AKTUELLER MONAT</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container text-on-error-container font-semibold text-[11px]">-143:31 Fehlstunden</span>
+</div>
+<div class="text-[24px] font-headline-md text-on-surface font-bold mt-1">
+        17:00 <span class="text-xs text-secondary font-normal">/ 160:31 Soll</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="text-on-surface font-semibold">17:00 h von 1'890.00 h Soll (1%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 1%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
+    </span>
+<button class="text-primary hover:underline font-medium cursor-pointer" onclick="openDetailModal('Manuel Schoch')">Details anzeigen</button>
+</div>
+</div>
+<!-- Seline Steinmann -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/15 flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">SS</div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Seline Steinmann</h3>
+<span class="text-xs text-secondary">UX Research &amp; QA</span>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">92% Pensum</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-label-caps">AKTUELLER MONAT</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container text-on-error-container font-semibold text-[11px]">-86:08 Fehlstunden</span>
+</div>
+<div class="text-[24px] font-headline-md text-on-surface font-bold mt-1">
+        49:45 <span class="text-xs text-secondary font-normal">/ 135:53 Soll</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="text-on-surface font-semibold">57:45 h von 1'739.00 h Soll (5%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 5%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
+    </span>
+<button class="text-primary hover:underline font-medium cursor-pointer" onclick="openDetailModal('Seline Steinmann')">Details anzeigen</button>
+</div>
+</div></div>
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
 <div class="flex items-center justify-between mb-4">
@@ -254,7 +409,7 @@
 <div class="relative" id="timeDateContainer">
 <label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface placeholder:text-secondary/60 cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
+<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface placeholder:text-secondary/60 cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
 <button class="absolute right-3 top-3 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
 </button>
@@ -262,7 +417,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Projekt</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
 <div class="space-y-4 pt-4 border-t border-outline-variant/10">
@@ -271,25 +426,25 @@
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Vormittag</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmStart" type="time" value="08:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmStart" type="time" value="08:00"/>
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmEnd" type="time" value="12:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmEnd" type="time" value="12:00"/>
 </div>
 </div>
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Nachmittag</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmStart" type="time" value="13:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmStart" type="time" value="13:00"/>
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmEnd" type="time" value="17:00">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmEnd" type="time" value="17:00"/>
 </div>
 </div>
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Abend</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbStart" type="time" value="">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbStart" type="time" value=""/>
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbEnd" type="time" value="">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbEnd" type="time" value=""/>
 </div>
 </div>
 </div>
@@ -317,8 +472,8 @@
 <h1 class="font-headline-lg text-on-surface">Tagesübersicht (Day View)</h1>
 <p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots nach Schweizer Norm (TT.MM.JJJJ).</p>
 </div>
-<div class="flex items-center gap-3"><div class="relative"><select id="filterEmployeeSelect" onchange="renderDayView()" class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium cursor-pointer focus:ring-2 focus:ring-primary"><option value="all">Alle Mitarbeiter</option><option value="Nicole De Pretto">Nicole De Pretto</option><option value="Michelle Dreifuss">Michelle Dreifuss</option><option value="Manuel Schoch">Manuel Schoch</option><option value="Seline Steinmann">Seline Steinmann</option></select></div>
-<div class="relative flex items-center gap-1.5"><div class="relative"><input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-36 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""><button class="absolute right-2 top-2.5 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button"><span class="material-symbols-outlined text-[18px]">calendar_month</span></button></div><button class="px-2.5 py-2.5 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button></div>
+<div class="flex items-center gap-3"><div class="relative"><select class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium cursor-pointer focus:ring-2 focus:ring-primary" id="filterEmployeeSelect" onchange="renderDayView()"><option value="all">Alle Mitarbeiter</option><option value="Nicole De Pretto">Nicole De Pretto</option><option value="Michelle Dreifuss">Michelle Dreifuss</option><option value="Manuel Schoch">Manuel Schoch</option><option value="Seline Steinmann">Seline Steinmann</option></select></div>
+<div class="relative flex items-center gap-1.5"><div class="relative"><input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-36 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""/><button class="absolute right-2 top-2.5 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button"><span class="material-symbols-outlined text-[18px]">calendar_month</span></button></div><button class="px-2.5 py-2.5 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button></div>
 <button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all" onclick="resetAllEntriesForDay()">
 <span class="material-symbols-outlined text-[20px]">restart_alt</span>Tag zurücksetzen
           </button>
@@ -387,34 +542,34 @@
 </button>
 <h3 class="text-headline-md text-on-surface mb-2" id="editModalTitle">Mitarbeiter bearbeiten</h3>
 <p class="text-body-md text-on-surface-variant mb-6">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editEmployeeId" type="hidden">
+<input id="editEmployeeId" type="hidden"/>
 <div class="space-y-4 mb-8">
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Vorname</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editVorname" type="text">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editVorname" type="text"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Nachname</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editNachname" type="text">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editNachname" type="text"/>
 </div>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">E-Mail</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editEmail" type="email">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editEmail" type="email"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Rolle / Position</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editRole" type="text">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editRole" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Pensum (%)</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editPensum" type="number">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editPensum" type="number"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Jahres-Soll (Std)</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editSoll" type="number">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editSoll" type="number"/>
 </div>
 </div>
 </div>
@@ -432,17 +587,17 @@
 </button>
 <h3 class="text-headline-md text-on-surface mb-2">Zeiteintrag bearbeiten</h3>
 <p class="text-body-md text-on-surface-variant mb-6">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editTimeEntryId" type="hidden">
+<input id="editTimeEntryId" type="hidden"/>
 <div class="space-y-4 mb-8">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeEmployee" readonly="" type="text">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeEmployee" readonly="" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="relative">
 <label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text">
+<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text"/>
 <button class="absolute right-3 top-3 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
 <span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
 </button>
@@ -450,25 +605,25 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeHours" step="0.5" type="number">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeHours" step="0.5" type="number"/>
 </div>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Projekt</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text"/>
 </div>
 <div class="grid grid-cols-3 gap-2">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Vormittag</label>
-<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeVm" type="text">
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeVm" type="text"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Nachmittag</label>
-<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeNm" type="text">
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeNm" type="text"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Abend</label>
-<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeAb" type="text">
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeAb" type="text"/>
 </div>
 </div>
 </div>
@@ -524,7 +679,7 @@
 <div class="relative">
 <label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
+<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
 <button class="absolute right-3 top-3 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
 </button>
@@ -532,12 +687,12 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryHours" step="0.5" type="number" value="8.0">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryHours" step="0.5" type="number" value="8.0"/>
 </div>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Projekt / Notiz</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
 <div class="flex justify-end gap-3">
@@ -1369,6 +1524,4 @@ Schliessen
 
   renderAll();
 </script>
-
-
 </body></html>
