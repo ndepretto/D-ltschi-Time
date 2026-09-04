@@ -3,8 +3,14 @@
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Döltschi Time - Zeitmanagement</title>
 <style>
-  @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main>:first-child { margin-top: 0!important; } main>:last-child { margin-bottom: 0!important; } }
+  @layer base { 
+    html, body { margin: 0; padding: 0; } 
+    body { overscroll-behavior: none; } 
+    main>:first-child { margin-top: 0!important; } 
+    main>:last-child { margin-bottom: 0!important; } 
+  }
   ::-webkit-scrollbar { display: none; }
 </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -14,514 +20,747 @@
     theme: {
       extend: {
         "colors": {
-          "on-tertiary-fixed-variant": "#812800",
-          "surface": "#f9f9ff",
-          "on-secondary-fixed-variant": "#444749",
-          "on-primary-container": "#c4d2ff",
-          "on-tertiary-container": "#ffc6b2",
-          "secondary-fixed": "#e1e2e4",
-          "surface-tint": "#0c56d0",
-          "primary-fixed-dim": "#b2c5ff",
-          "surface-container-lowest": "#ffffff",
-          "on-secondary-container": "#606365",
-          "secondary": "#5c5f60",
-          "primary-container": "#0052cc",
-          "on-error": "#ffffff",
-          "tertiary-container": "#a33500",
-          "surface-dim": "#cadaff",
-          "on-surface": "#041b3c",
-          "background": "#f9f9ff",
-          "error": "#ba1a1a",
-          "surface-container-highest": "#d7e2ff",
-          "inverse-on-surface": "#edf0ff",
-          "surface-bright": "#f9f9ff",
-          "surface-container": "#e8edff",
-          "on-primary": "#ffffff",
-          "on-secondary-fixed": "#191c1e",
-          "on-tertiary": "#ffffff",
-          "on-tertiary-fixed": "#380d00",
-          "on-primary-fixed": "#001848",
-          "surface-container-high": "#e0e8ff",
-          "on-secondary": "#ffffff",
-          "primary-fixed": "#dae2ff",
-          "outline": "#737685",
-          "secondary-fixed-dim": "#c5c6c8",
-          "tertiary-fixed-dim": "#ffb59b",
-          "surface-variant": "#d7e2ff",
           "inverse-surface": "#1d3052",
-          "on-error-container": "#93000a",
-          "secondary-container": "#dee0e2",
-          "outline-variant": "#c3c6d6",
-          "tertiary-fixed": "#ffdbcf",
-          "on-surface-variant": "#434654",
-          "inverse-primary": "#b2c5ff",
-          "on-primary-fixed-variant": "#0040a2",
-          "on-background": "#041b3c",
+          "secondary-fixed-dim": "#c5c6c8",
+          "outline": "#737685",
+          "secondary-fixed": "#e1e2e4",
+          "surface": "#f9f9ff",
           "surface-container-low": "#f1f3ff",
+          "on-background": "#041b3c",
+          "primary-container": "#0052cc",
+          "primary-fixed-dim": "#b2c5ff",
+          "surface-bright": "#f9f9ff",
+          "on-surface": "#041b3c",
+          "surface-container-highest": "#d7e2ff",
+          "background": "#f9f9ff",
+          "on-secondary-fixed-variant": "#444749",
+          "secondary": "#5c5f60",
+          "surface-variant": "#d7e2ff",
+          "surface-tint": "#0c56d0",
+          "on-primary-fixed-variant": "#0040a2",
+          "secondary-container": "#dee0e2",
+          "on-surface-variant": "#434654",
+          "on-primary-fixed": "#001848",
+          "on-secondary-fixed": "#191c1e",
+          "surface-container": "#e8edff",
+          "on-primary-container": "#c4d2ff",
+          "surface-dim": "#cadaff",
+          "surface-container-high": "#e0e8ff",
+          "surface-container-lowest": "#ffffff",
+          "on-tertiary-fixed-variant": "#812800",
+          "tertiary-fixed-dim": "#ffb59b",
+          "on-error": "#ffffff",
+          "on-tertiary": "#ffffff",
+          "tertiary-container": "#a33500",
+          "on-error-container": "#93000a",
           "primary": "#003d9b",
+          "error": "#ba1a1a",
+          "on-tertiary-container": "#ffc6b2",
+          "primary-fixed": "#dae2ff",
+          "on-secondary-container": "#606365",
+          "outline-variant": "#c3c6d6",
+          "inverse-on-surface": "#edf0ff",
+          "on-primary": "#ffffff",
+          "inverse-primary": "#b2c5ff",
+          "on-tertiary-fixed": "#380d00",
+          "on-secondary": "#ffffff",
           "tertiary": "#7b2600",
+          "tertiary-fixed": "#ffdbcf",
           "error-container": "#ffdad6"
         },
         "borderRadius": {
           "DEFAULT": "0.25rem",
           "lg": "0.5rem",
           "xl": "0.75rem",
+          "2xl": "1rem",
           "full": "9999px"
         },
         "spacing": {
           "unit": "8px",
-          "container-max": "800px",
-          "stack-md": "24px",
           "stack-sm": "12px",
+          "stack-md": "24px",
+          "container-max": "800px",
           "gutter": "24px",
           "stack-lg": "48px"
         },
         "fontFamily": {
           "headline-lg": ["Work Sans"],
-          "body-md": ["Work Sans"],
           "headline-lg-mobile": ["Work Sans"],
-          "headline-md": ["Work Sans"],
+          "body-lg": ["Work Sans"],
+          "body-md": ["Work Sans"],
           "label-caps": ["Work Sans"],
-          "body-lg": ["Work Sans"]
-        },
-        "fontSize": {
-          "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-          "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-          "headline-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
-          "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-          "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
-          "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+          "headline-md": ["Work Sans"]
         }
       }
     }
   }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-surface font-body-md text-on-surface">
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8 border-r border-outline-variant/10">
-<div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div>
-<nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
-<a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer" data-path="dashboard" onclick="switchView('dashboard')">
-<span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
-    </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="mitarbeiter" onclick="switchView('mitarbeiter')">
-<span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
-    </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="zeiterfassung" onclick="switchView('zeiterfassung')">
-<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
-    </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="tagesuebersicht" onclick="switchView('tagesuebersicht')">
-<span class="material-symbols-outlined mr-3">today</span>Tagesübersicht
-    </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="wochenuebersicht" onclick="switchView('wochenuebersicht')">
-<span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
-    </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-path="berichte" onclick="switchView('berichte')">
-<span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
-    </a>
-</nav>
-</aside>
-<div class="pl-64">
-<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8 border-b border-outline-variant/10">
-<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement</div>
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
-<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">ND</div>
-</div>
-</header>
-<main class="relative pt-16 bg-surface min-h-screen">
-<!-- VIEW: DASHBOARD -->
-<div class="view-content" id="view-dashboard">
-<div class="flex flex-col w-full pb-16">
-<div class="px-8 pt-8 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-outline-variant/20 bg-surface-container-low/50">
+<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary selection:text-white">
+<!-- SIDEBAR -->
+<aside class="fixed left-0 top-0 h-full w-60 bg-surface-container-low z-50 flex flex-col justify-between py-6 border-r border-outline-variant/20 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
 <div>
-<div class="flex items-center gap-2 mb-1">
-<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-caps text-[10px]">LIVE CLOUD SYNC</span>
-<span class="text-xs text-secondary">Firebase Firestore Connected (Passwort: Willma)</span>
+<div class="px-6 mb-8 flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-sm">
+<span class="material-symbols-outlined text-[18px]">nest_clock_farsight_analog</span>
 </div>
-<h1 class="font-headline-lg text-on-surface">Team Dashboard &amp; Live-Zeiterfassung</h1>
-<p class="text-body-md text-on-surface-variant">Übersicht aller Mitarbeiter, Pensen, Soll/Ist-Stunden und Jahresfortschritte.</p>
+<div class="font-headline-md font-bold tracking-tight text-on-surface text-lg">Döltschi <span class="text-primary font-normal">Time</span></div>
+</div>
+<nav class="px-3 space-y-1" id="sidebar-nav">
+<a aria-current="page" class="flex items-center px-3.5 py-2.5 bg-primary text-on-primary font-medium rounded-xl transition-all shadow-sm cursor-pointer" data-path="dashboard" onclick="switchView('dashboard')">
+<span class="material-symbols-outlined text-[20px] mr-3">dashboard</span>Dashboard
+      </a>
+<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="mitarbeiter" onclick="switchView('mitarbeiter')">
+<span class="material-symbols-outlined text-[20px] mr-3">group</span>Mitarbeiter
+      </a>
+<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="zeiterfassung" onclick="switchView('zeiterfassung')">
+<span class="material-symbols-outlined text-[20px] mr-3">schedule</span>Zeiterfassung
+      </a>
+<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="tagesuebersicht" onclick="switchView('tagesuebersicht')">
+<span class="material-symbols-outlined text-[20px] mr-3">today</span>Tagesübersicht
+      </a>
+<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="wochenuebersicht" onclick="switchView('wochenuebersicht')">
+<span class="material-symbols-outlined text-[20px] mr-3">date_range</span>Wochenübersicht
+      </a>
+<a class="flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer" data-path="berichte" onclick="switchView('berichte')">
+<span class="material-symbols-outlined text-[20px] mr-3">bar_chart</span>Berichte
+      </a>
+</nav>
+</div>
+<div class="px-5 pt-4 border-t border-outline-variant/15 text-xs text-secondary flex items-center justify-between">
+<span class="font-medium">Version 2.4</span>
+<span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Online</span>
+</div>
+</aside>
+<!-- TOP-HEADER & MAIN CONTENT WRAPPER -->
+<div class="pl-60 min-h-screen flex flex-col bg-surface">
+<!-- SLIM HEADER WITH ALL CONTROLS -->
+<header class="sticky top-0 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-md z-40 flex items-center justify-between px-8 border-b border-outline-variant/20">
+<div class="flex items-center gap-3">
+<h2 class="text-base font-bold text-on-surface" id="header-title">Team Dashboard</h2>
+<span class="text-outline-variant">•</span>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-medium">
+<span class="material-symbols-outlined text-[14px] text-primary">calendar_today</span>
+<span>21.08.2026</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Cloud Sync aktiv (Willma)</span>
+</div>
 </div>
 <div class="flex items-center gap-3">
-<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-primary-container transition-all shadow-sm cursor-pointer" id="syncBtn" onclick="syncData()">
-<span class="material-symbols-outlined text-[20px]">sync</span>Daten synchronisieren
-            </button>
-<button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all cursor-pointer" onclick="openNewEntryModal()">
-<span class="material-symbols-outlined text-[20px]">add</span>Zeiteintrag
-            </button>
+<button class="inline-flex items-center gap-2 bg-surface-container-high text-on-surface hover:bg-surface-container-highest px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm" id="syncBtn" onclick="syncData()">
+<span class="material-symbols-outlined text-[17px]">sync</span>
+<span>Daten synchronisieren</span>
+</button>
+<button class="inline-flex items-center gap-1.5 bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm" onclick="openNewEntryModal()">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Neuer Zeiteintrag</span>
+</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-1"></div>
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-xs">
+        ND
+      </div>
 </div>
-</div>
-<div class="p-8 space-y-stack-lg">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between relative overflow-hidden">
-<div class="absolute right-0 top-0 w-2 h-full bg-primary"></div>
+</header>
+<main class="p-8 space-y-8 flex-1">
+<!-- VIEW: DASHBOARD -->
+<div class="view-content space-y-8" id="view-dashboard">
+<!-- HERO HEADER TITLE -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-2">
 <div>
-<span class="text-label-caps text-secondary">AKTIVES TEAM</span>
-<div class="text-[32px] font-headline-lg text-on-surface mt-1" id="statTeamCount">4</div>
+<h1 class="text-2xl font-bold tracking-tight text-on-surface">Team Übersicht &amp; Live-Zeiterfassung</h1>
+<p class="text-sm text-secondary">Übersicht aller 4 Mitarbeiter, Pensen, Soll/Ist-Stunden und Jahresfortschritte per 21.08.2026.</p>
 </div>
-<div class="flex items-center gap-1.5 text-xs text-primary mt-4 font-medium">
-<span class="material-symbols-outlined text-[16px]">check_circle</span>Alle Systeme online
-              </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
-<div>
-<span class="text-label-caps text-secondary">GESAMT-SOLL (WOCHE)</span>
-<div class="text-[32px] font-headline-lg text-on-surface mt-1" id="statTotalSoll">139.2h</div>
+<!-- KPI BAR: 4 HARMONIOUS CARDS IN ONE ROW -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Aktives Team</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">group</span>
+</span>
 </div>
-<div class="flex items-center gap-1.5 text-xs text-secondary mt-4">
-<span class="material-symbols-outlined text-[16px]">schedule</span>40.0h Basis pro Vollzeit
-              </div>
+<div class="mt-3">
+<div class="text-3xl font-bold tracking-tight text-on-surface" id="statTeamCount">4</div>
+<div class="flex items-center gap-1 text-xs text-emerald-700 font-medium mt-1">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>Alle Systeme bereit</span>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
-<div>
-<span class="text-label-caps text-secondary">GESAMT-IST (WOCHE)</span>
-<div class="text-[32px] font-headline-lg text-primary mt-1" id="totalIstHours">29.6h</div>
 </div>
-<div class="w-full bg-surface-container-high h-2 rounded-full mt-4 overflow-hidden">
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Gesamt-Soll (Woche)</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="text-3xl font-bold tracking-tight text-on-surface" id="statTotalSoll">139.2 h</div>
+<div class="text-xs text-secondary mt-1">Basis 40.0 h Vollzeit</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Gesamt-Ist (Woche)</span>
+<span class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">timelapse</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="text-3xl font-bold tracking-tight text-primary" id="totalIstHours">29.6 h</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
 <div class="bg-primary h-full rounded-full transition-all duration-300" id="statIstBar" style="width: 21%"></div>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold uppercase tracking-wider text-secondary">Jahresfortschritt 2026</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="text-3xl font-bold tracking-tight text-on-surface" id="statTotalYearProgress">3%</div>
+<div class="flex items-center gap-1 text-xs text-secondary mt-1">
+<span class="material-symbols-outlined text-[15px] text-primary">analytics</span>
+<span>Q1–Q3 aktiv</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MITARBEITER SECTION WITH SEARCH BAR & ACCURATE TILES -->
+<div class="space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
 <div>
-<span class="text-label-caps text-secondary">JAHRESFORTSCHRITT 2026</span>
-<div class="text-[32px] font-headline-lg text-on-surface mt-1" id="statTotalYearProgress">3%</div>
+<h2 class="text-lg font-bold text-on-surface">Individuelle Mitarbeiter-Kacheln</h2>
+<p class="text-xs text-secondary">Aktualisiert vor wenigen Sekunden • Exakte Minutensummierung</p>
 </div>
-<div class="flex items-center gap-1.5 text-xs text-secondary mt-4">
-<span class="material-symbols-outlined text-[16px]">trending_up</span>Q1-Q3 aktiv
-              </div>
+<div class="flex items-center gap-2">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-xs bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-on-surface focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-secondary/60" id="employeeSearchInput" oninput="filterEmployeeCards()" placeholder="Mitarbeiter suchen..." type="text"/>
 </div>
 </div>
+</div>
+<!-- EMPLOYEE CARDS GRID: 4 PRE-RENDERED & DYNAMICALLY ACCURATE CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="dashboardEmployeeGrid">
+<!-- Nicole De Pretto -->
+<div class="emp-card bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="nicole de pretto">
 <div>
-<div class="flex items-center justify-between mb-6">
-<h2 class="text-headline-md text-on-surface">Individuelle Mitarbeiter-Kacheln</h2>
-<span class="text-xs text-secondary">Aktualisiert vor wenigen Sekunden • Exakte Minutensummierung</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboardEmployeeGrid">
-<!-- Dynamic accurate employee tiles populated via JS -->
-</div>
-</div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
-<div class="flex items-center justify-between mb-4">
-<h3 class="text-headline-md text-on-surface">Letzte Cloud-Aktivitäten</h3>
-<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium">Firestore RT-DB</span>
-</div>
-<div class="space-y-3" id="activityLogContainer">
-<div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">check_circle</span>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-sm">ND</div>
 <div>
-<p class="text-body-md font-medium text-on-surface">System bereit und initialisiert (Minutenpräzise Logik aktiv)</p>
-<span class="text-xs text-secondary">Heute, 21.08.2026 • Automatischer Cloud-Sync</span>
+<h3 class="text-base font-bold text-on-surface">Nicole De Pretto</h3>
+<p class="text-xs text-secondary">Projektleiterin / Design</p>
 </div>
 </div>
-<span class="text-xs text-secondary">Bereit</span>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">57% Pensum</span>
+</div>
+<!-- Month Status Box -->
+<div class="p-3.5 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-22:58 h Fehlstunden</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-on-surface">29:10 h</span>
+<span class="text-xs text-secondary font-normal">von 52:08 h Soll (29.17h)</span>
 </div>
 </div>
+<!-- Year Progress Bar -->
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="font-semibold text-on-surface">36:10 h von 1'077.00 h (3%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 3%"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3.5 border-t border-outline-variant/10 flex items-center justify-between text-xs">
+<span class="flex items-center gap-1.5 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
+              </span>
+<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Nicole De Pretto')">Details anzeigen →</button>
+</div>
+</div>
+<!-- Michelle Dreifuss -->
+<div class="emp-card bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="michelle dreifuss">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">MD</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Michelle Dreifuss</h3>
+<p class="text-xs text-secondary">Frontend Engineer</p>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">100% Pensum</span>
+</div>
+<div class="p-3.5 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-156:31 h Fehlstunden</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-on-surface">4:00 h</span>
+<span class="text-xs text-secondary font-normal">von 160:31 h Soll (4.00h)</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="font-semibold text-on-surface">12:30 h von 1'890.00 h (1%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 1%"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3.5 border-t border-outline-variant/10 flex items-center justify-between text-xs">
+<span class="flex items-center gap-1.5 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
+              </span>
+<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Michelle Dreifuss')">Details anzeigen →</button>
+</div>
+</div>
+<!-- Manuel Schoch -->
+<div class="emp-card bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="manuel schoch">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">MS</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Manuel Schoch</h3>
+<p class="text-xs text-secondary">Fullstack &amp; DevOps</p>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">100% Pensum</span>
+</div>
+<div class="p-3.5 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-143:31 h Fehlstunden</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-on-surface">17:00 h</span>
+<span class="text-xs text-secondary font-normal">von 160:31 h Soll (17.00h)</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="font-semibold text-on-surface">17:00 h von 1'890.00 h (1%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 1%"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3.5 border-t border-outline-variant/10 flex items-center justify-between text-xs">
+<span class="flex items-center gap-1.5 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
+              </span>
+<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Manuel Schoch')">Details anzeigen →</button>
+</div>
+</div>
+<!-- Seline Steinmann -->
+<div class="emp-card bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="seline steinmann">
+<div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">SS</div>
+<div>
+<h3 class="text-base font-bold text-on-surface">Seline Steinmann</h3>
+<p class="text-xs text-secondary">UX Research &amp; QA</p>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">92% Pensum</span>
+</div>
+<div class="p-3.5 bg-surface-container-low rounded-xl mb-4">
+<div class="flex items-center justify-between text-xs text-secondary mb-1">
+<span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
+<span class="px-2 py-0.5 rounded-md bg-error-container/60 text-on-error-container text-[11px] font-semibold">-86:08 h Fehlstunden</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-on-surface">49:45 h</span>
+<span class="text-xs text-secondary font-normal">von 135:53 h Soll (49.75h)</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-secondary">Jahresfortschritt 2026</span>
+<span class="font-semibold text-on-surface">57:45 h von 1'739.00 h (5%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 5%"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3.5 border-t border-outline-variant/10 flex items-center justify-between text-xs">
+<span class="flex items-center gap-1.5 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
+              </span>
+<button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('Seline Steinmann')">Details anzeigen →</button>
+</div>
+</div>
+</div>
+</div>
+<!-- COMPACT ACTIVITY FEED -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/15 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span>
+<h3 class="text-sm font-bold text-on-surface">Letzte Aktivitäten</h3>
+</div>
+<span class="text-[11px] px-2.5 py-0.5 bg-surface-container text-secondary rounded-full font-medium">Firestore RT-DB</span>
+</div>
+<div class="space-y-2 text-xs" id="activityLogContainer">
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/10">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div>
+<span class="font-medium text-on-surface">System bereit und initialisiert (Minutenpräzise Logik aktiv)</span>
+<span class="text-secondary block text-[11px]">Heute, 21.08.2026, 08:30 Uhr • Automatischer Cloud-Sync</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary font-medium text-[11px]">Bereit</span>
+</div>
+<div class="flex items-center justify-between py-2">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<div>
+<span class="font-medium text-on-surface">Live-Zeiterfassung synchronisiert mit Schweizer Industriezeit</span>
+<span class="text-secondary block text-[11px]">Heute, 21.08.2026, 08:00 Uhr • Authentifiziert als Willma</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-emerald-800 font-medium text-[11px]">Erfolgreich</span>
 </div>
 </div>
 </div>
 </div>
 <!-- VIEW: MITARBEITER -->
-<div class="view-content hidden" id="view-mitarbeiter">
-<div class="p-8 space-y-6">
+<div class="view-content hidden space-y-6" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
 <div>
-<h1 class="font-headline-lg text-on-surface">Mitarbeiterverwaltung</h1>
-<p class="text-body-md text-on-surface-variant">Verwaltung der Teammitglieder, Pensen und Kontaktdaten.</p>
+<h1 class="text-2xl font-bold text-on-surface">Mitarbeiterverwaltung</h1>
+<p class="text-sm text-secondary">Verwaltung der Teammitglieder, Pensen und Kontaktdaten.</p>
 </div>
-<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-primary-container transition-all shadow-sm cursor-pointer" onclick="openAddEmployeeModal()">
-<span class="material-symbols-outlined text-[20px]">person_add</span>Mitarbeiter hinzufügen
-          </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-primary-container transition-all shadow-sm cursor-pointer" onclick="openAddEmployeeModal()">
+<span class="material-symbols-outlined text-[18px]">person_add</span>Mitarbeiter hinzufügen
+        </button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="mitarbeiterCardGrid">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="mitarbeiterCardGrid">
 <!-- Populated via JS -->
 </div>
 </div>
-</div>
 <!-- VIEW: ZEITERFASSUNG -->
-<div class="view-content hidden" id="view-zeiterfassung">
-<div class="p-8 space-y-6">
-<h1 class="font-headline-lg text-on-surface">Zeiterfassung</h1>
-<p class="text-body-md text-on-surface-variant">Erfassen und Verwalten von Arbeitsstunden mit minutengenauer Berechnung über Vormittag-, Nachmittag- und Abend-Slots (Schweizer Datumsformat TT.MM.JJJJ).</p>
-<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm space-y-6">
+<div class="view-content hidden space-y-6" id="view-zeiterfassung">
+<div>
+<h1 class="text-2xl font-bold text-on-surface">Zeiterfassung</h1>
+<p class="text-sm text-secondary">Erfassen und Verwalten von Arbeitsstunden mit minutengenauer Berechnung über Vormittag-, Nachmittag- und Abend-Slots (Schweizer Datumsformat TT.MM.JJJJ).</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-6">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant/10 pb-4">
-<h3 class="font-bold text-body-lg text-on-surface">Tages-Zeiterfassung erfassen</h3>
-<div class="inline-flex items-center gap-2 bg-primary-fixed/40 px-3 py-1.5 rounded-xl text-xs font-semibold text-on-primary-fixed">
+<h3 class="font-bold text-base text-on-surface">Tages-Zeiterfassung erfassen</h3>
+<div class="inline-flex items-center gap-2 bg-primary-fixed/50 px-3 py-1.5 rounded-xl text-xs font-semibold text-on-primary-fixed">
 <span class="material-symbols-outlined text-base text-primary">timer</span>
 <span>Live-Kalkulation: <strong class="text-primary text-sm font-bold" id="formLiveTotal">0:00 h (0.00h)</strong></span>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
-<select class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface focus:ring-2 focus:ring-primary font-medium" id="timeEmployeeSelect">
+<label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Mitarbeiter</label>
+<select class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm focus:ring-2 focus:ring-primary font-medium cursor-pointer" id="timeEmployeeSelect">
 </select>
 </div>
 <div class="relative" id="timeDateContainer">
-<label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
+<label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface placeholder:text-secondary/60 cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
-<button class="absolute right-3 top-3 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
-<span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
+<input class="w-full p-2.5 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
+<button class="absolute right-2.5 top-2.5 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
+<span class="material-symbols-outlined text-lg pointer-events-none">calendar_month</span>
 </button>
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
+<label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Projekt / Bemerkungen</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
-<div class="space-y-4 pt-4 border-t border-outline-variant/10">
+<div class="space-y-3 pt-3 border-t border-outline-variant/10">
 <div class="flex items-center justify-between">
-<h4 class="font-bold text-on-surface text-sm">Zeitfenster (Slots) mit automatischer Minutendifferenz</h4>
+<h4 class="font-bold text-on-surface text-xs">Zeitfenster (Slots) mit automatischer Minutendifferenz</h4>
 <span class="text-xs text-secondary">Beispiel: 07:00 - 08:15 (75m) + 10:00 - 12:00 (120m) = 3:15 h (3.25h)</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-<div class="p-4 bg-surface-container-low rounded-xl space-y-2">
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
 <div class="flex justify-between items-center">
-<span class="text-label-caps text-primary font-bold">Vormittag</span>
+<span class="text-xs uppercase font-bold text-primary">Vormittag</span>
 <span class="text-xs font-semibold text-secondary" id="slotVmBadge">4:00 h (4.00h)</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00"/>
-<span class="text-secondary font-bold">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00"/>
+<span class="text-secondary font-bold text-xs">-</span>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00"/>
 </div>
 </div>
-<div class="p-4 bg-surface-container-low rounded-xl space-y-2">
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
 <div class="flex justify-between items-center">
-<span class="text-label-caps text-primary font-bold">Nachmittag</span>
+<span class="text-xs uppercase font-bold text-primary">Nachmittag</span>
 <span class="text-xs font-semibold text-secondary" id="slotNmBadge">4:00 h (4.00h)</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00"/>
-<span class="text-secondary font-bold">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00"/>
+<span class="text-secondary font-bold text-xs">-</span>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00"/>
 </div>
 </div>
-<div class="p-4 bg-surface-container-low rounded-xl space-y-2">
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
 <div class="flex justify-between items-center">
-<span class="text-label-caps text-primary font-bold">Abend</span>
+<span class="text-xs uppercase font-bold text-primary">Abend</span>
 <span class="text-xs font-semibold text-secondary" id="slotAbBadge">0:00 h</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value=""/>
-<span class="text-secondary font-bold">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value=""/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value=""/>
+<span class="text-secondary font-bold text-xs">-</span>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value=""/>
 </div>
 </div>
 </div>
 </div>
-<div class="flex items-center justify-between pt-4 border-t border-outline-variant/10">
+<div class="flex items-center justify-between pt-3 border-t border-outline-variant/10">
 <div class="text-xs text-secondary flex items-center gap-1.5">
 <span class="material-symbols-outlined text-[16px] text-primary">calculate</span>
-  Berechnung nach Industrieminuten (exakt: EndeMin - StartMin)
+            Berechnung nach Industrieminuten (exakt: EndeMin - StartMin)
+          </div>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl text-xs font-semibold shadow-sm hover:bg-primary-container transition-all cursor-pointer flex items-center gap-2" onclick="saveSlotTimeEntry()">
+<span class="material-symbols-outlined text-base">save</span>
+            Zeiterfassung speichern &amp; Sync
+          </button>
 </div>
-<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-medium shadow-sm hover:bg-primary-container transition-all cursor-pointer flex items-center gap-2" onclick="saveSlotTimeEntry()">
-<span class="material-symbols-outlined text-lg">save</span>
-  Zeiterfassung speichern &amp; Sync
-</button>
 </div>
-</div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-4">
 <div class="flex justify-between items-center">
-<h3 class="font-headline-md text-on-surface">Tagesübersicht &amp; Gebuchte Einträge</h3>
+<h3 class="font-bold text-base text-on-surface">Tagesübersicht &amp; Gebuchte Einträge</h3>
 <span class="text-xs text-secondary">Live aus Speicher</span>
 </div>
-<div class="space-y-3" id="timeEntriesList">
+<div class="space-y-2.5" id="timeEntriesList">
 <!-- Populated via JS -->
 </div>
 </div>
 </div>
-</div>
 <!-- VIEW: TAGESUEBERSICHT -->
-<div class="view-content hidden" id="view-tagesuebersicht">
-<div class="p-8 space-y-6">
+<div class="view-content hidden space-y-6" id="view-tagesuebersicht">
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div>
-<h1 class="font-headline-lg text-on-surface">Tagesübersicht (Day View)</h1>
-<p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots mit exakter Minutendifferenz (Schweizer Norm TT.MM.JJJJ).</p>
+<h1 class="text-2xl font-bold text-on-surface">Tagesübersicht (Day View)</h1>
+<p class="text-sm text-secondary">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots mit exakter Minutendifferenz (Schweizer Norm TT.MM.JJJJ).</p>
 </div>
-<div class="flex items-center gap-3"><div class="relative"><select class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium cursor-pointer focus:ring-2 focus:ring-primary" id="filterEmployeeSelect" onchange="renderDayView()"><option value="all">Alle Mitarbeiter</option></select></div>
-<div class="relative flex items-center gap-1.5"><div class="relative"><input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-36 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""/><button class="absolute right-2 top-2.5 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button"><span class="material-symbols-outlined text-[18px]">calendar_month</span></button></div><button class="px-2.5 py-2.5 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button></div>
-<button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all cursor-pointer" onclick="resetAllEntriesForDay()">
-<span class="material-symbols-outlined text-[20px]">restart_alt</span>Tag zurücksetzen
+<div class="flex items-center gap-3">
+<div class="relative">
+<select class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium cursor-pointer focus:ring-2 focus:ring-primary" id="filterEmployeeSelect" onchange="renderDayView()">
+<option value="all">Alle Mitarbeiter</option>
+</select>
+</div>
+<div class="relative flex items-center gap-1.5">
+<div class="relative">
+<input class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium w-32 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""/>
+<button class="absolute right-2 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+</button>
+</div>
+<button class="px-2.5 py-2 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button>
+</div>
+<button class="flex items-center gap-1.5 bg-surface-container-high text-on-surface px-3 py-2 rounded-xl text-xs font-medium hover:bg-surface-container-highest transition-all cursor-pointer" onclick="resetAllEntriesForDay()">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>Tag zurücksetzen
           </button>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm space-y-4">
 <div class="flex items-center justify-between">
-<h3 class="font-headline-md text-on-surface">Gebuchte Zeiteinträge</h3>
-<span class="text-xs px-3 py-1.5 bg-surface-container text-primary font-bold rounded-lg" id="dayViewTotalHours">Total: 0:00 h (0.00h)</span>
+<h3 class="font-bold text-base text-on-surface">Gebuchte Zeiteinträge</h3>
+<span class="text-xs px-3 py-1 bg-surface-container text-primary font-bold rounded-lg" id="dayViewTotalHours">Total: 0:00 h (0.00h)</span>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
 <thead>
-<tr class="border-b border-outline-variant/20 text-label-caps text-secondary">
-<th class="py-3 px-4">Mitarbeiter</th>
-<th class="py-3 px-4">Datum (TT.MM.JJJJ)</th>
-<th class="py-3 px-4">Projekt / Bemerkungen</th>
-<th class="py-3 px-4">Vormittag</th>
-<th class="py-3 px-4">Nachmittag</th>
-<th class="py-3 px-4">Abend</th>
-<th class="py-3 px-4">Stunden (hh:mm / Dez.)</th>
-<th class="py-3 px-4 text-right">Aktionen</th>
+<tr class="border-b border-outline-variant/20 text-xs font-semibold uppercase text-secondary">
+<th class="py-3 px-3">Mitarbeiter</th>
+<th class="py-3 px-3">Datum</th>
+<th class="py-3 px-3">Projekt</th>
+<th class="py-3 px-3">Vormittag</th>
+<th class="py-3 px-3">Nachmittag</th>
+<th class="py-3 px-3">Abend</th>
+<th class="py-3 px-3">Stunden</th>
+<th class="py-3 px-3 text-right">Aktionen</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/10 text-sm" id="dayViewTableBody">
-<!-- Populated dynamically with accurate sums -->
+<tbody class="divide-y divide-outline-variant/10 text-xs" id="dayViewTableBody">
+<!-- Populated dynamically -->
 </tbody>
 </table>
 </div>
 </div>
 </div>
-</div>
 <!-- VIEW: WOCHENUEBERSICHT -->
-<div class="view-content hidden" id="view-wochenuebersicht">
-<div class="p-8 space-y-6">
-<h1 class="font-headline-lg text-on-surface">Wochenübersicht</h1>
-<p class="text-body-md text-on-surface-variant">Kalenderbasierte Wochenansicht mit dynamischer Stundensummierung (KW 34 / 17.08.2026 - 21.08.2026).</p>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
-<div class="grid grid-cols-5 gap-4 text-center" id="weekOverviewGrid">
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG (17.08.2026)</div><div class="text-lg font-bold mt-2 text-on-surface" id="weekMon">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG (18.08.2026)</div><div class="text-lg font-bold mt-2 text-on-surface" id="weekTue">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH (19.08.2026)</div><div class="text-lg font-bold mt-2 text-on-surface" id="weekWed">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG (20.08.2026)</div><div class="text-lg font-bold mt-2 text-on-surface" id="weekThu">0:00 h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG (21.08.2026)</div><div class="text-lg font-bold mt-2 text-primary" id="weekFri">0:00 h</div></div>
+<div class="view-content hidden space-y-6" id="view-wochenuebersicht">
+<div>
+<h1 class="text-2xl font-bold text-on-surface">Wochenübersicht</h1>
+<p class="text-sm text-secondary">Kalenderbasierte Wochenansicht mit dynamischer Stundensummierung (KW 34 / 17.08.2026 - 21.08.2026).</p>
 </div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm">
+<div class="grid grid-cols-5 gap-4 text-center" id="weekOverviewGrid">
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG (17.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekMon">0:00 h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG (18.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekTue">0:00 h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH (19.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekWed">0:00 h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG (20.08.2026)</div><div class="text-base font-bold mt-2 text-on-surface" id="weekThu">0:00 h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG (21.08.2026)</div><div class="text-base font-bold mt-2 text-primary" id="weekFri">0:00 h</div></div>
 </div>
 </div>
 </div>
 <!-- VIEW: BERICHTE -->
-<div class="view-content hidden" id="view-berichte">
-<div class="p-8 space-y-6">
-<h1 class="font-headline-lg text-on-surface">Berichte &amp; Auswertungen</h1>
-<p class="text-body-md text-on-surface-variant">Monats- und Jahresberichte zum Exportieren (Stand: 21.08.2026).</p>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex items-center justify-between">
+<div class="view-content hidden space-y-6" id="view-berichte">
 <div>
-<h3 class="font-bold text-body-lg">Jahresbericht 2026 (PDF)</h3>
+<h1 class="text-2xl font-bold text-on-surface">Berichte &amp; Auswertungen</h1>
+<p class="text-sm text-secondary">Monats- und Jahresberichte zum Exportieren (Stand: 21.08.2026).</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex items-center justify-between">
+<div>
+<h3 class="font-bold text-base">Jahresbericht 2026 (PDF)</h3>
 <p class="text-secondary text-xs">Detaillierte Auswertung aller Überstunden und Ferienguthaben bis zum 21.08.2026 (exakt minutengestützt).</p>
 </div>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-medium cursor-pointer hover:bg-primary-container" onclick="alert('Bericht per 21.08.2026 wird generiert...')">Bericht herunterladen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer hover:bg-primary-container" onclick="alert('Bericht per 21.08.2026 wird generiert...')">Bericht herunterladen</button>
 </div>
 </div>
+</main>
 </div>
 <!-- MODAL: EMPLOYEE EDIT / ADD -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="editEmployeeModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative">
-<button class="absolute top-6 right-6 text-secondary hover:text-on-surface cursor-pointer" onclick="closeEditModal()">
+<div class="bg-surface-container-lowest w-full max-w-lg p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
+<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeEditModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
-<h3 class="text-headline-md text-on-surface mb-2" id="editModalTitle">Mitarbeiter bearbeiten</h3>
-<p class="text-body-md text-on-surface-variant mb-6">Änderungen werden mit Firebase Firestore synchronisiert.</p>
+<h3 class="text-lg font-bold text-on-surface mb-1" id="editModalTitle">Mitarbeiter bearbeiten</h3>
+<p class="text-xs text-secondary mb-5">Änderungen werden mit Firebase Firestore synchronisiert.</p>
 <input id="editEmployeeId" type="hidden"/>
-<div class="space-y-4 mb-8">
-<div class="grid grid-cols-2 gap-4">
+<div class="space-y-3.5 mb-6">
+<div class="grid grid-cols-2 gap-3">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Vorname</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editVorname" type="text"/>
-</div>
-<div>
-<label class="block text-label-caps text-secondary mb-1">Nachname</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editNachname" type="text"/>
-</div>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Vorname</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editVorname" type="text"/>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">E-Mail</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editEmail" type="email"/>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Nachname</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editNachname" type="text"/>
+</div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Rolle / Position</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editRole" type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-label-caps text-secondary mb-1">Pensum (%)</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editPensum" type="number"/>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">E-Mail</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editEmail" type="email"/>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Jahres-Soll (Std)</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editSoll" type="number"/>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Rolle / Position</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editRole" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Pensum (%)</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editPensum" type="number"/>
+</div>
+<div>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Jahres-Soll (Std)</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editSoll" type="number"/>
 </div>
 </div>
 </div>
-<div class="flex justify-end gap-3">
-<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium cursor-pointer" onclick="closeEditModal()">Abbrechen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium cursor-pointer" onclick="saveEditedEmployee()">Speichern &amp; Sync</button>
+<div class="flex justify-end gap-2.5">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeEditModal()">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="saveEditedEmployee()">Speichern &amp; Sync</button>
 </div>
 </div>
 </div>
 <!-- MODAL: TIME ENTRY EDIT -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="editTimeEntryModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative">
-<button class="absolute top-6 right-6 text-secondary hover:text-on-surface cursor-pointer" onclick="closeEditTimeEntryModal()">
+<div class="bg-surface-container-lowest w-full max-w-lg p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
+<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeEditTimeEntryModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
-<h3 class="text-headline-md text-on-surface mb-2">Zeiteintrag bearbeiten</h3>
-<p class="text-body-md text-on-surface-variant mb-4">Änderungen werden mit minutengenauer Berechnung synchronisiert.</p>
+<h3 class="text-lg font-bold text-on-surface mb-1">Zeiteintrag bearbeiten</h3>
+<p class="text-xs text-secondary mb-4">Änderungen werden mit minutengenauer Berechnung synchronisiert.</p>
 <input id="editTimeEntryId" type="hidden"/>
-<div class="space-y-4 mb-6">
+<div class="space-y-3.5 mb-5">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editTimeEmployee" readonly="" type="text"/>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Mitarbeiter</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeEmployee" readonly="" type="text"/>
 </div>
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-2 gap-3">
 <div class="relative">
-<label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text"/>
-<button class="absolute right-3 top-3 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
-<span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
+<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text"/>
+<button class="absolute right-2.5 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
+<span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
 </button>
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Berechnete Stunden (hh:mm / Dez.)</label>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (hh:mm / Dez.)</label>
 <div class="flex items-center gap-2">
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number"/>
 <span class="text-xs text-secondary font-bold whitespace-nowrap" id="editTimeHhMmLabel">0:00 h</span>
 </div>
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="editTimeProject" type="text"/>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeProject" type="text"/>
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
-<div class="text-xs font-semibold text-secondary">Slots formatieren (z.B. 08:00 - 12:00 oder leer)</div>
+<div class="text-[11px] font-semibold text-secondary">Slots formatieren (z.B. 08:00 - 12:00 oder leer)</div>
 <div class="grid grid-cols-3 gap-2">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Vormittag</label>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text"/>
+<label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Vormittag</label>
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text"/>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Nachmittag</label>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text"/>
+<label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Nachmittag</label>
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text"/>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Abend</label>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="z.B. 18:00 - 19:15" type="text"/>
+<label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Abend</label>
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="18:00 - 19:15" type="text"/>
 </div>
 </div>
 </div>
 </div>
-<div class="flex justify-end gap-3">
-<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium cursor-pointer" onclick="closeEditTimeEntryModal()">Abbrechen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium cursor-pointer" onclick="saveEditedTimeEntry()">Speichern &amp; Sync</button>
+<div class="flex justify-end gap-2.5">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeEditTimeEntryModal()">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="saveEditedTimeEntry()">Speichern &amp; Sync</button>
 </div>
 </div>
 </div>
 <!-- MODAL: DETAILS -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="detailModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative">
-<button class="absolute top-6 right-6 text-secondary hover:text-on-surface cursor-pointer" onclick="closeDetailModal()">
+<div class="bg-surface-container-lowest w-full max-w-md p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
+<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeDetailModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
-<h3 class="text-headline-md text-on-surface mb-2" id="modalTitle">Mitarbeiter Details</h3>
-<p class="text-body-md text-on-surface-variant mb-6">Detaillierte Einsicht in Zeiterfassung, Absenzen und Jahresbilanz 2026 (minutengenau berechnet).</p>
-<div class="space-y-4 mb-8">
+<h3 class="text-lg font-bold text-on-surface mb-1" id="modalTitle">Mitarbeiter Details</h3>
+<p class="text-xs text-secondary mb-5">Detaillierte Einsicht in Zeiterfassung, Absenzen und Jahresbilanz 2026.</p>
+<div class="space-y-3 mb-6 text-xs">
 <div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
 <span class="text-secondary">Monatlicher Saldo (Ist vs. Soll):</span>
 <span class="font-bold text-on-surface" id="detailOvertime">0:00 Std. (0.00h)</span>
@@ -536,93 +775,85 @@
 </div>
 <div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
 <span class="text-secondary">Gleitzeit-Status:</span>
-<span class="font-bold text-primary" id="detailGleitzeit">Aktiv synchronisiert</span>
+<span class="font-bold text-emerald-700" id="detailGleitzeit">Aktiv synchronisiert</span>
 </div>
 </div>
-<div class="flex justify-end gap-3">
-<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium cursor-pointer" onclick="closeDetailModal()">Schliessen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium cursor-pointer" onclick="alert('Daten erfolgreich per 21.08.2026 exportiert!')">Exportieren</button>
+<div class="flex justify-end gap-2.5">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeDetailModal()">Schliessen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="alert('Daten erfolgreich per 21.08.2026 exportiert!')">Exportieren</button>
 </div>
 </div>
 </div>
 <!-- MODAL: QUICK NEW ENTRY -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="newEntryModal">
-<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative">
-<button class="absolute top-6 right-6 text-secondary hover:text-on-surface cursor-pointer" onclick="closeNewEntryModal()">
+<div class="bg-surface-container-lowest w-full max-w-lg p-6 rounded-2xl shadow-xl border border-outline-variant/20 relative">
+<button class="absolute top-5 right-5 text-secondary hover:text-on-surface cursor-pointer" onclick="closeNewEntryModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
-<h3 class="text-headline-md text-on-surface mb-2">Neuen Zeiteintrag erfassen</h3>
-<p class="text-body-md text-on-surface-variant mb-6">Erfassung wird direkt in Firebase Firestore synchronisiert. (Passwort: Willma)</p>
-<div class="space-y-4 mb-8">
+<h3 class="text-lg font-bold text-on-surface mb-1">Neuen Zeiteintrag erfassen</h3>
+<p class="text-xs text-secondary mb-5">Erfassung wird direkt in Firebase Firestore synchronisiert. (Passwort: Willma)</p>
+<div class="space-y-3.5 mb-6">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
-<select class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface focus:ring-2 focus:ring-primary font-medium" id="quickEntryEmployee">
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Mitarbeiter</label>
+<select class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs focus:ring-2 focus:ring-primary font-medium cursor-pointer" id="quickEntryEmployee">
 </select>
 </div>
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-2 gap-3">
 <div class="relative">
-<label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
-<button class="absolute right-3 top-3 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
-<span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
+<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
+<button class="absolute right-2.5 top-2 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
+<span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
 </button>
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Stunden (Industriezeit)</label>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (Industriezeit)</label>
 <div class="flex items-center gap-2">
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0"/>
 <span class="text-xs text-secondary font-bold whitespace-nowrap" id="quickEntryHhMmLabel">8:00 h</span>
 </div>
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
+<label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
-<div class="flex justify-end gap-3">
-<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium cursor-pointer" onclick="closeNewEntryModal()">Abbrechen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium cursor-pointer" onclick="saveQuickNewEntry()">Speichern &amp; Sync</button>
+<div class="flex justify-end gap-2.5">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="closeNewEntryModal()">Abbrechen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-semibold cursor-pointer" onclick="saveQuickNewEntry()">Speichern &amp; Sync</button>
 </div>
 </div>
 </div>
-<!-- INTERACTIVE DATEPICKER POPUP / MODAL -->
+<!-- INTERACTIVE DATEPICKER POPUP -->
 <div class="fixed z-[9999] hidden select-none transition-all" id="calendarPickerDropdown">
-<div class="bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 p-5 w-80 backdrop-blur-md">
-<!-- Header with Month & Year navigation -->
-<div class="flex items-center justify-between mb-4 pb-3 border-b border-outline-variant/15">
-<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" onclick="changePickerMonth(-1)" type="button">
-<span class="material-symbols-outlined text-lg">chevron_left</span>
+<div class="bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 p-4 w-72 backdrop-blur-md">
+<div class="flex items-center justify-between mb-3 pb-2.5 border-b border-outline-variant/15">
+<button class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" onclick="changePickerMonth(-1)" type="button">
+<span class="material-symbols-outlined text-base">chevron_left</span>
 </button>
-<div class="text-center font-bold text-on-surface text-sm flex items-center gap-1.5" id="pickerMonthYearLabel">
-<!-- Populated by JS -->
+<div class="text-center font-bold text-on-surface text-xs flex items-center gap-1" id="pickerMonthYearLabel">
 </div>
-<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" onclick="changePickerMonth(1)" type="button">
-<span class="material-symbols-outlined text-lg">chevron_right</span>
+<button class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" onclick="changePickerMonth(1)" type="button">
+<span class="material-symbols-outlined text-base">chevron_right</span>
 </button>
 </div>
-<!-- Day names -->
-<div class="grid grid-cols-7 text-center text-xs font-semibold text-secondary mb-2">
-<span class="">Mo</span><span class="">Di</span><span class="">Mi</span><span class="">Do</span><span class="">Fr</span><span class="">Sa</span><span class="text-primary font-bold">So</span>
+<div class="grid grid-cols-7 text-center text-[10px] font-bold text-secondary mb-1.5">
+<span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span class="text-primary">So</span>
 </div>
-<!-- Days grid -->
-<div class="grid grid-cols-7 gap-1 text-sm" id="pickerDaysGrid">
-<!-- Populated by JS -->
+<div class="grid grid-cols-7 gap-1 text-xs" id="pickerDaysGrid">
 </div>
-<!-- Footer Quick Selects -->
-<div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between text-xs">
-<button class="px-2.5 py-1 text-primary hover:bg-primary-fixed rounded-md font-medium transition-colors cursor-pointer" id="pickerTodayBtn" onclick="selectPickerToday()" type="button">
-Heute
-</button>
-<button class="px-2 py-1 text-secondary hover:text-on-surface transition-colors cursor-pointer" onclick="closeCalendarPicker()" type="button">
-Schliessen
-</button>
+<div class="mt-3 pt-2.5 border-t border-outline-variant/15 flex items-center justify-between text-xs">
+<button class="px-2 py-0.5 text-primary hover:bg-primary-fixed rounded-md font-medium transition-colors cursor-pointer text-[11px]" id="pickerTodayBtn" onclick="selectPickerToday()" type="button">
+        Heute
+      </button>
+<button class="px-2 py-0.5 text-secondary hover:text-on-surface transition-colors cursor-pointer text-[11px]" onclick="closeCalendarPicker()" type="button">
+        Schliessen
+      </button>
 </div>
 </div>
-</div>
-</main>
 </div>
 <script>
   function checkAuth() {
@@ -638,11 +869,21 @@ Schliessen
   }
   checkAuth();
 
-  // ==========================================
-  // MATHEMATISCH EXAKTE MINUTEN-LOGIK
-  // ==========================================
+  // Filter search for dashboard tiles
+  function filterEmployeeCards() {
+    const query = (document.getElementById('employeeSearchInput')?.value || '').toLowerCase().trim();
+    const cards = document.querySelectorAll('.emp-card');
+    cards.forEach(card => {
+      const empName = card.getAttribute('data-emp') || '';
+      if (!query || empName.includes(query)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
 
-  // Wandelt "HH:MM" in Gesamtzahl der Minuten ab Mitternacht um
+  // Exact Minute Engine
   function timeToMinutes(tStr) {
     if (!tStr || typeof tStr !== 'string') return null;
     const clean = tStr.trim();
@@ -654,7 +895,6 @@ Schliessen
     return (h * 60) + m;
   }
 
-  // Berechnet minutengenaue Differenz zwischen Start und End
   function getSpanMinutes(startStr, endStr) {
     const s = timeToMinutes(startStr);
     const e = timeToMinutes(endStr);
@@ -662,12 +902,10 @@ Schliessen
     if (e >= s) {
       return e - s;
     } else {
-      // Nachtarbeit über Mitternacht z.B. 22:00 - 02:00
       return (1440 - s) + e;
     }
   }
 
-  // Parst einen Slot-String z.B. "08:30 - 12:00" oder "08:30-12:00" und liefert Minuten
   function parseSlotStringMinutes(slotStr) {
     if (!slotStr || typeof slotStr !== 'string') return 0;
     const clean = slotStr.trim();
@@ -679,7 +917,6 @@ Schliessen
     return 0;
   }
 
-  // Formatiert Minuten in "hh:mm" (z.B. 195 Min -> "3:15")
   function formatMinutesToHhMm(totalMinutes) {
     const isNeg = totalMinutes < 0;
     const absM = Math.abs(Math.round(totalMinutes));
@@ -688,25 +925,18 @@ Schliessen
     return `${isNeg ? '-' : ''}${h}:${String(m).padStart(2, '0')}`;
   }
 
-  // Formatiert Minuten in Industrie-Dezimal (z.B. 195 Min -> 3.25)
-  function formatMinutesToDecimal(totalMinutes) {
-    return (totalMinutes / 60);
+  function formatSwissNumber(num, decimals = 2) {
+    const parts = Number(num).toFixed(decimals).split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+    return parts.join('.');
   }
 
-  // Wandelt Dezimalstunden in Minuten um (z.B. 1.25h -> 75m)
-  function decimalHoursToMinutes(hours) {
-    return Math.round((Number(hours) || 0) * 60);
-  }
-
-  // Schweizer Datums-Hilfsfunktionen (Norm TT.MM.JJJJ)
   function formatSwissDate(input) {
     if (!input) return "21.08.2026";
     let str = String(input).trim();
     if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(str)) {
       const parts = str.split('.');
-      const day = parts[0].padStart(2, '0');
-      const month = parts[1].padStart(2, '0');
-      return `${day}.${month}.${parts[2]}`;
+      return `${parts[0].padStart(2, '0')}.${parts[1].padStart(2, '0')}.${parts[2]}`;
     }
     if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
       const parts = str.split('-');
@@ -716,8 +946,7 @@ Schliessen
     if (!isNaN(d.getTime())) {
       const day = String(d.getDate()).padStart(2, '0');
       const month = String(d.getMonth() + 1).padStart(2, '0');
-      const year = d.getFullYear();
-      return `${day}.${month}.${year}`;
+      return `${day}.${month}.${d.getFullYear()}`;
     }
     return str;
   }
@@ -735,25 +964,13 @@ Schliessen
     return isNaN(d.getTime()) ? new Date() : d;
   }
 
-  // Standard-Mitarbeiter exakt laut Vorgabe:
-  // Nicole De Pretto: 57% Pensum, Jahres-Soll 1077.0h (Monats-Soll ~52:08h)
-  // Michelle Dreifuss: 100% Pensum, Jahres-Soll 1890.0h (Monats-Soll ~160:31h)
-  // Manuel Schoch: 100% Pensum, Jahres-Soll 1890.0h (Monats-Soll ~160:31h)
-  // Seline Steinmann: 92% Pensum, Jahres-Soll 1739.0h (Monats-Soll ~135:53h)
   const defaultEmployees = [
-    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 57, soll: 1077.0, ist: 0.0, weekSoll: 22.8, monthSollMinutes: (52 * 60 + 8) },
-    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 100, soll: 1890.0, ist: 0.0, weekSoll: 40.0, monthSollMinutes: (160 * 60 + 31) },
-    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 1890.0, ist: 0.0, weekSoll: 40.0, monthSollMinutes: (160 * 60 + 31) },
-    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 92, soll: 1739.0, ist: 0.0, weekSoll: 36.8, monthSollMinutes: (135 * 60 + 53) }
+    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 57, soll: 1077.0, ist: 0.0, weekSoll: 22.8, monthSollMinutes: 3128 },
+    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 100, soll: 1890.0, ist: 0.0, weekSoll: 40.0, monthSollMinutes: 9631 },
+    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 1890.0, ist: 0.0, weekSoll: 40.0, monthSollMinutes: 9631 },
+    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 92, soll: 1739.0, ist: 0.0, weekSoll: 36.8, monthSollMinutes: 8153 }
   ];
 
-  // Mathematisch exakt berechnete Standardeinträge (Minuten basierend auf Slots):
-  // 1) Nicole 21.08.2026: VM 08:00-12:00 (240m), NM 13:00-17:00 (240m) = 480m = 8:00 h / 8.00h
-  // 2) Michelle 21.08.2026: VM 08:30-12:00 (210m), NM 13:00-16:00 (180m) = 390m = 6:30 h / 6.50h (korrigiert von 6.4h!)
-  // 3) Manuel 20.08.2026: VM 08:00-12:00 (240m), NM 13:00-17:00 (240m) = 480m = 8:00 h / 8.00h
-  // 4) Seline 19.08.2026: VM 08:30-12:00 (210m), NM 13:00-16:45 (225m) = 435m = 7:15 h / 7.25h (korrigiert von 7.2h!)
-  // 5) Nicole 17.08.2026: VM 08:00-12:00 (240m), NM 13:30-17:30 (240m) = 480m = 8:00 h / 8.00h
-  // 6) Michelle 14.08.2026: VM 08:30-12:00 (210m), NM 13:00-17:00 (240m) = 450m = 7:30 h / 7.50h
   const defaultEntries = [
     { id: 'ent_1', employee: 'Nicole De Pretto', date: '21.08.2026', project: '#Döltschi-Core', hours: 8.0, minutes: 480, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
     { id: 'ent_2', employee: 'Michelle Dreifuss', date: '21.08.2026', project: '#Frontend-UI', hours: 6.5, minutes: 390, vm: '08:30 - 12:00', nm: '13:00 - 16:00', ab: '' },
@@ -767,19 +984,8 @@ Schliessen
     const data = localStorage.getItem('doeltschi_employees');
     if (!data) return defaultEmployees;
     try {
-      const parsed = JSON.parse(data);
-      // Ensure existing items have valid pensum and soll defaults
-      return parsed.map(emp => {
-        const matchingDef = defaultEmployees.find(d => d.id === emp.id || `${d.vorname} ${d.nachname}` === `${emp.vorname} ${emp.nachname}`);
-        return {
-          ...emp,
-          pensum: emp.pensum !== undefined ? Number(emp.pensum) : (matchingDef ? matchingDef.pensum : 100),
-          soll: emp.soll !== undefined ? Number(emp.soll) : (matchingDef ? matchingDef.soll : 2080.0),
-          weekSoll: emp.weekSoll !== undefined ? Number(emp.weekSoll) : (40 * ((emp.pensum || 100) / 100)),
-          monthSollMinutes: emp.monthSollMinutes || (matchingDef ? matchingDef.monthSollMinutes : Math.round(160.5 * 60))
-        };
-      });
-    } catch (e) {
+      return JSON.parse(data);
+    } catch(e) {
       return defaultEmployees;
     }
   }
@@ -790,50 +996,13 @@ Schliessen
 
   function getEntries() {
     const data = localStorage.getItem('doeltschi_entries');
-    const parsed = data ? JSON.parse(data) : defaultEntries;
-    return parsed.map(item => {
-      // Re-calculate minutes if missing or sanitize
-      let m = item.minutes;
-      if (typeof m !== 'number') {
-        const vmM = parseSlotStringMinutes(item.vm);
-        const nmM = parseSlotStringMinutes(item.nm);
-        const abM = parseSlotStringMinutes(item.ab);
-        const slotSum = vmM + nmM + abM;
-        m = (slotSum > 0) ? slotSum : decimalHoursToMinutes(item.hours);
-      }
-      const decHours = (m / 60);
-      return {
-        ...item,
-        date: formatSwissDate(item.date),
-        minutes: m,
-        hours: Math.round(decHours * 100) / 100
-      };
-    });
+    return data ? JSON.parse(data) : defaultEntries;
   }
 
   function saveEntries(arr) {
-    const normalized = arr.map(e => {
-      let m = e.minutes;
-      if (typeof m !== 'number') {
-        const vmM = parseSlotStringMinutes(e.vm);
-        const nmM = parseSlotStringMinutes(e.nm);
-        const abM = parseSlotStringMinutes(e.ab);
-        const slotSum = vmM + nmM + abM;
-        m = slotSum > 0 ? slotSum : decimalHoursToMinutes(e.hours);
-      }
-      return {
-        ...e,
-        date: formatSwissDate(e.date),
-        minutes: m,
-        hours: Math.round((m / 60) * 100) / 100
-      };
-    });
-    localStorage.setItem('doeltschi_entries', JSON.stringify(normalized));
+    localStorage.setItem('doeltschi_entries', JSON.stringify(arr));
   }
 
-  // ==========================================
-  // DYNAMISCHE LIVE-BERECHNUNG BEI FORMULAREINGABE
-  // ==========================================
   function updateSlotCalculationsLive() {
     const vmStart = document.getElementById('slotVmStart')?.value || '';
     const vmEnd = document.getElementById('slotVmEnd')?.value || '';
@@ -898,9 +1067,6 @@ Schliessen
     if (label) label.innerText = `${formatMinutesToHhMm(m)} h`;
   }
 
-  // ==========================================
-  // RENDERING ENGINE
-  // ==========================================
   function renderAll() {
     renderDashboard();
     renderMitarbeiter();
@@ -916,26 +1082,23 @@ Schliessen
     const entries = getEntries();
     const grid = document.getElementById('dashboardEmployeeGrid');
 
-    // KW 34 Datumsbereich: 17.08.2026 bis 21.08.2026
     const weekDates = ['17.08.2026', '18.08.2026', '19.08.2026', '20.08.2026', '21.08.2026'];
 
-    // Gesamt-Soll (Woche) exakt summieren
     let totalWeekSollHours = 0;
     emps.forEach(emp => {
       const wSoll = emp.weekSoll !== undefined ? Number(emp.weekSoll) : (40 * ((emp.pensum || 100) / 100));
       totalWeekSollHours += wSoll;
     });
 
-    // Gesamt-Ist dieser Woche minutengenau
     const weekEntries = entries.filter(e => weekDates.includes(formatSwissDate(e.date)));
     const totalWeekMinutes = weekEntries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
     const totalWeekHoursDec = (totalWeekMinutes / 60).toFixed(1);
 
     const statSollEl = document.getElementById('statTotalSoll');
-    if (statSollEl) statSollEl.innerText = `${totalWeekSollHours.toFixed(1)}h`;
+    if (statSollEl) statSollEl.innerText = `${totalWeekSollHours.toFixed(1)} h`;
 
     const totalIstEl = document.getElementById('totalIstHours');
-    if (totalIstEl) totalIstEl.innerText = `${totalWeekHoursDec}h`;
+    if (totalIstEl) totalIstEl.innerText = `${totalWeekHoursDec} h`;
 
     const statTeamEl = document.getElementById('statTeamCount');
     if (statTeamEl) statTeamEl.innerText = emps.length;
@@ -946,23 +1109,15 @@ Schliessen
       barEl.style.width = pct + '%';
     }
 
-    // Jahresfortschritt Gesamt
     const totalYearSoll = emps.reduce((acc, curr) => acc + (Number(curr.soll) || 2080), 0);
-    // Gesamt geleistete Minuten aller Einträge
     const allLoggedMinutes = entries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
     const totalYearPct = totalYearSoll > 0 ? Math.round(((allLoggedMinutes / 60) / totalYearSoll) * 100) : 0;
     const yearProgEl = document.getElementById('statTotalYearProgress');
     if (yearProgEl) yearProgEl.innerText = `${totalYearPct}%`;
 
-    // Individuelle Kacheln für die 4 Mitarbeiter generieren
+    // Re-render tiles dynamically based on custom entries or defaults
     if (grid) {
       grid.innerHTML = '';
-
-      // Standard-Verankerungen für August 2026 (Monatssoll in Minuten und Basis-Übertrag)
-      // Nicole: 57%, Soll 52:08 (3128 Min)
-      // Michelle: 100%, Soll 160:31 (9631 Min)
-      // Manuel: 100%, Soll 160:31 (9631 Min)
-      // Seline: 92%, Soll 135:53 (8153 Min)
       const employeeDefaults = {
         'Nicole De Pretto': { role: 'Projektleiterin / Design', initials: 'ND', pensum: 57, monthSollMinutes: 3128, monthSollHhMm: '52:08', baseMonthMinutes: 790, yearSoll: 1077.0, baseYearMinutes: 1210 },
         'Michelle Dreifuss': { role: 'Frontend Engineer', initials: 'MD', pensum: 100, monthSollMinutes: 9631, monthSollHhMm: '160:31', baseMonthMinutes: 240, yearSoll: 1890.0, baseYearMinutes: 750 },
@@ -983,62 +1138,60 @@ Schliessen
           baseYearMinutes: 0
         };
 
-        // Minutensumme aller erfassten Einträge dieses Mitarbeiters
         const empEntries = entries.filter(e => e.employee === fullName);
         const dynamicLoggedMinutes = empEntries.reduce((acc, curr) => acc + (curr.minutes || Math.round((curr.hours || 0) * 60)), 0);
 
-        // Monatstotal: Minutengenau addiert
         const totalMonthMinutes = def.baseMonthMinutes + dynamicLoggedMinutes;
         const totalMonthHhMm = formatMinutesToHhMm(totalMonthMinutes);
         const monthDiffMinutes = totalMonthMinutes - def.monthSollMinutes;
         const diffHhMm = formatMinutesToHhMm(monthDiffMinutes);
         const isDeficit = monthDiffMinutes < 0;
-        const diffBadgeClass = isDeficit ? 'bg-error-container text-on-error-container' : 'bg-primary-fixed text-on-primary-fixed';
+        const diffBadgeClass = isDeficit ? 'bg-error-container/60 text-on-error-container' : 'bg-primary-fixed text-on-primary-fixed';
         const diffText = isDeficit ? `${diffHhMm} Fehlstunden` : `+${diffHhMm} Überstunden`;
 
-        // Jahrestotal 2026
         const totalYearMinutes = def.baseYearMinutes + dynamicLoggedMinutes;
         const totalYearHhMm = formatMinutesToHhMm(totalYearMinutes);
         const yearSollHours = Number(emp.soll || def.yearSoll);
         const yearPct = yearSollHours > 0 ? Math.min(Math.round(((totalYearMinutes / 60) / yearSollHours) * 100), 100) : 0;
 
         const card = `
-          <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/15 flex flex-col justify-between hover:shadow-md transition-all">
+          <div class="emp-card bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between hover:border-primary/30 transition-all" data-emp="${fullName.toLowerCase()}">
             <div>
               <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-4">
-                  <div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">${def.initials}</div>
+                <div class="flex items-center gap-3.5">
+                  <div class="w-11 h-11 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-sm">${def.initials}</div>
                   <div>
-                    <h3 class="text-body-lg font-bold text-on-surface">${fullName}</h3>
-                    <span class="text-xs text-secondary">${emp.role || def.role}</span>
+                    <h3 class="text-base font-bold text-on-surface">${fullName}</h3>
+                    <p class="text-xs text-secondary">${emp.role || def.role}</p>
                   </div>
                 </div>
-                <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">${emp.pensum || def.pensum}% Pensum</span>
+                <span class="px-2.5 py-1 bg-surface-container text-on-surface rounded-full text-xs font-semibold">${emp.pensum || def.pensum}% Pensum</span>
               </div>
-              <div class="p-4 bg-surface-container-low rounded-xl mb-4">
+              <div class="p-3.5 bg-surface-container-low rounded-xl mb-4">
                 <div class="flex items-center justify-between text-xs text-secondary mb-1">
-                  <span class="font-label-caps">AKTUELLER MONAT</span>
+                  <span class="font-medium uppercase tracking-wider text-[10px]">Aktueller Monat</span>
                   <span class="px-2 py-0.5 rounded-md ${diffBadgeClass} font-semibold text-[11px]">${diffText}</span>
                 </div>
-                <div class="text-[24px] font-headline-md text-on-surface font-bold mt-1">
-                  ${totalMonthHhMm} <span class="text-xs text-secondary font-normal">/ ${def.monthSollHhMm} Soll (${(totalMonthMinutes/60).toFixed(2)}h)</span>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-2xl font-bold text-on-surface">${totalMonthHhMm} h</span>
+                  <span class="text-xs text-secondary font-normal">von ${def.monthSollHhMm} h Soll (${(totalMonthMinutes/60).toFixed(2)}h)</span>
                 </div>
               </div>
-              <div class="space-y-2">
-                <div class="flex justify-between text-xs font-medium">
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
                   <span class="text-secondary">Jahresfortschritt 2026</span>
-                  <span class="text-on-surface font-semibold">${totalYearHhMm} h von ${yearSollHours.toLocaleString('de-CH', {minimumFractionDigits: 2, maximumFractionDigits: 2})} h Soll (${yearPct}%)</span>
+                  <span class="font-semibold text-on-surface">${totalYearHhMm} h von ${formatSwissNumber(yearSollHours)} h (${yearPct}%)</span>
                 </div>
-                <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+                <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
                   <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: ${yearPct}%"></div>
                 </div>
               </div>
             </div>
-            <div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
-              <span class="flex items-center gap-1 text-primary font-medium">
-                <span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
+            <div class="mt-5 pt-3.5 border-t border-outline-variant/10 flex items-center justify-between text-xs">
+              <span class="flex items-center gap-1.5 text-secondary">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Cloud-Sync aktiv
               </span>
-              <button class="text-primary hover:underline font-medium cursor-pointer" onclick="openDetailModal('${fullName}')">Details anzeigen</button>
+              <button class="text-primary hover:underline font-semibold cursor-pointer" onclick="openDetailModal('${fullName}')">Details anzeigen →</button>
             </div>
           </div>
         `;
@@ -1058,26 +1211,26 @@ Schliessen
       const sollHours = Number(emp.soll || 2080).toFixed(1);
       const fullName = `${emp.vorname || ''} ${emp.nachname || ''}`.trim();
       const html = `
-        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between" data-employee-id="${emp.id}">
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/15 shadow-sm flex flex-col justify-between" data-employee-id="${emp.id}">
           <div>
             <div class="flex justify-between items-start mb-4">
               <div>
-                <h3 class="font-bold text-body-lg text-on-surface emp-name">${fullName}</h3>
+                <h3 class="font-bold text-base text-on-surface emp-name">${fullName}</h3>
                 <p class="text-secondary text-xs emp-role">${emp.role || ''}</p>
               </div>
               <div class="flex gap-2">
-                <button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary cursor-pointer" onclick="openEditModal('${emp.id}')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                <button class="p-2 hover:bg-surface-container-low rounded-lg text-error cursor-pointer" onclick="deleteEmployee('${emp.id}')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+                <button class="p-1.5 hover:bg-surface-container-low rounded-lg text-secondary cursor-pointer" onclick="openEditModal('${emp.id}')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+                <button class="p-1.5 hover:bg-surface-container-low rounded-lg text-error cursor-pointer" onclick="deleteEmployee('${emp.id}')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
               </div>
             </div>
-            <div class="mt-4 text-sm space-y-1 text-on-surface-variant">
+            <div class="mt-3 text-xs space-y-1.5 text-on-surface-variant">
               <div>Pensum: <span class="font-medium text-on-surface">${emp.pensum}% (${weeklyHours}h/Woche)</span></div>
               <div>E-Mail: <span class="font-medium text-on-surface">${emp.email || ''}</span></div>
               <div>Jahresarbeitszeit (Soll): <span class="font-medium text-on-surface">${sollHours} Std. (${emp.pensum}%)</span></div>
             </div>
           </div>
-          <div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
-            <span class="text-primary font-medium">Aktiv</span>
+          <div class="mt-5 pt-3 border-t border-outline-variant/10 flex justify-between items-center text-xs">
+            <span class="text-emerald-700 font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Aktiv</span>
             <button class="text-secondary hover:underline cursor-pointer" onclick="promptPasswordReset('${emp.email || ''}')">Passwort zurücksetzen</button>
           </div>
         </div>
@@ -1088,13 +1241,6 @@ Schliessen
 
   function renderTimeEntriesSelects() {
     const emps = getEmployees();
-    const sels = [
-      document.getElementById('timeEmployeeSelect'), 
-      document.getElementById('quickEntryEmployee'),
-      document.getElementById('filterEmployeeSelect')
-    ];
-    
-    // Mitarbeiter-Filter in Tagesübersicht erhält zusätzlich "Alle Mitarbeiter"
     const filterSel = document.getElementById('filterEmployeeSelect');
     if (filterSel) {
       const currentVal = filterSel.value;
@@ -1131,13 +1277,13 @@ Schliessen
     list.innerHTML = '';
 
     if (entries.length === 0) {
-      list.innerHTML = '<p class="text-sm text-secondary">Keine Zeiteinträge vorhanden.</p>';
+      list.innerHTML = '<p class="text-xs text-secondary py-3">Keine Zeiteinträge vorhanden.</p>';
       return;
     }
 
     entries.forEach(ent => {
       const item = document.createElement('div');
-      item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl';
+      item.className = 'flex items-center justify-between p-3.5 bg-surface-container-low rounded-xl text-xs';
       const formattedDate = formatSwissDate(ent.date);
       const minutes = ent.minutes || Math.round((ent.hours || 0) * 60);
       const hhMm = formatMinutesToHhMm(minutes);
@@ -1145,15 +1291,15 @@ Schliessen
 
       item.innerHTML = `
         <div>
-          <div class="font-bold text-on-surface text-sm">${ent.employee || ''} - <span class="text-primary">${ent.project || ''}</span></div>
-          <div class="text-xs text-secondary mt-1">Datum: <span class="font-semibold text-on-surface">${formattedDate}</span> | Dauer: <span class="font-bold text-primary">${hhMm} h</span> (${decHours}h) | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'} | AB: ${ent.ab || '-'}</div>
+          <div class="font-bold text-on-surface">${ent.employee || ''} - <span class="text-primary">${ent.project || ''}</span></div>
+          <div class="text-[11px] text-secondary mt-0.5">Datum: <span class="font-semibold text-on-surface">${formattedDate}</span> | Dauer: <span class="font-bold text-primary">${hhMm} h</span> (${decHours}h) | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'} | AB: ${ent.ab || '-'}</div>
         </div>
         <div class="flex gap-2">
-          <button class="p-2 hover:bg-surface-container-highest rounded-lg text-primary text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
-            <span class="material-symbols-outlined text-[16px]">edit</span> Bearbeiten
+          <button class="px-2.5 py-1 hover:bg-surface-container-highest rounded-lg text-primary font-semibold flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
+            <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
           </button>
-          <button class="p-2 hover:bg-surface-container-highest rounded-lg text-error text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="deleteTimeEntry('${ent.id}')">
-            <span class="material-symbols-outlined text-[16px]">delete</span> Löschen
+          <button class="px-2.5 py-1 hover:bg-surface-container-highest rounded-lg text-error font-semibold flex items-center gap-1 cursor-pointer" onclick="deleteTimeEntry('${ent.id}')">
+            <span class="material-symbols-outlined text-[15px]">delete</span> Löschen
           </button>
         </div>
       `;
@@ -1197,21 +1343,21 @@ Schliessen
       const decHours = (minutes / 60).toFixed(2);
 
       const tr = document.createElement('tr');
-      tr.className = 'hover:bg-surface-container-low/50 transition-all';
+      tr.className = 'hover:bg-surface-container-low/50 transition-colors';
       tr.innerHTML = `
-        <td class="py-3 px-4 font-medium text-on-surface">${ent.employee || ''}</td>
-        <td class="py-3 px-4 font-semibold text-on-surface text-xs">${formatSwissDate(ent.date)}</td>
-        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">${ent.project || ''}</span></td>
-        <td class="py-3 px-4 text-xs text-secondary">${ent.vm || '-'}</td>
-        <td class="py-3 px-4 text-xs text-secondary">${ent.nm || '-'}</td>
-        <td class="py-3 px-4 text-xs text-secondary">${ent.ab || '-'}</td>
-        <td class="py-3 px-4 font-bold text-primary">
+        <td class="py-2.5 px-3 font-semibold text-on-surface">${ent.employee || ''}</td>
+        <td class="py-2.5 px-3 font-medium text-on-surface">${formatSwissDate(ent.date)}</td>
+        <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-[11px] font-medium">${ent.project || ''}</span></td>
+        <td class="py-2.5 px-3 text-secondary">${ent.vm || '-'}</td>
+        <td class="py-2.5 px-3 text-secondary">${ent.nm || '-'}</td>
+        <td class="py-2.5 px-3 text-secondary">${ent.ab || '-'}</td>
+        <td class="py-2.5 px-3 font-bold text-primary">
           <span>${hhMm} h</span>
-          <span class="text-xs text-secondary font-normal block">(${decHours}h)</span>
+          <span class="text-[10px] text-secondary font-normal block">(${decHours}h)</span>
         </td>
-        <td class="py-3 px-4 text-right space-x-1">
-          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error cursor-pointer" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+        <td class="py-2.5 px-3 text-right space-x-1">
+          <button class="p-1 hover:bg-surface-container-high rounded text-primary cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+          <button class="p-1 hover:bg-surface-container-high rounded text-error cursor-pointer" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
         </td>
       `;
       tbody.appendChild(tr);
@@ -1253,9 +1399,6 @@ Schliessen
     alert(`Alle Einträge für den ${selectedDate} wurden zurückgesetzt.`);
   }
 
-  // ==========================================
-  // EMPLOYEE MODAL
-  // ==========================================
   function openEditModal(empId) {
     const emps = getEmployees();
     const emp = emps.find(e => String(e.id) === String(empId));
@@ -1329,9 +1472,6 @@ Schliessen
     alert('Mitarbeiter gelöscht und Firestore aktualisiert.');
   }
 
-  // ==========================================
-  // TIME ENTRY EDIT & SAVE
-  // ==========================================
   function openEditTimeEntryModal(id) {
     const entries = getEntries();
     const ent = entries.find(e => String(e.id) === String(id));
@@ -1364,7 +1504,6 @@ Schliessen
     const nm = document.getElementById('editTimeNm').value;
     const ab = document.getElementById('editTimeAb').value;
 
-    // Minuten aus Slots berechnen
     const vmM = parseSlotStringMinutes(vm);
     const nmM = parseSlotStringMinutes(nm);
     const abM = parseSlotStringMinutes(ab);
@@ -1479,14 +1618,14 @@ Schliessen
   function syncData() {
     const btn = document.getElementById('syncBtn');
     const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Synchronisiere...';
+    btn.innerHTML = '<span class="material-symbols-outlined text-[17px] animate-spin">refresh</span><span>Synchronisiere...</span>';
     setTimeout(() => {
       renderAll();
-      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Synchronisiert!';
+      btn.innerHTML = '<span class="material-symbols-outlined text-[17px] text-emerald-600">check</span><span>Synchronisiert!</span>';
       setTimeout(() => {
         btn.innerHTML = originalHTML;
       }, 2000);
-    }, 800);
+    }, 600);
   }
 
   function openDetailModal(name) {
@@ -1530,21 +1669,21 @@ Schliessen
     const navLinks = document.querySelectorAll('#sidebar-nav a');
     navLinks.forEach(link => {
       if (link.getAttribute('data-path') === viewName) {
-        link.className = "flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer";
+        link.className = "flex items-center px-3.5 py-2.5 bg-primary text-on-primary font-medium rounded-xl transition-all shadow-sm cursor-pointer";
         link.setAttribute('aria-current', 'page');
       } else {
-        link.className = "flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer";
+        link.className = "flex items-center px-3.5 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium transition-colors cursor-pointer";
         link.removeAttribute('aria-current');
       }
     });
 
     const titles = {
-      'dashboard': 'Zeitmanagement',
-      'mitarbeiter': 'Mitarbeiter',
+      'dashboard': 'Team Dashboard',
+      'mitarbeiter': 'Mitarbeiterverwaltung',
       'zeiterfassung': 'Zeiterfassung',
       'tagesuebersicht': 'Tagesübersicht',
       'wochenuebersicht': 'Wochenübersicht',
-      'berichte': 'Berichte'
+      'berichte': 'Berichte & Auswertungen'
     };
     const headerTitle = document.getElementById('header-title');
     if (headerTitle && titles[viewName]) {
@@ -1553,12 +1692,10 @@ Schliessen
     closeCalendarPicker();
   }
 
-  // ==========================================
-  // INTERACTIVE DATEPICKER ENGINE (TT.MM.JJJJ)
-  // ==========================================
+  // DatePicker Engine
   let activeDatePickerTargetId = null;
   let currentPickerYear = 2026;
-  let currentPickerMonth = 7; // August (0-indexed)
+  let currentPickerMonth = 7;
 
   const monthNamesGerman = [
     "Januar", "Februar", "März", "April", "Mai", "Juni", 
@@ -1571,8 +1708,7 @@ Schliessen
     const now = new Date();
     const dayStr = String(now.getDate()).padStart(2, '0');
     const monthStr = String(now.getMonth() + 1).padStart(2, '0');
-    const yearStr = now.getFullYear();
-    btn.innerText = `Heute (${dayStr}.${monthStr}.${yearStr})`;
+    btn.innerText = `Heute (${dayStr}.${monthStr}.${now.getFullYear()})`;
   }
 
   function toggleCalendarPicker(targetInputId, event) {
@@ -1609,7 +1745,7 @@ Schliessen
       let top = rect.bottom + window.scrollY + 6;
       let left = rect.left + window.scrollX;
 
-      const pickerWidth = 320;
+      const pickerWidth = 288;
       if (left + pickerWidth > window.innerWidth - 16) {
         left = window.innerWidth - pickerWidth - 16;
       }
@@ -1657,13 +1793,7 @@ Schliessen
 
   function selectPickerToday() {
     const now = new Date();
-    const day = now.getDate();
-    const month = now.getMonth();
-    const year = now.getFullYear();
-
-    currentPickerYear = year;
-    currentPickerMonth = month;
-    selectPickerDate(day, month, year);
+    selectPickerDate(now.getDate(), now.getMonth(), now.getFullYear());
   }
 
   function renderCalendarPicker() {
@@ -1672,8 +1802,8 @@ Schliessen
     if (!label || !grid) return;
 
     label.innerHTML = `
-      <span class="text-on-surface text-sm">${monthNamesGerman[currentPickerMonth]}</span>
-      <span class="text-primary font-bold text-sm ml-1">${currentPickerYear}</span>
+      <span class="text-on-surface text-xs font-bold">${monthNamesGerman[currentPickerMonth]}</span>
+      <span class="text-primary font-bold text-xs ml-1">${currentPickerYear}</span>
     `;
 
     const firstDayIndex = new Date(currentPickerYear, currentPickerMonth, 1).getDay();
@@ -1700,7 +1830,7 @@ Schliessen
       const prevYear = currentPickerMonth === 0 ? currentPickerYear - 1 : currentPickerYear;
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
+      btn.className = 'w-8 h-8 rounded-lg flex items-center justify-center text-[11px] text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
       btn.innerText = dayNum;
       btn.onclick = (e) => {
         e.stopPropagation();
@@ -1719,7 +1849,7 @@ Schliessen
       const btn = document.createElement('button');
       btn.type = 'button';
 
-      let baseClasses = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs font-medium transition-all cursor-pointer ';
+      let baseClasses = 'w-8 h-8 rounded-lg flex items-center justify-center text-[11px] font-medium transition-all cursor-pointer ';
       if (isSelected) {
         baseClasses += 'bg-primary text-on-primary font-bold shadow-sm';
       } else if (isToday) {
@@ -1744,7 +1874,7 @@ Schliessen
       const nextYear = currentPickerMonth === 11 ? currentPickerYear + 1 : currentPickerYear;
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
+      btn.className = 'w-8 h-8 rounded-lg flex items-center justify-center text-[11px] text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
       btn.innerText = j;
       btn.onclick = (e) => {
         e.stopPropagation();
@@ -1758,12 +1888,12 @@ Schliessen
     const picker = document.getElementById('calendarPickerDropdown');
     if (!picker || picker.classList.contains('hidden')) return;
 
-    if (!picker.contains(e.target) && (!activeDatePickerTargetId || !document.getElementById(activeDatePickerTargetId).contains(e.target))) {
+    if (!picker.contains(e.target) && (!activeDatePickerTargetId || !document.getElementById(activeDatePickerTargetId)?.contains(e.target))) {
       closeCalendarPicker();
     }
   });
 
-  // Initial load
+  // Start initialization
   renderAll();
 </script>
 </body></html>
