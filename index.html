@@ -261,8 +261,8 @@
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Bemerkungen</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. Besprechung, Baustelle, etc." type="text" value="#Döltschi-Core">
+<label class="block text-label-caps text-secondary mb-1">Projekt</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core">
 </div>
 </div>
 <div class="space-y-4 pt-4 border-t border-outline-variant/10">
@@ -317,13 +317,8 @@
 <h1 class="font-headline-lg text-on-surface">Tagesübersicht (Day View)</h1>
 <p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots nach Schweizer Norm (TT.MM.JJJJ).</p>
 </div>
-<div class="flex items-center gap-3">
-<div class="relative">
-<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-40 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="21.08.2026" type="text" value="21.08.2026">
-<button class="absolute right-2 top-2.5 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-</button>
-</div>
+<div class="flex items-center gap-3"><div class="relative"><select id="filterEmployeeSelect" onchange="renderDayView()" class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium cursor-pointer focus:ring-2 focus:ring-primary"><option value="all">Alle Mitarbeiter</option><option value="Nicole De Pretto">Nicole De Pretto</option><option value="Michelle Dreifuss">Michelle Dreifuss</option><option value="Manuel Schoch">Manuel Schoch</option><option value="Seline Steinmann">Seline Steinmann</option></select></div>
+<div class="relative flex items-center gap-1.5"><div class="relative"><input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-36 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""><button class="absolute right-2 top-2.5 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button"><span class="material-symbols-outlined text-[18px]">calendar_month</span></button></div><button class="px-2.5 py-2.5 bg-surface-container-low text-secondary hover:text-on-surface rounded-xl text-xs font-medium cursor-pointer" onclick="document.getElementById('filterDayDate').value=''; renderDayView();" title="Alle Daten anzeigen" type="button">Alle</button></div>
 <button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all" onclick="resetAllEntriesForDay()">
 <span class="material-symbols-outlined text-[20px]">restart_alt</span>Tag zurücksetzen
           </button>
@@ -331,8 +326,8 @@
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-6">
 <div class="flex items-center justify-between">
-<h3 class="font-headline-md text-on-surface">Gebuchte Zeiteinträge für diesen Tag</h3>
-<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium" id="dayViewTotalHours">Total: 0.0h</span>
+<h3 class="font-headline-md text-on-surface">Gebuchte Zeiteinträge</h3>
+<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium" id="dayViewTotalHours">Total: 45.1h</span>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
@@ -340,7 +335,7 @@
 <tr class="border-b border-outline-variant/20 text-label-caps text-secondary">
 <th class="py-3 px-4">Mitarbeiter</th>
 <th class="py-3 px-4">Datum (TT.MM.JJJJ)</th>
-<th class="py-3 px-4">Bemerkungen</th>
+<th class="py-3 px-4">Projekt</th>
 <th class="py-3 px-4">Vormittag</th>
 <th class="py-3 px-4">Nachmittag</th>
 <th class="py-3 px-4">Abend</th>
@@ -348,9 +343,7 @@
 <th class="py-3 px-4 text-right">Aktionen</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/10 text-sm" id="dayViewTableBody">
-<!-- Populated via JS -->
-</tbody>
+<tbody class="divide-y divide-outline-variant/10 text-sm" id="dayViewTableBody"><tr class="hover:bg-surface-container-low/50 transition-all"><td class="py-3 px-4 font-medium text-on-surface">Nicole De Pretto</td><td class="py-3 px-4 font-semibold text-on-surface text-xs">21.08.2026</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">#Döltschi-Core</span></td><td class="py-3 px-4 text-xs text-secondary">08:00 - 12:00</td><td class="py-3 px-4 text-xs text-secondary">13:00 - 17:00</td><td class="py-3 px-4 text-xs text-secondary">-</td><td class="py-3 px-4 font-bold text-primary">8.0h</td><td class="py-3 px-4 text-right space-x-1"><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('ent_1')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('ent_1')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button></td></tr><tr class="hover:bg-surface-container-low/50 transition-all"><td class="py-3 px-4 font-medium text-on-surface">Michelle Dreifuss</td><td class="py-3 px-4 font-semibold text-on-surface text-xs">21.08.2026</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">#Frontend-UI</span></td><td class="py-3 px-4 text-xs text-secondary">08:30 - 12:00</td><td class="py-3 px-4 text-xs text-secondary">13:00 - 16:00</td><td class="py-3 px-4 text-xs text-secondary">-</td><td class="py-3 px-4 font-bold text-primary">6.4h</td><td class="py-3 px-4 text-right space-x-1"><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('ent_2')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('ent_2')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button></td></tr><tr class="hover:bg-surface-container-low/50 transition-all"><td class="py-3 px-4 font-medium text-on-surface">Manuel Schoch</td><td class="py-3 px-4 font-semibold text-on-surface text-xs">20.08.2026</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">#DevOps-Pipeline</span></td><td class="py-3 px-4 text-xs text-secondary">08:00 - 12:00</td><td class="py-3 px-4 text-xs text-secondary">13:00 - 17:00</td><td class="py-3 px-4 text-xs text-secondary">-</td><td class="py-3 px-4 font-bold text-primary">8.0h</td><td class="py-3 px-4 text-right space-x-1"><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('ent_3')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('ent_3')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button></td></tr><tr class="hover:bg-surface-container-low/50 transition-all"><td class="py-3 px-4 font-medium text-on-surface">Seline Steinmann</td><td class="py-3 px-4 font-semibold text-on-surface text-xs">19.08.2026</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">#UX-Testing</span></td><td class="py-3 px-4 text-xs text-secondary">08:30 - 12:00</td><td class="py-3 px-4 text-xs text-secondary">13:00 - 16:45</td><td class="py-3 px-4 text-xs text-secondary">-</td><td class="py-3 px-4 font-bold text-primary">7.2h</td><td class="py-3 px-4 text-right space-x-1"><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('ent_4')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('ent_4')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button></td></tr><tr class="hover:bg-surface-container-low/50 transition-all"><td class="py-3 px-4 font-medium text-on-surface">Nicole De Pretto</td><td class="py-3 px-4 font-semibold text-on-surface text-xs">17.08.2026</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">#Kundenworkshop</span></td><td class="py-3 px-4 text-xs text-secondary">08:00 - 12:00</td><td class="py-3 px-4 text-xs text-secondary">13:30 - 17:30</td><td class="py-3 px-4 text-xs text-secondary">-</td><td class="py-3 px-4 font-bold text-primary">8.0h</td><td class="py-3 px-4 text-right space-x-1"><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('ent_5')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('ent_5')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button></td></tr><tr class="hover:bg-surface-container-low/50 transition-all"><td class="py-3 px-4 font-medium text-on-surface">Michelle Dreifuss</td><td class="py-3 px-4 font-semibold text-on-surface text-xs">14.08.2026</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">#Refactoring-Sprint</span></td><td class="py-3 px-4 text-xs text-secondary">08:30 - 12:00</td><td class="py-3 px-4 text-xs text-secondary">13:00 - 17:00</td><td class="py-3 px-4 text-xs text-secondary">-</td><td class="py-3 px-4 font-bold text-primary">7.5h</td><td class="py-3 px-4 text-right space-x-1"><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('ent_6')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button><button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('ent_6')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -461,7 +454,7 @@
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Bemerkungen</label>
+<label class="block text-label-caps text-secondary mb-1">Projekt</label>
 <input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text">
 </div>
 <div class="grid grid-cols-3 gap-2">
@@ -543,8 +536,8 @@
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Bemerkungen</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Besprechung, Baustelle, etc." type="text" value="#Döltschi-Core">
+<label class="block text-label-caps text-secondary mb-1">Projekt / Notiz</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core">
 </div>
 </div>
 <div class="flex justify-end gap-3">
