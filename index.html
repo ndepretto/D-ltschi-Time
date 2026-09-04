@@ -196,7 +196,7 @@
 <span class="text-xs text-secondary">Aktualisiert vor wenigen Sekunden</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboardEmployeeGrid">
-<!-- Dynamically populated or static template matching -->
+<!-- Dynamically populated -->
 </div>
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
@@ -302,7 +302,6 @@
 <button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-medium shadow-sm hover:bg-primary-container transition-all" onclick="saveSlotTimeEntry()">Zeiterfassung speichern &amp; Sync</button>
 </div>
 </div>
-<!-- Tagesübersicht / List of logged entries -->
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
 <div class="flex justify-between items-center">
 <h3 class="font-headline-md text-on-surface">Tagesübersicht &amp; Gebuchte Einträge</h3>
@@ -455,7 +454,6 @@
 </main>
 </div>
 <script>
-  // Default Data Store in LocalStorage with fallback
   const defaultEmployees = [
     { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080, ist: 41.5, weekSoll: 40.0 },
     { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664, ist: 31.0, weekSoll: 32.0 },
@@ -503,12 +501,13 @@
     let totalSollW = 0;
 
     emps.forEach(emp => {
-      totalIst += emp.ist;
-      totalSollW += emp.weekSoll || 40;
-      const initials = (emp.vorname[0] + emp.nachname[0]).toUpperCase();
-      const saldo = (emp.ist - (emp.weekSoll || 40)).toFixed(1);
+      totalIst += Number(emp.ist || 0);
+      const wSoll = emp.weekSoll || (40 * (emp.pensum / 100));
+      totalSollW += wSoll;
+      const initials = ((emp.vorname?.[0] || '') + (emp.nachname?.[0] || '')).toUpperCase();
+      const saldo = (Number(emp.ist || 0) - wSoll).toFixed(1);
       const saldoFormatted = (saldo >= 0 ? '+' : '') + saldo + 'h';
-      const pct = Math.round((emp.ist / (emp.weekSoll || 40)) * 100);
+      const pct = Math.round((Number(emp.ist || 0) / wSoll) * 100);
 
       const html = `
         <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
@@ -526,7 +525,7 @@
             <div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
               <div>
                 <span class="text-label-caps text-secondary block mb-1">SOLL</span>
-                <span class="text-body-lg font-bold text-on-surface">${emp.weekSoll || 40}h</span>
+                <span class="text-body-lg font-bold text-on-surface">${wSoll}h</span>
               </div>
               <div>
                 <span class="text-label-caps text-secondary block mb-1">IST</span>
@@ -540,7 +539,7 @@
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-medium">
                 <span class="text-secondary">Jahresfortschritt</span>
-                <span class="text-on-surface">${emp.soll} / ${emp.soll} Std. (${Math.round((emp.ist/40)*100)}%)</span>
+                <span class="text-on-surface">${emp.soll} / ${emp.soll} Std. (${Math.round((Number(emp.ist || 0)/wSoll)*100)}%)</span>
               </div>
               <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
                 <div class="bg-primary h-full rounded-full" style="width: ${Math.min(pct, 100)}%"></div>
@@ -558,8 +557,8 @@
       grid.insertAdjacentHTML('beforeend', html);
     });
 
-    document.getElementById('totalIstHours').innerText = totalIst + 'h';
-    document.getElementById('statTotalSoll').innerText = totalSollW + 'h';
+    document.getElementById('totalIstHours').innerText = totalIst.toFixed(1) + 'h';
+    document.getElementById('statTotalSoll').innerText = totalSollW.toFixed(1) + 'h';
     document.getElementById('statTeamCount').innerText = emps.length;
   }
 
@@ -684,12 +683,17 @@
     }
 
     const id = document.getElementById('editEmployeeId').value;
-    const vorname = document.getElementById('editVorname').value;
-    const nachname = document.getElementById('editNachname').value;
-    const email = document.getElementById('editEmail').value;
-    const role = document.getElementById('editRole').value;
+    const vorname = document.getElementById('editVorname').value.trim();
+    const nachname = document.getElementById('editNachname').value.trim();
+    const email = document.getElementById('editEmail').value.trim();
+    const role = document.getElementById('editRole').value.trim();
     const pensum = parseInt(document.getElementById('editPensum').value) || 100;
     const soll = parseInt(document.getElementById('editSoll').value) || 2080;
+
+    if (!vorname || !nachname) {
+      alert("Vorname und Nachname sind obligatorisch.");
+      return;
+    }
 
     let emps = getEmployees();
     if (id) {
@@ -738,7 +742,7 @@
     const abStart = document.getElementById('slotAbStart').value;
     const abEnd = document.getElementById('slotAbEnd').value;
 
-    let hours = 8.0; // calculated estimate or static default
+    let hours = 8.0;
     const entries = getEntries();
     entries.unshift({
       id: 'e_' + Date.now(),
@@ -752,11 +756,10 @@
     });
     saveEntries(entries);
 
-    // Update employee ist hours
     let emps = getEmployees();
     const emp = emps.find(e => `${e.vorname} ${e.nachname}` === empName);
     if (emp) {
-      emp.ist += hours;
+      emp.ist = Number(emp.ist || 0) + hours;
       saveEmployees(emps);
     }
 
@@ -792,7 +795,7 @@
     let emps = getEmployees();
     const emp = emps.find(e => `${e.vorname} ${e.nachname}` === empName);
     if (emp) {
-      emp.ist += hours;
+      emp.ist = Number(emp.ist || 0) + hours;
       saveEmployees(emps);
     }
 
@@ -885,7 +888,6 @@
     }
   }
 
-  // Initial load
   renderAll();
 </script>
 </body></html>
