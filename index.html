@@ -168,10 +168,10 @@
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div>
 <span class="text-label-caps text-secondary">GESAMT-SOLL (WOCHE)</span>
-<div class="text-[32px] font-headline-lg text-on-surface mt-1" id="statTotalSoll">160h</div>
+<div class="text-[32px] font-headline-lg text-on-surface mt-1" id="statTotalSoll">160.0h</div>
 </div>
 <div class="flex items-center gap-1.5 text-xs text-secondary mt-4">
-<span class="material-symbols-outlined text-[16px]">schedule</span>40h Basis pro Vollzeit
+<span class="material-symbols-outlined text-[16px]">schedule</span>40.0h Basis pro Vollzeit
               </div>
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
@@ -324,7 +324,7 @@
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-6">
 <div class="flex items-center justify-between">
 <h3 class="font-headline-md text-on-surface">Gebuchte Zeiteinträge für diesen Tag</h3>
-<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium" id="dayViewTotalHours">Total: 0h</span>
+<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium" id="dayViewTotalHours">Total: 0.0h</span>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
@@ -355,11 +355,11 @@
 <p class="text-body-md text-on-surface-variant">Kalenderbasierte Wochenansicht aller gebuchten Stunden.</p>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
 <div class="grid grid-cols-5 gap-4 text-center">
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG</div><div class="text-lg font-bold mt-2" id="weekMon">0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG</div><div class="text-lg font-bold mt-2" id="weekTue">0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH</div><div class="text-lg font-bold mt-2" id="weekWed">0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG</div><div class="text-lg font-bold mt-2" id="weekThu">0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG</div><div class="text-lg font-bold mt-2" id="weekFri">0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG</div><div class="text-lg font-bold mt-2" id="weekMon">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG</div><div class="text-lg font-bold mt-2" id="weekTue">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH</div><div class="text-lg font-bold mt-2" id="weekWed">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG</div><div class="text-lg font-bold mt-2" id="weekThu">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG</div><div class="text-lg font-bold mt-2" id="weekFri">0.0h</div></div>
 </div>
 </div>
 </div>
@@ -552,10 +552,10 @@
   checkAuth();
 
   const defaultEmployees = [
-    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080, ist: 0.0, weekSoll: 40.0 },
-    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664, ist: 0.0, weekSoll: 32.0 },
-    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 2080, ist: 0.0, weekSoll: 40.0 },
-    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 90, soll: 1872, ist: 0.0, weekSoll: 36.0 }
+    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080.0, ist: 0.0, weekSoll: 40.0 },
+    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664.0, ist: 0.0, weekSoll: 32.0 },
+    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 2080.0, ist: 0.0, weekSoll: 40.0 },
+    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 90, soll: 1872.0, ist: 0.0, weekSoll: 36.0 }
   ];
 
   const defaultEntries = [];
@@ -597,7 +597,7 @@
 
     emps.forEach(emp => {
       totalIst += Number(emp.ist || 0);
-      const wSoll = emp.weekSoll || (40 * (emp.pensum / 100));
+      const wSoll = emp.weekSoll !== undefined ? Number(emp.weekSoll) : (40 * (emp.pensum / 100));
       totalSollW += wSoll;
       const initials = ((emp.vorname?.[0] || '') + (emp.nachname?.[0] || '')).toUpperCase();
       const saldo = (Number(emp.ist || 0) - wSoll).toFixed(1);
@@ -624,7 +624,7 @@
             <div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
               <div>
                 <span class="text-label-caps text-secondary block mb-1">SOLL</span>
-                <span class="text-body-lg font-bold text-on-surface">${wSoll}h</span>
+                <span class="text-body-lg font-bold text-on-surface">${wSoll.toFixed(1)}h</span>
               </div>
               <div>
                 <span class="text-label-caps text-secondary block mb-1">IST</span>
@@ -638,7 +638,7 @@
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-medium">
                 <span class="text-secondary">Jahresfortschritt</span>
-                <span class="text-on-surface">${Number(emp.ist || 0).toFixed(0)} / ${emp.soll} Std. (${yearPct}%)</span>
+                <span class="text-on-surface">${Number(emp.ist || 0).toFixed(0)} / ${Number(emp.soll || 2080).toFixed(1)} Std. (${yearPct}%)</span>
               </div>
               <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
                 <div class="bg-primary h-full rounded-full" style="width: ${Math.min(yearPct, 100)}%"></div>
@@ -675,6 +675,7 @@
 
     emps.forEach(emp => {
       const weeklyHours = (40 * (emp.pensum / 100)).toFixed(1);
+      const sollHours = Number(emp.soll || 2080).toFixed(1);
       const html = `
         <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between" data-employee-id="${emp.id}">
           <div>
@@ -691,7 +692,7 @@
             <div class="mt-4 text-sm space-y-1 text-on-surface-variant">
               <div>Pensum: <span class="font-medium text-on-surface">${emp.pensum}% (${weeklyHours}h/Woche)</span></div>
               <div>E-Mail: <span class="font-medium text-on-surface">${emp.email || ''}</span></div>
-              <div>Jahresarbeitszeit (Soll): <span class="font-medium text-on-surface">${emp.soll} Std. (${emp.pensum}%)</span></div>
+              <div>Jahresarbeitszeit (Soll): <span class="font-medium text-on-surface">${sollHours} Std. (${emp.pensum}%)</span></div>
             </div>
           </div>
           <div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
@@ -736,7 +737,7 @@
       item.innerHTML = `
         <div>
           <div class="font-bold text-on-surface text-sm">${ent.employee || ''} - <span class="text-primary">${ent.project || ''}</span></div>
-          <div class="text-xs text-secondary mt-1">Datum: ${ent.date || ''} | Dauer: <span class="font-semibold text-on-surface">${ent.hours || 0}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
+          <div class="text-xs text-secondary mt-1">Datum: ${ent.date || ''} | Dauer: <span class="font-semibold text-on-surface">${Number(ent.hours || 0).toFixed(1)}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
         </div>
         <div class="flex gap-2">
           <button class="p-2 hover:bg-surface-container-highest rounded-lg text-primary text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
@@ -766,7 +767,7 @@
 
     if (filtered.length === 0) {
       tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-4 text-center text-secondary">Keine Zeiteinträge für den ${selectedDate} gefunden.</td></tr>`;
-      if (totalEl) totalEl.innerText = 'Total: 0h';
+      if (totalEl) totalEl.innerText = 'Total: 0.0h';
       return;
     }
 
@@ -781,7 +782,7 @@
         <td class="py-3 px-4 text-xs text-secondary">${ent.vm || '-'}</td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.nm || '-'}</td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.ab || '-'}</td>
-        <td class="py-3 px-4 font-bold text-primary">${ent.hours || 0}h</td>
+        <td class="py-3 px-4 font-bold text-primary">${Number(ent.hours || 0).toFixed(1)}h</td>
         <td class="py-3 px-4 text-right space-x-1">
           <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
           <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
@@ -814,7 +815,7 @@
     document.getElementById('editEmail').value = emp.email || '';
     document.getElementById('editRole').value = emp.role || '';
     document.getElementById('editPensum').value = emp.pensum ?? 100;
-    document.getElementById('editSoll').value = emp.soll ?? 2080;
+    document.getElementById('editSoll').value = emp.soll ?? 2080.0;
     document.getElementById('editModalTitle').innerText = 'Mitarbeiter bearbeiten';
     document.getElementById('editEmployeeModal').classList.remove('hidden');
   }
@@ -826,7 +827,7 @@
     document.getElementById('editEmail').value = '';
     document.getElementById('editRole').value = '';
     document.getElementById('editPensum').value = '100';
-    document.getElementById('editSoll').value = '2080';
+    document.getElementById('editSoll').value = '2080.0';
     document.getElementById('editModalTitle').innerText = 'Neuen Mitarbeiter hinzufügen';
     document.getElementById('editEmployeeModal').classList.remove('hidden');
   }
@@ -842,7 +843,7 @@
     const email = document.getElementById('editEmail').value.trim();
     const role = document.getElementById('editRole').value.trim();
     const pensum = parseInt(document.getElementById('editPensum').value) || 100;
-    const soll = parseInt(document.getElementById('editSoll').value) || 2080;
+    const soll = parseFloat(document.getElementById('editSoll').value) || 2080.0;
 
     if (!vorname || !nachname) {
       alert("Vorname und Nachname sind obligatorisch.");
