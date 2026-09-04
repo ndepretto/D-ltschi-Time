@@ -314,39 +314,103 @@
 <!-- VIEW: MITARBEITER -->
 <div class="view-content hidden" id="view-mitarbeiter">
 <div class="p-8 space-y-6">
+<div class="flex items-center justify-between">
+<div>
 <h1 class="font-headline-lg text-on-surface">Mitarbeiterverwaltung</h1>
 <p class="text-body-md text-on-surface-variant">Verwaltung der Teammitglieder, Pensen und Kontaktdaten.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-primary-container transition-all shadow-sm" onclick="alert('Neuen Mitarbeiter hinzufügen Dialog geöffnet')">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+        Mitarbeiter hinzufügen
+      </button>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
-<h3 class="font-bold text-body-lg">Nicole De Pretto</h3>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-body-lg text-on-surface">Nicole De Pretto</h3>
 <p class="text-secondary text-xs">Projektleiterin / Design</p>
-<div class="mt-4 text-sm space-y-1">
-<div>Pensum: 100% (40h/Woche)</div>
-<div>E-Mail: nicole.depretto@doeltschi.ch</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary" onclick="alert('Bearbeiten: Nicole De Pretto')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-error" onclick="alert('Löschen: Nicole De Pretto')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
-<h3 class="font-bold text-body-lg">Michelle Dreifuss</h3>
+<div class="mt-4 text-sm space-y-1 text-on-surface-variant">
+<div>Pensum: <span class="font-medium text-on-surface">100% (40h/Woche)</span></div>
+<div>E-Mail: <span class="font-medium text-on-surface">nicole.depretto@doeltschi.ch</span></div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
+<span class="text-primary font-medium">Aktiv</span>
+<button class="text-secondary hover:underline" onclick="alert('Passwort zurückgesetzt')">Passwort zurücksetzen</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-body-lg text-on-surface">Michelle Dreifuss</h3>
 <p class="text-secondary text-xs">Frontend Engineer</p>
-<div class="mt-4 text-sm space-y-1">
-<div>Pensum: 80% (32h/Woche)</div>
-<div>E-Mail: michelle.dreifuss@doeltschi.ch</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary" onclick="alert('Bearbeiten: Michelle Dreifuss')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-error" onclick="alert('Löschen: Michelle Dreifuss')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
-<h3 class="font-bold text-body-lg">Manuel Schoch</h3>
+<div class="mt-4 text-sm space-y-1 text-on-surface-variant">
+<div>Pensum: <span class="font-medium text-on-surface">80% (32h/Woche)</span></div>
+<div>E-Mail: <span class="font-medium text-on-surface">michelle.dreifuss@doeltschi.ch</span></div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
+<span class="text-primary font-medium">Aktiv</span>
+<button class="text-secondary hover:underline" onclick="alert('Passwort zurückgesetzt')">Passwort zurücksetzen</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-body-lg text-on-surface">Manuel Schoch</h3>
 <p class="text-secondary text-xs">Fullstack &amp; DevOps</p>
-<div class="mt-4 text-sm space-y-1">
-<div>Pensum: 100% (40h/Woche)</div>
-<div>E-Mail: manuel.schoch@doeltschi.ch</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary" onclick="alert('Bearbeiten: Manuel Schoch')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-error" onclick="alert('Löschen: Manuel Schoch')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
-<h3 class="font-bold text-body-lg">Seline Steinmann</h3>
+<div class="mt-4 text-sm space-y-1 text-on-surface-variant">
+<div>Pensum: <span class="font-medium text-on-surface">100% (40h/Woche)</span></div>
+<div>E-Mail: <span class="font-medium text-on-surface">manuel.schoch@doeltschi.ch</span></div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
+<span class="text-primary font-medium">Aktiv</span>
+<button class="text-secondary hover:underline" onclick="alert('Passwort zurückgesetzt')">Passwort zurücksetzen</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-body-lg text-on-surface">Seline Steinmann</h3>
 <p class="text-secondary text-xs">UX Research &amp; QA</p>
-<div class="mt-4 text-sm space-y-1">
-<div>Pensum: 90% (36h/Woche)</div>
-<div>E-Mail: seline.steinmann@doeltschi.ch</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary" onclick="alert('Bearbeiten: Seline Steinmann')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg text-error" onclick="alert('Löschen: Seline Steinmann')"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="mt-4 text-sm space-y-1 text-on-surface-variant">
+<div>Pensum: <span class="font-medium text-on-surface">90% (36h/Woche)</span></div>
+<div>E-Mail: <span class="font-medium text-on-surface">seline.steinmann@doeltschi.ch</span></div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
+<span class="text-primary font-medium">Aktiv</span>
+<button class="text-secondary hover:underline" onclick="alert('Passwort zurückgesetzt')">Passwort zurücksetzen</button>
 </div>
 </div>
 </div>
@@ -356,24 +420,59 @@
 <div class="view-content hidden" id="view-zeiterfassung">
 <div class="p-8 space-y-6">
 <h1 class="font-headline-lg text-on-surface">Zeiterfassung</h1>
-<p class="text-body-md text-on-surface-variant">Erfassen und Verwalten von Arbeitsstunden und Projekten.</p>
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
-<h3 class="font-bold text-body-lg">Aktuelle Einträge dieser Woche</h3>
-<div class="space-y-2">
-<div class="p-3 bg-surface-container-low rounded-xl flex justify-between items-center">
+<p class="text-body-md text-on-surface-variant">Erfassen und Verwalten von Arbeitsstunden mit Vormittag-, Nachmittag- und Abend-Slots.</p>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm space-y-6">
+<h3 class="font-bold text-body-lg text-on-surface">Tages-Zeiterfassung erfassen</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div>
-<div class="font-medium">Manuel Schoch • Sprint Planning &amp; Core Features</div>
-<div class="text-xs text-secondary">24.10.2024 • 8.0 Stunden</div>
+<label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
+<select class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface focus:ring-2 focus:ring-primary">
+<option>Nicole De Pretto</option>
+<option>Michelle Dreifuss</option>
+<option>Manuel Schoch</option>
+<option>Seline Steinmann</option>
+</select>
 </div>
-<span class="text-primary font-bold">+8.0h</span>
-</div>
-<div class="p-3 bg-surface-container-low rounded-xl flex justify-between items-center">
 <div>
-<div class="font-medium">Nicole De Pretto • UI Design System</div>
-<div class="text-xs text-secondary">24.10.2024 • 8.5 Stunden</div>
+<label class="block text-label-caps text-secondary mb-1">Datum</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" type="date" value="2024-10-24"/>
 </div>
-<span class="text-primary font-bold">+8.5h</span>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Projekt</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
 </div>
+</div>
+<div class="space-y-4 pt-4 border-t border-outline-variant/10">
+<h4 class="font-bold text-on-surface text-sm">Zeitfenster (Slots)</h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 bg-surface-container-low rounded-xl space-y-2">
+<span class="text-label-caps text-primary block">Vormittag</span>
+<div class="flex items-center gap-2">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" type="time" value="08:00"/>
+<span class="text-secondary">-</span>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" type="time" value="12:00"/>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl space-y-2">
+<span class="text-label-caps text-primary block">Nachmittag</span>
+<div class="flex items-center gap-2">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" type="time" value="13:00"/>
+<span class="text-secondary">-</span>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" type="time" value="17:00"/>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl space-y-2">
+<span class="text-label-caps text-primary block">Abend</span>
+<div class="flex items-center gap-2">
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" type="time" value="18:00"/>
+<span class="text-secondary">-</span>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" type="time" value="20:00"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-end pt-4">
+<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-medium shadow-sm hover:bg-primary-container transition-all" onclick="saveNewEntry()">Zeiterfassung speichern &amp; Sync</button>
 </div>
 </div>
 </div>
@@ -443,7 +542,7 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 <h3 class="text-headline-md text-on-surface mb-2">Neuen Zeiteintrag erfassen</h3>
-<p class="text-body-md text-on-surface-variant mb-6">Erfassung wird direkt in Firebase Firestore synchronisiert.</p>
+<p class="text-body-md text-on-surface-variant mb-6">Erfassung wird direkt in Firebase Firestore synchronisiert. (Passwort: Willma)</p>
 <div class="space-y-4 mb-8">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
@@ -506,8 +605,13 @@
     }
 
     function saveNewEntry() {
-      alert('Eintrag erfolgreich gespeichert und an Firebase übertragen! (Passwort: Willma)');
-      closeNewEntryModal();
+      const pwd = prompt("Bitte geben Sie das Firebase Passwort ein (Willma):");
+      if (pwd === "Willma") {
+        alert('Eintrag erfolgreich gespeichert und an Firebase übertragen!');
+        closeNewEntryModal();
+      } else if (pwd !== null) {
+        alert('Falsches Passwort!');
+      }
     }
 
     function switchView(viewName) {
