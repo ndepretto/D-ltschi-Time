@@ -177,19 +177,19 @@
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div>
 <span class="text-label-caps text-secondary">GESAMT-IST (WOCHE)</span>
-<div class="text-[32px] font-headline-lg text-primary mt-1" id="totalIstHours">148.5h</div>
+<div class="text-[32px] font-headline-lg text-primary mt-1" id="totalIstHours">0.0h</div>
 </div>
 <div class="w-full bg-surface-container-high h-2 rounded-full mt-4 overflow-hidden">
-<div class="bg-primary h-full rounded-full" id="statIstBar" style="width: 92%"></div>
+<div class="bg-primary h-full rounded-full" id="statIstBar" style="width: 0%"></div>
 </div>
 </div>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div>
 <span class="text-label-caps text-secondary">JAHRESFORTSCHRITT 2024</span>
-<div class="text-[32px] font-headline-lg text-on-surface mt-1">78%</div>
+<div class="text-[32px] font-headline-lg text-on-surface mt-1">0%</div>
 </div>
 <div class="flex items-center gap-1.5 text-xs text-secondary mt-4">
-<span class="material-symbols-outlined text-[16px]">trending_up</span>Q4 aktiv
+<span class="material-symbols-outlined text-[16px]">trending_up</span>Q1 aktiv
               </div>
 </div>
 </div>
@@ -210,23 +210,13 @@
 <div class="space-y-3" id="activityLogContainer">
 <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">update</span>
-<div>
-<p class="text-body-md font-medium text-on-surface">Zeiterfassung aktualisiert für Manuel Schoch</p>
-<span class="text-xs text-secondary">Vor 4 Minuten • Projekt #Döltschi-Core</span>
-</div>
-</div>
-<span class="text-xs text-primary font-medium">+2.5h</span>
-</div>
-<div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
-<div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-primary">check_circle</span>
 <div>
-<p class="text-body-md font-medium text-on-surface">Wochenabschluss bestätigt von Nicole De Pretto</p>
-<span class="text-xs text-secondary">Vor 25 Minuten • Automatischer Cloud-Sync</span>
+<p class="text-body-md font-medium text-on-surface">System bereit und initialisiert</p>
+<span class="text-xs text-secondary">Gerade eben • Automatischer Cloud-Sync</span>
 </div>
 </div>
-<span class="text-xs text-secondary">Erfolgreich</span>
+<span class="text-xs text-secondary">Bereit</span>
 </div>
 </div>
 </div>
@@ -265,7 +255,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Datum</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeDateInput" type="date" value="2024-10-24"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeDateInput" type="date" value="2025-01-02"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Projekt</label>
@@ -294,9 +284,9 @@
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Abend</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbStart" type="time" value="18:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbStart" type="time" value=""/>
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbEnd" type="time" value="20:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbEnd" type="time" value=""/>
 </div>
 </div>
 </div>
@@ -325,7 +315,7 @@
 <p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots.</p>
 </div>
 <div class="flex items-center gap-3">
-<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm" id="filterDayDate" onchange="renderDayView()" type="date" value="2024-10-24"/>
+<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm" id="filterDayDate" onchange="renderDayView()" type="date" value="2025-01-02"/>
 <button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all" onclick="resetAllEntriesForDay()">
 <span class="material-symbols-outlined text-[20px]">restart_alt</span>Tag zurücksetzen
           </button>
@@ -365,11 +355,11 @@
 <p class="text-body-md text-on-surface-variant">Kalenderbasierte Wochenansicht aller gebuchten Stunden.</p>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
 <div class="grid grid-cols-5 gap-4 text-center">
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG</div><div class="text-lg font-bold mt-2" id="weekMon">32h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG</div><div class="text-lg font-bold mt-2" id="weekTue">31h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH</div><div class="text-lg font-bold mt-2" id="weekWed">30.5h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG</div><div class="text-lg font-bold mt-2" id="weekThu">35h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG</div><div class="text-lg font-bold mt-2" id="weekFri">20h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG</div><div class="text-lg font-bold mt-2" id="weekMon">0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG</div><div class="text-lg font-bold mt-2" id="weekTue">0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH</div><div class="text-lg font-bold mt-2" id="weekWed">0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG</div><div class="text-lg font-bold mt-2" id="weekThu">0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG</div><div class="text-lg font-bold mt-2" id="weekFri">0h</div></div>
 </div>
 </div>
 </div>
@@ -381,7 +371,7 @@
 <p class="text-body-md text-on-surface-variant">Monats- und Jahresberichte zum Exportieren.</p>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex items-center justify-between">
 <div>
-<h3 class="font-bold text-body-lg">Jahresbericht 2024 (PDF)</h3>
+<h3 class="font-bold text-body-lg">Jahresbericht 2025 (PDF)</h3>
 <p class="text-secondary text-xs">Detaillierte Auswertung aller Überstunden und Ferienguthaben.</p>
 </div>
 <button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-medium" onclick="alert('Bericht wird generiert...')">Bericht herunterladen</button>
@@ -493,15 +483,15 @@
 <div class="space-y-4 mb-8">
 <div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
 <span class="text-secondary">Überstunden Total:</span>
-<span class="font-bold text-on-surface" id="detailOvertime">+18.5 Std.</span>
+<span class="font-bold text-on-surface" id="detailOvertime">0.0 Std.</span>
 </div>
 <div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
 <span class="text-secondary">Ferienguthaben:</span>
-<span class="font-bold text-on-surface">14.5 Tage</span>
+<span class="font-bold text-on-surface">20.0 Tage</span>
 </div>
 <div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
 <span class="text-secondary">Gleitzeit-Saldo:</span>
-<span class="font-bold text-primary">+4.0 Std.</span>
+<span class="font-bold text-primary">0.0 Std.</span>
 </div>
 </div>
 <div class="flex justify-end gap-3">
@@ -527,7 +517,7 @@
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Datum</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryDate" type="date" value="2024-10-24"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryDate" type="date" value="2025-01-02"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
@@ -549,16 +539,13 @@
 </div>
 <script>
   const defaultEmployees = [
-    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080, ist: 41.5, weekSoll: 40.0 },
-    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664, ist: 31.0, weekSoll: 32.0 },
-    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 2080, ist: 43.0, weekSoll: 40.0 },
-    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 90, soll: 1872, ist: 33.0, weekSoll: 36.0 }
+    { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080, ist: 0.0, weekSoll: 40.0 },
+    { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664, ist: 0.0, weekSoll: 32.0 },
+    { id: 'manuel', vorname: 'Manuel', nachname: 'Schoch', email: 'manuel.schoch@doeltschi.ch', role: 'Fullstack & DevOps', pensum: 100, soll: 2080, ist: 0.0, weekSoll: 40.0 },
+    { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 90, soll: 1872, ist: 0.0, weekSoll: 36.0 }
   ];
 
-  const defaultEntries = [
-    { id: 'e1', employee: 'Manuel Schoch', date: '2024-10-24', project: '#Döltschi-Core', hours: 8.5, vm: '08:00 - 12:00', nm: '13:00 - 17:30', ab: '' },
-    { id: 'e2', employee: 'Nicole De Pretto', date: '2024-10-24', project: 'Design System', hours: 8.0, vm: '08:30 - 12:00', nm: '13:00 - 17:30', ab: '' }
-  ];
+  const defaultEntries = [];
 
   function getEmployees() {
     const data = localStorage.getItem('doeltschi_employees');
@@ -602,7 +589,11 @@
       const initials = ((emp.vorname?.[0] || '') + (emp.nachname?.[0] || '')).toUpperCase();
       const saldo = (Number(emp.ist || 0) - wSoll).toFixed(1);
       const saldoFormatted = (saldo >= 0 ? '+' : '') + saldo + 'h';
-      const pct = Math.round((Number(emp.ist || 0) / wSoll) * 100);
+      const rawPct = wSoll > 0 ? Math.round((Number(emp.ist || 0) / wSoll) * 100) : 0;
+      const pct = isNaN(rawPct) ? 0 : rawPct;
+      
+      const rawYearPct = emp.soll > 0 ? Math.round((Number(emp.ist || 0) / emp.soll) * 100) : 0;
+      const yearPct = isNaN(rawYearPct) ? 0 : rawYearPct;
 
       const html = `
         <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
@@ -611,8 +602,8 @@
               <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">${initials}</div>
                 <div>
-                  <h3 class="text-body-lg font-bold text-on-surface">${emp.vorname} ${emp.nachname}</h3>
-                  <span class="text-xs text-secondary">${emp.role}</span>
+                  <h3 class="text-body-lg font-bold text-on-surface">${emp.vorname || ''} ${emp.nachname || ''}</h3>
+                  <span class="text-xs text-secondary">${emp.role || ''}</span>
                 </div>
               </div>
               <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">${emp.pensum}% Pensum</span>
@@ -624,7 +615,7 @@
               </div>
               <div>
                 <span class="text-label-caps text-secondary block mb-1">IST</span>
-                <span class="text-body-lg font-bold text-primary">${emp.ist}h</span>
+                <span class="text-body-lg font-bold text-primary">${Number(emp.ist || 0).toFixed(1)}h</span>
               </div>
               <div>
                 <span class="text-label-caps text-secondary block mb-1">SALDO</span>
@@ -634,10 +625,10 @@
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-medium">
                 <span class="text-secondary">Jahresfortschritt</span>
-                <span class="text-on-surface">${emp.soll} / ${emp.soll} Std. (${Math.round((Number(emp.ist || 0)/wSoll)*100)}%)</span>
+                <span class="text-on-surface">${Number(emp.ist || 0).toFixed(0)} / ${emp.soll} Std. (${yearPct}%)</span>
               </div>
               <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
-                <div class="bg-primary h-full rounded-full" style="width: ${Math.min(pct, 100)}%"></div>
+                <div class="bg-primary h-full rounded-full" style="width: ${Math.min(yearPct, 100)}%"></div>
               </div>
             </div>
           </div>
@@ -645,7 +636,7 @@
             <span class="flex items-center gap-1 text-primary font-medium">
               <span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
             </span>
-            <button class="text-primary hover:underline font-medium" onclick="openDetailModal('${emp.vorname} ${emp.nachname}')">Details anzeigen</button>
+            <button class="text-primary hover:underline font-medium" onclick="openDetailModal('${emp.vorname || ''} ${emp.nachname || ''}')">Details anzeigen</button>
           </div>
         </div>
       `;
@@ -655,6 +646,12 @@
     document.getElementById('totalIstHours').innerText = totalIst.toFixed(1) + 'h';
     document.getElementById('statTotalSoll').innerText = totalSollW.toFixed(1) + 'h';
     document.getElementById('statTeamCount').innerText = emps.length;
+    
+    const barEl = document.getElementById('statIstBar');
+    if (barEl) {
+      const globalPct = totalSollW > 0 ? Math.min(Math.round((totalIst / totalSollW) * 100), 100) : 0;
+      barEl.style.width = globalPct + '%';
+    }
   }
 
   function renderMitarbeiter() {
@@ -670,8 +667,8 @@
           <div>
             <div class="flex justify-between items-start mb-4">
               <div>
-                <h3 class="font-bold text-body-lg text-on-surface emp-name">${emp.vorname} ${emp.nachname}</h3>
-                <p class="text-secondary text-xs emp-role">${emp.role}</p>
+                <h3 class="font-bold text-body-lg text-on-surface emp-name">${emp.vorname || ''} ${emp.nachname || ''}</h3>
+                <p class="text-secondary text-xs emp-role">${emp.role || ''}</p>
               </div>
               <div class="flex gap-2">
                 <button class="p-2 hover:bg-surface-container-low rounded-lg text-secondary cursor-pointer" onclick="openEditModal('${emp.id}')"><span class="material-symbols-outlined text-[18px]">edit</span></button>
@@ -680,13 +677,13 @@
             </div>
             <div class="mt-4 text-sm space-y-1 text-on-surface-variant">
               <div>Pensum: <span class="font-medium text-on-surface">${emp.pensum}% (${weeklyHours}h/Woche)</span></div>
-              <div>E-Mail: <span class="font-medium text-on-surface">${emp.email}</span></div>
+              <div>E-Mail: <span class="font-medium text-on-surface">${emp.email || ''}</span></div>
               <div>Jahresarbeitszeit (Soll): <span class="font-medium text-on-surface">${emp.soll} Std. (${emp.pensum}%)</span></div>
             </div>
           </div>
           <div class="mt-6 pt-4 border-t border-outline-variant/10 flex justify-between items-center text-xs">
             <span class="text-primary font-medium">Aktiv</span>
-            <button class="text-secondary hover:underline cursor-pointer" onclick="promptPasswordReset('${emp.email}')">Passwort zurücksetzen</button>
+            <button class="text-secondary hover:underline cursor-pointer" onclick="promptPasswordReset('${emp.email || ''}')">Passwort zurücksetzen</button>
           </div>
         </div>
       `;
@@ -702,8 +699,8 @@
       sel.innerHTML = '';
       emps.forEach(emp => {
         const opt = document.createElement('option');
-        opt.value = `${emp.vorname} ${emp.nachname}`;
-        opt.textContent = `${emp.vorname} ${emp.nachname}`;
+        opt.value = `${emp.vorname || ''} ${emp.nachname || ''}`;
+        opt.textContent = `${emp.vorname || ''} ${emp.nachname || ''}`;
         sel.appendChild(opt);
       });
     });
@@ -725,8 +722,8 @@
       item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl';
       item.innerHTML = `
         <div>
-          <div class="font-bold text-on-surface text-sm">${ent.employee} - <span class="text-primary">${ent.project}</span></div>
-          <div class="text-xs text-secondary mt-1">Datum: ${ent.date} | Dauer: <span class="font-semibold text-on-surface">${ent.hours}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
+          <div class="font-bold text-on-surface text-sm">${ent.employee || ''} - <span class="text-primary">${ent.project || ''}</span></div>
+          <div class="text-xs text-secondary mt-1">Datum: ${ent.date || ''} | Dauer: <span class="font-semibold text-on-surface">${ent.hours || 0}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
         </div>
         <div class="flex gap-2">
           <button class="p-2 hover:bg-surface-container-highest rounded-lg text-primary text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
@@ -765,13 +762,13 @@
       const tr = document.createElement('tr');
       tr.className = 'hover:bg-surface-container-low/50 transition-all';
       tr.innerHTML = `
-        <td class="py-3 px-4 font-medium text-on-surface">${ent.employee}</td>
-        <td class="py-3 px-4 text-secondary text-xs">${ent.date}</td>
-        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">${ent.project}</span></td>
+        <td class="py-3 px-4 font-medium text-on-surface">${ent.employee || ''}</td>
+        <td class="py-3 px-4 text-secondary text-xs">${ent.date || ''}</td>
+        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">${ent.project || ''}</span></td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.vm || '-'}</td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.nm || '-'}</td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.ab || '-'}</td>
-        <td class="py-3 px-4 font-bold text-primary">${ent.hours}h</td>
+        <td class="py-3 px-4 font-bold text-primary">${ent.hours || 0}h</td>
         <td class="py-3 px-4 text-right space-x-1">
           <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
           <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
@@ -875,7 +872,7 @@
     if (!ent) return;
 
     document.getElementById('editTimeEntryId').value = ent.id;
-    document.getElementById('editTimeEmployee').value = ent.employee;
+    document.getElementById('editTimeEmployee').value = ent.employee || '';
     document.getElementById('editTimeDate').value = ent.date || '';
     document.getElementById('editTimeHours').value = ent.hours || 8;
     document.getElementById('editTimeProject').value = ent.project || '';
@@ -960,7 +957,7 @@
     saveEntries(entries);
 
     let emps = getEmployees();
-    const emp = emps.find(e => `${e.vorname} ${e.nachname}` === empName);
+    const emp = emps.find(e => `${e.vorname || ''} ${e.nachname || ''}` === empName);
     if (emp) {
       emp.ist = Number(emp.ist || 0) + hours;
       saveEmployees(emps);
@@ -996,7 +993,7 @@
     saveEntries(entries);
 
     let emps = getEmployees();
-    const emp = emps.find(e => `${e.vorname} ${e.nachname}` === empName);
+    const emp = emps.find(e => `${e.vorname || ''} ${e.nachname || ''}` === empName);
     if (emp) {
       emp.ist = Number(emp.ist || 0) + hours;
       saveEmployees(emps);
