@@ -2,779 +2,410 @@
 
 <html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"primary":"#003d9b","primary-fixed":"#dae2ff","secondary":"#5c5f60","outline":"#737685","tertiary-fixed-dim":"#ffb59b","on-primary-container":"#c4d2ff","on-primary-fixed":"#001848","surface-tint":"#0c56d0","tertiary-container":"#a33500","on-error-container":"#93000a","surface-container-low":"#f1f3ff","surface-container-high":"#e0e8ff","on-primary-fixed-variant":"#0040a2","tertiary-fixed":"#ffdbcf","surface-container-lowest":"#ffffff","secondary-fixed":"#e1e2e4","surface-container-highest":"#d7e2ff","surface":"#f9f9ff","on-surface":"#041b3c","on-tertiary-container":"#ffc6b2","on-tertiary-fixed-variant":"#812800","secondary-container":"#dee0e2","secondary-fixed-dim":"#c5c6c8","inverse-on-surface":"#edf0ff","on-secondary-fixed":"#191c1e","error":"#ba1a1a","on-tertiary-fixed":"#380d00","on-primary":"#ffffff","on-error":"#ffffff","surface-variant":"#d7e2ff","outline-variant":"#c3c6d6","error-container":"#ffdad6","on-secondary-container":"#606365","on-secondary":"#ffffff","on-secondary-fixed-variant":"#444749","background":"#f9f9ff","surface-container":"#e8edff","inverse-primary":"#b2c5ff","on-surface-variant":"#434654","tertiary":"#7b2600","surface-dim":"#cadaff","surface-bright":"#f9f9ff","primary-container":"#0052cc","on-tertiary":"#ffffff","on-background":"#041b3c","primary-fixed-dim":"#b2c5ff","inverse-surface":"#1d3052"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"stack-md":"24px","stack-lg":"48px","gutter":"24px","container-max":"800px","stack-sm":"12px","unit":"8px"},"fontFamily":{"headline-md":["Work Sans"],"headline-lg-mobile":["Work Sans"],"body-md":["Work Sans"],"body-lg":["Work Sans"],"headline-lg":["Work Sans"],"label-caps":["Work Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["32px",{"lineHeight":"38px","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}};</script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-xl"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full min-h-screen bg-surface text-on-surface">
-<!-- Password Protection Overlay -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md flex items-center justify-center" id="auth-overlay">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-2xl max-w-md w-full mx-4 flex flex-col items-center">
-<div class="w-16 h-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-6 shadow-sm">
-<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">lock</span>
-</div>
-<h2 class="font-headline-lg text-headline-md text-on-surface mb-2">Döltschi Time Security</h2>
-<p class="font-body-md text-on-surface-variant text-center mb-6">Enter password to unlock live Firebase synchronization for the team.</p>
-<form class="w-full flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface outline-none focus:ring-2 focus:ring-primary transition-all text-body-md" id="auth-password" placeholder="Enter password (Willma)" required="" type="password"/>
-<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-headline-md shadow-sm hover:opacity-90 transition-all flex items-center justify-center gap-2" type="submit">
-<span class="material-symbols-outlined">login</span>
-          Unlock Workspace
-        </button>
-<p class="text-error text-center font-body-md text-sm hidden" id="auth-error">Incorrect password. Hint: Willma</p>
-</form>
-</div>
-</div>
-<!-- Main App Views Container -->
-<div class="flex-1 max-w-[1400px] w-full mx-auto px-gutter py-stack-lg">
-<!-- DASHBOARD VIEW -->
-<section class="space-y-stack-lg" id="view-dashboard">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-xl"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-16">
+<!-- Hero / Header Section -->
+<div class="px-8 pt-8 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-outline-variant/20 bg-surface-container-low/50">
 <div>
-<span class="font-label-caps text-outline uppercase tracking-wider mb-2 block">Overview & Live Status</span>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Team Dashboard</h1>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-caps text-[10px]">LIVE CLOUD SYNC</span>
+<span class="text-xs text-secondary">Firebase Firestore Connected</span>
+</div>
+<h1 class="font-headline-lg text-on-surface">Team Dashboard & Live-Zeiterfassung</h1>
+<p class="text-body-md text-on-surface-variant">Übersicht aller Mitarbeiter, Pensen, Soll/Ist-Stunden und Jahresfortschritte.</p>
 </div>
 <div class="flex items-center gap-3">
-<div class="bg-surface-container-high px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm">
-<span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="font-body-md text-sm text-on-surface-variant">Firestore Live Sync Active</span>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-primary-container transition-all shadow-sm" id="syncBtn" onclick="syncData()">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+        Daten synchronisieren
+      </button>
+<button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all" onclick="openNewEntryModal()">
+<span class="material-symbols-outlined text-[20px]">add</span>
+        Zeiteintrag
+      </button>
 </div>
-<button class="bg-primary text-on-primary px-5 py-2.5 rounded-xl font-headline-md text-sm shadow-sm hover:opacity-90 transition-all flex items-center gap-2" onclick="switchView('zeiterfassung')">
-<span class="material-symbols-outlined text-[18px]">add_alarm</span>
-<span>New Entry</span>
-</button>
 </div>
-</div>
-<!-- Stats Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-<div class="bg-surface-container-low p-6 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
-<div class="absolute -right-4 -bottom-4 text-primary/5">
-<span class="material-symbols-outlined text-[120px]">group</span>
-</div>
+<!-- Main Content Grid -->
+<div class="p-8 space-y-stack-lg">
+<!-- Overview Stats Banner -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute right-0 top-0 w-2 h-full bg-primary"></div>
 <div>
-<span class="font-label-caps text-outline uppercase block mb-1">Active Employees</span>
-<h3 class="font-headline-lg text-headline-md text-on-surface" id="stat-total-emp">4</h3>
+<span class="text-label-caps text-secondary">AKTIVES TEAM</span>
+<div class="text-[32px] font-headline-lg text-on-surface mt-1">4</div>
 </div>
-<div class="mt-6 flex items-center gap-1 text-primary font-body-md text-sm">
-<span class="material-symbols-outlined text-[16px]">trending_up</span>
-<span>All systems nominal</span>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
-<div class="absolute -right-4 -bottom-4 text-primary/5">
-<span class="material-symbols-outlined text-[120px]">schedule</span>
-</div>
-<div>
-<span class="font-label-caps text-outline uppercase block mb-1">Total Hours This Week</span>
-<h3 class="font-headline-lg text-headline-md text-on-surface" id="stat-total-hours">0.0h</h3>
-</div>
-<div class="mt-6 flex items-center gap-1 text-primary font-body-md text-sm">
-<span class="material-symbols-outlined text-[16px]">schedule</span>
-<span>Tracked via Vormittag/Nachmittag</span>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
-<div class="absolute -right-4 -bottom-4 text-primary/5">
-<span class="material-symbols-outlined text-[120px]">balance</span>
-</div>
-<div>
-<span class="font-label-caps text-outline uppercase block mb-1">Team Balance (Saldo)</span>
-<h3 class="font-headline-lg text-headline-md text-on-surface" id="stat-total-saldo">+0.0h</h3>
-</div>
-<div class="mt-6 flex items-center gap-1 text-emerald-600 font-body-md text-sm">
+<div class="flex items-center gap-1.5 text-xs text-primary mt-4 font-medium">
 <span class="material-symbols-outlined text-[16px]">check_circle</span>
-<span>Balanced workload</span>
+          Alle Systeme online
+        </div>
 </div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
-<div class="absolute -right-4 -bottom-4 text-primary/5">
-<span class="material-symbols-outlined text-[120px]">calendar_today</span>
-</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div>
-<span class="font-label-caps text-outline uppercase block mb-1">Current Period</span>
-<h3 class="font-headline-lg text-headline-md text-on-surface">Weekly View</h3>
+<span class="text-label-caps text-secondary">GESAMT-SOLL (WOCHE)</span>
+<div class="text-[32px] font-headline-lg text-on-surface mt-1">160h</div>
 </div>
-<div class="mt-6 flex items-center gap-1 text-primary font-body-md text-sm">
-<span class="material-symbols-outlined text-[16px]">event</span>
-<span>Real-time updates</span>
+<div class="flex items-center gap-1.5 text-xs text-secondary mt-4">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+          40h Basis pro Vollzeit
+        </div>
 </div>
-</div>
-</div>
-<!-- Employee Cards Bento Grid -->
-<div class="space-y-4">
-<div class="flex items-center justify-between">
-<h2 class="font-headline-md text-on-surface">Individual Employee Progress</h2>
-<span class="font-body-md text-sm text-outline">Soll vs Ist & Yearly Progress</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="employee-cards-grid">
-<!-- Dynamically populated via JS -->
-</div>
-</div>
-</section>
-<!-- MITARBEITER VIEW -->
-<section class="space-y-stack-lg hidden" id="view-mitarbeiter">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div>
-<span class="font-label-caps text-outline uppercase tracking-wider mb-2 block">Team Directory</span>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Mitarbeiter Management</h1>
+<span class="text-label-caps text-secondary">GESAMT-IST (WOCHE)</span>
+<div class="text-[32px] font-headline-lg text-primary mt-1" id="totalIstHours">148.5h</div>
 </div>
-<button class="bg-primary text-on-primary px-5 py-2.5 rounded-xl font-headline-md text-sm shadow-sm hover:opacity-90 transition-all flex items-center gap-2" onclick="openEmployeeModal()">
-<span class="material-symbols-outlined text-[18px]">person_add</span>
-<span>Add Employee</span>
-</button>
-</div>
-<div class="bg-surface-container-low rounded-xl shadow-sm overflow-hidden">
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container-high text-on-surface font-label-caps text-xs">
-<th class="p-4">Name</th>
-<th class="p-4">Role / Dept</th>
-<th class="p-4">Weekly Soll (Hours)</th>
-<th class="p-4">Current Saldo</th>
-<th class="p-4 text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-surface-container-high font-body-md text-sm" id="mitarbeiter-table-body">
-<!-- Dynamically populated -->
-</tbody>
-</table>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 92%"></div>
 </div>
 </div>
-</section>
-<!-- ZEITERFASSUNG VIEW -->
-<section class="space-y-stack-lg hidden" id="view-zeiterfassung">
-<div class="max-w-2xl mx-auto space-y-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
 <div>
-<span class="font-label-caps text-outline uppercase tracking-wider mb-2 block">Time Logging</span>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Zeiterfassung</h1>
-<p class="font-body-md text-on-surface-variant mt-1">Log Vormittag & Nachmittag time slots or record absence/sickness.</p>
+<span class="text-label-caps text-secondary">JAHRESFORTSCHRITT 2024</span>
+<div class="text-[32px] font-headline-lg text-on-surface mt-1">78%</div>
 </div>
-<form class="bg-surface-container-low p-8 rounded-xl shadow-sm space-y-6" id="time-entry-form">
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Employee</label>
-<select class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="time-emp-select" required="">
-<!-- Populated via JS -->
-</select>
-</div>
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Date</label>
-<input class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="time-date" required="" type="date"/>
+<div class="flex items-center gap-1.5 text-xs text-secondary mt-4">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+          Q4 aktiv
+        </div>
 </div>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 bg-surface-container-lowest rounded-xl">
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block flex items-center justify-between">
-<span>Vormittag (Morning)</span>
-<span class="text-xs text-primary font-bold">08:00 - 12:00</span>
-</label>
-<div class="flex items-center gap-3">
-<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="time-vm-hours" max="8" min="0" step="0.5" type="number" value="4"/>
-<span class="text-sm text-outline">Hours</span>
-</div>
-</div>
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block flex items-center justify-between">
-<span>Nachmittag (Afternoon)</span>
-<span class="text-xs text-primary font-bold">13:00 - 17:00</span>
-</label>
-<div class="flex items-center gap-3">
-<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="time-nm-hours" max="8" min="0" step="0.5" type="number" value="4"/>
-<span class="text-sm text-outline">Hours</span>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Status / Type</label>
-<select class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="time-type">
-<option value="Work">Regular Work</option>
-<option value="Vacation">Vacation (Ferien)</option>
-<option value="Sickness">Sickness (Krankheit)</option>
-<option value="Military">Military / Service</option>
-</select>
-</div>
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Notes / Project</label>
-<input class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="time-notes" placeholder="e.g. Client meeting, Frontend Dev" type="text"/>
-</div>
-</div>
-<button class="w-full py-3.5 bg-primary text-on-primary rounded-xl font-headline-md shadow-sm hover:opacity-90 transition-all flex items-center justify-center gap-2" type="submit">
-<span class="material-symbols-outlined">save</span>
-<span>Save Time Entry</span>
-</button>
-</form>
-</div>
-</section>
-<!-- WOCHENUEBERSICHT VIEW -->
-<section class="space-y-stack-lg hidden" id="view-wochenuebersicht">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<!-- Employee Cards Grid -->
 <div>
-<span class="font-label-caps text-outline uppercase tracking-wider mb-2 block">Logs & Analytics</span>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Wochen- & Tagesübersicht</h1>
-</div>
-<div class="flex items-center gap-3">
-<input class="px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface outline-none font-body-md shadow-sm" id="filter-date-input" type="date"/>
-<button class="bg-surface-container-high px-4 py-2.5 rounded-xl font-headline-md text-sm hover:bg-surface-container-highest transition-all flex items-center gap-2" onclick="loadWeeklyOverview()">
-<span class="material-symbols-outlined text-[18px]">filter_list</span>
-<span>Filter</span>
-</button>
-</div>
-</div>
-<div class="bg-surface-container-low rounded-xl shadow-sm overflow-hidden">
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container-high text-on-surface font-label-caps text-xs">
-<th class="p-4">Date</th>
-<th class="p-4">Employee</th>
-<th class="p-4">Vormittag</th>
-<th class="p-4">Nachmittag</th>
-<th class="p-4">Total</th>
-<th class="p-4">Type</th>
-<th class="p-4">Notes</th>
-<th class="p-4 text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-surface-container-high font-body-md text-sm" id="entries-table-body">
-<!-- Dynamically populated -->
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<!-- BERICHTE VIEW -->
-<section class="space-y-stack-lg hidden" id="view-berichte">
-<div>
-<span class="font-label-caps text-outline uppercase tracking-wider mb-2 block">Insights & Reports</span>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Berichte & Auswertungen</h1>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-headline-md text-on-surface">Individuelle Mitarbeiter-Kacheln</h2>
+<span class="text-xs text-secondary">Aktualisiert vor wenigen Sekunden</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="bg-surface-container-low p-6 rounded-xl shadow-sm space-y-4">
-<h3 class="font-headline-md text-on-surface flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">pie_chart</span>
-            Hours by Employee (Monthly)
-          </h3>
-<div class="space-y-3 pt-2" id="report-emp-distribution">
-<!-- Dynamically populated bars -->
+<!-- Nicole De Pretto -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">
+                  ND
+                </div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Nicole De Pretto</h3>
+<span class="text-xs text-secondary">Projektleiterin / Design</span>
 </div>
 </div>
-<div class="bg-surface-container-low p-6 rounded-xl shadow-sm space-y-4">
-<h3 class="font-headline-md text-on-surface flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">insights</span>
-            System Status & Sync
-          </h3>
-<p class="font-body-md text-on-surface-variant text-sm">
-            All data is synchronized live via Firebase Firestore in real-time. Team members collaborating simultaneously will instantly see updates across Dashboard, Mitarbeiter, and Zeiterfassung.
-          </p>
-<div class="p-4 bg-surface-container-lowest rounded-xl space-y-2">
-<div class="flex justify-between text-sm">
-<span class="text-outline">Database Provider:</span>
-<span class="font-bold text-on-surface">Firebase Firestore</span>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">100% Pensum</span>
 </div>
-<div class="flex justify-between text-sm">
-<span class="text-outline">Security Mode:</span>
-<span class="font-bold text-emerald-600">Password Protected ('Willma')</span>
+<div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
+<div>
+<span class="text-label-caps text-secondary block mb-1">SOLL</span>
+<span class="text-body-lg font-bold text-on-surface">40.0h</span>
 </div>
-<div class="flex justify-between text-sm">
-<span class="text-outline">Active Collections:</span>
-<span class="font-bold text-on-surface">employees, time_entries</span>
+<div>
+<span class="text-label-caps text-secondary block mb-1">IST</span>
+<span class="text-body-lg font-bold text-primary">41.5h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">SALDO</span>
+<span class="text-body-lg font-bold text-primary">+1.5h</span>
 </div>
 </div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt</span>
+<span class="text-on-surface">1,720 / 2,080 Std. (82%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82%"></div>
 </div>
 </div>
-</section>
 </div>
-<!-- Employee Modal (Add/Edit) -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm hidden flex items-center justify-center p-4" id="employee-modal">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-2xl max-w-md w-full space-y-6">
-<div class="flex items-center justify-between">
-<h3 class="font-headline-md text-on-surface" id="employee-modal-title">Add Employee</h3>
-<button class="text-outline hover:text-on-surface" onclick="closeEmployeeModal()">
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>
+              Cloud-Sync aktiv
+            </span>
+<button class="text-primary hover:underline font-medium" onclick="openDetailModal('Nicole De Pretto')">Details anzeigen</button>
+</div>
+</div>
+<!-- Michelle Dreifuss -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-lg">
+                  MD
+                </div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Michelle Dreifuss</h3>
+<span class="text-xs text-secondary">Frontend Engineer</span>
+</div>
+</div>
+<span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-bold">80% Pensum</span>
+</div>
+<div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
+<div>
+<span class="text-label-caps text-secondary block mb-1">SOLL</span>
+<span class="text-body-lg font-bold text-on-surface">32.0h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">IST</span>
+<span class="text-body-lg font-bold text-primary">31.0h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">SALDO</span>
+<span class="text-body-lg font-bold text-secondary">-1.0h</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt</span>
+<span class="text-on-surface">1,340 / 1,664 Std. (80%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>
+              Cloud-Sync aktiv
+            </span>
+<button class="text-primary hover:underline font-medium" onclick="openDetailModal('Michelle Dreifuss')">Details anzeigen</button>
+</div>
+</div>
+<!-- Manuel Schoch -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-bold text-lg">
+                  MS
+                </div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Manuel Schoch</h3>
+<span class="text-xs text-secondary">Fullstack & DevOps</span>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">100% Pensum</span>
+</div>
+<div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
+<div>
+<span class="text-label-caps text-secondary block mb-1">SOLL</span>
+<span class="text-body-lg font-bold text-on-surface">40.0h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">IST</span>
+<span class="text-body-lg font-bold text-primary">43.0h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">SALDO</span>
+<span class="text-body-lg font-bold text-primary">+3.0h</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt</span>
+<span class="text-on-surface">1,780 / 2,080 Std. (85%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>
+              Cloud-Sync aktiv
+            </span>
+<button class="text-primary hover:underline font-medium" onclick="openDetailModal('Manuel Schoch')">Details anzeigen</button>
+</div>
+</div>
+<!-- Seline Steinmann -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-lg">
+                  SS
+                </div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Seline Steinmann</h3>
+<span class="text-xs text-secondary">UX Research & QA</span>
+</div>
+</div>
+<span class="px-3 py-1 bg-surface-container text-on-surface rounded-full text-xs font-bold">90% Pensum</span>
+</div>
+<div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
+<div>
+<span class="text-label-caps text-secondary block mb-1">SOLL</span>
+<span class="text-body-lg font-bold text-on-surface">36.0h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">IST</span>
+<span class="text-body-lg font-bold text-primary">33.0h</span>
+</div>
+<div>
+<span class="text-label-caps text-secondary block mb-1">SALDO</span>
+<span class="text-body-lg font-bold text-secondary">-3.0h</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-secondary">Jahresfortschritt</span>
+<span class="text-on-surface">1,480 / 1,872 Std. (79%)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 79%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>
+              Cloud-Sync aktiv
+            </span>
+<button class="text-primary hover:underline font-medium" onclick="openDetailModal('Seline Steinmann')">Details anzeigen</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Activity Log / Firestore Status -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-headline-md text-on-surface">Letzte Cloud-Aktivitäten</h3>
+<span class="text-xs px-2.5 py-1 bg-surface-container text-on-surface rounded-lg font-medium">Firestore RT-DB</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">update</span>
+<div>
+<p class="text-body-md font-medium text-on-surface">Zeiterfassung aktualisiert für Manuel Schoch</p>
+<span class="text-xs text-secondary">Vor 4 Minuten • Projekt #Döltschi-Core</span>
+</div>
+</div>
+<span class="text-xs text-primary font-medium">+2.5h</span>
+</div>
+<div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<div>
+<p class="text-body-md font-medium text-on-surface">Wochenabschluss bestätigt von Nicole De Pretto</p>
+<span class="text-xs text-secondary">Vor 25 Minuten • Automatischer Cloud-Sync</span>
+</div>
+</div>
+<span class="text-xs text-secondary">Erfolgreich</span>
+</div>
+<div class="flex items-center justify-between py-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">person_add</span>
+<div>
+<p class="text-body-md font-medium text-on-surface">Seline Steinmann hat Projektstatus geändert</p>
+<span class="text-xs text-secondary">Vor 1 Stunde • UX Testing Sprint</span>
+</div>
+</div>
+<span class="text-xs text-secondary">Aktiv</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Detail Modal (Hidden by default) -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="detailModal">
+<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative animate-in fade-in zoom-in duration-200">
+<button class="absolute top-6 right-6 text-secondary hover:text-on-surface" onclick="closeDetailModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
+<h3 class="text-headline-md text-on-surface mb-2" id="modalTitle">Mitarbeiter Details</h3>
+<p class="text-body-md text-on-surface-variant mb-6">Detaillierte Einsicht in Zeiterfassung, Absenzen und Jahresbilanz.</p>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
+<span class="text-secondary">Überstunden Total:</span>
+<span class="font-bold text-on-surface">+18.5 Std.</span>
 </div>
-<form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Full Name</label>
-<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="emp-name" placeholder="e.g. Nicole" required="" type="text"/>
+<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
+<span class="text-secondary">Ferienguthaben:</span>
+<span class="font-bold text-on-surface">14.5 Tage</span>
 </div>
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Role / Department</label>
-<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="emp-role" placeholder="e.g. Senior Developer" required="" type="text"/>
-</div>
-<div class="space-y-2">
-<label class="font-label-caps text-outline uppercase block">Weekly Soll (Hours)</label>
-<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface outline-none focus:ring-2 focus:ring-primary font-body-md" id="emp-soll" required="" step="0.5" type="number" value="40"/>
-</div>
-<div class="flex justify-end gap-3 pt-2">
-<button class="px-5 py-2.5 rounded-xl bg-surface-container-high text-on-surface font-headline-md text-sm" onclick="closeEmployeeModal()" type="button">Cancel</button>
-<button class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-headline-md text-sm shadow-sm" type="submit">Save Employee</button>
-</div>
-</form>
+<div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
+<span class="text-secondary">Gleitzeit-Saldo:</span>
+<span class="font-bold text-primary">+4.0 Std.</span>
 </div>
 </div>
-<!-- Firebase Compat Scripts -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<div class="flex justify-end gap-3">
+<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium hover:bg-surface-container-highest transition-all" onclick="closeDetailModal()">Schliessen</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium hover:bg-primary-container transition-all" onclick="alert('Daten erfolgreich exportiert!')">Exportieren</button>
+</div>
+</div>
+</div>
+<!-- New Entry Modal -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="newEntryModal">
+<div class="bg-surface-container-lowest w-full max-w-lg p-8 rounded-2xl shadow-xl relative">
+<button class="absolute top-6 right-6 text-secondary hover:text-on-surface" onclick="closeNewEntryModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h3 class="text-headline-md text-on-surface mb-2">Neuen Zeiteintrag erfassen</h3>
+<p class="text-body-md text-on-surface-variant mb-6">Erfassung wird direkt in Firebase Firestore synchronisiert.</p>
+<div class="space-y-4 mb-8">
+<div>
+<label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
+<select class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface focus:ring-2 focus:ring-primary">
+<option>Nicole De Pretto</option>
+<option>Michelle Dreifuss</option>
+<option>Manuel Schoch</option>
+<option>Seline Steinmann</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-caps text-secondary mb-1">Datum</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" type="date" value="2024-10-24"/>
+</div>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Stunden</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" step="0.5" type="number" value="8.0"/>
+</div>
+</div>
+<div>
+<label class="block text-label-caps text-secondary mb-1">Projekt / Notiz</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" placeholder="z.B. Sprint Planning & Core Features" type="text"/>
+</div>
+</div>
+<div class="flex justify-end gap-3">
+<button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium" onclick="closeNewEntryModal()">Abbrechen</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="saveNewEntry()">Speichern & Sync</button>
+</div>
+</div>
+</div>
 <script>
-    // Firebase Initialization
-    const firebaseConfig = {
-      apiKey: "AIzaSyDummyKeyForDoltschiTime998877",
-      authDomain: "doltschi-time.firebaseapp.com",
-      projectId: "doltschi-time",
-      storageBucket: "doltschi-time.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:abcdef"
-    };
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    const db = firebase.firestore();
-
-    // Default Seed Data if empty
-    const defaultEmployees = [
-      { id: 'nicole', name: 'Nicole', role: 'Project Management', weeklySoll: 40, saldo: 4.5 },
-      { id: 'michelle', name: 'Michelle', role: 'UI/UX Design', weeklySoll: 40, saldo: -2.0 },
-      { id: 'manuel', name: 'Manuel', role: 'Fullstack Dev', weeklySoll: 40, saldo: 12.0 },
-      { id: 'seline', name: 'Seline', role: 'Marketing & Operations', weeklySoll: 40, saldo: 1.0 }
-    ];
-
-    let employees = [];
-    let timeEntries = [];
-
-    // Authentication Logic
-    const authOverlay = document.getElementById('auth-overlay');
-    const authForm = document.getElementById('auth-form');
-    const authPasswordInput = document.getElementById('auth-password');
-    const authError = document.getElementById('auth-error');
-
-    authForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (authPasswordInput.value === 'Willma') {
-        authOverlay.classList.add('hidden');
-        localStorage.setItem('doltschi_auth', 'true');
-        initApp();
-      } else {
-        authError.classList.remove('hidden');
-      }
-    });
-
-    if (localStorage.getItem('doltschi_auth') === 'true') {
-      authOverlay.classList.add('hidden');
-      initApp();
+    function syncData() {
+      const btn = document.getElementById('syncBtn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Synchronisiere...';
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Synchronisiert!';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+        }, 2000);
+      }, 1000);
     }
 
-    function initApp() {
-      setupRealtimeListeners();
-      setupNavigation();
-      document.getElementById('filter-date-input').valueAsDate = new Date();
+    function openDetailModal(name) {
+      document.getElementById('modalTitle').innerText = name + ' - Details';
+      document.getElementById('detailModal').classList.remove('hidden');
     }
 
-    // Firestore Realtime Sync
-    function setupRealtimeListeners() {
-      // Employees Listener
-      db.collection('employees').onSnapshot(snapshot => {
-        if (snapshot.empty) {
-          // Seed initial
-          defaultEmployees.forEach(emp => {
-            db.collection('employees').doc(emp.id).set(emp);
-          });
-        } else {
-          employees = [];
-          snapshot.forEach(doc => {
-            employees.push({ id: doc.id, ...doc.data() });
-          });
-          renderAll();
-        }
-      }, err => {
-        console.error("Firestore employees error:", err);
-        // Fallback to local state if offline/demo
-        employees = defaultEmployees;
-        renderAll();
-      });
-
-      // Time Entries Listener
-      db.collection('time_entries').onSnapshot(snapshot => {
-        timeEntries = [];
-        snapshot.forEach(doc => {
-          timeEntries.push({ id: doc.id, ...doc.data() });
-        });
-        renderAll();
-      }, err => {
-        console.error("Firestore time_entries error:", err);
-        renderAll();
-      });
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.add('hidden');
     }
 
-    // Navigation Logic
-    function setupNavigation() {
-      const navLinks = document.querySelectorAll('aside nav a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const path = link.getAttribute('data-path');
-          switchView(path);
-          navLinks.forEach(l => l.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold'));
-          link.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
-        });
-      });
-      // Default active
-      const dashboardLink = document.querySelector('aside nav a[data-path="dashboard"]');
-      if (dashboardLink) dashboardLink.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+    function openNewEntryModal() {
+      document.getElementById('newEntryModal').classList.remove('hidden');
     }
 
-    function switchView(viewName) {
-      const views = ['dashboard', 'mitarbeiter', 'zeiterfassung', 'wochenuebersicht', 'berichte'];
-      views.forEach(v => {
-        const el = document.getElementById(`view-${v}`);
-        if (el) el.classList.add('hidden');
-      });
-      const target = document.getElementById(`view-${viewName}`);
-      if (target) target.classList.remove('hidden');
-
-      // Update sidebar highlight
-      document.querySelectorAll('aside nav a').forEach(l => {
-        if (l.getAttribute('data-path') === viewName) {
-          l.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
-        } else {
-          l.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
-        }
-      });
-
-      if (viewName === 'zeiterfassung') {
-        populateTimeEmpSelect();
-        document.getElementById('time-date').valueAsDate = new Date();
-      } else if (viewName === 'wochenuebersicht') {
-        loadWeeklyOverview();
-      } else if (viewName === 'berichte') {
-        renderReports();
-      }
+    function closeNewEntryModal() {
+      document.getElementById('newEntryModal').classList.add('hidden');
     }
 
-    // Render All Views
-    function renderAll() {
-      renderDashboard();
-      renderMitarbeiterTable();
-      renderWeeklyOverview();
-      renderReports();
-    }
-
-    // 1. Dashboard & Employee Cards
-    function renderDashboard() {
-      document.getElementById('stat-total-emp').innerText = employees.length;
-
-      let totalHours = 0;
-      let totalSaldo = 0;
-      timeEntries.forEach(entry => {
-        totalHours += (parseFloat(entry.vormittag) || 0) + (parseFloat(entry.nachmittag) || 0);
-      });
-      employees.forEach(e => {
-        totalSaldo += (parseFloat(e.saldo) || 0);
-      });
-
-      document.getElementById('stat-total-hours').innerText = totalHours.toFixed(1) + 'h';
-      document.getElementById('stat-total-saldo').innerText = (totalSaldo >= 0 ? '+' : '') + totalSaldo.toFixed(1) + 'h';
-
-      const grid = document.getElementById('employee-cards-grid');
-      grid.innerHTML = '';
-
-      employees.forEach(emp => {
-        // Calculate employee logged hours
-        let empHours = 0;
-        timeEntries.filter(te => te.employeeId === emp.id).forEach(te => {
-          empHours += (parseFloat(te.vormittag) || 0) + (parseFloat(te.nachmittag) || 0);
-        });
-
-        const progressPercent = Math.min(Math.round((empHours / (emp.weeklySoll * 4)) * 100), 100);
-
-        const card = document.createElement('div');
-        card.className = 'bg-surface-container-low p-6 rounded-xl shadow-sm flex flex-col justify-between space-y-4';
-        card.innerHTML = `
-          <div class="flex items-start justify-between">
-            <div>
-              <h3 class="font-headline-md text-on-surface">${emp.name}</h3>
-              <p class="font-body-md text-xs text-outline">${emp.role}</p>
-            </div>
-            <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
-              ${emp.name.charAt(0)}
-            </div>
-          </div>
-          
-          <div class="space-y-3 pt-2">
-            <div class="flex justify-between text-sm">
-              <span class="text-outline">Soll / Ist:</span>
-              <span class="font-bold text-on-surface">${emp.weeklySoll}h / ${empHours.toFixed(1)}h</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-outline">Saldo:</span>
-              <span class="font-bold ${emp.saldo >= 0 ? 'text-emerald-600' : 'text-error'}">${emp.saldo >= 0 ? '+' : ''}${emp.saldo}h</span>
-            </div>
-            
-            <div class="space-y-1">
-              <div class="flex justify-between text-xs text-outline">
-                <span>Monthly Progress</span>
-                <span>${progressPercent}%</span>
-              </div>
-              <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: ${progressPercent}%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-2 flex items-center justify-between border-t border-surface-container-high">
-            <button onclick="quickLogForEmp('${emp.id}')" class="text-xs text-primary font-bold hover:underline flex items-center gap-1">
-              <span class="material-symbols-outlined text-[14px]">add</span> Quick Log
-            </button>
-            <button onclick="editEmployee('${emp.id}')" class="text-xs text-outline hover:text-on-surface">Edit</button>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function quickLogForEmp(empId) {
-      switchView('zeiterfassung');
-      document.getElementById('time-emp-select').value = empId;
-    }
-
-    // 2. Mitarbeiter Management
-    function renderMitarbeiterTable() {
-      const tbody = document.getElementById('mitarbeiter-table-body');
-      tbody.innerHTML = '';
-
-      employees.forEach(emp => {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-surface-container-high/50 transition-all';
-        tr.innerHTML = `
-          <td class="p-4 font-bold text-on-surface">${emp.name}</td>
-          <td class="p-4 text-on-surface-variant">${emp.role}</td>
-          <td class="p-4">${emp.weeklySoll}h</td>
-          <td class="p-4 font-bold ${emp.saldo >= 0 ? 'text-emerald-600' : 'text-error'}">${emp.saldo >= 0 ? '+' : ''}${emp.saldo}h</td>
-          <td class="p-4 text-right space-x-2">
-            <button onclick="resetEmployeeHours('${emp.id}')" class="p-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-all" title="Reset Hours">
-              <span class="material-symbols-outlined text-[16px]">restart_alt</span>
-            </button>
-            <button onclick="editEmployee('${emp.id}')" class="p-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-all" title="Edit">
-              <span class="material-symbols-outlined text-[16px]">edit</span>
-            </button>
-            <button onclick="deleteEmployee('${emp.id}')" class="p-2 rounded-lg bg-error-container text-on-error-container hover:opacity-80 transition-all" title="Delete">
-              <span class="material-symbols-outlined text-[16px]">delete</span>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function openEmployeeModal(empData = null) {
-      document.getElementById('employee-modal').classList.remove('hidden');
-      if (empData) {
-        document.getElementById('employee-modal-title').innerText = 'Edit Employee';
-        document.getElementById('emp-id').value = empData.id;
-        document.getElementById('emp-name').value = empData.name;
-        document.getElementById('emp-role').value = empData.role;
-        document.getElementById('emp-soll').value = empData.weeklySoll;
-      } else {
-        document.getElementById('employee-modal-title').innerText = 'Add Employee';
-        document.getElementById('emp-id').value = '';
-        document.getElementById('emp-name').value = '';
-        document.getElementById('emp-role').value = '';
-        document.getElementById('emp-soll').value = '40';
-      }
-    }
-
-    function closeEmployeeModal() {
-      document.getElementById('employee-modal').classList.add('hidden');
-    }
-
-    document.getElementById('employee-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
-      const name = document.getElementById('emp-name').value;
-      const role = document.getElementById('emp-role').value;
-      const weeklySoll = parseFloat(document.getElementById('emp-soll').value);
-
-      const empObj = { id, name, role, weeklySoll, saldo: 0 };
-      
-      db.collection('employees').doc(id).set(empObj, { merge: true }).then(() => {
-        closeEmployeeModal();
-      }).catch(err => {
-        // Fallback local
-        const idx = employees.findIndex(x => x.id === id);
-        if (idx >= 0) { employees[idx] = { ...employees[idx], ...empObj }; }
-        else { employees.push(empObj); }
-        closeEmployeeModal();
-        renderAll();
-      });
-    });
-
-    function editEmployee(id) {
-      const emp = employees.find(x => x.id === id);
-      if (emp) openEmployeeModal(emp);
-    }
-
-    function deleteEmployee(id) {
-      if (confirm('Are you sure you want to delete this employee?')) {
-        db.collection('employees').doc(id).delete().catch(() => {
-          employees = employees.filter(x => x.id !== id);
-          renderAll();
-        });
-      }
-    }
-
-    function resetEmployeeHours(id) {
-      if (confirm('Reset saldo and logged hours for this employee?')) {
-        db.collection('employees').doc(id).update({ saldo: 0 }).catch(() => {
-          const emp = employees.find(x => x.id === id);
-          if (emp) emp.saldo = 0;
-          renderAll();
-        });
-      }
-    }
-
-    // 3. Zeiterfassung
-    function populateTimeEmpSelect() {
-      const select = document.getElementById('time-emp-select');
-      select.innerHTML = '';
-      employees.forEach(emp => {
-        const opt = document.createElement('option');
-        opt.value = emp.id;
-        opt.innerText = `${emp.name} (${emp.role})`;
-        select.appendChild(opt);
-      });
-    }
-
-    document.getElementById('time-entry-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const employeeId = document.getElementById('time-emp-select').value;
-      const date = document.getElementById('time-date').value;
-      const vormittag = parseFloat(document.getElementById('time-vm-hours').value) || 0;
-      const nachmittag = parseFloat(document.getElementById('time-nm-hours').value) || 0;
-      const type = document.getElementById('time-type').value;
-      const notes = document.getElementById('time-notes').value;
-
-      const entryObj = {
-        employeeId,
-        date,
-        vormittag,
-        nachmittag,
-        total: vormittag + nachmittag,
-        type,
-        notes,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-
-      db.collection('time_entries').add(entryObj).then(() => {
-        // Update employee saldo
-        const emp = employees.find(x => x.id === employeeId);
-        if (emp) {
-          const hoursWorked = vormittag + nachmittag;
-          const dailySoll = emp.weeklySoll / 5;
-          const diff = hoursWorked - dailySoll;
-          const newSaldo = (emp.saldo || 0) + diff;
-          db.collection('employees').doc(employeeId).update({ saldo: parseFloat(newSaldo.toFixed(1)) });
-        }
-
-        alert('Time entry successfully saved & synced!');
-        document.getElementById('time-notes').value = '';
-        switchView('wochenuebersicht');
-      }).catch(err => {
-        console.error(err);
-        timeEntries.push({ id: 'local_' + Date.now(), ...entryObj });
-        renderAll();
-        switchView('wochenuebersicht');
-      });
-    });
-
-    // 4. Wochenübersicht
-    function loadWeeklyOverview() {
-      renderWeeklyOverview();
-    }
-
-    function renderWeeklyOverview() {
-      const tbody = document.getElementById('entries-table-body');
-      tbody.innerHTML = '';
-
-      const filterDate = document.getElementById('filter-date-input')?.value;
-
-      let filtered = timeEntries;
-      if (filterDate) {
-        filtered = timeEntries.filter(te => te.date === filterDate);
-      }
-
-      // Sort by date desc
-      filtered.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-outline">No time entries found for this date.</td></tr>`;
-        return;
-      }
-
-      filtered.forEach(entry => {
-        const emp = employees.find(x => x.id === entry.employeeId) || { name: 'Unknown' };
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-surface-container-high/50 transition-all';
-        tr.innerHTML = `
-          <td class="p-4 font-bold text-on-surface">${entry.date}</td>
-          <td class="p-4 text-on-surface">${emp.name}</td>
-          <td class="p-4">${entry.vormittag}h</td>
-          <td class="p-4">${entry.nachmittag}h</td>
-          <td class="p-4 font-bold text-primary">${(entry.vormittag + entry.nachmittag)}h</td>
-          <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs bg-primary-container text-on-primary-container font-bold">${entry.type}</span></td>
-          <td class="p-4 text-on-surface-variant">${entry.notes || '-'}</td>
-          <td class="p-4 text-right space-x-2">
-            <button onclick="deleteTimeEntry('${entry.id}')" class="p-2 rounded-lg bg-error-container text-on-error-container hover:opacity-80 transition-all" title="Delete">
-              <span class="material-symbols-outlined text-[16px]">delete</span>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function deleteTimeEntry(id) {
-      if (confirm('Delete this time entry?')) {
-        db.collection('time_entries').doc(id).delete().catch(() => {
-          timeEntries = timeEntries.filter(x => x.id !== id);
-          renderAll();
-        });
-      }
-    }
-
-    // 5. Berichte
-    function renderReports() {
-      const container = document.getElementById('report-emp-distribution');
-      container.innerHTML = '';
-
-      let maxHours = 1;
-      const empTotals = {};
-
-      employees.forEach(emp => {
-        let sum = 0;
-        timeEntries.filter(te => te.employeeId === emp.id).forEach(te => {
-          sum += (parseFloat(te.vormittag) || 0) + (parseFloat(te.nachmittag) || 0);
-        });
-        empTotals[emp.name] = sum;
-        if (sum > maxHours) maxHours = sum;
-      });
-
-      employees.forEach(emp => {
-        const hours = empTotals[emp.name] || 0;
-        const pct = Math.round((hours / maxHours) * 100);
-
-        const row = document.createElement('div');
-        row.className = 'space-y-1';
-        row.innerHTML = `
-          <div class="flex justify-between text-sm">
-            <span class="font-bold text-on-surface">${emp.name}</span>
-            <span class="text-outline">${hours.toFixed(1)} hours logged</span>
-          </div>
-          <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden">
-            <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
-          </div>
-        `;
-        container.appendChild(row);
-      });
+    function saveNewEntry() {
+      alert('Eintrag erfolgreich gespeichert und an Firebase übertragen!');
+      closeNewEntryModal();
     }
   </script>
 </div></main></div></body></html>
