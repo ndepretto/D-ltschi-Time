@@ -538,6 +538,19 @@
 </main>
 </div>
 <script>
+  function checkAuth() {
+    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+      const pwd = prompt("Bitte Passwort eingeben (Willma):");
+      if (pwd === "Willma") {
+        sessionStorage.setItem('isLoggedIn', 'true');
+      } else {
+        alert("Falsches Passwort!");
+        checkAuth();
+      }
+    }
+  }
+  checkAuth();
+
   const defaultEmployees = [
     { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080, ist: 0.0, weekSoll: 40.0 },
     { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664, ist: 0.0, weekSoll: 32.0 },
@@ -781,11 +794,6 @@
   }
 
   function resetAllEntriesForDay() {
-    const pwd = prompt("Passwort zur Bestätigung (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert("Falsches Passwort!");
-      return;
-    }
     const filterInput = document.getElementById('filterDayDate');
     const selectedDate = filterInput ? filterInput.value : '';
     let entries = getEntries();
@@ -828,12 +836,6 @@
   }
 
   function saveEditedEmployee() {
-    const pwd = prompt("Bitte Passwort eingeben (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert("Falsches Passwort!");
-      return;
-    }
-
     const id = document.getElementById('editEmployeeId').value;
     const vorname = document.getElementById('editVorname').value.trim();
     const nachname = document.getElementById('editNachname').value.trim();
@@ -887,12 +889,6 @@
   }
 
   function saveEditedTimeEntry() {
-    const pwd = prompt("Passwort zur Bestätigung (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert("Falsches Passwort!");
-      return;
-    }
-
     const id = document.getElementById('editTimeEntryId').value;
     const date = document.getElementById('editTimeDate').value;
     const hours = parseFloat(document.getElementById('editTimeHours').value) || 0;
@@ -913,11 +909,6 @@
   }
 
   function deleteEmployee(id) {
-    const pwd = prompt("Passwort zur Bestätigung eingeben (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert("Falsches Passwort!");
-      return;
-    }
     let emps = getEmployees();
     emps = emps.filter(e => String(e.id) !== String(id));
     saveEmployees(emps);
@@ -926,12 +917,6 @@
   }
 
   function saveSlotTimeEntry() {
-    const pwd = prompt("Bitte Firebase Passwort eingeben (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert('Falsches Passwort!');
-      return;
-    }
-
     const empName = document.getElementById('timeEmployeeSelect').value;
     const date = document.getElementById('timeDateInput').value;
     const project = document.getElementById('timeProjectInput').value || '#Projekt';
@@ -968,12 +953,6 @@
   }
 
   function saveQuickNewEntry() {
-    const pwd = prompt("Bitte Firebase Passwort eingeben (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert('Falsches Passwort!');
-      return;
-    }
-
     const empName = document.getElementById('quickEntryEmployee').value;
     const date = document.getElementById('quickEntryDate').value;
     const hours = parseFloat(document.getElementById('quickEntryHours').value) || 8.0;
@@ -1005,11 +984,6 @@
   }
 
   function deleteTimeEntry(id) {
-    const pwd = prompt("Passwort zur Bestätigung (Willma):");
-    if (pwd !== "Willma") {
-      if (pwd !== null) alert("Falsches Passwort!");
-      return;
-    }
     let entries = getEntries();
     entries = entries.filter(e => e.id !== id);
     saveEntries(entries);
@@ -1018,12 +992,7 @@
   }
 
   function promptPasswordReset(email) {
-    const pwd = prompt("Passwort eingeben (Willma):");
-    if (pwd === "Willma") {
-      alert(`Neues temporäres Passwort wurde an ${email} gesendet.`);
-    } else if (pwd !== null) {
-      alert("Falsches Passwort!");
-    }
+    alert(`Neues temporäres Passwort wurde an ${email} gesendet.`);
   }
 
   function syncData() {
