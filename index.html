@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <style>
   @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main>:first-child { margin-top: 0!important; } main>:last-child { margin-bottom: 0!important; } }
   ::-webkit-scrollbar { display: none; }
@@ -96,8 +94,8 @@
     }
   }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
 </head>
 <body class="bg-surface font-body-md text-on-surface">
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8 border-r border-outline-variant/10">
@@ -256,15 +254,15 @@
 <div class="relative" id="timeDateContainer">
 <label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface placeholder:text-secondary/60 cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
+<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface placeholder:text-secondary/60 cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
 <button class="absolute right-3 top-3 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
 </button>
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
+<label class="block text-label-caps text-secondary mb-1">Bemerkungen</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. Besprechung, Baustelle, etc." type="text" value="#Döltschi-Core">
 </div>
 </div>
 <div class="space-y-4 pt-4 border-t border-outline-variant/10">
@@ -273,25 +271,25 @@
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Vormittag</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmStart" type="time" value="08:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmStart" type="time" value="08:00">
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmEnd" type="time" value="12:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotVmEnd" type="time" value="12:00">
 </div>
 </div>
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Nachmittag</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmStart" type="time" value="13:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmStart" type="time" value="13:00">
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmEnd" type="time" value="17:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotNmEnd" type="time" value="17:00">
 </div>
 </div>
 <div class="p-4 bg-surface-container-low rounded-xl space-y-2">
 <span class="text-label-caps text-primary block">Abend</span>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbStart" type="time" value=""/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbStart" type="time" value="">
 <span class="text-secondary">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbEnd" type="time" value=""/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border-0 text-on-surface text-sm" id="slotAbEnd" type="time" value="">
 </div>
 </div>
 </div>
@@ -321,7 +319,7 @@
 </div>
 <div class="flex items-center gap-3">
 <div class="relative">
-<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-40 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="21.08.2026" type="text" value="21.08.2026"/>
+<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-40 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="21.08.2026" type="text" value="21.08.2026">
 <button class="absolute right-2 top-2.5 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen">
 <span class="material-symbols-outlined text-[18px]">calendar_month</span>
 </button>
@@ -342,7 +340,7 @@
 <tr class="border-b border-outline-variant/20 text-label-caps text-secondary">
 <th class="py-3 px-4">Mitarbeiter</th>
 <th class="py-3 px-4">Datum (TT.MM.JJJJ)</th>
-<th class="py-3 px-4">Projekt</th>
+<th class="py-3 px-4">Bemerkungen</th>
 <th class="py-3 px-4">Vormittag</th>
 <th class="py-3 px-4">Nachmittag</th>
 <th class="py-3 px-4">Abend</th>
@@ -396,34 +394,34 @@
 </button>
 <h3 class="text-headline-md text-on-surface mb-2" id="editModalTitle">Mitarbeiter bearbeiten</h3>
 <p class="text-body-md text-on-surface-variant mb-6">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editEmployeeId" type="hidden"/>
+<input id="editEmployeeId" type="hidden">
 <div class="space-y-4 mb-8">
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Vorname</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editVorname" type="text"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editVorname" type="text">
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Nachname</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editNachname" type="text"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editNachname" type="text">
 </div>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">E-Mail</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editEmail" type="email"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editEmail" type="email">
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Rolle / Position</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editRole" type="text"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editRole" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Pensum (%)</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editPensum" type="number"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editPensum" type="number">
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Jahres-Soll (Std)</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editSoll" type="number"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editSoll" type="number">
 </div>
 </div>
 </div>
@@ -441,17 +439,17 @@
 </button>
 <h3 class="text-headline-md text-on-surface mb-2">Zeiteintrag bearbeiten</h3>
 <p class="text-body-md text-on-surface-variant mb-6">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editTimeEntryId" type="hidden"/>
+<input id="editTimeEntryId" type="hidden">
 <div class="space-y-4 mb-8">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Mitarbeiter</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeEmployee" readonly="" type="text"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeEmployee" readonly="" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="relative">
 <label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text"/>
+<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text">
 <button class="absolute right-3 top-3 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
 <span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
 </button>
@@ -459,25 +457,25 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeHours" step="0.5" type="number"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeHours" step="0.5" type="number">
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text"/>
+<label class="block text-label-caps text-secondary mb-1">Bemerkungen</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text">
 </div>
 <div class="grid grid-cols-3 gap-2">
 <div>
 <label class="block text-label-caps text-secondary mb-1">Vormittag</label>
-<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeVm" type="text"/>
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeVm" type="text">
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Nachmittag</label>
-<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeNm" type="text"/>
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeNm" type="text">
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Abend</label>
-<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeAb" type="text"/>
+<input class="w-full p-2 bg-surface-container-low rounded-lg border-0 text-on-surface text-sm" id="editTimeAb" type="text">
 </div>
 </div>
 </div>
@@ -533,7 +531,7 @@
 <div class="relative">
 <label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
+<input class="w-full p-3 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
 <button class="absolute right-3 top-3 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-xl pointer-events-none">calendar_month</span>
 </button>
@@ -541,12 +539,12 @@
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryHours" step="0.5" type="number" value="8.0"/>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryHours" step="0.5" type="number" value="8.0">
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt / Notiz</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
+<label class="block text-label-caps text-secondary mb-1">Bemerkungen</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Besprechung, Baustelle, etc." type="text" value="#Döltschi-Core">
 </div>
 </div>
 <div class="flex justify-end gap-3">
@@ -572,7 +570,7 @@
 </div>
 <!-- Day names -->
 <div class="grid grid-cols-7 text-center text-xs font-semibold text-secondary mb-2">
-<span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span class="text-primary font-bold">So</span>
+<span class="">Mo</span><span class="">Di</span><span class="">Mi</span><span class="">Do</span><span class="">Fr</span><span class="">Sa</span><span class="text-primary font-bold">So</span>
 </div>
 <!-- Days grid -->
 <div class="grid grid-cols-7 gap-1 text-sm" id="pickerDaysGrid">
@@ -1378,4 +1376,6 @@ Schliessen
 
   renderAll();
 </script>
+
+
 </body></html>
