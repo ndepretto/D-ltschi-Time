@@ -213,7 +213,7 @@
 <span class="material-symbols-outlined text-primary">check_circle</span>
 <div>
 <p class="text-body-md font-medium text-on-surface">System bereit und initialisiert</p>
-<span class="text-xs text-secondary">Gerade eben • Automatischer Cloud-Sync</span>
+<span class="text-xs text-secondary">Heute, 21.08.2026 • Automatischer Cloud-Sync</span>
 </div>
 </div>
 <span class="text-xs text-secondary">Bereit</span>
@@ -244,7 +244,7 @@
 <div class="view-content hidden" id="view-zeiterfassung">
 <div class="p-8 space-y-6">
 <h1 class="font-headline-lg text-on-surface">Zeiterfassung</h1>
-<p class="text-body-md text-on-surface-variant">Erfassen und Verwalten von Arbeitsstunden mit Vormittag-, Nachmittag- und Abend-Slots.</p>
+<p class="text-body-md text-on-surface-variant">Erfassen und Verwalten von Arbeitsstunden mit Vormittag-, Nachmittag- und Abend-Slots (Schweizer Datumsformat TT.MM.JJJJ).</p>
 <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm space-y-6">
 <h3 class="font-bold text-body-lg text-on-surface">Tages-Zeiterfassung erfassen</h3>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -254,8 +254,11 @@
 </select>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Datum</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeDateInput" type="date" value="2026-01-02"/>
+<label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
+<div class="relative">
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface placeholder:text-secondary/60" id="timeDateInput" placeholder="21.08.2026" type="text" value="21.08.2026"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-secondary pointer-events-none text-xl">calendar_today</span>
+</div>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Projekt</label>
@@ -312,10 +315,15 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div>
 <h1 class="font-headline-lg text-on-surface">Tagesübersicht (Day View)</h1>
-<p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots.</p>
+<p class="text-body-md text-on-surface-variant">Detaillierte Ansicht und Verwaltung aller erfassten Zeiteinträge und Tages-Slots nach Schweizer Norm (TT.MM.JJJJ).</p>
 </div>
 <div class="flex items-center gap-3">
-<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm" id="filterDayDate" onchange="renderDayView()" type="date" value="2026-01-02"/>
+<div class="relative">
+<input class="p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium w-40" id="filterDayDate" onchange="renderDayView()" onkeyup="if(event.key==='Enter') renderDayView()" placeholder="21.08.2026" type="text" value="21.08.2026"/>
+<button class="absolute right-2 top-2.5 text-secondary hover:text-primary" onclick="renderDayView()" title="Filtern">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</button>
+</div>
 <button class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl text-body-md font-medium hover:bg-surface-container-highest transition-all" onclick="resetAllEntriesForDay()">
 <span class="material-symbols-outlined text-[20px]">restart_alt</span>Tag zurücksetzen
           </button>
@@ -331,7 +339,7 @@
 <thead>
 <tr class="border-b border-outline-variant/20 text-label-caps text-secondary">
 <th class="py-3 px-4">Mitarbeiter</th>
-<th class="py-3 px-4">Datum</th>
+<th class="py-3 px-4">Datum (TT.MM.JJJJ)</th>
 <th class="py-3 px-4">Projekt</th>
 <th class="py-3 px-4">Vormittag</th>
 <th class="py-3 px-4">Nachmittag</th>
@@ -352,14 +360,14 @@
 <div class="view-content hidden" id="view-wochenuebersicht">
 <div class="p-8 space-y-6">
 <h1 class="font-headline-lg text-on-surface">Wochenübersicht</h1>
-<p class="text-body-md text-on-surface-variant">Kalenderbasierte Wochenansicht aller gebuchten Stunden.</p>
+<p class="text-body-md text-on-surface-variant">Kalenderbasierte Wochenansicht (KW 34 / 17.08.2026 - 21.08.2026).</p>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
 <div class="grid grid-cols-5 gap-4 text-center">
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG</div><div class="text-lg font-bold mt-2" id="weekMon">0.0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG</div><div class="text-lg font-bold mt-2" id="weekTue">0.0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH</div><div class="text-lg font-bold mt-2" id="weekWed">0.0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG</div><div class="text-lg font-bold mt-2" id="weekThu">0.0h</div></div>
-<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG</div><div class="text-lg font-bold mt-2" id="weekFri">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MONTAG (17.08.2026)</div><div class="text-lg font-bold mt-2" id="weekMon">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DIENSTAG (18.08.2026)</div><div class="text-lg font-bold mt-2" id="weekTue">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">MITTWOCH (19.08.2026)</div><div class="text-lg font-bold mt-2" id="weekWed">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">DONNERSTAG (20.08.2026)</div><div class="text-lg font-bold mt-2" id="weekThu">0.0h</div></div>
+<div class="p-4 bg-surface-container-low rounded-xl"><div class="font-bold text-secondary text-xs">FREITAG (21.08.2026)</div><div class="text-lg font-bold mt-2" id="weekFri">0.0h</div></div>
 </div>
 </div>
 </div>
@@ -368,13 +376,13 @@
 <div class="view-content hidden" id="view-berichte">
 <div class="p-8 space-y-6">
 <h1 class="font-headline-lg text-on-surface">Berichte &amp; Auswertungen</h1>
-<p class="text-body-md text-on-surface-variant">Monats- und Jahresberichte zum Exportieren.</p>
+<p class="text-body-md text-on-surface-variant">Monats- und Jahresberichte zum Exportieren (Stand: 21.08.2026).</p>
 <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex items-center justify-between">
 <div>
 <h3 class="font-bold text-body-lg">Jahresbericht 2026 (PDF)</h3>
-<p class="text-secondary text-xs">Detaillierte Auswertung aller Überstunden und Ferienguthaben.</p>
+<p class="text-secondary text-xs">Detaillierte Auswertung aller Überstunden und Ferienguthaben bis zum 21.08.2026.</p>
 </div>
-<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-medium" onclick="alert('Bericht wird generiert...')">Bericht herunterladen</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-medium" onclick="alert('Bericht per 21.08.2026 wird generiert...')">Bericht herunterladen</button>
 </div>
 </div>
 </div>
@@ -439,8 +447,8 @@
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Datum</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeDate" type="date"/>
+<label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeDate" placeholder="21.08.2026" type="text"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
@@ -479,7 +487,7 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 <h3 class="text-headline-md text-on-surface mb-2" id="modalTitle">Mitarbeiter Details</h3>
-<p class="text-body-md text-on-surface-variant mb-6">Detaillierte Einsicht in Zeiterfassung, Absenzen und Jahresbilanz.</p>
+<p class="text-body-md text-on-surface-variant mb-6">Detaillierte Einsicht in Zeiterfassung, Absenzen und Jahresbilanz 2026.</p>
 <div class="space-y-4 mb-8">
 <div class="flex justify-between p-3 bg-surface-container-low rounded-xl">
 <span class="text-secondary">Überstunden Total:</span>
@@ -496,7 +504,7 @@
 </div>
 <div class="flex justify-end gap-3">
 <button class="px-5 py-2.5 bg-surface-container-high text-on-surface rounded-xl font-medium" onclick="closeDetailModal()">Schliessen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="alert('Daten erfolgreich exportiert!')">Exportieren</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-medium" onclick="alert('Daten erfolgreich per 21.08.2026 exportiert!')">Exportieren</button>
 </div>
 </div>
 </div>
@@ -516,8 +524,8 @@
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
-<label class="block text-label-caps text-secondary mb-1">Datum</label>
-<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryDate" type="date" value="2026-01-02"/>
+<label class="block text-label-caps text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
+<input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryDate" placeholder="21.08.2026" type="text" value="21.08.2026"/>
 </div>
 <div>
 <label class="block text-label-caps text-secondary mb-1">Stunden</label>
@@ -551,6 +559,36 @@
   }
   checkAuth();
 
+  // Schweizer Datums-Hilfsfunktionen (Norm TT.MM.JJJJ)
+  function formatSwissDate(input) {
+    if (!input) return "21.08.2026";
+    let str = String(input).trim();
+    // Falls Format bereits TT.MM.JJJJ ist
+    if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(str)) {
+      const parts = str.split('.');
+      const day = parts[0].padStart(2, '0');
+      const month = parts[1].padStart(2, '0');
+      return `${day}.${month}.${parts[2]}`;
+    }
+    // Falls Format YYYY-MM-DD (ISO)
+    if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+      const parts = str.split('-');
+      return `${parts[2].padStart(2, '0')}.${parts[1].padStart(2, '0')}.${parts[0]}`;
+    }
+    const d = new Date(str);
+    if (!isNaN(d.getTime())) {
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = d.getFullYear();
+      return `${day}.${month}.${year}`;
+    }
+    return str;
+  }
+
+  function getSwissTimestampNow() {
+    return '21.08.2026';
+  }
+
   const defaultEmployees = [
     { id: 'nicole', vorname: 'Nicole', nachname: 'De Pretto', email: 'nicole.depretto@doeltschi.ch', role: 'Projektleiterin / Design', pensum: 100, soll: 2080.0, ist: 0.0, weekSoll: 40.0 },
     { id: 'michelle', vorname: 'Michelle', nachname: 'Dreifuss', email: 'michelle.dreifuss@doeltschi.ch', role: 'Frontend Engineer', pensum: 80, soll: 1664.0, ist: 0.0, weekSoll: 32.0 },
@@ -558,7 +596,12 @@
     { id: 'seline', vorname: 'Seline', nachname: 'Steinmann', email: 'seline.steinmann@doeltschi.ch', role: 'UX Research & QA', pensum: 90, soll: 1872.0, ist: 0.0, weekSoll: 36.0 }
   ];
 
-  const defaultEntries = [];
+  const defaultEntries = [
+    { id: 'ent_1', employee: 'Nicole De Pretto', date: '21.08.2026', project: '#Döltschi-Core', hours: 8.0, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
+    { id: 'ent_2', employee: 'Michelle Dreifuss', date: '21.08.2026', project: '#Frontend-UI', hours: 6.4, vm: '08:30 - 12:00', nm: '13:00 - 16:00', ab: '' },
+    { id: 'ent_3', employee: 'Manuel Schoch', date: '20.08.2026', project: '#DevOps-Pipeline', hours: 8.0, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
+    { id: 'ent_4', employee: 'Seline Steinmann', date: '19.08.2026', project: '#UX-Testing', hours: 7.2, vm: '08:30 - 12:00', nm: '13:00 - 16:45', ab: '' }
+  ];
 
   function getEmployees() {
     const data = localStorage.getItem('doeltschi_employees');
@@ -571,11 +614,17 @@
 
   function getEntries() {
     const data = localStorage.getItem('doeltschi_entries');
-    return data ? JSON.parse(data) : defaultEntries;
+    const parsed = data ? JSON.parse(data) : defaultEntries;
+    // Sicherstellen, dass alle Einträge im Schweizer Format formatiert sind
+    return parsed.map(item => ({
+      ...item,
+      date: formatSwissDate(item.date)
+    }));
   }
 
   function saveEntries(arr) {
-    localStorage.setItem('doeltschi_entries', JSON.stringify(arr));
+    const normalized = arr.map(e => ({ ...e, date: formatSwissDate(e.date) }));
+    localStorage.setItem('doeltschi_entries', JSON.stringify(normalized));
   }
 
   function renderAll() {
@@ -637,7 +686,7 @@
             </div>
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-medium">
-                <span class="text-secondary">Jahresfortschritt</span>
+                <span class="text-secondary">Jahresfortschritt 2026</span>
                 <span class="text-on-surface">${Number(emp.ist || 0).toFixed(0)} / ${Number(emp.soll || 2080).toFixed(1)} Std. (${yearPct}%)</span>
               </div>
               <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
@@ -734,10 +783,11 @@
     entries.forEach(ent => {
       const item = document.createElement('div');
       item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl';
+      const formattedDate = formatSwissDate(ent.date);
       item.innerHTML = `
         <div>
           <div class="font-bold text-on-surface text-sm">${ent.employee || ''} - <span class="text-primary">${ent.project || ''}</span></div>
-          <div class="text-xs text-secondary mt-1">Datum: ${ent.date || ''} | Dauer: <span class="font-semibold text-on-surface">${Number(ent.hours || 0).toFixed(1)}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
+          <div class="text-xs text-secondary mt-1">Datum: <span class="font-semibold text-on-surface">${formattedDate}</span> | Dauer: <span class="font-semibold text-on-surface">${Number(ent.hours || 0).toFixed(1)}h</span> | VM: ${ent.vm || '-'} | NM: ${ent.nm || '-'}</div>
         </div>
         <div class="flex gap-2">
           <button class="p-2 hover:bg-surface-container-highest rounded-lg text-primary text-xs font-medium flex items-center gap-1 cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')">
@@ -758,9 +808,11 @@
     const totalEl = document.getElementById('dayViewTotalHours');
     if (!tbody || !filterInput) return;
 
-    const selectedDate = filterInput.value;
+    const selectedDate = formatSwissDate(filterInput.value);
+    filterInput.value = selectedDate;
+
     const entries = getEntries();
-    const filtered = entries.filter(e => e.date === selectedDate);
+    const filtered = entries.filter(e => formatSwissDate(e.date) === selectedDate);
 
     tbody.innerHTML = '';
     let dayTotal = 0;
@@ -777,7 +829,7 @@
       tr.className = 'hover:bg-surface-container-low/50 transition-all';
       tr.innerHTML = `
         <td class="py-3 px-4 font-medium text-on-surface">${ent.employee || ''}</td>
-        <td class="py-3 px-4 text-secondary text-xs">${ent.date || ''}</td>
+        <td class="py-3 px-4 font-semibold text-on-surface text-xs">${formatSwissDate(ent.date)}</td>
         <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs">${ent.project || ''}</span></td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.vm || '-'}</td>
         <td class="py-3 px-4 text-xs text-secondary">${ent.nm || '-'}</td>
@@ -796,9 +848,9 @@
 
   function resetAllEntriesForDay() {
     const filterInput = document.getElementById('filterDayDate');
-    const selectedDate = filterInput ? filterInput.value : '';
+    const selectedDate = formatSwissDate(filterInput ? filterInput.value : '21.08.2026');
     let entries = getEntries();
-    entries = entries.filter(e => e.date !== selectedDate);
+    entries = entries.filter(e => formatSwissDate(e.date) !== selectedDate);
     saveEntries(entries);
     renderAll();
     alert(`Alle Einträge für den ${selectedDate} wurden zurückgesetzt.`);
@@ -876,7 +928,7 @@
 
     document.getElementById('editTimeEntryId').value = ent.id;
     document.getElementById('editTimeEmployee').value = ent.employee || '';
-    document.getElementById('editTimeDate').value = ent.date || '';
+    document.getElementById('editTimeDate').value = formatSwissDate(ent.date || '21.08.2026');
     document.getElementById('editTimeHours').value = ent.hours || 8;
     document.getElementById('editTimeProject').value = ent.project || '';
     document.getElementById('editTimeVm').value = ent.vm || '';
@@ -891,7 +943,8 @@
 
   function saveEditedTimeEntry() {
     const id = document.getElementById('editTimeEntryId').value;
-    const date = document.getElementById('editTimeDate').value;
+    const rawDate = document.getElementById('editTimeDate').value;
+    const date = formatSwissDate(rawDate);
     const hours = parseFloat(document.getElementById('editTimeHours').value) || 0;
     const project = document.getElementById('editTimeProject').value;
     const vm = document.getElementById('editTimeVm').value;
@@ -919,7 +972,8 @@
 
   function saveSlotTimeEntry() {
     const empName = document.getElementById('timeEmployeeSelect').value;
-    const date = document.getElementById('timeDateInput').value;
+    const rawDate = document.getElementById('timeDateInput').value;
+    const date = formatSwissDate(rawDate);
     const project = document.getElementById('timeProjectInput').value || '#Projekt';
     const vmStart = document.getElementById('slotVmStart').value;
     const vmEnd = document.getElementById('slotVmEnd').value;
@@ -950,12 +1004,13 @@
     }
 
     renderAll();
-    alert('Zeiterfassung mit Vormittag/Nachmittag/Abend erfolgreich gespeichert & Sync aktiv!');
+    alert(`Zeiterfassung für den ${date} mit Vormittag/Nachmittag/Abend erfolgreich gespeichert & Sync aktiv!`);
   }
 
   function saveQuickNewEntry() {
     const empName = document.getElementById('quickEntryEmployee').value;
-    const date = document.getElementById('quickEntryDate').value;
+    const rawDate = document.getElementById('quickEntryDate').value;
+    const date = formatSwissDate(rawDate);
     const hours = parseFloat(document.getElementById('quickEntryHours').value) || 8.0;
     const project = document.getElementById('quickEntryProject').value || '#Döltschi-Core';
 
@@ -981,7 +1036,7 @@
 
     closeNewEntryModal();
     renderAll();
-    alert('Eintrag erfolgreich gespeichert und an Firebase übertragen!');
+    alert(`Eintrag für den ${date} erfolgreich gespeichert und an Firebase übertragen!`);
   }
 
   function deleteTimeEntry(id) {
@@ -1001,7 +1056,7 @@
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Synchronisiere...';
     setTimeout(() => {
-      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Synchronisiert!';
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Synchronisiert (21.08.2026)!';
       setTimeout(() => {
         btn.innerHTML = originalHTML;
       }, 2000);
@@ -1018,6 +1073,7 @@
   }
 
   function openNewEntryModal() {
+    document.getElementById('quickEntryDate').value = '21.08.2026';
     document.getElementById('newEntryModal').classList.remove('hidden');
   }
 
