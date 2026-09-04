@@ -141,7 +141,7 @@
 <button class="w-full flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all nav-btn" data-tab="berichte" onclick="switchTab('berichte')">
 <span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
       </button>
-</nav>
+<button class="w-full flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all nav-btn" data-tab="tagesansicht" onclick="switchTab('tagesansicht')"><span class="material-symbols-outlined mr-3">view_day</span>Tagesansicht</button></nav>
 </aside>
 <!-- Main Content Layout -->
 <div class="pl-64">
@@ -333,7 +333,7 @@
 </div>
 </div>
 </div>
-</div>
+<div class="tab-content flex flex-col gap-8 hidden" id="tab-content-tagesansicht"><div class="bg-surface-container-low p-8 rounded-2xl shadow-sm"><div class="flex items-center justify-between mb-6"><h2 class="text-xl font-bold text-on-surface">Tagesübersicht &amp; Verwaltung</h2><div class="flex items-center gap-2"><input class="p-2 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30 text-sm" id="daily-filter-date" type="date"/><select class="p-2 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30 text-sm" id="daily-filter-mitarbeiter"><option value="">Alle Mitarbeiter</option></select></div></div><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b border-outline-variant text-xs font-bold text-on-surface-variant uppercase"><th class="pb-3">Mitarbeiter</th><th class="pb-3">Datum</th><th class="pb-3">Zeit</th><th class="pb-3">Projekt</th><th class="pb-3 text-right">Aktionen</th></tr></thead><tbody class="divide-y divide-outline-variant/30" id="daily-entries-table-body"></tbody></table></div></div></div></div>
 </main>
 </div>
 <!-- Edit Entry Modal -->
