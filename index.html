@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de" style=""><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - Zeitmanagement</title>
 <style>
   @layer base { 
@@ -95,8 +93,8 @@
     }
   }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 </head>
 <body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary selection:text-white">
 <!-- SIDEBAR -->
@@ -247,7 +245,7 @@
 <div class="flex items-center gap-2">
 <div class="relative w-64">
 <span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary text-[18px]">search</span>
-<input class="w-full pl-9 pr-3 py-1.5 text-xs bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-on-surface focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-secondary/60" id="employeeSearchInput" oninput="filterEmployeeCards()" placeholder="Mitarbeiter suchen..." type="text"/>
+<input class="w-full pl-9 pr-3 py-1.5 text-xs bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-on-surface focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-secondary/60" id="employeeSearchInput" oninput="filterEmployeeCards()" placeholder="Mitarbeiter suchen..." type="text">
 </div>
 </div>
 </div>
@@ -484,7 +482,7 @@
 <div class="relative" id="timeDateContainer">
 <label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-2.5 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
+<input class="w-full p-2.5 pr-10 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm cursor-pointer focus:ring-2 focus:ring-primary font-medium" id="timeDateInput" onclick="toggleCalendarPicker('timeDateInput', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
 <button class="absolute right-2.5 top-2.5 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('timeDateInput', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-lg pointer-events-none">calendar_month</span>
 </button>
@@ -492,7 +490,7 @@
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-sm font-medium" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core">
 </div>
 </div>
 <div class="space-y-3 pt-3 border-t border-outline-variant/10">
@@ -507,9 +505,9 @@
 <span class="text-xs font-semibold text-secondary" id="slotVmBadge">4:00 h (4.00h)</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmStart" oninput="updateSlotCalculationsLive()" type="time" value="08:00">
 <span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotVmEnd" oninput="updateSlotCalculationsLive()" type="time" value="12:00">
 </div>
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
@@ -518,9 +516,9 @@
 <span class="text-xs font-semibold text-secondary" id="slotNmBadge">4:00 h (4.00h)</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmStart" oninput="updateSlotCalculationsLive()" type="time" value="13:00">
 <span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00"/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotNmEnd" oninput="updateSlotCalculationsLive()" type="time" value="17:00">
 </div>
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
@@ -529,9 +527,9 @@
 <span class="text-xs font-semibold text-secondary" id="slotAbBadge">0:00 h</span>
 </div>
 <div class="flex items-center gap-2">
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value=""/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbStart" oninput="updateSlotCalculationsLive()" type="time" value="">
 <span class="text-secondary font-bold text-xs">-</span>
-<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value=""/>
+<input class="w-full p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="slotAbEnd" oninput="updateSlotCalculationsLive()" type="time" value="">
 </div>
 </div>
 </div>
@@ -562,7 +560,7 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div>
 <h1 class="text-2xl font-bold text-on-surface">Tagesübersicht (Day View)</h1>
-<p class="text-xs text-secondary mt-0.5">Vollständige Prüfung und Bereinigung aller Tagesbuchungen • Keine leeren Zeilen</p>
+
 </div>
 <div class="flex flex-wrap items-center gap-3">
 <div class="relative">
@@ -572,7 +570,7 @@
 </div>
 <div class="relative flex items-center gap-1.5">
 <div class="relative">
-<input class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium w-32 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value=""/>
+<input class="p-2 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium w-32 cursor-pointer" id="filterDayDate" onchange="renderDayView()" onclick="toggleCalendarPicker('filterDayDate', event)" placeholder="Alle Daten" type="text" value="">
 <button class="absolute right-2 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('filterDayDate', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-[16px]">calendar_month</span>
 </button>
@@ -648,34 +646,34 @@
 </button>
 <h3 class="text-lg font-bold text-on-surface mb-1" id="editModalTitle">Mitarbeiter bearbeiten</h3>
 <p class="text-xs text-secondary mb-5">Änderungen werden mit Firebase Firestore synchronisiert.</p>
-<input id="editEmployeeId" type="hidden"/>
+<input id="editEmployeeId" type="hidden">
 <div class="space-y-3.5 mb-6">
 <div class="grid grid-cols-2 gap-3">
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Vorname</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editVorname" type="text"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editVorname" type="text">
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Nachname</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editNachname" type="text"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editNachname" type="text">
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">E-Mail</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editEmail" type="email"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editEmail" type="email">
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Rolle / Position</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editRole" type="text"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editRole" type="text">
 </div>
 <div class="grid grid-cols-2 gap-3">
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Pensum (%)</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editPensum" type="number"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editPensum" type="number">
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Jahres-Soll (Std)</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editSoll" type="number"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editSoll" type="number">
 </div>
 </div>
 </div>
@@ -693,17 +691,17 @@
 </button>
 <h3 class="text-lg font-bold text-on-surface mb-1">Zeiteintrag bearbeiten</h3>
 <p class="text-xs text-secondary mb-4">Änderungen werden mit minutengenauer Berechnung synchronisiert.</p>
-<input id="editTimeEntryId" type="hidden"/>
+<input id="editTimeEntryId" type="hidden">
 <div class="space-y-3.5 mb-5">
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Mitarbeiter</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeEmployee" readonly="" type="text"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeEmployee" readonly="" type="text">
 </div>
 <div class="grid grid-cols-2 gap-3">
 <div class="relative">
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text"/>
+<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="editTimeDate" onclick="toggleCalendarPicker('editTimeDate', event)" placeholder="21.08.2026" readonly="" type="text">
 <button class="absolute right-2.5 top-2 text-secondary hover:text-primary cursor-pointer" onclick="toggleCalendarPicker('editTimeDate', event)" type="button">
 <span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
 </button>
@@ -712,29 +710,29 @@
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (hh:mm / Dez.)</label>
 <div class="flex items-center gap-2">
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="editTimeHours" oninput="editManualHoursChanged()" step="0.01" type="number">
 <span class="text-xs text-secondary font-bold whitespace-nowrap" id="editTimeHhMmLabel">0:00 h</span>
 </div>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeProject" type="text"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="editTimeProject" type="text">
 </div>
 <div class="p-3 bg-surface-container-low rounded-xl space-y-2">
 <div class="text-[11px] font-semibold text-secondary">Slots formatieren (z.B. 08:00 - 12:00 oder leer)</div>
 <div class="grid grid-cols-3 gap-2">
 <div>
 <label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Vormittag</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text"/>
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeVm" oninput="updateEditModalCalculationsLive()" placeholder="08:00 - 12:00" type="text">
 </div>
 <div>
 <label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Nachmittag</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text"/>
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeNm" oninput="updateEditModalCalculationsLive()" placeholder="13:00 - 17:00" type="text">
 </div>
 <div>
 <label class="block text-[10px] uppercase font-semibold text-secondary mb-0.5">Abend</label>
-<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="18:00 - 19:15" type="text"/>
+<input class="w-full p-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface text-xs font-medium" id="editTimeAb" oninput="updateEditModalCalculationsLive()" placeholder="18:00 - 19:15" type="text">
 </div>
 </div>
 </div>
@@ -795,7 +793,7 @@
 <div class="relative">
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Datum (TT.MM.JJJJ)</label>
 <div class="relative">
-<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026"/>
+<input class="w-full p-2.5 pr-8 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs cursor-pointer font-medium" id="quickEntryDate" onclick="toggleCalendarPicker('quickEntryDate', event)" placeholder="21.08.2026" readonly="" type="text" value="21.08.2026">
 <button class="absolute right-2.5 top-2 text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center" onclick="toggleCalendarPicker('quickEntryDate', event)" title="Kalender öffnen" type="button">
 <span class="material-symbols-outlined text-base pointer-events-none">calendar_month</span>
 </button>
@@ -804,14 +802,14 @@
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Stunden (Industriezeit)</label>
 <div class="flex items-center gap-2">
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-bold" id="quickEntryHours" oninput="quickEntryHoursChanged()" step="0.25" type="number" value="8.0">
 <span class="text-xs text-secondary font-bold whitespace-nowrap" id="quickEntryHhMmLabel">8:00 h</span>
 </div>
 </div>
 </div>
 <div>
 <label class="block text-xs font-semibold uppercase text-secondary mb-1">Projekt / Bemerkungen</label>
-<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
+<input class="w-full p-2.5 bg-surface-container-low rounded-xl border-0 text-on-surface text-xs font-medium" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core">
 </div>
 </div>
 <div class="flex justify-end gap-2.5">
@@ -2018,4 +2016,6 @@
   // Start initialization
   renderAll();
 </script>
+
+
 </body></html>
