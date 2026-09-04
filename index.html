@@ -416,7 +416,7 @@
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt</label>
+<label class="block text-label-caps text-secondary mb-1">Projekt / Bemerkungen</label>
 <input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="timeProjectInput" placeholder="z.B. #Döltschi-Core" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
@@ -490,7 +490,7 @@
 <tr class="border-b border-outline-variant/20 text-label-caps text-secondary">
 <th class="py-3 px-4">Mitarbeiter</th>
 <th class="py-3 px-4">Datum (TT.MM.JJJJ)</th>
-<th class="py-3 px-4">Projekt</th>
+<th class="py-3 px-4">Projekt / Bemerkungen</th>
 <th class="py-3 px-4">Vormittag</th>
 <th class="py-3 px-4">Nachmittag</th>
 <th class="py-3 px-4">Abend</th>
@@ -609,7 +609,7 @@
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt</label>
+<label class="block text-label-caps text-secondary mb-1">Projekt / Bemerkungen</label>
 <input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="editTimeProject" type="text"/>
 </div>
 <div class="grid grid-cols-3 gap-2">
@@ -691,7 +691,7 @@
 </div>
 </div>
 <div>
-<label class="block text-label-caps text-secondary mb-1">Projekt / Notiz</label>
+<label class="block text-label-caps text-secondary mb-1">Projekt / Bemerkungen</label>
 <input class="w-full p-3 bg-surface-container-low rounded-xl border-0 text-on-surface" id="quickEntryProject" placeholder="z.B. Sprint Planning &amp; Core Features" type="text" value="#Döltschi-Core"/>
 </div>
 </div>
@@ -726,10 +726,10 @@
 </div>
 <!-- Footer Quick Selects -->
 <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between text-xs">
-<button class="px-2.5 py-1 text-primary hover:bg-primary-fixed rounded-md font-medium transition-colors" onclick="selectPickerToday()" type="button">
-Heute (21.08.2026)
+<button class="px-2.5 py-1 text-primary hover:bg-primary-fixed rounded-md font-medium transition-colors cursor-pointer" id="pickerTodayBtn" onclick="selectPickerToday()" type="button">
+Heute
 </button>
-<button class="px-2 py-1 text-secondary hover:text-on-surface transition-colors" onclick="closeCalendarPicker()" type="button">
+<button class="px-2 py-1 text-secondary hover:text-on-surface transition-colors cursor-pointer" onclick="closeCalendarPicker()" type="button">
 Schliessen
 </button>
 </div>
@@ -776,7 +776,7 @@ Schliessen
   }
 
   function parseSwissDate(str) {
-    if (!str) return new Date(2026, 7, 21);
+    if (!str) return new Date();
     const parts = str.split('.');
     if (parts.length === 3) {
       const day = parseInt(parts[0], 10);
@@ -785,11 +785,12 @@ Schliessen
       return new Date(year, month, day);
     }
     const d = new Date(str);
-    return isNaN(d.getTime()) ? new Date(2026, 7, 21) : d;
+    return isNaN(d.getTime()) ? new Date() : d;
   }
 
   function getSwissTimestampNow() {
-    return '21.08.2026';
+    const d = new Date();
+    return String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + d.getFullYear();
   }
 
   const defaultEmployees = [
@@ -803,7 +804,9 @@ Schliessen
     { id: 'ent_1', employee: 'Nicole De Pretto', date: '21.08.2026', project: '#Döltschi-Core', hours: 8.0, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
     { id: 'ent_2', employee: 'Michelle Dreifuss', date: '21.08.2026', project: '#Frontend-UI', hours: 6.4, vm: '08:30 - 12:00', nm: '13:00 - 16:00', ab: '' },
     { id: 'ent_3', employee: 'Manuel Schoch', date: '20.08.2026', project: '#DevOps-Pipeline', hours: 8.0, vm: '08:00 - 12:00', nm: '13:00 - 17:00', ab: '' },
-    { id: 'ent_4', employee: 'Seline Steinmann', date: '19.08.2026', project: '#UX-Testing', hours: 7.2, vm: '08:30 - 12:00', nm: '13:00 - 16:45', ab: '' }
+    { id: 'ent_4', employee: 'Seline Steinmann', date: '19.08.2026', project: '#UX-Testing', hours: 7.2, vm: '08:30 - 12:00', nm: '13:00 - 16:45', ab: '' },
+    { id: 'ent_5', employee: 'Nicole De Pretto', date: '17.08.2026', project: '#Kundenworkshop', hours: 8.0, vm: '08:00 - 12:00', nm: '13:30 - 17:30', ab: '' },
+    { id: 'ent_6', employee: 'Michelle Dreifuss', date: '14.08.2026', project: '#Refactoring-Sprint', hours: 7.5, vm: '08:30 - 12:00', nm: '13:00 - 17:00', ab: '' }
   ];
 
   function getEmployees() {
@@ -841,79 +844,33 @@ Schliessen
     const emps = getEmployees();
     const grid = document.getElementById('dashboardEmployeeGrid');
     if (!grid) return;
-    grid.innerHTML = '';
     
+    // Maintain the four detailed tiles if static or update dynamic counters
+    // Here we ensure existing summary counters update accurately
     let totalIst = 0;
     let totalSollW = 0;
-
     emps.forEach(emp => {
       totalIst += Number(emp.ist || 0);
       const wSoll = emp.weekSoll !== undefined ? Number(emp.weekSoll) : (40 * (emp.pensum / 100));
       totalSollW += wSoll;
-      const initials = ((emp.vorname?.[0] || '') + (emp.nachname?.[0] || '')).toUpperCase();
-      const saldo = (Number(emp.ist || 0) - wSoll).toFixed(1);
-      const saldoFormatted = (saldo >= 0 ? '+' : '') + saldo + 'h';
-      const rawPct = wSoll > 0 ? Math.round((Number(emp.ist || 0) / wSoll) * 100) : 0;
-      const pct = isNaN(rawPct) ? 0 : rawPct;
-      
-      const rawYearPct = emp.soll > 0 ? Math.round((Number(emp.ist || 0) / emp.soll) * 100) : 0;
-      const yearPct = isNaN(rawYearPct) ? 0 : rawYearPct;
-
-      const html = `
-        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
-          <div>
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg">${initials}</div>
-                <div>
-                  <h3 class="text-body-lg font-bold text-on-surface">${emp.vorname || ''} ${emp.nachname || ''}</h3>
-                  <span class="text-xs text-secondary">${emp.role || ''}</span>
-                </div>
-              </div>
-              <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-bold">${emp.pensum}% Pensum</span>
-            </div>
-            <div class="grid grid-cols-3 gap-4 my-6 p-4 bg-surface-container-low rounded-xl text-center">
-              <div>
-                <span class="text-label-caps text-secondary block mb-1">SOLL</span>
-                <span class="text-body-lg font-bold text-on-surface">${wSoll.toFixed(1)}h</span>
-              </div>
-              <div>
-                <span class="text-label-caps text-secondary block mb-1">IST</span>
-                <span class="text-body-lg font-bold text-primary">${Number(emp.ist || 0).toFixed(1)}h</span>
-              </div>
-              <div>
-                <span class="text-label-caps text-secondary block mb-1">SALDO</span>
-                <span class="text-body-lg font-bold ${saldo >= 0 ? 'text-primary' : 'text-secondary'}">${saldoFormatted}</span>
-              </div>
-            </div>
-            <div class="space-y-2">
-              <div class="flex justify-between text-xs font-medium">
-                <span class="text-secondary">Jahresfortschritt 2026</span>
-                <span class="text-on-surface">${Number(emp.ist || 0).toFixed(0)} / ${Number(emp.soll || 2080).toFixed(1)} Std. (${yearPct}%)</span>
-              </div>
-              <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
-                <div class="bg-primary h-full rounded-full" style="width: ${Math.min(yearPct, 100)}%"></div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-6 pt-4 border-t border-outline-variant/10 flex items-center justify-between text-xs text-secondary">
-            <span class="flex items-center gap-1 text-primary font-medium">
-              <span class="material-symbols-outlined text-[16px]">fiber_manual_record</span>Cloud-Sync aktiv
-            </span>
-            <button class="text-primary hover:underline font-medium" onclick="openDetailModal('${emp.vorname || ''} ${emp.nachname || ''}')">Details anzeigen</button>
-          </div>
-        </div>
-      `;
-      grid.insertAdjacentHTML('beforeend', html);
     });
 
-    document.getElementById('totalIstHours').innerText = totalIst.toFixed(1) + 'h';
-    document.getElementById('statTotalSoll').innerText = totalSollW.toFixed(1) + 'h';
-    document.getElementById('statTeamCount').innerText = emps.length;
+    const entries = getEntries();
+    const weekEntriesSum = entries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+    const displayedIst = weekEntriesSum > 0 ? weekEntriesSum : totalIst;
+
+    const totalIstEl = document.getElementById('totalIstHours');
+    if (totalIstEl) totalIstEl.innerText = displayedIst.toFixed(1) + 'h';
+    
+    const statSollEl = document.getElementById('statTotalSoll');
+    if (statSollEl) statSollEl.innerText = totalSollW.toFixed(1) + 'h';
+    
+    const statTeamEl = document.getElementById('statTeamCount');
+    if (statTeamEl) statTeamEl.innerText = emps.length;
     
     const barEl = document.getElementById('statIstBar');
     if (barEl) {
-      const globalPct = totalSollW > 0 ? Math.min(Math.round((totalIst / totalSollW) * 100), 100) : 0;
+      const globalPct = totalSollW > 0 ? Math.min(Math.round((displayedIst / totalSollW) * 100), 100) : 0;
       barEl.style.width = globalPct + '%';
     }
   }
@@ -1006,21 +963,29 @@ Schliessen
 
   function renderDayView() {
     const tbody = document.getElementById('dayViewTableBody');
-    const filterInput = document.getElementById('filterDayDate');
+    const filterDateInput = document.getElementById('filterDayDate');
+    const filterEmployeeSel = document.getElementById('filterEmployeeSelect');
     const totalEl = document.getElementById('dayViewTotalHours');
-    if (!tbody || !filterInput) return;
+    if (!tbody) return;
 
-    const selectedDate = formatSwissDate(filterInput.value);
-    filterInput.value = selectedDate;
+    const selectedEmployee = filterEmployeeSel ? filterEmployeeSel.value : 'all';
+    const selectedDate = filterDateInput && filterDateInput.value.trim() !== '' ? formatSwissDate(filterDateInput.value) : '';
 
     const entries = getEntries();
-    const filtered = entries.filter(e => formatSwissDate(e.date) === selectedDate);
+    let filtered = entries;
+
+    if (selectedEmployee !== 'all') {
+      filtered = filtered.filter(e => e.employee === selectedEmployee);
+    }
+    if (selectedDate) {
+      filtered = filtered.filter(e => formatSwissDate(e.date) === selectedDate);
+    }
 
     tbody.innerHTML = '';
     let dayTotal = 0;
 
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-4 text-center text-secondary">Keine Zeiteinträge für den ${selectedDate} gefunden.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-4 text-center text-secondary">Keine Zeiteinträge gefunden.</td></tr>`;
       if (totalEl) totalEl.innerText = 'Total: 0.0h';
       return;
     }
@@ -1038,8 +1003,8 @@ Schliessen
         <td class="py-3 px-4 text-xs text-secondary">${ent.ab || '-'}</td>
         <td class="py-3 px-4 font-bold text-primary">${Number(ent.hours || 0).toFixed(1)}h</td>
         <td class="py-3 px-4 text-right space-x-1">
-          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-primary cursor-pointer" onclick="openEditTimeEntryModal('${ent.id}')" title="Bearbeiten"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+          <button class="p-1.5 hover:bg-surface-container-high rounded-lg text-error cursor-pointer" onclick="deleteTimeEntry('${ent.id}')" title="Löschen"><span class="material-symbols-outlined text-[16px]">delete</span></button>
         </td>
       `;
       tbody.appendChild(tr);
@@ -1050,7 +1015,7 @@ Schliessen
 
   function resetAllEntriesForDay() {
     const filterInput = document.getElementById('filterDayDate');
-    const selectedDate = formatSwissDate(filterInput ? filterInput.value : '21.08.2026');
+    const selectedDate = filterInput && filterInput.value.trim() !== '' ? formatSwissDate(filterInput.value) : '21.08.2026';
     let entries = getEntries();
     entries = entries.filter(e => formatSwissDate(e.date) !== selectedDate);
     saveEntries(entries);
@@ -1258,7 +1223,7 @@ Schliessen
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Synchronisiere...';
     setTimeout(() => {
-      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Synchronisiert (21.08.2026)!';
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Synchronisiert!';
       setTimeout(() => {
         btn.innerHTML = originalHTML;
       }, 2000);
@@ -1275,7 +1240,9 @@ Schliessen
   }
 
   function openNewEntryModal() {
-    document.getElementById('quickEntryDate').value = '21.08.2026';
+    const now = new Date();
+    const todayStr = String(now.getDate()).padStart(2, '0') + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + now.getFullYear();
+    document.getElementById('quickEntryDate').value = todayStr;
     document.getElementById('newEntryModal').classList.remove('hidden');
   }
 
@@ -1322,13 +1289,23 @@ Schliessen
   // INTERACTIVE DATEPICKER ENGINE (TT.MM.JJJJ)
   // ==========================================
   let activeDatePickerTargetId = null;
-  let currentPickerYear = 2026;
-  let currentPickerMonth = 7; // August (0-indexed)
+  let currentPickerYear = new Date().getFullYear();
+  let currentPickerMonth = new Date().getMonth(); // 0-indexed
 
   const monthNamesGerman = [
     "Januar", "Februar", "März", "April", "Mai", "Juni", 
     "Juli", "August", "September", "Oktober", "November", "Dezember"
   ];
+
+  function updatePickerTodayButtonText() {
+    const btn = document.getElementById('pickerTodayBtn');
+    if (!btn) return;
+    const now = new Date();
+    const dayStr = String(now.getDate()).padStart(2, '0');
+    const monthStr = String(now.getMonth() + 1).padStart(2, '0');
+    const yearStr = now.getFullYear();
+    btn.innerText = `Heute (${dayStr}.${monthStr}.${yearStr})`;
+  }
 
   function toggleCalendarPicker(targetInputId, event) {
     if (event) {
@@ -1345,15 +1322,17 @@ Schliessen
 
     activeDatePickerTargetId = targetInputId;
     const inputEl = document.getElementById(targetInputId);
-    if (inputEl && inputEl.value) {
+    if (inputEl && inputEl.value && inputEl.value.trim() !== '') {
       const parsed = parseSwissDate(inputEl.value);
       currentPickerYear = parsed.getFullYear();
       currentPickerMonth = parsed.getMonth();
     } else {
-      currentPickerYear = 2026;
-      currentPickerMonth = 7;
+      const now = new Date();
+      currentPickerYear = now.getFullYear();
+      currentPickerMonth = now.getMonth();
     }
 
+    updatePickerTodayButtonText();
     renderCalendarPicker();
 
     // Position calendar smartly near target element
@@ -1418,7 +1397,14 @@ Schliessen
   }
 
   function selectPickerToday() {
-    selectPickerDate(21, 7, 2026);
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+
+    currentPickerYear = year;
+    currentPickerMonth = month;
+    selectPickerDate(day, month, year);
   }
 
   function renderCalendarPicker() {
@@ -1447,6 +1433,11 @@ Schliessen
       if (inputEl) currentValStr = inputEl.value;
     }
 
+    const realToday = new Date();
+    const realDay = realToday.getDate();
+    const realMonth = realToday.getMonth();
+    const realYear = realToday.getFullYear();
+
     grid.innerHTML = '';
 
     // Prev month trailing days
@@ -1456,7 +1447,7 @@ Schliessen
       const prevYear = currentPickerMonth === 0 ? currentPickerYear - 1 : currentPickerYear;
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs text-secondary/40 hover:bg-surface-container-high transition-colors';
+      btn.className = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
       btn.innerText = dayNum;
       btn.onclick = (e) => {
         e.stopPropagation();
@@ -1471,12 +1462,12 @@ Schliessen
       const mStr = String(currentPickerMonth + 1).padStart(2, '0');
       const fullDate = `${dStr}.${mStr}.${currentPickerYear}`;
       const isSelected = (fullDate === currentValStr);
-      const isToday = (day === 21 && currentPickerMonth === 7 && currentPickerYear === 2026);
+      const isToday = (day === realDay && currentPickerMonth === realMonth && currentPickerYear === realYear);
 
       const btn = document.createElement('button');
       btn.type = 'button';
 
-      let baseClasses = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs font-medium transition-all ';
+      let baseClasses = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs font-medium transition-all cursor-pointer ';
       if (isSelected) {
         baseClasses += 'bg-primary text-on-primary font-bold shadow-sm';
       } else if (isToday) {
@@ -1502,7 +1493,7 @@ Schliessen
       const nextYear = currentPickerMonth === 11 ? currentPickerYear + 1 : currentPickerYear;
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs text-secondary/40 hover:bg-surface-container-high transition-colors';
+      btn.className = 'w-9 h-9 rounded-xl flex items-center justify-center text-xs text-secondary/40 hover:bg-surface-container-high transition-colors cursor-pointer';
       btn.innerText = j;
       btn.onclick = (e) => {
         e.stopPropagation();
