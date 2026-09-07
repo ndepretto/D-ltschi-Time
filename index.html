@@ -308,9 +308,90 @@
 <h2 class="text-xl font-bold text-on-surface">Mitarbeiterverwaltung &amp; Jahresarbeitszeit</h2>
 <button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="openAddStaffModal()">+ Neuer Mitarbeiter</button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="staff-cards-container">
-<!-- Dynamically populated -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="staff-cards-container"><div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4 border border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">ND</div>
+<div>
+<div class="font-bold text-lg text-on-surface">Nicole De Pretto</div>
+<div class="text-xs text-on-surface-variant">Pensum: 80%</div>
 </div>
+</div>
+<button class="text-error text-sm font-bold hover:underline" onclick="deleteStaff('s1')">Löschen</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Erfasst / Soll</span>
+<span class="font-bold">1,440 / 1,800 Std</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4 border border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">MD</div>
+<div>
+<div class="font-bold text-lg text-on-surface">Michelle Dreifuss</div>
+<div class="text-xs text-on-surface-variant">Pensum: 100%</div>
+</div>
+</div>
+<button class="text-error text-sm font-bold hover:underline" onclick="deleteStaff('s2')">Löschen</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Erfasst / Soll</span>
+<span class="font-bold">1,750 / 1,800 Std</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 97%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4 border border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">MS</div>
+<div>
+<div class="font-bold text-lg text-on-surface">Manuel Schoch</div>
+<div class="text-xs text-on-surface-variant">Pensum: 100%</div>
+</div>
+</div>
+<button class="text-error text-sm font-bold hover:underline" onclick="deleteStaff('s3')">Löschen</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Erfasst / Soll</span>
+<span class="font-bold">1,800 / 1,800 Std</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 100%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-xl flex flex-col justify-between gap-4 border border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">SS</div>
+<div>
+<div class="font-bold text-lg text-on-surface">Seline Steinmann</div>
+<div class="text-xs text-on-surface-variant">Pensum: 90%</div>
+</div>
+</div>
+<button class="text-error text-sm font-bold hover:underline" onclick="deleteStaff('s4')">Löschen</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Erfasst / Soll</span>
+<span class="font-bold">1,500 / 1,620 Std</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 92%"></div>
+</div>
+</div>
+</div></div>
 </div>
 </div>
 <!-- TAB 5: BERICHTE -->
