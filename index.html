@@ -121,7 +121,7 @@
 <h3 class="font-headline-md text-on-surface text-xl">Monatskalender</h3>
 <p class="text-body-md text-on-surface-variant text-sm">Klicke auf einen Tag, um Einträge einzusehen</p>
 </div>
-<div class="flex items-center gap-2"><select class="px-4 py-2 rounded-xl bg-surface text-on-surface border-0 focus:ring-2 focus:ring-primary font-headline-md text-base" id="calendar-month-year"><option value="september-2026">September 2026</option><option value="oktober-2026">Oktober 2026</option><option value="november-2026">November 2026</option><option value="dezember-2026">Dezember 2026</option></select></div>
+<div class="flex items-center gap-2"><select class="px-4 py-2 rounded-xl bg-surface text-on-surface border-0 focus:ring-2 focus:ring-primary font-headline-md text-base" id="calendar-month-year" onchange="openMonthlyCalendarModal()"><option value="september-2026">September 2026</option><option value="oktober-2026">Oktober 2026</option><option value="november-2026">November 2026</option><option value="dezember-2026">Dezember 2026</option></select></div>
 </div>
 <div class="grid grid-cols-7 gap-2 text-center text-sm"><div class="font-bold text-outline py-2">Mo</div><div class="font-bold text-outline py-2">Di</div><div class="font-bold text-outline py-2">Mi</div><div class="font-bold text-outline py-2">Do</div><div class="font-bold text-outline py-2">Fr</div><div class="font-bold text-outline py-2">Sa</div><div class="font-bold text-outline py-2">So</div><div class="contents" id="calendar-days-container"></div></div>
 </div><div class="bg-surface-container-low p-8 rounded-xl shadow-sm mb-12">
@@ -393,5 +393,5 @@
 
     updateCalculation();
   </script>
-</div></main></div>
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="monthly-calendar-modal"><div class="bg-surface p-8 rounded-xl shadow-xl max-w-lg w-full mx-4"><div class="flex items-center justify-between mb-4"><h4 class="font-headline-md text-on-surface text-lg">Monatskalender Übersicht</h4><button class="text-outline hover:text-on-surface" onclick="closeMonthlyCalendarModal()"><span class="material-symbols-outlined">close</span></button></div><p class="text-body-md text-on-surface-variant text-sm mb-4">Wähle einen Tag im Monat aus, um Details einzusehen:</p><div class="grid grid-cols-7 gap-2 text-center text-sm mb-4"><div class="font-bold text-outline py-1">Mo</div><div class="font-bold text-outline py-1">Di</div><div class="font-bold text-outline py-1">Mi</div><div class="font-bold text-outline py-1">Do</div><div class="font-bold text-outline py-1">Fr</div><div class="font-bold text-outline py-1">Sa</div><div class="font-bold text-outline py-1">So</div></div><div class="grid grid-cols-7 gap-2 text-center text-sm" id="modal-calendar-grid"></div><div class="flex justify-end mt-6"><button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold" onclick="closeMonthlyCalendarModal()">Schliessen</button></div></div></div></div></main></div>
 </body></html>
