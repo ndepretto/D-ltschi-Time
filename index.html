@@ -121,7 +121,14 @@
 <h3 class="font-headline-md text-on-surface text-xl">Monatskalender</h3>
 <p class="text-body-md text-on-surface-variant text-sm">Klicke auf einen Tag, um Einträge einzusehen</p>
 </div>
-<div class="flex items-center gap-2"><select class="px-4 py-2 rounded-xl bg-surface text-on-surface border-0 focus:ring-2 focus:ring-primary font-headline-md text-base" id="calendar-month-year" onchange="openMonthlyCalendarModal()"><option value="september-2026">September 2026</option><option value="oktober-2026">Oktober 2026</option><option value="november-2026">November 2026</option><option value="dezember-2026">Dezember 2026</option></select></div>
+<div class="flex items-center gap-2">
+<select class="px-4 py-2 rounded-xl bg-surface text-on-surface border-0 focus:ring-2 focus:ring-primary font-headline-md text-base" id="calendar-month-year" onchange="openMonthlyCalendarModal()">
+<option value="september-2026">September 2026</option>
+<option value="oktober-2026">Oktober 2026</option>
+<option value="november-2026">November 2026</option>
+<option value="dezember-2026">Dezember 2026</option>
+</select>
+</div>
 </div>
 <div class="grid grid-cols-7 gap-2 text-center text-sm"><div class="font-bold text-outline py-2">Mo</div><div class="font-bold text-outline py-2">Di</div><div class="font-bold text-outline py-2">Mi</div><div class="font-bold text-outline py-2">Do</div><div class="font-bold text-outline py-2">Fr</div><div class="font-bold text-outline py-2">Sa</div><div class="font-bold text-outline py-2">So</div><div class="contents" id="calendar-days-container"></div></div>
 </div><div class="bg-surface-container-low p-8 rounded-xl shadow-sm mb-12">
@@ -130,7 +137,13 @@
 <h3 class="font-headline-md text-on-surface text-xl">Minutengenaue Zeiterfassung</h3>
 <p class="text-body-md text-on-surface-variant text-sm">Slots für Vormittag, Nachmittag und Abend verwalten</p>
 </div>
-<div class="flex gap-2">
+<div class="flex gap-3 items-center">
+<select class="px-4 py-2 rounded-xl bg-surface text-on-surface border-0 focus:ring-2 focus:ring-primary font-bold text-sm" id="entry-employee">
+<option value="Nicole">Nicole</option>
+<option value="Michelle">Michelle</option>
+<option value="Manuel">Manuel</option>
+<option value="Seline">Seline</option>
+</select>
 <button class="px-4 py-2 bg-surface-container text-on-surface rounded-xl text-sm font-bold hover:bg-surface-container-highest transition-all" onclick="resetSlots()">Zurücksetzen</button>
 <button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold hover:bg-primary-container transition-all flex items-center gap-2" onclick="saveTimeEntry()">
 <span class="material-symbols-outlined text-[18px]">save</span>
@@ -226,7 +239,7 @@
 </tr>
 </thead>
 <tbody class="text-on-surface text-sm" id="entries-table-body">
-<tr class="border-b border-surface-container-highest hover:bg-surface/50 transition-all">
+<tr class="border-b border-surface-container-highest hover:bg-surface/50 transition-all" data-employee="Nicole">
 <td class="py-3 px-4">24.10.2023</td>
 <td class="py-3 px-4 font-bold">Nicole</td>
 <td class="py-3 px-4 text-outline">08:00-12:00 | 13:00-17:00 | -</td>
@@ -237,7 +250,7 @@
 </button>
 </td>
 </tr>
-<tr class="border-b border-surface-container-highest hover:bg-surface/50 transition-all">
+<tr class="border-b border-surface-container-highest hover:bg-surface/50 transition-all" data-employee="Manuel">
 <td class="py-3 px-4">24.10.2023</td>
 <td class="py-3 px-4 font-bold">Manuel</td>
 <td class="py-3 px-4 text-outline">08:30-12:00 | 13:00-17:00 | 18:00-19:00</td>
@@ -271,7 +284,6 @@
 </div>
 <!-- Client-side script handling Firestore mock sync, local storage, calculations -->
 <script>
-    // Firestore config snippet representation for 'doeltschi-time'
     const firebaseConfig = {
       projectId: "doeltschi-time",
       databaseURL: "https://doeltschi-time-default-rtdb.firebaseio.com"
@@ -325,12 +337,12 @@
       document.getElementById('total-calculated-time').innerText = `${totalHours} Std (${totalMin} Min)`;
     }
 
-    // Attach listeners for live calculation
     ['vm-from', 'vm-to', 'nm-from', 'nm-to', 'ab-from', 'ab-to'].forEach(id => {
       document.getElementById(id).addEventListener('input', updateCalculation);
     });
 
     function saveTimeEntry() {
+      const employee = document.getElementById('entry-employee').value;
       const vmFrom = document.getElementById('vm-from').value;
       const vmTo = document.getElementById('vm-to').value;
       const nmFrom = document.getElementById('nm-from').value;
@@ -348,9 +360,10 @@
       const tbody = document.getElementById('entries-table-body');
       const tr = document.createElement('tr');
       tr.className = 'border-b border-surface-container-highest hover:bg-surface/50 transition-all';
+      tr.setAttribute('data-employee', employee);
       tr.innerHTML = `
         <td class="py-3 px-4">${new Date().toLocaleDateString()}</td>
-        <td class="py-3 px-4 font-bold">Nicole</td>
+        <td class="py-3 px-4 font-bold">${employee}</td>
         <td class="py-3 px-4 text-outline">${vmStr} | ${nmStr} | ${abStr}</td>
         <td class="py-3 px-4 font-bold text-primary">${totalHours}</td>
         <td class="py-3 px-4 text-right">
@@ -360,10 +373,10 @@
         </td>
       `;
       tbody.prepend(tr);
+      filterEntries();
 
-      // Local storage & simulated Firestore sync notification
-      localStorage.setItem('doeltschi_last_entry', JSON.stringify({ totalHours, timestamp: new Date() }));
-      alert('Eintrag erfolgreich gespeichert und mit Firestore (doeltschi-time) synchronisiert!');
+      localStorage.setItem('doeltschi_last_entry', JSON.stringify({ employee, totalHours, timestamp: new Date() }));
+      alert(`Eintrag für ${employee} erfolgreich gespeichert und mit Firestore synchronisiert!`);
     }
 
     function deleteEntry(btn) {
@@ -381,9 +394,8 @@
       const selected = document.getElementById('filter-employee').value;
       const rows = document.querySelectorAll('#entries-table-body tr');
       rows.forEach(row => {
-        const nameCell = row.cells[1];
-        if (!nameCell) return;
-        if (selected === 'all' || nameCell.innerText === selected) {
+        const emp = row.getAttribute('data-employee');
+        if (selected === 'all' || emp === selected) {
           row.style.display = '';
         } else {
           row.style.display = 'none';
@@ -391,7 +403,72 @@
       });
     }
 
+    function openMonthlyCalendarModal() {
+      document.getElementById('monthly-calendar-modal').classList.remove('hidden');
+      buildModalCalendar();
+    }
+
+    function closeMonthlyCalendarModal() {
+      document.getElementById('monthly-calendar-modal').classList.add('hidden');
+    }
+
+    function buildModalCalendar() {
+      const grid = document.getElementById('modal-calendar-grid');
+      grid.innerHTML = '';
+      // September 2026 starts on Tuesday (empty 1 slot for Monday)
+      for(let i=0; i<1; i++) {
+        const empty = document.createElement('div');
+        grid.appendChild(empty);
+      }
+      for(let d=1; d<=30; d++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'py-2 rounded-xl hover:bg-primary-container hover:text-on-primary-container cursor-pointer font-medium transition-all';
+        dayCell.innerText = d;
+        dayCell.onclick = function() {
+          alert(`Datum ${d}. September 2026 ausgewählt.`);
+          closeMonthlyCalendarModal();
+        };
+        grid.appendChild(dayCell);
+      }
+    }
+
+    // Populate small static view calendar
+    function buildStaticCalendar() {
+      const container = document.getElementById('calendar-days-container');
+      if (!container) return;
+      container.innerHTML = '';
+      for(let i=0; i<1; i++) {
+        container.innerHTML += '<div></div>';
+      }
+      for(let d=1; d<=30; d++) {
+        container.innerHTML += `<div class="py-2 rounded-lg bg-surface text-on-surface hover:bg-primary hover:text-on-primary cursor-pointer transition-all">${d}</div>`;
+      }
+    }
+    buildStaticCalendar();
+
     updateCalculation();
   </script>
-<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="monthly-calendar-modal"><div class="bg-surface p-8 rounded-xl shadow-xl max-w-lg w-full mx-4"><div class="flex items-center justify-between mb-4"><h4 class="font-headline-md text-on-surface text-lg">Monatskalender Übersicht</h4><button class="text-outline hover:text-on-surface" onclick="closeMonthlyCalendarModal()"><span class="material-symbols-outlined">close</span></button></div><p class="text-body-md text-on-surface-variant text-sm mb-4">Wähle einen Tag im Monat aus, um Details einzusehen:</p><div class="grid grid-cols-7 gap-2 text-center text-sm mb-4"><div class="font-bold text-outline py-1">Mo</div><div class="font-bold text-outline py-1">Di</div><div class="font-bold text-outline py-1">Mi</div><div class="font-bold text-outline py-1">Do</div><div class="font-bold text-outline py-1">Fr</div><div class="font-bold text-outline py-1">Sa</div><div class="font-bold text-outline py-1">So</div></div><div class="grid grid-cols-7 gap-2 text-center text-sm" id="modal-calendar-grid"></div><div class="flex justify-end mt-6"><button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold" onclick="closeMonthlyCalendarModal()">Schliessen</button></div></div></div></div></main></div>
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="monthly-calendar-modal">
+<div class="bg-surface p-8 rounded-xl shadow-xl max-w-lg w-full mx-4">
+<div class="flex items-center justify-between mb-4">
+<h4 class="font-headline-md text-on-surface text-lg">Monatskalender (September 2026)</h4>
+<button class="text-outline hover:text-on-surface" onclick="closeMonthlyCalendarModal()"><span class="material-symbols-outlined">close</span></button>
+</div>
+<p class="text-body-md text-on-surface-variant text-sm mb-4">Wähle einen Tag im Monat aus, um Details einzusehen:</p>
+<div class="grid grid-cols-7 gap-2 text-center text-sm mb-4">
+<div class="font-bold text-outline py-1">Mo</div>
+<div class="font-bold text-outline py-1">Di</div>
+<div class="font-bold text-outline py-1">Mi</div>
+<div class="font-bold text-outline py-1">Do</div>
+<div class="font-bold text-outline py-1">Fr</div>
+<div class="font-bold text-outline py-1">Sa</div>
+<div class="font-bold text-outline py-1">So</div>
+</div>
+<div class="grid grid-cols-7 gap-2 text-center text-sm" id="modal-calendar-grid"></div>
+<div class="flex justify-end mt-6">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold" onclick="closeMonthlyCalendarModal()">Schliessen</button>
+</div>
+</div>
+</div>
+</div></main></div>
 </body></html>
