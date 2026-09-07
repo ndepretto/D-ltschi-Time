@@ -237,32 +237,7 @@
 <div class="tab-content flex flex-col gap-8 hidden" id="tab-content-zeiterfassung">
 <div class="bg-surface-container-low p-8 rounded-2xl shadow-sm">
 <h2 class="text-xl font-bold text-on-surface mb-6">Detaillierte Zeiterfassung &amp; Korrektur</h2>
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="detailed-time-form">
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter</label>
-<select class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-mitarbeiter" required="">
-<option value="">Wählen...</option>
-</select>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant uppercase">Datum</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-datum" required="" type="date"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant uppercase">Von / Bis</label>
-<div class="grid grid-cols-2 gap-2">
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-von" type="time" value="08:00"/>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-bis" type="time" value="17:00"/>
-</div>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-xs font-bold text-on-surface-variant uppercase">Projekt / Tätigkeit</label>
-<input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-projekt" placeholder="z.B. Kernentwicklung" type="text"/>
-</div>
-<div class="md:col-span-2 flex justify-end">
-<button class="px-8 py-3 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Eintrag Hinzufügen</button>
-</div>
-</form>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="detailed-time-form"><div class="flex flex-col gap-1"><label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter</label><select class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-mitarbeiter" required=""><option value="">Wählen...</option></select></div><div class="flex flex-col gap-1"><label class="text-xs font-bold text-on-surface-variant uppercase">Datum</label><input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-datum" required="" type="date"/></div><div class="flex flex-col gap-1 md:col-span-2"><label class="text-xs font-bold text-on-surface-variant uppercase mb-1">Schichten (Vormittag, Nachmittag, Abend)</label><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="p-4 rounded-xl bg-surface border border-outline-variant/20 flex flex-col gap-2"><div class="font-bold text-sm text-on-surface">Vormittag</div><div class="grid grid-cols-2 gap-2"><input class="p-2 rounded-xl bg-surface-container-low text-on-surface outline-none border border-outline-variant/30 text-sm" id="dt-vm-von" type="time" value="08:00"/><input class="p-2 rounded-xl bg-surface-container-low text-on-surface outline-none border border-outline-variant/30 text-sm" id="dt-vm-bis" type="time" value="12:00"/></div></div><div class="p-4 rounded-xl bg-surface border border-outline-variant/20 flex flex-col gap-2"><div class="font-bold text-sm text-on-surface">Nachmittag</div><div class="grid grid-cols-2 gap-2"><input class="p-2 rounded-xl bg-surface-container-low text-on-surface outline-none border border-outline-variant/30 text-sm" id="dt-nm-von" type="time" value="13:00"/><input class="p-2 rounded-xl bg-surface-container-low text-on-surface outline-none border border-outline-variant/30 text-sm" id="dt-nm-bis" type="time" value="17:00"/></div></div><div class="p-4 rounded-xl bg-surface border border-outline-variant/20 flex flex-col gap-2"><div class="font-bold text-sm text-on-surface">Abend</div><div class="grid grid-cols-2 gap-2"><input class="p-2 rounded-xl bg-surface-container-low text-on-surface outline-none border border-outline-variant/30 text-sm" id="dt-ab-von" type="time" value="18:00"/><input class="p-2 rounded-xl bg-surface-container-low text-on-surface outline-none border border-outline-variant/30 text-sm" id="dt-ab-bis" type="time" value="20:00"/></div></div></div></div><div class="flex flex-col gap-1 md:col-span-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Projekt / Tätigkeit</label><input class="p-3 rounded-xl bg-surface text-on-surface outline-none border border-outline-variant/30" id="dt-projekt" placeholder="z.B. Kernentwicklung" type="text"/></div><div class="md:col-span-2 flex justify-end"><button class="px-8 py-3 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container hover:text-on-primary-container transition-all" type="submit">Eintrag Hinzufügen (Cloud Sync)</button></div></form>
 <h3 class="text-lg font-bold text-on-surface mb-4">Alle erfassten Einträge (Cloud Sync)</h3>
 <div class="overflow-x-auto">
 <table class="w-full text-left">
