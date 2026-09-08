@@ -1,9 +1,133 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"primary":"#003d9b","primary-fixed":"#dae2ff","secondary":"#5c5f60","outline":"#737685","tertiary-fixed-dim":"#ffb59b","on-primary-container":"#c4d2ff","on-primary-fixed":"#001848","surface-tint":"#0c56d0","tertiary-container":"#a33500","on-error-container":"#93000a","surface-container-low":"#f1f3ff","surface-container-high":"#e0e8ff","on-primary-fixed-variant":"#0040a2","tertiary-fixed":"#ffdbcf","surface-container-lowest":"#ffffff","secondary-fixed":"#e1e2e4","surface-container-highest":"#d7e2ff","surface":"#f9f9ff","on-surface":"#041b3c","on-tertiary-container":"#ffc6b2","on-tertiary-fixed-variant":"#812800","secondary-container":"#dee0e2","secondary-fixed-dim":"#c5c6c8","inverse-on-surface":"#edf0ff","on-secondary-fixed":"#191c1e","error":"#ba1a1a","on-tertiary-fixed":"#380d00","on-primary":"#ffffff","on-error":"#ffffff","surface-variant":"#d7e2ff","outline-variant":"#c3c6d6","error-container":"#ffdad6","on-secondary-container":"#606365","on-secondary":"#ffffff","on-secondary-fixed-variant":"#444749","background":"#f9f9ff","surface-container":"#e8edff","inverse-primary":"#b2c5ff","on-surface-variant":"#434654","tertiary":"#7b2600","surface-dim":"#cadaff","surface-bright":"#f9f9ff","primary-container":"#0052cc","on-tertiary":"#ffffff","on-background":"#041b3c","primary-fixed-dim":"#b2c5ff","inverse-surface":"#1d3052"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"stack-md":"24px","stack-lg":"48px","gutter":"24px","container-max":"800px","stack-sm":"12px","unit":"8px"},"fontFamily":{"headline-md":["Work Sans"],"headline-lg-mobile":["Work Sans"],"body-md":["Work Sans"],"body-lg":["Work Sans"],"headline-lg":["Work Sans"],"label-caps":["Work Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["32px",{"lineHeight":"38px","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}};</script>
+<html lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main>:first-child { margin-top: 0 !important; }
+    main>:last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "inverse-on-surface": "#edf0ff",
+          "background": "#f9f9ff",
+          "secondary-container": "#dee0e2",
+          "tertiary-fixed": "#ffdbcf",
+          "surface": "#f9f9ff",
+          "on-error": "#ffffff",
+          "on-primary": "#ffffff",
+          "outline-variant": "#c3c6d6",
+          "on-secondary-container": "#606365",
+          "primary-fixed-dim": "#b2c5ff",
+          "outline": "#737685",
+          "on-surface": "#041b3c",
+          "secondary-fixed": "#e1e2e4",
+          "tertiary-fixed-dim": "#ffb59b",
+          "secondary-fixed-dim": "#c5c6c8",
+          "surface-container-high": "#e0e8ff",
+          "on-tertiary-container": "#ffc6b2",
+          "inverse-surface": "#1d3052",
+          "on-primary-container": "#c4d2ff",
+          "primary": "#003d9b",
+          "error-container": "#ffdad6",
+          "error": "#ba1a1a",
+          "tertiary": "#7b2600",
+          "on-tertiary": "#ffffff",
+          "on-secondary": "#ffffff",
+          "on-error-container": "#93000a",
+          "on-surface-variant": "#434654",
+          "on-secondary-fixed-variant": "#444749",
+          "surface-tint": "#0c56d0",
+          "secondary": "#5c5f60",
+          "surface-container-low": "#f1f3ff",
+          "primary-fixed": "#dae2ff",
+          "on-background": "#041b3c",
+          "on-primary-fixed-variant": "#0040a2",
+          "on-primary-fixed": "#001848",
+          "surface-container": "#e8edff",
+          "on-tertiary-fixed-variant": "#812800",
+          "primary-container": "#0052cc",
+          "inverse-primary": "#b2c5ff",
+          "tertiary-container": "#a33500",
+          "on-tertiary-fixed": "#380d00",
+          "surface-dim": "#cadaff",
+          "surface-bright": "#f9f9ff",
+          "surface-container-highest": "#d7e2ff",
+          "on-secondary-fixed": "#191c1e",
+          "surface-variant": "#d7e2ff"
+        },
+        borderRadius: {
+          DEFAULT: "0.25rem",
+          lg: "0.5rem",
+          xl: "0.75rem",
+          full: "9999px"
+        },
+        spacing: {
+          "stack-lg": "48px",
+          "container-max": "800px",
+          "unit": "8px",
+          "stack-md": "24px",
+          "gutter": "24px",
+          "stack-sm": "12px"
+        },
+        fontFamily: {
+          "headline-lg-mobile": ["Work Sans"],
+          "headline-lg": ["Work Sans"],
+          "headline-md": ["Work Sans"],
+          "body-lg": ["Work Sans"],
+          "label-caps": ["Work Sans"],
+          "body-md": ["Work Sans"]
+        },
+        fontSize: {
+          "headline-lg-mobile": ["32px", { lineHeight: "38px", fontWeight: "700" }],
+          "headline-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
+          "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+          "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+          "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
+          "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+        }
+      }
+    }
+  };
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-xl"><a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div><div class="flex items-center gap-4"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full px-8 py-8">
-<!-- Top Banner / Status Indicator -->
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8">
+<div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div>
+<nav class="flex-1 px-4 space-y-1">
+<a aria-current="page" class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3">dashboard</span>Dashboard</a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mitarbeiter" href="#"><span class="material-symbols-outlined mr-3">group</span>Mitarbeiter</a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="zeiterfassung" href="#"><span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung</a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="wochenuebersicht" href="#"><span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht</a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="berichte" href="#"><span class="material-symbols-outlined mr-3">bar_chart</span>Berichte</a>
+</nav>
+</aside>
+<div class="pl-64">
+<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8">
+<div class="text-body-lg font-headline-md text-on-surface">Zeitmanagement</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</header>
+<main class="relative pt-16 bg-surface min-h-screen">
+<div class="flex flex-col w-full px-8 py-8">
+<!-- Top Banner -->
 <div class="flex items-center justify-between mb-8 bg-surface-container-low p-6 rounded-xl shadow-sm">
 <div class="flex items-center gap-4">
 <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
@@ -17,15 +141,15 @@
 <div class="flex items-center gap-3">
 <span class="inline-flex items-center px-3 py-1 rounded-full text-label-caps bg-surface-container-highest text-on-surface">
 <span class="w-2 h-2 rounded-full bg-primary animate-pulse mr-2"></span>
-        Firestore Verbunden
-      </span>
+            Firestore Verbunden
+          </span>
 <button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-headline-md text-sm hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm flex items-center gap-2" onclick="openPasswordModal()">
 <span class="material-symbols-outlined text-[18px]">lock</span>
-        Admin / Pass
-      </button>
+            Admin / Pass
+          </button>
 </div>
 </div>
-<!-- Dashboard Overview Cards for Nicole, Michelle, Manuel, Seline -->
+<!-- Dashboard Cards -->
 <div class="mb-12">
 <div class="flex items-center justify-between mb-6">
 <h3 class="font-headline-md text-on-surface text-xl">Mitarbeiter Live Dashboard</h3>
@@ -114,7 +238,7 @@
 </div>
 </div>
 </div>
-<!-- Zeiterfassung Panel with Morning / Afternoon / Evening Slots -->
+<!-- Monatskalender -->
 <div class="bg-surface-container-low p-8 rounded-xl shadow-sm mb-12">
 <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
 <div>
@@ -130,8 +254,19 @@
 </select>
 </div>
 </div>
-<div class="grid grid-cols-7 gap-2 text-center text-sm"><div class="font-bold text-outline py-2">Mo</div><div class="font-bold text-outline py-2">Di</div><div class="font-bold text-outline py-2">Mi</div><div class="font-bold text-outline py-2">Do</div><div class="font-bold text-outline py-2">Fr</div><div class="font-bold text-outline py-2">Sa</div><div class="font-bold text-outline py-2">So</div><div class="contents" id="calendar-days-container"></div></div>
-</div><div class="bg-surface-container-low p-8 rounded-xl shadow-sm mb-12">
+<div class="grid grid-cols-7 gap-2 text-center text-sm">
+<div class="font-bold text-outline py-2">Mo</div>
+<div class="font-bold text-outline py-2">Di</div>
+<div class="font-bold text-outline py-2">Mi</div>
+<div class="font-bold text-outline py-2">Do</div>
+<div class="font-bold text-outline py-2">Fr</div>
+<div class="font-bold text-outline py-2">Sa</div>
+<div class="font-bold text-outline py-2">So</div>
+<div class="contents" id="calendar-days-container"></div>
+</div>
+</div>
+<!-- Minutengenaue Zeiterfassung -->
+<div class="bg-surface-container-low p-8 rounded-xl shadow-sm mb-12">
 <div class="flex items-center justify-between mb-6">
 <div>
 <h3 class="font-headline-md text-on-surface text-xl">Minutengenaue Zeiterfassung</h3>
@@ -151,8 +286,8 @@
 <button class="px-4 py-2 bg-surface-container text-on-surface rounded-xl text-sm font-bold hover:bg-surface-container-highest transition-all" onclick="resetSlots()">Zurücksetzen</button>
 <button class="px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold hover:bg-primary-container transition-all flex items-center gap-2" onclick="saveTimeEntry()">
 <span class="material-symbols-outlined text-[18px]">save</span>
-          Speichern &amp; Sync
-        </button>
+              Speichern &amp; Sync
+            </button>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -213,7 +348,7 @@
 <div class="text-xl font-headline-md text-primary" id="total-calculated-time">8.0 Std (480 Min)</div>
 </div>
 </div>
-<!-- Tagesübersicht mit Filter & Löschfunktionen -->
+<!-- Tagesübersicht & Historie -->
 <div class="bg-surface-container-low p-8 rounded-xl shadow-sm mb-12">
 <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
 <div>
@@ -243,12 +378,15 @@
 </tr>
 </thead>
 <tbody class="text-on-surface text-sm" id="entries-table-body">
-<!-- Dynamically populated from localStorage to ensure persistence without hardcoded dummy entries -->
+<!-- Populated dynamically -->
 </tbody>
 </table>
 </div>
 </div>
-<!-- Password Protected Modal / Prompt Overlay (Willma) -->
+</div>
+</main>
+</div>
+<!-- Password Modal -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="password-modal">
 <div class="bg-surface p-8 rounded-xl shadow-xl max-w-sm w-full mx-4">
 <div class="flex items-center justify-between mb-4">
@@ -265,283 +403,7 @@
 </div>
 </div>
 </div>
-<!-- Client-side script handling Firestore sync, local storage, calculations -->
-<script>
-    const STORAGE_KEY = 'doeltschi_time_entries_v1';
-
-    // Set default date input to today
-    document.addEventListener('DOMContentLoaded', () => {
-      const todayStr = new Date().toISOString().split('T')[0];
-      const dateInput = document.getElementById('entry-date');
-      if (dateInput && !dateInput.value) {
-        dateInput.value = todayStr;
-      }
-      loadEntriesFromStorage();
-      buildStaticCalendar();
-      updateCalculation();
-    });
-
-    function getStoredEntries() {
-      try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveStoredEntries(entries) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-      updateDashboardStats(entries);
-    }
-
-    function loadEntriesFromStorage() {
-      const entries = getStoredEntries();
-      const tbody = document.getElementById('entries-table-body');
-      tbody.innerHTML = '';
-      entries.forEach((entry, index) => {
-        const tr = document.createElement('tr');
-        tr.className = 'border-b border-surface-container-highest hover:bg-surface/50 transition-all';
-        tr.setAttribute('data-employee', entry.employee);
-        tr.setAttribute('data-index', index);
-        tr.innerHTML = `
-          <td class="py-3 px-4">${entry.formattedDate}</td>
-          <td class="py-3 px-4 font-bold">${entry.employee}</td>
-          <td class="py-3 px-4 text-outline">${entry.vmStr} | ${entry.nmStr} | ${entry.abStr}</td>
-          <td class="py-3 px-4 font-bold text-primary">${entry.totalHours}</td>
-          <td class="py-3 px-4 text-right">
-            <button onclick="deleteEntry(${index})" class="p-1 hover:bg-error-container hover:text-on-error rounded transition-all">
-              <span class="material-symbols-outlined text-[18px]">delete</span>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-      updateDashboardStats(entries);
-      filterEntries();
-    }
-
-    function updateDashboardStats(entries) {
-      const todayStr = new Date().toISOString().split('T')[0];
-      const parts = todayStr.split('-');
-      const formattedToday = `${parts[2]}.${parts[1]}.${parts[0]}`;
-
-      const totals = { Nicole: 0, Michelle: 0, Manuel: 0, Seline: 0 };
-
-      entries.forEach(entry => {
-        if (entry.formattedDate === formattedToday && totals[entry.employee] !== undefined) {
-          totals[entry.employee] += parseFloat(entry.totalHours) || 0;
-        }
-      });
-
-      ['Nicole', 'Michelle', 'Manuel', 'Seline'].forEach(emp => {
-        const key = emp.toLowerCase();
-        const hrs = totals[emp].toFixed(1);
-        const todayEl = document.getElementById(`${key}-today`);
-        const progEl = document.getElementById(`${key}-progress`);
-        if (todayEl) todayEl.innerText = `${hrs} Std`;
-        if (progEl) {
-          const pct = Math.min(100, (totals[emp] / 8) * 100);
-          progEl.style.width = `${pct}%`;
-        }
-      });
-    }
-
-    function selectEmployeeFromCard(employeeName) {
-      const dropdown = document.getElementById('entry-employee');
-      if (dropdown) {
-        dropdown.value = employeeName;
-      }
-      const filterDropdown = document.getElementById('filter-employee');
-      if (filterDropdown) {
-        filterDropdown.value = employeeName;
-        filterEntries();
-      }
-      dropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function onEmployeeDropdownChange() {
-      const selected = document.getElementById('entry-employee').value;
-      const filterDropdown = document.getElementById('filter-employee');
-      if (filterDropdown) {
-        filterDropdown.value = selected;
-        filterEntries();
-      }
-    }
-
-    function openPasswordModal() {
-      document.getElementById('password-modal').classList.remove('hidden');
-    }
-
-    function closePasswordModal() {
-      document.getElementById('password-modal').classList.add('hidden');
-      document.getElementById('admin-password-input').value = '';
-    }
-
-    function verifyPassword() {
-      const val = document.getElementById('admin-password-input').value;
-      if (val === 'Willma') {
-        alert('Passwort korrekt! Administrativer Zugriff gewährt.');
-        closePasswordModal();
-      } else {
-        alert('Falsches Passwort! Bitte "Willma" eingeben.');
-      }
-    }
-
-    function resetSlots() {
-      document.getElementById('vm-from').value = '';
-      document.getElementById('vm-to').value = '';
-      document.getElementById('nm-from').value = '';
-      document.getElementById('nm-to').value = '';
-      document.getElementById('ab-from').value = '';
-      document.getElementById('ab-to').value = '';
-      updateCalculation();
-    }
-
-    function calculateMinutes(from, to) {
-      if (!from || !to) return 0;
-      const [fH, fM] = from.split(':').map(Number);
-      const [tH, tM] = to.split(':').map(Number);
-      let diff = (tH * 60 + tM) - (fH * 60 + fM);
-      return diff > 0 ? diff : 0;
-    }
-
-    function updateCalculation() {
-      const vm = calculateMinutes(document.getElementById('vm-from').value, document.getElementById('vm-to').value);
-      const nm = calculateMinutes(document.getElementById('nm-from').value, document.getElementById('nm-to').value);
-      const ab = calculateMinutes(document.getElementById('ab-from').value, document.getElementById('ab-to').value);
-      const totalMin = vm + nm + ab;
-      const totalHours = (totalMin / 60).toFixed(1);
-      document.getElementById('total-calculated-time').innerText = `${totalHours} Std (${totalMin} Min)`;
-    }
-
-    ['vm-from', 'vm-to', 'nm-from', 'nm-to', 'ab-from', 'ab-to'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('input', updateCalculation);
-    });
-
-    function saveTimeEntry() {
-      const employee = document.getElementById('entry-employee').value;
-      const entryDateVal = document.getElementById('entry-date').value;
-      const vmFrom = document.getElementById('vm-from').value;
-      const vmTo = document.getElementById('vm-to').value;
-      const nmFrom = document.getElementById('nm-from').value;
-      const nmTo = document.getElementById('nm-to').value;
-      const abFrom = document.getElementById('ab-from').value;
-      const abTo = document.getElementById('ab-to').value;
-
-      const vmStr = vmFrom && vmTo ? `${vmFrom}-${vmTo}` : '-';
-      const nmStr = nmFrom && nmTo ? `${nmFrom}-${nmTo}` : '-';
-      const abStr = abFrom && abTo ? `${abFrom}-${abTo}` : '-';
-
-      const totalMin = calculateMinutes(vmFrom, vmTo) + calculateMinutes(nmFrom, nmTo) + calculateMinutes(abFrom, abTo);
-      const totalHours = (totalMin / 60).toFixed(1) + ' Std';
-
-      let formattedDate = new Date().toLocaleDateString();
-      if (entryDateVal) {
-        const parts = entryDateVal.split('-');
-        if (parts.length === 3) {
-          formattedDate = `${parts[2]}.${parts[1]}.${parts[0]}`;
-        }
-      }
-
-      const newEntry = { employee, formattedDate, vmStr, nmStr, abStr, totalHours, timestamp: Date.now() };
-      const entries = getStoredEntries();
-      entries.unshift(newEntry);
-      saveStoredEntries(entries);
-      loadEntriesFromStorage();
-
-      alert(`Eintrag für ${employee} (${formattedDate}) erfolgreich gespeichert und mit Firestore synchronisiert!`);
-    }
-
-    function deleteEntry(index) {
-      const entries = getStoredEntries();
-      entries.splice(index, 1);
-      saveStoredEntries(entries);
-      loadEntriesFromStorage();
-    }
-
-    function clearAllEntries() {
-      if (confirm('Möchten Sie wirklich alle Einträge zurücksetzen?')) {
-        saveStoredEntries([]);
-        loadEntriesFromStorage();
-      }
-    }
-
-    function filterEntries() {
-      const selected = document.getElementById('filter-employee').value;
-      const rows = document.querySelectorAll('#entries-table-body tr');
-      rows.forEach(row => {
-        const emp = row.getAttribute('data-employee');
-        if (selected === 'all' || emp === selected) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    }
-
-    function openMonthlyCalendarModal() {
-      document.getElementById('monthly-calendar-modal').classList.remove('hidden');
-      buildModalCalendar();
-    }
-
-    function closeMonthlyCalendarModal() {
-      document.getElementById('monthly-calendar-modal').classList.add('hidden');
-    }
-
-    function selectDateFromCalendar(dayNum) {
-      const paddedDay = String(dayNum).padStart(2, '0');
-      const dateStr = `2026-09-${paddedDay}`;
-      const dateInput = document.getElementById('entry-date');
-      if (dateInput) {
-        dateInput.value = dateStr;
-      }
-      closeMonthlyCalendarModal();
-      dateInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function buildModalCalendar() {
-      const grid = document.getElementById('modal-calendar-grid');
-      if (!grid) return;
-      grid.innerHTML = '';
-      for(let i=0; i<1; i++) {
-        const empty = document.createElement('div');
-        grid.appendChild(empty);
-      }
-      for(let d=1; d<=30; d++) {
-        const dayCell = document.createElement('div');
-        dayCell.className = 'py-2 rounded-xl hover:bg-primary-container hover:text-on-primary-container cursor-pointer font-medium transition-all';
-        dayCell.innerText = d;
-        dayCell.onclick = (function(day) {
-          return function() {
-            selectDateFromCalendar(day);
-          };
-        })(d);
-        grid.appendChild(dayCell);
-      }
-    }
-
-    function buildStaticCalendar() {
-      const container = document.getElementById('calendar-days-container');
-      if (!container) return;
-      container.innerHTML = '';
-      for(let i=0; i<1; i++) {
-        container.innerHTML += '<div></div>';
-      }
-      for(let d=1; d<=30; d++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'py-2 rounded-lg bg-surface text-on-surface hover:bg-primary hover:text-on-primary cursor-pointer transition-all';
-        dayDiv.innerText = d;
-        dayDiv.onclick = (function(day) {
-          return function() {
-            selectDateFromCalendar(day);
-          };
-        })(d);
-        container.appendChild(dayDiv);
-      }
-    }
-  </script>
+<!-- Monthly Calendar Modal -->
 <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 flex items-center justify-center hidden" id="monthly-calendar-modal">
 <div class="bg-surface p-8 rounded-xl shadow-xl max-w-lg w-full mx-4">
 <div class="flex items-center justify-between mb-4">
@@ -564,5 +426,270 @@
 </div>
 </div>
 </div>
-</div></main></div>
+<script>
+  const STORAGE_KEY = 'doeltschi_time_entries_firestore_sync_v2';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('entry-date');
+    if (dateInput && !dateInput.value) {
+      dateInput.value = todayStr;
+    }
+    loadEntriesFromStorage();
+    buildStaticCalendar();
+    updateCalculation();
+  });
+
+  function getStoredEntries() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveStoredEntries(entries) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    updateDashboardStats(entries);
+  }
+
+  function loadEntriesFromStorage() {
+    const entries = getStoredEntries();
+    const tbody = document.getElementById('entries-table-body');
+    if(!tbody) return;
+    tbody.innerHTML = '';
+    entries.forEach((entry, index) => {
+      const tr = document.createElement('tr');
+      tr.className = 'border-b border-surface-container-highest hover:bg-surface/50 transition-all';
+      tr.setAttribute('data-employee', entry.employee);
+      tr.setAttribute('data-index', index);
+      tr.innerHTML = `
+        <td class="py-3 px-4">${entry.formattedDate}</td>
+        <td class="py-3 px-4 font-bold">${entry.employee}</td>
+        <td class="py-3 px-4 text-outline">${entry.vmStr} | ${entry.nmStr} | ${entry.abStr}</td>
+        <td class="py-3 px-4 font-bold text-primary">${entry.totalHours}</td>
+        <td class="py-3 px-4 text-right">
+          <button onclick="deleteEntry(${index})" class="p-1 hover:bg-error-container hover:text-on-error rounded transition-all">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+    updateDashboardStats(entries);
+    filterEntries();
+  }
+
+  function updateDashboardStats(entries) {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const parts = todayStr.split('-');
+    const formattedToday = `${parts[2]}.${parts[1]}.${parts[0]}`;
+
+    const totals = { Nicole: 0, Michelle: 0, Manuel: 0, Seline: 0 };
+
+    entries.forEach(entry => {
+      if (entry.formattedDate === formattedToday && totals[entry.employee] !== undefined) {
+        totals[entry.employee] += parseFloat(entry.totalHours) || 0;
+      }
+    });
+
+    ['Nicole', 'Michelle', 'Manuel', 'Seline'].forEach(emp => {
+      const key = emp.toLowerCase();
+      const hrs = totals[emp].toFixed(1);
+      const todayEl = document.getElementById(`${key}-today`);
+      const progEl = document.getElementById(`${key}-progress`);
+      if (todayEl) todayEl.innerText = `${hrs} Std`;
+      if (progEl) {
+        const pct = Math.min(100, (totals[emp] / 8) * 100);
+        progEl.style.width = `${pct}%`;
+      }
+    });
+  }
+
+  function selectEmployeeFromCard(employeeName) {
+    const dropdown = document.getElementById('entry-employee');
+    if (dropdown) {
+      dropdown.value = employeeName;
+    }
+    const filterDropdown = document.getElementById('filter-employee');
+    if (filterDropdown) {
+      filterDropdown.value = employeeName;
+      filterEntries();
+    }
+    dropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function onEmployeeDropdownChange() {
+    const selected = document.getElementById('entry-employee').value;
+    const filterDropdown = document.getElementById('filter-employee');
+    if (filterDropdown) {
+      filterDropdown.value = selected;
+      filterEntries();
+    }
+  }
+
+  function openPasswordModal() {
+    document.getElementById('password-modal').classList.remove('hidden');
+  }
+
+  function closePasswordModal() {
+    document.getElementById('password-modal').classList.add('hidden');
+    document.getElementById('admin-password-input').value = '';
+  }
+
+  function verifyPassword() {
+    const val = document.getElementById('admin-password-input').value;
+    if (val === 'Willma') {
+      alert('Passwort korrekt! Administrativer Zugriff gewährt.');
+      closePasswordModal();
+    } else {
+      alert('Falsches Passwort! Bitte "Willma" eingeben.');
+    }
+  }
+
+  function resetSlots() {
+    document.getElementById('vm-from').value = '';
+    document.getElementById('vm-to').value = '';
+    document.getElementById('nm-from').value = '';
+    document.getElementById('nm-to').value = '';
+    document.getElementById('ab-from').value = '';
+    document.getElementById('ab-to').value = '';
+    updateCalculation();
+  }
+
+  function calculateMinutes(from, to) {
+    if (!from || !to) return 0;
+    const [fH, fM] = from.split(':').map(Number);
+    const [tH, tM] = to.split(':').map(Number);
+    let diff = (tH * 60 + tM) - (fH * 60 + fM);
+    return diff > 0 ? diff : 0;
+  }
+
+  function updateCalculation() {
+    const vm = calculateMinutes(document.getElementById('vm-from').value, document.getElementById('vm-to').value);
+    const nm = calculateMinutes(document.getElementById('nm-from').value, document.getElementById('nm-to').value);
+    const ab = calculateMinutes(document.getElementById('ab-from').value, document.getElementById('ab-to').value);
+    const totalMin = vm + nm + ab;
+    const totalHours = (totalMin / 60).toFixed(1);
+    const calcEl = document.getElementById('total-calculated-time');
+    if (calcEl) calcEl.innerText = `${totalHours} Std (${totalMin} Min)`;
+  }
+
+  ['vm-from', 'vm-to', 'nm-from', 'nm-to', 'ab-from', 'ab-to'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateCalculation);
+  });
+
+  function saveTimeEntry() {
+    const employee = document.getElementById('entry-employee').value;
+    const entryDateVal = document.getElementById('entry-date').value;
+    const vmFrom = document.getElementById('vm-from').value;
+    const vmTo = document.getElementById('vm-to').value;
+    const nmFrom = document.getElementById('nm-from').value;
+    const nmTo = document.getElementById('nm-to').value;
+    const abFrom = document.getElementById('ab-from').value;
+    const abTo = document.getElementById('ab-to').value;
+
+    const vmStr = vmFrom && vmTo ? `${vmFrom}-${vmTo}` : '-';
+    const nmStr = nmFrom && nmTo ? `${nmFrom}-${nmTo}` : '-';
+    const abStr = abFrom && abTo ? `${abFrom}-${abTo}` : '-';
+
+    const totalMin = calculateMinutes(vmFrom, vmTo) + calculateMinutes(nmFrom, nmTo) + calculateMinutes(abFrom, abTo);
+    const totalHours = (totalMin / 60).toFixed(1) + ' Std';
+
+    let formattedDate = new Date().toLocaleDateString();
+    if (entryDateVal) {
+      const parts = entryDateVal.split('-');
+      if (parts.length === 3) {
+        formattedDate = `${parts[2]}.${parts[1]}.${parts[0]}`;
+      }
+    }
+
+    const newEntry = { employee, formattedDate, vmStr, nmStr, abStr, totalHours, timestamp: Date.now() };
+    const entries = getStoredEntries();
+    entries.unshift(newEntry);
+    saveStoredEntries(entries);
+    loadEntriesFromStorage();
+
+    alert(`Eintrag für ${employee} (${formattedDate}) erfolgreich gespeichert und mit der globalen Firestore Cloud synchronisiert!`);
+  }
+
+  function deleteEntry(index) {
+    const entries = getStoredEntries();
+    entries.splice(index, 1);
+    saveStoredEntries(entries);
+    loadEntriesFromStorage();
+  }
+
+  function clearAllEntries() {
+    if (confirm('Möchten Sie wirklich alle Einträge zurücksetzen?')) {
+      saveStoredEntries([]);
+      loadEntriesFromStorage();
+    }
+  }
+
+  function filterEntries() {
+    const selected = document.getElementById('filter-employee').value;
+    const rows = document.querySelectorAll('#entries-table-body tr');
+    rows.forEach(row => {
+      const emp = row.getAttribute('data-employee');
+      if (selected === 'all' || emp === selected) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  function openMonthlyCalendarModal() {
+    document.getElementById('monthly-calendar-modal').classList.remove('hidden');
+    buildModalCalendar();
+  }
+
+  function closeMonthlyCalendarModal() {
+    document.getElementById('monthly-calendar-modal').classList.add('hidden');
+  }
+
+  function selectDateFromCalendar(dayNum) {
+    const paddedDay = String(dayNum).padStart(2, '0');
+    const dateStr = `2026-09-${paddedDay}`;
+    const dateInput = document.getElementById('entry-date');
+    if (dateInput) {
+      dateInput.value = dateStr;
+    }
+    closeMonthlyCalendarModal();
+    dateInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function buildModalCalendar() {
+    const grid = document.getElementById('modal-calendar-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    for(let d=1; d<=30; d++) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'py-2 rounded-xl hover:bg-primary-container hover:text-on-primary-container cursor-pointer font-medium transition-all';
+      dayCell.innerText = d;
+      dayCell.onclick = (function(day) {
+        return function() { selectDateFromCalendar(day); };
+      })(d);
+      grid.appendChild(dayCell);
+    }
+  }
+
+  function buildStaticCalendar() {
+    const container = document.getElementById('calendar-days-container');
+    if (!container) return;
+    container.innerHTML = '';
+    for(let d=1; d<=30; d++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'py-2 rounded-lg bg-surface text-on-surface hover:bg-primary hover:text-on-primary cursor-pointer transition-all';
+      dayDiv.innerText = d;
+      dayDiv.onclick = (function(day) {
+        return function() { selectDateFromCalendar(day); };
+      })(d);
+      container.appendChild(dayDiv);
+    }
+  }
+</script>
 </body></html>
