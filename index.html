@@ -189,7 +189,7 @@
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-2" title="Cloud / Lokal Sync Status (Firebase Firestore - Ziel: doeltschi-time)">
 <span class="material-symbols-outlined text-tertiary" id="db-icon">cloud_done</span>
-<span class="text-label-sm text-on-surface-variant" id="sync-status-text">Firestore Synchronisiert (doeltschi-time)</span>
+<span class="text-label-sm text-on-surface-variant" id="sync-status-text">Live Cloud-Sync (Firestore: doeltschi-time)</span>
 </div>
 <div class="flex gap-4 text-outline border-l border-outline-variant pl-6">
 <span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" onclick="showView('settings')">account_circle</span>
@@ -508,7 +508,7 @@
 </div>
 <div>
 <p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Aktive Mitarbeiter</p>
-<h3 class="font-headline-lg text-headline-lg" id="dash-emp-count">5</h3>
+<h3 class="font-headline-lg text-headline-lg" id="dash-emp-count">4</h3>
 </div>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
@@ -518,7 +518,7 @@
 </div>
 <div>
 <p class="text-on-surface-variant font-label-bold text-label-bold uppercase">Monatsstunden Total</p>
-<h3 class="font-headline-lg text-headline-lg" id="dash-total-hours">684.0h</h3>
+<h3 class="font-headline-lg text-headline-lg" id="dash-total-hours">535.1h</h3>
 </div>
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between h-48">
@@ -545,8 +545,7 @@
 <th class="p-3 font-label-bold text-label-bold">Ist Stunden</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant" id="dashboard-team-summary">
-</tbody>
+<tbody class="divide-y divide-outline-variant" id="dashboard-team-summary"><tr class="hover:bg-surface-container-low"><td class="p-3 font-medium">Nicole De Pretto</td><td class="p-3"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm">Architektin FH</span></td><td class="p-3">57%</td><td class="p-3 font-mono-data">87.4h</td><td class="p-3 font-mono-data text-primary">91.8h</td></tr><tr class="hover:bg-surface-container-low"><td class="p-3 font-medium">Michelle Dreifuss</td><td class="p-3"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm">Bauleiterin</span></td><td class="p-3">100%</td><td class="p-3 font-mono-data">153.3h</td><td class="p-3 font-mono-data text-primary">161.0h</td></tr><tr class="hover:bg-surface-container-low"><td class="p-3 font-medium">Manuel Schoch</td><td class="p-3"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm">Junior Architekt</span></td><td class="p-3">100%</td><td class="p-3 font-mono-data">153.3h</td><td class="p-3 font-mono-data text-primary">161.0h</td></tr><tr class="hover:bg-surface-container-low"><td class="p-3 font-medium">Seline Steinmann</td><td class="p-3"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm">Praktikantin</span></td><td class="p-3">92%</td><td class="p-3 font-mono-data">141.1h</td><td class="p-3 font-mono-data text-primary">148.1h</td></tr></tbody>
 </table>
 </div>
 </div>
@@ -619,8 +618,7 @@
 <th class="p-4 text-right font-label-bold text-label-bold">Aktionen</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant" id="employee-list">
-</tbody>
+<tbody class="divide-y divide-outline-variant" id="employee-list"><tr class="hover:bg-surface-container-low transition-colors"><td class="p-4 font-body-lg text-body-lg font-medium">Nicole De Pretto</td><td class="p-4"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm font-medium">Architektin FH</span></td><td class="p-4 font-mono-data">57%</td><td class="p-4 font-mono-data">1048.8h</td><td class="p-4 text-right space-x-2"><button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('1')"><span class="material-symbols-outlined">edit</span></button><button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('1')"><span class="material-symbols-outlined">delete</span></button></td></tr><tr class="hover:bg-surface-container-low transition-colors"><td class="p-4 font-body-lg text-body-lg font-medium">Michelle Dreifuss</td><td class="p-4"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm font-medium">Bauleiterin</span></td><td class="p-4 font-mono-data">100%</td><td class="p-4 font-mono-data">1840h</td><td class="p-4 text-right space-x-2"><button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('2')"><span class="material-symbols-outlined">edit</span></button><button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('2')"><span class="material-symbols-outlined">delete</span></button></td></tr><tr class="hover:bg-surface-container-low transition-colors"><td class="p-4 font-body-lg text-body-lg font-medium">Manuel Schoch</td><td class="p-4"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm font-medium">Junior Architekt</span></td><td class="p-4 font-mono-data">100%</td><td class="p-4 font-mono-data">1840h</td><td class="p-4 text-right space-x-2"><button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('3')"><span class="material-symbols-outlined">edit</span></button><button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('3')"><span class="material-symbols-outlined">delete</span></button></td></tr><tr class="hover:bg-surface-container-low transition-colors"><td class="p-4 font-body-lg text-body-lg font-medium">Seline Steinmann</td><td class="p-4"><span class="px-2.5 py-1 bg-surface-container-high rounded text-label-sm font-medium">Praktikantin</span></td><td class="p-4 font-mono-data">92%</td><td class="p-4 font-mono-data">1692.8h</td><td class="p-4 text-right space-x-2"><button class="text-primary hover:bg-primary-fixed p-2 rounded transition-colors" onclick="editEmployee('4')"><span class="material-symbols-outlined">edit</span></button><button class="text-error hover:bg-error-container p-2 rounded transition-colors" onclick="deleteEmployee('4')"><span class="material-symbols-outlined">delete</span></button></td></tr></tbody>
 </table>
 </div>
 </section>
