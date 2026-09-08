@@ -221,6 +221,17 @@
 </div>
 </div>
 </div>
+<!-- Info-Banner bei Auswahl aller Mitarbeiter -->
+<div class="bg-primary-fixed/40 border border-primary/20 rounded-xl p-4 flex items-center justify-between gap-3 hidden" id="all-team-banner">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">groups</span>
+<div>
+<p class="font-label-bold text-primary text-body-sm">Gesamtes Team ausgewählt</p>
+<p class="text-on-surface-variant text-body-sm">Sie sehen die summierten Team-Arbeitszeiten. Wählen Sie ein einzelnes Teammitglied aus, um Schichten zu bearbeiten oder zu speichern.</p>
+</div>
+</div>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded-lg text-xs font-label-bold hover:bg-primary-container transition-colors shrink-0" onclick="selectFirstEmployee()">Einzelnen Mitarbeiter wählen</button>
+</div>
 <!-- Intuitive Kalender- & Tagesleiste (7 Tage der Woche mit CH-Datumsformat TT.MM.JJJJ) -->
 <div class="space-y-2">
 <div class="flex items-center justify-between">
@@ -237,7 +248,7 @@
 </div>
 </div>
 <!-- Vollständige Tagesmaske (Schichten 07:00 - 23:00) -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm space-y-6" id="time-mask-container">
 <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-outline-variant gap-2">
 <div class="flex items-center gap-3">
 <div class="p-3 bg-primary-fixed rounded-xl text-primary flex items-center justify-center">
@@ -252,18 +263,18 @@
 </div>
 </div>
 <div class="flex items-center gap-3">
-<button class="px-4 py-2 bg-secondary-container text-on-secondary-container hover:bg-outline-variant/50 border border-outline-variant rounded-xl font-label-bold text-label-bold transition-all flex items-center gap-2" onclick="setDayFree()" title="Diesen Tag als freien Tag oder Kompensation markieren (0h)">
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container hover:bg-outline-variant/50 border border-outline-variant rounded-xl font-label-bold text-label-bold transition-all flex items-center gap-2" id="btn-day-free" onclick="setDayFree()" title="Diesen Tag als freien Tag oder Kompensation markieren (0h)">
 <span class="material-symbols-outlined text-base">beach_access</span>
 <span>Freier Tag / Kompensation</span>
 </button>
 <div class="flex items-center gap-3 bg-surface-container-low px-4 py-2 rounded-xl border border-outline-variant">
-<span class="text-label-bold text-on-surface-variant uppercase">Tagessaldo:</span>
+<span class="text-label-bold text-on-surface-variant uppercase" id="selected-day-hours-label">Tagessaldo:</span>
 <span class="font-mono-data text-headline-md text-primary" id="selected-day-hours-badge">0.00h</span>
 </div>
 </div>
 </div>
 <!-- 3 Schichten nach Anforderung (Vormittag, Nachmittag, Abend) + Notiz -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="shift-inputs-grid">
 <!-- Vormittag -->
 <div class="p-4 bg-surface-container-low/60 rounded-xl border border-outline-variant space-y-3">
 <div class="flex items-center justify-between">
@@ -277,7 +288,7 @@
 <label class="text-label-sm text-on-surface-variant">Schichtzeit (von - bis)</label>
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 font-mono-data text-body-sm" id="mask-morning" oninput="updateActiveDayCalculation()" placeholder="z.B. 07:30 - 12:00" type="text"/>
 </div>
-<div class="flex gap-1.5 flex-wrap pt-1">
+<div class="flex gap-1.5 flex-wrap pt-1 slot-presets">
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="setSlotPreset('mask-morning', '07:30 - 12:00')" type="button">07:30-12:00</button>
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="setSlotPreset('mask-morning', '08:00 - 12:00')" type="button">08:00-12:00</button>
 <button class="text-[11px] px-2 py-0.5 text-error rounded border border-outline-variant hover:bg-error-container transition-colors" onclick="setSlotPreset('mask-morning', '')" type="button">Leeren</button>
@@ -296,7 +307,7 @@
 <label class="text-label-sm text-on-surface-variant">Schichtzeit (von - bis)</label>
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 font-mono-data text-body-sm" id="mask-afternoon" oninput="updateActiveDayCalculation()" placeholder="z.B. 13:00 - 17:00" type="text"/>
 </div>
-<div class="flex gap-1.5 flex-wrap pt-1">
+<div class="flex gap-1.5 flex-wrap pt-1 slot-presets">
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="setSlotPreset('mask-afternoon', '13:00 - 17:00')" type="button">13:00-17:00</button>
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="setSlotPreset('mask-afternoon', '12:30 - 16:30')" type="button">12:30-16:30</button>
 <button class="text-[11px] px-2 py-0.5 text-error rounded border border-outline-variant hover:bg-error-container transition-colors" onclick="setSlotPreset('mask-afternoon', '')" type="button">Leeren</button>
@@ -315,7 +326,7 @@
 <label class="text-label-sm text-on-surface-variant">Schichtzeit (von - bis)</label>
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 font-mono-data text-body-sm" id="mask-evening" oninput="updateActiveDayCalculation()" placeholder="z.B. 17:30 - 20:00" type="text"/>
 </div>
-<div class="flex gap-1.5 flex-wrap pt-1">
+<div class="flex gap-1.5 flex-wrap pt-1 slot-presets">
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="setSlotPreset('mask-evening', '17:30 - 20:00')" type="button">17:30-20:00</button>
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="setSlotPreset('mask-evening', '17:00 - 22:00')" type="button">17:00-22:00</button>
 <button class="text-[11px] px-2 py-0.5 text-error rounded border border-outline-variant hover:bg-error-container transition-colors" onclick="setSlotPreset('mask-evening', '')" type="button">Leeren</button>
@@ -323,13 +334,13 @@
 </div>
 </div>
 <!-- Abwesenheit & Notiz -->
-<div class="p-4 bg-surface-container-low/40 rounded-xl border border-outline-variant space-y-2">
+<div class="p-4 bg-surface-container-low/40 rounded-xl border border-outline-variant space-y-2" id="mask-note-container">
 <div class="flex items-center justify-between">
 <label class="font-label-bold text-label-bold text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-outline">edit_note</span>
 <span>Abwesenheit / Status / Bemerkung</span>
 </label>
-<div class="flex gap-1.5 flex-wrap">
+<div class="flex gap-1.5 flex-wrap note-presets">
 <button class="text-[11px] px-2.5 py-1 bg-surface-container font-medium text-primary rounded border border-outline-variant hover:bg-surface-container-high" onclick="setDayFree()" type="button">Frei / Kompensation</button>
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high" onclick="appendNote('Ferien')" type="button">Ferien</button>
 <button class="text-[11px] px-2 py-0.5 bg-surface-container rounded border border-outline-variant hover:bg-surface-container-high" onclick="appendNote('Sitzung / Meeting')" type="button">Sitzung</button>
@@ -340,7 +351,7 @@
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2.5 font-body-sm text-body-sm" id="mask-note" placeholder="z.B. Frei / Kompensation, Sitzung, Ferien, Arztzeugnis" type="text"/>
 </div>
 <!-- Aktionsleiste -->
-<div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+<div class="flex flex-wrap items-center justify-between gap-4 pt-2" id="mask-actions-bar">
 <button class="px-5 py-2.5 border border-outline-variant text-on-surface-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container-low transition-colors flex items-center gap-2" onclick="resetDayTimes()" type="button">
 <span class="material-symbols-outlined text-lg">restart_alt</span>
 <span>Zeiten für diesen Tag zurücksetzen</span>
@@ -357,7 +368,7 @@
 <!-- Wochenübersichtsbereich (Bedingte Anzeige: Tabelle nur wenn Zeiten/Einträge erfasst sind) -->
 <div class="space-y-3">
 <div class="flex justify-between items-center">
-<h4 class="font-headline-md text-headline-md text-on-surface">Wochen-Gesamtansicht (Erfasste Tage)</h4>
+<h4 class="font-headline-md text-headline-md text-on-surface" id="weekly-table-heading">Wochen-Gesamtansicht (Erfasste Tage)</h4>
 <div class="text-body-sm text-on-surface-variant" id="weekly-total-container">
                 Total Woche: <span class="font-mono-data font-bold text-primary text-body-lg" id="weekly-total">0.00h</span>
 </div>
@@ -376,23 +387,23 @@
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm" id="weekly-table-container">
 <table class="w-full border-collapse">
 <thead>
-<tr class="bg-surface-container-low">
+<tr class="bg-surface-container-low" id="weekly-table-head-row">
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag &amp; Datum (CH)</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag (07:00 - 12:00)</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag (12:00 - 17:00)</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend (17:00 - 23:00)</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Status</th>
 <th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
-<th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20">Aktion</th>
+<th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20" id="weekly-th-action">Aktion</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="weekly-table-body">
 </tbody>
 <tfoot>
-<tr class="bg-surface-container-low font-headline-md">
-<td class="p-3.5 text-right font-label-bold text-label-bold" colspan="5">Wochentotal kumuliert:</td>
+<tr class="bg-surface-container-low font-headline-md" id="weekly-tfoot-row">
+<td class="p-3.5 text-right font-label-bold text-label-bold" colspan="5" id="weekly-foot-label">Wochentotal kumuliert:</td>
 <td class="p-3.5 text-right font-mono-data text-mono-data text-primary" id="weekly-total-foot">0.00h</td>
-<td></td>
+<td id="weekly-foot-action-cell"></td>
 </tr>
 </tfoot>
 </table>
@@ -454,23 +465,23 @@
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
 <table class="w-full border-collapse">
 <thead>
-<tr class="bg-surface-container-low">
+<tr class="bg-surface-container-low" id="standalone-week-head-row">
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag &amp; Datum (CH)</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend / Nacht</th>
 <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Status</th>
 <th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
-<th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20">Aktion</th>
+<th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20" id="standalone-th-action">Aktion</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant" id="standalone-week-table-body">
 </tbody>
 <tfoot>
 <tr class="bg-surface-container-low font-headline-md">
-<td class="p-3.5 text-right font-label-bold text-label-bold" colspan="5">Wochentotal kumuliert:</td>
+<td class="p-3.5 text-right font-label-bold text-label-bold" colspan="5" id="standalone-foot-label">Wochentotal kumuliert:</td>
 <td class="p-3.5 text-right font-mono-data text-mono-data text-primary" id="standalone-week-total">0.00h</td>
-<td></td>
+<td id="standalone-foot-action-cell"></td>
 </tr>
 </tfoot>
 </table>
@@ -781,6 +792,19 @@
         const prevValue = select.value;
         select.innerHTML = '';
         if (selectOverview) selectOverview.innerHTML = '';
+
+        // Option 1: 'Alle Mitarbeiter / Gesamtes Team'
+        const optAll = document.createElement('option');
+        optAll.value = 'all';
+        optAll.textContent = '👥 Alle Mitarbeiter / Gesamtes Team';
+        select.appendChild(optAll);
+
+        if (selectOverview) {
+            const optAllOverview = document.createElement('option');
+            optAllOverview.value = 'all';
+            optAllOverview.textContent = '👥 Alle Mitarbeiter / Gesamtes Team';
+            selectOverview.appendChild(optAllOverview);
+        }
         
         employees.forEach(emp => {
             const opt = document.createElement('option');
@@ -795,9 +819,17 @@
                 selectOverview.appendChild(opt2);
             }
         });
-        if (prevValue && employees.some(e => e.id === prevValue)) {
+        if (prevValue && (prevValue === 'all' || employees.some(e => e.id === prevValue))) {
             select.value = prevValue;
             if (selectOverview) selectOverview.value = prevValue;
+        }
+    }
+
+    function selectFirstEmployee() {
+        const select = document.getElementById('active-user-select');
+        if (employees.length > 0) {
+            select.value = employees[0].id;
+            onUserOrWeekChange();
         }
     }
 
@@ -858,6 +890,9 @@
     }
 
     function hasDayEntry(empId, offset, dayIndex) {
+        if (empId === 'all') {
+            return employees.some(emp => hasDayEntry(emp.id, offset, dayIndex));
+        }
         const empWeekData = (timeEntries[empId] && timeEntries[empId][offset]) || {};
         const d = empWeekData[`day_${dayIndex}`];
         if (!d) return false;
@@ -871,8 +906,23 @@
     }
 
     function hasWeekEntries(empId, offset) {
+        if (empId === 'all') {
+            return employees.some(emp => hasWeekEntries(emp.id, offset));
+        }
         const empWeekData = (timeEntries[empId] && timeEntries[empId][offset]) || {};
         return [0, 1, 2, 3, 4, 5, 6].some(i => hasDayEntry(empId, offset, i));
+    }
+
+    function getTeamDayTotalHours(offset, dayIndex) {
+        let sum = 0;
+        employees.forEach(emp => {
+            const empWeekData = (timeEntries[emp.id] && timeEntries[emp.id][offset]) || {};
+            const dayData = empWeekData[`day_${dayIndex}`];
+            if (dayData && !dayData.isFree) {
+                sum += calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening);
+            }
+        });
+        return sum;
     }
 
     function renderDayTabs() {
@@ -883,28 +933,37 @@
         daySelect.innerHTML = '';
 
         const empId = document.getElementById('active-user-select').value;
-        const empWeekData = (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
+        const isAll = empId === 'all';
+        const empWeekData = (!isAll && timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
 
         weekDates.forEach((wd, i) => {
             const isSelected = i === activeDayIndex;
-            const dayKey = `day_${i}`;
-            const dayData = empWeekData[dayKey];
-            const isRecorded = hasDayEntry(empId, currentWeekOffset, i);
-            const isFree = dayData && dayData.isFree;
-            const h = (dayData && !isFree) ? calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening) : 0;
-
             let badgeHtml = '';
-            let subStatus = '';
+            let isRecorded = false;
+            let h = 0;
 
-            if (isFree) {
-                badgeHtml = `<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-secondary-container text-on-secondary-fixed">FREI</span>`;
-                subStatus = 'Freier Tag';
-            } else if (isRecorded) {
-                badgeHtml = `<span class="font-mono-data text-xs ${isSelected ? 'text-tertiary-fixed font-semibold' : 'text-primary font-semibold'}">${h.toFixed(1)}h</span>`;
-                subStatus = `${h.toFixed(1)}h erfasst`;
+            if (isAll) {
+                isRecorded = hasDayEntry('all', currentWeekOffset, i);
+                h = getTeamDayTotalHours(currentWeekOffset, i);
+                if (isRecorded) {
+                    badgeHtml = `<span class="font-mono-data text-xs ${isSelected ? 'text-tertiary-fixed font-semibold' : 'text-primary font-semibold'}">${h.toFixed(1)}h</span>`;
+                } else {
+                    badgeHtml = `<span class="text-[11px] text-outline font-mono-data">–</span>`;
+                }
             } else {
-                badgeHtml = `<span class="text-[11px] text-outline font-mono-data">–</span>`;
-                subStatus = 'Leer';
+                const dayKey = `day_${i}`;
+                const dayData = empWeekData[dayKey];
+                isRecorded = hasDayEntry(empId, currentWeekOffset, i);
+                const isFree = dayData && dayData.isFree;
+                h = (dayData && !isFree) ? calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening) : 0;
+
+                if (isFree) {
+                    badgeHtml = `<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-secondary-container text-on-secondary-fixed">FREI</span>`;
+                } else if (isRecorded) {
+                    badgeHtml = `<span class="font-mono-data text-xs ${isSelected ? 'text-tertiary-fixed font-semibold' : 'text-primary font-semibold'}">${h.toFixed(1)}h</span>`;
+                } else {
+                    badgeHtml = `<span class="text-[11px] text-outline font-mono-data">–</span>`;
+                }
             }
 
             // Tab button
@@ -931,7 +990,7 @@
             // Dropdown option
             const opt = document.createElement('option');
             opt.value = i;
-            opt.textContent = `${wd.name} (${wd.date}) - ${isFree ? 'Frei' : (isRecorded ? h.toFixed(1) + 'h' : 'Kein Eintrag')}`;
+            opt.textContent = `${wd.name} (${wd.date}) - ${isRecorded ? h.toFixed(1) + 'h' : 'Kein Eintrag'}`;
             if (isSelected) opt.selected = true;
             daySelect.appendChild(opt);
         });
@@ -943,6 +1002,54 @@
         document.getElementById('current-selected-day-title').textContent = `${curDate.name}, ${curDate.date}`;
         
         const empId = document.getElementById('active-user-select').value;
+        const isAll = empId === 'all';
+
+        const btnDayFree = document.getElementById('btn-day-free');
+        const shiftInputs = document.querySelectorAll('#shift-inputs-grid input');
+        const slotPresetButtons = document.querySelectorAll('.slot-presets button');
+        const notePresetsButtons = document.querySelectorAll('.note-presets button');
+        const maskNote = document.getElementById('mask-note');
+        const actionsBar = document.getElementById('mask-actions-bar');
+        const hoursLabel = document.getElementById('selected-day-hours-label');
+        const subTitle = document.getElementById('current-selected-day-sub');
+        const pill = document.getElementById('day-status-pill');
+
+        if (isAll) {
+            // Team-Aggregationsmodus
+            pill.classList.add('hidden');
+            hoursLabel.textContent = 'Team-Tagessaldo:';
+            const teamTotalDay = getTeamDayTotalHours(currentWeekOffset, activeDayIndex);
+            document.getElementById('selected-day-hours-badge').textContent = `${teamTotalDay.toFixed(2)}h`;
+            subTitle.textContent = `Gesamtes Team (${employees.length} Mitarbeiter) - Nur Leseansicht`;
+
+            document.getElementById('mask-morning').value = '';
+            document.getElementById('mask-afternoon').value = '';
+            document.getElementById('mask-evening').value = '';
+            document.getElementById('mask-note').value = 'Teamansicht aktiv. Zum Bearbeiten einen einzelnen Mitarbeiter wählen.';
+
+            shiftInputs.forEach(inp => { inp.disabled = true; inp.classList.add('opacity-60', 'bg-surface-container-low'); });
+            maskNote.disabled = true;
+            maskNote.classList.add('opacity-60', 'bg-surface-container-low');
+            slotPresetButtons.forEach(b => b.disabled = true);
+            notePresetsButtons.forEach(b => b.disabled = true);
+            btnDayFree.disabled = true;
+            btnDayFree.classList.add('opacity-50', 'pointer-events-none');
+            actionsBar.classList.add('hidden');
+            return;
+        }
+
+        // Einzelner Mitarbeiter-Modus: Inputs reaktivieren
+        hoursLabel.textContent = 'Tagessaldo:';
+        subTitle.textContent = 'Tagesarbeitszeit & Schichtbelegung';
+        shiftInputs.forEach(inp => { inp.disabled = false; inp.classList.remove('opacity-60', 'bg-surface-container-low'); });
+        maskNote.disabled = false;
+        maskNote.classList.remove('opacity-60', 'bg-surface-container-low');
+        slotPresetButtons.forEach(b => b.disabled = false);
+        notePresetsButtons.forEach(b => b.disabled = false);
+        btnDayFree.disabled = false;
+        btnDayFree.classList.remove('opacity-50', 'pointer-events-none');
+        actionsBar.classList.remove('hidden');
+
         const empWeekData = (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
         const dayKey = `day_${activeDayIndex}`;
         const dayData = empWeekData[dayKey] || { 
@@ -953,7 +1060,6 @@
             isFree: false
         };
 
-        const pill = document.getElementById('day-status-pill');
         if (dayData.isFree) {
             pill.classList.remove('hidden');
             pill.textContent = 'Freier Tag / Kompensation';
@@ -970,6 +1076,13 @@
     }
 
     function updateActiveDayCalculation() {
+        const empId = document.getElementById('active-user-select').value;
+        if (empId === 'all') {
+            const teamTotalDay = getTeamDayTotalHours(currentWeekOffset, activeDayIndex);
+            document.getElementById('selected-day-hours-badge').textContent = `${teamTotalDay.toFixed(2)}h`;
+            return;
+        }
+
         const pill = document.getElementById('day-status-pill');
         const note = document.getElementById('mask-note').value.trim();
         const isFreeNote = note.toLowerCase().includes('frei') || note.toLowerCase().includes('kompensation');
@@ -997,6 +1110,12 @@
     }
 
     function setDayFree() {
+        const empId = document.getElementById('active-user-select').value;
+        if (empId === 'all') {
+            alert('Bitte wählen Sie zuerst eine/n konkrete/n Mitarbeiter/in aus, um den Tag als frei zu markieren.');
+            return;
+        }
+
         // Leert alle Schichtzeiten sofort und setzt Bemerkung aktiv auf Frei / Kompensation
         document.getElementById('mask-morning').value = '';
         document.getElementById('mask-afternoon').value = '';
@@ -1010,7 +1129,6 @@
         document.getElementById('selected-day-hours-badge').textContent = '0.00h';
 
         // Speichern für genau diesen Tag
-        const empId = document.getElementById('active-user-select').value;
         if (!timeEntries[empId]) timeEntries[empId] = {};
         if (!timeEntries[empId][currentWeekOffset]) timeEntries[empId][currentWeekOffset] = {};
 
@@ -1041,6 +1159,10 @@
 
     function saveDayTimes() {
         const empId = document.getElementById('active-user-select').value;
+        if (empId === 'all') {
+            alert('Bitte wählen Sie einen konkreten Mitarbeiter aus der Liste aus, um Schichten zu speichern.');
+            return;
+        }
         if (!timeEntries[empId]) timeEntries[empId] = {};
         if (!timeEntries[empId][currentWeekOffset]) timeEntries[empId][currentWeekOffset] = {};
 
@@ -1072,6 +1194,11 @@
     }
 
     function resetDayTimes() {
+        const empId = document.getElementById('active-user-select').value;
+        if (empId === 'all') {
+            alert('Bitte wählen Sie einen einzelnen Mitarbeiter aus, um Tageszeiten zurückzusetzen.');
+            return;
+        }
         if (confirm('Möchten Sie die Schichten für diesen Tag wirklich zurücksetzen?')) {
             document.getElementById('mask-morning').value = '';
             document.getElementById('mask-afternoon').value = '';
@@ -1079,7 +1206,6 @@
             document.getElementById('mask-note').value = '';
             document.getElementById('day-status-pill').classList.add('hidden');
             
-            const empId = document.getElementById('active-user-select').value;
             if (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) {
                 delete timeEntries[empId][currentWeekOffset][`day_${activeDayIndex}`];
                 localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
@@ -1094,8 +1220,15 @@
         const selectEl = document.getElementById('active-user-select');
         if (!selectEl || selectEl.options.length === 0) return;
         const empId = selectEl.value;
+        const isAll = empId === 'all';
         const weekDates = getWeekDates(currentWeekOffset);
         document.getElementById('current-week-label').textContent = `Woche vom ${weekDates[0].date} bis ${weekDates[6].date}`;
+
+        const teamBanner = document.getElementById('all-team-banner');
+        if (teamBanner) {
+            if (isAll) teamBanner.classList.remove('hidden');
+            else teamBanner.classList.add('hidden');
+        }
 
         renderDayTabs();
         loadActiveDayMask();
@@ -1104,6 +1237,11 @@
         const emptyState = document.getElementById('weekly-empty-state');
         const tableContainer = document.getElementById('weekly-table-container');
         const saveAllBtn = document.getElementById('weekly-save-all-container');
+        const headingEl = document.getElementById('weekly-table-heading');
+        const theadRow = document.getElementById('weekly-table-head-row');
+        const footLabel = document.getElementById('weekly-foot-label');
+        const thAction = document.getElementById('weekly-th-action');
+        const footActionCell = document.getElementById('weekly-foot-action-cell');
 
         if (!hasEntries) {
             emptyState.classList.remove('hidden');
@@ -1116,9 +1254,89 @@
 
         emptyState.classList.add('hidden');
         tableContainer.classList.remove('hidden');
-        if (saveAllBtn) saveAllBtn.classList.remove('hidden');
 
-        // Wochen-Tabelle befüllen (nur tatsächlich erfasste Tage anzeigen)
+        if (isAll) {
+            headingEl.textContent = 'Team-Wochenübersicht (Alle Mitarbeiter)';
+            if (saveAllBtn) saveAllBtn.classList.add('hidden');
+            theadRow.innerHTML = `
+                <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Mitarbeiter</th>
+                <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Rolle</th>
+                <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold">Pensum</th>
+                <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold">Erfasste Tage</th>
+                <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Status / Notizen</th>
+                <th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
+                <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20">Aktion</th>
+            `;
+            footLabel.colSpan = 5;
+            footLabel.textContent = 'Team-Gesamttotal Woche:';
+
+            const tbody = document.getElementById('weekly-table-body');
+            tbody.innerHTML = '';
+            let teamGrandTotal = 0;
+
+            employees.forEach(emp => {
+                const empWeekData = (timeEntries[emp.id] && timeEntries[emp.id][currentWeekOffset]) || {};
+                let empHours = 0;
+                let activeDaysCount = 0;
+                let notesList = [];
+
+                weekDates.forEach((wd, i) => {
+                    const d = empWeekData[`day_${i}`];
+                    if (d) {
+                        const isFree = Boolean(d.isFree);
+                        const hasData = isFree || Boolean(d.morning || d.afternoon || d.evening || d.note);
+                        if (hasData) {
+                            activeDaysCount++;
+                            if (isFree) {
+                                notesList.push(`${wd.name.substring(0, 2)}: Frei`);
+                            } else {
+                                const h = calculateDayHours(d.morning, d.afternoon, d.evening);
+                                empHours += h;
+                                if (d.note) notesList.push(`${wd.name.substring(0, 2)}: ${d.note}`);
+                            }
+                        }
+                    }
+                });
+
+                teamGrandTotal += empHours;
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="document.getElementById('active-user-select').value='${emp.id}'; onUserOrWeekChange();">
+                        <td class="p-3.5 font-label-bold text-label-bold text-primary">${emp.name}</td>
+                        <td class="p-3.5 text-body-sm text-on-surface-variant">${emp.role}</td>
+                        <td class="p-3.5 text-center font-mono-data text-body-sm">${emp.pensum}%</td>
+                        <td class="p-3.5 text-center font-body-sm">${activeDaysCount > 0 ? `<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-xs font-semibold">${activeDaysCount} Tage</span>` : '<span class="text-outline text-xs">Keine</span>'}</td>
+                        <td class="p-3.5 font-body-sm text-xs text-on-surface-variant max-w-xs truncate">${notesList.length > 0 ? notesList.join(', ') : '<span class="text-outline/60">-</span>'}</td>
+                        <td class="p-3.5 text-right font-mono-data text-mono-data font-semibold ${empHours > 0 ? 'text-primary' : 'text-outline'}">${empHours.toFixed(2)}h</td>
+                        <td class="p-3.5 text-center">
+                            <button type="button" class="text-primary hover:bg-primary-fixed p-1 rounded" title="Diesen Mitarbeiter auswählen" onclick="event.stopPropagation(); document.getElementById('active-user-select').value='${emp.id}'; onUserOrWeekChange();">
+                                <span class="material-symbols-outlined text-lg">open_in_new</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('weekly-total').textContent = `${teamGrandTotal.toFixed(2)}h`;
+            document.getElementById('weekly-total-foot').textContent = `${teamGrandTotal.toFixed(2)}h`;
+            return;
+        }
+
+        // Einzelansicht für ausgewählten Mitarbeiter
+        headingEl.textContent = 'Wochen-Gesamtansicht (Erfasste Tage)';
+        if (saveAllBtn) saveAllBtn.classList.remove('hidden');
+        theadRow.innerHTML = `
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag &amp; Datum (CH)</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag (07:00 - 12:00)</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag (12:00 - 17:00)</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend (17:00 - 23:00)</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Status</th>
+            <th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
+            <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20">Aktion</th>
+        `;
+        footLabel.colSpan = 5;
+        footLabel.textContent = 'Wochentotal kumuliert:';
+
         const tbody = document.getElementById('weekly-table-body');
         tbody.innerHTML = '';
 
@@ -1170,11 +1388,12 @@
         const selectEl = document.getElementById('weekoverview-user-select') || document.getElementById('active-user-select');
         if (!selectEl || selectEl.options.length === 0) return;
         const empId = selectEl.value;
+        const isAll = empId === 'all';
         const weekDates = getWeekDates(currentWeekOffset);
         
         const label = document.getElementById('weekoverview-range-label');
         if (label) {
-            label.textContent = `Woche vom ${weekDates[0].date} bis ${weekDates[6].date}`;
+            label.textContent = `Woche vom ${weekDates[0].date} bis ${weekDates[6].date} ${isAll ? '(Gesamtes Team)' : ''}`;
         }
 
         const hasEntries = hasWeekEntries(empId, currentWeekOffset);
@@ -1190,9 +1409,90 @@
         if (emptyState) emptyState.classList.add('hidden');
         if (contentArea) contentArea.classList.remove('hidden');
 
+        const theadRow = document.getElementById('standalone-week-head-row');
+        const footLabel = document.getElementById('standalone-foot-label');
         const tbody = document.getElementById('standalone-week-table-body');
         if (!tbody) return;
         tbody.innerHTML = '';
+
+        if (isAll) {
+            theadRow.innerHTML = `
+                <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Mitarbeiter</th>
+                <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Rolle</th>
+                <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold">Pensum</th>
+                <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold">Erfasste Tage</th>
+                <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Status / Notizen</th>
+                <th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
+                <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20">Aktion</th>
+            `;
+            if (footLabel) {
+                footLabel.colSpan = 5;
+                footLabel.textContent = 'Team-Gesamttotal Woche:';
+            }
+
+            let grandTotal = 0;
+            employees.forEach(emp => {
+                const empWeekData = (timeEntries[emp.id] && timeEntries[emp.id][currentWeekOffset]) || {};
+                let empHours = 0;
+                let activeDaysCount = 0;
+                let notesList = [];
+
+                weekDates.forEach((wd, i) => {
+                    const d = empWeekData[`day_${i}`];
+                    if (d) {
+                        const isFree = Boolean(d.isFree);
+                        const hasData = isFree || Boolean(d.morning || d.afternoon || d.evening || d.note);
+                        if (hasData) {
+                            activeDaysCount++;
+                            if (isFree) {
+                                notesList.push(`${wd.name.substring(0, 2)}: Frei`);
+                            } else {
+                                const h = calculateDayHours(d.morning, d.afternoon, d.evening);
+                                empHours += h;
+                                if (d.note) notesList.push(`${wd.name.substring(0, 2)}: ${d.note}`);
+                            }
+                        }
+                    }
+                });
+
+                grandTotal += empHours;
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-surface-container-low transition-colors">
+                        <td class="p-3.5 font-label-bold text-label-bold text-primary">${emp.name}</td>
+                        <td class="p-3.5 text-body-sm text-on-surface-variant">${emp.role}</td>
+                        <td class="p-3.5 text-center font-mono-data text-body-sm">${emp.pensum}%</td>
+                        <td class="p-3.5 text-center font-body-sm">${activeDaysCount > 0 ? `<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-xs font-semibold">${activeDaysCount} Tage</span>` : '<span class="text-outline text-xs">Keine</span>'}</td>
+                        <td class="p-3.5 font-body-sm text-xs text-on-surface-variant max-w-xs truncate">${notesList.length > 0 ? notesList.join(', ') : '<span class="text-outline/60">-</span>'}</td>
+                        <td class="p-3.5 text-right font-mono-data text-mono-data font-semibold ${empHours > 0 ? 'text-primary' : 'text-outline'}">${empHours.toFixed(2)}h</td>
+                        <td class="p-3.5 text-center">
+                            <button type="button" class="text-primary hover:bg-primary-fixed p-1 rounded" title="Zur Zeiterfassung dieses Mitarbeiters" onclick="document.getElementById('active-user-select').value='${emp.id}'; onUserOrWeekChange(); showView('zeiterfassung');">
+                                <span class="material-symbols-outlined text-lg">open_in_new</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            const footEl = document.getElementById('standalone-week-total');
+            if (footEl) footEl.textContent = `${grandTotal.toFixed(2)}h`;
+            return;
+        }
+
+        // Einzelansicht Wochenübersicht
+        theadRow.innerHTML = `
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold w-48">Tag &amp; Datum (CH)</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend / Nacht</th>
+            <th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Status</th>
+            <th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
+            <th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold w-20">Aktion</th>
+        `;
+        if (footLabel) {
+            footLabel.colSpan = 5;
+            footLabel.textContent = 'Wochentotal kumuliert:';
+        }
 
         const empWeekData = (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
         let totalWeekHours = 0;
@@ -1260,6 +1560,10 @@
 
     function saveWeeklyTimes() {
         const empId = document.getElementById('active-user-select').value;
+        if (empId === 'all') {
+            alert('Bitte wählen Sie einen konkreten Mitarbeiter aus, um dessen Wochenstand zu bearbeiten.');
+            return;
+        }
         if (!timeEntries[empId]) timeEntries[empId] = {};
         
         const rows = document.querySelectorAll('#weekly-table-body tr');
@@ -1297,8 +1601,12 @@
     }
 
     function resetWeeklyTimes() {
+        const empId = document.getElementById('active-user-select').value;
+        if (empId === 'all') {
+            alert('Bitte wählen Sie einen einzelnen Mitarbeiter aus, um dessen Woche zurückzusetzen.');
+            return;
+        }
         if (confirm('Wollen Sie die Zeiten für diese gesamte Woche wirklich zurücksetzen?')) {
-            const empId = document.getElementById('active-user-select').value;
             if (timeEntries[empId]) {
                 delete timeEntries[empId][currentWeekOffset];
                 localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
