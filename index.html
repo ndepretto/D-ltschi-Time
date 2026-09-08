@@ -149,6 +149,10 @@
 <span class="material-symbols-outlined">schedule</span>
 <span>Zeiterfassung</span>
 </button>
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-weekoverview" onclick="showView('weekoverview')">
+<span class="material-symbols-outlined">calendar_view_week</span>
+<span>Wochenübersicht</span>
+</button>
 <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-bold text-label-bold hover:bg-surface-container-highest transition-all duration-100" id="nav-dashboard" onclick="showView('dashboard')">
 <span class="material-symbols-outlined">dashboard</span>
 <span>Team Dashboard</span>
@@ -340,15 +344,26 @@
 </div>
 </div>
 </div>
-<!-- Wochenübersichtstabelle (Kompakt & Vollständig) -->
+<!-- Wochenübersichtsbereich (Bedingte Anzeige: Tabelle nur wenn Zeiten/Einträge erfasst sind) -->
 <div class="space-y-3">
 <div class="flex justify-between items-center">
 <h4 class="font-headline-md text-headline-md text-on-surface">Wochen-Gesamtansicht</h4>
-<div class="text-body-sm text-on-surface-variant">
+<div class="text-body-sm text-on-surface-variant" id="weekly-total-container">
                 Total Woche: <span class="font-mono-data font-bold text-primary text-body-lg" id="weekly-total">0.00h</span>
 </div>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
+<!-- Freundlicher Hinweis bei leerer Woche -->
+<div class="bg-surface-container-lowest border border-dashed border-outline-variant rounded-xl p-8 text-center space-y-3 shadow-sm hidden" id="weekly-empty-state">
+<div class="w-12 h-12 bg-primary-fixed/50 text-primary rounded-full flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-2xl">calendar_today</span>
+</div>
+<div class="max-w-md mx-auto">
+<h5 class="font-headline-md text-base font-semibold text-on-surface mb-1">Noch keine Zeiten für diese Woche erfasst</h5>
+<p class="text-body-sm text-on-surface-variant">Wählen Sie oben einen Tag im Kalender aus oder tragen Sie Schichten in der Zeiterfassungsmaske ein und klicken Sie auf «Speichern &amp; Übernehmen».</p>
+</div>
+</div>
+<!-- Tabelle mit gebuchten Tagen -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm" id="weekly-table-container">
 <table class="w-full border-collapse">
 <thead>
 <tr class="bg-surface-container-low">
@@ -372,11 +387,84 @@
 </tfoot>
 </table>
 </div>
-<div class="flex justify-end pt-2">
+<div class="flex justify-end pt-2" id="weekly-save-all-container">
 <button class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:bg-primary-container transition-all flex items-center gap-2" onclick="saveWeeklyTimes()">
 <span class="material-symbols-outlined text-lg">cloud_upload</span>
 <span>Woche komplett in Firestore speichern</span>
 </button>
+</div>
+</div>
+</section>
+<!-- Dedizierte Wochenübersicht View (Navigationspunkt) -->
+<section class="hidden view-transition space-y-6" id="view-weekoverview">
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 pb-2 border-b border-outline-variant">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Wochenübersicht</h2>
+<p class="text-on-surface-variant text-body-sm">Detailansicht der gebuchten Arbeitszeiten und Schichten der laufenden oder ausgewählten Woche.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex flex-col">
+<label class="text-[11px] font-label-bold uppercase text-outline mb-1">Mitarbeiter/in</label>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2 font-body-sm text-body-sm font-medium shadow-sm" id="weekoverview-user-select" onchange="onWeekOverviewUserChange()">
+</select>
+</div>
+<div class="flex flex-col">
+<label class="text-[11px] font-label-bold uppercase text-outline mb-1">Woche navigieren</label>
+<div class="flex border border-outline-variant rounded-lg overflow-hidden bg-surface-container-lowest shadow-sm">
+<button class="px-3 py-2 hover:bg-surface-container transition-colors" onclick="changeWeek(-1)" title="Vorherige Woche"><span class="material-symbols-outlined text-base">chevron_left</span></button>
+<button class="px-4 py-2 border-x border-outline-variant font-label-bold text-label-bold text-primary hover:bg-surface-container-low transition-colors" onclick="setCurrentWeek()">Aktuell</button>
+<button class="px-3 py-2 hover:bg-surface-container transition-colors" onclick="changeWeek(1)" title="Nächste Woche"><span class="material-symbols-outlined text-base">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-label-bold text-label-bold uppercase tracking-wider text-outline" id="weekoverview-range-label">Woche</span>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold text-sm shadow-sm hover:bg-primary-container" onclick="showView('zeiterfassung')">Zur Zeiterfassung</button>
+</div>
+<!-- Empty state für separate Wochenansicht -->
+<div class="bg-surface-container-lowest border border-dashed border-outline-variant rounded-xl p-12 text-center space-y-4 shadow-sm hidden" id="standalone-week-empty">
+<div class="w-16 h-16 bg-primary-fixed/50 text-primary rounded-full flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-3xl">event_busy</span>
+</div>
+<div class="max-w-md mx-auto space-y-1">
+<h3 class="font-headline-md text-headline-md text-primary">Noch keine Zeiten für diese Woche erfasst</h3>
+<p class="text-body-sm text-on-surface-variant">In dieser Kalenderwoche sind noch keine Arbeitszeiten eingetragen. Wechseln Sie zur Zeiterfassungsmaske, um Schichten zu erfassen.</p>
+</div>
+<div>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold shadow-md hover:bg-primary-container inline-flex items-center gap-2" onclick="showView('zeiterfassung')">
+<span class="material-symbols-outlined text-lg">add_alarm</span>
+<span>Zeiten erfassen</span>
+</button>
+</div>
+</div>
+<!-- Content für separate Wochenansicht -->
+<div class="space-y-4" id="standalone-week-content">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Tag &amp; Datum (CH)</th>
+<th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Vormittag</th>
+<th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Nachmittag</th>
+<th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abend / Nacht</th>
+<th class="p-3.5 border-b border-outline-variant text-left font-label-bold text-label-bold">Abwesenheit / Notiz</th>
+<th class="p-3.5 border-b border-outline-variant text-right font-label-bold text-label-bold">Total</th>
+<th class="p-3.5 border-b border-outline-variant text-center font-label-bold text-label-bold">Aktion</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="standalone-week-table-body">
+</tbody>
+<tfoot>
+<tr class="bg-surface-container-low font-headline-md">
+<td class="p-3.5 text-right font-label-bold text-label-bold" colspan="5">Wochentotal kumuliert:</td>
+<td class="p-3.5 text-right font-mono-data text-mono-data text-primary" id="standalone-week-total">0.00h</td>
+<td></td>
+</tr>
+</tfoot>
+</table>
+</div>
 </div>
 </div>
 </section>
@@ -602,8 +690,19 @@
     const STORAGE_KEY_EMP = 'doeltschi_employees_firestore';
     const STORAGE_KEY_TIME = 'doeltschi_timeentries_firestore';
 
+    // Initialisiere mit Beispieldaten für Seline in der aktuellen Woche (Offset 0), damit Daten vorhanden sind
+    const defaultTimeEntries = {
+        '1': {
+            0: {
+                'day_0': { morning: '07:00 - 12:00', afternoon: '12:30 - 16:30', evening: '', note: '' },
+                'day_1': { morning: '07:30 - 12:00', afternoon: '12:30 - 16:45', evening: '', note: 'Team-Meeting' },
+                'day_2': { morning: '07:00 - 12:00', afternoon: '12:30 - 16:30', evening: '', note: '' }
+            }
+        }
+    };
+
     let employees = JSON.parse(localStorage.getItem(STORAGE_KEY_EMP)) || defaultEmployees;
-    let timeEntries = JSON.parse(localStorage.getItem(STORAGE_KEY_TIME)) || {};
+    let timeEntries = JSON.parse(localStorage.getItem(STORAGE_KEY_TIME)) || defaultTimeEntries;
 
     let currentWeekOffset = 0;
     let activeDayIndex = 0; // 0 = Montag, ..., 6 = Sonntag
@@ -642,13 +741,14 @@
         renderEmployeeSelect();
         renderEmployeesTable();
         loadZeiterfassungView();
+        renderWeekOverview();
         renderDashboard();
         renderReports();
         showView('zeiterfassung');
     }
 
     function showView(viewId) {
-        ['zeiterfassung', 'dashboard', 'reports', 'management', 'settings'].forEach(v => {
+        ['zeiterfassung', 'weekoverview', 'dashboard', 'reports', 'management', 'settings'].forEach(v => {
             const el = document.getElementById(`view-${v}`);
             const btn = document.getElementById(`nav-${v}`);
             if (el) el.classList.add('hidden');
@@ -661,6 +761,7 @@
         if (targetBtn) targetBtn.classList.add('active-nav-item');
 
         if (viewId === 'zeiterfassung') loadZeiterfassungView();
+        if (viewId === 'weekoverview') renderWeekOverview();
         if (viewId === 'dashboard') renderDashboard();
         if (viewId === 'reports') renderReports();
         if (viewId === 'management') renderEmployeesTable();
@@ -668,20 +769,47 @@
 
     function renderEmployeeSelect() {
         const select = document.getElementById('active-user-select');
+        const selectOverview = document.getElementById('weekoverview-user-select');
         const prevValue = select.value;
         select.innerHTML = '';
+        if (selectOverview) selectOverview.innerHTML = '';
+        
         employees.forEach(emp => {
             const opt = document.createElement('option');
             opt.value = emp.id;
             opt.textContent = `${emp.name} (${emp.pensum}%)`;
             select.appendChild(opt);
+
+            if (selectOverview) {
+                const opt2 = document.createElement('option');
+                opt2.value = emp.id;
+                opt2.textContent = `${emp.name} (${emp.pensum}%)`;
+                selectOverview.appendChild(opt2);
+            }
         });
         if (prevValue && employees.some(e => e.id === prevValue)) {
             select.value = prevValue;
+            if (selectOverview) selectOverview.value = prevValue;
         }
     }
 
     function onUserOrWeekChange() {
+        const select = document.getElementById('active-user-select');
+        const selectOverview = document.getElementById('weekoverview-user-select');
+        if (selectOverview && select) {
+            selectOverview.value = select.value;
+        }
+        loadZeiterfassungView();
+        renderWeekOverview();
+    }
+
+    function onWeekOverviewUserChange() {
+        const select = document.getElementById('active-user-select');
+        const selectOverview = document.getElementById('weekoverview-user-select');
+        if (selectOverview && select) {
+            select.value = selectOverview.value;
+        }
+        renderWeekOverview();
         loadZeiterfassungView();
     }
 
@@ -705,11 +833,13 @@
     function changeWeek(direction) {
         currentWeekOffset += direction;
         loadZeiterfassungView();
+        renderWeekOverview();
     }
 
     function setCurrentWeek() {
         currentWeekOffset = 0;
         loadZeiterfassungView();
+        renderWeekOverview();
     }
 
     function selectDay(index) {
@@ -717,6 +847,19 @@
         loadActiveDayMask();
         renderDayTabs();
         document.getElementById('day-select-dropdown').value = index;
+    }
+
+    function hasWeekEntries(empId, offset) {
+        const empWeekData = (timeEntries[empId] && timeEntries[empId][offset]) || {};
+        const keys = Object.keys(empWeekData);
+        if (keys.length === 0) return false;
+        return keys.some(k => {
+            const d = empWeekData[k];
+            return (d.morning && d.morning.trim() !== '') ||
+                   (d.afternoon && d.afternoon.trim() !== '') ||
+                   (d.evening && d.evening.trim() !== '') ||
+                   (d.note && d.note.trim() !== '');
+        });
     }
 
     function renderDayTabs() {
@@ -732,7 +875,7 @@
         weekDates.forEach((wd, i) => {
             const isSelected = i === activeDayIndex;
             const dayKey = `day_${i}`;
-            const dayData = empWeekData[dayKey] || { morning: (i < 5 ? '07:00 - 12:00' : ''), afternoon: (i < 5 ? '12:00 - 17:00' : ''), evening: '', note: '' };
+            const dayData = empWeekData[dayKey] || { morning: '', afternoon: '', evening: '', note: '' };
             const h = calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening);
 
             // Tab button
@@ -772,8 +915,8 @@
         const empWeekData = (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
         const dayKey = `day_${activeDayIndex}`;
         const dayData = empWeekData[dayKey] || { 
-            morning: (activeDayIndex < 5 ? '07:00 - 12:00' : ''), 
-            afternoon: (activeDayIndex < 5 ? '12:00 - 17:00' : ''), 
+            morning: '', 
+            afternoon: '', 
             evening: '', 
             note: '' 
         };
@@ -823,6 +966,7 @@
 
         localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
         loadZeiterfassungView();
+        renderWeekOverview();
         showToast('Tageserfassung erfolgreich gespeichert (Firestore doeltschi-time).');
     }
 
@@ -832,7 +976,15 @@
             document.getElementById('mask-afternoon').value = '';
             document.getElementById('mask-evening').value = '';
             document.getElementById('mask-note').value = '';
-            saveDayTimes();
+            
+            const empId = document.getElementById('active-user-select').value;
+            if (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) {
+                delete timeEntries[empId][currentWeekOffset][`day_${activeDayIndex}`];
+                localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
+            }
+            loadZeiterfassungView();
+            renderWeekOverview();
+            showToast('Tageszeiten zurückgesetzt.');
         }
     }
 
@@ -846,20 +998,36 @@
         renderDayTabs();
         loadActiveDayMask();
 
+        const hasEntries = hasWeekEntries(empId, currentWeekOffset);
+        const emptyState = document.getElementById('weekly-empty-state');
+        const tableContainer = document.getElementById('weekly-table-container');
+        const saveAllBtn = document.getElementById('weekly-save-all-container');
+
+        if (!hasEntries) {
+            emptyState.classList.remove('hidden');
+            tableContainer.classList.add('hidden');
+            if (saveAllBtn) saveAllBtn.classList.add('hidden');
+            document.getElementById('weekly-total').textContent = `0.00h`;
+            document.getElementById('weekly-total-foot').textContent = `0.00h`;
+            return;
+        }
+
+        emptyState.classList.add('hidden');
+        tableContainer.classList.remove('hidden');
+        if (saveAllBtn) saveAllBtn.classList.remove('hidden');
+
         // Wochen-Tabelle befüllen
         const tbody = document.getElementById('weekly-table-body');
         tbody.innerHTML = '';
 
-        if (!timeEntries[empId]) timeEntries[empId] = {};
-        const empWeekData = timeEntries[empId][currentWeekOffset] || {};
-
+        const empWeekData = (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
         let totalWeekHours = 0;
 
         weekDates.forEach((wd, index) => {
             const dayKey = `day_${index}`;
             const dayData = empWeekData[dayKey] || { 
-                morning: (index < 5 ? '07:00 - 12:00' : ''), 
-                afternoon: (index < 5 ? '12:00 - 17:00' : ''), 
+                morning: '', 
+                afternoon: '', 
                 evening: '', 
                 note: '' 
             };
@@ -874,10 +1042,10 @@
                         <p class="font-label-bold text-label-bold text-on-surface ${isHighlight ? 'text-primary font-bold' : ''}">${wd.name}</p>
                         <p class="text-label-sm text-outline font-mono-data">${wd.date}</p>
                     </td>
-                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-mono-data text-body-sm morning-input" value="${dayData.morning}" placeholder="07:00 - 12:00"/></td>
-                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-mono-data text-body-sm afternoon-input" value="${dayData.afternoon}" placeholder="12:00 - 17:00"/></td>
-                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-mono-data text-body-sm evening-input" value="${dayData.evening}" placeholder="17:00 - 23:00"/></td>
-                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-body-sm text-body-sm note-input" value="${dayData.note}" placeholder="z.B. Sitzung, Ferien"/></td>
+                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-mono-data text-body-sm morning-input" value="${dayData.morning || ''}" placeholder="07:00 - 12:00"/></td>
+                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-mono-data text-body-sm afternoon-input" value="${dayData.afternoon || ''}" placeholder="12:00 - 17:00"/></td>
+                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-mono-data text-body-sm evening-input" value="${dayData.evening || ''}" placeholder="17:00 - 23:00"/></td>
+                    <td class="p-3.5"><input type="text" onclick="event.stopPropagation()" class="w-full border border-outline-variant rounded p-1.5 font-body-sm text-body-sm note-input" value="${dayData.note || ''}" placeholder="z.B. Sitzung, Ferien"/></td>
                     <td class="p-3.5 text-right font-mono-data text-mono-data font-semibold ${h > 0 ? 'text-primary' : 'text-outline'}">${h.toFixed(2)}h</td>
                     <td class="p-3.5 text-center">
                         <button type="button" class="text-primary hover:bg-primary-fixed p-1 rounded" title="In Maske bearbeiten" onclick="event.stopPropagation(); selectDay(${index})">
@@ -890,6 +1058,69 @@
 
         document.getElementById('weekly-total').textContent = `${totalWeekHours.toFixed(2)}h`;
         document.getElementById('weekly-total-foot').textContent = `${totalWeekHours.toFixed(2)}h`;
+    }
+
+    function renderWeekOverview() {
+        const selectEl = document.getElementById('weekoverview-user-select') || document.getElementById('active-user-select');
+        if (!selectEl || selectEl.options.length === 0) return;
+        const empId = selectEl.value;
+        const weekDates = getWeekDates(currentWeekOffset);
+        
+        const label = document.getElementById('weekoverview-range-label');
+        if (label) {
+            label.textContent = `Woche vom ${weekDates[0].date} bis ${weekDates[6].date}`;
+        }
+
+        const hasEntries = hasWeekEntries(empId, currentWeekOffset);
+        const emptyState = document.getElementById('standalone-week-empty');
+        const contentArea = document.getElementById('standalone-week-content');
+
+        if (!hasEntries) {
+            if (emptyState) emptyState.classList.remove('hidden');
+            if (contentArea) contentArea.classList.add('hidden');
+            return;
+        }
+
+        if (emptyState) emptyState.classList.add('hidden');
+        if (contentArea) contentArea.classList.remove('hidden');
+
+        const tbody = document.getElementById('standalone-week-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const empWeekData = (timeEntries[empId] && timeEntries[empId][currentWeekOffset]) || {};
+        let totalWeekHours = 0;
+
+        weekDates.forEach((wd, index) => {
+            const dayKey = `day_${index}`;
+            const dayData = empWeekData[dayKey] || { morning: '', afternoon: '', evening: '', note: '' };
+            const h = calculateDayHours(dayData.morning, dayData.afternoon, dayData.evening);
+            totalWeekHours += h;
+
+            const hasDayData = (dayData.morning || dayData.afternoon || dayData.evening || dayData.note);
+
+            tbody.innerHTML += `
+                <tr class="hover:bg-surface-container-low transition-colors">
+                    <td class="p-3.5">
+                        <p class="font-label-bold text-label-bold text-on-surface">${wd.name}</p>
+                        <p class="text-label-sm text-outline font-mono-data">${wd.date}</p>
+                    </td>
+                    <td class="p-3.5 font-mono-data text-body-sm">${dayData.morning || '<span class="text-outline/60">-</span>'}</td>
+                    <td class="p-3.5 font-mono-data text-body-sm">${dayData.afternoon || '<span class="text-outline/60">-</span>'}</td>
+                    <td class="p-3.5 font-mono-data text-body-sm">${dayData.evening || '<span class="text-outline/60">-</span>'}</td>
+                    <td class="p-3.5 font-body-sm text-body-sm">${dayData.note ? `<span class="px-2 py-0.5 bg-surface-container-high rounded text-xs">${dayData.note}</span>` : '<span class="text-outline/60">-</span>'}</td>
+                    <td class="p-3.5 text-right font-mono-data text-mono-data font-semibold ${h > 0 ? 'text-primary' : 'text-outline'}">${h.toFixed(2)}h</td>
+                    <td class="p-3.5 text-center">
+                        <button type="button" class="text-primary hover:bg-primary-fixed p-1 rounded" title="Tag bearbeiten" onclick="selectDay(${index}); showView('zeiterfassung');">
+                            <span class="material-symbols-outlined text-lg">edit</span>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        const footEl = document.getElementById('standalone-week-total');
+        if (footEl) footEl.textContent = `${totalWeekHours.toFixed(2)}h`;
     }
 
     function calculateDayHours(m, a, e) {
@@ -921,18 +1152,21 @@
         const weekData = {};
 
         rows.forEach((row, index) => {
-            const morning = row.querySelector('.morning-input').value;
-            const afternoon = row.querySelector('.afternoon-input').value;
-            const evening = row.querySelector('.evening-input').value;
-            const note = row.querySelector('.note-input').value;
+            const morning = row.querySelector('.morning-input').value.trim();
+            const afternoon = row.querySelector('.afternoon-input').value.trim();
+            const evening = row.querySelector('.evening-input').value.trim();
+            const note = row.querySelector('.note-input').value.trim();
             
-            weekData[`day_${index}`] = { morning, afternoon, evening, note };
+            if (morning || afternoon || evening || note) {
+                weekData[`day_${index}`] = { morning, afternoon, evening, note };
+            }
         });
 
         timeEntries[empId][currentWeekOffset] = weekData;
         localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
         
         loadZeiterfassungView();
+        renderWeekOverview();
         showToast('Woche erfolgreich in Firestore gespeichert (Schweizer Standard).');
     }
 
@@ -944,6 +1178,7 @@
                 localStorage.setItem(STORAGE_KEY_TIME, JSON.stringify(timeEntries));
             }
             loadZeiterfassungView();
+            renderWeekOverview();
             showToast('Woche zurückgesetzt.');
         }
     }
