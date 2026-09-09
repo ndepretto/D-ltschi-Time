@@ -224,7 +224,9 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-employee" required=""><option value="all">Ganzes Team</option></select>
+<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-employee" required="">
+<option value="all">Ganzes Team</option>
+</select>
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
@@ -277,7 +279,15 @@
 </div>
 <!-- Existing Entries List -->
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h3 class="text-headline-md text-on-surface mb-4">Eingetragene Zeiten (Live Firestore)</h3>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<h3 class="text-headline-md text-on-surface">Eingetragene Zeiten</h3>
+<div class="flex items-center gap-2 w-full md:w-auto">
+<label class="text-label-caps text-on-surface-variant whitespace-nowrap">Filter:</label>
+<select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="filter-entry-employee" onchange="renderTimeEntriesList()">
+<option value="all">Ganzes Team anzeigen</option>
+</select>
+</div>
+</div>
 <div class="space-y-3" id="time-entries-list">
 <!-- Populated dynamically -->
 </div>
@@ -501,6 +511,8 @@
                 renderEmployeesManagement();
             } else if(viewName === 'dashboard') {
                 renderDashboard();
+            } else if(viewName === 'zeiterfassung') {
+                renderTimeEntriesList();
             }
         }
 
@@ -601,17 +613,30 @@
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
 
-        // Populate Employee Selects
+        // Populate Employee Selects (Form & Filter)
         function populateEmployeeSelects() {
-            const select = document.getElementById('entry-employee');
-            if(!select) return;
-            select.innerHTML = '';
-            employeesData.forEach(emp => {
-                const opt = document.createElement('option');
-                opt.value = emp.id;
-                opt.textContent = `${emp.name} (${emp.role})`;
-                select.appendChild(opt);
-            });
+            const formSelect = document.getElementById('entry-employee');
+            const filterSelect = document.getElementById('filter-entry-employee');
+            
+            if (formSelect) {
+                formSelect.innerHTML = '<option value="all">Ganzes Team</option>';
+                employeesData.forEach(emp => {
+                    const opt = document.createElement('option');
+                    opt.value = emp.id;
+                    opt.textContent = `${emp.name} (${emp.role})`;
+                    formSelect.appendChild(opt);
+                });
+            }
+
+            if (filterSelect) {
+                filterSelect.innerHTML = '<option value="all">Ganzes Team anzeigen</option>';
+                employeesData.forEach(emp => {
+                    const opt = document.createElement('option');
+                    opt.value = emp.id;
+                    opt.textContent = `${emp.name}`;
+                    filterSelect.appendChild(opt);
+                });
+            }
         }
 
         // Time Entry Form Handling
@@ -635,12 +660,27 @@
             const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
 
             try {
-                await db.collection('timeEntries').doc(id).set(entryData);
+                if (employeeId === 'all') {
+                    // Save for all team members
+                    for (const emp of employeesData) {
+                        const bulkId = id + '_' + emp.id;
+                        const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
+                        await db.collection('timeEntries').doc(bulkId).set(bulkEntry);
+                    }
+                } else {
+                    await db.collection('timeEntries').doc(id).set(entryData);
+                }
                 resetTimeForm();
                 alert('Eintrag erfolgreich in Firebase gespeichert!');
             } catch (err) {
                 console.error(err);
-                timeEntriesData.push(entryData);
+                if (employeeId === 'all') {
+                    employeesData.forEach(emp => {
+                        timeEntriesData.push({ ...entryData, id: id + '_' + emp.id, employeeId: emp.id });
+                    });
+                } else {
+                    timeEntriesData.push(entryData);
+                }
                 renderTimeEntriesList();
                 renderDashboard();
                 resetTimeForm();
@@ -653,6 +693,7 @@
             document.getElementById('entry-date').value = '';
             document.getElementById('entry-notes').value = '';
             document.getElementById('entry-status').value = 'Normal';
+            document.getElementById('entry-employee').value = 'all';
         }
 
         function renderTimeEntriesList() {
@@ -660,17 +701,24 @@
             if(!list) return;
             list.innerHTML = '';
 
-            if (timeEntriesData.length === 0) {
+            const filterVal = document.getElementById('filter-entry-employee') ? document.getElementById('filter-entry-employee').value : 'all';
+            
+            let filteredEntries = timeEntriesData;
+            if (filterVal !== 'all') {
+                filteredEntries = timeEntriesData.filter(e => e.employeeId === filterVal);
+            }
+
+            if (filteredEntries.length === 0) {
                 list.innerHTML = '<p class="text-on-surface-variant">Keine Zeiteinträge vorhanden.</p>';
                 return;
             }
 
-            timeEntriesData.forEach(entry => {
+            filteredEntries.forEach(entry => {
                 const emp = employeesData.find(e => e.id === entry.employeeId);
-                const empName = emp ? emp.name : 'Unbekannt';
+                const empName = emp ? emp.name : 'Unbekanntes Teammitglied';
 
                 const item = document.createElement('div');
-                item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl';
+                item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high';
                 item.innerHTML = `
                     <div>
                         <p class="font-bold text-on-surface">${empName} - <span class="text-primary">${entry.date}</span></p>
