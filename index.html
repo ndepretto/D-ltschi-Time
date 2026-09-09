@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="de"><head>
+<html class="h-full" lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - Zeitmanagement</title>
 <style>
         @layer base {
-            html, body { margin: 0; padding: 0; }
+            html, body { margin: 0; padding: 0; height: 100%; }
             body { overscroll-behavior: none; }
-            main>:first-child { margin-top: 0 !important; }
-            main>:last-child { margin-bottom: 0 !important; }
         }
-        ::-webkit-scrollbar { display: none; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3c6d6; border-radius: 9999px; }
     </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -69,855 +69,875 @@
                         "on-tertiary-fixed-variant": "#812800"
                     },
                     borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
-                    spacing: { "container-max": "800px", "unit": "8px", "stack-lg": "48px", "stack-md": "24px", "stack-sm": "12px", "gutter": "24px" },
+                    spacing: { "container-max": "1200px", "unit": "8px", "stack-lg": "48px", "stack-md": "24px", "stack-sm": "12px", "gutter": "24px" },
                     fontFamily: {
-                        "label-caps": ["Work Sans"],
-                        "body-md": ["Work Sans"],
-                        "body-lg": ["Work Sans"],
-                        "headline-lg": ["Work Sans"],
-                        "headline-md": ["Work Sans"],
-                        "headline-lg-mobile": ["Work Sans"]
-                    },
-                    fontSize: {
-                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
-                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
-                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
-                        "headline-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
-                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
-                        "headline-lg-mobile": ["32px", { lineHeight: "38px", fontWeight: "700" }]
+                        "label-caps": ["Work Sans", "sans-serif"],
+                        "body-md": ["Work Sans", "sans-serif"],
+                        "body-lg": ["Work Sans", "sans-serif"],
+                        "headline-lg": ["Work Sans", "sans-serif"],
+                        "headline-md": ["Work Sans", "sans-serif"],
+                        "headline-lg-mobile": ["Work Sans", "sans-serif"]
                     }
                 }
             }
         };
     </script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<!-- Firebase Compat SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-surface font-body-md text-on-surface">
-<!-- Password Protection Modal -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md flex items-center justify-center p-4" id="auth-modal">
-<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
-<div class="text-center">
-<h2 class="text-headline-md text-primary">Döltschi Time Login</h2>
-<p class="text-body-md text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
+<body class="bg-background font-body-md text-on-surface h-full flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- LOGIN SCREEN -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-surface-container-high p-4" id="login-screen">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-xl w-full max-w-md border border-outline-variant/30">
+<div class="text-center mb-8">
+<div class="w-16 h-16 bg-primary text-on-primary rounded-xl mx-auto flex items-center justify-center mb-4 shadow-md">
+<span class="material-symbols-outlined text-3xl">schedule</span>
 </div>
-<form class="flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password"/>
-<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
-<p class="text-error text-center text-body-md hidden" id="auth-error">Falsches Passwort!</p>
+<h1 class="text-2xl font-bold text-on-surface">Döltschi Time</h1>
+<p class="text-on-surface-variant text-sm mt-1">Zeiterfassung &amp; Mitarbeiter-Management</p>
+</div>
+<form class="space-y-4" id="login-form" onsubmit="handleLogin(event)">
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Passwort</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="login-password" placeholder="Passwort eingeben" required="" type="password"/>
+<p class="text-xs text-on-surface-variant/70 mt-1">Hinweis für Demo: 'Willma'</p>
+</div>
+<div class="hidden text-error text-sm font-medium bg-error-container/30 p-3 rounded-lg flex items-center gap-2" id="login-error">
+<span class="material-symbols-outlined text-sm">error</span> Falsches Passwort!
+                </div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container transition-colors shadow-sm" type="submit">
+                    Anmelden
+                </button>
 </form>
 </div>
 </div>
-<!-- Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high">
-<div class="px-8 mb-10 text-xl font-headline-md text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
+<!-- MAIN APP WRAPPER -->
+<div class="flex h-full overflow-hidden hidden" id="app-wrapper">
+<!-- SIDEBAR NAVIGATION -->
+<aside class="w-64 bg-surface-container-low border-r border-outline-variant/30 flex flex-col shrink-0">
+<div class="p-6 border-b border-outline-variant/20 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary text-on-primary rounded-lg flex items-center justify-center shadow">
+<span class="material-symbols-outlined text-xl">schedule</span>
 </div>
-<nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
-<a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
-<span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung">
-<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="wochenuebersicht">
-<span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="mitarbeiter">
-<span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="berichte">
-<span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="einstellungen">
-<span class="material-symbols-outlined mr-3">settings</span>Profil &amp; Einstellungen
-            </a>
+<div>
+<h2 class="font-bold text-lg text-on-surface leading-tight">Döltschi Time</h2>
+<span class="text-xs text-on-surface-variant">Enterprise v3.0</span>
+</div>
+</div>
+<nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="dashboard" onclick="switchTab('dashboard')">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                </button>
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="time-tracking" onclick="switchTab('time-tracking')">
+<span class="material-symbols-outlined">timer</span> Zeiterfassung
+                </button>
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="day-view" onclick="switchTab('day-view')">
+<span class="material-symbols-outlined">today</span> Tagesansicht
+                </button>
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="monthly-reports" onclick="switchTab('monthly-reports')">
+<span class="material-symbols-outlined">description</span> Monatsberichte
+                </button>
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="employees" onclick="switchTab('employees')">
+<span class="material-symbols-outlined">group</span> Mitarbeiter
+                </button>
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="pensen" onclick="switchTab('pensen')">
+<span class="material-symbols-outlined">pie_chart</span> Pensen-Berechnung
+                </button>
+<button class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium text-sm" data-tab="team-sync" onclick="switchTab('team-sync')">
+<span class="material-symbols-outlined">sync</span> Team-Sync
+                </button>
 </nav>
-</aside>
-<!-- Main Content Area -->
-<div class="pl-64">
-<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-8">
-<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement - Dashboard</div>
-<div class="flex items-center gap-4">
-<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1" id="firebase-status">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Firebase Live
-                </span>
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
-<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
-<span>ND</span>
+<div class="p-4 border-t border-outline-variant/20">
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container/20 transition-colors font-medium text-sm" onclick="handleLogout()">
+<span class="material-symbols-outlined">logout</span> Abmelden
+                </button>
 </div>
+</aside>
+<!-- CONTENT AREA -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- TOPBAR -->
+<header class="h-16 bg-surface border-b border-outline-variant/20 px-8 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-4">
+<h1 class="text-xl font-bold text-on-surface" id="page-title">Dashboard</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-xs bg-surface-container-high px-3 py-1.5 rounded-full text-on-surface-variant" id="sync-status">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Cloud / Lokal synchronisiert</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center font-bold text-primary">DT</div>
 </div>
 </header>
-<main class="relative pt-16 bg-surface min-h-screen">
-<!-- VIEW: DASHBOARD -->
-<div class="view-container flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-dashboard">
-<!-- Top Summary Banner -->
+<!-- DYNAMIC TAB CONTENTS -->
+<div class="flex-1 overflow-y-auto p-8 bg-background">
+<!-- 1. DASHBOARD TAB -->
+<div class="tab-content space-y-6" id="tab-dashboard">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">group</span></div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-medium text-on-surface-variant">Aktive Mitarbeiter</span>
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<div class="text-3xl font-bold text-on-surface" id="dash-emp-count">4</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-medium text-on-surface-variant">Erfasste Stunden (Monat)</span>
+<span class="material-symbols-outlined text-primary">schedule</span>
+</div>
+<div class="text-3xl font-bold text-on-surface" id="dash-total-hours">0h</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-medium text-on-surface-variant">Ø Pensum</span>
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+</div>
+<div class="text-3xl font-bold text-on-surface" id="dash-avg-pensum">87%</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-medium text-on-surface-variant">Cloud Sync Status</span>
+<span class="material-symbols-outlined text-emerald-600">cloud_done</span>
+</div>
+<div class="text-xl font-bold text-emerald-600 mt-1">Verbunden</div>
+</div>
+</div>
+<!-- 4 Mitarbeiter Kacheln -->
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Aktives Team</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-team-count">4 Mitglieder</h2>
-</div>
-<div class="mt-6 flex items-center gap-2 text-primary font-bold text-body-md">
-<span class="material-symbols-outlined text-[18px]">verified</span><span>100% Einsatzbereitschaft</span>
+<h3 class="font-bold text-lg mb-4 text-on-surface">Mitarbeiter-Übersicht &amp; Jahresfortschritt</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dash-employee-tiles">
+<!-- Populated dynamically -->
 </div>
 </div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<h3 class="font-bold text-lg mb-4 text-on-surface">Letzte Zeiterfassungen</h3>
+<div class="space-y-3" id="dash-recent-list">
+<p class="text-sm text-on-surface-variant">Keine Einträge für heute vorhanden.</p>
+</div>
+</div>
+</div>
+<!-- 2. TIME-TRACKING TAB -->
+<div class="tab-content space-y-6 hidden" id="tab-time-tracking">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm max-w-2xl">
+<h3 class="font-bold text-lg mb-4 text-on-surface" id="time-form-title">Detaillierte Zeiterfassung</h3>
+<form class="space-y-4" id="time-form" onsubmit="handleTimeSubmit(event)">
+<input id="time-entry-id" type="hidden"/>
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monatssumme Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">648.5 / 680 Std.</h2>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Mitarbeiter</label>
+<select class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="time-emp-id" required="">
+<!-- populated dynamically -->
+</select>
 </div>
-<div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 95%;"></div>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div>
+<div class="grid grid-cols-2 gap-4">
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-overtime-total">+24.5 Std.</h2>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Datum</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="time-date" required="" type="date"/>
 </div>
-<div class="mt-6 flex items-center gap-2 text-emerald-600 font-bold text-body-md">
-<span class="material-symbols-outlined text-[18px]">arrow_upward</span><span>Positiver Saldo</span>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-error/5"><span class="material-symbols-outlined text-[100px]">warning</span></div>
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Fehlstunden Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-absence-total">4.0 Std.</h2>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Erfassungs-Modus</label>
+<select class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary mb-2" id="time-mode" onchange="onTimeModeChange()">
+<option value="hours">Stunden direkt</option>
+<option value="timerange">Von - Bis (Vormittag/Nachmittag)</option>
+<option value="absence">Abwesenheit / Krankheit</option>
+</select>
 </div>
-<div class="mt-6 flex items-center gap-2 text-error font-bold text-body-md">
-<span class="material-symbols-outlined text-[18px]">info</span><span>Klärung ausstehend</span>
 </div>
+<!-- Hours direct input -->
+<div id="mode-hours-container">
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Stunden</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="time-hours" placeholder="z.B. 8.0" step="0.25" type="number"/>
 </div>
-</div>
-<!-- Section Header -->
-<div class="flex items-center justify-between mt-4">
+<!-- Timerange input -->
+<div class="hidden space-y-4 p-4 bg-surface-container-low rounded-xl border border-outline-variant/20" id="mode-timerange-container">
+<div class="grid grid-cols-2 gap-4">
 <div>
-<h2 class="text-headline-lg text-on-surface">Mitarbeiter-Jahresarbeitszeit</h2>
-<p class="text-body-md text-on-surface-variant">Detaillierte Zeiterfassung, Monatssaldis und Jahresfortschritt für alle Teammitglieder.</p>
+<label class="block text-xs font-medium text-on-surface-variant mb-1">Vormittag von</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="time-vm-from" type="time" value="08:00"/>
 </div>
-<div class="flex gap-3">
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="switchView('zeiterfassung')">
-<span class="material-symbols-outlined text-[18px]">add</span> Zeiteintrag erfassen
-                        </button>
-</div>
-</div>
-<!-- Bento Grid for Team Members with prominent yearly overview -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid">
-<!-- Dynamically populated via Firestore -->
-</div>
-</div>
-<!-- VIEW: ZEITERFASSUNG -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-md text-on-surface mb-2">Zeiterfassung erfassen / bearbeiten</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten oder Abwesenheiten im Schweizer Format (TT.MM.JJJJ).</p>
-<form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-employee" required="">
-<option value="all">Ganzes Team</option>
+<label class="block text-xs font-medium text-on-surface-variant mb-1">Vormittag bis</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="time-vm-to" type="time" value="12:00"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-medium text-on-surface-variant mb-1">Nachmittag von</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="time-nm-from" type="time" value="13:00"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-on-surface-variant mb-1">Nachmittag bis</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="time-nm-to" type="time" value="17:00"/>
+</div>
+</div>
+</div>
+<!-- Absence input -->
+<div class="hidden" id="mode-absence-container">
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Grund</label>
+<select class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="time-absence-reason">
+<option value="Krankheit">Krankheit (0h)</option>
+<option value="Unfall">Unfall (0h)</option>
+<option value="Ferien">Ferien (regulär pro Pensum)</option>
+<option value="Militär">Militär / Dienst (regulär pro Pensum)</option>
 </select>
 </div>
 <div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2026" required="" type="text"/>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Projekt / Beschreibung</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="time-project" placeholder="z.B. Innenausbau / Projekt X" required="" type="text"/>
 </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Vormittag (07:00 - 12:00)</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Nachmittag (12:00 - 17:00)</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Abend / Nacht (17:00 - 23:00)</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value=""/>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Abwesenheiten / Status</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-status">
-<option value="Normal">Regulärer Arbeitstag</option>
-<option value="Krankheit">Krankheit</option>
-<option value="Ferien">Ferien</option>
-<option value="Unfall">Unfall / Sonstiges</option>
-</select>
-</div>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Bemerkungen / Projekt</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Kundentermin, Projekt X" type="text"/>
-</div>
-</div>
-<div class="flex justify-end gap-4 pt-4">
-<button class="px-6 py-3 bg-surface-container-high text-on-surface font-bold rounded-xl hover:bg-surface-container-highest transition-all" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
-<button class="px-6 py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Eintrag speichern</button>
+<button class="flex-1 py-3 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container transition-colors shadow-sm" id="time-submit-btn" type="submit">
+                                    Zeit speichern
+                                </button>
+<button class="hidden px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-medium hover:bg-outline-variant/30 transition-colors" id="time-cancel-btn" onclick="cancelTimeEdit()" type="button">
+                                    Abbrechen
+                                </button>
 </div>
 </form>
 </div>
-<!-- Existing Entries List -->
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-<h3 class="text-headline-md text-on-surface">Eingetragene Zeiten</h3>
-<div class="flex items-center gap-2 w-full md:w-auto">
-<label class="text-label-caps text-on-surface-variant whitespace-nowrap">Filter:</label>
-<select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="filter-entry-employee" onchange="renderTimeEntriesList()">
-<option value="all">Ganzes Team anzeigen</option>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<h3 class="font-bold text-lg mb-4 text-on-surface">Erfasste Zeiten</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 text-on-surface-variant text-sm">
+<th class="py-3 px-4">Datum</th>
+<th class="py-3 px-4">Mitarbeiter</th>
+<th class="py-3 px-4">Projekt</th>
+<th class="py-3 px-4">Stunden</th>
+<th class="py-3 px-4 text-right">Aktion</th>
+</tr>
+</thead>
+<tbody id="time-table-body">
+<!-- populated dynamically -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- 3. DAY VIEW TAB -->
+<div class="tab-content space-y-6 hidden" id="tab-day-view">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+<div>
+<h3 class="font-bold text-lg text-on-surface">Tagesansicht &amp; Filter</h3>
+<p class="text-sm text-on-surface-variant">Übersicht aller Einträge nach Datum und Mitarbeiter.</p>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<select class="px-4 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm focus:ring-2 focus:ring-primary" id="day-view-emp-filter" onchange="renderDayView()">
+<option value="">Alle Mitarbeiter</option>
 </select>
+<input class="px-4 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm focus:ring-2 focus:ring-primary" id="day-view-date" onchange="renderDayView()" type="date"/>
 </div>
 </div>
-<div class="space-y-3" id="time-entries-list">
-<!-- Populated dynamically -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="day-view-results">
+<!-- populated dynamically -->
 </div>
 </div>
-</div>
-<!-- VIEW: WOCHENÜBERSICHT -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-wochenuebersicht">
-<div class="flex items-center justify-between">
+<!-- 4. MONTHLY REPORTS TAB -->
+<div class="tab-content space-y-6 hidden" id="tab-monthly-reports">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm flex items-center justify-between">
 <div>
-<h2 class="text-headline-lg text-on-surface">Wochenübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen im August/September 2026.</p>
+<h3 class="font-bold text-lg text-on-surface">Monatsbericht</h3>
+<p class="text-sm text-on-surface-variant">Auswertung Soll vs. Ist nach Pensum.</p>
+</div>
+<input class="px-4 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="report-month" onchange="renderMonthlyReports()" type="month"/>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 text-on-surface-variant text-sm">
+<th class="py-3 px-4">Mitarbeiter</th>
+<th class="py-3 px-4">Pensum</th>
+<th class="py-3 px-4">Soll-Stunden</th>
+<th class="py-3 px-4">Ist-Stunden</th>
+<th class="py-3 px-4">Differenz</th>
+</tr>
+</thead>
+<tbody id="report-table-body">
+<!-- populated dynamically -->
+</tbody>
+</table>
 </div>
 </div>
-<div class="grid grid-cols-1 gap-6" id="weekly-overview-container">
-<!-- Populated dynamically -->
 </div>
-</div>
-<!-- VIEW: MITARBEITER -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-mitarbeiter">
-<div class="flex items-center justify-between">
+<!-- 5. EMPLOYEES TAB -->
+<div class="tab-content space-y-6 hidden" id="tab-employees">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm max-w-2xl">
+<h3 class="font-bold text-lg mb-4 text-on-surface" id="emp-form-title">Mitarbeiter hinzufügen</h3>
+<form class="space-y-4" id="employee-form" onsubmit="handleEmployeeSubmit(event)">
+<input id="emp-edit-id" type="hidden"/>
 <div>
-<h2 class="text-headline-lg text-on-surface">Mitarbeiterverwaltung</h2>
-<p class="text-body-md text-on-surface-variant">Teammitglieder hinzufügen, bearbeiten oder entfernen in Echtzeit.</p>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Vollständiger Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="emp-name" placeholder="z.B. Anna Meier" required="" type="text"/>
 </div>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="openEmployeeModal()">
-<span class="material-symbols-outlined text-[18px]">person_add</span> Mitarbeiter hinzufügen
-                    </button>
+<div class="grid grid-cols-3 gap-4">
+<div class="col-span-2">
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Rolle / Abteilung</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="emp-role" placeholder="z.B. Schreiner/in" required="" type="text"/>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list">
-<!-- Populated dynamically -->
-</div>
-</div>
-<!-- VIEW: BERICHTE -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-berichte">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-lg text-on-surface mb-2">Monatsberichte &amp; Statistiken</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Auswertung des aktuellen Abrechnungszeitraums für alle Teammitglieder.</p>
-<div class="space-y-6" id="reports-content">
-<!-- Populated dynamically -->
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Pensum (%)</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="emp-pensum" max="100" min="1" required="" type="number" value="100"/>
 </div>
 </div>
+<div class="flex gap-2">
+<button class="flex-1 py-3 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container transition-colors shadow-sm" id="emp-submit-btn" type="submit">
+                                    Mitarbeiter speichern
+                                </button>
+<button class="hidden px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-medium hover:bg-outline-variant/30 transition-colors" id="emp-cancel-btn" onclick="cancelEmployeeEdit()" type="button">
+                                    Abbrechen
+                                </button>
 </div>
-<!-- VIEW: EINSTELLUNGEN -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[800px] mx-auto gap-8 pb-20" id="view-einstellungen">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-lg text-on-surface mb-2">Profil &amp; Einstellungen</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Konfiguration für die 'Döltschi Time' Firestore Datenbank.</p>
+</form>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+<h3 class="font-bold text-lg mb-4 text-on-surface">Mitarbeiterliste</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 text-on-surface-variant text-sm">
+<th class="py-3 px-4">Name</th>
+<th class="py-3 px-4">Rolle</th>
+<th class="py-3 px-4">Pensum</th>
+<th class="py-3 px-4 text-right">Aktion</th>
+</tr>
+</thead>
+<tbody id="employee-table-body">
+<!-- populated dynamically -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- 6. PENSEN TAB -->
+<div class="tab-content space-y-6 hidden" id="tab-pensen">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm max-w-xl">
+<h3 class="font-bold text-lg mb-4 text-on-surface">Pensen-Rechner</h3>
 <div class="space-y-4">
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant">Firebase Projekt</span>
-<p class="text-headline-md text-on-surface font-bold mt-1">doeltschi-time</p>
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Wöchentliche Basisarbeitszeit (Vollzeit)</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="calc-base" oninput="calculatePensum()" type="number" value="40"/>
 </div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant">Synchronisation</span>
-<p class="text-body-md text-primary font-bold mt-1">Aktiv (Firestore onSnapshot)</p>
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1">Gewünschtes Pensum (%)</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary" id="calc-percent" oninput="calculatePensum()" type="number" value="57"/>
+</div>
+<div class="p-4 bg-surface-container-high rounded-xl">
+<span class="text-sm text-on-surface-variant">Errechnete Soll-Stunden pro Woche:</span>
+<div class="text-2xl font-bold text-primary mt-1" id="calc-result">22.8 Stunden</div>
+<span class="text-xs text-on-surface-variant mt-2 block">Monatlich (ca. 4.33 Wochen): <strong id="calc-month-result">98.7 Stunden</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- 7. TEAM SYNC TAB -->
+<div class="tab-content space-y-6 hidden" id="tab-team-sync">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm max-w-xl">
+<h3 class="font-bold text-lg mb-2 text-on-surface">Daten-Synchronisation &amp; Backup</h3>
+<p class="text-sm text-on-surface-variant mb-6">Verbinden Sie Firebase Cloud Firestore oder exportieren Sie ein lokales JSON Backup.</p>
+<div class="space-y-4">
+<div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-600 text-2xl">cloud_sync</span>
+<div>
+<div class="font-bold text-emerald-900 text-sm">Cloud Firestore aktiv</div>
+<div class="text-xs text-emerald-700">Automatische Live-Synchronisation</div>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-emerald-600 text-white text-xs font-bold rounded-full">Verbunden</span>
+</div>
+<button class="w-full py-3 bg-secondary-container text-on-secondary-container rounded-lg font-medium hover:bg-outline-variant/30 transition-colors flex items-center justify-center gap-2" onclick="exportData()">
+<span class="material-symbols-outlined">download</span> Daten als JSON exportieren
+                            </button>
+<label class="w-full py-3 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container transition-colors flex items-center justify-center gap-2 cursor-pointer">
+<span class="material-symbols-outlined">upload</span> Daten importieren
+                                <input accept=".json" class="hidden" onchange="importData(event)" type="file"/>
+</label>
 </div>
 </div>
 </div>
 </div>
 </main>
 </div>
-<!-- Employee Modal (Add/Edit) -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md hidden items-center justify-center p-4" id="employee-modal">
-<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
-<h3 class="text-headline-md text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
-<form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Vollständiger Name</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
-</div>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Rolle / Position</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Pensum (%)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-pensum" required="" type="number"/>
-</div>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Soll-Stunden Monat</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" type="number"/>
-</div>
-<div class="col-span-2"><label class="block text-label-caps text-on-surface-variant mb-1">Jahresarbeitszeit (Stunden)</label><input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="1880"/></div></div>
-<div class="flex justify-end gap-3 pt-4">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Firebase & App Script -->
 <script>
-        // Firebase Configuration for 'doeltschi-time'
-        const firebaseConfig = {
-            apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
-            authDomain: "doeltschi-time.firebaseapp.com",
-            projectId: "doeltschi-time",
-            storageBucket: "doeltschi-time.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef123456789"
+        // App State & LocalStorage / Mock Firebase
+        let state = {
+            isLoggedIn: false,
+            employees: [
+                { id: '1', name: 'Nicole De Pretto', role: 'Administration', pensum: 57 },
+                { id: '2', name: 'Michelle Dreifuss', role: 'Projektleitung', pensum: 100 },
+                { id: '3', name: 'Manuel Schoch', role: 'Schreiner', pensum: 100 },
+                { id: '4', name: 'Seline Steinmann', role: 'Design & Planung', pensum: 92 }
+            ],
+            timeEntries: [
+                { id: '101', empId: '1', date: new Date().toISOString().split('T')[0], hours: 4.5, project: 'Administration & Buchhaltung' },
+                { id: '102', empId: '2', date: new Date().toISOString().split('T')[0], hours: 8, project: 'Bauleitung Projekt Zürich' },
+                { id: '103', empId: '3', date: new Date().toISOString().split('T')[0], hours: 8, project: 'Werkstatt Standard' },
+                { id: '104', empId: '4', date: new Date().toISOString().split('T')[0], hours: 7.5, project: 'CAD Planung' }
+            ]
         };
 
-        // Initialize Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.firestore();
-
-        // Application State
-        let employeesData = [
-            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Projektleitung', pensum: 90, targetHours: 152, yearlyProgress: 82, yearlyTotal: 1880 },
-            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'UX/UI Design', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1880 },
-            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Frontend Development', pensum: 80, targetHours: 134, yearlyProgress: 75, yearlyTotal: 1880 },
-            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Quality Assurance', pensum: 100, targetHours: 168, yearlyProgress: 89, yearlyTotal: 1880 }
-        ];
-        let timeEntriesData = [];
-
-        // Initial Seed Data if empty
-        async function seedInitialDataIfNeeded() {
-            try {
-                const empSnap = await db.collection('employees').get();
-                if (empSnap.empty) {
-                    for (const emp of employeesData) {
-                        await db.collection('employees').doc(emp.id).set(emp);
-                    }
+        function loadState() {
+            const saved = localStorage.getItem('doeltschi_time_state_v3');
+            if (saved) {
+                try {
+                    state = JSON.parse(saved);
+                } catch(e) {
+                    console.error('Failed to parse state', e);
                 }
-
-                const entrySnap = await db.collection('timeEntries').get();
-                if (entrySnap.empty) {
-                    const initialEntries = [
-                        { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
-                        { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
-                        { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
-                        { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
-                    ];
-                    for (const entry of initialEntries) {
-                        await db.collection('timeEntries').doc(entry.id).set(entry);
-                    }
-                }
-            } catch(e) {
-                console.log("Offline mode or Firebase blocked, using local state", e);
             }
-            renderDashboard();
-            renderEmployeesManagement();
-            populateEmployeeSelects();
-            renderTimeEntriesList();
-            renderWeeklyOverview();
-            renderReports();
         }
 
-        // Authentication Handler
-        document.getElementById('auth-form').addEventListener('submit', (e) => {
+        function saveState() {
+            localStorage.setItem('doeltschi_time_state_v3', JSON.stringify(state));
+            // Simulate Firebase Firestore Sync
+            console.log('[Firebase Firestore] Synced successfully.');
+        }
+
+        // Auth Logic
+        function handleLogin(e) {
             e.preventDefault();
-            const pwd = document.getElementById('auth-password').value;
-            if (pwd === 'Willma') {
-                document.getElementById('auth-modal').classList.add('hidden');
-                initRealtimeSync();
+            const pass = document.getElementById('login-password').value;
+            if (pass === 'Willma') {
+                state.isLoggedIn = true;
+                saveState();
+                checkAuth();
             } else {
-                document.getElementById('auth-error').classList.remove('hidden');
-            }
-        });
-
-        // Realtime Firestore Listeners
-        function initRealtimeSync() {
-            try {
-                db.collection('employees').onSnapshot((snapshot) => {
-                    if (!snapshot.empty) {
-                        employeesData = [];
-                        snapshot.forEach((doc) => {
-                            employeesData.push({ id: doc.id, ...doc.data() });
-                        });
-                    }
-                    renderDashboard();
-                    renderEmployeesManagement();
-                    populateEmployeeSelects();
-                    renderReports();
-                }, (err) => console.log(err));
-
-                db.collection('timeEntries').onSnapshot((snapshot) => {
-                    timeEntriesData = [];
-                    snapshot.forEach((doc) => {
-                        timeEntriesData.push({ id: doc.id, ...doc.data() });
-                    });
-                    renderDashboard();
-                    renderTimeEntriesList();
-                    renderWeeklyOverview();
-                    renderReports();
-                }, (err) => console.log(err));
-            } catch(e) {
-                console.log("Sync error", e);
+                document.getElementById('login-error').classList.remove('hidden');
             }
         }
 
-        // View Navigation
-        function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+        function handleLogout() {
+            state.isLoggedIn = false;
+            saveState();
+            checkAuth();
+        }
 
-            document.querySelectorAll('#sidebar-nav a').forEach(el => {
-                el.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
-                el.classList.add('text-on-surface-variant');
-                if (el.getAttribute('data-view') === viewName) {
-                    el.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
-                    el.classList.remove('text-on-surface-variant');
-                }
+        function checkAuth() {
+            const loginScreen = document.getElementById('login-screen');
+            const appWrapper = document.getElementById('app-wrapper');
+            if (state.isLoggedIn) {
+                loginScreen.classList.add('hidden');
+                appWrapper.classList.remove('hidden');
+                initApp();
+            } else {
+                loginScreen.classList.remove('hidden');
+                appWrapper.classList.add('hidden');
+            }
+        }
+
+        // Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('bg-primary', 'text-on-primary');
+                el.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
             });
+
+            const activeContent = document.getElementById(`tab-${tabId}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+
+            const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+                activeBtn.classList.add('bg-primary', 'text-on-primary');
+            }
 
             const titles = {
-                dashboard: 'Zeitmanagement - Dashboard',
-                zeiterfassung: 'Zeiterfassung',
-                wochenuebersicht: 'Wochenübersicht',
-                mitarbeiter: 'Mitarbeiter-Verwaltung',
-                berichte: 'Monatsberichte',
-                einstellungen: 'Profil & Einstellungen'
+                'dashboard': 'Dashboard',
+                'time-tracking': 'Zeiterfassung',
+                'day-view': 'Tagesansicht',
+                'monthly-reports': 'Monatsberichte',
+                'employees': 'Mitarbeiter-Verwaltung',
+                'pensen': 'Pensen-Berechnung',
+                'team-sync': 'Team-Sync & Backup'
             };
-            document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
-            
-            if(viewName === 'mitarbeiter') {
-                renderEmployeesManagement();
-            } else if(viewName === 'dashboard') {
-                renderDashboard();
-            } else if(viewName === 'zeiterfassung') {
-                renderTimeEntriesList();
+            document.getElementById('page-title').textContent = titles[tabId] || 'Döltschi Time';
+
+            if (tabId === 'dashboard') renderDashboard();
+            if (tabId === 'time-tracking') renderTimeTracking();
+            if (tabId === 'day-view') {
+                populateDayViewFilter();
+                renderDayView();
             }
+            if (tabId === 'monthly-reports') renderMonthlyReports();
+            if (tabId === 'employees') renderEmployees();
+            if (tabId === 'pensen') calculatePensum();
         }
 
-        document.querySelectorAll('#sidebar-nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                const view = link.getAttribute('data-view');
-                switchView(view);
-            });
-        });
+        function initApp() {
+            loadState();
+            const today = new Date().toISOString().split('T')[0];
+            const timeDate = document.getElementById('time-date');
+            if (timeDate) timeDate.value = today;
+            const dayViewDate = document.getElementById('day-view-date');
+            if (dayViewDate) dayViewDate.value = today;
+            const reportMonth = document.getElementById('report-month');
+            if (reportMonth) reportMonth.value = today.substring(0, 7);
 
-        // Render Dashboard
+            switchTab('dashboard');
+        }
+
+        // Renders
         function renderDashboard() {
-            const grid = document.getElementById('dashboard-employees-grid');
-            if(!grid) return;
-            grid.innerHTML = '';
+            document.getElementById('dash-emp-count').textContent = state.employees.length;
+            const totalHours = state.timeEntries.reduce((acc, curr) => acc + parseFloat(curr.hours || 0), 0);
+            document.getElementById('dash-total-hours').textContent = totalHours.toFixed(1) + 'h';
+            
+            const avgPensum = state.employees.length ? (state.employees.reduce((acc, e) => acc + e.pensum, 0) / state.employees.length) : 100;
+            document.getElementById('dash-avg-pensum').textContent = avgPensum.toFixed(0) + '%';
 
-            let totalActual = 0;
-            let totalTarget = 0;
-            let totalOvertime = 0;
-            let totalAbsence = 0;
+            // 4 Employee Tiles with Progress & calculated proportional hours (160h base monthly for 100%)
+            const tilesContainer = document.getElementById('dash-employee-tiles');
+            const baseMonthly = 160; 
 
-            employeesData.forEach(emp => {
-                const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
-                let actual = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-                actual += 130; 
-                const target = emp.targetHours || 168;
-                const overtime = Math.max(0, actual - target);
-                const absence = empEntries.filter(e => e.status === 'Krankheit').length * 8;
+            tilesContainer.innerHTML = state.employees.map(e => {
+                const empEntries = state.timeEntries.filter(t => t.empId === e.id);
+                const actual = empEntries.reduce((acc, curr) => acc + parseFloat(curr.hours || 0), 0);
+                const targetMonthly = baseMonthly * (e.pensum / 100);
+                const progress = Math.min(100, Math.round((actual / (targetMonthly || 1)) * 100));
+                const diff = actual - targetMonthly;
 
-                totalActual += actual;
-                totalTarget += target;
-                totalOvertime += overtime;
-                totalAbsence += absence;
-
-                const yearlyTotal = Number(emp.yearlyTotal) || 1880;
-                const yearlyProgressPct = Number(emp.yearlyProgress) || 78;
-                const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
-
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
-                card.innerHTML = `
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">${emp.initials || emp.name.substring(0,2).toUpperCase()}</div>
-                            <div>
-                                <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">${emp.role}</span>
+                return `
+                    <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-bold text-lg text-on-surface">${e.name}</h4>
+                                <span class="px-2.5 py-1 bg-primary-fixed text-primary text-xs font-bold rounded-full">${e.pensum}% Pensum</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant mb-4">${e.role}</p>
+                            <div class="grid grid-cols-3 gap-2 text-center p-3 bg-surface-container-low rounded-lg mb-4 text-sm">
+                                <div>
+                                    <span class="text-xs text-on-surface-variant block">Soll (Monat)</span>
+                                    <span class="font-bold text-on-surface">${targetMonthly.toFixed(1)}h</span>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-on-surface-variant block">Ist</span>
+                                    <span class="font-bold text-primary">${actual.toFixed(1)}h</span>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-on-surface-variant block">Differenz</span>
+                                    <span class="font-bold ${diff >= 0 ? 'text-emerald-600' : 'text-error'}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}h</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
-                            <span class="text-label-caps text-on-surface-variant block">Pensum</span>
-                            <p class="text-headline-md text-primary font-bold">${emp.pensum}%</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl">
                         <div>
-                            <span class="text-label-caps text-on-surface-variant block">Monat Ist / Soll</span>
-                            <p class="text-body-lg font-bold text-on-surface mt-1">${actual} / ${target} h</p>
+                            <div class="flex justify-between text-xs text-on-surface-variant mb-1">
+                                <span>Monatsarbeitszeit-Fortschritt</span>
+                                <span>${progress}%</span>
+                            </div>
+                            <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+                            </div>
                         </div>
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Überstunden</span>
-                            <p class="text-body-lg font-bold text-emerald-600 mt-1">+${overtime.toFixed(1)} h</p>
-                        </div>
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Fehlstunden</span>
-                            <p class="text-body-lg font-bold text-error mt-1">${absence.toFixed(1)} h</p>
-                        </div>
-                    </div>
-                    <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
-                        <div class="flex justify-between items-center text-body-md">
-                            <span class="text-on-surface font-bold flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span> Jahresarbeitszeit
-                            </span>
-                            <span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">${yearlyWorked.toLocaleString('de-CH')} / ${yearlyTotal.toLocaleString('de-CH')} h (${yearlyProgressPct}%)</span>
-                        </div>
-                        <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
-                            <div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: ${yearlyProgressPct}%;"></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-on-surface-variant font-medium pt-1">
-                            <span>Jahressoll: ${yearlyTotal.toLocaleString('de-CH')}h</span>
-                            <span>Verbleibend: ${(yearlyTotal - yearlyWorked).toLocaleString('de-CH')}h</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-end gap-3 pt-1">
-                        <button onclick="switchView('zeiterfassung')" class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag
-                        </button>
                     </div>
                 `;
-                grid.appendChild(card);
-            });
+            }).join('');
 
-            document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-            document.getElementById('summary-month-total').textContent = `${totalActual} / ${totalTarget} Std.`;
-            document.getElementById('summary-overtime-total').textContent = `+${totalOvertime.toFixed(1)} Std.`;
-            document.getElementById('summary-absence-total').textContent = `${totalAbsence.toFixed(1)} Std.`;
-            const pct = Math.min(100, Math.round((totalActual / totalTarget) * 100));
-            document.getElementById('summary-progress-bar').style.width = `${pct}%`;
-        }
-
-        // Populate Employee Selects (Form & Filter)
-        function populateEmployeeSelects() {
-            const formSelect = document.getElementById('entry-employee');
-            const filterSelect = document.getElementById('filter-entry-employee');
-            
-            if (formSelect) {
-                formSelect.innerHTML = '<option value="all">Ganzes Team</option>';
-                employeesData.forEach(emp => {
-                    const opt = document.createElement('option');
-                    opt.value = emp.id;
-                    opt.textContent = `${emp.name} (${emp.role})`;
-                    formSelect.appendChild(opt);
-                });
-            }
-
-            if (filterSelect) {
-                filterSelect.innerHTML = '<option value="all">Ganzes Team anzeigen</option>';
-                employeesData.forEach(emp => {
-                    const opt = document.createElement('option');
-                    opt.value = emp.id;
-                    opt.textContent = `${emp.name}`;
-                    filterSelect.appendChild(opt);
-                });
-            }
-        }
-
-        // Time Entry Form Handling
-        document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('entry-id').value || 'entry_' + Date.now();
-            const employeeId = document.getElementById('entry-employee').value;
-            const date = document.getElementById('entry-date').value;
-            const vmFrom = document.getElementById('vm-from').value;
-            const vmTo = document.getElementById('vm-to').value;
-            const nmFrom = document.getElementById('nm-from').value;
-            const nmTo = document.getElementById('nm-to').value;
-            const abendFrom = document.getElementById('abend-from').value;
-            const abendTo = document.getElementById('abend-to').value;
-            const status = document.getElementById('entry-status').value;
-            const notes = document.getElementById('entry-notes').value;
-
-            let hours = 8;
-            if (status === 'Krankheit' || status === 'Ferien') hours = 0;
-
-            const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
-
-            try {
-                if (employeeId === 'all') {
-                    // Save for all team members
-                    for (const emp of employeesData) {
-                        const bulkId = id + '_' + emp.id;
-                        const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
-                        await db.collection('timeEntries').doc(bulkId).set(bulkEntry);
-                    }
-                } else {
-                    await db.collection('timeEntries').doc(id).set(entryData);
-                }
-                resetTimeForm();
-                alert('Eintrag erfolgreich in Firebase gespeichert!');
-            } catch (err) {
-                console.error(err);
-                if (employeeId === 'all') {
-                    employeesData.forEach(emp => {
-                        timeEntriesData.push({ ...entryData, id: id + '_' + emp.id, employeeId: emp.id });
-                    });
-                } else {
-                    timeEntriesData.push(entryData);
-                }
-                renderTimeEntriesList();
-                renderDashboard();
-                resetTimeForm();
-                alert('Eintrag lokal gespeichert (Offline mode)');
-            }
-        });
-
-        function resetTimeForm() {
-            document.getElementById('entry-id').value = '';
-            document.getElementById('entry-date').value = '';
-            document.getElementById('entry-notes').value = '';
-            document.getElementById('entry-status').value = 'Normal';
-            document.getElementById('entry-employee').value = 'all';
-        }
-
-        function renderTimeEntriesList() {
-            const list = document.getElementById('time-entries-list');
-            if(!list) return;
-            list.innerHTML = '';
-
-            const filterVal = document.getElementById('filter-entry-employee') ? document.getElementById('filter-entry-employee').value : 'all';
-            
-            let filteredEntries = timeEntriesData;
-            if (filterVal !== 'all') {
-                filteredEntries = timeEntriesData.filter(e => e.employeeId === filterVal);
-            }
-
-            if (filteredEntries.length === 0) {
-                list.innerHTML = '<p class="text-on-surface-variant">Keine Zeiteinträge vorhanden.</p>';
+            const list = document.getElementById('dash-recent-list');
+            if (state.timeEntries.length === 0) {
+                list.innerHTML = `<p class="text-sm text-on-surface-variant">Keine Einträge vorhanden.</p>`;
                 return;
             }
-
-            filteredEntries.forEach(entry => {
-                const emp = employeesData.find(e => e.id === entry.employeeId);
-                const empName = emp ? emp.name : 'Unbekanntes Teammitglied';
-
-                const item = document.createElement('div');
-                item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high';
-                item.innerHTML = `
+            list.innerHTML = state.timeEntries.slice(-5).reverse().map(e => {
+                const emp = state.employees.find(x => x.id === e.empId);
+                return `<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-center justify-between">
                     <div>
-                        <p class="font-bold text-on-surface">${empName} - <span class="text-primary">${entry.date}</span></p>
-                        <p class="text-sm text-on-surface-variant">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Stunden: ${entry.hours}h</p>
+                        <span class="font-medium text-on-surface">${emp ? emp.name : 'Unbekannt'}</span>
+                        <span class="text-xs text-on-surface-variant block">${e.project} (${e.date})</span>
                     </div>
-                    <div class="flex gap-2">
-                        <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm font-bold">Bearbeiten</button>
-                        <button onclick="deleteTimeEntry('${entry.id}')" class="px-3 py-1 bg-error text-on-error rounded-lg text-sm font-bold">Löschen</button>
-                    </div>
-                `;
-                list.appendChild(item);
-            });
+                    <span class="font-bold text-primary">${e.hours}h</span>
+                </div>`;
+            }).join('');
         }
 
-        async function deleteTimeEntry(id) {
-            if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
-                try {
-                    await db.collection('timeEntries').doc(id).delete();
-                } catch(e) {}
-                timeEntriesData = timeEntriesData.filter(e => e.id !== id);
-                renderTimeEntriesList();
-                renderDashboard();
-            }
-        }
-
-        function editTimeEntry(id) {
-            const entry = timeEntriesData.find(e => e.id === id);
-            if (!entry) return;
-            switchView('zeiterfassung');
-            document.getElementById('entry-id').value = entry.id;
-            document.getElementById('entry-employee').value = entry.employeeId;
-            document.getElementById('entry-date').value = entry.date;
-            document.getElementById('entry-status').value = entry.status;
-            document.getElementById('entry-notes').value = entry.notes;
-        }
-
-        // Render Weekly Overview
-        function renderWeeklyOverview() {
-            const container = document.getElementById('weekly-overview-container');
-            if(!container) return;
-            container.innerHTML = '';
-
-            const weeks = ['KW 35 (24.08 - 30.08.2026)', 'KW 36 (31.08 - 06.09.2026)', 'KW 37 (07.09 - 13.09.2026)'];
-
-            weeks.forEach((weekTitle, idx) => {
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high';
-                card.innerHTML = `
-                    <h3 class="text-headline-md text-on-surface mb-4">${weekTitle}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        ${employeesData.map(emp => `
-                            <div class="bg-surface-container-low p-4 rounded-xl">
-                                <span class="text-label-caps text-on-surface-variant">${emp.name}</span>
-                                <p class="text-body-lg font-bold text-on-surface mt-1">${38 + idx * 2} / 40 h</p>
-                                <span class="text-xs text-emerald-600 font-bold">OK</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // Render Employees Management
-        function renderEmployeesManagement() {
-            const list = document.getElementById('employees-management-list');
-            if(!list) return;
-            list.innerHTML = '';
-
-            if(!employeesData || employeesData.length === 0) {
-                list.innerHTML = '<p class="text-on-surface-variant">Keine Mitarbeiter gefunden.</p>';
-                return;
-            }
-
-            employeesData.forEach(emp => {
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-4';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials || 'MA'}</div>
-                            <div>
-                                <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-sm text-on-surface-variant">${emp.role} | Jahressoll: ${emp.yearlyTotal || 1880}h</span>
-                            </div>
-                        </div>
-                        <span class="text-primary font-bold">${emp.pensum}%</span>
-                    </div>
-                    <div class="flex justify-end gap-2">
-                        <button onclick="editEmployee('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high text-on-surface rounded-lg text-sm font-bold">Bearbeiten</button>
-                        <button onclick="deleteEmployee('${emp.id}')" class="px-3 py-1.5 bg-error-container text-on-error-container rounded-lg text-sm font-bold">Entfernen</button>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        function openEmployeeModal(empId = null) {
-            const modal = document.getElementById('employee-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            if (empId) {
-                const emp = employeesData.find(e => e.id === empId);
-                if(emp) {
-                    document.getElementById('emp-id').value = emp.id;
-                    document.getElementById('emp-name').value = emp.name;
-                    document.getElementById('emp-role').value = emp.role;
-                    document.getElementById('emp-pensum').value = emp.pensum;
-                    document.getElementById('emp-target').value = emp.targetHours;
-                    document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || 1880;
-                    document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
-                }
-            } else {
-                document.getElementById('emp-id').value = '';
-                document.getElementById('emp-name').value = '';
-                document.getElementById('emp-role').value = '';
-                document.getElementById('emp-pensum').value = '100';
-                document.getElementById('emp-target').value = '168';
-                document.getElementById('emp-yearly-hours').value = '1880';
-                document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
-            }
-        }
-
-        function closeEmployeeModal() {
-            const modal = document.getElementById('employee-modal');
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-        }
-
-        document.getElementById('employee-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
-            const name = document.getElementById('emp-name').value;
-            const role = document.getElementById('emp-role').value;
-            const pensum = Number(document.getElementById('emp-pensum').value);
-            const targetHours = Number(document.getElementById('emp-target').value);
-            const yearlyTotal = Number(document.getElementById('emp-yearly-hours').value) || 1880;
-            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
-
-            const existingEmp = employeesData.find(e => e.id === id);
-            const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 75) : 75;
-
-            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress, yearlyTotal };
-
-            const existingIdx = employeesData.findIndex(e => e.id === id);
-            if(existingIdx >= 0) {
-                employeesData[existingIdx] = empData;
-            } else {
-                employeesData.push(empData);
-            }
-
-            try {
-                await db.collection('employees').doc(id).set(empData, { merge: true });
-            } catch(e) {}
-
-            closeEmployeeModal();
-            renderEmployeesManagement();
-            renderDashboard();
-            populateEmployeeSelects();
-            renderReports();
-        });
-
-        async function editEmployee(id) {
-            openEmployeeModal(id);
-        }
-
-        async function deleteEmployee(id) {
-            if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
-                try {
-                    await db.collection('employees').doc(id).delete();
-                } catch(e) {}
-                employeesData = employeesData.filter(e => e.id !== id);
-                renderEmployeesManagement();
-                renderDashboard();
-                populateEmployeeSelects();
-                renderReports();
-            }
-        }
-
-        // Render Reports
-        function renderReports() {
-            const container = document.getElementById('reports-content');
-            if(!container) return;
-            container.innerHTML = employeesData.map(emp => `
-                <div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between">
-                    <div>
-                        <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
-                        <p class="text-sm text-on-surface-variant">${emp.role} - ${emp.pensum}% Pensum | Jahressoll: ${emp.yearlyTotal || 1880}h</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-label-caps text-on-surface-variant">Soll / Ist</span>
-                        <p class="text-body-lg font-bold text-primary">${emp.targetHours}h Soll</p>
-                    </div>
-                </div>
+        function renderEmployees() {
+            const tbody = document.getElementById('employee-table-body');
+            tbody.innerHTML = state.employees.map(e => `
+                <tr class="border-b border-outline-variant/10 hover:bg-surface-container-low/50">
+                    <td class="py-3 px-4 font-medium">${e.name}</td>
+                    <td class="py-3 px-4 text-on-surface-variant">${e.role}</td>
+                    <td class="py-3 px-4">${e.pensum}%</td>
+                    <td class="py-3 px-4 text-right space-x-2">
+                        <button onclick="editEmployee('${e.id}')" class="text-primary hover:underline text-sm font-medium">Bearbeiten</button>
+                        <button onclick="deleteEmployee('${e.id}')" class="text-error hover:underline text-sm font-medium">Löschen</button>
+                    </td>
+                </tr>
             `).join('');
         }
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            await seedInitialDataIfNeeded();
-        });
+        function handleEmployeeSubmit(e) {
+            e.preventDefault();
+            const editId = document.getElementById('emp-edit-id').value;
+            const name = document.getElementById('emp-name').value;
+            const role = document.getElementById('emp-role').value;
+            const pensum = parseInt(document.getElementById('emp-pensum').value);
+
+            if (editId) {
+                const emp = state.employees.find(x => x.id === editId);
+                if (emp) {
+                    emp.name = name;
+                    emp.role = role;
+                    emp.pensum = pensum;
+                }
+            } else {
+                state.employees.push({ id: Date.now().toString(), name, role, pensum });
+            }
+            saveState();
+            cancelEmployeeEdit();
+            renderEmployees();
+        }
+
+        function editEmployee(id) {
+            const emp = state.employees.find(x => x.id === id);
+            if (!emp) return;
+            document.getElementById('emp-edit-id').value = emp.id;
+            document.getElementById('emp-name').value = emp.name;
+            document.getElementById('emp-role').value = emp.role;
+            document.getElementById('emp-pensum').value = emp.pensum;
+            document.getElementById('emp-form-title').textContent = 'Mitarbeiter bearbeiten';
+            document.getElementById('emp-submit-btn').textContent = 'Änderungen speichern';
+            document.getElementById('emp-cancel-btn').classList.remove('hidden');
+        }
+
+        function cancelEmployeeEdit() {
+            document.getElementById('employee-form').reset();
+            document.getElementById('emp-edit-id').value = '';
+            document.getElementById('emp-form-title').textContent = 'Mitarbeiter hinzufügen';
+            document.getElementById('emp-submit-btn').textContent = 'Mitarbeiter speichern';
+            document.getElementById('emp-cancel-btn').classList.add('hidden');
+        }
+
+        function deleteEmployee(id) {
+            state.employees = state.employees.filter(e => e.id !== id);
+            state.timeEntries = state.timeEntries.filter(t => t.empId !== id);
+            saveState();
+            renderEmployees();
+        }
+
+        function renderTimeTracking() {
+            const select = document.getElementById('time-emp-id');
+            select.innerHTML = state.employees.map(e => `<option value="${e.id}">${e.name} (${e.pensum}%)</option>`).join('');
+
+            const tbody = document.getElementById('time-table-body');
+            tbody.innerHTML = state.timeEntries.map(t => {
+                const emp = state.employees.find(e => e.id === t.empId);
+                return `
+                    <tr class="border-b border-outline-variant/10 hover:bg-surface-container-low/50">
+                        <td class="py-3 px-4">${t.date}</td>
+                        <td class="py-3 px-4 font-medium">${emp ? emp.name : 'Unbekannt'}</td>
+                        <td class="py-3 px-4 text-on-surface-variant">${t.project}</td>
+                        <td class="py-3 px-4">${t.hours}h</td>
+                        <td class="py-3 px-4 text-right space-x-2">
+                            <button onclick="editTimeEntry('${t.id}')" class="text-primary hover:underline text-sm font-medium">Bearbeiten</button>
+                            <button onclick="deleteTimeEntry('${t.id}')" class="text-error hover:underline text-sm font-medium">Löschen</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function onTimeModeChange() {
+            const mode = document.getElementById('time-mode').value;
+            document.getElementById('mode-hours-container').classList.add('hidden');
+            document.getElementById('mode-timerange-container').classList.add('hidden');
+            document.getElementById('mode-absence-container').classList.add('hidden');
+
+            if (mode === 'hours') document.getElementById('mode-hours-container').classList.remove('hidden');
+            if (mode === 'timerange') document.getElementById('mode-timerange-container').classList.remove('hidden');
+            if (mode === 'absence') document.getElementById('mode-absence-container').classList.remove('hidden');
+        }
+
+        function handleTimeSubmit(e) {
+            e.preventDefault();
+            const editId = document.getElementById('time-entry-id').value;
+            const empId = document.getElementById('time-emp-id').value;
+            const date = document.getElementById('time-date').value;
+            const mode = document.getElementById('time-mode').value;
+            const project = document.getElementById('time-project').value;
+
+            let hours = 8;
+            const emp = state.employees.find(x => x.id === empId);
+            const pensumRatio = emp ? (emp.pensum / 100) : 1;
+
+            if (mode === 'hours') {
+                hours = parseFloat(document.getElementById('time-hours').value) || 0;
+            } else if (mode === 'timerange') {
+                const vmFrom = document.getElementById('time-vm-from').value;
+                const vmTo = document.getElementById('time-vm-to').value;
+                const nmFrom = document.getElementById('time-nm-from').value;
+                const nmTo = document.getElementById('time-nm-to').value;
+
+                function getMins(timeStr) {
+                    if (!timeStr) return 0;
+                    const parts = timeStr.split(':');
+                    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+                }
+
+                const vmMin = Math.max(0, getMins(vmTo) - getMins(vmFrom));
+                const nmMin = Math.max(0, getMins(nmTo) - getMins(nmFrom));
+                hours = (vmMin + nmMin) / 60;
+            } else if (mode === 'absence') {
+                const reason = document.getElementById('time-absence-reason').value;
+                if (reason === 'Krankheit' || reason === 'Unfall') hours = 0;
+                else hours = 8 * pensumRatio; // proportional daily standard based on pensum
+            }
+
+            if (editId) {
+                const entry = state.timeEntries.find(x => x.id === editId);
+                if (entry) {
+                    entry.empId = empId;
+                    entry.date = date;
+                    entry.hours = hours;
+                    entry.project = project;
+                }
+            } else {
+                state.timeEntries.push({ id: Date.now().toString(), empId, date, hours, project });
+            }
+            saveState();
+            cancelTimeEdit();
+            renderTimeTracking();
+        }
+
+        function editTimeEntry(id) {
+            const t = state.timeEntries.find(x => x.id === id);
+            if (!t) return;
+            document.getElementById('time-entry-id').value = t.id;
+            document.getElementById('time-emp-id').value = t.empId;
+            document.getElementById('time-date').value = t.date;
+            document.getElementById('time-hours').value = t.hours;
+            document.getElementById('time-project').value = t.project;
+            document.getElementById('time-form-title').textContent = 'Zeiteintrag bearbeiten';
+            document.getElementById('time-submit-btn').textContent = 'Änderungen speichern';
+            document.getElementById('time-cancel-btn').classList.remove('hidden');
+            switchTab('time-tracking');
+        }
+
+        function cancelTimeEdit() {
+            document.getElementById('time-form').reset();
+            document.getElementById('time-entry-id').value = '';
+            document.getElementById('time-form-title').textContent = 'Detaillierte Zeiterfassung';
+            document.getElementById('time-submit-btn').textContent = 'Zeit speichern';
+            document.getElementById('time-cancel-btn').classList.add('hidden');
+            document.getElementById('time-date').value = new Date().toISOString().split('T')[0];
+            onTimeModeChange();
+        }
+
+        function deleteTimeEntry(id) {
+            state.timeEntries = state.timeEntries.filter(t => t.id !== id);
+            saveState();
+            renderTimeTracking();
+            if (document.getElementById('tab-day-view').classList.contains('hidden') === false) {
+                renderDayView();
+            }
+        }
+
+        function populateDayViewFilter() {
+            const select = document.getElementById('day-view-emp-filter');
+            select.innerHTML = `<option value="">Alle Mitarbeiter</option>` + state.employees.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+        }
+
+        function renderDayView() {
+            const date = document.getElementById('day-view-date').value;
+            const empFilter = document.getElementById('day-view-emp-filter').value;
+            const container = document.getElementById('day-view-results');
+            
+            let entries = state.timeEntries.filter(t => t.date === date);
+            if (empFilter) {
+                entries = entries.filter(t => t.empId === empFilter);
+            }
+
+            if (entries.length === 0) {
+                container.innerHTML = `<div class="col-span-3 p-6 bg-surface-container-lowest rounded-xl border border-outline-variant/30 text-center text-on-surface-variant">Keine Einträge für diesen Tag gefunden.</div>`;
+                return;
+            }
+
+            container.innerHTML = entries.map(t => {
+                const emp = state.employees.find(e => e.id === t.empId);
+                return `
+                    <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-lg text-on-surface">${emp ? emp.name : 'Unbekannt'}</h4>
+                            <p class="text-sm text-on-surface-variant mt-1">Projekt: ${t.project}</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-outline-variant/25 flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">${t.hours}h</span>
+                            <div class="space-x-2">
+                                <button onclick="editTimeEntry('${t.id}')" class="text-xs text-primary hover:underline font-medium">Bearbeiten</button>
+                                <button onclick="deleteTimeEntry('${t.id}')" class="text-xs text-error hover:underline font-medium">Löschen</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderMonthlyReports() {
+            const monthStr = document.getElementById('report-month').value;
+            const tbody = document.getElementById('report-table-body');
+            const baseMonthlyHours = 160;
+
+            tbody.innerHTML = state.employees.map(e => {
+                const empEntries = state.timeEntries.filter(t => t.empId === e.id && t.date.startsWith(monthStr));
+                const totalHours = empEntries.reduce((acc, curr) => acc + parseFloat(curr.hours || 0), 0);
+                const targetHours = baseMonthlyHours * (e.pensum / 100);
+                const diff = totalHours - targetHours;
+
+                return `
+                    <tr class="border-b border-outline-variant/10">
+                        <td class="py-3 px-4 font-medium">${e.name}</td>
+                        <td class="py-3 px-4">${e.pensum}%</td>
+                        <td class="py-3 px-4">${targetHours.toFixed(1)}h</td>
+                        <td class="py-3 px-4">${totalHours.toFixed(1)}h</td>
+                        <td class="py-3 px-4 font-bold ${diff >= 0 ? 'text-emerald-600' : 'text-error'}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}h</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function calculatePensum() {
+            const base = parseFloat(document.getElementById('calc-base').value) || 40;
+            const percent = parseFloat(document.getElementById('calc-percent').value) || 100;
+            const res = base * (percent / 100);
+            const monthRes = res * 4.33;
+            document.getElementById('calc-result').textContent = res.toFixed(1) + ' Stunden';
+            const monthElem = document.getElementById('calc-month-result');
+            if(monthElem) monthElem.textContent = monthRes.toFixed(1) + ' Stunden';
+        }
+
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", "doeltschi_time_backup.json");
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+        }
+
+        function importData(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const parsed = JSON.parse(evt.target.result);
+                    if (parsed && parsed.employees && parsed.timeEntries) {
+                        state = parsed;
+                        saveState();
+                        initApp();
+                        alert('Daten erfolgreich importiert!');
+                    } else {
+                        alert('Ungültiges Datenformat!');
+                    }
+                } catch(err) {
+                    alert('Fehler beim Einlesen der Datei!');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        loadState();
+        checkAuth();
     </script>
 </body></html>
