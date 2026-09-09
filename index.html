@@ -170,17 +170,17 @@
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monatssumme Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">648.5 / 680 Std.</h2>
+<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">0.0 / 680 Std.</h2>
 </div>
 <div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 95%;"></div>
+<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div>
 </div>
 </div>
 <div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-overtime-total">+24.5 Std.</h2>
+<h2 class="text-headline-md text-on-surface mt-1" id="summary-overtime-total">+0.0 Std.</h2>
 </div>
 <div class="mt-6 flex items-center gap-2 text-emerald-600 font-bold text-body-md">
 <span class="material-symbols-outlined text-[18px]">arrow_upward</span><span>Positiver Saldo</span>
@@ -190,7 +190,7 @@
 <div class="absolute -right-4 -bottom-4 text-error/5"><span class="material-symbols-outlined text-[100px]">warning</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Fehlstunden Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-absence-total">4.0 Std.</h2>
+<h2 class="text-headline-md text-on-surface mt-1" id="summary-absence-total">0.0 Std.</h2>
 </div>
 <div class="mt-6 flex items-center gap-2 text-error font-bold text-body-md">
 <span class="material-symbols-outlined text-[18px]">info</span><span>Klärung ausstehend</span>
@@ -400,10 +400,10 @@
         const db = firebase.firestore();
 
         let employeesData = [
-            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyProgress: 42, yearlyTotal: Math.round(1880 * 0.57) },
-            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1880 },
-            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyProgress: 75, yearlyTotal: 1880 },
-            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 89, yearlyTotal: Math.round(1880 * 0.92) }
+            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.57) },
+            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
+            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
+            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.92) }
         ];
         let timeEntriesData = [];
 
@@ -438,12 +438,7 @@
                 if (storedEntries) {
                     timeEntriesData = JSON.parse(storedEntries);
                 } else {
-                    timeEntriesData = [
-                        { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
-                        { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
-                        { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
-                        { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
-                    ];
+                    timeEntriesData = [];
                     localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
                 }
             } catch(e) {
@@ -570,7 +565,7 @@
                 totalAbsence += absence;
 
                 const yearlyTotal = emp.yearlyTotal || Math.round(1880 * pensumRatio);
-                const yearlyProgressPct = Number(emp.yearlyProgress) || 78;
+                const yearlyProgressPct = Number(emp.yearlyProgress) || 0;
                 const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
 
                 const card = document.createElement('div');
@@ -674,7 +669,6 @@
 
             try {
                 if (employeeId === 'all') {
-                    // Remove existing temporary placeholders if editing, or add for all
                     timeEntriesData = timeEntriesData.filter(e => !e.id.startsWith(id));
                     for (const emp of employeesData) {
                         const bulkId = id + '_' + emp.id;
@@ -760,7 +754,6 @@
             }
         }
 
-        // 2. Fully Functional Time Entry Editing
         function editTimeEntry(id) {
             const entry = timeEntriesData.find(e => e.id === id);
             if (!entry) return;
@@ -906,7 +899,7 @@
             const yearlyTotal = Math.round(1880 * (pensum / 100));
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
             const existingEmp = employeesData.find(e => e.id === id);
-            const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 75) : 75;
+            const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 0) : 0;
             const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress, yearlyTotal };
             
             const existingIdx = employeesData.findIndex(e => e.id === id);
