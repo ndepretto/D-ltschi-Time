@@ -537,9 +537,8 @@
                 totalOvertime += overtime;
                 totalAbsence += absence;
 
-                const yearlyTotal = emp.yearlyTotal || 1880;
-                // Calculate current hours worked in year approx based on progress
-                const yearlyProgressPct = emp.yearlyProgress || 78;
+                const yearlyTotal = Number(emp.yearlyTotal) || 1880;
+                const yearlyProgressPct = Number(emp.yearlyProgress) || 78;
                 const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
 
                 const card = document.createElement('div');
@@ -757,7 +756,7 @@
                             <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials || 'MA'}</div>
                             <div>
                                 <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-sm text-on-surface-variant">${emp.role}</span>
+                                <span class="text-sm text-on-surface-variant">${emp.role} | Jahressoll: ${emp.yearlyTotal || 1880}h</span>
                             </div>
                         </div>
                         <span class="text-primary font-bold">${emp.pensum}%</span>
@@ -783,6 +782,7 @@
                     document.getElementById('emp-role').value = emp.role;
                     document.getElementById('emp-pensum').value = emp.pensum;
                     document.getElementById('emp-target').value = emp.targetHours;
+                    document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || 1880;
                     document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
                 }
             } else {
@@ -791,6 +791,7 @@
                 document.getElementById('emp-role').value = '';
                 document.getElementById('emp-pensum').value = '100';
                 document.getElementById('emp-target').value = '168';
+                document.getElementById('emp-yearly-hours').value = '1880';
                 document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             }
         }
@@ -808,9 +809,13 @@
             const role = document.getElementById('emp-role').value;
             const pensum = Number(document.getElementById('emp-pensum').value);
             const targetHours = Number(document.getElementById('emp-target').value);
+            const yearlyTotal = Number(document.getElementById('emp-yearly-hours').value) || 1880;
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
 
-            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress: 75, yearlyTotal: 1880 };
+            const existingEmp = employeesData.find(e => e.id === id);
+            const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 75) : 75;
+
+            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress, yearlyTotal };
 
             const existingIdx = employeesData.findIndex(e => e.id === id);
             if(existingIdx >= 0) {
@@ -855,7 +860,7 @@
                 <div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between">
                     <div>
                         <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
-                        <p class="text-sm text-on-surface-variant">${emp.role} - ${emp.pensum}% Pensum</p>
+                        <p class="text-sm text-on-surface-variant">${emp.role} - ${emp.pensum}% Pensum | Jahressoll: ${emp.yearlyTotal || 1880}h</p>
                     </div>
                     <div class="text-right">
                         <span class="text-label-caps text-on-surface-variant">Soll / Ist</span>
