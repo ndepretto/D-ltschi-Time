@@ -652,7 +652,8 @@
         // Time Entry Form Handling
         document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const id = document.getElementById('entry-id').value || 'entry_' + Date.now();
+            const existingId = document.getElementById('entry-id').value;
+            const id = existingId || ('entry_' + Date.now());
             const employeeId = document.getElementById('entry-employee').value;
             const date = document.getElementById('entry-date').value;
             const vmFrom = document.getElementById('vm-from').value;
@@ -668,8 +669,11 @@
             const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
 
             try {
-                if (employeeId === 'all') {
-                    timeEntriesData = timeEntriesData.filter(e => !e.id.startsWith(id));
+                if (existingId) {
+                    // Update existing entry
+                    timeEntriesData = timeEntriesData.map(e => e.id === existingId ? entryData : e);
+                    try { await db.collection('timeEntries').doc(existingId).set(entryData); } catch(err){}
+                } else if (employeeId === 'all') {
                     for (const emp of employeesData) {
                         const bulkId = id + '_' + emp.id;
                         const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
@@ -677,7 +681,6 @@
                         try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry); } catch(err){}
                     }
                 } else {
-                    timeEntriesData = timeEntriesData.filter(e => e.id !== id);
                     timeEntriesData.push(entryData);
                     try { await db.collection('timeEntries').doc(id).set(entryData); } catch(err){}
                 }
@@ -732,7 +735,9 @@
                         <p class="text-sm text-on-surface-variant">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Arbeitszeit: <strong>${entry.hours}h</strong></p>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm font-bold">Bearbeiten</button>
+                        <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">edit</span> Bearbeiten
+                        </button>
                         <button onclick="deleteTimeEntry('${entry.id}')" class="px-3 py-1 bg-error text-on-error rounded-lg text-sm font-bold">Löschen</button>
                     </div>
                 `;
@@ -761,10 +766,10 @@
             document.getElementById('entry-id').value = entry.id;
             document.getElementById('entry-employee').value = entry.employeeId || 'all';
             document.getElementById('entry-date').value = entry.date || '';
-            document.getElementById('vm-from').value = entry.vmFrom || '';
-            document.getElementById('vm-to').value = entry.vmTo || '';
-            document.getElementById('nm-from').value = entry.nmFrom || '';
-            document.getElementById('nm-to').value = entry.nmTo || '';
+            document.getElementById('vm-from').value = entry.vmFrom || '07:00';
+            document.getElementById('vm-to').value = entry.vmTo || '12:00';
+            document.getElementById('nm-from').value = entry.nmFrom || '13:00';
+            document.getElementById('nm-to').value = entry.nmTo || '17:00';
             document.getElementById('abend-from').value = entry.abendFrom || '';
             document.getElementById('abend-to').value = entry.abendTo || '';
             document.getElementById('entry-status').value = entry.status || 'Normal';
@@ -811,7 +816,12 @@
                                 <p class="text-body-lg font-bold text-on-surface mt-1">${entry.hours} h erfasst</p>
                                 <span class="text-xs text-primary font-medium">Status: ${entry.status}</span>
                             </div>
-                            <div class="mt-3 text-xs text-on-surface-variant">${entry.notes ? 'Notiz: ' + entry.notes : ''}</div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="text-xs text-on-surface-variant">${entry.notes ? 'Notiz: ' + entry.notes : ''}</span>
+                                <button onclick="editTimeEntry('${entry.id}')" class="px-2.5 py-1 bg-primary text-on-primary rounded-lg text-xs font-bold flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten
+                                </button>
+                            </div>
                         </div>
                     `;
                 }).join('');
