@@ -211,7 +211,7 @@
 </div>
 <!-- Bento Grid for Team Members with prominent yearly overview -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid">
-<!-- Dynamically populated via Firestore -->
+<!-- Dynamically populated -->
 </div>
 </div>
 <!-- VIEW: ZEITERFASSUNG -->
@@ -235,21 +235,21 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Vormittag (07:00 - 12:00)</span>
+<span class="block text-label-caps text-on-surface-variant mb-2">Vormittag</span>
 <div class="flex gap-2">
 <input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00"/>
 <input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00"/>
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Nachmittag (12:00 - 17:00)</span>
+<span class="block text-label-caps text-on-surface-variant mb-2">Nachmittag</span>
 <div class="flex gap-2">
 <input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00"/>
 <input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00"/>
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Abend / Nacht (17:00 - 23:00)</span>
+<span class="block text-label-caps text-on-surface-variant mb-2">Abend / Nacht</span>
 <div class="flex gap-2">
 <input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value=""/>
 <input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value=""/>
@@ -349,7 +349,7 @@
 </div>
 </main>
 </div>
-<!-- Employee Modal (Add/Edit) -->
+<!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md hidden items-center justify-center p-4" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
 <h3 class="text-headline-md text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
@@ -372,7 +372,11 @@
 <label class="block text-label-caps text-on-surface-variant mb-1">Soll-Stunden Monat</label>
 <input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" type="number"/>
 </div>
-<div class="col-span-2"><label class="block text-label-caps text-on-surface-variant mb-1">Jahresarbeitszeit (Stunden)</label><input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="1880"/></div></div>
+<div class="col-span-2">
+<label class="block text-label-caps text-on-surface-variant mb-1">Jahresarbeitszeit (Stunden)</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="1880"/>
+</div>
+</div>
 <div class="flex justify-end gap-3 pt-4">
 <button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
 <button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button>
@@ -382,7 +386,6 @@
 </div>
 <!-- Firebase & App Script -->
 <script>
-        // Firebase Configuration for 'doeltschi-time'
         const firebaseConfig = {
             apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
             authDomain: "doeltschi-time.firebaseapp.com",
@@ -391,12 +394,11 @@
             messagingSenderId: "123456789012",
             appId: "1:123456789012:web:abcdef123456789"
         };
-        // Initialize Firebase
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
-        // Application State with correct proportionate target hours based on Pensum
+
         let employeesData = [
             { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyProgress: 42, yearlyTotal: Math.round(1880 * 0.57) },
             { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1880 },
@@ -404,33 +406,48 @@
             { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 89, yearlyTotal: Math.round(1880 * 0.92) }
         ];
         let timeEntriesData = [];
-        // Initial Seed Data if empty and not seeded before
+
+        // 1. Accurate Time Calculation Function
+        function calculateHours(from, to) {
+            if (!from || !to) return 0;
+            const [fromH, fromM] = from.split(':').map(Number);
+            const [toH, toM] = to.split(':').map(Number);
+            const fromMinutes = fromH * 60 + fromM;
+            const toMinutes = toH * 60 + toM;
+            const diff = toMinutes - fromMinutes;
+            return diff > 0 ? diff / 60 : 0;
+        }
+
+        function calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status) {
+            if (status === 'Krankheit' || status === 'Ferien') return 0;
+            let total = 0;
+            total += calculateHours(vmFrom, vmTo);
+            total += calculateHours(nmFrom, nmTo);
+            total += calculateHours(abendFrom, abendTo);
+            return Number(total.toFixed(2));
+        }
+
         async function seedInitialDataIfNeeded() {
             try {
-                const hasSeeded = localStorage.getItem('doeltschi_seeded');
-                if (!hasSeeded) {
-                    const empSnap = await db.collection('employees').get();
-                    if (empSnap.empty) {
-                        for (const emp of employeesData) {
-                            await db.collection('employees').doc(emp.id).set(emp);
-                        }
-                    }
-                    const entrySnap = await db.collection('timeEntries').get();
-                    if (entrySnap.empty) {
-                        const initialEntries = [
-                            { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
-                            { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
-                            { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
-                            { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
-                        ];
-                        for (const entry of initialEntries) {
-                            await db.collection('timeEntries').doc(entry.id).set(entry);
-                        }
-                    }
-                    localStorage.setItem('doeltschi_seeded', 'true');
+                const storedEmps = localStorage.getItem('doeltschi_employees');
+                const storedEntries = localStorage.getItem('doeltschi_entries');
+                
+                if (storedEmps) {
+                    employeesData = JSON.parse(storedEmps);
+                }
+                if (storedEntries) {
+                    timeEntriesData = JSON.parse(storedEntries);
+                } else {
+                    timeEntriesData = [
+                        { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
+                        { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
+                        { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
+                        { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
+                    ];
+                    localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
                 }
             } catch(e) {
-                console.log("Offline mode or Firebase blocked, using local state", e);
+                console.log("Storage load error", e);
             }
             renderDashboard();
             renderEmployeesManagement();
@@ -439,6 +456,14 @@
             renderWeeklyOverview();
             renderReports();
         }
+
+        function saveLocalState() {
+            try {
+                localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
+                localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
+            } catch(e) {}
+        }
+
         // Authentication Handler
         document.getElementById('auth-form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -450,7 +475,7 @@
                 document.getElementById('auth-error').classList.remove('hidden');
             }
         });
-        // Realtime Firestore Listeners
+
         function initRealtimeSync() {
             try {
                 db.collection('employees').onSnapshot((snapshot) => {
@@ -459,6 +484,7 @@
                         snapshot.forEach((doc) => {
                             employeesData.push({ id: doc.id, ...doc.data() });
                         });
+                        saveLocalState();
                     }
                     renderDashboard();
                     renderEmployeesManagement();
@@ -466,10 +492,13 @@
                     renderReports();
                 }, (err) => console.log(err));
                 db.collection('timeEntries').onSnapshot((snapshot) => {
-                    timeEntriesData = [];
-                    snapshot.forEach((doc) => {
-                        timeEntriesData.push({ id: doc.id, ...doc.data() });
-                    });
+                    if (!snapshot.empty) {
+                        timeEntriesData = [];
+                        snapshot.forEach((doc) => {
+                            timeEntriesData.push({ id: doc.id, ...doc.data() });
+                        });
+                        saveLocalState();
+                    }
                     renderDashboard();
                     renderTimeEntriesList();
                     renderWeeklyOverview();
@@ -479,7 +508,7 @@
                 console.log("Sync error", e);
             }
         }
-        // View Navigation
+
         function switchView(viewName) {
             document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
             document.getElementById(`view-${viewName}`).classList.remove('hidden');
@@ -517,7 +546,7 @@
                 switchView(view);
             });
         });
-        // Render Dashboard
+
         function renderDashboard() {
             const grid = document.getElementById('dashboard-employees-grid');
             if(!grid) return;
@@ -526,21 +555,24 @@
             let totalTarget = 0;
             let totalOvertime = 0;
             let totalAbsence = 0;
+
             employeesData.forEach(emp => {
                 const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
                 let actual = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-                actual += 130; 
                 const pensumRatio = (emp.pensum || 100) / 100;
                 const target = emp.targetHours || Math.round(168 * pensumRatio);
                 const overtime = Math.max(0, actual - target);
                 const absence = empEntries.filter(e => e.status === 'Krankheit').length * 8;
+                
                 totalActual += actual;
                 totalTarget += target;
                 totalOvertime += overtime;
                 totalAbsence += absence;
+
                 const yearlyTotal = emp.yearlyTotal || Math.round(1880 * pensumRatio);
                 const yearlyProgressPct = Number(emp.yearlyProgress) || 78;
                 const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
+
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
                 card.innerHTML = `
@@ -560,7 +592,7 @@
                     <div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl">
                         <div>
                             <span class="text-label-caps text-on-surface-variant block">Monat Ist / Soll</span>
-                            <p class="text-body-lg font-bold text-on-surface mt-1">${actual} / ${target} h</p>
+                            <p class="text-body-lg font-bold text-on-surface mt-1">${actual.toFixed(1)} / ${target} h</p>
                         </div>
                         <div>
                             <span class="text-label-caps text-on-surface-variant block">Überstunden</span>
@@ -581,10 +613,6 @@
                         <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
                             <div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: ${yearlyProgressPct}%;"></div>
                         </div>
-                        <div class="flex justify-between text-xs text-on-surface-variant font-medium pt-1">
-                            <span>Jahressoll: ${yearlyTotal.toLocaleString('de-CH')}h</span>
-                            <span>Verleibend: ${(yearlyTotal - yearlyWorked).toLocaleString('de-CH')}h</span>
-                        </div>
                     </div>
                     <div class="flex justify-end gap-3 pt-1">
                         <button onclick="switchView('zeiterfassung')" class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5">
@@ -595,13 +623,13 @@
                 grid.appendChild(card);
             });
             document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-            document.getElementById('summary-month-total').textContent = `${totalActual} / ${totalTarget} Std.`;
+            document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalTarget} Std.`;
             document.getElementById('summary-overtime-total').textContent = `+${totalOvertime.toFixed(1)} Std.`;
             document.getElementById('summary-absence-total').textContent = `${totalAbsence.toFixed(1)} Std.`;
             const pct = Math.min(100, Math.round((totalActual / totalTarget) * 100));
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
-        // Populate Employee Selects (Form & Filter)
+
         function populateEmployeeSelects() {
             const formSelect = document.getElementById('entry-employee');
             const filterSelect = document.getElementById('filter-entry-employee');
@@ -625,6 +653,7 @@
                 });
             }
         }
+
         // Time Entry Form Handling
         document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -639,44 +668,51 @@
             const abendTo = document.getElementById('abend-to').value;
             const status = document.getElementById('entry-status').value;
             const notes = document.getElementById('entry-notes').value;
-            let hours = 8;
-            if (status === 'Krankheit' || status === 'Ferien') hours = 0;
+            
+            const hours = calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status);
             const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
+
             try {
                 if (employeeId === 'all') {
+                    // Remove existing temporary placeholders if editing, or add for all
+                    timeEntriesData = timeEntriesData.filter(e => !e.id.startsWith(id));
                     for (const emp of employeesData) {
                         const bulkId = id + '_' + emp.id;
                         const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
-                        await db.collection('timeEntries').doc(bulkId).set(bulkEntry);
+                        timeEntriesData.push(bulkEntry);
+                        try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry); } catch(err){}
                     }
                 } else {
-                    await db.collection('timeEntries').doc(id).set(entryData);
+                    timeEntriesData = timeEntriesData.filter(e => e.id !== id);
+                    timeEntriesData.push(entryData);
+                    try { await db.collection('timeEntries').doc(id).set(entryData); } catch(err){}
                 }
+                saveLocalState();
                 resetTimeForm();
-                alert('Eintrag erfolgreich in Firebase gespeichert!');
+                renderDashboard();
+                renderTimeEntriesList();
+                renderWeeklyOverview();
+                renderReports();
+                alert('Eintrag erfolgreich gespeichert!');
             } catch (err) {
                 console.error(err);
-                if (employeeId === 'all') {
-                    employeesData.forEach(emp => {
-                        timeEntriesData.push({ ...entryData, id: id + '_' + emp.id, employeeId: emp.id });
-                    });
-                } else {
-                    timeEntriesData.push(entryData);
-                }
-                renderTimeEntriesList();
-                renderDashboard();
-                renderWeeklyOverview();
-                resetTimeForm();
-                alert('Eintrag lokal gespeichert (Offline mode)');
             }
         });
+
         function resetTimeForm() {
             document.getElementById('entry-id').value = '';
             document.getElementById('entry-date').value = '';
             document.getElementById('entry-notes').value = '';
             document.getElementById('entry-status').value = 'Normal';
             document.getElementById('entry-employee').value = 'all';
+            document.getElementById('vm-from').value = '07:00';
+            document.getElementById('vm-to').value = '12:00';
+            document.getElementById('nm-from').value = '13:00';
+            document.getElementById('nm-to').value = '17:00';
+            document.getElementById('abend-from').value = '';
+            document.getElementById('abend-to').value = '';
         }
+
         function renderTimeEntriesList() {
             const list = document.getElementById('time-entries-list');
             if(!list) return;
@@ -699,7 +735,7 @@
                 item.innerHTML = `
                     <div>
                         <p class="font-bold text-on-surface">${empName} - <span class="text-primary">${entry.date}</span></p>
-                        <p class="text-sm text-on-surface-variant">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Stunden: ${entry.hours}h</p>
+                        <p class="text-sm text-on-surface-variant">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Arbeitszeit: <strong>${entry.hours}h</strong></p>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm font-bold">Bearbeiten</button>
@@ -709,28 +745,39 @@
                 list.appendChild(item);
             });
         }
+
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
                 try {
                     await db.collection('timeEntries').doc(id).delete();
                 } catch(e) {}
                 timeEntriesData = timeEntriesData.filter(e => e.id !== id);
+                saveLocalState();
                 renderTimeEntriesList();
                 renderDashboard();
                 renderWeeklyOverview();
+                renderReports();
             }
         }
+
+        // 2. Fully Functional Time Entry Editing
         function editTimeEntry(id) {
             const entry = timeEntriesData.find(e => e.id === id);
             if (!entry) return;
             switchView('zeiterfassung');
             document.getElementById('entry-id').value = entry.id;
-            document.getElementById('entry-employee').value = entry.employeeId;
-            document.getElementById('entry-date').value = entry.date;
-            document.getElementById('entry-status').value = entry.status;
-            document.getElementById('entry-notes').value = entry.notes;
+            document.getElementById('entry-employee').value = entry.employeeId || 'all';
+            document.getElementById('entry-date').value = entry.date || '';
+            document.getElementById('vm-from').value = entry.vmFrom || '';
+            document.getElementById('vm-to').value = entry.vmTo || '';
+            document.getElementById('nm-from').value = entry.nmFrom || '';
+            document.getElementById('nm-to').value = entry.nmTo || '';
+            document.getElementById('abend-from').value = entry.abendFrom || '';
+            document.getElementById('abend-to').value = entry.abendTo || '';
+            document.getElementById('entry-status').value = entry.status || 'Normal';
+            document.getElementById('entry-notes').value = entry.notes || '';
         }
-        // Render Weekly Overview (showing only days/weeks with actual recorded work time entries)
+
         function renderWeeklyOverview() {
             const container = document.getElementById('weekly-overview-container');
             if(!container) return;
@@ -741,7 +788,6 @@
                 return;
             }
 
-            // Group entries by date
             const groupedByDate = {};
             timeEntriesData.forEach(entry => {
                 if (!groupedByDate[entry.date]) {
@@ -791,15 +837,11 @@
                 container.appendChild(card);
             });
         }
-        // Render Employees Management
+
         function renderEmployeesManagement() {
             const list = document.getElementById('employees-management-list');
             if(!list) return;
             list.innerHTML = '';
-            if(!employeesData || employeesData.length === 0) {
-                list.innerHTML = '<p class="text-on-surface-variant">Keine Mitarbeiter gefunden.</p>';
-                return;
-            }
             employeesData.forEach(emp => {
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-4';
@@ -822,6 +864,7 @@
                 list.appendChild(card);
             });
         }
+
         function openEmployeeModal(empId = null) {
             const modal = document.getElementById('employee-modal');
             modal.classList.remove('hidden');
@@ -852,6 +895,7 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
+
         document.getElementById('employee-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
@@ -864,15 +908,16 @@
             const existingEmp = employeesData.find(e => e.id === id);
             const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 75) : 75;
             const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress, yearlyTotal };
+            
             const existingIdx = employeesData.findIndex(e => e.id === id);
             if(existingIdx >= 0) {
                 employeesData[existingIdx] = empData;
             } else {
                 employeesData.push(empData);
             }
-            try {
-                await db.collection('employees').doc(id).set(empData, { merge: true });
-            } catch(e) {}
+            saveLocalState();
+            try { await db.collection('employees').doc(id).set(empData, { merge: true }); } catch(e) {}
+            
             closeEmployeeModal();
             renderEmployeesManagement();
             renderDashboard();
@@ -880,15 +925,16 @@
             renderReports();
             renderWeeklyOverview();
         });
+
         async function editEmployee(id) {
             openEmployeeModal(id);
         }
+
         async function deleteEmployee(id) {
             if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
-                try {
-                    await db.collection('employees').doc(id).delete();
-                } catch(e) {}
+                try { await db.collection('employees').doc(id).delete(); } catch(e) {}
                 employeesData = employeesData.filter(e => e.id !== id);
+                saveLocalState();
                 renderEmployeesManagement();
                 renderDashboard();
                 populateEmployeeSelects();
@@ -896,7 +942,7 @@
                 renderWeeklyOverview();
             }
         }
-        // Render Reports
+
         function renderReports() {
             const container = document.getElementById('reports-content');
             if(!container) return;
@@ -913,6 +959,7 @@
                 </div>
             `).join('');
         }
+
         window.addEventListener('DOMContentLoaded', async () => {
             await seedInitialDataIfNeeded();
         });
