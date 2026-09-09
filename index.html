@@ -404,26 +404,30 @@
             { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 89, yearlyTotal: Math.round(1880 * 0.92) }
         ];
         let timeEntriesData = [];
-        // Initial Seed Data if empty
+        // Initial Seed Data if empty and not seeded before
         async function seedInitialDataIfNeeded() {
             try {
-                const empSnap = await db.collection('employees').get();
-                if (empSnap.empty) {
-                    for (const emp of employeesData) {
-                        await db.collection('employees').doc(emp.id).set(emp);
+                const hasSeeded = localStorage.getItem('doeltschi_seeded');
+                if (!hasSeeded) {
+                    const empSnap = await db.collection('employees').get();
+                    if (empSnap.empty) {
+                        for (const emp of employeesData) {
+                            await db.collection('employees').doc(emp.id).set(emp);
+                        }
                     }
-                }
-                const entrySnap = await db.collection('timeEntries').get();
-                if (entrySnap.empty) {
-                    const initialEntries = [
-                        { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
-                        { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
-                        { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
-                        { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
-                    ];
-                    for (const entry of initialEntries) {
-                        await db.collection('timeEntries').doc(entry.id).set(entry);
+                    const entrySnap = await db.collection('timeEntries').get();
+                    if (entrySnap.empty) {
+                        const initialEntries = [
+                            { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
+                            { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
+                            { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
+                            { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
+                        ];
+                        for (const entry of initialEntries) {
+                            await db.collection('timeEntries').doc(entry.id).set(entry);
+                        }
                     }
+                    localStorage.setItem('doeltschi_seeded', 'true');
                 }
             } catch(e) {
                 console.log("Offline mode or Firebase blocked, using local state", e);
