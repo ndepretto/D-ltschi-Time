@@ -389,36 +389,45 @@
         const db = firebase.firestore();
 
         // Application State
-        let employeesData = [];
+        let employeesData = [
+            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Projektleitung', pensum: 90, targetHours: 152, yearlyProgress: 82, yearlyTotal: 1650 },
+            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'UX/UI Design', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1840 },
+            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Frontend Development', pensum: 80, targetHours: 134, yearlyProgress: 75, yearlyTotal: 1470 },
+            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Quality Assurance', pensum: 100, targetHours: 168, yearlyProgress: 89, yearlyTotal: 1840 }
+        ];
         let timeEntriesData = [];
 
         // Initial Seed Data if empty
         async function seedInitialDataIfNeeded() {
-            const empSnap = await db.collection('employees').get();
-            if (empSnap.empty) {
-                const initialEmployees = [
-                    { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Projektleitung', pensum: 90, targetHours: 152, yearlyProgress: 82, yearlyTotal: 1650 },
-                    { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'UX/UI Design', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1840 },
-                    { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Frontend Development', pensum: 80, targetHours: 134, yearlyProgress: 75, yearlyTotal: 1470 },
-                    { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Quality Assurance', pensum: 100, targetHours: 168, yearlyProgress: 89, yearlyTotal: 1840 }
-                ];
-                for (const emp of initialEmployees) {
-                    await db.collection('employees').doc(emp.id).set(emp);
+            try {
+                const empSnap = await db.collection('employees').get();
+                if (empSnap.empty) {
+                    for (const emp of employeesData) {
+                        await db.collection('employees').doc(emp.id).set(emp);
+                    }
                 }
-            }
 
-            const entrySnap = await db.collection('timeEntries').get();
-            if (entrySnap.empty) {
-                const initialEntries = [
-                    { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
-                    { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
-                    { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
-                    { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
-                ];
-                for (const entry of initialEntries) {
-                    await db.collection('timeEntries').doc(entry.id).set(entry);
+                const entrySnap = await db.collection('timeEntries').get();
+                if (entrySnap.empty) {
+                    const initialEntries = [
+                        { id: 'e1', employeeId: 'nicole', date: '01.09.2026', vmFrom: '07:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektstart Q3', hours: 9 },
+                        { id: 'e2', employeeId: 'michelle', date: '01.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '18:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Design System', hours: 9 },
+                        { id: 'e3', employeeId: 'manuel', date: '02.09.2026', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Frontend SPA', hours: 8 },
+                        { id: 'e4', employeeId: 'seline', date: '02.09.2026', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Krankheit', notes: 'Arzttermin', hours: 0 }
+                    ];
+                    for (const entry of initialEntries) {
+                        await db.collection('timeEntries').doc(entry.id).set(entry);
+                    }
                 }
+            } catch(e) {
+                console.log("Offline mode or Firebase blocked, using local state", e);
             }
+            renderDashboard();
+            renderEmployeesManagement();
+            populateEmployeeSelects();
+            renderTimeEntriesList();
+            renderWeeklyOverview();
+            renderReports();
         }
 
         // Authentication Handler
@@ -435,26 +444,33 @@
 
         // Realtime Firestore Listeners
         function initRealtimeSync() {
-            db.collection('employees').onSnapshot((snapshot) => {
-                employeesData = [];
-                snapshot.forEach((doc) => {
-                    employeesData.push({ id: doc.id, ...doc.data() });
-                });
-                renderDashboard();
-                renderEmployeesManagement();
-                populateEmployeeSelects();
-            });
+            try {
+                db.collection('employees').onSnapshot((snapshot) => {
+                    if (!snapshot.empty) {
+                        employeesData = [];
+                        snapshot.forEach((doc) => {
+                            employeesData.push({ id: doc.id, ...doc.data() });
+                        });
+                    }
+                    renderDashboard();
+                    renderEmployeesManagement();
+                    populateEmployeeSelects();
+                    renderReports();
+                }, (err) => console.log(err));
 
-            db.collection('timeEntries').onSnapshot((snapshot) => {
-                timeEntriesData = [];
-                snapshot.forEach((doc) => {
-                    timeEntriesData.push({ id: doc.id, ...doc.data() });
-                });
-                renderDashboard();
-                renderTimeEntriesList();
-                renderWeeklyOverview();
-                renderReports();
-            });
+                db.collection('timeEntries').onSnapshot((snapshot) => {
+                    timeEntriesData = [];
+                    snapshot.forEach((doc) => {
+                        timeEntriesData.push({ id: doc.id, ...doc.data() });
+                    });
+                    renderDashboard();
+                    renderTimeEntriesList();
+                    renderWeeklyOverview();
+                    renderReports();
+                }, (err) => console.log(err));
+            } catch(e) {
+                console.log("Sync error", e);
+            }
         }
 
         // View Navigation
@@ -480,6 +496,13 @@
                 einstellungen: 'Profil & Einstellungen'
             };
             document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
+            
+            // Re-render specifically when switching views to ensure freshness
+            if(viewName === 'mitarbeiter') {
+                renderEmployeesManagement();
+            } else if(viewName === 'dashboard') {
+                renderDashboard();
+            }
         }
 
         document.querySelectorAll('#sidebar-nav a').forEach(link => {
@@ -492,6 +515,7 @@
         // Render Dashboard
         function renderDashboard() {
             const grid = document.getElementById('dashboard-employees-grid');
+            if(!grid) return;
             grid.innerHTML = '';
 
             let totalActual = 0;
@@ -571,6 +595,7 @@
         // Populate Employee Selects
         function populateEmployeeSelects() {
             const select = document.getElementById('entry-employee');
+            if(!select) return;
             select.innerHTML = '';
             employeesData.forEach(emp => {
                 const opt = document.createElement('option');
@@ -607,7 +632,11 @@
                 alert('Eintrag erfolgreich in Firebase gespeichert!');
             } catch (err) {
                 console.error(err);
-                alert('Fehler beim Speichern: ' + err.message);
+                timeEntriesData.push(entryData);
+                renderTimeEntriesList();
+                renderDashboard();
+                resetTimeForm();
+                alert('Eintrag lokal gespeichert (Offline mode)');
             }
         });
 
@@ -620,6 +649,7 @@
 
         function renderTimeEntriesList() {
             const list = document.getElementById('time-entries-list');
+            if(!list) return;
             list.innerHTML = '';
 
             if (timeEntriesData.length === 0) {
@@ -649,7 +679,12 @@
 
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
-                await db.collection('timeEntries').doc(id).delete();
+                try {
+                    await db.collection('timeEntries').doc(id).delete();
+                } catch(e) {}
+                timeEntriesData = timeEntriesData.filter(e => e.id !== id);
+                renderTimeEntriesList();
+                renderDashboard();
             }
         }
 
@@ -667,6 +702,7 @@
         // Render Weekly Overview
         function renderWeeklyOverview() {
             const container = document.getElementById('weekly-overview-container');
+            if(!container) return;
             container.innerHTML = '';
 
             const weeks = ['KW 35 (24.08 - 30.08.2026)', 'KW 36 (31.08 - 06.09.2026)', 'KW 37 (07.09 - 13.09.2026)'];
@@ -693,7 +729,13 @@
         // Render Employees Management
         function renderEmployeesManagement() {
             const list = document.getElementById('employees-management-list');
+            if(!list) return;
             list.innerHTML = '';
+
+            if(!employeesData || employeesData.length === 0) {
+                list.innerHTML = '<p class="text-on-surface-variant">Keine Mitarbeiter gefunden.</p>';
+                return;
+            }
 
             employeesData.forEach(emp => {
                 const card = document.createElement('div');
@@ -701,7 +743,7 @@
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials}</div>
+                            <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials || 'MA'}</div>
                             <div>
                                 <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
                                 <span class="text-sm text-on-surface-variant">${emp.role}</span>
@@ -724,12 +766,14 @@
             modal.classList.add('flex');
             if (empId) {
                 const emp = employeesData.find(e => e.id === empId);
-                document.getElementById('emp-id').value = emp.id;
-                document.getElementById('emp-name').value = emp.name;
-                document.getElementById('emp-role').value = emp.role;
-                document.getElementById('emp-pensum').value = emp.pensum;
-                document.getElementById('emp-target').value = emp.targetHours;
-                document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
+                if(emp) {
+                    document.getElementById('emp-id').value = emp.id;
+                    document.getElementById('emp-name').value = emp.name;
+                    document.getElementById('emp-role').value = emp.role;
+                    document.getElementById('emp-pensum').value = emp.pensum;
+                    document.getElementById('emp-target').value = emp.targetHours;
+                    document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
+                }
             } else {
                 document.getElementById('emp-id').value = '';
                 document.getElementById('emp-name').value = '';
@@ -757,8 +801,22 @@
 
             const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress: 75, yearlyTotal: 1840 };
 
-            await db.collection('employees').doc(id).set(empData, { merge: true });
+            const existingIdx = employeesData.findIndex(e => e.id === id);
+            if(existingIdx >= 0) {
+                employeesData[existingIdx] = empData;
+            } else {
+                employeesData.push(empData);
+            }
+
+            try {
+                await db.collection('employees').doc(id).set(empData, { merge: true });
+            } catch(e) {}
+
             closeEmployeeModal();
+            renderEmployeesManagement();
+            renderDashboard();
+            populateEmployeeSelects();
+            renderReports();
         });
 
         async function editEmployee(id) {
@@ -767,13 +825,21 @@
 
         async function deleteEmployee(id) {
             if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
-                await db.collection('employees').doc(id).delete();
+                try {
+                    await db.collection('employees').doc(id).delete();
+                } catch(e) {}
+                employeesData = employeesData.filter(e => e.id !== id);
+                renderEmployeesManagement();
+                renderDashboard();
+                populateEmployeeSelects();
+                renderReports();
             }
         }
 
         // Render Reports
         function renderReports() {
             const container = document.getElementById('reports-content');
+            if(!container) return;
             container.innerHTML = employeesData.map(emp => `
                 <div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between">
                     <div>
