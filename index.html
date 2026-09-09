@@ -112,10 +112,12 @@
 </div>
 </div>
 <!-- Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8">
-<div class="px-8 mb-10 text-xl font-headline-md text-primary">Döltschi Time</div>
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high">
+<div class="px-8 mb-10 text-xl font-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
+</div>
 <nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
-<a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer" data-view="dashboard">
+<a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
 <span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
             </a>
 <a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung">
@@ -137,15 +139,15 @@
 </aside>
 <!-- Main Content Area -->
 <div class="pl-64">
-<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-30 flex items-center justify-between px-8">
-<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement</div>
+<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-8">
+<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement - Dashboard</div>
 <div class="flex items-center gap-4">
 <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1" id="firebase-status">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Firebase Live
                 </span>
 <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
-<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
+<span>ND</span>
 </div>
 </div>
 </header>
@@ -154,7 +156,7 @@
 <div class="view-container flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-dashboard">
 <!-- Top Summary Banner -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">group</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Aktives Team</span>
@@ -164,7 +166,7 @@
 <span class="material-symbols-outlined text-[18px]">verified</span><span>100% Einsatzbereitschaft</span>
 </div>
 </div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monatssumme Total</span>
@@ -174,7 +176,7 @@
 <div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 95%;"></div>
 </div>
 </div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden Total</span>
@@ -184,7 +186,7 @@
 <span class="material-symbols-outlined text-[18px]">arrow_upward</span><span>Positiver Saldo</span>
 </div>
 </div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-error/5"><span class="material-symbols-outlined text-[100px]">warning</span></div>
 <div>
 <span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Fehlstunden Total</span>
@@ -198,8 +200,8 @@
 <!-- Section Header -->
 <div class="flex items-center justify-between mt-4">
 <div>
-<h2 class="text-headline-lg text-on-surface">Mitarbeiterübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Detaillierte Zeiterfassung und Leistungsindikatoren im aktuellen Abrechnungszeitraum (August/September 2026).</p>
+<h2 class="text-headline-lg text-on-surface">Mitarbeiter-Jahresarbeitszeit</h2>
+<p class="text-body-md text-on-surface-variant">Detaillierte Zeiterfassung, Monatssaldis und Jahresfortschritt für alle Teammitglieder.</p>
 </div>
 <div class="flex gap-3">
 <button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="switchView('zeiterfassung')">
@@ -207,7 +209,7 @@
                         </button>
 </div>
 </div>
-<!-- Bento Grid for Team Members -->
+<!-- Bento Grid for Team Members with prominent yearly overview -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid">
 <!-- Dynamically populated via Firestore -->
 </div>
@@ -390,10 +392,10 @@
 
         // Application State
         let employeesData = [
-            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Projektleitung', pensum: 90, targetHours: 152, yearlyProgress: 82, yearlyTotal: 1650 },
-            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'UX/UI Design', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1840 },
-            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Frontend Development', pensum: 80, targetHours: 134, yearlyProgress: 75, yearlyTotal: 1470 },
-            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Quality Assurance', pensum: 100, targetHours: 168, yearlyProgress: 89, yearlyTotal: 1840 }
+            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Projektleitung', pensum: 90, targetHours: 152, yearlyProgress: 82, yearlyTotal: 1880 },
+            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'UX/UI Design', pensum: 100, targetHours: 168, yearlyProgress: 78, yearlyTotal: 1880 },
+            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Frontend Development', pensum: 80, targetHours: 134, yearlyProgress: 75, yearlyTotal: 1880 },
+            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Quality Assurance', pensum: 100, targetHours: 168, yearlyProgress: 89, yearlyTotal: 1880 }
         ];
         let timeEntriesData = [];
 
@@ -479,10 +481,10 @@
             document.getElementById(`view-${viewName}`).classList.remove('hidden');
 
             document.querySelectorAll('#sidebar-nav a').forEach(el => {
-                el.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
+                el.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
                 el.classList.add('text-on-surface-variant');
                 if (el.getAttribute('data-view') === viewName) {
-                    el.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+                    el.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
                     el.classList.remove('text-on-surface-variant');
                 }
             });
@@ -497,7 +499,6 @@
             };
             document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
             
-            // Re-render specifically when switching views to ensure freshness
             if(viewName === 'mitarbeiter') {
                 renderEmployeesManagement();
             } else if(viewName === 'dashboard') {
@@ -524,10 +525,8 @@
             let totalAbsence = 0;
 
             employeesData.forEach(emp => {
-                // Calculate hours from timeEntries
                 const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
                 let actual = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-                // Add base dummy offset for rich display
                 actual += 130; 
                 const target = emp.targetHours || 168;
                 const overtime = Math.max(0, actual - target);
@@ -538,47 +537,60 @@
                 totalOvertime += overtime;
                 totalAbsence += absence;
 
+                const yearlyTotal = emp.yearlyTotal || 1880;
+                // Calculate current hours worked in year approx based on progress
+                const yearlyProgressPct = emp.yearlyProgress || 78;
+                const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
+
                 const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between gap-6 transition-all hover:shadow-md';
+                card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
                 card.innerHTML = `
                     <div class="flex items-start justify-between">
                         <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold text-headline-md">${emp.initials || emp.name.substring(0,2).toUpperCase()}</div>
+                            <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">${emp.initials || emp.name.substring(0,2).toUpperCase()}</div>
                             <div>
                                 <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
                                 <span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">${emp.role}</span>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <span class="text-label-caps text-on-surface-variant">Pensum</span>
+                        <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
+                            <span class="text-label-caps text-on-surface-variant block">Pensum</span>
                             <p class="text-headline-md text-primary font-bold">${emp.pensum}%</p>
                         </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-4 bg-surface-container-low p-4 rounded-xl">
+                    <div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl">
                         <div>
-                            <span class="text-label-caps text-on-surface-variant">Monat (Ist / Soll)</span>
+                            <span class="text-label-caps text-on-surface-variant block">Monat Ist / Soll</span>
                             <p class="text-body-lg font-bold text-on-surface mt-1">${actual} / ${target} h</p>
                         </div>
                         <div>
-                            <span class="text-label-caps text-on-surface-variant">Überstunden</span>
-                            <p class="text-body-lg font-bold text-primary mt-1">+${overtime.toFixed(1)} h</p>
+                            <span class="text-label-caps text-on-surface-variant block">Überstunden</span>
+                            <p class="text-body-lg font-bold text-emerald-600 mt-1">+${overtime.toFixed(1)} h</p>
                         </div>
                         <div>
-                            <span class="text-label-caps text-on-surface-variant">Fehlstunden</span>
+                            <span class="text-label-caps text-on-surface-variant block">Fehlstunden</span>
                             <p class="text-body-lg font-bold text-error mt-1">${absence.toFixed(1)} h</p>
                         </div>
                     </div>
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-body-md">
-                            <span class="text-on-surface-variant font-medium">Jahresfortschritt (${emp.yearlyTotal || 1840} h)</span>
-                            <span class="text-on-surface font-bold">${emp.yearlyProgress || 80}%</span>
+                    <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                        <div class="flex justify-between items-center text-body-md">
+                            <span class="text-on-surface font-bold flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span> Jahresarbeitszeit
+                            </span>
+                            <span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">${yearlyWorked.toLocaleString('de-CH')} / ${yearlyTotal.toLocaleString('de-CH')} h (${yearlyProgressPct}%)</span>
                         </div>
                         <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
-                            <div class="bg-primary h-full rounded-full transition-all duration-1000" style="width: ${emp.yearlyProgress || 80}%;"></div>
+                            <div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: ${yearlyProgressPct}%;"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-on-surface-variant font-medium pt-1">
+                            <span>Jahressoll: ${yearlyTotal.toLocaleString('de-CH')}h</span>
+                            <span>Verbleibend: ${(yearlyTotal - yearlyWorked).toLocaleString('de-CH')}h</span>
                         </div>
                     </div>
-                    <div class="flex justify-end gap-3 pt-2">
-                        <button onclick="switchView('zeiterfassung')" class="text-primary hover:bg-surface-container-low px-3 py-1.5 rounded-lg text-body-md font-bold transition-all">Erfassen</button>
+                    <div class="flex justify-end gap-3 pt-1">
+                        <button onclick="switchView('zeiterfassung')" class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -620,7 +632,6 @@
             const status = document.getElementById('entry-status').value;
             const notes = document.getElementById('entry-notes').value;
 
-            // Simple hour calc
             let hours = 8;
             if (status === 'Krankheit' || status === 'Ferien') hours = 0;
 
@@ -799,7 +810,7 @@
             const targetHours = Number(document.getElementById('emp-target').value);
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
 
-            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress: 75, yearlyTotal: 1840 };
+            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress: 75, yearlyTotal: 1880 };
 
             const existingIdx = employeesData.findIndex(e => e.id === id);
             if(existingIdx >= 0) {
@@ -854,7 +865,6 @@
             `).join('');
         }
 
-        // Initialize seed on load
         window.addEventListener('DOMContentLoaded', async () => {
             await seedInitialDataIfNeeded();
         });
