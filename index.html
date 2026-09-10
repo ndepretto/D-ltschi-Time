@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -277,10 +276,15 @@
 </div>
 </form>
 </div>
-<!-- Existing Entries List -->
+<!-- Existing Entries List with Collapsible feature -->
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div class="flex items-center gap-3">
 <h3 class="text-headline-md text-on-surface">Eingetragene Zeiten</h3>
+<button onclick="toggleEntriesVisibility()" id="toggle-entries-btn" class="px-3 py-1 bg-surface-container-low text-primary text-sm font-bold rounded-lg border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span> <span id="toggle-entries-text">Ausblenden</span>
+</button>
+</div>
 <div class="flex items-center gap-2 w-full md:w-auto">
 <label class="text-label-caps text-on-surface-variant whitespace-nowrap">Filter:</label>
 <select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="filter-entry-employee" onchange="renderTimeEntriesList()">
@@ -288,8 +292,10 @@
 </select>
 </div>
 </div>
+<div class="space-y-3 transition-all duration-300" id="time-entries-wrapper">
 <div class="space-y-3" id="time-entries-list">
 <!-- Populated dynamically -->
+</div>
 </div>
 </div>
 </div>
@@ -398,7 +404,6 @@
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
-
         let employeesData = [
             { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.57) },
             { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
@@ -406,8 +411,20 @@
             { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.92) }
         ];
         let timeEntriesData = [];
+        let entriesVisible = true;
 
-        // 1. Accurate Time Calculation Function
+        function toggleEntriesVisibility() {
+            entriesVisible = !entriesVisible;
+            const wrapper = document.getElementById('time-entries-wrapper');
+            const btnText = document.getElementById('toggle-entries-text');
+            if (wrapper) {
+                wrapper.style.display = entriesVisible ? 'block' : 'none';
+            }
+            if (btnText) {
+                btnText.textContent = entriesVisible ? 'Ausblenden' : 'Einblenden';
+            }
+        }
+
         function calculateHours(from, to) {
             if (!from || !to) return 0;
             const [fromH, fromM] = from.split(':').map(Number);
@@ -417,7 +434,6 @@
             const diff = toMinutes - fromMinutes;
             return diff > 0 ? diff / 60 : 0;
         }
-
         function calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status) {
             if (status === 'Krankheit' || status === 'Ferien') return 0;
             let total = 0;
@@ -426,7 +442,6 @@
             total += calculateHours(abendFrom, abendTo);
             return Number(total.toFixed(2));
         }
-
         async function seedInitialDataIfNeeded() {
             try {
                 const storedEmps = localStorage.getItem('doeltschi_employees');
@@ -451,14 +466,12 @@
             renderWeeklyOverview();
             renderReports();
         }
-
         function saveLocalState() {
             try {
                 localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
             } catch(e) {}
         }
-
         // Authentication Handler
         document.getElementById('auth-form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -470,7 +483,6 @@
                 document.getElementById('auth-error').classList.remove('hidden');
             }
         });
-
         function initRealtimeSync() {
             try {
                 db.collection('employees').onSnapshot((snapshot) => {
@@ -503,7 +515,6 @@
                 console.log("Sync error", e);
             }
         }
-
         function switchView(viewName) {
             document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
             document.getElementById(`view-${viewName}`).classList.remove('hidden');
@@ -541,7 +552,6 @@
                 switchView(view);
             });
         });
-
         function renderDashboard() {
             const grid = document.getElementById('dashboard-employees-grid');
             if(!grid) return;
@@ -550,7 +560,6 @@
             let totalTarget = 0;
             let totalOvertime = 0;
             let totalAbsence = 0;
-
             employeesData.forEach(emp => {
                 const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
                 let actual = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
@@ -563,11 +572,9 @@
                 totalTarget += target;
                 totalOvertime += overtime;
                 totalAbsence += absence;
-
                 const yearlyTotal = emp.yearlyTotal || Math.round(1880 * pensumRatio);
                 const yearlyProgressPct = Number(emp.yearlyProgress) || 0;
                 const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
-
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
                 card.innerHTML = `
@@ -624,7 +631,6 @@
             const pct = Math.min(100, Math.round((totalActual / totalTarget) * 100));
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
-
         function populateEmployeeSelects() {
             const formSelect = document.getElementById('entry-employee');
             const filterSelect = document.getElementById('filter-entry-employee');
@@ -648,7 +654,6 @@
                 });
             }
         }
-
         // Time Entry Form Handling
         document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -667,10 +672,8 @@
             
             const hours = calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status);
             const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
-
             try {
                 if (existingId) {
-                    // Update existing entry
                     timeEntriesData = timeEntriesData.map(e => e.id === existingId ? entryData : e);
                     try { await db.collection('timeEntries').doc(existingId).set(entryData); } catch(err){}
                 } else if (employeeId === 'all') {
@@ -695,7 +698,6 @@
                 console.error(err);
             }
         });
-
         function resetTimeForm() {
             document.getElementById('entry-id').value = '';
             document.getElementById('entry-date').value = '';
@@ -709,7 +711,6 @@
             document.getElementById('abend-from').value = '';
             document.getElementById('abend-to').value = '';
         }
-
         function renderTimeEntriesList() {
             const list = document.getElementById('time-entries-list');
             if(!list) return;
@@ -744,7 +745,6 @@
                 list.appendChild(item);
             });
         }
-
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
                 try {
@@ -758,7 +758,6 @@
                 renderReports();
             }
         }
-
         function editTimeEntry(id) {
             const entry = timeEntriesData.find(e => e.id === id);
             if (!entry) return;
@@ -775,17 +774,14 @@
             document.getElementById('entry-status').value = entry.status || 'Normal';
             document.getElementById('entry-notes').value = entry.notes || '';
         }
-
         function renderWeeklyOverview() {
             const container = document.getElementById('weekly-overview-container');
             if(!container) return;
             container.innerHTML = '';
-
             if (!timeEntriesData || timeEntriesData.length === 0) {
                 container.innerHTML = '<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für eine Wochenübersicht vorhanden.</div>';
                 return;
             }
-
             const groupedByDate = {};
             timeEntriesData.forEach(entry => {
                 if (!groupedByDate[entry.date]) {
@@ -793,13 +789,11 @@
                 }
                 groupedByDate[entry.date].push(entry);
             });
-
             const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
                 const partsA = a.split('.');
                 const partsB = b.split('.');
                 return new Date(partsA[2], partsA[1]-1, partsA[0]) - new Date(partsB[2], partsB[1]-1, partsB[0]);
             });
-
             sortedDates.forEach(dateStr => {
                 const entriesForDate = groupedByDate[dateStr];
                 const card = document.createElement('div');
@@ -825,7 +819,6 @@
                         </div>
                     `;
                 }).join('');
-
                 card.innerHTML = `
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-headline-md text-on-surface flex items-center gap-2">
@@ -840,7 +833,6 @@
                 container.appendChild(card);
             });
         }
-
         function renderEmployeesManagement() {
             const list = document.getElementById('employees-management-list');
             if(!list) return;
@@ -867,7 +859,6 @@
                 list.appendChild(card);
             });
         }
-
         function openEmployeeModal(empId = null) {
             const modal = document.getElementById('employee-modal');
             modal.classList.remove('hidden');
@@ -898,7 +889,6 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
-
         document.getElementById('employee-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
@@ -928,11 +918,9 @@
             renderReports();
             renderWeeklyOverview();
         });
-
         async function editEmployee(id) {
             openEmployeeModal(id);
         }
-
         async function deleteEmployee(id) {
             if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
                 try { await db.collection('employees').doc(id).delete(); } catch(e) {}
@@ -945,7 +933,6 @@
                 renderWeeklyOverview();
             }
         }
-
         function renderReports() {
             const container = document.getElementById('reports-content');
             if(!container) return;
@@ -962,7 +949,6 @@
                 </div>
             `).join('');
         }
-
         window.addEventListener('DOMContentLoaded', async () => {
             await seedInitialDataIfNeeded();
         });
