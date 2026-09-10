@@ -2,7 +2,7 @@
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Döltschi Time - Optimierte Wochenübersicht</title>
+<title>Döltschi Time - Neueste Einträge zuerst</title>
 <style>
         @layer base {
             html, body { margin: 0; padding: 0; }
@@ -276,11 +276,11 @@
 </div>
 </form>
 </div>
-<!-- Existing Entries List with Collapsible feature -->
+<!-- Existing Entries List with Collapsible feature & Neueste zuerst Sortierung -->
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
 <div class="flex items-center gap-3">
-<h3 class="text-headline-md text-on-surface">Eingetragene Zeiten</h3>
+<h3 class="text-headline-md text-on-surface">Eingetragene Zeiten (Neueste zuerst)</h3>
 <button onclick="toggleEntriesVisibility()" id="toggle-entries-btn" class="px-3 py-1 bg-surface-container-low text-primary text-sm font-bold rounded-lg border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1">
 <span class="material-symbols-outlined text-[16px]">visibility</span> <span id="toggle-entries-text">Ausblenden</span>
 </button>
@@ -426,7 +426,6 @@
         let timeEntriesData = [];
         let entriesVisible = true;
         let weeklyVisible = true;
-
         function toggleEntriesVisibility() {
             entriesVisible = !entriesVisible;
             const wrapper = document.getElementById('time-entries-wrapper');
@@ -438,7 +437,6 @@
                 btnText.textContent = entriesVisible ? 'Ausblenden' : 'Einblenden';
             }
         }
-
         function toggleWeeklyVisibility() {
             weeklyVisible = !weeklyVisible;
             const wrapper = document.getElementById('weekly-overview-wrapper');
@@ -450,7 +448,6 @@
                 btnText.textContent = weeklyVisible ? 'Woche ausblenden' : 'Woche einblenden';
             }
         }
-
         function calculateHours(from, to) {
             if (!from || !to) return 0;
             const [fromH, fromM] = from.split(':').map(Number);
@@ -753,10 +750,21 @@
             list.innerHTML = '';
             const filterVal = document.getElementById('filter-entry-employee') ? document.getElementById('filter-entry-employee').value : 'all';
             
-            let filteredEntries = timeEntriesData;
+            let filteredEntries = [...timeEntriesData];
             if (filterVal !== 'all') {
-                filteredEntries = timeEntriesData.filter(e => e.employeeId === filterVal);
+                filteredEntries = filteredEntries.filter(e => e.employeeId === filterVal);
             }
+            // Sort by newest entry first (TT.MM.JJJJ)
+            filteredEntries.sort((a, b) => {
+                const parseDate = (dStr) => {
+                    if (!dStr) return 0;
+                    const parts = dStr.split('.');
+                    if (parts.length !== 3) return 0;
+                    return new Date(parts[2], parts[1]-1, parts[0]).getTime();
+                };
+                return parseDate(b.date) - parseDate(a.date);
+            });
+
             if (filteredEntries.length === 0) {
                 list.innerHTML = '<p class="text-on-surface-variant">Keine Zeiteinträge vorhanden.</p>';
                 return;
@@ -816,11 +824,10 @@
             container.innerHTML = '';
             
             const weeklyFilterVal = document.getElementById('filter-weekly-employee') ? document.getElementById('filter-weekly-employee').value : 'all';
-            let filteredEntries = timeEntriesData;
+            let filteredEntries = [...timeEntriesData];
             if (weeklyFilterVal !== 'all') {
-                filteredEntries = timeEntriesData.filter(e => e.employeeId === weeklyFilterVal);
+                filteredEntries = filteredEntries.filter(e => e.employeeId === weeklyFilterVal);
             }
-
             if (!filteredEntries || filteredEntries.length === 0) {
                 container.innerHTML = '<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für die Wochenübersicht gefunden.</div>';
                 return;
@@ -835,7 +842,7 @@
             const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
                 const partsA = a.split('.');
                 const partsB = b.split('.');
-                return new Date(partsA[2], partsA[1]-1, partsA[0]) - new Date(partsB[2], partsB[1]-1, partsB[0]);
+                return new Date(partsB[2], partsB[1]-1, partsB[0]) - new Date(partsA[2], partsA[1]-1, partsA[0]);
             });
             sortedDates.forEach(dateStr => {
                 const entriesForDate = groupedByDate[dateStr];
