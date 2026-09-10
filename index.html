@@ -2,7 +2,7 @@
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Döltschi Time - Zeitmanagement</title>
+<title>Döltschi Time - Optimierte Wochenübersicht</title>
 <style>
         @layer base {
             html, body { margin: 0; padding: 0; }
@@ -301,14 +301,27 @@
 </div>
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-wochenuebersicht">
-<div class="flex items-center justify-between">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 <div>
 <h2 class="text-headline-lg text-on-surface">Wochenübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen mit tatsächlichen Zeiteinträgen.</p>
+<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen mit Filter und Ein-/Ausblenden.</p>
+</div>
+<div class="flex items-center gap-3">
+<button onclick="toggleWeeklyVisibility()" id="toggle-weekly-btn" class="px-3 py-2 bg-surface-container-low text-primary text-sm font-bold rounded-xl border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">visibility</span> <span id="toggle-weekly-text">Woche ausblenden</span>
+</button>
+<div class="flex items-center gap-2">
+<label class="text-label-caps text-on-surface-variant whitespace-nowrap">Mitarbeiter:</label>
+<select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="filter-weekly-employee" onchange="renderWeeklyOverview()">
+<option value="all">Ganzes Team anzeigen</option>
+</select>
 </div>
 </div>
+</div>
+<div class="space-y-6 transition-all duration-300" id="weekly-overview-wrapper">
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container">
 <!-- Populated dynamically -->
+</div>
 </div>
 </div>
 <!-- VIEW: MITARBEITER -->
@@ -412,6 +425,7 @@
         ];
         let timeEntriesData = [];
         let entriesVisible = true;
+        let weeklyVisible = true;
 
         function toggleEntriesVisibility() {
             entriesVisible = !entriesVisible;
@@ -422,6 +436,18 @@
             }
             if (btnText) {
                 btnText.textContent = entriesVisible ? 'Ausblenden' : 'Einblenden';
+            }
+        }
+
+        function toggleWeeklyVisibility() {
+            weeklyVisible = !weeklyVisible;
+            const wrapper = document.getElementById('weekly-overview-wrapper');
+            const btnText = document.getElementById('toggle-weekly-text');
+            if (wrapper) {
+                wrapper.style.display = weeklyVisible ? 'block' : 'none';
+            }
+            if (btnText) {
+                btnText.textContent = weeklyVisible ? 'Woche ausblenden' : 'Woche einblenden';
             }
         }
 
@@ -634,6 +660,7 @@
         function populateEmployeeSelects() {
             const formSelect = document.getElementById('entry-employee');
             const filterSelect = document.getElementById('filter-entry-employee');
+            const weeklyFilterSelect = document.getElementById('filter-weekly-employee');
             
             if (formSelect) {
                 formSelect.innerHTML = '<option value="all">Ganzes Team</option>';
@@ -651,6 +678,15 @@
                     opt.value = emp.id;
                     opt.textContent = `${emp.name}`;
                     filterSelect.appendChild(opt);
+                });
+            }
+            if (weeklyFilterSelect) {
+                weeklyFilterSelect.innerHTML = '<option value="all">Ganzes Team anzeigen</option>';
+                employeesData.forEach(emp => {
+                    const opt = document.createElement('option');
+                    opt.value = emp.id;
+                    opt.textContent = `${emp.name}`;
+                    weeklyFilterSelect.appendChild(opt);
                 });
             }
         }
@@ -778,12 +814,19 @@
             const container = document.getElementById('weekly-overview-container');
             if(!container) return;
             container.innerHTML = '';
-            if (!timeEntriesData || timeEntriesData.length === 0) {
-                container.innerHTML = '<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für eine Wochenübersicht vorhanden.</div>';
+            
+            const weeklyFilterVal = document.getElementById('filter-weekly-employee') ? document.getElementById('filter-weekly-employee').value : 'all';
+            let filteredEntries = timeEntriesData;
+            if (weeklyFilterVal !== 'all') {
+                filteredEntries = timeEntriesData.filter(e => e.employeeId === weeklyFilterVal);
+            }
+
+            if (!filteredEntries || filteredEntries.length === 0) {
+                container.innerHTML = '<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für die Wochenübersicht gefunden.</div>';
                 return;
             }
             const groupedByDate = {};
-            timeEntriesData.forEach(entry => {
+            filteredEntries.forEach(entry => {
                 if (!groupedByDate[entry.date]) {
                     groupedByDate[entry.date] = [];
                 }
