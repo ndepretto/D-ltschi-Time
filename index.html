@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html lang="de"><head>
+<html class="h-full" lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - Zeitmanagement</title>
 <style>
         @layer base {
-            html, body { margin: 0; padding: 0; }
+            html, body { margin: 0; padding: 0; height: 100%; }
             body { overscroll-behavior: none; }
             main>:first-child { margin-top: 0 !important; }
             main>:last-child { margin-bottom: 0 !important; }
@@ -96,875 +96,755 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
-<body class="bg-surface font-body-md text-on-surface">
-<!-- Password Protection Modal -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md flex items-center justify-center p-4" id="auth-modal">
-<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
-<div class="text-center">
-<h2 class="text-headline-md text-primary">Döltschi Time Login</h2>
-<p class="text-body-md text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
+<body class="h-full bg-background text-on-background font-body-md antialiased overflow-hidden flex flex-col">
+<!-- Password / Auth Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" id="auth-modal">
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-2xl w-full max-w-md border border-outline-variant/20 text-center space-y-6">
+<div class="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto shadow-sm">
+<span class="material-symbols-outlined text-3xl">lock</span>
 </div>
-<form class="flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password"/>
-<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
-<p class="text-error text-center text-body-md hidden" id="auth-error">Falsches Passwort!</p>
+<div>
+<h2 class="text-headline-md text-on-surface mb-1 font-bold">Döltschi Time</h2>
+<p class="text-on-surface-variant text-sm">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
+</div>
+<form class="space-y-4 text-left" id="auth-form" onsubmit="handleAuth(event)">
+<div>
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1">Passwort</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant/60 bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="auth-password" placeholder="Passwort eingeben..." required="" type="password"/>
+</div>
+<div class="text-error text-sm hidden font-medium" id="auth-error">Falsches Passwort.</div>
+<button class="w-full py-3 bg-primary text-on-primary font-medium rounded-xl shadow-md hover:bg-primary-container transition-colors" type="submit">Anmelden</button>
 </form>
 </div>
 </div>
-<!-- Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high">
-<div class="px-8 mb-10 text-xl font-headline-md text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
+<!-- Edit Modal for Tagesübersicht -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden" id="edit-modal">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-2xl w-full max-w-lg border border-outline-variant/30 max-h-[90vh] overflow-y-auto">
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant/20 pb-3">
+<h3 class="text-lg font-bold text-on-surface">Eintrag bearbeiten</h3>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="closeEditModal()" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
 </div>
-<nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
-<a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
-<span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung">
-<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="wochenuebersicht">
-<span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="mitarbeiter">
-<span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="berichte">
-<span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
-            </a>
-<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="einstellungen">
-<span class="material-symbols-outlined mr-3">settings</span>Profil &amp; Einstellungen
-            </a>
+<form class="space-y-4" id="modal-time-entry-form" onsubmit="saveModalTimeEntry(event)">
+<input id="modal-edit-id" type="hidden"/>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1">Mitarbeiter</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface" id="modal-form-employee" readonly="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1">Datum</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-date" required="" type="date"/>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-3">
+<h4 class="text-sm font-bold text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">wb_sunny</span> Morgen
+</h4>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block text-xs text-on-surface-variant mb-1">Von</label>
+<input class="w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-morning-start" type="time"/>
+</div>
+<div>
+<label class="block text-xs text-on-surface-variant mb-1">Bis</label>
+<input class="w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-morning-end" type="time"/>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-3">
+<h4 class="text-sm font-bold text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">light_mode</span> Nachmittag
+</h4>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block text-xs text-on-surface-variant mb-1">Von</label>
+<input class="w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-afternoon-start" type="time"/>
+</div>
+<div>
+<label class="block text-xs text-on-surface-variant mb-1">Bis</label>
+<input class="w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-afternoon-end" type="time"/>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-3">
+<h4 class="text-sm font-bold text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">nights_stay</span> Abend
+</h4>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block text-xs text-on-surface-variant mb-1">Von</label>
+<input class="w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-evening-start" type="time"/>
+</div>
+<div>
+<label class="block text-xs text-on-surface-variant mb-1">Bis</label>
+<input class="w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-evening-end" type="time"/>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-3">
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1">Bemerkungen</label>
+<textarea class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" id="modal-form-notes" rows="2"></textarea>
+</div>
+<div class="flex justify-end gap-3 pt-3">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface font-medium rounded-lg hover:bg-surface-container-highest transition-colors" onclick="closeEditModal()" type="button">Abbrechen</button>
+<button class="px-5 py-2 bg-primary text-on-primary font-medium rounded-lg shadow hover:bg-primary-container transition-colors flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-sm">save</span> Speichern
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Main App Container -->
+<div class="flex h-full w-full overflow-hidden opacity-0 transition-opacity duration-300" id="app-container">
+<!-- Sidebar (Dark Design) -->
+<aside class="w-64 bg-[#0d1b2a] text-[#e0e1dd] flex flex-col shrink-0 select-none">
+<div class="p-6 flex items-center gap-3 border-b border-white/10">
+<div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow">
+                    DT
+                </div>
+<div>
+<h1 class="font-bold text-white tracking-wide">Döltschi Time</h1>
+<span class="text-xs text-blue-300 font-medium">Zeitmanagement</span>
+</div>
+</div>
+<nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors bg-blue-600 text-white shadow" id="nav-tracking" onclick="switchView('tracking')">
+<span class="material-symbols-outlined">schedule</span>
+                    Zeiterfassung
+                </button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-white/5 hover:text-white" id="nav-overview" onclick="switchView('overview')">
+<span class="material-symbols-outlined">calendar_today</span>
+                    Tagesübersicht
+                </button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-white/5 hover:text-white" id="nav-employees" onclick="switchView('employees')">
+<span class="material-symbols-outlined">group</span>
+                    Mitarbeiter
+                </button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-white/5 hover:text-white" id="nav-stats" onclick="switchView('stats')">
+<span class="material-symbols-outlined">bar_chart</span>
+                    Auswertung &amp; Jahr
+                </button>
 </nav>
-</aside>
-<!-- Main Content Area -->
-<div class="pl-64">
-<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-8">
-<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement - Dashboard</div>
-<div class="flex items-center gap-4">
-<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1" id="firebase-status">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Firebase Live
-                </span>
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
-<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
-<span>ND</span>
+<div class="p-4 border-t border-white/10 text-xs text-gray-400 flex items-center justify-between">
+<span class="">Status: <span class="text-green-400 font-medium" id="sync-status">Verbunden</span></span>
+<button class="hover:text-white transition-colors" onclick="logout()" title="Abmelden"><span class="material-symbols-outlined text-sm">logout</span></button>
 </div>
+</aside>
+<!-- Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-background overflow-hidden">
+<!-- Header bar -->
+<header class="h-16 bg-surface border-b border-outline-variant/30 px-8 flex items-center justify-between shrink-0">
+<h2 class="text-headline-md text-on-surface" id="view-title">Zeiterfassung</h2>
+<div class="flex items-center gap-4">
+<span class="text-sm font-medium text-on-surface-variant" id="current-date-display">Donnerstag, 10. September 2026</span>
 </div>
 </header>
-<main class="relative pt-16 bg-surface min-h-screen">
-<!-- VIEW: DASHBOARD -->
-<div class="view-container flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-dashboard">
-<!-- Top Summary Banner -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">group</span></div>
+<!-- Views Container -->
+<div class="flex-1 overflow-y-auto p-8 relative">
+<!-- 1. ZEITERFASSUNG VIEW -->
+<div class="max-w-3xl mx-auto space-y-6" id="view-tracking-content">
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/20 space-y-6">
+<div class="flex items-center justify-between">
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Aktives Team</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-team-count">4 Mitglieder</h2>
+<h3 class="text-headline-md text-on-surface">Arbeitszeit erfassen</h3>
+<p class="text-xs text-on-surface-variant mt-0.5">Erfassen Sie Schichten und Pausenzeiten präzise nach Block.</p>
 </div>
-<div class="mt-6 flex items-center gap-2 text-primary font-bold text-body-md">
-<span class="material-symbols-outlined text-[18px]">verified</span><span>100% Einsatzbereitschaft</span>
+<button class="hidden text-xs text-error font-bold flex items-center gap-1 bg-error-container/50 px-3 py-1.5 rounded-lg hover:bg-error-container transition-colors" id="cancel-edit-btn" onclick="cancelEdit()">
+<span class="material-symbols-outlined text-sm">close</span> Bearbeitung abbrechen
+                            </button>
 </div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div>
-<div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monatssumme Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">0.0 / 680 Std.</h2>
-</div>
-<div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div>
-<div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-overtime-total">+0.0 Std.</h2>
-</div>
-<div class="mt-6 flex items-center gap-2 text-emerald-600 font-bold text-body-md">
-<span class="material-symbols-outlined text-[18px]">arrow_upward</span><span>Positiver Saldo</span>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
-<div class="absolute -right-4 -bottom-4 text-error/5"><span class="material-symbols-outlined text-[100px]">warning</span></div>
-<div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Fehlstunden Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-absence-total">0.0 Std.</h2>
-</div>
-<div class="mt-6 flex items-center gap-2 text-error font-bold text-body-md">
-<span class="material-symbols-outlined text-[18px]">info</span><span>Klärung ausstehend</span>
-</div>
-</div>
-</div>
-<!-- Section Header -->
-<div class="flex items-center justify-between mt-4">
-<div>
-<h2 class="text-headline-lg text-on-surface">Mitarbeiter-Jahresarbeitszeit</h2>
-<p class="text-body-md text-on-surface-variant">Detaillierte Zeiterfassung, Monatssaldis und Jahresfortschritt für alle Teammitglieder (angepasst an das jeweilige Pensum).</p>
-</div>
-<div class="flex gap-3">
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="switchView('zeiterfassung')">
-<span class="material-symbols-outlined text-[18px]">add</span> Zeiteintrag erfassen
-                        </button>
-</div>
-</div>
-<!-- Bento Grid for Team Members with prominent yearly overview -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid">
-<!-- Dynamically populated -->
-</div>
-</div>
-<!-- VIEW: ZEITERFASSUNG -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-md text-on-surface mb-2">Zeiterfassung erfassen / bearbeiten</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten oder Abwesenheiten im Schweizer Format (TT.MM.JJJJ).</p>
-<form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-employee" required="">
-<option value="all">Ganzes Team</option>
+<form class="space-y-6" id="time-entry-form" onsubmit="saveTimeEntry(event)">
+<input id="edit-entry-id" type="hidden" value=""/>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="bg-surface-container-low/60 p-4 rounded-xl border border-outline-variant/20">
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">Mitarbeiter</label>
+<select class="w-full px-3.5 py-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-2 focus:ring-primary text-sm font-medium shadow-sm" id="form-employee" required="">
+<!-- Populated via JS -->
 </select>
 </div>
+<div class="bg-surface-container-low/60 p-4 rounded-xl border border-outline-variant/20">
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">Datum</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-2 focus:ring-primary text-sm font-medium shadow-sm" id="form-date" required="" type="date"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+<!-- Morgen Card -->
+<div class="bg-surface-container-low/40 p-4 rounded-xl border border-outline-variant/20 space-y-3 hover:border-primary/40 transition-colors">
+<div class="flex items-center gap-2 text-primary font-bold text-sm border-b border-outline-variant/20 pb-2">
+<span class="material-symbols-outlined text-base">wb_sunny</span> Morgen
+</div>
+<div class="grid grid-cols-2 gap-2">
 <div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2026" required="" type="text"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Vormittag</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Nachmittag</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant mb-2">Abend / Nacht</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value=""/>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Abwesenheiten / Status</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-status">
-<option value="Normal">Regulärer Arbeitstag</option>
-<option value="Krankheit">Krankheit</option>
-<option value="Ferien">Ferien</option>
-<option value="Unfall">Unfall / Sonstiges</option>
-</select>
+<label class="block text-[11px] text-on-surface-variant mb-1 font-medium">Von</label>
+<input class="w-full px-2.5 py-2 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="form-morning-start" type="time"/>
 </div>
 <div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Bemerkungen / Projekt</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Kundentermin, Projekt X" type="text"/>
+<label class="block text-[11px] text-on-surface-variant mb-1 font-medium">Bis</label>
+<input class="w-full px-2.5 py-2 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="form-morning-end" type="time"/>
 </div>
 </div>
-<div class="flex justify-end gap-4 pt-4">
-<button class="px-6 py-3 bg-surface-container-high text-on-surface font-bold rounded-xl hover:bg-surface-container-highest transition-all" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
-<button class="px-6 py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Eintrag speichern</button>
+</div>
+<!-- Nachmittag Card -->
+<div class="bg-surface-container-low/40 p-4 rounded-xl border border-outline-variant/20 space-y-3 hover:border-primary/40 transition-colors">
+<div class="flex items-center gap-2 text-primary font-bold text-sm border-b border-outline-variant/20 pb-2">
+<span class="material-symbols-outlined text-base">light_mode</span> Nachmittag
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block text-[11px] text-on-surface-variant mb-1 font-medium">Von</label>
+<input class="w-full px-2.5 py-2 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="form-afternoon-start" type="time"/>
+</div>
+<div>
+<label class="block text-[11px] text-on-surface-variant mb-1 font-medium">Bis</label>
+<input class="w-full px-2.5 py-2 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="form-afternoon-end" type="time"/>
+</div>
+</div>
+</div>
+<!-- Abend Card -->
+<div class="bg-surface-container-low/40 p-4 rounded-xl border border-outline-variant/20 space-y-3 hover:border-primary/40 transition-colors">
+<div class="flex items-center gap-2 text-primary font-bold text-sm border-b border-outline-variant/20 pb-2">
+<span class="material-symbols-outlined text-base">nights_stay</span> Abend
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block text-[11px] text-on-surface-variant mb-1 font-medium">Von</label>
+<input class="w-full px-2.5 py-2 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="form-evening-start" type="time"/>
+</div>
+<div>
+<label class="block text-[11px] text-on-surface-variant mb-1 font-medium">Bis</label>
+<input class="w-full px-2.5 py-2 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="form-evening-end" type="time"/>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-4">
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">Bemerkungen</label>
+<textarea class="w-full px-4 py-3 rounded-xl border border-outline-variant/60 bg-surface-container-low/40 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary text-sm" id="form-notes" placeholder="Optionale Bemerkungen zum Eintrag..." rows="2"></textarea>
+</div>
+<div class="flex justify-end gap-3 pt-2">
+<button class="px-6 py-3 bg-primary text-on-primary font-medium rounded-xl shadow-md hover:bg-primary-container transition-all flex items-center gap-2 text-sm" id="form-submit-btn" type="submit">
+<span class="material-symbols-outlined text-sm">save</span> Speichern
+                                </button>
 </div>
 </form>
 </div>
-<!-- Existing Entries List -->
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-<h3 class="text-headline-md text-on-surface">Eingetragene Zeiten</h3>
-<div class="flex items-center gap-2 w-full md:w-auto">
-<label class="text-label-caps text-on-surface-variant whitespace-nowrap">Filter:</label>
-<select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="filter-entry-employee" onchange="renderTimeEntriesList()">
-<option value="all">Ganzes Team anzeigen</option>
+</div>
+<!-- 2. TAGESÜBERSICHT VIEW (Wochenübersicht / Tagesübersicht) -->
+<div class="max-w-5xl mx-auto space-y-6 hidden" id="view-overview-content">
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/20 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-lg">event</span>
+</div>
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Datum wählen</label>
+<input class="px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary mt-0.5" id="overview-date-filter" onchange="renderOverview()" type="date"/>
+</div>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low/70 p-1 rounded-xl border border-outline-variant/20">
+<button class="px-3 py-1.5 bg-surface-container-lowest rounded-lg hover:bg-surface shadow-xs text-on-surface text-xs font-semibold transition-colors" onclick="changeOverviewDate(-1)">← Tag</button>
+<button class="px-3.5 py-1.5 bg-primary text-on-primary rounded-lg shadow-xs text-xs font-semibold transition-colors" onclick="setTodayOverview()">Heute</button>
+<button class="px-3 py-1.5 bg-surface-container-lowest rounded-lg hover:bg-surface shadow-xs text-on-surface text-xs font-semibold transition-colors" onclick="changeOverviewDate(1)">Tag →</button>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Sortierung:</label>
+<select class="px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-low text-on-surface text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-primary" id="overview-sort-select" onchange="renderOverview()">
+<option value="desc">Neueste zuerst</option>
+<option selected="" value="asc">Älteste zuerst</option>
 </select>
 </div>
 </div>
-<div class="space-y-3" id="time-entries-list">
-<!-- Populated dynamically -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/30"><div>
+<h3 class="text-base font-bold text-on-surface">Einträge für <span class="text-primary" id="overview-date-title">---</span></h3>
+<p class="text-xs text-on-surface-variant mt-0.5">Detaillierte Übersicht aller erfassten Schichten.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs font-semibold text-on-surface-variant hover:text-on-surface bg-surface-container-low px-3 py-1.5 rounded-xl border border-outline-variant/30 transition-colors" onclick="toggleOverviewTable()" type="button">
+<span class="material-symbols-outlined text-sm" id="overview-toggle-icon">expand_less</span>
+<span>Einträge ein-/ausblenden</span>
+</button>
+<span class="text-sm font-bold bg-primary/10 text-primary px-3.5 py-1.5 rounded-xl shadow-xs border border-primary/20" id="overview-total-hours">Total: 0.00 Std</span>
+</div></div>
+<div class="overflow-x-auto" id="overview-table-container">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/60 text-on-surface-variant text-[11px] font-bold uppercase tracking-wider border-b border-outline-variant/20">
+<th class="p-4">Mitarbeiter</th>
+<th class="p-4">Morgen</th>
+<th class="p-4">Nachmittag</th>
+<th class="p-4">Abend</th>
+<th class="p-4">Total</th>
+<th class="p-4">Bemerkungen</th>
+<th class="p-4 text-right">Aktionen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-sm" id="overview-table-body">
+<!-- Populated via JS -->
+</tbody>
+</table>
 </div>
 </div>
 </div>
-<!-- VIEW: WOCHENÜBERSICHT -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-wochenuebersicht">
-<div class="flex items-center justify-between">
-<div>
-<h2 class="text-headline-lg text-on-surface">Wochenübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen mit tatsächlichen Zeiteinträgen.</p>
+<!-- 3. MITARBEITER VIEW -->
+<div class="max-w-3xl mx-auto space-y-6 hidden" id="view-employees-content">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/20">
+<h3 class="text-lg font-bold text-on-surface mb-2">Neuen Mitarbeiter hinzufügen</h3>
+<p class="text-xs text-on-surface-variant mb-4">Erfassen Sie neue Teammitglieder für die Zeiterfassung.</p>
+<form class="flex gap-3" onsubmit="addEmployee(event)">
+<input class="flex-1 px-4 py-3 rounded-xl border border-outline-variant/60 bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary text-sm" id="new-employee-name" placeholder="Vorname Nachname" required="" type="text"/>
+<button class="px-6 py-3 bg-primary text-on-primary font-medium rounded-xl shadow hover:bg-primary-container transition-colors text-sm" type="submit">Hinzufügen</button>
+</form>
 </div>
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20">
+<h3 class="text-lg font-bold text-on-surface">Mitarbeiterliste</h3>
 </div>
-<div class="grid grid-cols-1 gap-6" id="weekly-overview-container">
-<!-- Populated dynamically -->
-</div>
-</div>
-<!-- VIEW: MITARBEITER -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-mitarbeiter">
-<div class="flex items-center justify-between">
-<div>
-<h2 class="text-headline-lg text-on-surface">Mitarbeiterverwaltung</h2>
-<p class="text-body-md text-on-surface-variant">Teammitglieder hinzufügen, bearbeiten oder entfernen in Echtzeit.</p>
-</div>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="openEmployeeModal()">
-<span class="material-symbols-outlined text-[18px]">person_add</span> Mitarbeiter hinzufügen
-                    </button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list">
-<!-- Populated dynamically -->
-</div>
-</div>
-<!-- VIEW: BERICHTE -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-berichte">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-lg text-on-surface mb-2">Monatsberichte &amp; Statistiken</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Auswertung des aktuellen Abrechnungszeitraums für alle Teammitglieder.</p>
-<div class="space-y-6" id="reports-content">
-<!-- Populated dynamically -->
+<div class="divide-y divide-outline-variant/10" id="employee-list-container">
+<!-- Populated via JS -->
 </div>
 </div>
 </div>
-<!-- VIEW: EINSTELLUNGEN -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[800px] mx-auto gap-8 pb-20" id="view-einstellungen">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-lg text-on-surface mb-2">Profil &amp; Einstellungen</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Konfiguration für die 'Döltschi Time' Firestore Datenbank.</p>
-<div class="space-y-4">
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant">Firebase Projekt</span>
-<p class="text-headline-md text-on-surface font-bold mt-1">doeltschi-time</p>
+<!-- 4. AUSWERTUNG & JAHR VIEW -->
+<div class="max-w-4xl mx-auto space-y-6 hidden" id="view-stats-content">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/20 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Jahr wählen:</label>
+<select class="px-4 py-2 rounded-xl border border-outline-variant/60 bg-surface-container-low text-on-surface focus:outline-none focus:ring-2 focus:ring-primary text-sm" id="stats-year-select" onchange="renderStats()">
+<!-- Populated via JS -->
+<option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option></select>
 </div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant">Synchronisation</span>
-<p class="text-body-md text-primary font-bold mt-1">Aktiv (Firestore onSnapshot)</p>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20">
+<h3 class="text-lg font-bold text-on-surface">Jahresübersicht Arbeitsstunden</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant text-xs font-bold uppercase tracking-wider border-b border-outline-variant/20">
+<th class="p-4">Mitarbeiter</th>
+<th class="p-4 text-right">Total Stunden</th>
+<th class="p-4 text-right">Einträge</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-sm" id="stats-table-body">
+<!-- Populated via JS -->
+</tbody>
+</table>
 </div>
 </div>
 </div>
 </div>
 </main>
 </div>
-<!-- Employee Modal -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md hidden items-center justify-center p-4" id="employee-modal">
-<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
-<h3 class="text-headline-md text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
-<form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Vollständiger Name</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
-</div>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Rolle / Position</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Pensum (%)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-pensum" required="" type="number"/>
-</div>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-1">Soll-Stunden Monat</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" type="number"/>
-</div>
-<div class="col-span-2">
-<label class="block text-label-caps text-on-surface-variant mb-1">Jahresarbeitszeit (Stunden)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="1880"/>
-</div>
-</div>
-<div class="flex justify-end gap-3 pt-4">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Firebase & App Script -->
+<!-- Firebase Init & Main App Script -->
 <script>
+        // Initialize Firebase with dummy config if none exists, or standard public test config
         const firebaseConfig = {
-            apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
+            apiKey: "AIzaSyDummyKeyForTestingOnly12345",
             authDomain: "doeltschi-time.firebaseapp.com",
             projectId: "doeltschi-time",
             storageBucket: "doeltschi-time.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef123456789"
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef"
         };
+
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
 
-        let employeesData = [
-            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.57) },
-            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
-            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
-            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.92) }
-        ];
-        let timeEntriesData = [];
+        // Local state fallback & synchronization
+        let employees = ['Max Muster', 'Anna Schmidt', 'Hans Meier'];
+        let timeEntries = [];
+        let currentView = 'tracking';
 
-        // 1. Accurate Time Calculation Function
-        function calculateHours(from, to) {
-            if (!from || !to) return 0;
-            const [fromH, fromM] = from.split(':').map(Number);
-            const [toH, toM] = to.split(':').map(Number);
-            const fromMinutes = fromH * 60 + fromM;
-            const toMinutes = toH * 60 + toM;
-            const diff = toMinutes - fromMinutes;
-            return diff > 0 ? diff / 60 : 0;
-        }
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            const todayStr = new Date().toISOString().split('T')[0];
+            document.getElementById('form-date').value = todayStr;
+            document.getElementById('overview-date-filter').value = todayStr;
+            document.getElementById('current-date-display').innerText = new Date().toLocaleDateString('de-CH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-        function calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status) {
-            if (status === 'Krankheit' || status === 'Ferien') return 0;
-            let total = 0;
-            total += calculateHours(vmFrom, vmTo);
-            total += calculateHours(nmFrom, nmTo);
-            total += calculateHours(abendFrom, abendTo);
-            return Number(total.toFixed(2));
-        }
-
-        async function seedInitialDataIfNeeded() {
-            try {
-                const storedEmps = localStorage.getItem('doeltschi_employees');
-                const storedEntries = localStorage.getItem('doeltschi_entries');
-                
-                if (storedEmps) {
-                    employeesData = JSON.parse(storedEmps);
-                }
-                if (storedEntries) {
-                    timeEntriesData = JSON.parse(storedEntries);
-                } else {
-                    timeEntriesData = [];
-                    localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
-                }
-            } catch(e) {
-                console.log("Storage load error", e);
+            // Populate Years for Stats
+            const yearSelect = document.getElementById('stats-year-select');
+            const currentYear = new Date().getFullYear();
+            for (let y = currentYear - 2; y <= currentYear + 1; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                if (y === currentYear) opt.selected = true;
+                yearSelect.appendChild(opt);
             }
-            renderDashboard();
-            renderEmployeesManagement();
-            populateEmployeeSelects();
-            renderTimeEntriesList();
-            renderWeeklyOverview();
-            renderReports();
-        }
 
-        function saveLocalState() {
-            try {
-                localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
-                localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
-            } catch(e) {}
-        }
+            // Check Auth Session
+            if (sessionStorage.getItem('doeltschi_auth') === 'true') {
+                unlockApp();
+            }
 
-        // Authentication Handler
-        document.getElementById('auth-form').addEventListener('submit', (e) => {
+            // Setup Firestore Listeners
+            initFirestoreListeners();
+        });
+
+        function handleAuth(e) {
             e.preventDefault();
-            const pwd = document.getElementById('auth-password').value;
-            if (pwd === 'Willma') {
-                document.getElementById('auth-modal').classList.add('hidden');
-                initRealtimeSync();
+            const pass = document.getElementById('auth-password').value;
+            if (pass === 'Willma') {
+                sessionStorage.setItem('doeltschi_auth', 'true');
+                unlockApp();
             } else {
                 document.getElementById('auth-error').classList.remove('hidden');
             }
-        });
+        }
 
-        function initRealtimeSync() {
-            try {
-                db.collection('employees').onSnapshot((snapshot) => {
-                    if (!snapshot.empty) {
-                        employeesData = [];
-                        snapshot.forEach((doc) => {
-                            employeesData.push({ id: doc.id, ...doc.data() });
-                        });
-                        saveLocalState();
-                    }
-                    renderDashboard();
-                    renderEmployeesManagement();
-                    populateEmployeeSelects();
-                    renderReports();
-                }, (err) => console.log(err));
-                db.collection('timeEntries').onSnapshot((snapshot) => {
-                    if (!snapshot.empty) {
-                        timeEntriesData = [];
-                        snapshot.forEach((doc) => {
-                            timeEntriesData.push({ id: doc.id, ...doc.data() });
-                        });
-                        saveLocalState();
-                    }
-                    renderDashboard();
-                    renderTimeEntriesList();
-                    renderWeeklyOverview();
-                    renderReports();
-                }, (err) => console.log(err));
-            } catch(e) {
-                console.log("Sync error", e);
-            }
+        function unlockApp() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.getElementById('app-container').classList.remove('opacity-0');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('doeltschi_auth');
+            location.reload();
         }
 
         function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`view-${viewName}`).classList.remove('hidden');
-            document.querySelectorAll('#sidebar-nav a').forEach(el => {
-                el.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
-                el.classList.add('text-on-surface-variant');
-                if (el.getAttribute('data-view') === viewName) {
-                    el.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
-                    el.classList.remove('text-on-surface-variant');
-                }
+            currentView = viewName;
+            ['tracking', 'overview', 'employees', 'stats'].forEach(v => {
+                document.getElementById(`view-${v}-content`).classList.add('hidden');
+                document.getElementById(`nav-${v}`).className = "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-white/5 hover:text-white";
             });
+            document.getElementById(`view-${viewName}-content`).classList.remove('hidden');
+            document.getElementById(`nav-${viewName}`).className = "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors bg-blue-600 text-white shadow";
+
             const titles = {
-                dashboard: 'Zeitmanagement - Dashboard',
-                zeiterfassung: 'Zeiterfassung',
-                wochenuebersicht: 'Wochenübersicht',
-                mitarbeiter: 'Mitarbeiter-Verwaltung',
-                berichte: 'Monatsberichte',
-                einstellungen: 'Profil & Einstellungen'
+                tracking: 'Zeiterfassung',
+                overview: 'Tagesübersicht',
+                employees: 'Mitarbeiterverwaltung',
+                stats: 'Auswertung & Jahr'
             };
-            document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
-            
-            if(viewName === 'mitarbeiter') {
-                renderEmployeesManagement();
-            } else if(viewName === 'dashboard') {
-                renderDashboard();
-            } else if(viewName === 'zeiterfassung') {
-                renderTimeEntriesList();
-            } else if(viewName === 'wochenuebersicht') {
-                renderWeeklyOverview();
-            }
+            document.getElementById('view-title').innerText = titles[viewName];
+
+            if (viewName === 'overview') renderOverview();
+            if (viewName === 'employees') renderEmployees();
+            if (viewName === 'stats') renderStats();
         }
-        document.querySelectorAll('#sidebar-nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                const view = link.getAttribute('data-view');
-                switchView(view);
+
+        function initFirestoreListeners() {
+            // Employees Listener
+            db.collection('employees').onSnapshot(snapshot => {
+                if (!snapshot.empty) {
+                    employees = [];
+                    snapshot.forEach(doc => employees.push(doc.data().name));
+                } else if (employees.length > 0) {
+                    employees.forEach(name => db.collection('employees').add({ name }));
+                }
+                updateEmployeeSelects();
+                renderEmployees();
+            }, err => {
+                console.log("Firestore offline/fallback mode for employees:", err);
+                updateEmployeeSelects();
+                renderEmployees();
             });
-        });
 
-        function renderDashboard() {
-            const grid = document.getElementById('dashboard-employees-grid');
-            if(!grid) return;
-            grid.innerHTML = '';
-            let totalActual = 0;
-            let totalTarget = 0;
-            let totalOvertime = 0;
-            let totalAbsence = 0;
-
-            employeesData.forEach(emp => {
-                const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
-                let actual = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-                const pensumRatio = (emp.pensum || 100) / 100;
-                const target = emp.targetHours || Math.round(168 * pensumRatio);
-                const overtime = Math.max(0, actual - target);
-                const absence = empEntries.filter(e => e.status === 'Krankheit').length * 8;
-                
-                totalActual += actual;
-                totalTarget += target;
-                totalOvertime += overtime;
-                totalAbsence += absence;
-
-                const yearlyTotal = emp.yearlyTotal || Math.round(1880 * pensumRatio);
-                const yearlyProgressPct = Number(emp.yearlyProgress) || 0;
-                const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
-
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
-                card.innerHTML = `
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">${emp.initials || emp.name.substring(0,2).toUpperCase()}</div>
-                            <div>
-                                <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">${emp.role}</span>
-                            </div>
-                        </div>
-                        <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
-                            <span class="text-label-caps text-on-surface-variant block">Pensum</span>
-                            <p class="text-headline-md text-primary font-bold">${emp.pensum}%</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl">
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Monat Ist / Soll</span>
-                            <p class="text-body-lg font-bold text-on-surface mt-1">${actual.toFixed(1)} / ${target} h</p>
-                        </div>
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Überstunden</span>
-                            <p class="text-body-lg font-bold text-emerald-600 mt-1">+${overtime.toFixed(1)} h</p>
-                        </div>
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Fehlstunden</span>
-                            <p class="text-body-lg font-bold text-error mt-1">${absence.toFixed(1)} h</p>
-                        </div>
-                    </div>
-                    <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
-                        <div class="flex justify-between items-center text-body-md">
-                            <span class="text-on-surface font-bold flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span> Jahresarbeitszeit
-                            </span>
-                            <span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">${yearlyWorked.toLocaleString('de-CH')} / ${yearlyTotal.toLocaleString('de-CH')} h (${yearlyProgressPct}%)</span>
-                        </div>
-                        <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
-                            <div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: ${yearlyProgressPct}%;"></div>
-                        </div>
-                    </div>
-                    <div class="flex justify-end gap-3 pt-1">
-                        <button onclick="switchView('zeiterfassung')" class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
+            // Time Entries Listener
+            db.collection('timeEntries').onSnapshot(snapshot => {
+                timeEntries = [];
+                snapshot.forEach(doc => {
+                    timeEntries.push({ id: doc.id, ...doc.data() });
+                });
+                if (currentView === 'overview') renderOverview();
+                if (currentView === 'stats') renderStats();
+            }, err => {
+                console.log("Firestore offline/fallback mode for entries:", err);
             });
-            document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-            document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalTarget} Std.`;
-            document.getElementById('summary-overtime-total').textContent = `+${totalOvertime.toFixed(1)} Std.`;
-            document.getElementById('summary-absence-total').textContent = `${totalAbsence.toFixed(1)} Std.`;
-            const pct = Math.min(100, Math.round((totalActual / totalTarget) * 100));
-            document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
 
-        function populateEmployeeSelects() {
-            const formSelect = document.getElementById('entry-employee');
-            const filterSelect = document.getElementById('filter-entry-employee');
-            
-            if (formSelect) {
-                formSelect.innerHTML = '<option value="all">Ganzes Team</option>';
-                employeesData.forEach(emp => {
-                    const opt = document.createElement('option');
-                    opt.value = emp.id;
-                    opt.textContent = `${emp.name} (${emp.role})`;
-                    formSelect.appendChild(opt);
-                });
-            }
-            if (filterSelect) {
-                filterSelect.innerHTML = '<option value="all">Ganzes Team anzeigen</option>';
-                employeesData.forEach(emp => {
-                    const opt = document.createElement('option');
-                    opt.value = emp.id;
-                    opt.textContent = `${emp.name}`;
-                    filterSelect.appendChild(opt);
-                });
+        function updateEmployeeSelects() {
+            const sel = document.getElementById('form-employee');
+            const currentVal = sel.value;
+            sel.innerHTML = '';
+            employees.forEach(emp => {
+                const opt = document.createElement('option');
+                opt.value = emp;
+                opt.textContent = emp;
+                sel.appendChild(opt);
+            });
+            if (currentVal && employees.includes(currentVal)) {
+                sel.value = currentVal;
             }
         }
 
-        // Time Entry Form Handling
-        document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
+        // Calculate hours between two time strings "HH:MM"
+        function calcHours(start, end) {
+            if (!start || !end) return 0;
+            const [sh, sm] = start.split(':').map(Number);
+            const [eh, em] = end.split(':').map(Number);
+            const totalMins = (eh * 60 + em) - (sh * 60 + sm);
+            return totalMins > 0 ? totalMins / 60 : 0;
+        }
+
+        function saveTimeEntry(e) {
             e.preventDefault();
-            const existingId = document.getElementById('entry-id').value;
-            const id = existingId || ('entry_' + Date.now());
-            const employeeId = document.getElementById('entry-employee').value;
-            const date = document.getElementById('entry-date').value;
-            const vmFrom = document.getElementById('vm-from').value;
-            const vmTo = document.getElementById('vm-to').value;
-            const nmFrom = document.getElementById('nm-from').value;
-            const nmTo = document.getElementById('nm-to').value;
-            const abendFrom = document.getElementById('abend-from').value;
-            const abendTo = document.getElementById('abend-to').value;
-            const status = document.getElementById('entry-status').value;
-            const notes = document.getElementById('entry-notes').value;
-            
-            const hours = calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status);
-            const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
+            const editId = document.getElementById('edit-entry-id').value;
+            const entryData = {
+                employee: document.getElementById('form-employee').value,
+                date: document.getElementById('form-date').value,
+                morningStart: document.getElementById('form-morning-start').value,
+                morningEnd: document.getElementById('form-morning-end').value,
+                afternoonStart: document.getElementById('form-afternoon-start').value,
+                afternoonEnd: document.getElementById('form-afternoon-end').value,
+                eveningStart: document.getElementById('form-evening-start').value,
+                eveningEnd: document.getElementById('form-evening-end').value,
+                notes: document.getElementById('form-notes').value,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
 
-            try {
-                if (existingId) {
-                    // Update existing entry
-                    timeEntriesData = timeEntriesData.map(e => e.id === existingId ? entryData : e);
-                    try { await db.collection('timeEntries').doc(existingId).set(entryData); } catch(err){}
-                } else if (employeeId === 'all') {
-                    for (const emp of employeesData) {
-                        const bulkId = id + '_' + emp.id;
-                        const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
-                        timeEntriesData.push(bulkEntry);
-                        try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry); } catch(err){}
-                    }
+            const morningHours = calcHours(entryData.morningStart, entryData.morningEnd);
+            const afternoonHours = calcHours(entryData.afternoonStart, entryData.afternoonEnd);
+            const eveningHours = calcHours(entryData.eveningStart, entryData.eveningEnd);
+            entryData.totalHours = morningHours + afternoonHours + eveningHours;
+
+            const promise = editId ? 
+                db.collection('timeEntries').doc(editId).update(entryData) :
+                db.collection('timeEntries').add(entryData);
+
+            promise.then(() => {
+                cancelEdit();
+                switchView('overview');
+            }).catch(err => {
+                if (editId) {
+                    const idx = timeEntries.findIndex(t => t.id === editId);
+                    if (idx !== -1) timeEntries[idx] = { id: editId, ...entryData };
                 } else {
-                    timeEntriesData.push(entryData);
-                    try { await db.collection('timeEntries').doc(id).set(entryData); } catch(err){}
+                    timeEntries.push({ id: 'local_' + Date.now(), ...entryData });
                 }
-                saveLocalState();
-                resetTimeForm();
-                renderDashboard();
-                renderTimeEntriesList();
-                renderWeeklyOverview();
-                renderReports();
-                alert('Eintrag erfolgreich gespeichert!');
-            } catch (err) {
-                console.error(err);
-            }
-        });
-
-        function resetTimeForm() {
-            document.getElementById('entry-id').value = '';
-            document.getElementById('entry-date').value = '';
-            document.getElementById('entry-notes').value = '';
-            document.getElementById('entry-status').value = 'Normal';
-            document.getElementById('entry-employee').value = 'all';
-            document.getElementById('vm-from').value = '07:00';
-            document.getElementById('vm-to').value = '12:00';
-            document.getElementById('nm-from').value = '13:00';
-            document.getElementById('nm-to').value = '17:00';
-            document.getElementById('abend-from').value = '';
-            document.getElementById('abend-to').value = '';
-        }
-
-        function renderTimeEntriesList() {
-            const list = document.getElementById('time-entries-list');
-            if(!list) return;
-            list.innerHTML = '';
-            const filterVal = document.getElementById('filter-entry-employee') ? document.getElementById('filter-entry-employee').value : 'all';
-            
-            let filteredEntries = timeEntriesData;
-            if (filterVal !== 'all') {
-                filteredEntries = timeEntriesData.filter(e => e.employeeId === filterVal);
-            }
-            if (filteredEntries.length === 0) {
-                list.innerHTML = '<p class="text-on-surface-variant">Keine Zeiteinträge vorhanden.</p>';
-                return;
-            }
-            filteredEntries.forEach(entry => {
-                const emp = employeesData.find(e => e.id === entry.employeeId);
-                const empName = emp ? emp.name : 'Unbekanntes Teammitglied';
-                const item = document.createElement('div');
-                item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high';
-                item.innerHTML = `
-                    <div>
-                        <p class="font-bold text-on-surface">${empName} - <span class="text-primary">${entry.date}</span></p>
-                        <p class="text-sm text-on-surface-variant">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Arbeitszeit: <strong>${entry.hours}h</strong></p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm font-bold flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">edit</span> Bearbeiten
-                        </button>
-                        <button onclick="deleteTimeEntry('${entry.id}')" class="px-3 py-1 bg-error text-on-error rounded-lg text-sm font-bold">Löschen</button>
-                    </div>
-                `;
-                list.appendChild(item);
+                cancelEdit();
+                switchView('overview');
             });
         }
 
-        async function deleteTimeEntry(id) {
-            if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
-                try {
-                    await db.collection('timeEntries').doc(id).delete();
-                } catch(e) {}
-                timeEntriesData = timeEntriesData.filter(e => e.id !== id);
-                saveLocalState();
-                renderTimeEntriesList();
-                renderDashboard();
-                renderWeeklyOverview();
-                renderReports();
-            }
+        function cancelEdit() {
+            document.getElementById('edit-entry-id').value = '';
+            document.getElementById('time-entry-form').reset();
+            document.getElementById('form-date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
+            document.querySelector('#time-entry-form button[type="submit"]').innerHTML = '<span class="material-symbols-outlined text-sm">save</span> Speichern';
         }
 
+        // Modal Edit Functions for Tagesübersicht
         function editTimeEntry(id) {
-            const entry = timeEntriesData.find(e => e.id === id);
+            const entry = timeEntries.find(t => t.id === id);
             if (!entry) return;
-            switchView('zeiterfassung');
-            document.getElementById('entry-id').value = entry.id;
-            document.getElementById('entry-employee').value = entry.employeeId || 'all';
-            document.getElementById('entry-date').value = entry.date || '';
-            document.getElementById('vm-from').value = entry.vmFrom || '07:00';
-            document.getElementById('vm-to').value = entry.vmTo || '12:00';
-            document.getElementById('nm-from').value = entry.nmFrom || '13:00';
-            document.getElementById('nm-to').value = entry.nmTo || '17:00';
-            document.getElementById('abend-from').value = entry.abendFrom || '';
-            document.getElementById('abend-to').value = entry.abendTo || '';
-            document.getElementById('entry-status').value = entry.status || 'Normal';
-            document.getElementById('entry-notes').value = entry.notes || '';
+
+            document.getElementById('modal-edit-id').value = entry.id;
+            document.getElementById('modal-form-employee').value = entry.employee || '';
+            document.getElementById('modal-form-date').value = entry.date || '';
+            document.getElementById('modal-form-morning-start').value = entry.morningStart || '';
+            document.getElementById('modal-form-morning-end').value = entry.morningEnd || '';
+            document.getElementById('modal-form-afternoon-start').value = entry.afternoonStart || '';
+            document.getElementById('modal-form-afternoon-end').value = entry.afternoonEnd || '';
+            document.getElementById('modal-form-evening-start').value = entry.eveningStart || '';
+            document.getElementById('modal-form-evening-end').value = entry.eveningEnd || '';
+            document.getElementById('modal-form-notes').value = entry.notes || '';
+
+            document.getElementById('edit-modal').classList.remove('hidden');
         }
 
-        function renderWeeklyOverview() {
-            const container = document.getElementById('weekly-overview-container');
-            if(!container) return;
-            container.innerHTML = '';
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.add('hidden');
+        }
 
-            if (!timeEntriesData || timeEntriesData.length === 0) {
-                container.innerHTML = '<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für eine Wochenübersicht vorhanden.</div>';
+        function saveModalTimeEntry(e) {
+            e.preventDefault();
+            const editId = document.getElementById('modal-edit-id').value;
+            const entryData = {
+                employee: document.getElementById('modal-form-employee').value,
+                date: document.getElementById('modal-form-date').value,
+                morningStart: document.getElementById('modal-form-morning-start').value,
+                morningEnd: document.getElementById('modal-form-morning-end').value,
+                afternoonStart: document.getElementById('modal-form-afternoon-start').value,
+                afternoonEnd: document.getElementById('modal-form-afternoon-end').value,
+                eveningStart: document.getElementById('modal-form-evening-start').value,
+                eveningEnd: document.getElementById('modal-form-evening-end').value,
+                notes: document.getElementById('modal-form-notes').value,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            const morningHours = calcHours(entryData.morningStart, entryData.morningEnd);
+            const afternoonHours = calcHours(entryData.afternoonStart, entryData.afternoonEnd);
+            const eveningHours = calcHours(entryData.eveningStart, entryData.eveningEnd);
+            entryData.totalHours = morningHours + afternoonHours + eveningHours;
+
+            db.collection('timeEntries').doc(editId).update(entryData).then(() => {
+                closeEditModal();
+                renderOverview();
+            }).catch(err => {
+                const idx = timeEntries.findIndex(t => t.id === editId);
+                if (idx !== -1) timeEntries[idx] = { id: editId, ...entryData };
+                closeEditModal();
+                renderOverview();
+            });
+        }
+
+        function deleteTimeEntry(id) {
+            if (!confirm('Möchten Sie diesen Eintrag wirklich löschen?')) return;
+            db.collection('timeEntries').doc(id).delete().catch(() => {
+                timeEntries = timeEntries.filter(t => t.id !== id);
+                renderOverview();
+            });
+        }
+
+        // Overview Functions
+        function renderOverview() {
+            const dateVal = document.getElementById('overview-date-filter').value;
+            document.getElementById('overview-date-title').innerText = new Date(dateVal).toLocaleDateString('de-CH', { dateStyle: 'medium' });
+
+            const tbody = document.getElementById('overview-table-body');
+            tbody.innerHTML = '';
+
+            const filtered = timeEntries.filter(t => t.date === dateVal);
+            const sortOrder = document.getElementById('overview-sort-select').value;
+            
+            filtered.sort((a, b) => {
+                const timeA = new Date(a.updatedAt && a.updatedAt.toDate ? a.updatedAt.toDate() : (a.updatedAt || 0)).getTime();
+                const timeB = new Date(b.updatedAt && b.updatedAt.toDate ? b.updatedAt.toDate() : (b.updatedAt || 0)).getTime();
+                if (sortOrder === 'asc') {
+                    return timeA - timeB;
+                } else {
+                    return timeB - timeA;
+                }
+            });
+
+            let totalDayHours = 0;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-on-surface-variant">Keine Einträge für dieses Datum vorhanden.</td></tr>`;
+                document.getElementById('overview-total-hours').innerText = 'Total: 0.00 Std';
                 return;
             }
 
-            const groupedByDate = {};
-            timeEntriesData.forEach(entry => {
-                if (!groupedByDate[entry.date]) {
-                    groupedByDate[entry.date] = [];
-                }
-                groupedByDate[entry.date].push(entry);
-            });
-
-            const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
-                const partsA = a.split('.');
-                const partsB = b.split('.');
-                return new Date(partsA[2], partsA[1]-1, partsA[0]) - new Date(partsB[2], partsB[1]-1, partsB[0]);
-            });
-
-            sortedDates.forEach(dateStr => {
-                const entriesForDate = groupedByDate[dateStr];
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high';
-                
-                let employeeCardsHtml = entriesForDate.map(entry => {
-                    const emp = employeesData.find(e => e.id === entry.employeeId);
-                    const empName = emp ? emp.name : 'Teammitglied';
-                    const pensum = emp ? emp.pensum : 100;
-                    return `
-                        <div class="bg-surface-container-low p-4 rounded-xl flex flex-col justify-between">
-                            <div>
-                                <span class="text-label-caps text-on-surface-variant">${empName} (${pensum}%)</span>
-                                <p class="text-body-lg font-bold text-on-surface mt-1">${entry.hours} h erfasst</p>
-                                <span class="text-xs text-primary font-medium">Status: ${entry.status}</span>
-                            </div>
-                            <div class="mt-3 flex items-center justify-between">
-                                <span class="text-xs text-on-surface-variant">${entry.notes ? 'Notiz: ' + entry.notes : ''}</span>
-                                <button onclick="editTimeEntry('${entry.id}')" class="px-2.5 py-1 bg-primary text-on-primary rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer">
-                                    <span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-headline-md text-on-surface flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">event</span> Datum: ${dateStr}
-                        </h3>
-                        <span class="text-xs bg-primary-fixed text-primary px-3 py-1 rounded-full font-bold">Erfasster Tag</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        ${employeeCardsHtml}
-                    </div>
+            filtered.forEach(t => {
+                totalDayHours += (t.totalHours || 0);
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-container-low/50';
+                tr.innerHTML = `
+                    <td class="p-4 font-medium text-on-surface">${t.employee || '-'}</td>
+                    <td class="p-4 text-on-surface-variant">${t.morningStart || '-'} - ${t.morningEnd || '-'}</td>
+                    <td class="p-4 text-on-surface-variant">${t.afternoonStart || '-'} - ${t.afternoonEnd || '-'}</td>
+                    <td class="p-4 text-on-surface-variant">${t.eveningStart || '-'} - ${t.eveningEnd || '-'}</td>
+                    <td class="p-4 font-bold text-primary">${(t.totalHours || 0).toFixed(2)} Std</td>
+                    <td class="p-4 text-on-surface-variant max-w-xs truncate">${t.notes || '-'}</td>
+                    <td class="p-4 text-right space-x-2">
+                        <button type="button" onclick="editTimeEntry('${t.id}')" class="p-1.5 bg-surface-container-high rounded hover:bg-surface-container-highest text-primary" title="Bearbeiten"><span class="material-symbols-outlined text-sm">edit</span></button>
+                        <button type="button" onclick="deleteTimeEntry('${t.id}')" class="p-1.5 bg-error-container/30 rounded hover:bg-error-container text-error" title="Löschen"><span class="material-symbols-outlined text-sm">delete</span></button>
+                    </td>
                 `;
-                container.appendChild(card);
+                tbody.appendChild(tr);
             });
+
+            document.getElementById('overview-total-hours').innerText = `Total: ${totalDayHours.toFixed(2)} Std`;
         }
 
-        function renderEmployeesManagement() {
-            const list = document.getElementById('employees-management-list');
-            if(!list) return;
-            list.innerHTML = '';
-            employeesData.forEach(emp => {
-                const card = document.createElement('div');
-                card.className = 'bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-4';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials || 'MA'}</div>
-                            <div>
-                                <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-sm text-on-surface-variant">${emp.role} | Jahressoll: ${emp.yearlyTotal || Math.round(1880 * (emp.pensum/100))}h</span>
-                            </div>
-                        </div>
-                        <span class="text-primary font-bold">${emp.pensum}%</span>
-                    </div>
-                    <div class="flex justify-end gap-2">
-                        <button onclick="editEmployee('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high text-on-surface rounded-lg text-sm font-bold">Bearbeiten</button>
-                        <button onclick="deleteEmployee('${emp.id}')" class="px-3 py-1.5 bg-error-container text-on-error-container rounded-lg text-sm font-bold">Entfernen</button>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
+        function changeOverviewDate(days) {
+            const input = document.getElementById('overview-date-filter');
+            const d = new Date(input.value);
+            d.setDate(d.getDate() + days);
+            input.value = d.toISOString().split('T')[0];
+            renderOverview();
         }
 
-        function openEmployeeModal(empId = null) {
-            const modal = document.getElementById('employee-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            if (empId) {
-                const emp = employeesData.find(e => e.id === empId);
-                if(emp) {
-                    document.getElementById('emp-id').value = emp.id;
-                    document.getElementById('emp-name').value = emp.name;
-                    document.getElementById('emp-role').value = emp.role;
-                    document.getElementById('emp-pensum').value = emp.pensum;
-                    document.getElementById('emp-target').value = emp.targetHours;
-                    document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || Math.round(1880 * (emp.pensum/100));
-                    document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
-                }
-            } else {
-                document.getElementById('emp-id').value = '';
-                document.getElementById('emp-name').value = '';
-                document.getElementById('emp-role').value = '';
-                document.getElementById('emp-pensum').value = '100';
-                document.getElementById('emp-target').value = '168';
-                document.getElementById('emp-yearly-hours').value = '1880';
-                document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
+        function setTodayOverview() {
+            document.getElementById('overview-date-filter').value = new Date().toISOString().split('T')[0];
+            renderOverview();
+        }
+
+        // Employee Functions
+        function renderEmployees() {
+            const container = document.getElementById('employee-list-container');
+            container.innerHTML = '';
+            if (employees.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-on-surface-variant">Keine Mitarbeiter erfasst.</div>`;
+                return;
             }
-        }
-        function closeEmployeeModal() {
-            const modal = document.getElementById('employee-modal');
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
+            employees.forEach(emp => {
+                const div = document.createElement('div');
+                div.className = 'p-4 flex items-center justify-between hover:bg-surface-container-low/50';
+                div.innerHTML = `
+                    <span class="font-medium text-on-surface">${emp}</span>
+                    <button type="button" onclick="removeEmployee('${emp}')" class="text-error hover:text-error/80 text-sm flex items-center gap-1"><span class="material-symbols-outlined text-base">delete</span> Löschen</button>
+                `;
+                container.appendChild(div);
+            });
         }
 
-        document.getElementById('employee-form').addEventListener('submit', async (e) => {
+        function addEmployee(e) {
             e.preventDefault();
-            const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
-            const name = document.getElementById('emp-name').value;
-            const role = document.getElementById('emp-role').value;
-            const pensum = Number(document.getElementById('emp-pensum').value);
-            const targetHours = Math.round(168 * (pensum / 100));
-            const yearlyTotal = Math.round(1880 * (pensum / 100));
-            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
-            const existingEmp = employeesData.find(e => e.id === id);
-            const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 0) : 0;
-            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress, yearlyTotal };
-            
-            const existingIdx = employeesData.findIndex(e => e.id === id);
-            if(existingIdx >= 0) {
-                employeesData[existingIdx] = empData;
-            } else {
-                employeesData.push(empData);
+            const nameInput = document.getElementById('new-employee-name');
+            const name = nameInput.value.trim();
+            if (!name || employees.includes(name)) return;
+
+            db.collection('employees').add({ name }).then(() => {
+                nameInput.value = '';
+            }).catch(() => {
+                employees.push(name);
+                nameInput.value = '';
+                updateEmployeeSelects();
+                renderEmployees();
+            });
+        }
+
+        function removeEmployee(name) {
+            if (!confirm(`Mitarbeiter "${name}" wirklich löschen?`)) return;
+            db.collection('employees').where('name', '==', name).get().then(snapshot => {
+                snapshot.forEach(doc => doc.ref.delete());
+            }).catch(() => {
+                employees = employees.filter(e => e !== name);
+                updateEmployeeSelects();
+                renderEmployees();
+            });
+        }
+
+        // Stats / Year Functions
+        function renderStats() {
+            const year = parseInt(document.getElementById('stats-year-select').value);
+            const tbody = document.getElementById('stats-table-body');
+            tbody.innerHTML = '';
+
+            const statsMap = {};
+            employees.forEach(emp => { statsMap[emp] = { hours: 0, count: 0 }; });
+
+            timeEntries.forEach(t => {
+                if (!t.date) return;
+                const entryYear = new Date(t.date).getFullYear();
+                if (entryYear === year) {
+                    if (!statsMap[t.employee]) {
+                        statsMap[t.employee] = { hours: 0, count: 0 };
+                    }
+                    statsMap[t.employee].hours += (t.totalHours || 0);
+                    statsMap[t.employee].count += 1;
+                }
+            });
+
+            const keys = Object.keys(statsMap);
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-8 text-center text-on-surface-variant">Keine Daten für das Jahr ${year} vorhanden.</td></tr>`;
+                return;
             }
-            saveLocalState();
-            try { await db.collection('employees').doc(id).set(empData, { merge: true }); } catch(e) {}
-            
-            closeEmployeeModal();
-            renderEmployeesManagement();
-            renderDashboard();
-            populateEmployeeSelects();
-            renderReports();
-            renderWeeklyOverview();
-        });
 
-        async function editEmployee(id) {
-            openEmployeeModal(id);
+            keys.forEach(emp => {
+                const data = statsMap[emp];
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-container-low/50';
+                tr.innerHTML = `
+                    <td class="p-4 font-medium text-on-surface">${emp}</td>
+                    <td class="p-4 text-right font-bold text-primary">${data.hours.toFixed(2)} Std</td>
+                    <td class="p-4 text-right text-on-surface-variant">${data.count}</td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
-
-        async function deleteEmployee(id) {
-            if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
-                try { await db.collection('employees').doc(id).delete(); } catch(e) {}
-                employeesData = employeesData.filter(e => e.id !== id);
-                saveLocalState();
-                renderEmployeesManagement();
-                renderDashboard();
-                populateEmployeeSelects();
-                renderReports();
-                renderWeeklyOverview();
-            }
-        }
-
-        function renderReports() {
-            const container = document.getElementById('reports-content');
-            if(!container) return;
-            container.innerHTML = employeesData.map(emp => `
-                <div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between">
-                    <div>
-                        <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
-                        <p class="text-sm text-on-surface-variant">${emp.role} - ${emp.pensum}% Pensum | Jahressoll: ${emp.yearlyTotal || Math.round(1880 * (emp.pensum/100))}h</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-label-caps text-on-surface-variant">Soll / Ist</span>
-                        <p class="text-body-lg font-bold text-primary">${emp.targetHours}h Soll</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        window.addEventListener('DOMContentLoaded', async () => {
-            await seedInitialDataIfNeeded();
-        });
     </script>
 </body></html>
