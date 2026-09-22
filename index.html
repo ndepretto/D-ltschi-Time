@@ -117,7 +117,6 @@
 </form>
 </div>
 </div>
-
 <!-- Modal: Erklärung Jahresarbeitszeit (804 h / 1'072 h) -->
 <div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
 <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
@@ -133,7 +132,6 @@
         <span class="material-symbols-outlined text-[20px]">close</span>
     </button>
 </div>
-
 <div class="space-y-6 text-on-surface">
     <!-- Key metrics cards -->
     <div class="grid grid-cols-3 gap-3">
@@ -153,7 +151,6 @@
             <span class="text-xs text-on-surface-variant">Verbleibend (25%)</span>
         </div>
     </div>
-
     <!-- Explanations -->
     <div class="space-y-4 text-sm leading-relaxed">
         <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
@@ -168,7 +165,6 @@
                 2'144 Std. × 50% Pensum = 1'072.00 Soll-Jahresarbeitsstunden
             </div>
         </div>
-
         <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
             <h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
                 <span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">2</span>
@@ -181,7 +177,6 @@
                 1'072 Std. × 75.0% (9 von 12 Monaten) = exakt 804.00 Stunden
             </div>
         </div>
-
         <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
             <h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
                 <span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">3</span>
@@ -193,7 +188,6 @@
         </div>
     </div>
 </div>
-
 <div class="flex items-center justify-between pt-4 border-t border-surface-container-high">
     <button onclick="switchView('erklaerung'); closeJahresarbeitszeitModal();" class="text-primary font-bold text-sm flex items-center gap-1.5 hover:underline">
         <span class="material-symbols-outlined text-[18px]">open_in_new</span> Vollständiges Merkblatt anzeigen
@@ -209,7 +203,6 @@
 </div>
 </div>
 </div>
-
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-10 text-xl font-headline-md text-primary flex items-center gap-2">
@@ -239,7 +232,6 @@
 </a>
 </nav>
 </aside>
-
 <!-- Main Content Area -->
 <div class="pl-64">
 <header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-8 no-print">
@@ -303,7 +295,6 @@
 </div>
 </div>
 </div>
-
 <!-- Section Header with Quick Explainer Link -->
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-4 bg-primary/5 p-6 rounded-2xl border border-primary/20">
 <div>
@@ -322,13 +313,11 @@
 </button>
 </div>
 </div>
-
 <!-- Bento Grid for Team Members with prominent yearly overview -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid">
 <!-- Dynamically populated -->
 </div>
 </div>
-
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -415,7 +404,6 @@
 </div>
 </div>
 </div>
-
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-wochenuebersicht">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -441,7 +429,6 @@
 </div>
 </div>
 </div>
-
 <!-- VIEW: MITARBEITER -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
@@ -457,18 +444,23 @@
 <!-- Populated dynamically -->
 </div>
 </div>
-
 <!-- VIEW: BERICHTE -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-berichte">
+<div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-lg text-on-surface mb-2">Monatsberichte &amp; Statistiken</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Auswertung des aktuellen Abrechnungszeitraums für alle Teammitglieder.</p>
-<div class="space-y-6" id="reports-content">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+    <div>
+        <h2 class="text-headline-lg text-on-surface">Monatsberichte &amp; Statistiken</h2>
+        <p class="text-body-md text-on-surface-variant">Detaillierte Gegenüberstellung von Soll- und effektiv erfasster Ist-Arbeitszeit.</p>
+    </div>
+    <button onclick="window.print()" class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm no-print">
+        <span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken
+    </button>
+</div>
+<div class="space-y-4" id="reports-content">
 <!-- Populated dynamically -->
 </div>
 </div>
 </div>
-
 <!-- VIEW: ERKLÄRUNG JAHRESARBEITSZEIT (Vollständiges offizielles Merkblatt) -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[950px] mx-auto gap-8 pb-24" id="view-erklaerung">
     <div class="flex items-center justify-between no-print">
@@ -485,7 +477,6 @@
             </button>
         </div>
     </div>
-
     <!-- Official Document Box -->
     <div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-surface-container-high space-y-8 print:p-0 print:border-none print:shadow-none">
         <!-- Header Info Table -->
@@ -501,7 +492,6 @@
                 <span class="text-xs font-semibold text-on-surface-variant">Pensum: 50.00 % (Teilzeit)</span>
             </div>
         </div>
-
         <!-- 3 KPI Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="bg-primary/5 p-5 rounded-xl border border-primary/20 text-center">
@@ -520,7 +510,6 @@
                 <span class="text-xs text-on-surface-variant mt-1 block">Restpensum 4. Quartal (25.0 %)</span>
             </div>
         </div>
-
         <!-- Progress Bar Visual -->
         <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-2">
             <div class="flex justify-between items-center text-sm font-bold">
@@ -531,7 +520,6 @@
                 <div class="bg-primary h-full rounded-full" style="width: 75%;"></div>
             </div>
         </div>
-
         <!-- Section 1 -->
         <div class="space-y-3">
             <h4 class="text-lg font-bold text-primary flex items-center gap-2">
@@ -545,7 +533,6 @@
                 Berechnung: 2'144 Std. × 50% = <strong>1'072.00 Soll-Jahresarbeitsstunden</strong>
             </div>
         </div>
-
         <!-- Section 2 -->
         <div class="space-y-3">
             <h4 class="text-lg font-bold text-primary flex items-center gap-2">
@@ -562,7 +549,6 @@
                 <strong>Hinweis zur Initialkonfiguration im System:</strong> Dieser Betrag wurde als Referenzwert für ein fortgeschrittenes Schuljahr hinterlegt, um die Funktionalität der Fortschrittsbalken und Quartalsabgleiche vor der Erfassung eigener Ist-Buchungen transparent zu veranschaulichen.
             </div>
         </div>
-
         <!-- Section 3 -->
         <div class="space-y-3">
             <h4 class="text-lg font-bold text-primary flex items-center gap-2">
@@ -575,7 +561,6 @@
                 1'072.00 Std. (Gesamtsoll) − 804.00 Std. (Ist-/Soll-Stand 3. Quartal) = <strong>268.00 Reststunden (25%)</strong>
             </div>
         </div>
-
         <!-- Section 4 -->
         <div class="space-y-3">
             <h4 class="text-lg font-bold text-primary flex items-center gap-2">
@@ -585,7 +570,6 @@
                 Im regulären Arbeitszyklus aggregiert <em>Döltschi Time</em> minutengenau alle genehmigten Buchungen der Kategorien <strong>Vormittag, Nachmittag, Abend</strong> sowie projektbezogene Freizeiten und Sitzungen. Bei einem Schuljahreswechsel oder einem vollständigen Daten-Reset startet der effektive Stundenzähler bei <strong>0'00 h</strong> und wächst dynamisch mit jedem erfassten Arbeitstag gegen das Jahressoll von 1'072 Stunden an.
             </p>
         </div>
-
         <!-- Signature Lines -->
         <div class="pt-8 border-t border-surface-container-high grid grid-cols-2 gap-12 mt-10">
             <div>
@@ -603,7 +587,6 @@
         </div>
     </div>
 </div>
-
 <!-- VIEW: EINSTELLUNGEN -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[800px] mx-auto gap-8 pb-20" id="view-einstellungen">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -632,7 +615,6 @@
 </div>
 </main>
 </div>
-
 <!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
@@ -668,7 +650,6 @@
 </form>
 </div>
 </div>
-
 <!-- Firebase & App Script -->
 <script>
         const firebaseConfig = {
@@ -692,7 +673,6 @@
         let timeEntriesData = [];
         let entriesVisible = true;
         let weeklyVisible = true;
-
         function openJahresarbeitszeitModal() {
             const m = document.getElementById('jahresarbeitszeit-modal');
             if (m) {
@@ -707,7 +687,6 @@
                 m.classList.add('hidden');
             }
         }
-
         function toggleEntriesVisibility() {
             entriesVisible = !entriesVisible;
             const wrapper = document.getElementById('time-entries-wrapper');
@@ -838,7 +817,7 @@
                 zeiterfassung: 'Zeiterfassung',
                 wochenuebersicht: 'Wochenübersicht',
                 mitarbeiter: 'Mitarbeiter-Verwaltung',
-                berichte: 'Monatsberichte',
+                berichte: 'Monatsberichte & Statistiken',
                 erklaerung: 'Erklärung Jahresarbeitszeit (804 h / 1\'072 h)',
                 einstellungen: 'Profil & Einstellungen'
             };
@@ -852,6 +831,8 @@
                 renderTimeEntriesList();
             } else if(viewName === 'wochenuebersicht') {
                 renderWeeklyOverview();
+            } else if(viewName === 'berichte') {
+                renderReports();
             }
         }
         document.querySelectorAll('#sidebar-nav a').forEach(link => {
@@ -1275,18 +1256,51 @@
         function renderReports() {
             const container = document.getElementById('reports-content');
             if(!container) return;
-            container.innerHTML = employeesData.map(emp => `
-                <div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between">
-                    <div>
-                        <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
-                        <p class="text-sm text-on-surface-variant">${emp.role} - ${emp.pensum}% Pensum | Jahressoll: ${emp.yearlyTotal || Math.round(1880 * (emp.pensum/100))}h</p>
+            container.innerHTML = employeesData.map(emp => {
+                const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
+                const actualHours = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+                const targetHours = emp.targetHours || Math.round(168 * ((emp.pensum || 100) / 100));
+                const diff = actualHours - targetHours;
+                const diffSign = diff > 0 ? '+' : '';
+                const diffColor = diff >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
+                const progressPct = targetHours > 0 ? Math.min(100, Math.round((actualHours / targetHours) * 100)) : 0;
+                
+                return `
+                    <div class="bg-surface-container-low p-6 rounded-2xl border border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all hover:border-primary/30">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container font-bold text-headline-md flex items-center justify-center shadow-sm">
+                                ${emp.initials || emp.name.substring(0,2).toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
+                                    <span class="text-xs bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full">${emp.pensum}% Pensum</span>
+                                </div>
+                                <p class="text-sm text-on-surface-variant mt-0.5">${emp.role} | Jahressoll: <strong>${emp.yearlyTotal || Math.round(1880 * ((emp.pensum||100)/100))} h</strong></p>
+                                <div class="w-48 bg-surface-container-high h-2 rounded-full overflow-hidden mt-3">
+                                    <div class="bg-primary h-full rounded-full transition-all duration-700" style="width: ${progressPct}%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 justify-between md:justify-end border-t md:border-t-0 pt-4 md:pt-0 border-surface-container-high">
+                            <div class="text-left md:text-right">
+                                <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Monat Soll / Ist</span>
+                                <div class="flex items-baseline gap-1.5 mt-0.5">
+                                    <span class="text-2xl font-black text-primary">${actualHours.toFixed(1)} h</span>
+                                    <span class="text-sm font-semibold text-on-surface-variant">/ ${targetHours} h</span>
+                                </div>
+                                <span class="text-xs text-on-surface-variant">Erfüllung: ${progressPct}%</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Saldo</span>
+                                <span class="inline-block mt-1 px-3 py-1 rounded-xl text-sm font-bold border ${diffColor}">
+                                    ${diffSign}${diff.toFixed(1)} h
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <span class="text-label-caps text-on-surface-variant">Soll / Ist</span>
-                        <p class="text-body-lg font-bold text-primary">${emp.targetHours}h Soll</p>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
         window.addEventListener('DOMContentLoaded', async () => {
             await seedInitialDataIfNeeded();
