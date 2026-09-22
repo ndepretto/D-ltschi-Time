@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Döltschi Time - Zeiterfassung & Jahresarbeitszeit</title>
+<title>Döltschi Time - Zeiterfassung &amp; Schuljahresarbeitszeit</title>
 <style>
         @layer base {
             html, body { margin: 0; padding: 0; }
@@ -117,96 +118,111 @@
 </form>
 </div>
 </div>
-<!-- Modal: Erklärung Jahresarbeitszeit (804 h / 1'072 h) -->
+<!-- Modal: Erklärung Schuljahresarbeitszeit (Sommer zu Sommer: 1. August – 31. Juli) -->
 <div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
 <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
 <div class="flex items-start justify-between border-b border-surface-container-high pb-4">
-    <div>
-        <div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
-            <span class="material-symbols-outlined text-[18px]">verified_user</span> Schulverwaltung & Zeiterfassung
+<div>
+<div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">school</span> Schuljahreszyklus Sommer zu Sommer (1. Aug. – 31. Juli)
         </div>
-        <h3 class="text-headline-md text-on-surface mt-1">Erklärung Jahresarbeitszeit (804 h / 1'072 h)</h3>
-        <p class="text-sm text-on-surface-variant">Offizielle Berechnungsgrundlage Primarstufe Döltschi & Kanton Zürich</p>
-    </div>
-    <button onclick="closeJahresarbeitszeitModal()" class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all">
-        <span class="material-symbols-outlined text-[20px]">close</span>
-    </button>
+<h3 class="text-headline-md text-on-surface mt-1">Erklärung Schuljahresarbeitszeit (804 h / 1'072 h)</h3>
+<p class="text-sm text-on-surface-variant">Kantonale Berechnungsgrundlage Primarstufe Döltschi für das Schuljahr (August bis Juli)</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all" onclick="closeJahresarbeitszeitModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
 </div>
 <div class="space-y-6 text-on-surface">
-    <!-- Key metrics cards -->
-    <div class="grid grid-cols-3 gap-3">
-        <div class="bg-primary/5 p-4 rounded-xl border border-primary/20 text-center">
-            <span class="text-label-caps text-primary block">Jahressoll (50%)</span>
-            <span class="text-headline-md font-bold text-primary mt-1 block">1'072 h</span>
-            <span class="text-xs text-on-surface-variant">50% von 2'144 Std.</span>
-        </div>
-        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
-            <span class="text-label-caps text-on-surface-variant block">Soll 3. Quartal</span>
-            <span class="text-headline-md font-bold text-on-surface mt-1 block">804 h</span>
-            <span class="text-xs text-emerald-600 font-semibold">75.0 % absolviert</span>
-        </div>
-        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
-            <span class="text-label-caps text-on-surface-variant block">Reststunden 4. Q.</span>
-            <span class="text-headline-md font-bold text-on-surface mt-1 block">268 h</span>
-            <span class="text-xs text-on-surface-variant">Verbleibend (25%)</span>
-        </div>
-    </div>
-    <!-- Explanations -->
-    <div class="space-y-4 text-sm leading-relaxed">
-        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
-            <h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
-                <span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">1</span>
-                Gesetzliche Berechnungsgrundlage (1'072 Stunden)
+<!-- Cycle Banner -->
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[28px]">calendar_sync</span>
+<div>
+<span class="text-xs uppercase tracking-wider font-bold text-primary block">Gültiger Berechnungszeitraum</span>
+<p class="text-sm font-semibold text-on-surface">1. August bis 31. Juli (Sommer bis Sommer). Zeiten ausserhalb zählen zum jeweiligen Vor- bzw. Folge-Schuljahr.</p>
+</div>
+</div>
+<!-- Key metrics cards -->
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-primary/5 p-4 rounded-xl border border-primary/20 text-center">
+<span class="text-label-caps text-primary block">Schuljahressoll (50%)</span>
+<span class="text-headline-md font-bold text-primary mt-1 block">1'072 h</span>
+<span class="text-xs text-on-surface-variant">50% von 2'144 Std./Schuljahr</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
+<span class="text-label-caps text-on-surface-variant block">Soll 3. Quartal (Ende April)</span>
+<span class="text-headline-md font-bold text-on-surface mt-1 block">804 h</span>
+<span class="text-xs text-emerald-600 font-semibold">75.0 % absolviert</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
+<span class="text-label-caps text-on-surface-variant block">Reststunden (Mai–Juli)</span>
+<span class="text-headline-md font-bold text-on-surface mt-1 block">268 h</span>
+<span class="text-xs text-on-surface-variant">Verbleibend 4. Quartal</span>
+</div>
+</div>
+<!-- Explanations -->
+<div class="space-y-4 text-sm leading-relaxed">
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
+<h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
+<span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">1</span>
+                Gesetzlicher Schuljahreszyklus (1. August – 31. Juli)
             </h4>
-            <p class="text-on-surface-variant">
-                Die Bemessung der Jahresarbeitszeit für das Lehrpersonal im Kanton Zürich richtet sich nach dem Vollzeitkontingent von <strong>2'144 Jahresstunden</strong> (basierend auf der kantonalen Richtarbeitszeit einer 42-Stunden-Woche).
+<p class="text-on-surface-variant">
+                Im zürcherischen Volksschulbereich folgt das Arbeitsjahr nicht dem Kalenderjahr (Januar bis Dezember), sondern synchron dem <strong>Schuljahreszyklus von Sommer zu Sommer (1. August bis 31. Juli)</strong>. Das Vollzeit-Jahreskontingent beträgt <strong>2'144 Jahresstunden</strong> (basierend auf der 42-Stunden-Woche).
             </p>
-            <div class="mt-2 bg-surface p-2.5 rounded-lg border border-outline-variant/30 font-mono text-xs text-primary font-bold">
-                2'144 Std. × 50% Pensum = 1'072.00 Soll-Jahresarbeitsstunden
+<div class="mt-2 bg-surface p-2.5 rounded-lg border border-outline-variant/30 font-mono text-xs text-primary font-bold">
+                2'144 Std. × 50% Pensum = 1'072.00 Soll-Schuljahresarbeitsstunden (1. Aug – 31. Juli)
             </div>
-        </div>
-        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
-            <h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
-                <span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">2</span>
-                Herleitung der 804 Stunden (Stand 3. Quartal)
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
+<h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
+<span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">2</span>
+                Herleitung der 804 Stunden (Stand 3. Schulquartal / April)
             </h4>
-            <p class="text-on-surface-variant">
-                Die <strong>804 Stunden</strong> repräsentieren den rechnerischen Soll-Stand zum <strong>Ende des 3. Quartals</strong> des Schuljahres (nach Ablauf von 9 Monaten bzw. 75 % des Gesamtjahres).
+<p class="text-on-surface-variant">
+                Die <strong>804 Stunden</strong> repräsentieren den rechnerischen Soll-Stand zum <strong>Ende des 3. Schulquartals</strong> (nach Ablauf von 9 Schulmonaten August bis April bzw. 75 % des Gesamtjahres).
             </p>
-            <div class="mt-2 bg-surface p-2.5 rounded-lg border border-outline-variant/30 font-mono text-xs text-primary font-bold">
-                1'072 Std. × 75.0% (9 von 12 Monaten) = exakt 804.00 Stunden
+<div class="mt-2 bg-surface p-2.5 rounded-lg border border-outline-variant/30 font-mono text-xs text-primary font-bold">
+                1'072 Std. × 75.0% (9 von 12 Monaten: Aug–April) = exakt 804.00 Stunden
             </div>
-        </div>
-        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
-            <h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
-                <span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">3</span>
-                Funktionsweise im Live-Betrieb
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
+<h4 class="font-bold text-primary flex items-center gap-2 mb-1.5">
+<span class="w-5 h-5 rounded-full bg-primary text-white text-xs flex items-center justify-center">3</span>
+                Dynamische Aggregation im Schuljahr
             </h4>
-            <p class="text-on-surface-variant">
-                Im regulären Arbeitszyklus aggregiert <em>Döltschi Time</em> alle minutengenau gebuchten Stunden (Vormittag, Nachmittag, Abend/Nacht sowie Sitzungen & Projekte). Bei einem neuen Schuljahr oder einem Reset startet der Zähler bei <strong>0 h</strong> und wächst dynamisch mit jedem Arbeitstag bis zum Jahressoll an.
+<p class="text-on-surface-variant">
+                In <em>Döltschi Time</em> aggregiert das System alle erfassten Arbeitszeiten (Vormittag, Nachmittag, Abend/Nacht) <strong>strikt gefiltert nach dem Schuljahr (1. August bis 31. Juli)</strong>. Am 1. August eines neuen Schuljahres startet die Jahresarbeitszeit wieder bei <strong>0 h</strong> und läuft bis zum 31. Juli des Folgejahres.
             </p>
-        </div>
-    </div>
+</div>
+</div>
 </div>
 <div class="flex items-center justify-between pt-4 border-t border-surface-container-high">
-    <button onclick="switchView('erklaerung'); closeJahresarbeitszeitModal();" class="text-primary font-bold text-sm flex items-center gap-1.5 hover:underline">
-        <span class="material-symbols-outlined text-[18px]">open_in_new</span> Vollständiges Merkblatt anzeigen
+<button class="text-primary font-bold text-sm flex items-center gap-1.5 hover:underline" onclick="switchView('erklaerung'); closeJahresarbeitszeitModal();">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span> Vollständiges Merkblatt anzeigen
     </button>
-    <div class="flex gap-2">
-        <button onclick="window.print()" class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-1.5 hover:bg-surface-container-highest transition-all">
-            <span class="material-symbols-outlined text-[18px]">print</span> Drucken / PDF
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-1.5 hover:bg-surface-container-highest transition-all" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span> Drucken / PDF
         </button>
-        <button onclick="closeJahresarbeitszeitModal()" class="px-5 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm hover:bg-primary-container transition-all">
+<button class="px-5 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm hover:bg-primary-container transition-all" onclick="closeJahresarbeitszeitModal()">
             Schliessen
         </button>
-    </div>
+</div>
 </div>
 </div>
 </div>
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
-<div class="px-8 mb-10 text-xl font-headline-md text-primary flex items-center gap-2">
+<div class="px-8 mb-6 text-xl font-headline-md text-primary flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
+</div>
+<div class="mx-4 mb-6 p-3 bg-primary/5 rounded-xl border border-primary/20">
+<div class="text-[11px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">event_repeat</span> Zyklus
+    </div>
+<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2025/2026</div>
+<div class="text-[11px] text-on-surface-variant">1. Aug. 2025 – 31. Juli 2026</div>
 </div>
 <nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
 <a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
@@ -225,7 +241,7 @@
 <span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
 </a>
 <a class="flex items-center px-4 py-3 rounded-xl text-primary font-semibold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/5 border border-primary/10 mt-2" data-view="erklaerung">
-<span class="material-symbols-outlined mr-3 text-primary">description</span>Erklärung Jahresarbeitszeit
+<span class="material-symbols-outlined mr-3 text-primary">description</span>Erklärung Schuljahresarbeitszeit
 </a>
 <a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="einstellungen">
 <span class="material-symbols-outlined mr-3">settings</span>Profil &amp; Einstellungen
@@ -235,10 +251,22 @@
 <!-- Main Content Area -->
 <div class="pl-64">
 <header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-8 no-print">
-<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement - Dashboard</div>
 <div class="flex items-center gap-4">
-<button onclick="openJahresarbeitszeitModal()" class="px-3 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all flex items-center gap-1.5 shadow-sm">
-    <span class="material-symbols-outlined text-[16px]">info</span> 804h / 1'072h erklärt
+<div class="text-body-lg font-headline-md text-on-surface" id="header-title">Zeitmanagement - Dashboard</div>
+<!-- School Year Selector -->
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high shadow-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">school</span>
+<label class="text-xs font-bold text-on-surface-variant" for="school-year-select">Zyklus:</label>
+<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)">
+<option value="2024/2025">Schuljahr 24/25 (Sommer–Sommer)</option>
+<option selected="" value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option>
+<option value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-3 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all flex items-center gap-1.5 shadow-sm" onclick="openJahresarbeitszeitModal()">
+<span class="material-symbols-outlined text-[16px]">info</span> Sommer–Sommer (804h) erklärt
 </button>
 <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1" id="firebase-status">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Firebase Live
@@ -267,8 +295,8 @@
 <div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div>
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monatssumme Total</span>
-<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">0.0 / 680 Std.</h2>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Schuljahr Summe Total</span>
+<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">0.0 / 6'561 Std.</h2>
 </div>
 <div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
 <div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div>
@@ -277,7 +305,7 @@
 <div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div>
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden Total</span>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden Schuljahr</span>
 <h2 class="text-headline-md text-on-surface mt-1" id="summary-overtime-total">+0.0 Std.</h2>
 </div>
 <div class="mt-6 flex items-center gap-2 text-emerald-600 font-bold text-body-md">
@@ -287,7 +315,7 @@
 <div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
 <div class="absolute -right-4 -bottom-4 text-error/5"><span class="material-symbols-outlined text-[100px]">warning</span></div>
 <div>
-<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Fehlstunden Total</span>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Fehlstunden Schuljahr</span>
 <h2 class="text-headline-md text-on-surface mt-1" id="summary-absence-total">0.0 Std.</h2>
 </div>
 <div class="mt-6 flex items-center gap-2 text-error font-bold text-body-md">
@@ -295,18 +323,18 @@
 </div>
 </div>
 </div>
-<!-- Section Header with Quick Explainer Link -->
+<!-- Section Header with Quick Explainer Link & School Year Tag -->
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-4 bg-primary/5 p-6 rounded-2xl border border-primary/20">
 <div>
 <div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider mb-1">
-    <span class="material-symbols-outlined text-[16px]">info</span> Kantonales Arbeitszeitmodell Zürich
+<span class="material-symbols-outlined text-[16px]">school</span> Schuljahreszyklus Zürich (Sommer zu Sommer: 1. August – 31. Juli)
 </div>
-<h2 class="text-headline-md text-on-surface">Mitarbeiter-Jahresarbeitszeit & Stundensaldi</h2>
-<p class="text-body-md text-on-surface-variant">Detaillierte Zeiterfassung, Monatssaldis und Jahresfortschritt für alle Teammitglieder (angepasst an das jeweilige Pensum).</p>
+<h2 class="text-headline-md text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
+<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2025/2026</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="bg-surface-container-lowest text-primary border border-primary/30 px-4 py-2.5 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-surface-container-low transition-all shadow-sm" onclick="openJahresarbeitszeitModal()">
-<span class="material-symbols-outlined text-[18px]">menu_book</span> Herleitung 804 h / 1'072 h
+<span class="material-symbols-outlined text-[18px]">menu_book</span> Sommer–Sommer (804h)
 </button>
 <button class="bg-primary text-on-primary px-4 py-2.5 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="switchView('zeiterfassung')">
 <span class="material-symbols-outlined text-[18px]">add</span> Zeiteintrag erfassen
@@ -321,8 +349,13 @@
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-headline-md text-on-surface mb-2">Zeiterfassung erfassen / bearbeiten</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten oder Abwesenheiten im Schweizer Format (TT.MM.JJJJ).</p>
+<div class="flex items-center justify-between mb-2">
+<h2 class="text-headline-md text-on-surface">Zeiterfassung erfassen / bearbeiten</h2>
+<span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">event</span> Schuljahr <span class="active-school-year-short">25/26</span> (Aug–Juli)
+    </span>
+</div>
+<p class="text-body-md text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten oder Abwesenheiten im Schweizer Format (TT.MM.JJJJ). Einträge werden automatisch dem zugehörigen Schuljahr (1. August – 31. Juli) angerechnet.</p>
 <form class="space-y-6" id="time-entry-form">
 <input id="entry-id" type="hidden"/>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -334,7 +367,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2026" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2025" required="" type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -372,7 +405,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Bemerkungen / Projekt</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Kundentermin, Projekt X" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Schulzimmer vorbereiten, Elternabend" type="text"/>
 </div>
 </div>
 <div class="flex justify-end gap-4 pt-4">
@@ -386,7 +419,7 @@
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
 <div class="flex items-center gap-3">
 <h3 class="text-headline-md text-on-surface">Eingetragene Zeiten (Neueste zuerst)</h3>
-<button onclick="toggleEntriesVisibility()" id="toggle-entries-btn" class="px-3 py-1 bg-surface-container-low text-primary text-sm font-bold rounded-lg border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1">
+<button class="px-3 py-1 bg-surface-container-low text-primary text-sm font-bold rounded-lg border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1" id="toggle-entries-btn" onclick="toggleEntriesVisibility()">
 <span class="material-symbols-outlined text-[16px]">visibility</span> <span id="toggle-entries-text">Ausblenden</span>
 </button>
 </div>
@@ -409,10 +442,10 @@
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 <div>
 <h2 class="text-headline-lg text-on-surface">Wochenübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen mit Filter und Ein-/Ausblenden.</p>
+<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen im Schuljahr <span class="active-school-year-text font-bold text-primary">2025/2026</span> (1. Aug – 31. Juli).</p>
 </div>
 <div class="flex items-center gap-3">
-<button onclick="toggleWeeklyVisibility()" id="toggle-weekly-btn" class="px-3 py-2 bg-surface-container-low text-primary text-sm font-bold rounded-xl border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1">
+<button class="px-3 py-2 bg-surface-container-low text-primary text-sm font-bold rounded-xl border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1" id="toggle-weekly-btn" onclick="toggleWeeklyVisibility()">
 <span class="material-symbols-outlined text-[18px]">visibility</span> <span id="toggle-weekly-text">Woche ausblenden</span>
 </button>
 <div class="flex items-center gap-2">
@@ -434,7 +467,7 @@
 <div class="flex items-center justify-between">
 <div>
 <h2 class="text-headline-lg text-on-surface">Mitarbeiterverwaltung</h2>
-<p class="text-body-md text-on-surface-variant">Teammitglieder hinzufügen, bearbeiten oder entfernen in Echtzeit.</p>
+<p class="text-body-md text-on-surface-variant">Teammitglieder verwalten mit Pensen und Schuljahressoll (1. August – 31. Juli).</p>
 </div>
 <button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-body-md font-bold flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="openEmployeeModal()">
 <span class="material-symbols-outlined text-[18px]">person_add</span> Mitarbeiter hinzufügen
@@ -448,12 +481,15 @@
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-    <div>
-        <h2 class="text-headline-lg text-on-surface">Monatsberichte &amp; Statistiken</h2>
-        <p class="text-body-md text-on-surface-variant">Detaillierte Gegenüberstellung von Soll- und effektiv erfasster Ist-Arbeitszeit.</p>
-    </div>
-    <button onclick="window.print()" class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm no-print">
-        <span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken
+<div>
+<div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider mb-1">
+<span class="material-symbols-outlined text-[16px]">school</span> Schuljahresabrechnung (1. August bis 31. Juli)
+        </div>
+<h2 class="text-headline-lg text-on-surface">Schuljahresberichte &amp; Statistiken</h2>
+<p class="text-body-md text-on-surface-variant">Gegenüberstellung von Soll- und effektiv im Schuljahr <span class="active-school-year-text font-bold text-primary">2025/2026</span> erfassten Arbeitszeiten (Sommer bis Sommer).</p>
+</div>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm no-print" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken
     </button>
 </div>
 <div class="space-y-4" id="reports-content">
@@ -461,138 +497,144 @@
 </div>
 </div>
 </div>
-<!-- VIEW: ERKLÄRUNG JAHRESARBEITSZEIT (Vollständiges offizielles Merkblatt) -->
+<!-- VIEW: ERKLÄRUNG SCHULJAHRESARBEITSZEIT (Offizielles Merkblatt Sommer–Sommer) -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[950px] mx-auto gap-8 pb-24" id="view-erklaerung">
-    <div class="flex items-center justify-between no-print">
-        <div>
-            <h2 class="text-headline-lg text-on-surface">Merkblatt zur Arbeitszeitabrechnung</h2>
-            <p class="text-body-md text-on-surface-variant">Offizielle Berechnungsgrundlage & Herleitung der Jahresarbeitszeit (804 h / 1'072 h)</p>
-        </div>
-        <div class="flex gap-3">
-            <button onclick="window.print()" class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm">
-                <span class="material-symbols-outlined text-[18px]">print</span> Als PDF drucken / speichern
+<div class="flex items-center justify-between no-print">
+<div>
+<h2 class="text-headline-lg text-on-surface">Merkblatt zur Schuljahresarbeitszeit</h2>
+<p class="text-body-md text-on-surface-variant">Berechnungsgrundlage Schuljahr (Sommer zu Sommer: 1. August – 31. Juli) &amp; Herleitung 804 h / 1'072 h</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-primary-container transition-all shadow-sm" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span> Als PDF drucken / speichern
             </button>
-            <button onclick="switchView('dashboard')" class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-1.5 hover:bg-surface-container-highest transition-all">
-                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Zurück zum Dashboard
+<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-1.5 hover:bg-surface-container-highest transition-all" onclick="switchView('dashboard')">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span> Zurück zum Dashboard
             </button>
-        </div>
-    </div>
-    <!-- Official Document Box -->
-    <div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-surface-container-high space-y-8 print:p-0 print:border-none print:shadow-none">
-        <!-- Header Info Table -->
-        <div class="border-b border-surface-container-high pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-                <span class="text-xs font-bold text-primary uppercase tracking-wider block">Schulverwaltung & Zeiterfassung</span>
-                <h3 class="text-2xl font-bold text-on-surface">Primarstufe Döltschi • Schulkreis Uto</h3>
-                <p class="text-xs text-on-surface-variant mt-0.5">Dokument-Ref: DT-2026-AZ-050 | Status: Offizielle Abrechnungsgrundlage</p>
-            </div>
-            <div class="bg-surface-container-low px-5 py-3 rounded-xl border border-surface-container-high text-right">
-                <span class="text-xs text-on-surface-variant block">Mitarbeiterin / Lehrperson</span>
-                <p class="text-lg font-bold text-primary">Nicole De Pretto</p>
-                <span class="text-xs font-semibold text-on-surface-variant">Pensum: 50.00 % (Teilzeit)</span>
-            </div>
-        </div>
-        <!-- 3 KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-primary/5 p-5 rounded-xl border border-primary/20 text-center">
-                <span class="text-xs font-bold text-primary uppercase tracking-wider block">Jahressoll (50% Pensum)</span>
-                <span class="text-3xl font-black text-primary mt-1 block">1'072 h</span>
-                <span class="text-xs text-on-surface-variant mt-1 block">50% von 2'144 Std. Vollzeitbasis</span>
-            </div>
-            <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high text-center">
-                <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Rechnerischer Soll-Stand (3. Quartal)</span>
-                <span class="text-3xl font-black text-on-surface mt-1 block">804 h</span>
-                <span class="text-xs text-emerald-600 font-bold mt-1 block">75.0 % des Schuljahres (9 Monate)</span>
-            </div>
-            <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high text-center">
-                <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Verbleibendes Guthaben</span>
-                <span class="text-3xl font-black text-on-surface mt-1 block">268 h</span>
-                <span class="text-xs text-on-surface-variant mt-1 block">Restpensum 4. Quartal (25.0 %)</span>
-            </div>
-        </div>
-        <!-- Progress Bar Visual -->
-        <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-2">
-            <div class="flex justify-between items-center text-sm font-bold">
-                <span class="text-on-surface">Jahresarbeitszeit Fortschritt (3 von 4 Quartalen)</span>
-                <span class="text-primary font-black">75 % erreicht</span>
-            </div>
-            <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
-                <div class="bg-primary h-full rounded-full" style="width: 75%;"></div>
-            </div>
-        </div>
-        <!-- Section 1 -->
-        <div class="space-y-3">
-            <h4 class="text-lg font-bold text-primary flex items-center gap-2">
-                <span>1. Gesetzliche Berechnungsgrundlage des 50%-Pensums (1'072 h)</span>
-            </h4>
-            <p class="text-on-surface-variant text-sm leading-relaxed">
-                Die Bemessung der Jahresarbeitszeit für das Lehrpersonal im Kanton Zürich richtet sich nach dem Vollzeitkontingent von <strong>2'144 Jahresstunden</strong> (basierend auf der kantonalen Richtarbeitszeit einer 42-Stunden-Woche unter Berücksichtigung der unterrichtsfreien Zeiten und gesetzlichen Ferienansprüche).
+</div>
+</div>
+<!-- Official Document Box -->
+<div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-surface-container-high space-y-8 print:p-0 print:border-none print:shadow-none">
+<!-- Header Info Table -->
+<div class="border-b border-surface-container-high pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<span class="text-xs font-bold text-primary uppercase tracking-wider block">Schulkreis Uto • Primarstufe Döltschi</span>
+<h3 class="text-2xl font-bold text-on-surface">Jahresarbeitszeit-Abrechnung nach Schuljahreszyklus</h3>
+<p class="text-xs text-on-surface-variant mt-0.5">Berechnungszeitraum: <strong>1. August bis 31. Juli (Sommer bis Sommer)</strong> | Status: Kantonale Richtlinie</p>
+</div>
+<div class="bg-surface-container-low px-5 py-3 rounded-xl border border-surface-container-high text-right">
+<span class="text-xs text-on-surface-variant block">Referenzmitarbeiterin</span>
+<p class="text-lg font-bold text-primary">Nicole De Pretto</p>
+<span class="text-xs font-semibold text-on-surface-variant">Pensum: 57.00 % (Teilzeit) / Ref. 50% Basis</span>
+</div>
+</div>
+<!-- 3 KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-primary/5 p-5 rounded-xl border border-primary/20 text-center">
+<span class="text-xs font-bold text-primary uppercase tracking-wider block">Schuljahressoll (50% Pensum)</span>
+<span class="text-3xl font-black text-primary mt-1 block">1'072 h</span>
+<span class="text-xs text-on-surface-variant mt-1 block">50% von 2'144 Std. Vollzeit-Schuljahr</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high text-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Soll Stand 3. Schulquartal (Ende April)</span>
+<span class="text-3xl font-black text-on-surface mt-1 block">804 h</span>
+<span class="text-xs text-emerald-600 font-bold mt-1 block">75.0 % des Schuljahres (9 Monate Aug–Apr)</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high text-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Verbleibend (Mai bis Juli)</span>
+<span class="text-3xl font-black text-on-surface mt-1 block">268 h</span>
+<span class="text-xs text-on-surface-variant mt-1 block">Restpensum 4. Schulquartal (25.0 %)</span>
+</div>
+</div>
+<!-- Progress Bar Visual -->
+<div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-2">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="text-on-surface">Schuljahres-Fortschritt (Sommer zu Sommer: August bis Juli)</span>
+<span class="text-primary font-black">75 % (Stand Ende 3. Schulquartal)</span>
+</div>
+<div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-primary h-full rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Section 1 -->
+<div class="space-y-3">
+<h4 class="text-lg font-bold text-primary flex items-center gap-2">
+<span>1. Das Schuljahr als Rechnungsperiode (1. August – 31. Juli)</span>
+</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                Gemäss Lehrpersonalverordnung und den Richtlinien des Volksschulamts des Kantons Zürich beginnt das Arbeitsjahr der Lehr- und Fachpersonen der Volksschule stets am <strong>1. August</strong> und endet am <strong>31. Juli</strong> des darauffolgenden Kalenderjahres (Schuljahreszyklus Sommer zu Sommer). Das kantonale Jahres-Sollpensum bei 100 % beträgt <strong>2'144 Jahresstunden</strong>.
             </p>
-            <div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
-                Vollzeit-Soll (100%): 2'144.00 Jahresarbeitsstunden<br/>
-                Berechnung: 2'144 Std. × 50% = <strong>1'072.00 Soll-Jahresarbeitsstunden</strong>
-            </div>
-        </div>
-        <!-- Section 2 -->
-        <div class="space-y-3">
-            <h4 class="text-lg font-bold text-primary flex items-center gap-2">
-                <span>2. Herleitung der im System ausgewiesenen 804 Stunden</span>
-            </h4>
-            <p class="text-on-surface-variant text-sm leading-relaxed">
-                Die in der Übersicht und im Kontostand ausgewiesenen <strong>804 Stunden</strong> repräsentieren den rechnerischen Soll-Stand zum <strong>Ende des 3. Quartals</strong> des Schuljahres (nach Ablauf von 9 Monaten bzw. drei Vierteln des Jahres):
+<div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
+                Vollzeit-Schuljahressoll (100%): 2'144.00 Stunden (1. August bis 31. Juli)<br/>
+                Berechnung bei 50%: 2'144 Std. × 50% = <strong>1'072.00 Soll-Schuljahresstunden</strong><br/>
+                Berechnung bei Nicole De Pretto (57%): 2'144 Std. × 57% = <strong>1'222.08 Soll-Schuljahresstunden</strong>
+</div>
+</div>
+<!-- Section 2 -->
+<div class="space-y-3">
+<h4 class="text-lg font-bold text-primary flex items-center gap-2">
+<span>2. Herleitung der 804 Stunden (Sommer bis Frühling: 9 von 12 Monaten)</span>
+</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                Der im Referenzsystem ausgewiesene Betrag von <strong>804 Stunden</strong> entspricht dem erreichten Soll-Stand nach genau drei Schulquartalen (9 von 12 Schulmonaten: August, September, Oktober, November, Dezember, Januar, Februar, März, April):
             </p>
-            <div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
+<div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
                 Mathematischer Nachweis:<br/>
-                1'072 Std. × 75.0% (bzw. 9 von 12 Monaten) = <strong>exakt 804.00 Stunden</strong>
+                1'072 Std. (Jahressoll 50%) × 75.0% (9 von 12 Monaten) = <strong>exakt 804.00 Stunden</strong>
+</div>
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-amber-900 text-xs">
+<strong>Schuljahres-Abgrenzung:</strong> Alle in <em>Döltschi Time</em> erfassten Arbeitstage zwischen dem 1. August und dem 31. Juli werden kumulativ zum jeweiligen Schuljahr gebucht.
             </div>
-            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-amber-900 text-xs">
-                <strong>Hinweis zur Initialkonfiguration im System:</strong> Dieser Betrag wurde als Referenzwert für ein fortgeschrittenes Schuljahr hinterlegt, um die Funktionalität der Fortschrittsbalken und Quartalsabgleiche vor der Erfassung eigener Ist-Buchungen transparent zu veranschaulichen.
-            </div>
-        </div>
-        <!-- Section 3 -->
-        <div class="space-y-3">
-            <h4 class="text-lg font-bold text-primary flex items-center gap-2">
-                <span>3. Ermittlung des Restguthabens (268 h)</span>
-            </h4>
-            <p class="text-on-surface-variant text-sm leading-relaxed">
-                Zur Erfüllung des vollständigen Jahresvertrags verbleibt für das 4. Quartal (die restlichen 3 Monate des Schuljahres):
+</div>
+<!-- Section 3 -->
+<div class="space-y-3">
+<h4 class="text-lg font-bold text-primary flex items-center gap-2">
+<span>3. Restguthaben im 4. Schulquartal (Mai, Juni, Juli)</span>
+</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                Bis zum Ende des Schuljahres am 31. Juli verbleiben für das 4. Schulquartal:
             </p>
-            <div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
-                1'072.00 Std. (Gesamtsoll) − 804.00 Std. (Ist-/Soll-Stand 3. Quartal) = <strong>268.00 Reststunden (25%)</strong>
-            </div>
-        </div>
-        <!-- Section 4 -->
-        <div class="space-y-3">
-            <h4 class="text-lg font-bold text-primary flex items-center gap-2">
-                <span>4. Funktionsweise und Führung im Live-Betrieb</span>
-            </h4>
-            <p class="text-on-surface-variant text-sm leading-relaxed">
-                Im regulären Arbeitszyklus aggregiert <em>Döltschi Time</em> minutengenau alle genehmigten Buchungen der Kategorien <strong>Vormittag, Nachmittag, Abend</strong> sowie projektbezogene Freizeiten und Sitzungen. Bei einem Schuljahreswechsel oder einem vollständigen Daten-Reset startet der effektive Stundenzähler bei <strong>0'00 h</strong> und wächst dynamisch mit jedem erfassten Arbeitstag gegen das Jahressoll von 1'072 Stunden an.
+<div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
+                1'072.00 Std. (Gesamtsoll 50%) − 804.00 Std. (Stand 3. Schulquartal) = <strong>268.00 Reststunden (25%)</strong>
+</div>
+</div>
+<!-- Section 4 -->
+<div class="space-y-3">
+<h4 class="text-lg font-bold text-primary flex items-center gap-2">
+<span>4. Automatische Schuljahres-Berechnung in Döltschi Time</span>
+</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                Die Software prüft für jeden Zeiteintrag das Datum (TT.MM.JJJJ). Liegt der Monat im Bereich August bis Dezember, gehört der Eintrag zum Schuljahr mit Beginn im selben Kalenderjahr. Liegt der Monat im Bereich Januar bis Juli, gehört er zum Schuljahr, das im Vorjahr begonnen hat. Über den Zyklus-Umschalter in der Kopfzeile kann nahtlos zwischen verschiedenen Schuljahren gewechselt werden.
             </p>
-        </div>
-        <!-- Signature Lines -->
-        <div class="pt-8 border-t border-surface-container-high grid grid-cols-2 gap-12 mt-10">
-            <div>
-                <span class="text-xs font-bold text-on-surface-variant block uppercase">Schulleitung / Verwaltung</span>
-                <p class="text-sm font-semibold text-on-surface mt-1">Schulkreis Uto, Stadt Zürich</p>
-                <div class="mt-8 border-b border-on-surface-variant/40"></div>
-                <span class="text-xs text-on-surface-variant mt-1 block">Ort, Datum / Unterschrift</span>
-            </div>
-            <div>
-                <span class="text-xs font-bold text-on-surface-variant block uppercase">Lehrperson / Mitarbeiterin</span>
-                <p class="text-sm font-semibold text-on-surface mt-1">Nicole De Pretto (Klassenlehrperson)</p>
-                <div class="mt-8 border-b border-on-surface-variant/40"></div>
-                <span class="text-xs text-on-surface-variant mt-1 block">Ort, Datum / Unterschrift</span>
-            </div>
-        </div>
-    </div>
+</div>
+<!-- Signature Lines -->
+<div class="pt-8 border-t border-surface-container-high grid grid-cols-2 gap-12 mt-10">
+<div>
+<span class="text-xs font-bold text-on-surface-variant block uppercase">Schulleitung / Verwaltung</span>
+<p class="text-sm font-semibold text-on-surface mt-1">Schulkreis Uto, Stadt Zürich</p>
+<div class="mt-8 border-b border-on-surface-variant/40"></div>
+<span class="text-xs text-on-surface-variant mt-1 block">Ort, Datum / Unterschrift</span>
+</div>
+<div>
+<span class="text-xs font-bold text-on-surface-variant block uppercase">Lehrperson / Mitarbeiterin</span>
+<p class="text-sm font-semibold text-on-surface mt-1">Nicole De Pretto (Assistenz Sonderpädagogik)</p>
+<div class="mt-8 border-b border-on-surface-variant/40"></div>
+<span class="text-xs text-on-surface-variant mt-1 block">Ort, Datum / Unterschrift</span>
+</div>
+</div>
+</div>
 </div>
 <!-- VIEW: EINSTELLUNGEN -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[800px] mx-auto gap-8 pb-20" id="view-einstellungen">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
 <h2 class="text-headline-lg text-on-surface mb-2">Profil &amp; Einstellungen</h2>
-<p class="text-body-md text-on-surface-variant mb-6">Konfiguration für die 'Döltschi Time' Firestore Datenbank.</p>
+<p class="text-body-md text-on-surface-variant mb-6">Konfiguration für die 'Döltschi Time' Firestore Datenbank &amp; Schuljahreszyklus.</p>
 <div class="space-y-4">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="block text-label-caps text-on-surface-variant">Schuljahreszyklus</span>
+<p class="text-headline-md text-on-surface font-bold mt-1">Sommer zu Sommer (1. August – 31. Juli)</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Aktuell ausgewählt: <span class="active-school-year-text font-bold text-primary">2025/2026</span></p>
+</div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant">Firebase Projekt</span>
 <p class="text-headline-md text-on-surface font-bold mt-1">doeltschi-time</p>
@@ -603,11 +645,11 @@
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between">
 <div>
-<span class="block text-label-caps text-on-surface-variant">Jahresarbeitszeit-Dokumentation</span>
-<p class="text-sm text-on-surface mt-0.5">Offizielle Herleitung (804 h / 1'072 h)</p>
+<span class="block text-label-caps text-on-surface-variant">Schuljahresarbeitszeit-Dokumentation</span>
+<p class="text-sm text-on-surface mt-0.5">Herleitung nach Sommer-zu-Sommer-Zyklus (804 h / 1'072 h)</p>
 </div>
-<button onclick="switchView('erklaerung')" class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1">
-    <span class="material-symbols-outlined text-[16px]">visibility</span> Merkblatt öffnen
+<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1" onclick="switchView('erklaerung')">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Merkblatt öffnen
 </button>
 </div>
 </div>
@@ -639,8 +681,8 @@
 <input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" type="number"/>
 </div>
 <div class="col-span-2">
-<label class="block text-label-caps text-on-surface-variant mb-1">Jahresarbeitszeit (Stunden)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="1880"/>
+<label class="block text-label-caps text-on-surface-variant mb-1">Schuljahresarbeitszeit (1. Aug. – 31. Juli, Stunden)</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="2144"/>
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-4">
@@ -664,15 +706,70 @@
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
+
+        // Standard-Vollzeit-Schuljahressoll nach Richtarbeitszeit Kanton Zürich: 2'144 Stunden (Sommer bis Sommer)
+        const BASE_FULL_YEAR_HOURS = 2144;
+        let selectedSchoolYear = '2025/2026';
+
         let employeesData = [
-            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.57) },
-            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
-            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyProgress: 0, yearlyTotal: 1880 },
-            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyProgress: 0, yearlyTotal: Math.round(1880 * 0.92) }
+            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyTotal: Math.round(BASE_FULL_YEAR_HOURS * 0.57) },
+            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyTotal: BASE_FULL_YEAR_HOURS },
+            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyTotal: BASE_FULL_YEAR_HOURS },
+            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyTotal: Math.round(BASE_FULL_YEAR_HOURS * 0.92) }
         ];
         let timeEntriesData = [];
         let entriesVisible = true;
         let weeklyVisible = true;
+
+        // Bestimmt das Schuljahr für ein gegebenes Schweizer Datum (TT.MM.JJJJ)
+        // Schuljahr läuft vom 1. August bis zum 31. Juli (Sommer bis Sommer)
+        function getSchoolYearFromDateStr(dateStr) {
+            if (!dateStr) return selectedSchoolYear;
+            const parts = dateStr.split('.');
+            if (parts.length !== 3) return selectedSchoolYear;
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10); // 1 = Januar, 12 = Dezember
+            const year = parseInt(parts[2], 10);
+
+            if (isNaN(month) || isNaN(year)) return selectedSchoolYear;
+
+            // August (8) bis Dezember (12): Schuljahr = year / (year+1)
+            // Januar (1) bis Juli (7): Schuljahr = (year-1) / year
+            if (month >= 8) {
+                return `${year}/${year + 1}`;
+            } else {
+                return `${year - 1}/${year}`;
+            }
+        }
+
+        // Prüft, ob ein Eintrag im ausgewählten Schuljahr liegt
+        function isEntryInSelectedSchoolYear(entry, targetSchoolYear = selectedSchoolYear) {
+            return getSchoolYearFromDateStr(entry.date) === targetSchoolYear;
+        }
+
+        function changeSchoolYear(newYear) {
+            selectedSchoolYear = newYear;
+            updateSchoolYearDisplays();
+            renderDashboard();
+            renderWeeklyOverview();
+            renderReports();
+        }
+
+        function updateSchoolYearDisplays() {
+            const shortYear = selectedSchoolYear.replace('20', '').replace('/20', '/');
+            document.querySelectorAll('.active-school-year-text').forEach(el => el.textContent = selectedSchoolYear);
+            document.querySelectorAll('.active-school-year-short').forEach(el => el.textContent = shortYear);
+            
+            const sbDisplay = document.getElementById('sidebar-school-year-display');
+            if (sbDisplay) {
+                sbDisplay.textContent = `Schuljahr ${selectedSchoolYear}`;
+            }
+            const selectEl = document.getElementById('school-year-select');
+            if (selectEl && selectEl.value !== selectedSchoolYear) {
+                selectEl.value = selectedSchoolYear;
+            }
+        }
+
         function openJahresarbeitszeitModal() {
             const m = document.getElementById('jahresarbeitszeit-modal');
             if (m) {
@@ -743,6 +840,7 @@
             } catch(e) {
                 console.log("Storage load error", e);
             }
+            updateSchoolYearDisplays();
             renderDashboard();
             renderEmployeesManagement();
             populateEmployeeSelects();
@@ -817,8 +915,8 @@
                 zeiterfassung: 'Zeiterfassung',
                 wochenuebersicht: 'Wochenübersicht',
                 mitarbeiter: 'Mitarbeiter-Verwaltung',
-                berichte: 'Monatsberichte & Statistiken',
-                erklaerung: 'Erklärung Jahresarbeitszeit (804 h / 1\'072 h)',
+                berichte: 'Schuljahresberichte & Statistiken',
+                erklaerung: 'Erklärung Schuljahresarbeitszeit (Sommer zu Sommer)',
                 einstellungen: 'Profil & Einstellungen'
             };
             document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
@@ -846,24 +944,29 @@
             if(!grid) return;
             grid.innerHTML = '';
             let totalActual = 0;
-            let totalTarget = 0;
+            let totalYearlyTarget = 0;
             let totalOvertime = 0;
             let totalAbsence = 0;
+
             employeesData.forEach(emp => {
-                const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
-                let actual = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+                // Filtere Einträge für den aktuellen Schuljahreszyklus (1. August bis 31. Juli)
+                const empEntriesInYear = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
+                let actual = empEntriesInYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+                
                 const pensumRatio = (emp.pensum || 100) / 100;
-                const target = emp.targetHours || Math.round(168 * pensumRatio);
-                const overtime = Math.max(0, actual - target);
-                const absence = empEntries.filter(e => e.status === 'Krankheit').length * 8;
+                const monthlyTarget = emp.targetHours || Math.round(168 * pensumRatio);
+                const yearlyTotal = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * pensumRatio);
+
+                // Fortschritt in Prozent basierend auf dem Schuljahressoll (1. August bis 31. Juli)
+                const yearlyProgressPct = yearlyTotal > 0 ? Math.min(100, Math.round((actual / yearlyTotal) * 100)) : 0;
+                const overtime = Math.max(0, actual - yearlyTotal);
+                const absence = empEntriesInYear.filter(e => e.status === 'Krankheit').length * 8;
                 
                 totalActual += actual;
-                totalTarget += target;
+                totalYearlyTarget += yearlyTotal;
                 totalOvertime += overtime;
                 totalAbsence += absence;
-                const yearlyTotal = emp.yearlyTotal || Math.round(1880 * pensumRatio);
-                const yearlyProgressPct = Number(emp.yearlyProgress) || 0;
-                const yearlyWorked = Math.round((yearlyProgressPct / 100) * yearlyTotal);
+
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
                 card.innerHTML = `
@@ -882,8 +985,8 @@
                     </div>
                     <div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl">
                         <div>
-                            <span class="text-label-caps text-on-surface-variant block">Monat Ist / Soll</span>
-                            <p class="text-body-lg font-bold text-on-surface mt-1">${actual.toFixed(1)} / ${target} h</p>
+                            <span class="text-label-caps text-on-surface-variant block">Schuljahr Ist / Soll</span>
+                            <p class="text-body-lg font-bold text-on-surface mt-1">${actual.toFixed(1)} / ${yearlyTotal} h</p>
                         </div>
                         <div>
                             <span class="text-label-caps text-on-surface-variant block">Überstunden</span>
@@ -897,15 +1000,19 @@
                     <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
                         <div class="flex justify-between items-center text-body-md">
                             <span class="text-on-surface font-bold flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span> Jahresarbeitszeit
+                                <span class="material-symbols-outlined text-primary text-[20px]">school</span> Schuljahresarbeitszeit
                                 <button onclick="openJahresarbeitszeitModal()" title="Herleitung anzeigen" class="text-primary hover:text-primary-container">
                                     <span class="material-symbols-outlined text-[18px]">info</span>
                                 </button>
                             </span>
-                            <span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">${yearlyWorked.toLocaleString('de-CH')} / ${yearlyTotal.toLocaleString('de-CH')} h (${yearlyProgressPct}%)</span>
+                            <span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">${actual.toFixed(1)} / ${yearlyTotal.toLocaleString('de-CH')} h (${yearlyProgressPct}%)</span>
                         </div>
                         <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
                             <div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: ${yearlyProgressPct}%;"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-[11px] text-on-surface-variant pt-0.5">
+                            <span>Zyklus: 1. Aug. – 31. Juli (${selectedSchoolYear})</span>
+                            <span class="font-bold text-primary">Sommer zu Sommer</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center pt-1">
@@ -920,10 +1027,10 @@
                 grid.appendChild(card);
             });
             document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-            document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalTarget} Std.`;
+            document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget} Std.`;
             document.getElementById('summary-overtime-total').textContent = `+${totalOvertime.toFixed(1)} Std.`;
             document.getElementById('summary-absence-total').textContent = `${totalAbsence.toFixed(1)} Std.`;
-            const pct = Math.min(100, Math.round((totalActual / totalTarget) * 100));
+            const pct = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
         function populateEmployeeSelects() {
@@ -1042,12 +1149,16 @@
             filteredEntries.forEach(entry => {
                 const emp = employeesData.find(e => e.id === entry.employeeId);
                 const empName = emp ? emp.name : 'Unbekanntes Teammitglied';
+                const entrySchoolYear = getSchoolYearFromDateStr(entry.date);
                 const item = document.createElement('div');
                 item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high';
                 item.innerHTML = `
                     <div>
-                        <p class="font-bold text-on-surface">${empName} - <span class="text-primary">${entry.date}</span></p>
-                        <p class="text-sm text-on-surface-variant">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Arbeitszeit: <strong>${entry.hours}h</strong></p>
+                        <div class="flex items-center gap-2">
+                            <p class="font-bold text-on-surface">${empName} - <span class="text-primary">${entry.date}</span></p>
+                            <span class="text-[11px] bg-primary/10 text-primary font-semibold px-2 py-0.5 rounded-full">SJ ${entrySchoolYear}</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant mt-0.5">Status: ${entry.status} | Notiz: ${entry.notes || '-'} | Arbeitszeit: <strong>${entry.hours}h</strong></p>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm font-bold flex items-center gap-1">
@@ -1094,12 +1205,13 @@
             container.innerHTML = '';
             
             const weeklyFilterVal = document.getElementById('filter-weekly-employee') ? document.getElementById('filter-weekly-employee').value : 'all';
-            let filteredEntries = [...timeEntriesData];
+            // Filtern nach Schuljahr und Mitarbeiter
+            let filteredEntries = timeEntriesData.filter(e => isEntryInSelectedSchoolYear(e));
             if (weeklyFilterVal !== 'all') {
                 filteredEntries = filteredEntries.filter(e => e.employeeId === weeklyFilterVal);
             }
             if (!filteredEntries || filteredEntries.length === 0) {
-                container.innerHTML = '<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für die Wochenübersicht gefunden.</div>';
+                container.innerHTML = `<div class="bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high text-on-surface-variant">Keine erfassten Arbeitszeiten für das <strong>Schuljahr ${selectedSchoolYear} (1. Aug – 31. Juli)</strong> gefunden.</div>`;
                 return;
             }
             const groupedByDate = {};
@@ -1144,7 +1256,7 @@
                         <h3 class="text-headline-md text-on-surface flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">event</span> Datum: ${dateStr}
                         </h3>
-                        <span class="text-xs bg-primary-fixed text-primary px-3 py-1 rounded-full font-bold">Erfasster Tag</span>
+                        <span class="text-xs bg-primary-fixed text-primary px-3 py-1 rounded-full font-bold">Schuljahr ${selectedSchoolYear}</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         ${employeeCardsHtml}
@@ -1166,7 +1278,7 @@
                             <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials || 'MA'}</div>
                             <div>
                                 <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-sm text-on-surface-variant">${emp.role} | Jahressoll: ${emp.yearlyTotal || Math.round(1880 * (emp.pensum/100))}h</span>
+                                <span class="text-sm text-on-surface-variant">${emp.role} | Schuljahressoll (Sommer–Sommer): <strong>${emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum/100))} h</strong></span>
                             </div>
                         </div>
                         <span class="text-primary font-bold">${emp.pensum}%</span>
@@ -1191,7 +1303,7 @@
                     document.getElementById('emp-role').value = emp.role;
                     document.getElementById('emp-pensum').value = emp.pensum;
                     document.getElementById('emp-target').value = emp.targetHours;
-                    document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || Math.round(1880 * (emp.pensum/100));
+                    document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum/100));
                     document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
                 }
             } else {
@@ -1200,7 +1312,7 @@
                 document.getElementById('emp-role').value = '';
                 document.getElementById('emp-pensum').value = '100';
                 document.getElementById('emp-target').value = '168';
-                document.getElementById('emp-yearly-hours').value = '1880';
+                document.getElementById('emp-yearly-hours').value = BASE_FULL_YEAR_HOURS;
                 document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             }
         }
@@ -1216,11 +1328,9 @@
             const role = document.getElementById('emp-role').value;
             const pensum = Number(document.getElementById('emp-pensum').value);
             const targetHours = Math.round(168 * (pensum / 100));
-            const yearlyTotal = Math.round(1880 * (pensum / 100));
+            const yearlyTotal = Number(document.getElementById('emp-yearly-hours').value) || Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
-            const existingEmp = employeesData.find(e => e.id === id);
-            const yearlyProgress = existingEmp ? (existingEmp.yearlyProgress || 0) : 0;
-            const empData = { id, name, role, pensum, targetHours, initials, yearlyProgress, yearlyTotal };
+            const empData = { id, name, role, pensum, targetHours, initials, yearlyTotal };
             
             const existingIdx = employeesData.findIndex(e => e.id === id);
             if(existingIdx >= 0) {
@@ -1257,13 +1367,14 @@
             const container = document.getElementById('reports-content');
             if(!container) return;
             container.innerHTML = employeesData.map(emp => {
-                const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
-                const actualHours = empEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-                const targetHours = emp.targetHours || Math.round(168 * ((emp.pensum || 100) / 100));
-                const diff = actualHours - targetHours;
+                // Nur Einträge des gewählten Schuljahres (Sommer bis Sommer) berechnen
+                const empEntriesInYear = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
+                const actualHours = empEntriesInYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+                const yearlyTarget = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * ((emp.pensum || 100) / 100));
+                const diff = actualHours - yearlyTarget;
                 const diffSign = diff > 0 ? '+' : '';
                 const diffColor = diff >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
-                const progressPct = targetHours > 0 ? Math.min(100, Math.round((actualHours / targetHours) * 100)) : 0;
+                const progressPct = yearlyTarget > 0 ? Math.min(100, Math.round((actualHours / yearlyTarget) * 100)) : 0;
                 
                 return `
                     <div class="bg-surface-container-low p-6 rounded-2xl border border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all hover:border-primary/30">
@@ -1275,8 +1386,9 @@
                                 <div class="flex items-center gap-2">
                                     <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
                                     <span class="text-xs bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full">${emp.pensum}% Pensum</span>
+                                    <span class="text-xs bg-surface-container-high text-on-surface-variant font-semibold px-2 py-0.5 rounded-full">SJ ${selectedSchoolYear}</span>
                                 </div>
-                                <p class="text-sm text-on-surface-variant mt-0.5">${emp.role} | Jahressoll: <strong>${emp.yearlyTotal || Math.round(1880 * ((emp.pensum||100)/100))} h</strong></p>
+                                <p class="text-sm text-on-surface-variant mt-0.5">${emp.role} | Schuljahressoll (1. Aug – 31. Juli): <strong>${yearlyTarget} h</strong></p>
                                 <div class="w-48 bg-surface-container-high h-2 rounded-full overflow-hidden mt-3">
                                     <div class="bg-primary h-full rounded-full transition-all duration-700" style="width: ${progressPct}%;"></div>
                                 </div>
@@ -1284,12 +1396,12 @@
                         </div>
                         <div class="flex items-center gap-6 justify-between md:justify-end border-t md:border-t-0 pt-4 md:pt-0 border-surface-container-high">
                             <div class="text-left md:text-right">
-                                <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Monat Soll / Ist</span>
+                                <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Schuljahr Ist / Soll</span>
                                 <div class="flex items-baseline gap-1.5 mt-0.5">
                                     <span class="text-2xl font-black text-primary">${actualHours.toFixed(1)} h</span>
-                                    <span class="text-sm font-semibold text-on-surface-variant">/ ${targetHours} h</span>
+                                    <span class="text-sm font-semibold text-on-surface-variant">/ ${yearlyTarget} h</span>
                                 </div>
-                                <span class="text-xs text-on-surface-variant">Erfüllung: ${progressPct}%</span>
+                                <span class="text-xs text-on-surface-variant">Erfüllung Schuljahr: ${progressPct}%</span>
                             </div>
                             <div class="text-right">
                                 <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Saldo</span>
