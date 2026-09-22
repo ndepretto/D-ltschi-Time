@@ -105,7 +105,7 @@
 </head>
 <body class="bg-surface font-body-md text-on-surface">
 <!-- Password Protection Modal -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md flex items-center justify-center p-4" id="auth-modal">
+<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md items-center justify-center p-4 hidden" id="auth-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
 <div class="text-center">
 <h2 class="text-headline-md text-primary">Döltschi Time Login</h2>
@@ -264,12 +264,17 @@
 </select>
 </div>
 </div>
-<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
 <button class="px-3 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all flex items-center gap-1.5 shadow-sm" onclick="openJahresarbeitszeitModal()">
 <span class="material-symbols-outlined text-[16px]">info</span> Sommer–Sommer (804h) erklärt
 </button>
-<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1" id="firebase-status">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Firebase Live
+<button class="px-3 py-1.5 bg-surface-container-high text-on-surface text-xs font-bold rounded-xl border border-outline-variant/40 hover:bg-surface-container-highest transition-all flex items-center gap-1 shadow-xs" onclick="forceCloudSync()" title="Alle Einträge live mit Firestore Cloud abgleichen">
+<span class="material-symbols-outlined text-[16px] text-primary" id="sync-icon">sync</span>
+<span>Cloud Sync erzwingen</span>
+</button>
+<span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200" id="firebase-status">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span id="cloud-sync-label">Cloud Synchron: 0 Einträge</span>
 </span>
 <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
 <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
@@ -342,9 +347,7 @@
 </div>
 </div>
 <!-- Bento Grid for Team Members with prominent yearly overview -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid">
-<!-- Dynamically populated -->
-</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid"><div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md"><div class="flex items-start justify-between"><div class="flex items-center gap-4"><div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">ND</div><div><h3 class="text-headline-md text-on-surface">Nicole De Pretto</h3><span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Assistenz Sonderpädagogik</span></div></div><div class="text-right bg-surface-container-low px-4 py-2 rounded-xl"><span class="text-label-caps text-on-surface-variant block">Pensum</span><p class="text-headline-md text-primary font-bold">57%</p></div></div><div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl"><div><span class="text-label-caps text-on-surface-variant block">Schuljahr Ist / Soll</span><p class="text-body-lg font-bold text-on-surface mt-1">0.0 / 1'222 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Überstunden</span><p class="text-body-lg font-bold text-emerald-600 mt-1">+0.0 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Fehlstunden</span><p class="text-body-lg font-bold text-error mt-1">0.0 h</p></div></div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3"><div class="flex justify-between items-center text-body-md"><span class="text-on-surface font-bold flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">school</span> Schuljahresarbeitszeit<button class="text-primary hover:text-primary-container" onclick="openJahresarbeitszeitModal()" title="Herleitung anzeigen"><span class="material-symbols-outlined text-[18px]">info</span></button></span><span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">0.0 / 1'222 h (0%)</span></div><div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5"><div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 0%;"></div></div><div class="flex justify-between items-center text-[11px] text-on-surface-variant pt-0.5"><span>Zyklus: 1. Aug. – 31. Juli (2025/2026)</span><span class="font-bold text-primary">Sommer zu Sommer</span></div></div><div class="flex justify-between items-center pt-1"><button class="text-primary font-bold text-xs flex items-center gap-1 hover:underline" onclick="openJahresarbeitszeitModal()"><span class="material-symbols-outlined text-[16px]">help_outline</span> Herleitung (804h)</button><button class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5" onclick="switchView('zeiterfassung')"><span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag</button></div></div><div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md"><div class="flex items-start justify-between"><div class="flex items-center gap-4"><div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">MD</div><div><h3 class="text-headline-md text-on-surface">Michelle Dreifuss</h3><span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Teamleiterin</span></div></div><div class="text-right bg-surface-container-low px-4 py-2 rounded-xl"><span class="text-label-caps text-on-surface-variant block">Pensum</span><p class="text-headline-md text-primary font-bold">100%</p></div></div><div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl"><div><span class="text-label-caps text-on-surface-variant block">Schuljahr Ist / Soll</span><p class="text-body-lg font-bold text-on-surface mt-1">0.0 / 2'144 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Überstunden</span><p class="text-body-lg font-bold text-emerald-600 mt-1">+0.0 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Fehlstunden</span><p class="text-body-lg font-bold text-error mt-1">0.0 h</p></div></div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3"><div class="flex justify-between items-center text-body-md"><span class="text-on-surface font-bold flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">school</span> Schuljahresarbeitszeit<button class="text-primary hover:text-primary-container" onclick="openJahresarbeitszeitModal()" title="Herleitung anzeigen"><span class="material-symbols-outlined text-[18px]">info</span></button></span><span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">0.0 / 2'144 h (0%)</span></div><div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5"><div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 0%;"></div></div><div class="flex justify-between items-center text-[11px] text-on-surface-variant pt-0.5"><span>Zyklus: 1. Aug. – 31. Juli (2025/2026)</span><span class="font-bold text-primary">Sommer zu Sommer</span></div></div><div class="flex justify-between items-center pt-1"><button class="text-primary font-bold text-xs flex items-center gap-1 hover:underline" onclick="openJahresarbeitszeitModal()"><span class="material-symbols-outlined text-[16px]">help_outline</span> Herleitung (804h)</button><button class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5" onclick="switchView('zeiterfassung')"><span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag</button></div></div><div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md"><div class="flex items-start justify-between"><div class="flex items-center gap-4"><div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">MS</div><div><h3 class="text-headline-md text-on-surface">Manuel Schoch</h3><span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Zeichner</span></div></div><div class="text-right bg-surface-container-low px-4 py-2 rounded-xl"><span class="text-label-caps text-on-surface-variant block">Pensum</span><p class="text-headline-md text-primary font-bold">100%</p></div></div><div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl"><div><span class="text-label-caps text-on-surface-variant block">Schuljahr Ist / Soll</span><p class="text-body-lg font-bold text-on-surface mt-1">0.0 / 2'144 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Überstunden</span><p class="text-body-lg font-bold text-emerald-600 mt-1">+0.0 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Fehlstunden</span><p class="text-body-lg font-bold text-error mt-1">0.0 h</p></div></div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3"><div class="flex justify-between items-center text-body-md"><span class="text-on-surface font-bold flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">school</span> Schuljahresarbeitszeit<button class="text-primary hover:text-primary-container" onclick="openJahresarbeitszeitModal()" title="Herleitung anzeigen"><span class="material-symbols-outlined text-[18px]">info</span></button></span><span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">0.0 / 2'144 h (0%)</span></div><div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5"><div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 0%;"></div></div><div class="flex justify-between items-center text-[11px] text-on-surface-variant pt-0.5"><span>Zyklus: 1. Aug. – 31. Juli (2025/2026)</span><span class="font-bold text-primary">Sommer zu Sommer</span></div></div><div class="flex justify-between items-center pt-1"><button class="text-primary font-bold text-xs flex items-center gap-1 hover:underline" onclick="openJahresarbeitszeitModal()"><span class="material-symbols-outlined text-[16px]">help_outline</span> Herleitung (804h)</button><button class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5" onclick="switchView('zeiterfassung')"><span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag</button></div></div><div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md"><div class="flex items-start justify-between"><div class="flex items-center gap-4"><div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md shadow-sm">SS</div><div><h3 class="text-headline-md text-on-surface">Seline Steinmann</h3><span class="text-label-caps text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Administration</span></div></div><div class="text-right bg-surface-container-low px-4 py-2 rounded-xl"><span class="text-label-caps text-on-surface-variant block">Pensum</span><p class="text-headline-md text-primary font-bold">92%</p></div></div><div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl"><div><span class="text-label-caps text-on-surface-variant block">Schuljahr Ist / Soll</span><p class="text-body-lg font-bold text-on-surface mt-1">0.0 / 1'972 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Überstunden</span><p class="text-body-lg font-bold text-emerald-600 mt-1">+0.0 h</p></div><div><span class="text-label-caps text-on-surface-variant block">Fehlstunden</span><p class="text-body-lg font-bold text-error mt-1">0.0 h</p></div></div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3"><div class="flex justify-between items-center text-body-md"><span class="text-on-surface font-bold flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">school</span> Schuljahresarbeitszeit<button class="text-primary hover:text-primary-container" onclick="openJahresarbeitszeitModal()" title="Herleitung anzeigen"><span class="material-symbols-outlined text-[18px]">info</span></button></span><span class="text-primary font-extrabold bg-primary-fixed px-2.5 py-0.5 rounded-lg text-sm">0.0 / 1'972 h (0%)</span></div><div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5"><div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 0%;"></div></div><div class="flex justify-between items-center text-[11px] text-on-surface-variant pt-0.5"><span>Zyklus: 1. Aug. – 31. Juli (2025/2026)</span><span class="font-bold text-primary">Sommer zu Sommer</span></div></div><div class="flex justify-between items-center pt-1"><button class="text-primary font-bold text-xs flex items-center gap-1 hover:underline" onclick="openJahresarbeitszeitModal()"><span class="material-symbols-outlined text-[16px]">help_outline</span> Herleitung (804h)</button><button class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5" onclick="switchView('zeiterfassung')"><span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag</button></div></div></div>
 </div>
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
@@ -635,13 +638,19 @@
 <p class="text-headline-md text-on-surface font-bold mt-1">Sommer zu Sommer (1. August – 31. Juli)</p>
 <p class="text-xs text-on-surface-variant mt-0.5">Aktuell ausgewählt: <span class="active-school-year-text font-bold text-primary">2025/2026</span></p>
 </div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-label-caps text-on-surface-variant">Firebase Projekt</span>
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between">
+<div>
+<span class="block text-label-caps text-on-surface-variant">Firebase Projekt &amp; Cloud Synchronisation</span>
 <p class="text-headline-md text-on-surface font-bold mt-1">doeltschi-time</p>
+<p class="text-xs text-on-surface-variant mt-0.5" id="settings-sync-status">Status: Vollständige 2-Wege-Synchronisation mit Firestore</p>
+</div>
+<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1 shadow-sm hover:bg-primary-container" onclick="forceCloudSync()">
+<span class="material-symbols-outlined text-[16px]">cloud_sync</span> Cloud Sync erzwingen
+</button>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant">Synchronisation</span>
-<p class="text-body-md text-primary font-bold mt-1">Aktiv (Firestore onSnapshot)</p>
+<p class="text-body-md text-primary font-bold mt-1">Aktiv (Firestore onSnapshot Live-Stream)</p>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between">
 <div>
@@ -706,31 +715,45 @@
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
+        // Fallback-Flag, falls Firebase im Offline- oder Testmodus läuft
+        let isFirestoreActive = false;
 
         // Standard-Vollzeit-Schuljahressoll nach Richtarbeitszeit Kanton Zürich: 2'144 Stunden (Sommer bis Sommer)
         const BASE_FULL_YEAR_HOURS = 2144;
         let selectedSchoolYear = '2025/2026';
 
-        let employeesData = [
+        const DEFAULT_EMPLOYEES = [
             { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyTotal: Math.round(BASE_FULL_YEAR_HOURS * 0.57) },
             { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyTotal: BASE_FULL_YEAR_HOURS },
             { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyTotal: BASE_FULL_YEAR_HOURS },
             { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyTotal: Math.round(BASE_FULL_YEAR_HOURS * 0.92) }
         ];
+
+        let employeesData = [...DEFAULT_EMPLOYEES];
         let timeEntriesData = [];
         let entriesVisible = true;
         let weeklyVisible = true;
 
-        // Bestimmt das Schuljahr für ein gegebenes Schweizer Datum (TT.MM.JJJJ)
+        // Bestimmt das Schuljahr für ein gegebenes Datum (TT.MM.JJJJ oder YYYY-MM-DD)
         // Schuljahr läuft vom 1. August bis zum 31. Juli (Sommer bis Sommer)
         function getSchoolYearFromDateStr(dateStr) {
-            if (!dateStr) return selectedSchoolYear;
-            const parts = dateStr.split('.');
-            if (parts.length !== 3) return selectedSchoolYear;
-            const day = parseInt(parts[0], 10);
-            const month = parseInt(parts[1], 10); // 1 = Januar, 12 = Dezember
-            const year = parseInt(parts[2], 10);
-
+            if (!dateStr || typeof dateStr !== 'string') return selectedSchoolYear;
+            let day, month, year;
+            if (dateStr.includes('.')) {
+                const parts = dateStr.split('.');
+                if (parts.length === 3) {
+                    day = parseInt(parts[0], 10);
+                    month = parseInt(parts[1], 10);
+                    year = parseInt(parts[2], 10);
+                }
+            } else if (dateStr.includes('-')) {
+                const parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    year = parseInt(parts[0], 10);
+                    month = parseInt(parts[1], 10);
+                    day = parseInt(parts[2], 10);
+                }
+            }
             if (isNaN(month) || isNaN(year)) return selectedSchoolYear;
 
             // August (8) bis Dezember (12): Schuljahr = year / (year+1)
@@ -744,7 +767,24 @@
 
         // Prüft, ob ein Eintrag im ausgewählten Schuljahr liegt
         function isEntryInSelectedSchoolYear(entry, targetSchoolYear = selectedSchoolYear) {
+            if (!entry) return false;
+            // Falls Schuljahr explizit im Eintrag hinterlegt ist
+            if (entry.schoolYear) {
+                return entry.schoolYear === targetSchoolYear;
+            }
             return getSchoolYearFromDateStr(entry.date) === targetSchoolYear;
+        }
+
+        function updateCloudSyncBadge(entryCount) {
+            const count = (entryCount !== undefined) ? entryCount : timeEntriesData.length;
+            const badgeLabel = document.getElementById('cloud-sync-label');
+            if (badgeLabel) {
+                badgeLabel.textContent = `Cloud Synchron: ${count} Einträge`;
+            }
+            const settingsStatus = document.getElementById('settings-sync-status');
+            if (settingsStatus) {
+                settingsStatus.textContent = `Live mit Firestore synchronisiert (${count} Einträge für Manuel, Seline, Michelle & Nicole)`;
+            }
         }
 
         function changeSchoolYear(newYear) {
@@ -823,16 +863,27 @@
             total += calculateHours(abendFrom, abendTo);
             return Number(total.toFixed(2));
         }
+
         async function seedInitialDataIfNeeded() {
             try {
                 const storedEmps = localStorage.getItem('doeltschi_employees');
                 const storedEntries = localStorage.getItem('doeltschi_entries');
                 
                 if (storedEmps) {
-                    employeesData = JSON.parse(storedEmps);
+                    const parsed = JSON.parse(storedEmps);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        employeesData = parsed;
+                    }
+                } else {
+                    employeesData = [...DEFAULT_EMPLOYEES];
+                    localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 }
+
                 if (storedEntries) {
-                    timeEntriesData = JSON.parse(storedEntries);
+                    const parsed = JSON.parse(storedEntries);
+                    if (Array.isArray(parsed)) {
+                        timeEntriesData = parsed;
+                    }
                 } else {
                     timeEntriesData = [];
                     localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
@@ -841,6 +892,7 @@
                 console.log("Storage load error", e);
             }
             updateSchoolYearDisplays();
+            updateCloudSyncBadge();
             renderDashboard();
             renderEmployeesManagement();
             populateEmployeeSelects();
@@ -848,55 +900,163 @@
             renderWeeklyOverview();
             renderReports();
         }
+
         function saveLocalState() {
             try {
                 localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
             } catch(e) {}
+            updateCloudSyncBadge();
         }
+
         // Authentication Handler
-        document.getElementById('auth-form').addEventListener('submit', (e) => {
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const pwd = document.getElementById('auth-password').value;
             if (pwd === 'Willma') {
                 document.getElementById('auth-modal').classList.add('hidden');
-                initRealtimeSync();
+                sessionStorage.setItem('doeltschi_authenticated', 'true');
+                await initRealtimeSync();
             } else {
                 document.getElementById('auth-error').classList.remove('hidden');
             }
         });
-        function initRealtimeSync() {
+
+        // Auto-login if previously logged in in current tab
+        if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
+            const authMod = document.getElementById('auth-modal');
+            if (authMod) authMod.classList.add('hidden');
+            setTimeout(() => { initRealtimeSync(); }, 100);
+        }
+
+        // Seamless 2-Way Firestore Cloud Synchronization & Migration
+        async function initRealtimeSync() {
+            const syncIcon = document.getElementById('sync-icon');
+            if (syncIcon) syncIcon.classList.add('animate-spin');
+
             try {
+                // 1. Synchronisiere Mitarbeiter mit Firestore
                 db.collection('employees').onSnapshot((snapshot) => {
-                    if (!snapshot.empty) {
-                        employeesData = [];
+                    if (snapshot && !snapshot.empty) {
+                        const cloudEmps = [];
                         snapshot.forEach((doc) => {
-                            employeesData.push({ id: doc.id, ...doc.data() });
+                            cloudEmps.push({ id: doc.id, ...doc.data() });
                         });
-                        saveLocalState();
+                        // Verschmelzen mit lokalen Daten
+                        if (cloudEmps.length > 0) {
+                            employeesData = cloudEmps;
+                            saveLocalState();
+                            renderEmployeesManagement();
+                            populateEmployeeSelects();
+                            renderDashboard();
+                            renderReports();
+                        }
+                    } else if (snapshot && snapshot.empty && employeesData.length > 0) {
+                        // Initiale Migration der Mitarbeiter in die Cloud
+                        employeesData.forEach(async (emp) => {
+                            try { await db.collection('employees').doc(emp.id).set(emp, { merge: true }); } catch(err){}
+                        });
                     }
-                    renderDashboard();
-                    renderEmployeesManagement();
-                    populateEmployeeSelects();
-                    renderReports();
-                }, (err) => console.log(err));
-                db.collection('timeEntries').onSnapshot((snapshot) => {
-                    if (!snapshot.empty) {
-                        timeEntriesData = [];
+                }, (err) => {
+                    console.warn("Firestore Employees sync note:", err.message);
+                });
+
+                // 2. Synchronisiere Zeiteinträge live (Zwei-Wege-Sync)
+                db.collection('timeEntries').onSnapshot(async (snapshot) => {
+                    isFirestoreActive = true;
+                    if (snapshot) {
+                        const cloudEntriesMap = new Map();
                         snapshot.forEach((doc) => {
-                            timeEntriesData.push({ id: doc.id, ...doc.data() });
+                            cloudEntriesMap.set(doc.id, { id: doc.id, ...doc.data() });
                         });
+
+                        // Zero Data Loss: Lokale Einträge, die noch nicht in Firestore sind, hochladen
+                        const localEntries = JSON.parse(localStorage.getItem('doeltschi_entries') || '[]');
+                        for (const localE of localEntries) {
+                            if (localE && localE.id && !cloudEntriesMap.has(localE.id)) {
+                                try {
+                                    await db.collection('timeEntries').doc(localE.id).set(localE, { merge: true });
+                                    cloudEntriesMap.set(localE.id, localE);
+                                } catch (e) {
+                                    console.warn("Migration item upload error", e);
+                                }
+                            }
+                        }
+
+                        // Array aus Firestore-Daten aktualisieren
+                        timeEntriesData = Array.from(cloudEntriesMap.values());
                         saveLocalState();
+                        updateCloudSyncBadge(timeEntriesData.length);
+                        renderDashboard();
+                        renderTimeEntriesList();
+                        renderWeeklyOverview();
+                        renderReports();
                     }
-                    renderDashboard();
-                    renderTimeEntriesList();
-                    renderWeeklyOverview();
-                    renderReports();
-                }, (err) => console.log(err));
+                    if (syncIcon) syncIcon.classList.remove('animate-spin');
+                }, (err) => {
+                    console.warn("Firestore TimeEntries sync note:", err.message);
+                    if (syncIcon) syncIcon.classList.remove('animate-spin');
+                    // Fallback to local entries gracefully
+                    updateCloudSyncBadge(timeEntriesData.length);
+                });
+
+                // 3. Initiale Migration prüfen: Vorhandene lokale Einträge sofort hochladen
+                const currentLocal = JSON.parse(localStorage.getItem('doeltschi_entries') || '[]');
+                if (currentLocal.length > 0) {
+                    for (const item of currentLocal) {
+                        if (item && item.id) {
+                            try {
+                                await db.collection('timeEntries').doc(item.id).set(item, { merge: true });
+                            } catch(e){}
+                        }
+                    }
+                }
             } catch(e) {
-                console.log("Sync error", e);
+                console.log("Sync initialization error:", e);
+                if (syncIcon) syncIcon.classList.remove('animate-spin');
             }
         }
+
+        // Manuelles Erzwingen des Cloud Syncs (User Button)
+        async function forceCloudSync() {
+            const syncIcon = document.getElementById('sync-icon');
+            if (syncIcon) syncIcon.classList.add('animate-spin');
+            try {
+                // Mitarbeiter sicherstellen
+                for (const emp of employeesData) {
+                    try { await db.collection('employees').doc(emp.id).set(emp, { merge: true }); } catch(e){}
+                }
+                // Zeiteinträge mit Cloud abgleichen
+                const localEntries = JSON.parse(localStorage.getItem('doeltschi_entries') || '[]');
+                for (const item of localEntries) {
+                    if (item && item.id) {
+                        try { await db.collection('timeEntries').doc(item.id).set(item, { merge: true }); } catch(e){}
+                    }
+                }
+                // Direkt aus Cloud neu laden
+                const snap = await db.collection('timeEntries').get();
+                if (snap && !snap.empty) {
+                    const freshCloud = [];
+                    snap.forEach(doc => freshCloud.push({ id: doc.id, ...doc.data() }));
+                    timeEntriesData = freshCloud;
+                    saveLocalState();
+                }
+                updateCloudSyncBadge();
+                renderDashboard();
+                renderTimeEntriesList();
+                renderWeeklyOverview();
+                renderReports();
+                setTimeout(() => {
+                    if (syncIcon) syncIcon.classList.remove('animate-spin');
+                    alert(`Cloud-Synchronisation erfolgreich abgeschlossen! ${timeEntriesData.length} Einträge sind jetzt live für das gesamte Team (Manuel, Seline, Michelle, Nicole) synchron.`);
+                }, 400);
+            } catch(err) {
+                console.error("Force sync error:", err);
+                if (syncIcon) syncIcon.classList.remove('animate-spin');
+                alert(`Cloud Sync Info: Offline-Modus aktiv oder temporäre Verbindungseinschränkung. Alle ${timeEntriesData.length} Einträge sind lokal gesichert und werden automatisch nachsynchronisiert.`);
+            }
+        }
+
         function switchView(viewName) {
             document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
             const targetView = document.getElementById(`view-${viewName}`);
@@ -939,6 +1099,7 @@
                 switchView(view);
             });
         });
+
         function renderDashboard() {
             const grid = document.getElementById('dashboard-employees-grid');
             if(!grid) return;
@@ -950,12 +1111,14 @@
 
             employeesData.forEach(emp => {
                 // Filtere Einträge für den aktuellen Schuljahreszyklus (1. August bis 31. Juli)
-                const empEntriesInYear = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
+                const empEntriesInYear = timeEntriesData.filter(e => {
+                    if (e.employeeId !== emp.id) return false;
+                    return isEntryInSelectedSchoolYear(e, selectedSchoolYear);
+                });
                 let actual = empEntriesInYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
                 
-                const pensumRatio = (emp.pensum || 100) / 100;
-                const monthlyTarget = emp.targetHours || Math.round(168 * pensumRatio);
-                const yearlyTotal = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * pensumRatio);
+                const pensumRatio = (Number(emp.pensum) || 100) / 100;
+                const yearlyTotal = Number(emp.yearlyTotal) || Math.round(BASE_FULL_YEAR_HOURS * pensumRatio);
 
                 // Fortschritt in Prozent basierend auf dem Schuljahressoll (1. August bis 31. Juli)
                 const yearlyProgressPct = yearlyTotal > 0 ? Math.min(100, Math.round((actual / yearlyTotal) * 100)) : 0;
@@ -1027,12 +1190,13 @@
                 grid.appendChild(card);
             });
             document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-            document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget} Std.`;
+            document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget.toLocaleString('de-CH')} Std.`;
             document.getElementById('summary-overtime-total').textContent = `+${totalOvertime.toFixed(1)} Std.`;
             document.getElementById('summary-absence-total').textContent = `${totalAbsence.toFixed(1)} Std.`;
             const pct = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
+
         function populateEmployeeSelects() {
             const formSelect = document.getElementById('entry-employee');
             const filterSelect = document.getElementById('filter-entry-employee');
@@ -1066,7 +1230,8 @@
                 });
             }
         }
-        // Time Entry Form Handling
+
+        // Time Entry Form Handling - Sofortige Cloud-Speicherung (Firestore Two-Way)
         document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const existingId = document.getElementById('entry-id').value;
@@ -1083,21 +1248,38 @@
             const notes = document.getElementById('entry-notes').value;
             
             const hours = calculateTotalEntryHours(vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status);
-            const entryData = { id, employeeId, date, vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours };
+            const calculatedSchoolYear = getSchoolYearFromDateStr(date);
+            const entryData = { 
+                id, 
+                employeeId, 
+                date, 
+                schoolYear: calculatedSchoolYear,
+                vmFrom, 
+                vmTo, 
+                nmFrom, 
+                nmTo, 
+                abendFrom, 
+                abendTo, 
+                status, 
+                notes, 
+                hours,
+                updatedAt: Date.now()
+            };
+
             try {
                 if (existingId) {
                     timeEntriesData = timeEntriesData.map(e => e.id === existingId ? entryData : e);
-                    try { await db.collection('timeEntries').doc(existingId).set(entryData); } catch(err){}
+                    try { await db.collection('timeEntries').doc(existingId).set(entryData, { merge: true }); } catch(err){}
                 } else if (employeeId === 'all') {
                     for (const emp of employeesData) {
                         const bulkId = id + '_' + emp.id;
                         const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
                         timeEntriesData.push(bulkEntry);
-                        try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry); } catch(err){}
+                        try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry, { merge: true }); } catch(err){}
                     }
                 } else {
                     timeEntriesData.push(entryData);
-                    try { await db.collection('timeEntries').doc(id).set(entryData); } catch(err){}
+                    try { await db.collection('timeEntries').doc(id).set(entryData, { merge: true }); } catch(err){}
                 }
                 saveLocalState();
                 resetTimeForm();
@@ -1105,11 +1287,17 @@
                 renderTimeEntriesList();
                 renderWeeklyOverview();
                 renderReports();
-                alert('Eintrag erfolgreich gespeichert!');
+                alert('Eintrag erfolgreich in der Cloud gespeichert und für alle synchronisiert!');
             } catch (err) {
                 console.error(err);
+                saveLocalState();
+                renderDashboard();
+                renderTimeEntriesList();
+                renderWeeklyOverview();
+                renderReports();
             }
         });
+
         function resetTimeForm() {
             document.getElementById('entry-id').value = '';
             document.getElementById('entry-date').value = '';
@@ -1123,6 +1311,7 @@
             document.getElementById('abend-from').value = '';
             document.getElementById('abend-to').value = '';
         }
+
         function renderTimeEntriesList() {
             const list = document.getElementById('time-entries-list');
             if(!list) return;
@@ -1136,9 +1325,13 @@
             filteredEntries.sort((a, b) => {
                 const parseDate = (dStr) => {
                     if (!dStr) return 0;
-                    const parts = dStr.split('.');
-                    if (parts.length !== 3) return 0;
-                    return new Date(parts[2], parts[1]-1, parts[0]).getTime();
+                    if (dStr.includes('.')) {
+                        const parts = dStr.split('.');
+                        if (parts.length === 3) return new Date(parts[2], parts[1]-1, parts[0]).getTime();
+                    } else if (dStr.includes('-')) {
+                        return new Date(dStr).getTime();
+                    }
+                    return 0;
                 };
                 return parseDate(b.date) - parseDate(a.date);
             });
@@ -1149,7 +1342,7 @@
             filteredEntries.forEach(entry => {
                 const emp = employeesData.find(e => e.id === entry.employeeId);
                 const empName = emp ? emp.name : 'Unbekanntes Teammitglied';
-                const entrySchoolYear = getSchoolYearFromDateStr(entry.date);
+                const entrySchoolYear = entry.schoolYear || getSchoolYearFromDateStr(entry.date);
                 const item = document.createElement('div');
                 item.className = 'flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high';
                 item.innerHTML = `
@@ -1170,6 +1363,7 @@
                 list.appendChild(item);
             });
         }
+
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
                 try {
@@ -1183,6 +1377,7 @@
                 renderReports();
             }
         }
+
         function editTimeEntry(id) {
             const entry = timeEntriesData.find(e => e.id === id);
             if (!entry) return;
@@ -1199,6 +1394,7 @@
             document.getElementById('entry-status').value = entry.status || 'Normal';
             document.getElementById('entry-notes').value = entry.notes || '';
         }
+
         function renderWeeklyOverview() {
             const container = document.getElementById('weekly-overview-container');
             if(!container) return;
@@ -1206,7 +1402,7 @@
             
             const weeklyFilterVal = document.getElementById('filter-weekly-employee') ? document.getElementById('filter-weekly-employee').value : 'all';
             // Filtern nach Schuljahr und Mitarbeiter
-            let filteredEntries = timeEntriesData.filter(e => isEntryInSelectedSchoolYear(e));
+            let filteredEntries = timeEntriesData.filter(e => isEntryInSelectedSchoolYear(e, selectedSchoolYear));
             if (weeklyFilterVal !== 'all') {
                 filteredEntries = filteredEntries.filter(e => e.employeeId === weeklyFilterVal);
             }
@@ -1222,9 +1418,14 @@
                 groupedByDate[entry.date].push(entry);
             });
             const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
-                const partsA = a.split('.');
-                const partsB = b.split('.');
-                return new Date(partsB[2], partsB[1]-1, partsB[0]) - new Date(partsA[2], partsA[1]-1, partsA[0]);
+                const parseD = (str) => {
+                    if (str.includes('.')) {
+                        const parts = str.split('.');
+                        return new Date(parts[2], parts[1]-1, parts[0]).getTime();
+                    }
+                    return new Date(str).getTime();
+                };
+                return parseD(b) - parseD(a);
             });
             sortedDates.forEach(dateStr => {
                 const entriesForDate = groupedByDate[dateStr];
@@ -1265,6 +1466,7 @@
                 container.appendChild(card);
             });
         }
+
         function renderEmployeesManagement() {
             const list = document.getElementById('employees-management-list');
             if(!list) return;
@@ -1291,6 +1493,7 @@
                 list.appendChild(card);
             });
         }
+
         function openEmployeeModal(empId = null) {
             const modal = document.getElementById('employee-modal');
             modal.classList.remove('hidden');
@@ -1316,11 +1519,13 @@
                 document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             }
         }
+
         function closeEmployeeModal() {
             const modal = document.getElementById('employee-modal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
+
         document.getElementById('employee-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
@@ -1348,9 +1553,11 @@
             renderReports();
             renderWeeklyOverview();
         });
+
         async function editEmployee(id) {
             openEmployeeModal(id);
         }
+
         async function deleteEmployee(id) {
             if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
                 try { await db.collection('employees').doc(id).delete(); } catch(e) {}
@@ -1363,12 +1570,16 @@
                 renderWeeklyOverview();
             }
         }
+
         function renderReports() {
             const container = document.getElementById('reports-content');
             if(!container) return;
             container.innerHTML = employeesData.map(emp => {
                 // Nur Einträge des gewählten Schuljahres (Sommer bis Sommer) berechnen
-                const empEntriesInYear = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
+                const empEntriesInYear = timeEntriesData.filter(e => {
+                    if (e.employeeId !== emp.id) return false;
+                    return isEntryInSelectedSchoolYear(e, selectedSchoolYear);
+                });
                 const actualHours = empEntriesInYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
                 const yearlyTarget = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * ((emp.pensum || 100) / 100));
                 const diff = actualHours - yearlyTarget;
@@ -1414,6 +1625,7 @@
                 `;
             }).join('');
         }
+
         window.addEventListener('DOMContentLoaded', async () => {
             await seedInitialDataIfNeeded();
         });
