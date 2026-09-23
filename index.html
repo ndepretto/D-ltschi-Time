@@ -105,7 +105,7 @@
 </head>
 <body class="bg-surface font-body-md text-on-surface">
 <!-- Password Protection Modal -->
-<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md items-center justify-center p-4 hidden" id="auth-modal">
+<div class="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-md items-center justify-center p-4 flex" id="auth-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
 <div class="text-center">
 <h2 class="text-headline-md text-primary">Döltschi Time Login</h2>
@@ -1006,17 +1006,27 @@
             const pwd = document.getElementById('auth-password').value;
             if (pwd === 'Willma') {
                 document.getElementById('auth-modal').classList.add('hidden');
+                document.getElementById('auth-modal').classList.remove('flex');
                 sessionStorage.setItem('doeltschi_authenticated', 'true');
                 await initRealtimeSync();
             } else {
                 document.getElementById('auth-error').classList.remove('hidden');
             }
         });
-        // Auto-login if previously logged in in current tab
+        // Check authentication on startup
         if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
             const authMod = document.getElementById('auth-modal');
-            if (authMod) authMod.classList.add('hidden');
+            if (authMod) {
+                authMod.classList.add('hidden');
+                authMod.classList.remove('flex');
+            }
             setTimeout(() => { initRealtimeSync(); }, 100);
+        } else {
+            const authMod = document.getElementById('auth-modal');
+            if (authMod) {
+                authMod.classList.remove('hidden');
+                authMod.classList.add('flex');
+            }
         }
         // Seamless 2-Way Firestore Cloud Synchronization & Migration
         async function initRealtimeSync() {
