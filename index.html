@@ -275,7 +275,51 @@
 <!-- VIEW: DASHBOARD -->
 <div class="view-container flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-dashboard">
 <!-- Top Summary Banner -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6"><div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high"><div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">group</span></div><div><span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Aktives Team</span><h2 class="text-headline-md text-on-surface mt-1" id="summary-team-count">4 Mitglieder</h2></div><div class="mt-6 flex items-center gap-2 text-primary font-bold text-body-md"><span class="material-symbols-outlined text-[18px]">verified</span><span class="">100% Einsatzbereitschaft</span></div></div><div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high"><div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">calendar_month</span></div><div><span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monats-Soll Team Total</span><h2 class="text-headline-md text-primary mt-1" id="summary-monthly-team-total">0.0 / 586.4 h</h2></div><div class="mt-6 flex items-center justify-between text-body-md border-t border-surface-container-high pt-2"><span class="text-xs text-on-surface-variant font-bold">Basis:</span><span class="text-primary font-bold text-xs">168h Monats-Soll bei 100%</span></div></div><div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high"><div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div><div><span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Schuljahr Summe Total</span><h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">0.0 / 7'482 Std.</h2></div><div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden"><div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div></div></div><div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high"><div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div><div><span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden (Monat / Schuljahr)</span><div class="flex items-baseline gap-2 mt-1"><h2 class="text-headline-md text-emerald-600 font-bold" id="summary-overtime-month">+0.0 h</h2><span class="text-xs text-on-surface-variant font-semibold">(Monat)</span></div></div><div class="mt-6 flex items-center justify-between text-body-md border-t border-surface-container-high pt-2"><span class="text-xs text-on-surface-variant font-bold">Schuljahr Saldo:</span><span class="text-emerald-600 font-bold text-sm" id="summary-overtime-total">+0.0 Std.</span></div></div></div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
+<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">group</span></div>
+<div>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Aktives Team</span>
+<h2 class="text-headline-md text-on-surface mt-1" id="summary-team-count">4 Mitglieder</h2>
+</div>
+<div class="mt-6 flex items-center gap-2 text-primary font-bold text-body-md"><span class="material-symbols-outlined text-[18px]">verified</span><span class="">100% Einsatzbereitschaft</span></div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
+<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">calendar_month</span></div>
+<div>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Monats-Soll &amp; Ist Team Total</span>
+<h2 class="text-headline-md text-primary mt-1" id="summary-monthly-team-total">0.0 / 586.4 h</h2>
+</div>
+<div class="mt-6 flex items-center justify-between text-body-md border-t border-surface-container-high pt-2">
+<span class="text-xs text-on-surface-variant font-bold">Basis:</span>
+<span class="text-primary font-bold text-xs" id="summary-monthly-basis-label">168h bei 100% (Total: 586.4h)</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
+<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">schedule</span></div>
+<div>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Schuljahr Summe Total</span>
+<h2 class="text-headline-md text-on-surface mt-1" id="summary-month-total">0.0 / 7'482 Std.</h2>
+</div>
+<div class="mt-6 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm relative overflow-hidden border border-surface-container-high">
+<div class="absolute -right-4 -bottom-4 text-primary/5"><span class="material-symbols-outlined text-[100px]">trending_up</span></div>
+<div>
+<span class="text-label-caps text-on-surface-variant uppercase tracking-wider">Überstunden (Monat &amp; Schuljahr)</span>
+<div class="flex items-baseline gap-2 mt-1">
+<h2 class="text-headline-md text-emerald-600 font-bold" id="summary-overtime-month">+0.0 h</h2>
+<span class="text-xs text-on-surface-variant font-semibold">(Monat Saldo)</span>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between text-body-md border-t border-surface-container-high pt-2">
+<span class="text-xs text-on-surface-variant font-bold">Schuljahr Saldo:</span>
+<span class="text-emerald-600 font-bold text-sm" id="summary-overtime-total">+0.0 Std.</span>
+</div>
+</div>
+</div>
 <!-- Section Header with Quick Explainer Link & School Year Tag -->
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-4 bg-primary/5 p-6 rounded-2xl border border-primary/20">
 <div>
@@ -644,7 +688,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-1">Soll-Stunden Monat</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" type="number"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" step="0.1" type="number"/>
 </div>
 <div class="col-span-2">
 <label class="block text-label-caps text-on-surface-variant mb-1">Schuljahresarbeitszeit (1. Aug. – 31. Juli, Stunden)</label>
@@ -678,11 +722,12 @@
         const BASE_FULL_YEAR_HOURS = 2144;
         let selectedSchoolYear = '2025/2026';
 
+        // Genaue Soll-Stunden pro Monat: 168h * Pensum (z. B. 57% -> 95.76h ~ 95.8h, 92% -> 154.56h ~ 154.6h, 100% -> 168.0h)
         const DEFAULT_EMPLOYEES = [
-            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: Math.round(168 * 0.57), yearlyTotal: Math.round(BASE_FULL_YEAR_HOURS * 0.57) },
-            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168, yearlyTotal: BASE_FULL_YEAR_HOURS },
-            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168, yearlyTotal: BASE_FULL_YEAR_HOURS },
-            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: Math.round(168 * 0.92), yearlyTotal: Math.round(BASE_FULL_YEAR_HOURS * 0.92) }
+            { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1222 },
+            { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168.0, yearlyTotal: BASE_FULL_YEAR_HOURS },
+            { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168.0, yearlyTotal: BASE_FULL_YEAR_HOURS },
+            { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1972 }
         ];
 
         let employeesData = [...DEFAULT_EMPLOYEES];
@@ -724,6 +769,19 @@
             } else {
                 return `${year - 1}/${year}`;
             }
+        }
+
+        // Berechnet das genaue Monats-Soll (mit Formatierung) für einen Mitarbeiter
+        function getExactMonthlySoll(emp) {
+            const p = Number(emp.pensum) || 100;
+            if (p === 57) return 95.8;
+            if (p === 100) return 168.0;
+            if (p === 92) return 154.6;
+            if (p === 50) return 84.0;
+            if (emp.targetHours && !isNaN(emp.targetHours)) {
+                return Number(Number(emp.targetHours).toFixed(1));
+            }
+            return Number((168 * (p / 100)).toFixed(1));
         }
 
         // Prüft, ob ein Eintrag im ausgewählten Schuljahr liegt oder zeigt alle an
@@ -893,7 +951,6 @@
                     localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
                     localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
                 } else {
-                    // WICHTIG: Nicht blind überschreiben!
                     const existingMain = localStorage.getItem('doeltschi_entries');
                     if (existingMain) {
                         try {
@@ -920,7 +977,6 @@
                 if (employeesData && employeesData.length > 0) {
                     localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 }
-                // Niemals absichtlich einen leeren State überschreiben, falls timeEntriesData noch uninitialisiert ist
                 if (timeEntriesData && timeEntriesData.length > 0) {
                     localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
                     localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
@@ -955,7 +1011,6 @@
             timeEntriesData = Array.from(map.values());
             saveLocalState();
             
-            // Auf 'Alle Schuljahre' umschalten, damit sicher jeder Eintrag sofort sichtbar wird!
             if (timeEntriesData.length > 0) {
                 selectedSchoolYear = 'all';
                 updateSchoolYearDisplays();
@@ -1157,19 +1212,28 @@
             });
         });
 
+        // Bestimmt den Monatsnamen für den laufenden Monat
+        function getCurrentMonthName() {
+            const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+            const now = new Date();
+            return months[now.getMonth()];
+        }
+
         function renderDashboard() {
             const grid = document.getElementById('dashboard-employees-grid');
             if(!grid) return;
             grid.innerHTML = '';
             let totalActual = 0;
             let totalYearlyTarget = 0;
-            let totalOvertime = 0;
+            let totalSchoolYearOvertime = 0;
             let totalMonthlyIstTeam = 0;
             let totalMonthlySollTeam = 0;
+            let totalMonthlyOvertimeTeam = 0;
 
             const now = new Date();
             const currentMonth = now.getMonth() + 1;
             const currentYear = now.getFullYear();
+            const monthName = getCurrentMonthName();
 
             employeesData.forEach(emp => {
                 // Filtere Einträge tolerant nach Schuljahr
@@ -1181,7 +1245,7 @@
                 
                 const pensumRatio = (Number(emp.pensum) || 100) / 100;
                 const yearlyTotal = Number(emp.yearlyTotal) || Math.round(BASE_FULL_YEAR_HOURS * pensumRatio);
-                const monthlyTarget = Number(emp.targetHours) || Math.round(168 * pensumRatio);
+                const monthlyTarget = getExactMonthlySoll(emp);
 
                 // Berechne aktuellen Monat
                 const empEntriesCurrentMonth = timeEntriesData.filter(e => {
@@ -1201,24 +1265,28 @@
                     return (m === currentMonth && y === currentYear);
                 });
                 const monthActual = empEntriesCurrentMonth.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-                const monthOvertime = Math.max(0, monthActual - monthlyTarget);
+                const monthSaldo = monthActual - monthlyTarget;
+                const monthOvertime = Math.max(0, monthSaldo);
 
                 totalMonthlyIstTeam += monthActual;
                 totalMonthlySollTeam += monthlyTarget;
+                totalMonthlyOvertimeTeam += monthOvertime;
 
                 const yearlyProgressPct = yearlyTotal > 0 ? Math.min(100, Math.round((actual / yearlyTotal) * 100)) : 0;
-                const overtime = Math.max(0, actual - yearlyTotal);
-                const absence = empEntriesInYear.filter(e => e.status === 'Krankheit').length * 8;
+                const yearlySaldo = actual - yearlyTotal;
+                const schoolYearOvertime = Math.max(0, yearlySaldo);
                 
                 totalActual += actual;
                 totalYearlyTarget += yearlyTotal;
-                totalOvertime += overtime;
+                totalSchoolYearOvertime += schoolYearOvertime;
 
-                // Monats-Soll exakt
-                let monthlySollDisplay = `${monthlyTarget.toFixed(1)} h / Monat`;
-                if (emp.pensum === 57) monthlySollDisplay = '95.8 h / Monat';
-                if (emp.pensum === 100) monthlySollDisplay = '168.0 h / Monat';
-                if (emp.pensum === 92) monthlySollDisplay = '154.6 h / Monat';
+                // Formatierung Überstunden / Saldo Monat
+                const monthSaldoSign = monthSaldo > 0 ? '+' : (monthSaldo === 0 ? '+' : '');
+                const monthSaldoDisplay = `${monthSaldoSign}${monthSaldo.toFixed(1)} h`;
+                const monthSaldoColorClass = monthSaldo >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
+
+                // Formatierung Saldo Schuljahr
+                const yearlySaldoSign = yearlySaldo > 0 ? '+' : (yearlySaldo === 0 ? '+' : '');
 
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
@@ -1236,27 +1304,36 @@
                             <p class="text-headline-md text-primary font-bold">${emp.pensum}%</p>
                         </div>
                     </div>
-                    <div class="bg-primary/5 p-4 rounded-xl border border-primary/20 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
-                            <span class="text-sm font-bold text-on-surface">Monats-Soll (${emp.pensum}%):</span>
+
+                    <!-- 3 Kernwerte für den laufenden Monat (${monthName} ${currentYear}) -->
+                    <div class="bg-surface-container-low/70 p-4 rounded-xl border border-surface-container-high space-y-3">
+                        <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (${monthName})</span>
+                            </div>
+                            <span class="text-xs font-semibold text-on-surface-variant">Laufender Monat</span>
                         </div>
-                        <span class="text-base font-extrabold text-primary bg-surface-container-lowest px-3 py-1 rounded-lg border border-primary/20 shadow-xs">${monthlySollDisplay}</span>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-center">
+                                <span class="text-[11px] font-bold text-on-surface-variant block uppercase tracking-wider">Monats-Soll</span>
+                                <p class="text-lg font-black text-on-surface mt-0.5">${monthlyTarget.toFixed(1)} h</p>
+                                <span class="text-[10px] text-on-surface-variant block">Soll bei ${emp.pensum}%</span>
+                            </div>
+                            <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-center">
+                                <span class="text-[11px] font-bold text-on-surface-variant block uppercase tracking-wider">Monats-Ist</span>
+                                <p class="text-lg font-black text-primary mt-0.5">${monthActual.toFixed(1)} h</p>
+                                <span class="text-[10px] text-primary font-semibold block">Gebuchte Zeit</span>
+                            </div>
+                            <div class="p-3 rounded-lg border text-center ${monthSaldoColorClass}">
+                                <span class="text-[11px] font-bold block uppercase tracking-wider">Saldo / Überst.</span>
+                                <p class="text-lg font-black mt-0.5">${monthSaldoDisplay}</p>
+                                <span class="text-[10px] font-semibold block">${monthSaldo >= 0 ? 'Guthaben' : 'Minus'}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-xl">
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Monat Ist / Soll</span>
-                            <p class="text-body-lg font-bold text-on-surface mt-1">${monthActual.toFixed(1)} / ${monthlyTarget} h</p>
-                        </div>
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Überstunden</span>
-                            <p class="text-body-lg font-bold text-emerald-600 mt-1">+${monthOvertime.toFixed(1)} h</p>
-                        </div>
-                        <div>
-                            <span class="text-label-caps text-on-surface-variant block">Schuljahr Ist</span>
-                            <p class="text-body-lg font-bold text-primary mt-1">${actual.toFixed(1)} h</p>
-                        </div>
-                    </div>
+
+                    <!-- Schuljahresarbeitszeit Sommer zu Sommer (1. Aug – 31. Juli) -->
                     <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
                         <div class="flex justify-between items-center text-body-md">
                             <span class="text-on-surface font-bold flex items-center gap-2">
@@ -1270,11 +1347,12 @@
                         <div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden p-0.5">
                             <div class="bg-primary h-full rounded-full transition-all duration-1000 shadow-sm" style="width: ${yearlyProgressPct}%;"></div>
                         </div>
-                        <div class="flex justify-between items-center text-[11px] text-on-surface-variant pt-0.5">
-                            <span>Zyklus: 1. Aug. – 31. Juli (${selectedSchoolYear === 'all' ? 'Alle' : selectedSchoolYear})</span>
-                            <span class="font-bold text-primary">Sommer zu Sommer</span>
+                        <div class="flex justify-between items-center text-xs text-on-surface-variant pt-0.5">
+                            <span>Schuljahr-Saldo: <strong class="text-on-surface">${yearlySaldoSign}${yearlySaldo.toFixed(1)} h</strong></span>
+                            <span class="font-bold text-primary">Sommer zu Sommer (1. Aug. – 31. Juli)</span>
                         </div>
                     </div>
+
                     <div class="flex justify-between items-center pt-1">
                         <button onclick="openJahresarbeitszeitModal()" class="text-primary font-bold text-xs flex items-center gap-1 hover:underline">
                             <span class="material-symbols-outlined text-[16px]">help_outline</span> Herleitung (804h)
@@ -1287,10 +1365,30 @@
                 grid.appendChild(card);
             });
 
+            // Header Banner KPI Updates
             document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-            document.getElementById('summary-monthly-team-total').textContent = `${totalMonthlyIstTeam.toFixed(1)} / ${totalMonthlySollTeam.toFixed(1)} h`;
+            
+            // Formatierung Team-Monatstotal (Ist / Soll)
+            const teamMonthlyLabel = `${totalMonthlyIstTeam.toFixed(1)} / ${totalMonthlySollTeam.toFixed(1)} h`;
+            document.getElementById('summary-monthly-team-total').textContent = teamMonthlyLabel;
+            const basisLabel = document.getElementById('summary-monthly-basis-label');
+            if (basisLabel) {
+                basisLabel.textContent = `168h bei 100% (Team-Soll: ${totalMonthlySollTeam.toFixed(1)}h)`;
+            }
+
+            // Schuljahr Summe Total
             document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget.toLocaleString('de-CH')} Std.`;
-            document.getElementById('summary-overtime-total').textContent = `+${totalOvertime.toFixed(1)} Std.`;
+            
+            // Überstunden Monat & Schuljahr
+            const monthOvertimeSign = totalMonthlyOvertimeTeam > 0 ? '+' : (totalMonthlyOvertimeTeam === 0 ? '+' : '');
+            const monthOvertimeDisplay = `${monthOvertimeSign}${totalMonthlyOvertimeTeam.toFixed(1)} h`;
+            const summaryOvertimeMonthEl = document.getElementById('summary-overtime-month');
+            if (summaryOvertimeMonthEl) {
+                summaryOvertimeMonthEl.textContent = monthOvertimeDisplay;
+            }
+
+            const schoolYearOvertimeSign = totalSchoolYearOvertime > 0 ? '+' : (totalSchoolYearOvertime === 0 ? '+' : '');
+            document.getElementById('summary-overtime-total').textContent = `${schoolYearOvertimeSign}${totalSchoolYearOvertime.toFixed(1)} Std.`;
             
             const pct = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
@@ -1590,6 +1688,8 @@
             if(!list) return;
             list.innerHTML = '';
             employeesData.forEach(emp => {
+                const monthlyTarget = getExactMonthlySoll(emp);
+                const yearlyTotal = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum/100));
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-4';
                 card.innerHTML = `
@@ -1598,10 +1698,10 @@
                             <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">${emp.initials || 'MA'}</div>
                             <div>
                                 <h3 class="text-headline-md text-on-surface">${emp.name}</h3>
-                                <span class="text-sm text-on-surface-variant">${emp.role} | Schuljahressoll (Sommer–Sommer): <strong>${emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum/100))} h</strong></span>
+                                <span class="text-sm text-on-surface-variant">${emp.role} | Monats-Soll: <strong>${monthlyTarget.toFixed(1)} h</strong> | Schuljahr: <strong>${yearlyTotal} h</strong></span>
                             </div>
                         </div>
-                        <span class="text-primary font-bold">${emp.pensum}%</span>
+                        <span class="text-primary font-bold text-lg">${emp.pensum}%</span>
                     </div>
                     <div class="flex justify-end gap-2">
                         <button onclick="editEmployee('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high text-on-surface rounded-lg text-sm font-bold">Bearbeiten</button>
@@ -1623,7 +1723,7 @@
                     document.getElementById('emp-name').value = emp.name;
                     document.getElementById('emp-role').value = emp.role;
                     document.getElementById('emp-pensum').value = emp.pensum;
-                    document.getElementById('emp-target').value = emp.targetHours;
+                    document.getElementById('emp-target').value = getExactMonthlySoll(emp);
                     document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum/100));
                     document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
                 }
@@ -1632,7 +1732,7 @@
                 document.getElementById('emp-name').value = '';
                 document.getElementById('emp-role').value = '';
                 document.getElementById('emp-pensum').value = '100';
-                document.getElementById('emp-target').value = '168';
+                document.getElementById('emp-target').value = '168.0';
                 document.getElementById('emp-yearly-hours').value = BASE_FULL_YEAR_HOURS;
                 document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             }
@@ -1650,7 +1750,7 @@
             const name = document.getElementById('emp-name').value;
             const role = document.getElementById('emp-role').value;
             const pensum = Number(document.getElementById('emp-pensum').value);
-            const targetHours = Math.round(168 * (pensum / 100));
+            const targetHours = Number(document.getElementById('emp-target').value) || Number((168 * (pensum / 100)).toFixed(1));
             const yearlyTotal = Number(document.getElementById('emp-yearly-hours').value) || Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
             const empData = { id, name, role, pensum, targetHours, initials, yearlyTotal };
@@ -1692,50 +1792,107 @@
         function renderReports() {
             const container = document.getElementById('reports-content');
             if(!container) return;
+            const now = new Date();
+            const currentMonth = now.getMonth() + 1;
+            const currentYear = now.getFullYear();
+            const monthName = getCurrentMonthName();
+
             container.innerHTML = employeesData.map(emp => {
+                // Schuljahr
                 const empEntriesInYear = timeEntriesData.filter(e => {
                     if (e.employeeId !== emp.id) return false;
                     return isEntryInSelectedSchoolYear(e, selectedSchoolYear);
                 });
                 const actualHours = empEntriesInYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
                 const yearlyTarget = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * ((emp.pensum || 100) / 100));
-                const diff = actualHours - yearlyTarget;
-                const diffSign = diff > 0 ? '+' : '';
-                const diffColor = diff >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
+                const yearlyDiff = actualHours - yearlyTarget;
+                const yearlyDiffSign = yearlyDiff > 0 ? '+' : (yearlyDiff === 0 ? '+' : '');
+                const yearlyDiffColor = yearlyDiff >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
                 const progressPct = yearlyTarget > 0 ? Math.min(100, Math.round((actualHours / yearlyTarget) * 100)) : 0;
+
+                // Laufender Monat
+                const monthlyTarget = getExactMonthlySoll(emp);
+                const empEntriesCurrentMonth = timeEntriesData.filter(e => {
+                    if (e.employeeId !== emp.id) return false;
+                    if (!e.date) return false;
+                    let m, y;
+                    if (e.date.includes('.')) {
+                        const parts = e.date.split('.');
+                        m = parseInt(parts[1], 10);
+                        y = parseInt(parts[2], 10);
+                    } else if (e.date.includes('-')) {
+                        const parts = e.date.split('-');
+                        y = parseInt(parts[0], 10);
+                        m = parseInt(parts[1], 10);
+                    }
+                    if (y < 100) y += 2000;
+                    return (m === currentMonth && y === currentYear);
+                });
+                const monthActual = empEntriesCurrentMonth.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+                const monthDiff = monthActual - monthlyTarget;
+                const monthDiffSign = monthDiff > 0 ? '+' : (monthDiff === 0 ? '+' : '');
+                const monthDiffColor = monthDiff >= 0 ? 'text-emerald-700 bg-emerald-50 border-emerald-300' : 'text-amber-800 bg-amber-50 border-amber-300';
                 
                 return `
-                    <div class="bg-surface-container-low p-6 rounded-2xl border border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all hover:border-primary/30">
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container font-bold text-headline-md flex items-center justify-center shadow-sm">
-                                ${emp.initials || emp.name.substring(0,2).toUpperCase()}
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
-                                    <span class="text-xs bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full">${emp.pensum}% Pensum</span>
-                                    <span class="text-xs bg-surface-container-high text-on-surface-variant font-semibold px-2 py-0.5 rounded-full">SJ ${selectedSchoolYear === 'all' ? 'Alle' : selectedSchoolYear}</span>
+                    <div class="bg-surface-container-low p-6 rounded-2xl border border-surface-container-high flex flex-col gap-6 transition-all hover:border-primary/30">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-container-high pb-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container font-bold text-headline-md flex items-center justify-center shadow-sm">
+                                    ${emp.initials || emp.name.substring(0,2).toUpperCase()}
                                 </div>
-                                <p class="text-sm text-on-surface-variant mt-0.5">${emp.role} | Schuljahressoll (1. Aug – 31. Juli): <strong>${yearlyTarget} h</strong></p>
-                                <div class="w-48 bg-surface-container-high h-2 rounded-full overflow-hidden mt-3">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="text-headline-md text-on-surface">${emp.name}</h4>
+                                        <span class="text-xs bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full">${emp.pensum}% Pensum</span>
+                                        <span class="text-xs bg-surface-container-high text-on-surface-variant font-semibold px-2 py-0.5 rounded-full">SJ ${selectedSchoolYear === 'all' ? 'Alle' : selectedSchoolYear}</span>
+                                    </div>
+                                    <p class="text-sm text-on-surface-variant mt-0.5">${emp.role} | Schuljahressoll (1. Aug – 31. Juli): <strong>${yearlyTarget} h</strong></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[16px]">calendar_today</span> Monat: ${monthName} ${currentYear}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- 3 Monatliche Kernwerte Gegenüberstellung -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high">
+                            <div class="p-3 bg-surface-container-low rounded-lg text-center">
+                                <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block">1. Monats-Soll (${monthName})</span>
+                                <span class="text-xl font-black text-on-surface mt-1 block">${monthlyTarget.toFixed(1)} h</span>
+                                <span class="text-[11px] text-on-surface-variant">Vollzeit-Basis: 168.0 h</span>
+                            </div>
+                            <div class="p-3 bg-primary/5 rounded-lg border border-primary/20 text-center">
+                                <span class="text-[11px] font-bold text-primary uppercase tracking-wider block">2. Monats-Ist (${monthName})</span>
+                                <span class="text-xl font-black text-primary mt-1 block">${monthActual.toFixed(1)} h</span>
+                                <span class="text-[11px] text-primary font-semibold">Erfasste Arbeitszeit</span>
+                            </div>
+                            <div class="p-3 rounded-lg border text-center ${monthDiffColor}">
+                                <span class="text-[11px] font-bold uppercase tracking-wider block">3. Monats-Überstunden / Saldo</span>
+                                <span class="text-xl font-black mt-1 block">${monthDiffSign}${monthDiff.toFixed(1)} h</span>
+                                <span class="text-[11px] font-semibold">${monthDiff >= 0 ? 'Guthaben im Monat' : 'Minusstunden im Monat'}</span>
+                            </div>
+                        </div>
+
+                        <!-- Schuljahr Fortschritt & Saldo -->
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                                    <span class="text-on-surface">Schuljahr Gesamt-Fortschritt (1. Aug. – 31. Juli):</span>
+                                    <span class="text-primary">${actualHours.toFixed(1)} / ${yearlyTarget} h (${progressPct}%)</span>
+                                </div>
+                                <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
                                     <div class="bg-primary h-full rounded-full transition-all duration-700" style="width: ${progressPct}%;"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="flex items-center gap-6 justify-between md:justify-end border-t md:border-t-0 pt-4 md:pt-0 border-surface-container-high">
-                            <div class="text-left md:text-right">
-                                <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Schuljahr Ist / Soll</span>
-                                <div class="flex items-baseline gap-1.5 mt-0.5">
-                                    <span class="text-2xl font-black text-primary">${actualHours.toFixed(1)} h</span>
-                                    <span class="text-sm font-semibold text-on-surface-variant">/ ${yearlyTarget} h</span>
+                            <div class="flex items-center gap-4 justify-end">
+                                <div class="text-right">
+                                    <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Schuljahr Saldo</span>
+                                    <span class="inline-block mt-0.5 px-3 py-1 rounded-xl text-sm font-bold border ${yearlyDiffColor}">
+                                        ${yearlyDiffSign}${yearlyDiff.toFixed(1)} h
+                                    </span>
                                 </div>
-                                <span class="text-xs text-on-surface-variant">Erfüllung Schuljahr: ${progressPct}%</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-label-caps text-on-surface-variant block uppercase tracking-wider">Saldo</span>
-                                <span class="inline-block mt-1 px-3 py-1 rounded-xl text-sm font-bold border ${diffColor}">
-                                    ${diffSign}${diff.toFixed(1)} h
-                                </span>
                             </div>
                         </div>
                     </div>
