@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -152,7 +151,7 @@
                 Gesetzlicher Schuljahreszyklus (1. August – 31. Juli)
             </h4>
 <p class="text-on-surface-variant">
-                Im zürcherischen Volksschulbereich folgt das Arbeitsjahr nicht dem Kalenderjahr (Januar bis Dezember), sondern synchron dem <strong>Schuljahreszyklus von Sommer zu Sommer (1. August bis 31. Juli)</strong>. Das Vollzeit-Jahreskontingent beträgt <strong>2'144 Jahresstunden</strong> (basierend auf der 42-Stunden-Woche).
+                Im zürcherischen Volksschulbereich folgt das Arbeitsjahr nicht dem Kalenderjahr (Januar bis Dezember), sondern synchron dem <strong>Schuljahreszyklus von Sommer zu Sommer (1. August bis 31. Juli)</strong>. Das kantonale Jahres-Sollpensum bei 100 % beträgt <strong>2'144 Jahresstunden</strong>.
             </p>
 <div class="mt-2 bg-surface p-2.5 rounded-lg border border-outline-variant/30 font-mono text-xs text-primary font-bold">
                 2'144 Std. × 50% Pensum = 1'072.00 Soll-Schuljahresarbeitsstunden (1. Aug – 31. Juli)
@@ -717,11 +716,9 @@
         }
         const db = firebase.firestore();
         let isFirestoreActive = false;
-
         // Standard-Vollzeit-Schuljahressoll nach Richtarbeitszeit Kanton Zürich: 2'144 Stunden (Sommer bis Sommer)
         const BASE_FULL_YEAR_HOURS = 2144;
         let selectedSchoolYear = '2025/2026';
-
         // Genaue Soll-Stunden pro Monat: 168h * Pensum (z. B. 57% -> 95.76h ~ 95.8h, 92% -> 154.56h ~ 154.6h, 100% -> 168.0h)
         const DEFAULT_EMPLOYEES = [
             { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1222 },
@@ -729,12 +726,10 @@
             { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168.0, yearlyTotal: BASE_FULL_YEAR_HOURS },
             { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1972 }
         ];
-
         let employeesData = [...DEFAULT_EMPLOYEES];
         let timeEntriesData = [];
         let entriesVisible = true;
         let weeklyVisible = true;
-
         // Bestimmt das Schuljahr für ein gegebenes Datum (TT.MM.JJJJ oder YYYY-MM-DD)
         // Schuljahr läuft vom 1. August bis zum 31. Juli (Sommer bis Sommer)
         function getSchoolYearFromDateStr(dateStr) {
@@ -756,12 +751,10 @@
                 }
             }
             if (isNaN(month) || isNaN(year)) return selectedSchoolYear === 'all' ? '2025/2026' : selectedSchoolYear;
-
             // Toleranz für 2-stellige Jahresangaben
             if (year < 100) {
                 year = 2000 + year;
             }
-
             // August (8) bis Dezember (12): Schuljahr = year / (year+1)
             // Januar (1) bis Juli (7): Schuljahr = (year-1) / year
             if (month >= 8) {
@@ -770,7 +763,6 @@
                 return `${year - 1}/${year}`;
             }
         }
-
         // Berechnet das genaue Monats-Soll (mit Formatierung) für einen Mitarbeiter
         function getExactMonthlySoll(emp) {
             const p = Number(emp.pensum) || 100;
@@ -783,20 +775,16 @@
             }
             return Number((168 * (p / 100)).toFixed(1));
         }
-
         // Prüft, ob ein Eintrag im ausgewählten Schuljahr liegt oder zeigt alle an
         function isEntryInSelectedSchoolYear(entry, targetSchoolYear = selectedSchoolYear) {
             if (!entry) return false;
             if (targetSchoolYear === 'all') return true;
-
             const computedYear = entry.schoolYear || getSchoolYearFromDateStr(entry.date);
             if (computedYear === targetSchoolYear) return true;
-
             // Toleranter Check: Falls 2024 oder 2025 vorkommt und passendes Format hat
             if (targetSchoolYear.includes(computedYear)) return true;
             return false;
         }
-
         function updateCloudSyncBadge(entryCount) {
             const count = (entryCount !== undefined) ? entryCount : timeEntriesData.length;
             const badgeLabel = document.getElementById('cloud-sync-label');
@@ -808,7 +796,6 @@
                 settingsStatus.textContent = `Live mit Firestore synchronisiert (${count} Einträge für Manuel, Seline, Michelle & Nicole)`;
             }
         }
-
         function changeSchoolYear(newYear) {
             selectedSchoolYear = newYear;
             updateSchoolYearDisplays();
@@ -816,7 +803,6 @@
             renderWeeklyOverview();
             renderReports();
         }
-
         function updateSchoolYearDisplays() {
             const labelText = selectedSchoolYear === 'all' ? 'Alle Schuljahre' : selectedSchoolYear;
             const shortYear = selectedSchoolYear === 'all' ? 'Alle' : selectedSchoolYear.replace('20', '').replace('/20', '/');
@@ -832,7 +818,6 @@
                 selectEl.value = selectedSchoolYear;
             }
         }
-
         function openJahresarbeitszeitModal() {
             const m = document.getElementById('jahresarbeitszeit-modal');
             if (m) {
@@ -886,7 +871,6 @@
             total += calculateHours(abendFrom, abendTo);
             return Number(total.toFixed(2));
         }
-
         // Zero-Data-Loss: Sucht in allen denkbaren Schlüsseln im localStorage und kombiniert gefundene Einträge
         function collectAllCachedEntries() {
             const keysToCheck = [
@@ -899,7 +883,6 @@
                 'doeltschi_backup_entries'
             ];
             const entriesMap = new Map();
-
             keysToCheck.forEach(key => {
                 try {
                     const raw = localStorage.getItem(key);
@@ -925,10 +908,8 @@
                     }
                 } catch(e) {}
             });
-
             return Array.from(entriesMap.values());
         }
-
         async function seedInitialDataIfNeeded() {
             try {
                 // 1. Mitarbeiter laden
@@ -942,7 +923,6 @@
                     employeesData = [...DEFAULT_EMPLOYEES];
                     localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 }
-
                 // 2. Zero Data Loss: Sammle aus allen Caches
                 const allRecovered = collectAllCachedEntries();
                 if (allRecovered.length > 0) {
@@ -971,7 +951,6 @@
             renderWeeklyOverview();
             renderReports();
         }
-
         function saveLocalState() {
             try {
                 if (employeesData && employeesData.length > 0) {
@@ -984,17 +963,14 @@
             } catch(e) {}
             updateCloudSyncBadge();
         }
-
         // Benutzer-Button: Einträge wiederherstellen und Caches aktivieren
         async function restoreAndRecoverEntries() {
             const syncIcon = document.getElementById('sync-icon');
             if (syncIcon) syncIcon.classList.add('animate-spin');
-
             const recovered = collectAllCachedEntries();
             const map = new Map();
             timeEntriesData.forEach(e => { if (e && e.id) map.set(e.id, e); });
             recovered.forEach(e => { if (e && e.id) map.set(e.id, e); });
-
             // Auch Firestore abfragen
             try {
                 const snap = await db.collection('timeEntries').get();
@@ -1007,7 +983,6 @@
             } catch(err) {
                 console.warn("Firestore fetch during recovery:", err);
             }
-
             timeEntriesData = Array.from(map.values());
             saveLocalState();
             
@@ -1015,16 +990,13 @@
                 selectedSchoolYear = 'all';
                 updateSchoolYearDisplays();
             }
-
             renderDashboard();
             renderTimeEntriesList();
             renderWeeklyOverview();
             renderReports();
             if (syncIcon) syncIcon.classList.remove('animate-spin');
-
             alert(`Wiederherstellung abgeschlossen!\nEs wurden ${timeEntriesData.length} Zeiteinträge gefunden und vollständig aktiviert.\nDer Filter wurde auf 'Alle Schuljahre (Alle Einträge)' gestellt, damit kein Eintrag verloren geht.`);
         }
-
         // Authentication Handler
         document.getElementById('auth-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1037,19 +1009,16 @@
                 document.getElementById('auth-error').classList.remove('hidden');
             }
         });
-
         // Auto-login if previously logged in in current tab
         if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
             const authMod = document.getElementById('auth-modal');
             if (authMod) authMod.classList.add('hidden');
             setTimeout(() => { initRealtimeSync(); }, 100);
         }
-
         // Seamless 2-Way Firestore Cloud Synchronization & Migration
         async function initRealtimeSync() {
             const syncIcon = document.getElementById('sync-icon');
             if (syncIcon) syncIcon.classList.add('animate-spin');
-
             try {
                 // 1. Synchronisiere Mitarbeiter mit Firestore
                 db.collection('employees').onSnapshot((snapshot) => {
@@ -1074,7 +1043,6 @@
                 }, (err) => {
                     console.warn("Firestore Employees sync note:", err.message);
                 });
-
                 // 2. Synchronisiere Zeiteinträge live (Zwei-Wege-Sync)
                 db.collection('timeEntries').onSnapshot(async (snapshot) => {
                     isFirestoreActive = true;
@@ -1083,7 +1051,6 @@
                         snapshot.forEach((doc) => {
                             cloudEntriesMap.set(doc.id, { id: doc.id, ...doc.data() });
                         });
-
                         // Zero Data Loss: Lokale Einträge aus allen Caches hochladen
                         const allLocal = collectAllCachedEntries();
                         for (const localE of allLocal) {
@@ -1096,7 +1063,6 @@
                                 }
                             }
                         }
-
                         // Array aus Firestore-Daten aktualisieren
                         if (cloudEntriesMap.size > 0) {
                             timeEntriesData = Array.from(cloudEntriesMap.values());
@@ -1114,7 +1080,6 @@
                     if (syncIcon) syncIcon.classList.remove('animate-spin');
                     updateCloudSyncBadge(timeEntriesData.length);
                 });
-
                 // 3. Initiale Migration prüfen: Vorhandene lokale Einträge sofort hochladen
                 const currentLocal = collectAllCachedEntries();
                 if (currentLocal.length > 0) {
@@ -1131,7 +1096,6 @@
                 if (syncIcon) syncIcon.classList.remove('animate-spin');
             }
         }
-
         // Manuelles Erzwingen des Cloud Syncs (User Button)
         async function forceCloudSync() {
             const syncIcon = document.getElementById('sync-icon');
@@ -1168,7 +1132,6 @@
                 alert(`Cloud Sync Info: Offline-Modus aktiv oder temporäre Verbindungseinschränkung. Alle ${timeEntriesData.length} Einträge sind lokal gesichert und werden automatisch nachsynchronisiert.`);
             }
         }
-
         function switchView(viewName) {
             document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
             const targetView = document.getElementById(`view-${viewName}`);
@@ -1211,14 +1174,12 @@
                 switchView(view);
             });
         });
-
         // Bestimmt den Monatsnamen für den laufenden Monat
         function getCurrentMonthName() {
             const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
             const now = new Date();
             return months[now.getMonth()];
         }
-
         function renderDashboard() {
             const grid = document.getElementById('dashboard-employees-grid');
             if(!grid) return;
@@ -1229,12 +1190,10 @@
             let totalMonthlyIstTeam = 0;
             let totalMonthlySollTeam = 0;
             let totalMonthlyOvertimeTeam = 0;
-
             const now = new Date();
             const currentMonth = now.getMonth() + 1;
             const currentYear = now.getFullYear();
             const monthName = getCurrentMonthName();
-
             employeesData.forEach(emp => {
                 // Filtere Einträge tolerant nach Schuljahr
                 const empEntriesInYear = timeEntriesData.filter(e => {
@@ -1246,7 +1205,6 @@
                 const pensumRatio = (Number(emp.pensum) || 100) / 100;
                 const yearlyTotal = Number(emp.yearlyTotal) || Math.round(BASE_FULL_YEAR_HOURS * pensumRatio);
                 const monthlyTarget = getExactMonthlySoll(emp);
-
                 // Berechne aktuellen Monat
                 const empEntriesCurrentMonth = timeEntriesData.filter(e => {
                     if (e.employeeId !== emp.id) return false;
@@ -1267,11 +1225,9 @@
                 const monthActual = empEntriesCurrentMonth.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
                 const monthSaldo = monthActual - monthlyTarget;
                 const monthOvertime = Math.max(0, monthSaldo);
-
                 totalMonthlyIstTeam += monthActual;
                 totalMonthlySollTeam += monthlyTarget;
                 totalMonthlyOvertimeTeam += monthOvertime;
-
                 const yearlyProgressPct = yearlyTotal > 0 ? Math.min(100, Math.round((actual / yearlyTotal) * 100)) : 0;
                 const yearlySaldo = actual - yearlyTotal;
                 const schoolYearOvertime = Math.max(0, yearlySaldo);
@@ -1279,15 +1235,12 @@
                 totalActual += actual;
                 totalYearlyTarget += yearlyTotal;
                 totalSchoolYearOvertime += schoolYearOvertime;
-
                 // Formatierung Überstunden / Saldo Monat
                 const monthSaldoSign = monthSaldo > 0 ? '+' : (monthSaldo === 0 ? '+' : '');
                 const monthSaldoDisplay = `${monthSaldoSign}${monthSaldo.toFixed(1)} h`;
                 const monthSaldoColorClass = monthSaldo >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
-
                 // Formatierung Saldo Schuljahr
                 const yearlySaldoSign = yearlySaldo > 0 ? '+' : (yearlySaldo === 0 ? '+' : '');
-
                 const card = document.createElement('div');
                 card.className = 'bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-6 transition-all hover:shadow-md';
                 card.innerHTML = `
@@ -1304,7 +1257,6 @@
                             <p class="text-headline-md text-primary font-bold">${emp.pensum}%</p>
                         </div>
                     </div>
-
                     <!-- 3 Kernwerte für den laufenden Monat (${monthName} ${currentYear}) -->
                     <div class="bg-surface-container-low/70 p-4 rounded-xl border border-surface-container-high space-y-3">
                         <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
@@ -1332,7 +1284,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Schuljahresarbeitszeit Sommer zu Sommer (1. Aug – 31. Juli) -->
                     <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
                         <div class="flex justify-between items-center text-body-md">
@@ -1352,19 +1303,17 @@
                             <span class="font-bold text-primary">Sommer zu Sommer (1. Aug. – 31. Juli)</span>
                         </div>
                     </div>
-
                     <div class="flex justify-between items-center pt-1">
                         <button onclick="openJahresarbeitszeitModal()" class="text-primary font-bold text-xs flex items-center gap-1 hover:underline">
                             <span class="material-symbols-outlined text-[16px]">help_outline</span> Herleitung (804h)
                         </button>
-                        <button onclick="switchView('zeiterfassung')" class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5">
+                        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value = '${emp.id}';" class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-xl text-body-md font-bold transition-all shadow-sm flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-[16px]">schedule</span> Zeiteintrag
                         </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
-
             // Header Banner KPI Updates
             document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
             
@@ -1375,7 +1324,6 @@
             if (basisLabel) {
                 basisLabel.textContent = `168h bei 100% (Team-Soll: ${totalMonthlySollTeam.toFixed(1)}h)`;
             }
-
             // Schuljahr Summe Total
             document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget.toLocaleString('de-CH')} Std.`;
             
@@ -1386,14 +1334,12 @@
             if (summaryOvertimeMonthEl) {
                 summaryOvertimeMonthEl.textContent = monthOvertimeDisplay;
             }
-
             const schoolYearOvertimeSign = totalSchoolYearOvertime > 0 ? '+' : (totalSchoolYearOvertime === 0 ? '+' : '');
             document.getElementById('summary-overtime-total').textContent = `${schoolYearOvertimeSign}${totalSchoolYearOvertime.toFixed(1)} Std.`;
             
             const pct = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
             document.getElementById('summary-progress-bar').style.width = `${pct}%`;
         }
-
         function populateEmployeeSelects() {
             const formSelect = document.getElementById('entry-employee');
             const filterSelect = document.getElementById('filter-entry-employee');
@@ -1433,8 +1379,7 @@
                 if (currentVal) weeklyFilterSelect.value = currentVal;
             }
         }
-
-        // Time Entry Form Handling - Sofortige Cloud-Speicherung & Sicherung
+        // Time Entry Form Handling - Behält den zuletzt gewählten Mitarbeiter bei und speichert in Cloud & LocalStorage
         document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const existingId = document.getElementById('entry-id').value;
@@ -1468,7 +1413,6 @@
                 hours,
                 updatedAt: Date.now()
             };
-
             try {
                 if (existingId) {
                     timeEntriesData = timeEntriesData.map(item => item.id === existingId ? entryData : item);
@@ -1485,12 +1429,19 @@
                     try { await db.collection('timeEntries').doc(id).set(entryData, { merge: true }); } catch(err){}
                 }
                 saveLocalState();
-                resetTimeForm();
+                
+                // Behalte den zuletzt gewählten Mitarbeiter in der Auswahlliste bei ("Mitarbeiter-Auswahl behalten")
+                const lastSelectedEmp = employeeId;
+                document.getElementById('entry-date').value = '';
+                document.getElementById('entry-notes').value = '';
+                document.getElementById('entry-status').value = 'Normal';
+                document.getElementById('entry-employee').value = lastSelectedEmp;
+                
                 renderDashboard();
                 renderTimeEntriesList();
                 renderWeeklyOverview();
                 renderReports();
-                alert('Eintrag erfolgreich gespeichert und mit der Cloud synchronisiert!');
+                alert('Eintrag erfolgreich gespeichert und mit der Cloud synchronisiert! (Mitarbeiter wurde für den nächsten Eintrag beibehalten)');
             } catch (err) {
                 console.error(err);
                 saveLocalState();
@@ -1500,13 +1451,11 @@
                 renderReports();
             }
         });
-
         function resetTimeForm() {
             document.getElementById('entry-id').value = '';
             document.getElementById('entry-date').value = '';
             document.getElementById('entry-notes').value = '';
             document.getElementById('entry-status').value = 'Normal';
-            document.getElementById('entry-employee').value = 'all';
             document.getElementById('vm-from').value = '07:00';
             document.getElementById('vm-to').value = '12:00';
             document.getElementById('nm-from').value = '13:00';
@@ -1514,7 +1463,6 @@
             document.getElementById('abend-from').value = '';
             document.getElementById('abend-to').value = '';
         }
-
         function renderTimeEntriesList() {
             const list = document.getElementById('time-entries-list');
             if(!list) return;
@@ -1573,7 +1521,6 @@
                 list.appendChild(item);
             });
         }
-
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
                 try {
@@ -1587,7 +1534,6 @@
                 renderReports();
             }
         }
-
         function editTimeEntry(id) {
             const entry = timeEntriesData.find(e => e.id === id);
             if (!entry) return;
@@ -1604,7 +1550,6 @@
             document.getElementById('entry-status').value = entry.status || 'Normal';
             document.getElementById('entry-notes').value = entry.notes || '';
         }
-
         function renderWeeklyOverview() {
             const container = document.getElementById('weekly-overview-container');
             if(!container) return;
@@ -1682,7 +1627,6 @@
                 container.appendChild(card);
             });
         }
-
         function renderEmployeesManagement() {
             const list = document.getElementById('employees-management-list');
             if(!list) return;
@@ -1711,7 +1655,6 @@
                 list.appendChild(card);
             });
         }
-
         function openEmployeeModal(empId = null) {
             const modal = document.getElementById('employee-modal');
             modal.classList.remove('hidden');
@@ -1737,13 +1680,11 @@
                 document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             }
         }
-
         function closeEmployeeModal() {
             const modal = document.getElementById('employee-modal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
-
         document.getElementById('employee-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
@@ -1771,11 +1712,9 @@
             renderReports();
             renderWeeklyOverview();
         });
-
         async function editEmployee(id) {
             openEmployeeModal(id);
         }
-
         async function deleteEmployee(id) {
             if (confirm('Möchten Sie dieses Teammitglied wirklich entfernen?')) {
                 try { await db.collection('employees').doc(id).delete(); } catch(e) {}
@@ -1788,7 +1727,6 @@
                 renderWeeklyOverview();
             }
         }
-
         function renderReports() {
             const container = document.getElementById('reports-content');
             if(!container) return;
@@ -1796,7 +1734,6 @@
             const currentMonth = now.getMonth() + 1;
             const currentYear = now.getFullYear();
             const monthName = getCurrentMonthName();
-
             container.innerHTML = employeesData.map(emp => {
                 // Schuljahr
                 const empEntriesInYear = timeEntriesData.filter(e => {
@@ -1809,7 +1746,6 @@
                 const yearlyDiffSign = yearlyDiff > 0 ? '+' : (yearlyDiff === 0 ? '+' : '');
                 const yearlyDiffColor = yearlyDiff >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
                 const progressPct = yearlyTarget > 0 ? Math.min(100, Math.round((actualHours / yearlyTarget) * 100)) : 0;
-
                 // Laufender Monat
                 const monthlyTarget = getExactMonthlySoll(emp);
                 const empEntriesCurrentMonth = timeEntriesData.filter(e => {
@@ -1855,7 +1791,6 @@
                                 </span>
                             </div>
                         </div>
-
                         <!-- 3 Monatliche Kernwerte Gegenüberstellung -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high">
                             <div class="p-3 bg-surface-container-low rounded-lg text-center">
@@ -1874,7 +1809,6 @@
                                 <span class="text-[11px] font-semibold">${monthDiff >= 0 ? 'Guthaben im Monat' : 'Minusstunden im Monat'}</span>
                             </div>
                         </div>
-
                         <!-- Schuljahr Fortschritt & Saldo -->
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
                             <div class="flex-1">
@@ -1899,7 +1833,6 @@
                 `;
             }).join('');
         }
-
         window.addEventListener('DOMContentLoaded', async () => {
             await seedInitialDataIfNeeded();
         });
