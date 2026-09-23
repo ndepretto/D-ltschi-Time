@@ -205,8 +205,8 @@
 <div class="text-[11px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
 <span class="material-symbols-outlined text-[15px]">event_repeat</span> Zyklus
     </div>
-<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2025/2026</div>
-<div class="text-[11px] text-on-surface-variant">1. Aug. 2025 – 31. Juli 2026</div>
+<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2026/2027</div>
+<div class="text-[11px] text-on-surface-variant">1. Aug. 2026 – 31. Juli 2027</div>
 </div>
 <nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
 <a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
@@ -244,8 +244,10 @@
 <select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)">
 <option value="all">Alle Schuljahre (Alle Einträge)</option>
 <option value="2024/2025">Schuljahr 24/25 (Sommer–Sommer)</option>
-<option selected="" value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option>
-<option value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option>
+<option value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option>
+<option selected="" value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option>
+<option value="2027/2028">Schuljahr 27/28 (Sommer–Sommer)</option>
+<option value="2028/2029">Schuljahr 28/29 (Sommer–Sommer)</option>
 </select>
 </div>
 </div>
@@ -327,7 +329,7 @@
 <span class="material-symbols-outlined text-[16px]">school</span> Schuljahreszyklus Zürich (Sommer zu Sommer: 1. August – 31. Juli)
 </div>
 <h2 class="text-headline-md text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
-<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2025/2026</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
+<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl text-body-md font-bold flex items-center gap-1.5 shadow-sm transition-all" onclick="restoreAndRecoverEntries()">
@@ -350,7 +352,7 @@
 <div class="flex items-center justify-between mb-2">
 <h2 class="text-headline-md text-on-surface">Zeiterfassung erfassen / bearbeiten</h2>
 <span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full flex items-center gap-1">
-<span class="material-symbols-outlined text-[15px]">event</span> Schuljahr <span class="active-school-year-short">25/26</span> (Aug–Juli)
+<span class="material-symbols-outlined text-[15px]">event</span> Schuljahr <span class="active-school-year-short">26/27</span> (Aug–Juli)
     </span>
 </div>
 <p class="text-body-md text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten oder Abwesenheiten im Schweizer Format (TT.MM.JJJJ). Einträge werden automatisch dem zugehörigen Schuljahr (1. August – 31. Juli) angerechnet.</p>
@@ -369,7 +371,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" onblur="if(this.value){const parts=this.value.split('.');if(parts.length===3&amp;&amp;parts[2].length===2){this.value=parts[0]+'.'+parts[1]+'.20'+parts[2];}}" placeholder="01.09.2025" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" onblur="if(this.value){const parts=this.value.split('.');if(parts.length===3&amp;&amp;parts[2].length===2){this.value=parts[0]+'.'+parts[1]+'.20'+parts[2];}}" placeholder="01.09.2026" required="" type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -448,7 +450,7 @@
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 <div>
 <h2 class="text-headline-lg text-on-surface">Wochenübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen im Schuljahr <span class="active-school-year-text font-bold text-primary">2025/2026</span> (1. Aug – 31. Juli).</p>
+<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen im Schuljahr <span class="active-school-year-text font-bold text-primary">2026/2027</span> (1. Aug – 31. Juli).</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="px-3 py-2 bg-surface-container-low text-primary text-sm font-bold rounded-xl border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1" id="toggle-weekly-btn" onclick="toggleWeeklyVisibility()">
@@ -490,7 +492,7 @@
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4"><div><div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider mb-1"><span class="material-symbols-outlined text-[16px]">school</span> Schuljahresabrechnung &amp; Monatliche Überstunden (1. August bis 31. Juli)</div><h2 class="text-headline-lg text-on-surface">Schuljahresberichte &amp; Monats-Überstunden</h2><p class="text-body-md text-on-surface-variant">Detaillierte Gegenüberstellung von Monats-Soll, Ist und anfallenden Überstunden für alle 12 Schulmonate im Zyklus <span class="active-school-year-text font-bold text-primary">2025/2026</span>.</p></div><div class="flex items-center gap-3 no-print"><button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm" onclick="window.print()"><span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken</button></div></div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4"><div><div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider mb-1"><span class="material-symbols-outlined text-[16px]">school</span> Schuljahresabrechnung &amp; Monatliche Überstunden (1. August bis 31. Juli)</div><h2 class="text-headline-lg text-on-surface">Schuljahresberichte &amp; Monats-Überstunden</h2><p class="text-body-md text-on-surface-variant">Detaillierte Gegenüberstellung von Monats-Soll, Ist und anfallenden Überstunden für alle 12 Schulmonate im Zyklus <span class="active-school-year-text font-bold text-primary">2026/2027</span>.</p></div><div class="flex items-center gap-3 no-print"><button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm" onclick="window.print()"><span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken</button></div></div>
 <div class="space-y-4" id="reports-content">
 <!-- Populated dynamically -->
 </div>
@@ -632,7 +634,7 @@
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant">Schuljahreszyklus</span>
 <p class="text-headline-md text-on-surface font-bold mt-1">Sommer zu Sommer (1. August – 31. Juli)</p>
-<p class="text-xs text-on-surface-variant mt-0.5">Aktuell ausgewählt: <span class="active-school-year-text font-bold text-primary">2025/2026</span></p>
+<p class="text-xs text-on-surface-variant mt-0.5">Aktuell ausgewählt: <span class="active-school-year-text font-bold text-primary">2026/2027</span></p>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between">
 <div>
@@ -719,7 +721,7 @@
         let isFirestoreActive = false;
         // Standard-Vollzeit-Schuljahressoll nach Richtarbeitszeit Kanton Zürich: 2'144 Stunden (Sommer bis Sommer)
         const BASE_FULL_YEAR_HOURS = 2144;
-        let selectedSchoolYear = '2025/2026';
+        let selectedSchoolYear = '2026/2027';
         // Genaue Soll-Stunden pro Monat: 168h * Pensum (z. B. 57% -> 95.76h ~ 95.8h, 92% -> 154.56h ~ 154.6h, 100% -> 168.0h)
         const DEFAULT_EMPLOYEES = [
             { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1222 },
@@ -734,7 +736,7 @@
         // Bestimmt das Schuljahr für ein gegebenes Datum (TT.MM.JJJJ oder YYYY-MM-DD)
         // Schuljahr läuft vom 1. August bis zum 31. Juli (Sommer bis Sommer)
         function getSchoolYearFromDateStr(dateStr) {
-            if (!dateStr || typeof dateStr !== 'string') return selectedSchoolYear === 'all' ? '2025/2026' : selectedSchoolYear;
+            if (!dateStr || typeof dateStr !== 'string') return selectedSchoolYear === 'all' ? '2026/2027' : selectedSchoolYear;
             let day, month, year;
             if (dateStr.includes('.')) {
                 const parts = dateStr.split('.');
@@ -751,7 +753,7 @@
                     day = parseInt(parts[2], 10);
                 }
             }
-            if (isNaN(month) || isNaN(year)) return selectedSchoolYear === 'all' ? '2025/2026' : selectedSchoolYear;
+            if (isNaN(month) || isNaN(year)) return selectedSchoolYear === 'all' ? '2026/2027' : selectedSchoolYear;
             // Toleranz für 2-stellige Jahresangaben
             if (year < 100) {
                 year = 2000 + year;
