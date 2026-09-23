@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - Zeiterfassung &amp; Schuljahresarbeitszeit</title>
 <style>
         @layer base {
@@ -97,8 +95,8 @@
             }
         };
     </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
 <!-- Firebase Compat SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -112,7 +110,7 @@
 <p class="text-body-md text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
 </div>
 <form class="flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password">
 <button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
 <p class="text-error text-center text-body-md hidden" id="auth-error">Falsches Passwort!</p>
 </form>
@@ -205,8 +203,8 @@
 <div class="text-[11px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
 <span class="material-symbols-outlined text-[15px]">event_repeat</span> Zyklus
     </div>
-<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2025/2026</div>
-<div class="text-[11px] text-on-surface-variant">1. Aug. 2025 – 31. Juli 2026</div>
+<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2026/2027</div>
+<div class="text-[11px] text-on-surface-variant">1. Aug. 2026 – 31. Juli 2027</div>
 </div>
 <nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
 <a class="flex items-center px-4 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
@@ -241,18 +239,13 @@
 <div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high shadow-xs">
 <span class="material-symbols-outlined text-primary text-[18px]">school</span>
 <label class="text-xs font-bold text-on-surface-variant" for="school-year-select">Zyklus:</label>
-<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)">
-<option value="all">Alle Schuljahre (Alle Einträge)</option>
-<option value="2024/2025">Schuljahr 24/25 (Sommer–Sommer)</option>
-<option selected="" value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option>
-<option value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option>
-</select>
+<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)"><option value="all">Alle Schuljahre (Alle Einträge)</option><option value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option><option selected="" value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option><option value="2027/2028">Schuljahr 27/28 (Sommer–Sommer)</option></select>
 </div>
 </div>
 <div class="flex items-center gap-3">
 <button class="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-sm" onclick="restoreAndRecoverEntries()" title="Prüft alle Caches und stellt bisherige Einträge sofort wieder her">
 <span class="material-symbols-outlined text-[16px] text-emerald-700">settings_backup_restore</span>
-<span>Einträge wiederherstellen / Cache prüfen</span>
+<span class="">Einträge wiederherstellen / Cache prüfen</span>
 </button>
 <button class="px-3 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all flex items-center gap-1.5 shadow-sm" onclick="openJahresarbeitszeitModal()">
 <span class="material-symbols-outlined text-[16px]">info</span> Sommer–Sommer (804h) erklärt
@@ -327,7 +320,7 @@
 <span class="material-symbols-outlined text-[16px]">school</span> Schuljahreszyklus Zürich (Sommer zu Sommer: 1. August – 31. Juli)
 </div>
 <h2 class="text-headline-md text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
-<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2025/2026</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
+<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl text-body-md font-bold flex items-center gap-1.5 shadow-sm transition-all" onclick="restoreAndRecoverEntries()">
@@ -350,12 +343,12 @@
 <div class="flex items-center justify-between mb-2">
 <h2 class="text-headline-md text-on-surface">Zeiterfassung erfassen / bearbeiten</h2>
 <span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full flex items-center gap-1">
-<span class="material-symbols-outlined text-[15px]">event</span> Schuljahr <span class="active-school-year-short">25/26</span> (Aug–Juli)
+<span class="material-symbols-outlined text-[15px]">event</span> Schuljahr <span class="active-school-year-short">26/27</span> (Aug–Juli)
     </span>
 </div>
 <p class="text-body-md text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten oder Abwesenheiten im Schweizer Format (TT.MM.JJJJ). Einträge werden automatisch dem zugehörigen Schuljahr (1. August – 31. Juli) angerechnet.</p>
 <form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
+<input id="entry-id" type="hidden">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Mitarbeiter</label>
@@ -369,29 +362,29 @@
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2025" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2026" required="" type="text">
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant mb-2">Vormittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00">
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant mb-2">Nachmittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00">
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant mb-2">Abend / Nacht</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value="">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value="">
 </div>
 </div>
 </div>
@@ -407,7 +400,7 @@
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-2">Bemerkungen / Projekt</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Schulzimmer vorbereiten, Elternabend" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Schulzimmer vorbereiten, Elternabend" type="text">
 </div>
 </div>
 <div class="flex justify-end gap-4 pt-4">
@@ -448,7 +441,7 @@
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 <div>
 <h2 class="text-headline-lg text-on-surface">Wochenübersicht</h2>
-<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen im Schuljahr <span class="active-school-year-text font-bold text-primary">2025/2026</span> (1. Aug – 31. Juli).</p>
+<p class="text-body-md text-on-surface-variant">Übersicht aller erfassten Stunden nach Kalenderwochen im Schuljahr <span class="active-school-year-text font-bold text-primary">2026/2027</span> (1. Aug – 31. Juli).</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="px-3 py-2 bg-surface-container-low text-primary text-sm font-bold rounded-xl border border-surface-container-high hover:bg-surface-container-high transition-all flex items-center gap-1" id="toggle-weekly-btn" onclick="toggleWeeklyVisibility()">
@@ -490,7 +483,7 @@
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4"><div><div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider mb-1"><span class="material-symbols-outlined text-[16px]">school</span> Schuljahresabrechnung &amp; Monatliche Überstunden (1. August bis 31. Juli)</div><h2 class="text-headline-lg text-on-surface">Schuljahresberichte &amp; Monats-Überstunden</h2><p class="text-body-md text-on-surface-variant">Detaillierte Gegenüberstellung von Monats-Soll, Ist und anfallenden Überstunden für alle 12 Schulmonate im Zyklus <span class="active-school-year-text font-bold text-primary">2025/2026</span>.</p></div><div class="flex items-center gap-3 no-print"><button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm" onclick="window.print()"><span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken</button></div></div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4"><div><div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider mb-1"><span class="material-symbols-outlined text-[16px]">school</span> Schuljahresabrechnung &amp; Monatliche Überstunden (1. August bis 31. Juli)</div><h2 class="text-headline-lg text-on-surface">Schuljahresberichte &amp; Monats-Überstunden</h2><p class="text-body-md text-on-surface-variant">Detaillierte Gegenüberstellung von Monats-Soll, Ist und anfallenden Überstunden für alle 12 Schulmonate im Zyklus <span class="active-school-year-text font-bold text-primary">2026/2027</span>.</p></div><div class="flex items-center gap-3 no-print"><button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all shadow-sm" onclick="window.print()"><span class="material-symbols-outlined text-[18px]">print</span> Bericht drucken</button></div></div>
 <div class="space-y-4" id="reports-content">
 <!-- Populated dynamically -->
 </div>
@@ -564,8 +557,8 @@
                 Gemäss Lehrpersonalverordnung und den Richtlinien des Volksschulamts des Kantons Zürich beginnt das Arbeitsjahr der Lehr- und Fachpersonen der Volksschule stets am <strong>1. August</strong> und endet am <strong>31. Juli</strong> des darauffolgenden Kalenderjahres (Schuljahreszyklus Sommer zu Sommer). Das kantonale Jahres-Sollpensum bei 100 % beträgt <strong>2'144 Jahresstunden</strong>.
             </p>
 <div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
-                Vollzeit-Schuljahressoll (100%): 2'144.00 Stunden (1. August bis 31. Juli)<br/>
-                Berechnung bei 50%: 2'144 Std. × 50% = <strong>1'072.00 Soll-Schuljahresstunden</strong><br/>
+                Vollzeit-Schuljahressoll (100%): 2'144.00 Stunden (1. August bis 31. Juli)<br>
+                Berechnung bei 50%: 2'144 Std. × 50% = <strong>1'072.00 Soll-Schuljahresstunden</strong><br>
                 Berechnung bei Nicole De Pretto (57%): 2'144 Std. × 57% = <strong>1'222.08 Soll-Schuljahresstunden</strong>
 </div>
 </div>
@@ -578,7 +571,7 @@
                 Der im Referenzsystem ausgewiesene Betrag von <strong>804 Stunden</strong> entspricht dem erreichten Soll-Stand nach genau drei Schulquartalen (9 von 12 Schulmonaten: August, September, Oktober, November, Dezember, Januar, Februar, März, April):
             </p>
 <div class="bg-surface-container-low p-4 rounded-xl font-mono text-xs text-on-surface border border-surface-container-high">
-                Mathematischer Nachweis:<br/>
+                Mathematischer Nachweis:<br>
                 1'072 Std. (Jahressoll 50%) × 75.0% (9 von 12 Monaten) = <strong>exakt 804.00 Stunden</strong>
 </div>
 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-amber-900 text-xs">
@@ -632,7 +625,7 @@
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-label-caps text-on-surface-variant">Schuljahreszyklus</span>
 <p class="text-headline-md text-on-surface font-bold mt-1">Sommer zu Sommer (1. August – 31. Juli)</p>
-<p class="text-xs text-on-surface-variant mt-0.5">Aktuell ausgewählt: <span class="active-school-year-text font-bold text-primary">2025/2026</span></p>
+<p class="text-xs text-on-surface-variant mt-0.5">Aktuell ausgewählt: <span class="active-school-year-text font-bold text-primary">2026/2027</span></p>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between">
 <div>
@@ -672,27 +665,27 @@
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
 <h3 class="text-headline-md text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
 <form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
+<input id="emp-id" type="hidden">
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-1">Vollständiger Name</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-name" required="" type="text">
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-1">Rolle / Position</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-1">Pensum (%)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-pensum" required="" type="number"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-pensum" required="" type="number">
 </div>
 <div>
 <label class="block text-label-caps text-on-surface-variant mb-1">Soll-Stunden Monat</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" step="0.1" type="number"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-target" required="" step="0.1" type="number">
 </div>
 <div class="col-span-2">
 <label class="block text-label-caps text-on-surface-variant mb-1">Schuljahresarbeitszeit (1. Aug. – 31. Juli, Stunden)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="2144"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-yearly-hours" required="" type="number" value="2144">
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-4">
@@ -1904,4 +1897,6 @@
             await seedInitialDataIfNeeded();
         });
 </script>
+
+
 </body></html>
