@@ -681,10 +681,6 @@
 <input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-4"><button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button><button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button></div>
-<div class="flex justify-end gap-3 pt-4">
-<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
-<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button>
-</div>
 </form>
 </div>
 </div>
@@ -943,10 +939,8 @@
                 if (employeesData && employeesData.length > 0) {
                     localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 }
-                if (timeEntriesData && timeEntriesData.length > 0) {
-                    localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
-                    localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
-                }
+                localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
+                localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
             } catch(e) {}
             updateCloudSyncBadge();
         }
@@ -1522,7 +1516,9 @@
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
                 try {
                     await db.collection('timeEntries').doc(id).delete();
-                } catch(e) {}
+                } catch(e) {
+                    console.warn("Firestore delete note:", e);
+                }
                 timeEntriesData = timeEntriesData.filter(e => e.id !== id);
                 saveLocalState();
                 renderTimeEntriesList();
@@ -1663,18 +1659,12 @@
                     document.getElementById('emp-id').value = emp.id;
                     document.getElementById('emp-name').value = emp.name;
                     document.getElementById('emp-role').value = emp.role;
-                    document.getElementById('emp-pensum').value = emp.pensum;
-                    document.getElementById('emp-target').value = getExactMonthlySoll(emp);
-                    document.getElementById('emp-yearly-hours').value = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum/100));
                     document.getElementById('employee-modal-title').textContent = 'Mitarbeiter bearbeiten';
                 }
             } else {
                 document.getElementById('emp-id').value = '';
                 document.getElementById('emp-name').value = '';
                 document.getElementById('emp-role').value = '';
-                document.getElementById('emp-pensum').value = '100';
-                document.getElementById('emp-target').value = '168.0';
-                document.getElementById('emp-yearly-hours').value = BASE_FULL_YEAR_HOURS;
                 document.getElementById('employee-modal-title').textContent = 'Mitarbeiter hinzufügen';
             }
         }
@@ -1688,11 +1678,10 @@
             const id = document.getElementById('emp-id').value || 'emp_' + Date.now();
             const name = document.getElementById('emp-name').value;
             const role = document.getElementById('emp-role').value;
-            const pensum = Number(document.getElementById('emp-pensum').value);
-            const targetHours = Number(document.getElementById('emp-target').value) || Number((168 * (pensum / 100)).toFixed(1));
-            const yearlyTotal = Number(document.getElementById('emp-yearly-hours').value) || Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
+            const pensum = 100;
+            const targetHours = 168.0;
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
-            const empData = { id, name, role, pensum, targetHours, initials, yearlyTotal };
+            const empData = { id, name, role, pensum, targetHours, initials, yearlyTotal: BASE_FULL_YEAR_HOURS };
             
             const existingIdx = employeesData.findIndex(e => e.id === id);
             if(existingIdx >= 0) {
