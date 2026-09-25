@@ -935,14 +935,25 @@
             renderReports();
         }
         function saveLocalState() {
+            const keysToUpdate = [
+                'doeltschi_entries',
+                'doeltschi_time_entries',
+                'doeltschi_master_entries',
+                'doeltschi_app_data',
+                'timeEntries',
+                'time_entries_backup',
+                'doeltschi_backup_entries'
+            ];
             try {
                 if (employeesData && employeesData.length > 0) {
                     localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 }
-                localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
-                localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
-                localStorage.setItem('doeltschi_time_entries', JSON.stringify(timeEntriesData));
-                localStorage.setItem('time_entries_backup', JSON.stringify(timeEntriesData));
+                const dataStr = JSON.stringify(timeEntriesData);
+                keysToUpdate.forEach(key => {
+                    try {
+                        localStorage.setItem(key, dataStr);
+                    } catch(e) {}
+                });
             } catch(e) {}
             updateCloudSyncBadge();
         }
@@ -1516,50 +1527,13 @@
         }
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
-                // Remove from memory state array
                 timeEntriesData = timeEntriesData.filter(e => e.id !== id);
-
-                // Scrub permanently from ALL localStorage backup keys
-                const keysToClean = [
-                    'doeltschi_entries',
-                    'doeltschi_time_entries',
-                    'doeltschi_master_entries',
-                    'doeltschi_app_data',
-                    'timeEntries',
-                    'time_entries_backup',
-                    'doeltschi_backup_entries'
-                ];
-
-                keysToClean.forEach(key => {
-                    try {
-                        const raw = localStorage.getItem(key);
-                        if (raw) {
-                            const parsed = JSON.parse(raw);
-                            if (Array.isArray(parsed)) {
-                                const filtered = parsed.filter(item => item && item.id !== id);
-                                localStorage.setItem(key, JSON.stringify(filtered));
-                            } else if (parsed && typeof parsed === 'object') {
-                                if (Array.isArray(parsed.timeEntries)) {
-                                    parsed.timeEntries = parsed.timeEntries.filter(item => item && item.id !== id);
-                                    localStorage.setItem(key, JSON.stringify(parsed));
-                                }
-                            }
-                        }
-                    } catch (e) {
-                        console.warn("LocalStorage scrubbing error for key:", key, e);
-                    }
-                });
-
-                // Also save current scrubbed state via saveLocalState
                 saveLocalState();
-
-                // Attempt Firestore deletion
                 try {
                     await db.collection('timeEntries').doc(id).delete();
                 } catch(e) {
                     console.warn("Firestore delete note:", e);
                 }
-
                 renderTimeEntriesList();
                 renderDashboard();
                 renderWeeklyOverview();
