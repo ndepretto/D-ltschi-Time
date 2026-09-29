@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -935,25 +934,12 @@
             renderReports();
         }
         function saveLocalState() {
-            const keysToUpdate = [
-                'doeltschi_entries',
-                'doeltschi_time_entries',
-                'doeltschi_master_entries',
-                'doeltschi_app_data',
-                'timeEntries',
-                'time_entries_backup',
-                'doeltschi_backup_entries'
-            ];
             try {
                 if (employeesData && employeesData.length > 0) {
                     localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
                 }
-                const dataStr = JSON.stringify(timeEntriesData);
-                keysToUpdate.forEach(key => {
-                    try {
-                        localStorage.setItem(key, dataStr);
-                    } catch(e) {}
-                });
+                localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
+                localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
             } catch(e) {}
             updateCloudSyncBadge();
         }
@@ -1387,9 +1373,10 @@
         document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const existingId = document.getElementById('entry-id').value;
-            const id = existingId || ('entry_' + Date.now());
             const employeeId = document.getElementById('entry-employee').value;
             const date = document.getElementById('entry-date').value;
+            // Eindeutige ID pro Mitarbeiter und Datum, um Kollisionen/Überschreibungen zu verhindern
+            const id = existingId || (`entry_${employeeId}_${date.replace(/\./g, '')}`);
             const vmFrom = document.getElementById('vm-from').value;
             const vmTo = document.getElementById('vm-to').value;
             const nmFrom = document.getElementById('nm-from').value;
@@ -1423,13 +1410,18 @@
                     try { await db.collection('timeEntries').doc(existingId).set(entryData, { merge: true }); } catch(err){}
                 } else if (employeeId === 'all') {
                     for (const emp of employeesData) {
-                        const bulkId = id + '_' + emp.id;
+                        const bulkId = `entry_${emp.id}_${date.replace(/\./g, '')}`;
                         const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
-                        timeEntriesData.push(bulkEntry);
+                        // Falls bereits vorhanden, ersetzen oder hinzufügen
+                        const idx = timeEntriesData.findIndex(x => x.id === bulkId);
+                        if (idx >= 0) timeEntriesData[idx] = bulkEntry;
+                        else timeEntriesData.push(bulkEntry);
                         try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry, { merge: true }); } catch(err){}
                     }
                 } else {
-                    timeEntriesData.push(entryData);
+                    const idx = timeEntriesData.findIndex(x => x.id === id);
+                    if (idx >= 0) timeEntriesData[idx] = entryData;
+                    else timeEntriesData.push(entryData);
                     try { await db.collection('timeEntries').doc(id).set(entryData, { merge: true }); } catch(err){}
                 }
                 saveLocalState();
@@ -1527,13 +1519,13 @@
         }
         async function deleteTimeEntry(id) {
             if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
-                timeEntriesData = timeEntriesData.filter(e => e.id !== id);
-                saveLocalState();
                 try {
                     await db.collection('timeEntries').doc(id).delete();
                 } catch(e) {
                     console.warn("Firestore delete note:", e);
                 }
+                timeEntriesData = timeEntriesData.filter(e => e.id !== id);
+                saveLocalState();
                 renderTimeEntriesList();
                 renderDashboard();
                 renderWeeklyOverview();
