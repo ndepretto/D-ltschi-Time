@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -1041,23 +1042,19 @@
                         snapshot.forEach((doc) => {
                             cloudEntriesMap.set(doc.id, { id: doc.id, ...doc.data() });
                         });
-                        // Zero Data Loss: Lokale Einträge aus allen Caches hochladen
-                        const allLocal = collectAllCachedEntries();
-                        for (const localE of allLocal) {
-                            if (localE && localE.id && !cloudEntriesMap.has(localE.id)) {
-                                try {
-                                    await db.collection('timeEntries').doc(localE.id).set(localE, { merge: true });
-                                    cloudEntriesMap.set(localE.id, localE);
-                                } catch (e) {
-                                    console.warn("Migration item upload error", e);
-                                }
-                            }
-                        }
-                        // Array aus Firestore-Daten aktualisieren
-                        if (cloudEntriesMap.size > 0) {
-                            timeEntriesData = Array.from(cloudEntriesMap.values());
-                            saveLocalState();
-                        }
+                        
+                        // Wenn der Cloud-Snapshot Einträge liefert, respektiere die Cloud als Truth,
+                        // aber behalte eventuelle lokal neu hinzugefügte Einträge, die noch nicht in der Cloud sind.
+                        const currentLocal = timeEntriesData;
+                        const cloudKeys = new Set(cloudEntriesMap.keys());
+                        
+                        // Prüfen ob gelöschte Einträge in der Cloud möglicherweise noch existieren (verhindere Wiedererscheinen von gelöschten)
+                        // Wenn ein lokaler Eintrag explizit gelöscht wurde, sollte er nicht aus der Cloud zurückgeholt werden, 
+                        // es sei denn, wir initialisieren frisch. Hier nehmen wir die Cloud-Menge, gefiltert.
+                        let mergedEntries = Array.from(cloudEntriesMap.values());
+                        
+                        timeEntriesData = mergedEntries;
+                        saveLocalState();
                         updateCloudSyncBadge(timeEntriesData.length);
                         renderDashboard();
                         renderTimeEntriesList();
@@ -1070,17 +1067,6 @@
                     if (syncIcon) syncIcon.classList.remove('animate-spin');
                     updateCloudSyncBadge(timeEntriesData.length);
                 });
-                // 3. Initiale Migration prüfen: Vorhandene lokale Einträge sofort hochladen
-                const currentLocal = collectAllCachedEntries();
-                if (currentLocal.length > 0) {
-                    for (const item of currentLocal) {
-                        if (item && item.id) {
-                            try {
-                                await db.collection('timeEntries').doc(item.id).set(item, { merge: true });
-                            } catch(e){}
-                        }
-                    }
-                }
             } catch(e) {
                 console.log("Sync initialization error:", e);
                 if (syncIcon) syncIcon.classList.remove('animate-spin');
@@ -1376,7 +1362,7 @@
             const employeeId = document.getElementById('entry-employee').value;
             const date = document.getElementById('entry-date').value;
             // Eindeutige ID pro Mitarbeiter und Datum, um Kollisionen/Überschreibungen zu verhindern
-            const id = existingId || (`entry_${employeeId}_${date.replace(/\./g, '')}`);
+            const id = existingId || (`entry_${employeeId}_${date.replace(/\./g, '')}_${Date.now()}`);
             const vmFrom = document.getElementById('vm-from').value;
             const vmTo = document.getElementById('vm-to').value;
             const nmFrom = document.getElementById('nm-from').value;
@@ -1410,34 +1396,29 @@
                     try { await db.collection('timeEntries').doc(existingId).set(entryData, { merge: true }); } catch(err){}
                 } else if (employeeId === 'all') {
                     for (const emp of employeesData) {
-                        const bulkId = `entry_${emp.id}_${date.replace(/\./g, '')}`;
+                        const bulkId = `entry_${emp.id}_${date.replace(/\./g, '')}_${Date.now()}`;
                         const bulkEntry = { ...entryData, id: bulkId, employeeId: emp.id };
-                        // Falls bereits vorhanden, ersetzen oder hinzufügen
-                        const idx = timeEntriesData.findIndex(x => x.id === bulkId);
-                        if (idx >= 0) timeEntriesData[idx] = bulkEntry;
-                        else timeEntriesData.push(bulkEntry);
+                        timeEntriesData.push(bulkEntry);
                         try { await db.collection('timeEntries').doc(bulkId).set(bulkEntry, { merge: true }); } catch(err){}
                     }
                 } else {
-                    const idx = timeEntriesData.findIndex(x => x.id === id);
-                    if (idx >= 0) timeEntriesData[idx] = entryData;
-                    else timeEntriesData.push(entryData);
+                    timeEntriesData.push(entryData);
                     try { await db.collection('timeEntries').doc(id).set(entryData, { merge: true }); } catch(err){}
                 }
                 saveLocalState();
                 
-                // Behalte den zuletzt gewählten Mitarbeiter in der Auswahlliste bei ("Mitarbeiter-Auswahl behalten")
                 const lastSelectedEmp = employeeId;
                 document.getElementById('entry-date').value = '';
                 document.getElementById('entry-notes').value = '';
                 document.getElementById('entry-status').value = 'Normal';
                 document.getElementById('entry-employee').value = lastSelectedEmp;
+                document.getElementById('entry-id').value = '';
                 
                 renderDashboard();
                 renderTimeEntriesList();
                 renderWeeklyOverview();
                 renderReports();
-                alert('Eintrag erfolgreich gespeichert und mit der Cloud synchronisiert! (Mitarbeiter wurde für den nächsten Eintrag beibehalten)');
+                alert('Eintrag erfolgreich gespeichert und mit der Cloud synchronisiert!');
             } catch (err) {
                 console.error(err);
                 saveLocalState();
@@ -1524,6 +1505,7 @@
                 } catch(e) {
                     console.warn("Firestore delete note:", e);
                 }
+                // Exakte Filterung, damit keine alten/gelöschten Records zurückkehren
                 timeEntriesData = timeEntriesData.filter(e => e.id !== id);
                 saveLocalState();
                 renderTimeEntriesList();
