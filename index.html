@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -94,12 +93,14 @@ tailwind.config = {
 <button class="px-5 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm" onclick="closeJahresarbeitszeitModal()">Schliessen</button>
 </div>
 </div>
-</div><div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="qr-code-modal" onclick="if(event.target === this) closeQrCodeModal()">
+</div>
+
+<div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="qr-code-modal" onclick="if(event.target === this) closeQrCodeModal()">
 <div class="bg-surface-container-lowest max-w-md w-full p-6 md:p-8 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high my-8 relative">
 <div class="flex items-start justify-between border-b border-surface-container-high pb-3">
 <div class="flex items-center gap-2 text-primary font-bold text-base">
 <span class="material-symbols-outlined text-[24px]">qr_code_2</span>
-<span class="">Handy-Direktzugriff</span>
+<span>Handy-Direktzugriff</span>
 </div>
 <button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-all" onclick="closeQrCodeModal()" type="button">
 <span class="material-symbols-outlined text-[20px]">close</span>
@@ -114,9 +115,9 @@ tailwind.config = {
 <div class="font-bold text-primary flex items-center gap-1.5 uppercase text-[11px] tracking-wide">
 <span class="material-symbols-outlined text-[16px]">smartphone</span> Anleitung
 </div>
-<p class="">1. iPhone- oder Android-Kamera öffnen</p>
-<p class="">2. Auf den QR-Code richten &amp; Link antippen</p>
-<p class="">3. Sofort ohne Passwort losstempeln &amp; swipen!</p>
+<p>1. iPhone- oder Android-Kamera öffnen</p>
+<p>2. Auf den QR-Code richten &amp; Link antippen</p>
+<p>3. Sofort ohne Passwort losstempeln &amp; swipen!</p>
 </div>
 <div class="w-full flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded-xl border border-surface-container-high text-xs truncate">
 <span class="material-symbols-outlined text-primary text-[18px] shrink-0">link</span>
@@ -129,6 +130,7 @@ tailwind.config = {
 </div>
 </div>
 </div>
+
 <!-- Desktop Sidebar (Hidden on Mobile) -->
 <aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
@@ -142,32 +144,34 @@ tailwind.config = {
 <div class="text-[11px] text-on-surface-variant">1. Aug. 2026 – 31. Juli 2027</div>
 </div>
 <nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
-<a class="flex items-center px-4 py-2.5 rounded-xl text-amber-900 font-extrabold bg-amber-400/20 border border-amber-400/40 hover:bg-amber-400/30 transition-all cursor-pointer shadow-xs mb-2" data-view="stempeluhr">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-amber-900 font-extrabold bg-amber-400/20 border border-amber-400/40 hover:bg-amber-400/30 transition-all cursor-pointer shadow-xs mb-2" data-view="stempeluhr" onclick="switchView('stempeluhr')">
 <span class="material-symbols-outlined mr-2.5 text-amber-600">bolt</span>⚡ Swipe-Stempeluhr
 <span class="ml-auto text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-full uppercase">Direkt</span>
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="dashboard">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="dashboard" onclick="switchView('dashboard')">
 <span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung" onclick="switchView('zeiterfassung')">
 <span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="wochenuebersicht">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="wochenuebersicht" onclick="switchView('wochenuebersicht')">
 <span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="mitarbeiter">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="mitarbeiter" onclick="switchView('mitarbeiter')">
 <span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="berichte">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="berichte" onclick="switchView('berichte')">
 <span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-primary font-semibold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/5 border border-primary/10 mt-1" data-view="erklaerung">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-primary font-semibold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/5 border border-primary/10 mt-1" data-view="erklaerung" onclick="switchView('erklaerung')">
 <span class="material-symbols-outlined mr-3 text-primary">description</span>Erklärung Schuljahr (804h)
-</a><a class="flex items-center px-4 py-2.5 rounded-xl text-primary font-bold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/10 border border-primary/20 mt-2" onclick="openQrCodeModal()">
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-primary font-bold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/10 border border-primary/20 mt-2" onclick="openQrCodeModal()">
 <span class="material-symbols-outlined mr-3 text-primary">qr_code_2</span>📱 QR-Code Handy
 </a>
 </nav>
 </aside>
+
 <!-- Mobile Bottom Navigation Bar -->
 <div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container-high z-50 flex items-center justify-around px-2 no-print" id="mobile-nav-bar">
 <button class="flex flex-col items-center justify-center w-full py-1 text-amber-600 font-bold" id="mob-btn-stempeluhr" onclick="switchView('stempeluhr')">
@@ -191,6 +195,7 @@ tailwind.config = {
 <span class="text-[10px]">Berichte</span>
 </button>
 </div>
+
 <!-- Main Content Area -->
 <div class="md:pl-64">
 <header class="fixed top-0 left-0 md:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-4 md:px-8 no-print">
@@ -214,7 +219,8 @@ tailwind.config = {
 <button class="flex px-2.5 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all items-center gap-1 shadow-sm" onclick="openQrCodeModal()">
 <span class="material-symbols-outlined text-[16px]">qr_code_2</span>
 <span class="hidden sm:inline">📱 QR-Code</span>
-</button><button class="hidden lg:flex px-2.5 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all items-center gap-1 shadow-sm" onclick="openJahresarbeitszeitModal()">
+</button>
+<button class="hidden lg:flex px-2.5 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all items-center gap-1 shadow-sm" onclick="openJahresarbeitszeitModal()">
 <span class="material-symbols-outlined text-[16px]">info</span> 804h
 </button>
 <button class="px-2.5 py-1.5 bg-surface-container-high text-on-surface text-xs font-bold rounded-xl border border-outline/20 hover:bg-surface-container-highest transition-all flex items-center gap-1" onclick="forceCloudSync()">
@@ -228,7 +234,8 @@ tailwind.config = {
 </div>
 </header>
 <main class="relative pt-16 bg-surface min-h-screen">
-<!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR (STANDARD, SOFORT AKTIV UND ENTSPERRT) -->
+
+<!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR -->
 <div class="view-container flex flex-col w-full p-4 md:p-8 max-w-[960px] mx-auto gap-6 md:gap-8 pb-20" id="view-stempeluhr">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 <div>
@@ -261,41 +268,36 @@ Mitarbeiter auswählen:
 <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
 <div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
 <span class="w-2.5 h-2.5 rounded-full bg-slate-400 shrink-0" id="swipe-status-dot"></span>
-<span class="" id="swipe-status-text">Abwesend / Ausgestempelt</span>
+<span id="swipe-status-text">Abwesend / Ausgestempelt</span>
 </div>
 </div>
 </div>
 </div>
 <!-- Main Interactive Swipe Zone Card -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-3xl shadow-md border-2 border-primary/20 relative overflow-hidden flex flex-col items-center text-center gap-6">
-<!-- Live Clock Display -->
 <div class="space-y-1">
 <div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-<span class="" id="swipe-clock-date">Freitag, 01. September 2026</span>
+<span id="swipe-clock-date">Freitag, 01. September 2026</span>
 </div>
 <div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
 <p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
 </div>
-<!-- Dynamic Feedback Banner -->
 <div class="w-full max-w-lg transition-all duration-300 hidden p-3 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2" id="swipe-feedback-toast">
 <span class="material-symbols-outlined text-[20px]" id="swipe-feedback-icon">check_circle</span>
-<span class="" id="swipe-feedback-message">Erfolgreich gestempelt!</span>
+<span id="swipe-feedback-message">Erfolgreich gestempelt!</span>
 </div>
-<!-- Interactive Swipe Box Area -->
 <div class="w-full max-w-2xl bg-surface-container-low rounded-2xl p-2.5 md:p-3 border-2 border-dashed border-outline/40 relative overflow-hidden select-none" id="swipe-track">
-<!-- Background Direction Hints -->
 <div class="absolute inset-0 flex items-center justify-between px-4 md:px-6 pointer-events-none text-xs font-bold uppercase tracking-wider opacity-70">
 <div class="flex items-center gap-1 md:gap-2 text-rose-700">
 <span class="material-symbols-outlined text-[20px] md:text-[22px]">arrow_back</span>
-<span class="">👈 Gehen</span>
+<span>👈 Gehen</span>
 </div>
 <div class="flex items-center gap-1 md:gap-2 text-emerald-700">
-<span class="">Kommen 👉</span>
+<span>Kommen 👉</span>
 <span class="material-symbols-outlined text-[20px] md:text-[22px]">arrow_forward</span>
 </div>
 </div>
-<!-- The Draggable Swipe Card -->
 <div class="relative z-10 w-full bg-white rounded-xl shadow-lg border border-primary/20 p-4 md:p-5 cursor-grab active:cursor-grabbing swipe-card-drag transition-transform flex items-center justify-between" id="swipe-card" style="transform: translateX(0px);">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-700 flex items-center justify-center shrink-0">
@@ -312,15 +314,14 @@ Mitarbeiter auswählen:
 </div>
 </div>
 </div>
-<!-- Quick 1-Click Fallback Buttons -->
 <div class="w-full max-w-lg flex items-center justify-center gap-3 md:gap-4 pt-1">
 <button class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockIn('button')">
 <span class="material-symbols-outlined text-[20px]">login</span>
-<span class="">Kommen (Einstempeln)</span>
+<span>Kommen (Einstempeln)</span>
 </button>
 <button class="flex-1 py-3 px-4 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockOut('button')">
 <span class="material-symbols-outlined text-[20px]">logout</span>
-<span class="">Gehen (Ausstempeln)</span>
+<span>Gehen (Ausstempeln)</span>
 </button>
 </div>
 <p class="text-xs text-on-surface-variant max-w-md">
@@ -342,9 +343,9 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-3" id="swipe-activity-log"></div>
 </div>
 </div>
+
 <!-- VIEW: DASHBOARD -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1200px] mx-auto gap-6 md:gap-8 pb-20" id="view-dashboard">
-<!-- Swipe Promotion Widget -->
 <div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
 <div class="flex items-center gap-4">
 <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-amber-300">
@@ -360,7 +361,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <span class="material-symbols-outlined text-[16px] text-amber-500">bolt</span> Stempeluhr öffnen
 </button>
 </div>
-<!-- KPI Cards -->
+
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
 <div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
 <span class="text-xs font-bold text-on-surface-variant uppercase">Aktives Team</span>
@@ -388,6 +389,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </div>
 </div>
+
 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-primary/5 p-6 rounded-2xl border border-primary/20 gap-4">
 <div>
 <h2 class="text-2xl font-bold text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
@@ -399,28 +401,32 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="dashboard-employees-grid"></div>
 </div>
+
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[900px] mx-auto gap-6 md:gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex items-center justify-between mb-4">
+<div>
 <h2 class="text-2xl font-bold text-on-surface">Zeiterfassung erfassen / bearbeiten</h2>
+<p class="text-xs text-on-surface-variant mt-0.5">Wähle den Mitarbeiter und trage die Arbeitszeiten minutengenau ein.</p>
+</div>
 <span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full">Schuljahr <span class="active-school-year-short">26/27</span></span>
 </div>
 <form class="space-y-6" id="time-entry-form">
 <input id="entry-id" type="hidden"/>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-employee" required="">
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-employee">Mitarbeiter</label>
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold text-sm focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer" id="entry-employee" onchange="onEntryEmployeeSelectChange(this.value)" required="">
 <option value="all">Ganzes Team</option>
-<option value="nicole">Nicole De Pretto</option>
-<option value="michelle">Michelle Dreifuss</option>
-<option value="manuel">Manuel Schoch</option>
-<option value="seline">Seline Steinmann</option>
+<option selected="" value="nicole">Nicole De Pretto (57%)</option>
+<option value="michelle">Michelle Dreifuss (100%)</option>
+<option value="manuel">Manuel Schoch (100%)</option>
+<option value="seline">Seline Steinmann (92%)</option>
 </select>
 </div>
 <div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Datum (TT.MM.JJJJ)</label>
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-date">Datum (TT.MM.JJJJ)</label>
 <input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text"/>
 </div>
 </div>
@@ -428,29 +434,29 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="vm-from" type="time" value="07:30"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="vm-to" type="time" value="12:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-from" type="time" value="07:30"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-to" type="time" value="12:00"/>
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="nm-to" type="time" value="16:30"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-from" type="time" value="13:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-to" type="time" value="16:30"/>
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abend / Nacht</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="abend-to" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-from" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-to" type="time" value=""/>
 </div>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abwesenheiten / Status</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-status">
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-status">Abwesenheiten / Status</label>
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium cursor-pointer" id="entry-status">
 <option value="Normal">Regulärer Arbeitstag</option>
 <option value="Krankheit">Krankheit</option>
 <option value="Ferien">Ferien</option>
@@ -458,34 +464,39 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </select>
 </div>
 <div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Bemerkungen</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung, Betreuung" type="text"/>
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-notes">Bemerkungen</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung, Förderunterricht" type="text"/>
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-4">
-<button class="px-5 py-2.5 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-xl" type="submit">Eintrag speichern</button>
+<button class="px-5 py-2.5 bg-surface-container-high text-on-surface font-bold rounded-xl text-xs hover:bg-surface-container-highest transition-all" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-xl text-xs hover:bg-primary-container transition-all shadow-sm" type="submit">Eintrag speichern</button>
 </div>
 </form>
 </div>
-<!-- Entries list -->
+
+<!-- Entries list with persistent filter -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
 <div>
-<h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten (Chronologisch sortiert)</h3>
-<p class="text-xs text-on-surface-variant">Vollständige Historie aus Schuljahr 2026/2027.</p>
+<h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten</h3>
+<p class="text-xs text-on-surface-variant mt-0.5">Chronologisch sortiert nach Datum (Neueste zuerst).</p>
 </div>
-<select class="px-3 py-1.5 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-entry-employee" onchange="renderTimeEntriesList()">
+<div class="flex items-center gap-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase" for="filter-entry-employee">Filter:</label>
+<select class="px-3.5 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold text-primary focus:ring-1 focus:ring-primary cursor-pointer" id="filter-entry-employee" onchange="onFilterEntryEmployeeChange(this.value)">
 <option value="all">Ganzes Team anzeigen</option>
-<option value="nicole">Nicole De Pretto</option>
+<option selected="" value="nicole">Nicole De Pretto</option>
 <option value="michelle">Michelle Dreifuss</option>
 <option value="manuel">Manuel Schoch</option>
 <option value="seline">Seline Steinmann</option>
 </select>
 </div>
+</div>
 <div class="space-y-3" id="time-entries-list"></div>
 </div>
 </div>
+
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1100px] mx-auto gap-6 md:gap-8 pb-20" id="view-wochenuebersicht">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -493,7 +504,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <h2 class="text-2xl font-bold text-on-surface">Wochen- und Monatsübersicht</h2>
 <p class="text-sm text-on-surface-variant">Schuljahr <span class="active-school-year-text font-bold text-primary">2026/2027</span> – Übersicht aller erfassten Tage nach Kalenderwochen.</p>
 </div>
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-weekly-employee" onchange="renderWeeklyOverview()">
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold cursor-pointer" id="filter-weekly-employee" onchange="renderWeeklyOverview()">
 <option value="all">Ganzes Team anzeigen</option>
 <option value="nicole">Nicole De Pretto</option>
 <option value="michelle">Michelle Dreifuss</option>
@@ -503,6 +514,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
 </div>
+
 <!-- VIEW: MITARBEITER -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1000px] mx-auto gap-6 md:gap-8 pb-20" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
@@ -510,12 +522,13 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <h2 class="text-2xl font-bold text-on-surface">Mitarbeiterverwaltung</h2>
 <p class="text-sm text-on-surface-variant">Teammitglieder mit Pensen und Schuljahressoll (Sommer zu Sommer).</p>
 </div>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" onclick="openEmployeeModal()">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-primary-container transition-all" onclick="openEmployeeModal()">
 <span class="material-symbols-outlined text-[16px]">person_add</span> Mitarbeiter hinzufügen
 </button>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
 </div>
+
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1050px] mx-auto gap-6 md:gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -525,16 +538,16 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <p class="text-sm text-on-surface-variant">Soll/Ist-Vergleich für den Rechnungsmonat.</p>
 </div>
 <div class="flex flex-wrap items-center gap-3">
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-month-select" onchange="renderReports()">
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold cursor-pointer" id="report-month-select" onchange="renderReports()">
 <option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option>
 <option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option>
-<option value="7">Juli</option><option value="8">August</option><option value="9">September</option>
-<option selected="" value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
+<option value="7">Juli</option><option value="8">August</option><option selected="" value="9">September</option>
+<option value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
 </select>
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-year-select" onchange="renderReports()">
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold cursor-pointer" id="report-year-select" onchange="renderReports()">
 <option value="2025">2025</option><option selected="" value="2026">2026</option><option value="2027">2027</option>
 </select>
-<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1.5" onclick="printReportDocument()">
+<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1.5 hover:bg-primary-container transition-all" onclick="printReportDocument()">
 <span class="material-symbols-outlined text-[16px]">print</span> Bericht drucken / PDF
 </button>
 </div>
@@ -542,6 +555,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-4" id="reports-content"></div>
 </div>
 </div>
+
 <!-- VIEW: ERKLÄRUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[950px] mx-auto gap-6 md:gap-8 pb-24" id="view-erklaerung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
@@ -551,8 +565,10 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </p>
 </div>
 </div>
+
 </main>
 </div>
+
 <!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
@@ -589,6 +605,7 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </form>
 </div>
 </div>
+
 <script>
 const firebaseConfig = {
     apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
@@ -611,7 +628,7 @@ const DEFAULT_EMPLOYEES = [
     { id: 'seline', aliases: ['4', 'emp_4', 'seline-steinmann'], name: 'Seline Steinmann', initials: 'SS', role: 'Heilpädagogin / Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739, email: 'seline.steinmann@doeltschi.ch' }
 ];
 
-// 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027 (INKL. 14.08, 17.08, 20.08, 21.08, 23.09, 01.10, 02.10 FÜR NICOLE)
+// 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027
 const SEED_TIME_ENTRIES = [
     // Nicole De Pretto (August, September, Oktober 2026)
     { id: 'seed_nd_01', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schulvorbereitung & Teamstart', hours: 7.5 },
@@ -626,7 +643,6 @@ const SEED_TIME_ENTRIES = [
     { id: 'seed_nd_10', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Standortgespräche Vorbereitung', hours: 7.0 },
     { id: 'seed_nd_11', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Herbstquartal Einstieg & Einzelförderung', hours: 7.5 },
     { id: 'seed_nd_12', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '02.10.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Förderdokumentation & Elternkontakt', hours: 8.0 },
-
     // Michelle Dreifuss
     { id: 'seed_md_01', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Jahresplanung Förderzentrum', hours: 8.5 },
     { id: 'seed_md_02', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresbeginn Teamsitzung', hours: 8.5 },
@@ -636,7 +652,6 @@ const SEED_TIME_ENTRIES = [
     { id: 'seed_md_06', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Personalplanung Schuljahr', hours: 8.0 },
     { id: 'seed_md_07', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Monatsabschluss Förderbereich', hours: 8.5 },
     { id: 'seed_md_08', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallkoordination & Förderplanung', hours: 8.5 },
-
     // Manuel Schoch
     { id: 'seed_ms_01', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Materialvorbereitung & Werkraum', hours: 8.0 },
     { id: 'seed_ms_02', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresstart Soz Betreuung', hours: 8.5 },
@@ -644,7 +659,6 @@ const SEED_TIME_ENTRIES = [
     { id: 'seed_ms_04', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Begleitung Werken / Soz', hours: 8.0 },
     { id: 'seed_ms_05', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gestalterischer Förderunterricht', hours: 8.5 },
     { id: 'seed_ms_06', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Raumorganisation & Betreuung', hours: 8.5 },
-
     // Seline Steinmann
     { id: 'seed_ss_01', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Verwaltung Schülerakten', hours: 7.75 },
     { id: 'seed_ss_02', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogische Zuweisungen', hours: 7.75 },
@@ -657,11 +671,9 @@ const SEED_TIME_ENTRIES = [
 let employeesData = [...DEFAULT_EMPLOYEES];
 let timeEntriesData = [...SEED_TIME_ENTRIES];
 const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-
 let clockInSessions = {};
 let swipeLogs = [];
 
-// App startet immer direkt entsperrt
 sessionStorage.setItem('doeltschi_authenticated', 'true');
 
 // ==========================================
@@ -687,18 +699,13 @@ function findEmployee(ident) {
 function matchEmp(entry, selectedIdent) {
     if (!selectedIdent || selectedIdent === 'all' || selectedIdent === 'Alle') return true;
     if (!entry) return false;
-
     const selStr = String(selectedIdent).trim().toLowerCase();
     const entryEmpId = String(entry.employeeId || '').trim().toLowerCase();
     const entryEmpName = String(entry.employeeName || '').trim().toLowerCase();
 
-    // 1. Direkter Match auf employeeId
     if (entryEmpId === selStr) return true;
-
-    // 2. Namensvergleich
     if (entryEmpName === selStr || entryEmpName.includes(selStr) || selStr.includes(entryEmpName)) return true;
 
-    // 3. Mitarbeiterobjekt auflösen
     const selEmp = findEmployee(selectedIdent);
     if (selEmp) {
         if (entryEmpId === String(selEmp.id).toLowerCase()) return true;
@@ -707,10 +714,8 @@ function matchEmp(entry, selectedIdent) {
         if (selEmp.email && String(selEmp.email).toLowerCase() === entryEmpId) return true;
     }
 
-    // 4. Gegenprüfen über Entry-Employee-Auflösung
     const entryEmp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
     if (entryEmp && selEmp && entryEmp.id === selEmp.id) return true;
-
     return false;
 }
 
@@ -793,10 +798,16 @@ function closeJahresarbeitszeitModal() {
     document.getElementById('jahresarbeitszeit-modal').classList.add('hidden');
 }
 
+// ==========================================
+// ZENTRALE NAVIGATION (ALLE ANSICHTEN VERFÜGBAR)
+// ==========================================
 function switchView(viewName) {
+    if (!viewName) return;
     document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
     const target = document.getElementById(`view-${viewName}`);
-    if (target) target.classList.remove('hidden');
+    if (target) {
+        target.classList.remove('hidden');
+    }
 
     document.querySelectorAll('#sidebar-nav a').forEach(el => {
         el.classList.remove('bg-primary-container', 'text-on-primary-container');
@@ -805,8 +816,7 @@ function switchView(viewName) {
         }
     });
 
-    // Mobile nav state update
-    ['stempeluhr', 'dashboard', 'zeiterfassung', 'mitarbeiter', 'berichte'].forEach(name => {
+    ['stempeluhr', 'dashboard', 'zeiterfassung', 'wochenuebersicht', 'mitarbeiter', 'berichte'].forEach(name => {
         const btn = document.getElementById(`mob-btn-${name}`);
         if (btn) {
             if (name === viewName) {
@@ -828,7 +838,8 @@ function switchView(viewName) {
         berichte: 'Schuljahresberichte',
         erklaerung: 'Erklärung Schuljahresarbeitszeit'
     };
-    document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
+    const titleEl = document.getElementById('header-title');
+    if (titleEl) titleEl.textContent = titles[viewName] || 'Zeitmanagement';
 
     if (viewName === 'stempeluhr') updateSwipeEmployeeDisplay();
     if (viewName === 'dashboard') renderDashboard();
@@ -837,10 +848,6 @@ function switchView(viewName) {
     if (viewName === 'mitarbeiter') renderEmployeesManagement();
     if (viewName === 'berichte') renderReports();
 }
-
-document.querySelectorAll('#sidebar-nav a[data-view]').forEach(link => {
-    link.addEventListener('click', () => switchView(link.getAttribute('data-view')));
-});
 
 // ==========================================
 // SWIPE INTERACTION & LIVE STEMPELUHR
@@ -878,18 +885,14 @@ function updateSwipeEmployeeDisplay() {
     const rawVal = select.value;
     const emp = findEmployee(rawVal) || employeesData[0];
     const empId = emp ? emp.id : rawVal;
-
     const avatar = document.getElementById('swipe-emp-avatar');
     if (avatar && emp) avatar.textContent = emp.initials || emp.name.substring(0, 2).toUpperCase();
-
     const dot = document.getElementById('swipe-status-dot');
     const text = document.getElementById('swipe-status-text');
     const cardTitle = document.getElementById('swipe-card-title');
     const cardSub = document.getElementById('swipe-card-sub');
 
-    // Suche Session über alle Aliases
     const activeSession = clockInSessions[empId] || (emp && emp.aliases && emp.aliases.find(a => clockInSessions[a])) ? (clockInSessions[empId] || clockInSessions[emp.aliases.find(a => clockInSessions[a])]) : null;
-
     if (activeSession && activeSession.inTime) {
         if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
         if (text) { text.className = 'text-emerald-700 font-bold'; text.textContent = `Anwesend seit ${activeSession.inTime} Uhr`; }
@@ -908,7 +911,6 @@ function showSwipeFeedback(msg, isOut = false) {
     const msgEl = document.getElementById('swipe-feedback-message');
     const iconEl = document.getElementById('swipe-feedback-icon');
     if (!toast || !msgEl || !iconEl) return;
-
     toast.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
     if (isOut) {
         toast.classList.add('bg-rose-100', 'text-rose-900', 'border', 'border-rose-300');
@@ -927,18 +929,14 @@ function performClockIn(source = 'swipe') {
     const emp = findEmployee(rawVal) || employeesData[0];
     const empId = emp ? emp.id : 'nicole';
     const empName = emp ? emp.name : 'Nicole De Pretto';
-
     const now = new Date();
     const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
-
     clockInSessions[empId] = { inTime: nowTime, date: todayStr };
     saveSwipeSessions();
-
     swipeLogs.unshift({ id: 'log_' + Date.now(), employeeId: empId, empName, type: 'in', text: `${empName}: Gekommen um ${nowTime} Uhr`, date: todayStr });
     if (swipeLogs.length > 30) swipeLogs.pop();
     saveSwipeSessions();
-
     showSwipeFeedback(`Eingestempelt um ${nowTime} Uhr! Guten Arbeitstag, ${empName}!`, false);
     updateSwipeEmployeeDisplay();
     renderSwipeLogbook();
@@ -950,17 +948,14 @@ function performClockOut(source = 'swipe') {
     const emp = findEmployee(rawVal) || employeesData[0];
     const empId = emp ? emp.id : 'nicole';
     const empName = emp ? emp.name : 'Nicole De Pretto';
-
     const now = new Date();
     const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
-
     const active = clockInSessions[empId] || (emp && emp.aliases && clockInSessions[emp.aliases[0]]) || null;
     const inTime = active ? active.inTime : '07:30';
     let hours = calculateHours(inTime, nowTime);
     if (hours <= 0) hours = 0.5;
     hours = Number(hours.toFixed(2));
-
     const [startH] = inTime.split(':').map(Number);
     const newEntry = {
         id: `swipe_${empId}_${Date.now()}`,
@@ -977,18 +972,14 @@ function performClockOut(source = 'swipe') {
         notes: `⚡ Swipe-Uhr (${inTime} - ${nowTime})`,
         hours
     };
-
     timeEntriesData.unshift(newEntry);
     saveLocalState();
-
     delete clockInSessions[empId];
     if (emp && emp.aliases) emp.aliases.forEach(a => delete clockInSessions[a]);
     saveSwipeSessions();
-
     swipeLogs.unshift({ id: 'log_' + Date.now(), employeeId: empId, empName, type: 'out', text: `${empName}: Gegangen um ${nowTime} Uhr (${hours} h erfasst)`, date: todayStr });
     if (swipeLogs.length > 30) swipeLogs.pop();
     saveSwipeSessions();
-
     showSwipeFeedback(`Ausgestempelt um ${nowTime} Uhr! ${hours} Std. erfasst & gespeichert.`, true);
     updateSwipeEmployeeDisplay();
     renderSwipeLogbook();
@@ -1000,8 +991,6 @@ function renderSwipeLogbook() {
     const el = document.getElementById('swipe-activity-log');
     if (!el) return;
     const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'all';
-
-    // Zeige alle oder gefilterte Logs
     let logsToShow = swipeLogs;
     if (currentSelectedEmp && currentSelectedEmp !== 'all') {
         logsToShow = swipeLogs.filter(l => {
@@ -1009,7 +998,6 @@ function renderSwipeLogbook() {
             return matchEmp({ employeeId: l.employeeId, employeeName: l.empName }, currentSelectedEmp);
         });
     }
-
     if (logsToShow.length === 0) {
         el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Keine Stempelaktionen für die aktuelle Auswahl hinterlegt.</div>`;
         return;
@@ -1041,20 +1029,16 @@ function clearSwipeLog() {
     renderSwipeLogbook();
 }
 
-// Touch & Mouse Gestures
 function initSwipeGestures() {
     const card = document.getElementById('swipe-card');
     if (!card) return;
-
     let startX = 0, currentX = 0, isDragging = false;
     const THRESHOLD = 85;
-
     const onStart = (e) => {
         isDragging = true;
         startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         card.style.transition = 'none';
     };
-
     const onMove = (e) => {
         if (!isDragging) return;
         const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
@@ -1062,7 +1046,6 @@ function initSwipeGestures() {
         if (currentX > 160) currentX = 160;
         if (currentX < -160) currentX = -160;
         card.style.transform = `translateX(${currentX}px)`;
-
         if (currentX > 25) {
             card.style.backgroundColor = '#ecfdf5';
             card.style.borderColor = '#10b981';
@@ -1074,7 +1057,6 @@ function initSwipeGestures() {
             card.style.borderColor = '';
         }
     };
-
     const onEnd = () => {
         if (!isDragging) return;
         isDragging = false;
@@ -1082,7 +1064,6 @@ function initSwipeGestures() {
         card.style.transform = 'translateX(0px)';
         card.style.backgroundColor = '';
         card.style.borderColor = '';
-
         if (currentX >= THRESHOLD) {
             performClockIn('swipe');
         } else if (currentX <= -THRESHOLD) {
@@ -1090,12 +1071,10 @@ function initSwipeGestures() {
         }
         currentX = 0;
     };
-
     card.addEventListener('touchstart', onStart, { passive: true });
     window.addEventListener('touchmove', onMove, { passive: true });
     window.addEventListener('touchend', onEnd);
     window.addEventListener('touchcancel', onEnd);
-
     card.addEventListener('mousedown', onStart);
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onEnd);
@@ -1131,7 +1110,6 @@ function loadInitialData() {
         if (entries) {
             const parsedEntries = JSON.parse(entries);
             if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
-                // Bereinige und sichere, dass Nicole alle Einträge hat
                 timeEntriesData = parsedEntries.map(e => {
                     if (e.employeeId === '1' || e.employeeId === 'emp_1' || (e.employeeName && e.employeeName.toLowerCase().includes('nicole'))) {
                         return { ...e, employeeId: 'nicole', employeeName: 'Nicole De Pretto' };
@@ -1149,7 +1127,6 @@ function loadInitialData() {
         timeEntriesData = [...SEED_TIME_ENTRIES];
     }
 
-    // Sicherstellen dass die Seedeinträge für Nicole enthalten sind falls noch nicht vorhanden
     SEED_TIME_ENTRIES.forEach(seed => {
         if (!timeEntriesData.some(e => e.id === seed.id || (e.date === seed.date && e.employeeId === seed.employeeId))) {
             timeEntriesData.push(seed);
@@ -1158,6 +1135,10 @@ function loadInitialData() {
 
     saveLocalState();
     updateCloudSyncBadge();
+    
+    // Dropdowns initialisieren
+    syncAllEmployeeDropdowns();
+
     renderDashboard();
     renderEmployeesManagement();
     renderTimeEntriesList();
@@ -1167,29 +1148,73 @@ function loadInitialData() {
     initSwipeGestures();
 }
 
+function syncAllEmployeeDropdowns() {
+    const swipeSelect = document.getElementById('swipe-employee-select');
+    const entrySelect = document.getElementById('entry-employee');
+    const filterSelect = document.getElementById('filter-entry-employee');
+    const weeklyFilter = document.getElementById('filter-weekly-employee');
+
+    const curSwipe = swipeSelect ? swipeSelect.value : 'nicole';
+    const curEntry = entrySelect ? entrySelect.value : 'nicole';
+    const curFilter = filterSelect ? filterSelect.value : 'nicole';
+    const curWeekly = weeklyFilter ? weeklyFilter.value : 'all';
+
+    if (entrySelect) {
+        entrySelect.innerHTML = `
+            <option value="all">Ganzes Team</option>
+            ${employeesData.map(e => `<option value="${e.id}">${e.name} (${e.pensum}%)</option>`).join('')}
+        `;
+        entrySelect.value = curEntry || 'nicole';
+    }
+
+    if (filterSelect) {
+        filterSelect.innerHTML = `
+            <option value="all">Ganzes Team anzeigen</option>
+            ${employeesData.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
+        `;
+        filterSelect.value = curFilter || 'nicole';
+    }
+
+    if (weeklyFilter) {
+        weeklyFilter.innerHTML = `
+            <option value="all">Ganzes Team anzeigen</option>
+            ${employeesData.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
+        `;
+        weeklyFilter.value = curWeekly || 'all';
+    }
+}
+
+function onEntryEmployeeSelectChange(val) {
+    // Wenn Mitarbeiter in Zeiterfassung gewählt wird, passe auch den Filter der Liste darunter an
+    const filterEl = document.getElementById('filter-entry-employee');
+    if (filterEl && val !== 'all') {
+        filterEl.value = val;
+        renderTimeEntriesList();
+    }
+}
+
+function onFilterEntryEmployeeChange(val) {
+    renderTimeEntriesList();
+}
+
 function renderDashboard() {
     const grid = document.getElementById('dashboard-employees-grid');
     if (!grid) return;
     grid.innerHTML = '';
     let totalActual = 0, totalYearlyTarget = 0, totalMonthlyIst = 0, totalMonthlySoll = 0;
 
-    // Filter für aktuellen Schuljahresmonat (September 2026 als Basis)
     employeesData.forEach(emp => {
         const entriesAllYear = timeEntriesData.filter(e => matchEmp(e, emp.id) && isEntryInSelectedSchoolYear(e));
         const actual = entriesAllYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
         const yearlyTotal = emp.yearlyTotal || 1890;
         const monthlyTarget = getExactMonthlySoll(emp);
-
-        // Monat September 2026 für Monatsauswertung
         const sepEntries = entriesAllYear.filter(e => e.date && e.date.includes('.09.2026'));
         const sepIst = sepEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
         const monatsDiff = sepIst - monthlyTarget;
-
         totalActual += actual;
         totalYearlyTarget += yearlyTotal;
         totalMonthlyIst += sepIst;
         totalMonthlySoll += monthlyTarget;
-
         const pct = Math.min(100, Math.round((actual / yearlyTotal) * 100));
 
         const card = document.createElement('div');
@@ -1218,7 +1243,6 @@ function renderDashboard() {
                     <div class="bg-primary h-full rounded-full transition-all duration-700" style="width: ${pct}%;"></div>
                 </div>
             </div>
-
             <div class="bg-surface-container-low p-3.5 rounded-xl border border-surface-container-high grid grid-cols-2 gap-2 text-xs">
                 <div>
                     <span class="text-on-surface-variant block text-[11px]">Ist-Stunden September:</span>
@@ -1229,7 +1253,6 @@ function renderDashboard() {
                     <strong class="${monatsDiff >= 0 ? 'text-emerald-700' : 'text-amber-700'} font-bold">${monatsDiff >= 0 ? '+' : ''}${monatsDiff.toFixed(1)} h</strong>
                 </div>
             </div>
-
             <div class="flex justify-end gap-2 pt-1 border-t border-surface-container-high/60">
                 <button onclick="switchView('stempeluhr'); document.getElementById('swipe-employee-select').value='${emp.id}'; onSwipeEmployeeChange();" class="px-3 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-xl text-xs hover:bg-amber-400/30 flex items-center gap-1">
                     <span class="material-symbols-outlined text-[14px]">bolt</span> Swipe-Uhr
@@ -1248,7 +1271,6 @@ function renderDashboard() {
     
     const pctTotal = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
     document.getElementById('summary-progress-bar').style.width = `${pctTotal}%`;
-
     const monthlyDiffTotal = totalMonthlyIst - totalMonthlySoll;
     document.getElementById('summary-overtime-month').textContent = `${monthlyDiffTotal >= 0 ? '+' : ''}${monthlyDiffTotal.toFixed(1)} h`;
     document.getElementById('summary-overtime-total').textContent = `${totalActual.toFixed(1)} h`;
@@ -1267,7 +1289,8 @@ function renderTimeEntriesList() {
     const list = document.getElementById('time-entries-list');
     if (!list) return;
     list.innerHTML = '';
-    const filter = document.getElementById('filter-entry-employee').value;
+    const filterSelect = document.getElementById('filter-entry-employee');
+    const filter = filterSelect ? filterSelect.value : 'all';
     
     let filtered = [...timeEntriesData].sort((a, b) => {
         return parseGermanDate(b.date) - parseGermanDate(a.date);
@@ -1292,10 +1315,8 @@ function renderTimeEntriesList() {
         if (entry.nmFrom && entry.nmTo) timeDetails.push(`NM: ${entry.nmFrom}–${entry.nmTo}`);
         if (entry.abendFrom && entry.abendTo) timeDetails.push(`Abend: ${entry.abendFrom}–${entry.abendTo}`);
         const timeStr = timeDetails.length > 0 ? timeDetails.join(' | ') : 'Reguläre Buchung';
-
         const empName = emp ? emp.name : (entry.employeeName || 'Teammitglied');
         const empInitials = emp ? emp.initials : empName.substring(0, 2).toUpperCase();
-
         item.innerHTML = `
             <div class="space-y-1">
                 <div class="flex items-center gap-2">
@@ -1310,11 +1331,37 @@ function renderTimeEntriesList() {
                 </div>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <button onclick="editEntryInForm('${entry.id}')" class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten
+                </button>
                 <button onclick="deleteEntry('${entry.id}')" class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all">Löschen</button>
             </div>
         `;
         list.appendChild(item);
     });
+}
+
+function editEntryInForm(id) {
+    const entry = timeEntriesData.find(e => e.id === id);
+    if (!entry) return;
+    const empSelect = document.getElementById('entry-employee');
+    const emp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
+    if (empSelect && emp) {
+        empSelect.value = emp.id;
+    }
+    document.getElementById('entry-id').value = entry.id;
+    document.getElementById('entry-date').value = entry.date;
+    document.getElementById('vm-from').value = entry.vmFrom || '';
+    document.getElementById('vm-to').value = entry.vmTo || '';
+    document.getElementById('nm-from').value = entry.nmFrom || '';
+    document.getElementById('nm-to').value = entry.nmTo || '';
+    document.getElementById('abend-from').value = entry.abendFrom || '';
+    document.getElementById('abend-to').value = entry.abendTo || '';
+    document.getElementById('entry-status').value = entry.status || 'Normal';
+    document.getElementById('entry-notes').value = entry.notes || '';
+    
+    // Nach oben scrollen
+    document.getElementById('view-zeiterfassung').scrollIntoView({ behavior: 'smooth' });
 }
 
 function deleteEntry(id) {
@@ -1330,6 +1377,7 @@ function deleteEntry(id) {
 
 document.getElementById('time-entry-form').addEventListener('submit', (e) => {
     e.preventDefault();
+    const existingId = document.getElementById('entry-id').value;
     const empId = document.getElementById('entry-employee').value;
     const date = document.getElementById('entry-date').value;
     const vmFrom = document.getElementById('vm-from').value;
@@ -1346,9 +1394,8 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
     hours = Number(hours.toFixed(2));
 
     const selectedEmp = findEmployee(empId);
-
     const newEntry = {
-        id: `entry_${Date.now()}`,
+        id: existingId || `entry_${Date.now()}`,
         employeeId: selectedEmp ? selectedEmp.id : empId,
         employeeName: selectedEmp ? selectedEmp.name : '',
         date,
@@ -1356,14 +1403,30 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
         vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours
     };
 
-    if (empId === 'all') {
-        employeesData.forEach(emp => {
-            timeEntriesData.unshift({ ...newEntry, id: `entry_${emp.id}_${Date.now()}`, employeeId: emp.id, employeeName: emp.name });
-        });
+    if (existingId) {
+        const idx = timeEntriesData.findIndex(item => item.id === existingId);
+        if (idx !== -1) {
+            timeEntriesData[idx] = newEntry;
+        }
+        document.getElementById('entry-id').value = '';
     } else {
-        timeEntriesData.unshift(newEntry);
+        if (empId === 'all') {
+            employeesData.forEach(emp => {
+                timeEntriesData.unshift({ ...newEntry, id: `entry_${emp.id}_${Date.now()}`, employeeId: emp.id, employeeName: emp.name });
+            });
+        } else {
+            timeEntriesData.unshift(newEntry);
+        }
     }
+
     saveLocalState();
+    
+    // Nach Speichern: Filter für die Liste aktualisieren
+    const filterEl = document.getElementById('filter-entry-employee');
+    if (filterEl && empId !== 'all') {
+        filterEl.value = empId;
+    }
+
     renderTimeEntriesList();
     renderDashboard();
     renderWeeklyOverview();
@@ -1372,8 +1435,11 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
 });
 
 function resetTimeForm() {
+    document.getElementById('entry-id').value = '';
     document.getElementById('entry-date').value = '';
     document.getElementById('entry-notes').value = '';
+    document.getElementById('abend-from').value = '';
+    document.getElementById('abend-to').value = '';
 }
 
 function renderEmployeesManagement() {
@@ -1429,7 +1495,6 @@ document.getElementById('employee-form').addEventListener('submit', (e) => {
     const role = document.getElementById('emp-role').value;
     const pensum = Number(document.getElementById('emp-pensum').value);
     const yearlyTotal = Number(document.getElementById('emp-yearly-total').value);
-
     if (id) {
         const emp = findEmployee(id);
         if (emp) { emp.name = name; emp.role = role; emp.pensum = pensum; emp.yearlyTotal = yearlyTotal; }
@@ -1437,6 +1502,7 @@ document.getElementById('employee-form').addEventListener('submit', (e) => {
         employeesData.push({ id: 'emp_' + Date.now(), name, role, pensum, yearlyTotal, initials: name.substring(0, 2).toUpperCase() });
     }
     saveLocalState();
+    syncAllEmployeeDropdowns();
     closeEmployeeModal();
     renderEmployeesManagement();
     renderDashboard();
@@ -1451,15 +1517,11 @@ function renderWeeklyOverview() {
     if (filter !== 'all') {
         entries = entries.filter(e => matchEmp(e, filter));
     }
-
     if (entries.length === 0) {
         el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant">Keine erfassten Tage für diese Auswahl vorhanden.</div>`;
         return;
     }
-
-    // Sortieren nach Datum
     entries.sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date));
-
     let html = `
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm overflow-x-auto">
             <table class="w-full text-left text-xs">
@@ -1475,7 +1537,6 @@ function renderWeeklyOverview() {
                 </thead>
                 <tbody class="divide-y divide-surface-container-high">
     `;
-
     entries.forEach(entry => {
         const emp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
         const empName = emp ? emp.name : (entry.employeeName || 'Team');
@@ -1490,13 +1551,11 @@ function renderWeeklyOverview() {
             </tr>
         `;
     });
-
     html += `
                 </tbody>
             </table>
         </div>
     `;
-
     el.innerHTML = html;
 }
 
@@ -1505,11 +1564,8 @@ function renderReports() {
     if (!el) return;
     const m = parseInt(document.getElementById('report-month-select').value, 10);
     const y = parseInt(document.getElementById('report-year-select').value, 10);
-    const monthFormatted = String(m).padStart(2, '0');
-
     let rowsHtml = '';
     let sumIst = 0, sumSoll = 0;
-
     employeesData.forEach(emp => {
         const monthlySoll = getExactMonthlySoll(emp);
         const entries = timeEntriesData.filter(e => {
@@ -1525,7 +1581,6 @@ function renderReports() {
         const diff = istHours - monthlySoll;
         sumIst += istHours;
         sumSoll += monthlySoll;
-
         rowsHtml += `
             <tr class="border-b border-surface-container-high text-xs">
                 <td class="py-3.5 font-bold text-on-surface">${emp.name} (${emp.pensum}%)</td>
@@ -1537,9 +1592,7 @@ function renderReports() {
             </tr>
         `;
     });
-
     const diffSum = sumIst - sumSoll;
-
     el.innerHTML = `
         <div class="bg-surface-container-low p-6 rounded-2xl border border-surface-container-high space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-surface-container-high pb-4">
@@ -1552,7 +1605,6 @@ function renderReports() {
                     <span class="text-lg font-black text-primary">${sumIst.toFixed(1)} / ${sumSoll.toFixed(1)} h</span>
                 </div>
             </div>
-
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
@@ -1591,9 +1643,6 @@ function forceCloudSync() {
     alert(`Cloud Synchronisation erfolgreich: ${timeEntriesData.length} Einträge & ${employeesData.length} Mitarbeiter live synchronisiert.`);
 }
 
-window.addEventListener('DOMContentLoaded', loadInitialData);
-</script>
-<script>
 function openQrCodeModal() {
     const m = document.getElementById('qr-code-modal');
     if (m) {
@@ -1608,4 +1657,9 @@ function closeQrCodeModal() {
         m.classList.add('hidden');
     }
 }
-</script></body></html>
+
+window.addEventListener('DOMContentLoaded', () => {
+    loadInitialData();
+});
+</script>
+</body></html>
