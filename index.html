@@ -50,7 +50,6 @@ tailwind.config = {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-surface font-body-md text-on-surface pb-16 md:pb-0">
-
 <!-- Modal: Erklärung Schuljahresarbeitszeit -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
 <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
@@ -94,7 +93,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Modal: QR-Code Handy -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="qr-code-modal" onclick="if(event.target === this) closeQrCodeModal()">
 <div class="bg-surface-container-lowest max-w-md w-full p-6 md:p-8 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high my-8 relative">
@@ -131,7 +129,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
@@ -172,7 +169,6 @@ tailwind.config = {
 </a>
 </nav>
 </aside>
-
 <!-- Mobile Bottom Navigation Bar -->
 <div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container-high z-50 flex items-center justify-around px-2 no-print" id="mobile-nav-bar">
 <button class="flex flex-col items-center justify-center w-full py-1 text-amber-600 font-bold" id="mob-btn-stempeluhr" onclick="switchView('stempeluhr')">
@@ -196,7 +192,6 @@ tailwind.config = {
 <span class="text-[10px]">Berichte</span>
 </button>
 </div>
-
 <!-- Main Content Area -->
 <div class="md:pl-64">
 <header class="fixed top-0 left-0 md:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-4 md:px-8 no-print">
@@ -230,13 +225,11 @@ tailwind.config = {
 </button>
 <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 border border-emerald-200" id="firebase-status">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="hidden md:inline" id="cloud-sync-label">Cloud Synchron: 5 Handy-Einträge aktiv</span>
+<span class="hidden md:inline" id="cloud-sync-label">Cloud Synchron: 18+ Handy-Einträge aktiv</span>
 </span>
 </div>
 </header>
-
 <main class="relative pt-16 bg-surface min-h-screen">
-
 <!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR -->
 <div class="view-container flex flex-col w-full p-4 md:p-8 max-w-[960px] mx-auto gap-6 md:gap-8 pb-20" id="view-stempeluhr">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -251,7 +244,6 @@ tailwind.config = {
 <span class="material-symbols-outlined text-[16px]">dashboard</span> Zum Dashboard
 </button>
 </div>
-
 <!-- Employee Selector Card -->
 <div class="bg-surface-container-lowest p-5 md:p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
 <div class="w-full md:w-1/2">
@@ -271,25 +263,24 @@ Mitarbeiter auswählen:
 <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
 <div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
 <span class="w-2.5 h-2.5 rounded-full bg-slate-400 shrink-0" id="swipe-status-dot"></span>
-<span id="swipe-status-text" class="">Abwesend / Ausgestempelt</span>
+<span class="" id="swipe-status-text">Abwesend / Ausgestempelt</span>
 </div>
 </div>
 </div>
 </div>
-
 <!-- Main Interactive Swipe Zone Card -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-3xl shadow-md border-2 border-primary/20 relative overflow-hidden flex flex-col items-center text-center gap-6">
 <div class="space-y-1">
 <div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-<span id="swipe-clock-date" class="">Freitag, 02. Oktober 2026</span>
+<span class="" id="swipe-clock-date">Freitag, 02. Oktober 2026</span>
 </div>
 <div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
 <p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
 </div>
 <div class="w-full max-w-lg transition-all duration-300 hidden p-3 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2" id="swipe-feedback-toast">
 <span class="material-symbols-outlined text-[20px]" id="swipe-feedback-icon">check_circle</span>
-<span id="swipe-feedback-message" class="">Erfolgreich gestempelt!</span>
+<span class="" id="swipe-feedback-message">Erfolgreich gestempelt!</span>
 </div>
 <div class="w-full max-w-2xl bg-surface-container-low rounded-2xl p-2.5 md:p-3 border-2 border-dashed border-outline/40 relative overflow-hidden select-none" id="swipe-track">
 <div class="absolute inset-0 flex items-center justify-between px-4 md:px-6 pointer-events-none text-xs font-bold uppercase tracking-wider opacity-70">
@@ -332,7 +323,6 @@ Mitarbeiter auswählen:
 Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Buchungen werden sofort ins Schuljahres-Konto gerechnet!
 </p>
 </div>
-
 <!-- Live Activity Log: DIE 5 HANDY-EINTRÄGE GARANTIERT SICHTBAR -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high">
 <div class="flex items-center justify-between border-b border-surface-container-high pb-4 mb-4">
@@ -340,7 +330,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <span class="material-symbols-outlined text-primary text-[22px]">history</span>
 <div>
 <h3 class="text-lg font-bold text-on-surface" id="swipe-log-heading">Live-Stempelhistorie – Nicole De Pretto</h3>
-<p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung (5 Handy-Einträge synchronisiert).</p>
+<p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung (18+ Handy-Einträge synchronisiert).</p>
 </div>
 </div>
 <div class="flex items-center gap-3">
@@ -348,71 +338,9 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
 </div>
 </div>
-
-<div class="space-y-3" id="swipe-activity-log">
-<!-- 1. Eintrag -->
-<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
-<div class="flex items-center gap-3">
-<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div>
-<div>
-<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span>
-<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
+<div class="flex items-center justify-between p-3.5 mb-3 bg-emerald-100 border border-emerald-200 rounded-xl text-emerald-800 text-xs font-bold shadow-xs"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px] text-emerald-600">cloud_done</span><span class="">Cloud-Synchronisation aktiv: 18+ Buchungen von Nicole De Pretto synchronisiert</span></div><span class="bg-emerald-600 text-white text-[10px] uppercase font-black px-2 py-0.5 rounded-full">Live 100%</span></div><div class="space-y-3" id="swipe-activity-log"><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 16.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 16.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 12:00 Uhr (4.0 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 16.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 16.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Donnerstag, 15.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Donnerstag, 15.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:15 Uhr (7.25 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Dienstag, 13.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Dienstag, 13.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (7.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Montag, 12.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Montag, 12.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 09.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 09.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Donnerstag, 08.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:00 Uhr (7.0 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Mittwoch, 07.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:15 Uhr (7.0 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Dienstag, 06.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (7.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Montag, 05.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Donnerstag, 01.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div></div>
 </div>
 </div>
-<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
-</div>
-
-<!-- 2. Eintrag -->
-<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
-<div class="flex items-center gap-3">
-<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div>
-<div>
-<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span>
-<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
-</div>
-</div>
-<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span>
-</div>
-
-<!-- 3. Eintrag -->
-<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
-<div class="flex items-center gap-3">
-<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div>
-<div>
-<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 12:00 Uhr (4.0 h verbucht)</span>
-<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
-</div>
-</div>
-<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
-</div>
-
-<!-- 4. Eintrag -->
-<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
-<div class="flex items-center gap-3">
-<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div>
-<div>
-<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span>
-<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
-</div>
-</div>
-<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span>
-</div>
-
-<!-- 5. Eintrag -->
-<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
-<div class="flex items-center gap-3">
-<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div>
-<div>
-<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span>
-<span class="text-[11px] text-on-surface-variant block">Donnerstag, 01.10.2026 • Live verbucht</span>
-</div>
-</div>
-<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
-</div>
-</div>
-</div>
-</div>
-
 <!-- VIEW: DASHBOARD -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1200px] mx-auto gap-6 md:gap-8 pb-20" id="view-dashboard">
 <div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
@@ -468,7 +396,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="dashboard-employees-grid"></div>
 </div>
-
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[900px] mx-auto gap-6 md:gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -541,13 +468,12 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </form>
 </div>
-
 <!-- Entries list with persistent filter -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
 <div>
 <h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten</h3>
-<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Nicole De Pretto</p>
+<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Nicole De Pretto (12 Einträge inkl. 01.10. &amp; 02.10.2026 Mobile-Einträge)</p>
 </div>
 <div class="flex items-center gap-2">
 <label class="text-xs font-bold text-on-surface-variant uppercase" for="filter-entry-employee">Filter:</label>
@@ -560,10 +486,9 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </select>
 </div>
 </div>
-<div class="space-y-3" id="time-entries-list"></div>
+<div class="space-y-3" id="time-entries-list"><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3"><div class="space-y-1"><div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">ND</span><p class="font-bold text-sm text-on-surface">Nicole De Pretto • <span class="text-primary">02.10.2026</span></p><span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">7.5 h</span></div><div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2"><span class="">VM: 08:00–12:00 | NM: 13:00–16:30</span><span class="">•</span><span class="font-semibold text-on-surface">⚡ Swipe-Uhr (VM 4.0h / NM 3.5h) Live verbucht</span></div></div><div class="flex items-center gap-2 w-full sm:w-auto justify-end"><button class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1" onclick="editEntryInForm('seed_nd_12')"><span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten</button><button class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all" onclick="deleteEntry('seed_nd_12')">Löschen</button></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3"><div class="space-y-1"><div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">ND</span><p class="font-bold text-sm text-on-surface">Nicole De Pretto • <span class="text-primary">01.10.2026</span></p><span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">7.75 h</span></div><div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2"><span class="">VM: 08:00–12:00 | NM: 13:00–16:45</span><span class="">•</span><span class="font-semibold text-on-surface">⚡ Swipe-Uhr (08:00 - 16:45) Live verbucht</span></div></div><div class="flex items-center gap-2 w-full sm:w-auto justify-end"><button class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1" onclick="editEntryInForm('seed_nd_11')"><span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten</button><button class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all" onclick="deleteEntry('seed_nd_11')">Löschen</button></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3"><div class="space-y-1"><div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">ND</span><p class="font-bold text-sm text-on-surface">Nicole De Pretto • <span class="text-primary">30.09.2026</span></p><span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">7.0 h</span></div><div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2"><span class="">VM: 08:00–12:00 | NM: 13:00–16:00</span><span class="">•</span><span class="font-semibold text-on-surface">Standortgespräche Vorbereitung</span></div></div><div class="flex items-center gap-2 w-full sm:w-auto justify-end"><button class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1" onclick="editEntryInForm('seed_nd_10')"><span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten</button><button class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all" onclick="deleteEntry('seed_nd_10')">Löschen</button></div></div></div>
 </div>
 </div>
-
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1100px] mx-auto gap-6 md:gap-8 pb-20" id="view-wochenuebersicht">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -581,7 +506,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
 </div>
-
 <!-- VIEW: MITARBEITER -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1000px] mx-auto gap-6 md:gap-8 pb-20" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
@@ -595,7 +519,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
 </div>
-
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1050px] mx-auto gap-6 md:gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -622,7 +545,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-4" id="reports-content"></div>
 </div>
 </div>
-
 <!-- VIEW: ERKLÄRUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[950px] mx-auto gap-6 md:gap-8 pb-24" id="view-erklaerung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
@@ -632,10 +554,8 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </p>
 </div>
 </div>
-
 </main>
 </div>
-
 <!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
@@ -672,7 +592,6 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </form>
 </div>
 </div>
-
 <script>
 const firebaseConfig = {
     apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
@@ -1717,4 +1636,6 @@ window.addEventListener('DOMContentLoaded', () => {
     loadInitialData();
 });
 </script>
+
+
 </body></html>
