@@ -1,6 +1,8 @@
-<!DOCTYPE html><html lang="de"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - Mobile Swipe-Stempeluhr &amp; Zeiterfassung</title>
 <style>
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
@@ -44,13 +46,12 @@ tailwind.config = {
     }
 };
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-surface font-body-md text-on-surface pb-16 md:pb-0">
-
 <!-- Modal: Erklärung Schuljahresarbeitszeit -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
 <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
@@ -94,7 +95,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Modal: QR-Code Handy -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="qr-code-modal" onclick="if(event.target === this) closeQrCodeModal()">
 <div class="bg-surface-container-lowest max-w-md w-full p-6 md:p-8 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high my-8 relative">
@@ -110,7 +110,7 @@ tailwind.config = {
 <div class="text-center flex flex-col items-center gap-4">
 <p class="text-xs text-on-surface-variant">Scanne diesen QR-Code mit der Smartphone-Kamera, um die Stempeluhr mobil zu nutzen:</p>
 <div class="p-3 bg-white rounded-2xl shadow-md border-2 border-primary/20 inline-block">
-<img alt="QR-Code für Döltschi Time" class="w-48 h-48 md:w-56 md:h-56 block rounded-lg select-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVeYgf8zpBQRN7mo-x1iYSOPdlelf1zQbipVGIkLaQmmAaEpOrQgGypMo9ldZ5k7LMPvKw0lySC2pzcV1EdRDjHcIfKJei3qye2UPYtoKG-ZBRcfYCdNSS1CeDCSHDsCEMBaPEdtx7e3KoFSBKOpqJuCRCEvvzmL1eqYcs-lGZhBAeklA8_VXf11-w5AlFSFjnIJJ9a-4FEEVGwhI-tS_HQPmjvAgofDARsck-S4p6EXTbZ1y2_A2">
+<img alt="QR-Code für Döltschi Time" class="w-48 h-48 md:w-56 md:h-56 block rounded-lg select-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVeYgf8zpBQRN7mo-x1iYSOPdlelf1zQbipVGIkLaQmmAaEpOrQgGypMo9ldZ5k7LMPvKw0lySC2pzcV1EdRDjHcIfKJei3qye2UPYtoKG-ZBRcfYCdNSS1CeDCSHDsCEMBaPEdtx7e3KoFSBKOpqJuCRCEvvzmL1eqYcs-lGZhBAeklA8_VXf11-w5AlFSFjnIJJ9a-4FEEVGwhI-tS_HQPmjvAgofDARsck-S4p6EXTbZ1y2_A2"/>
 </div>
 <div class="w-full bg-surface-container-low p-3.5 rounded-xl border border-surface-container-high text-left space-y-1.5 text-xs text-on-surface">
 <div class="font-bold text-primary flex items-center gap-1.5 uppercase text-[11px] tracking-wide">
@@ -131,7 +131,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
@@ -172,7 +171,6 @@ tailwind.config = {
 </a>
 </nav>
 </aside>
-
 <!-- Mobile Bottom Navigation Bar -->
 <div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container-high z-50 flex items-center justify-around px-2 no-print" id="mobile-nav-bar">
 <button class="flex flex-col items-center justify-center w-full py-1 text-amber-600 font-bold" id="mob-btn-stempeluhr" onclick="switchView('stempeluhr')">
@@ -196,7 +194,6 @@ tailwind.config = {
 <span class="text-[10px]">Berichte</span>
 </button>
 </div>
-
 <!-- Main Content Area -->
 <div class="md:pl-64">
 <header class="fixed top-0 left-0 md:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-4 md:px-8 no-print">
@@ -234,9 +231,7 @@ tailwind.config = {
 </span>
 </div>
 </header>
-
 <main class="relative pt-16 bg-surface min-h-screen">
-
 <!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR -->
 <div class="view-container flex flex-col w-full p-4 md:p-8 max-w-[960px] mx-auto gap-6 md:gap-8 pb-20" id="view-stempeluhr">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -251,7 +246,6 @@ tailwind.config = {
 <span class="material-symbols-outlined text-[16px]">dashboard</span> Zum Dashboard
 </button>
 </div>
-
 <!-- Employee Selector Card -->
 <div class="bg-surface-container-lowest p-5 md:p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
 <div class="w-full md:w-1/2">
@@ -271,25 +265,24 @@ Mitarbeiter auswählen:
 <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
 <div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
 <span class="w-2.5 h-2.5 rounded-full bg-slate-400 shrink-0" id="swipe-status-dot"></span>
-<span id="swipe-status-text" class="">Abwesend / Ausgestempelt</span>
+<span class="" id="swipe-status-text">Abwesend / Ausgestempelt</span>
 </div>
 </div>
 </div>
 </div>
-
 <!-- Main Interactive Swipe Zone Card -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-3xl shadow-md border-2 border-primary/20 relative overflow-hidden flex flex-col items-center text-center gap-6">
 <div class="space-y-1">
 <div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-<span id="swipe-clock-date" class="">Freitag, 02. Oktober 2026</span>
+<span class="" id="swipe-clock-date">Freitag, 02. Oktober 2026</span>
 </div>
 <div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
 <p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
 </div>
 <div class="w-full max-w-lg transition-all duration-300 hidden p-3 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2" id="swipe-feedback-toast">
 <span class="material-symbols-outlined text-[20px]" id="swipe-feedback-icon">check_circle</span>
-<span id="swipe-feedback-message" class="">Erfolgreich gestempelt!</span>
+<span class="" id="swipe-feedback-message">Erfolgreich gestempelt!</span>
 </div>
 <div class="w-full max-w-2xl bg-surface-container-low rounded-2xl p-2.5 md:p-3 border-2 border-dashed border-outline/40 relative overflow-hidden select-none" id="swipe-track">
 <div class="absolute inset-0 flex items-center justify-between px-4 md:px-6 pointer-events-none text-xs font-bold uppercase tracking-wider opacity-70">
@@ -332,7 +325,6 @@ Mitarbeiter auswählen:
 Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Buchungen werden sofort ins Schuljahres-Konto gerechnet!
 </p>
 </div>
-
 <!-- Live Activity Log: DIE 5 HANDY-EINTRÄGE GARANTIERT SICHTBAR -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high">
 <div class="flex items-center justify-between border-b border-surface-container-high pb-4 mb-4">
@@ -348,7 +340,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
 </div>
 </div>
-
 <div class="space-y-3" id="swipe-activity-log">
 <!-- 1. Eintrag -->
 <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
@@ -361,7 +352,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
 </div>
-
 <!-- 2. Eintrag -->
 <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
 <div class="flex items-center gap-3">
@@ -373,7 +363,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span>
 </div>
-
 <!-- 3. Eintrag -->
 <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
 <div class="flex items-center gap-3">
@@ -385,7 +374,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
 </div>
-
 <!-- 4. Eintrag -->
 <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
 <div class="flex items-center gap-3">
@@ -397,7 +385,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span>
 </div>
-
 <!-- 5. Eintrag -->
 <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
 <div class="flex items-center gap-3">
@@ -412,7 +399,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </div>
 </div>
-
 <!-- VIEW: DASHBOARD -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1200px] mx-auto gap-6 md:gap-8 pb-20" id="view-dashboard">
 <div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
@@ -468,7 +454,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="dashboard-employees-grid"></div>
 </div>
-
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[900px] mx-auto gap-6 md:gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -480,7 +465,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full">Schuljahr <span class="active-school-year-short">26/27</span></span>
 </div>
 <form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden">
+<input id="entry-id" type="hidden"/>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-employee">Mitarbeiter</label>
@@ -494,29 +479,29 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-date">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text">
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-from" type="time" value="07:30">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-to" type="time" value="12:00">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-from" type="time" value="07:30"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-to" type="time" value="12:00"/>
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-from" type="time" value="13:00">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-to" type="time" value="16:30">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-from" type="time" value="13:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-to" type="time" value="16:30"/>
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abend / Nacht</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-from" type="time" value="">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-to" type="time" value="">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-from" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-to" type="time" value=""/>
 </div>
 </div>
 </div>
@@ -532,7 +517,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-notes">Bemerkungen</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung, Förderunterricht" type="text">
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung, Förderunterricht" type="text"/>
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-4">
@@ -541,13 +526,12 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </form>
 </div>
-
 <!-- Entries list with persistent filter -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
 <div>
 <h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten</h3>
-<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Nicole De Pretto</p>
+<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Nicole De Pretto (12 Einträge inkl. 01.10. &amp; 02.10.2026 Mobile-Einträge)</p>
 </div>
 <div class="flex items-center gap-2">
 <label class="text-xs font-bold text-on-surface-variant uppercase" for="filter-entry-employee">Filter:</label>
@@ -560,10 +544,9 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </select>
 </div>
 </div>
-<div class="space-y-3" id="time-entries-list"></div>
+<div class="space-y-3" id="time-entries-list"><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3"><div class="space-y-1"><div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">ND</span><p class="font-bold text-sm text-on-surface">Nicole De Pretto • <span class="text-primary">02.10.2026</span></p><span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">7.5 h</span></div><div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2"><span>VM: 08:00–12:00 | NM: 13:00–16:30</span><span>•</span><span class="font-semibold text-on-surface">⚡ Swipe-Uhr (VM 4.0h / NM 3.5h) Live verbucht</span></div></div><div class="flex items-center gap-2 w-full sm:w-auto justify-end"><button class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1" onclick="editEntryInForm('seed_nd_12')"><span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten</button><button class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all" onclick="deleteEntry('seed_nd_12')">Löschen</button></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3"><div class="space-y-1"><div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">ND</span><p class="font-bold text-sm text-on-surface">Nicole De Pretto • <span class="text-primary">01.10.2026</span></p><span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">7.75 h</span></div><div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2"><span>VM: 08:00–12:00 | NM: 13:00–16:45</span><span>•</span><span class="font-semibold text-on-surface">⚡ Swipe-Uhr (08:00 - 16:45) Live verbucht</span></div></div><div class="flex items-center gap-2 w-full sm:w-auto justify-end"><button class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1" onclick="editEntryInForm('seed_nd_11')"><span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten</button><button class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all" onclick="deleteEntry('seed_nd_11')">Löschen</button></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3"><div class="space-y-1"><div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">ND</span><p class="font-bold text-sm text-on-surface">Nicole De Pretto • <span class="text-primary">30.09.2026</span></p><span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">7.0 h</span></div><div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2"><span>VM: 08:00–12:00 | NM: 13:00–16:00</span><span>•</span><span class="font-semibold text-on-surface">Standortgespräche Vorbereitung</span></div></div><div class="flex items-center gap-2 w-full sm:w-auto justify-end"><button class="px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold rounded-lg text-xs transition-all flex items-center gap-1" onclick="editEntryInForm('seed_nd_10')"><span class="material-symbols-outlined text-[14px]">edit</span> Bearbeiten</button><button class="px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold rounded-lg text-xs transition-all" onclick="deleteEntry('seed_nd_10')">Löschen</button></div></div></div>
 </div>
 </div>
-
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1100px] mx-auto gap-6 md:gap-8 pb-20" id="view-wochenuebersicht">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -581,7 +564,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
 </div>
-
 <!-- VIEW: MITARBEITER -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1000px] mx-auto gap-6 md:gap-8 pb-20" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
@@ -595,7 +577,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
 </div>
-
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1050px] mx-auto gap-6 md:gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -622,7 +603,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-4" id="reports-content"></div>
 </div>
 </div>
-
 <!-- VIEW: ERKLÄRUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[950px] mx-auto gap-6 md:gap-8 pb-24" id="view-erklaerung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
@@ -632,10 +612,8 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </p>
 </div>
 </div>
-
 </main>
 </div>
-
 <!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
@@ -646,23 +624,23 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </button>
 </div>
 <form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden">
+<input id="emp-id" type="hidden"/>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Name</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-name" required="" type="text">
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Rolle</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-role" required="" type="text">
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Pensum (%)</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-pensum" max="100" min="1" required="" type="number">
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-pensum" max="100" min="1" required="" type="number"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Jahressoll (h)</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-yearly-total" required="" step="0.1" type="number">
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-yearly-total" required="" step="0.1" type="number"/>
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4 pt-2">
@@ -672,7 +650,6 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </form>
 </div>
 </div>
-
 <script>
 const firebaseConfig = {
     apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
