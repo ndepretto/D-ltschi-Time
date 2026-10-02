@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - Mobile Swipe-Stempeluhr &amp; Zeiterfassung</title>
 <style>
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
@@ -46,8 +44,8 @@ tailwind.config = {
     }
 };
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
@@ -100,7 +98,7 @@ tailwind.config = {
 <div class="flex items-start justify-between border-b border-surface-container-high pb-3">
 <div class="flex items-center gap-2 text-primary font-bold text-base">
 <span class="material-symbols-outlined text-[24px]">qr_code_2</span>
-<span>Handy-Direktzugriff</span>
+<span class="">Handy-Direktzugriff</span>
 </div>
 <button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-all" onclick="closeQrCodeModal()" type="button">
 <span class="material-symbols-outlined text-[20px]">close</span>
@@ -109,15 +107,15 @@ tailwind.config = {
 <div class="text-center flex flex-col items-center gap-4">
 <p class="text-xs text-on-surface-variant">Scanne diesen QR-Code mit der Smartphone-Kamera, um die Stempeluhr mobil zu nutzen:</p>
 <div class="p-3 bg-white rounded-2xl shadow-md border-2 border-primary/20 inline-block">
-<img alt="QR-Code für Döltschi Time" class="w-48 h-48 md:w-56 md:h-56 block rounded-lg select-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVeYgf8zpBQRN7mo-x1iYSOPdlelf1zQbipVGIkLaQmmAaEpOrQgGypMo9ldZ5k7LMPvKw0lySC2pzcV1EdRDjHcIfKJei3qye2UPYtoKG-ZBRcfYCdNSS1CeDCSHDsCEMBaPEdtx7e3KoFSBKOpqJuCRCEvvzmL1eqYcs-lGZhBAeklA8_VXf11-w5AlFSFjnIJJ9a-4FEEVGwhI-tS_HQPmjvAgofDARsck-S4p6EXTbZ1y2_A2"/>
+<img alt="QR-Code für Döltschi Time" class="w-48 h-48 md:w-56 md:h-56 block rounded-lg select-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVeYgf8zpBQRN7mo-x1iYSOPdlelf1zQbipVGIkLaQmmAaEpOrQgGypMo9ldZ5k7LMPvKw0lySC2pzcV1EdRDjHcIfKJei3qye2UPYtoKG-ZBRcfYCdNSS1CeDCSHDsCEMBaPEdtx7e3KoFSBKOpqJuCRCEvvzmL1eqYcs-lGZhBAeklA8_VXf11-w5AlFSFjnIJJ9a-4FEEVGwhI-tS_HQPmjvAgofDARsck-S4p6EXTbZ1y2_A2">
 </div>
 <div class="w-full bg-surface-container-low p-3.5 rounded-xl border border-surface-container-high text-left space-y-1.5 text-xs text-on-surface">
 <div class="font-bold text-primary flex items-center gap-1.5 uppercase text-[11px] tracking-wide">
 <span class="material-symbols-outlined text-[16px]">smartphone</span> Anleitung
 </div>
-<p>1. iPhone- oder Android-Kamera öffnen</p>
-<p>2. Auf den QR-Code richten &amp; Link antippen</p>
-<p>3. Sofort ohne Passwort losstempeln &amp; swipen!</p>
+<p class="">1. iPhone- oder Android-Kamera öffnen</p>
+<p class="">2. Auf den QR-Code richten &amp; Link antippen</p>
+<p class="">3. Sofort ohne Passwort losstempeln &amp; swipen!</p>
 </div>
 <div class="w-full flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded-xl border border-surface-container-high text-xs truncate">
 <span class="material-symbols-outlined text-primary text-[18px] shrink-0">link</span>
@@ -224,10 +222,7 @@ tailwind.config = {
 <span class="material-symbols-outlined text-[16px] text-primary" id="sync-icon">sync</span>
 <span class="hidden sm:inline">Sync</span>
 </button>
-<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 border border-emerald-200" id="firebase-status">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="hidden md:inline" id="cloud-sync-label">Bereit</span>
-</span>
+<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 border border-emerald-200" id="firebase-status"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span><span class="hidden md:inline" id="cloud-sync-label">Echtzeit-Sync Aktiv</span></span>
 </div>
 </header>
 <main class="relative pt-16 bg-surface min-h-screen">
@@ -264,7 +259,7 @@ Mitarbeiter auswählen:
 <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
 <div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
 <span class="w-2.5 h-2.5 rounded-full bg-slate-400 shrink-0" id="swipe-status-dot"></span>
-<span id="swipe-status-text">Abwesend / Ausgestempelt</span>
+<span id="swipe-status-text" class="">Abwesend / Ausgestempelt</span>
 </div>
 </div>
 </div>
@@ -274,23 +269,23 @@ Mitarbeiter auswählen:
 <div class="space-y-1">
 <div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-<span id="swipe-clock-date">Freitag, 01. September 2026</span>
+<span id="swipe-clock-date" class="">Freitag, 01. September 2026</span>
 </div>
 <div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
 <p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
 </div>
 <div class="w-full max-w-lg transition-all duration-300 hidden p-3 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2" id="swipe-feedback-toast">
 <span class="material-symbols-outlined text-[20px]" id="swipe-feedback-icon">check_circle</span>
-<span id="swipe-feedback-message">Erfolgreich gestempelt!</span>
+<span id="swipe-feedback-message" class="">Erfolgreich gestempelt!</span>
 </div>
 <div class="w-full max-w-2xl bg-surface-container-low rounded-2xl p-2.5 md:p-3 border-2 border-dashed border-outline/40 relative overflow-hidden select-none" id="swipe-track">
 <div class="absolute inset-0 flex items-center justify-between px-4 md:px-6 pointer-events-none text-xs font-bold uppercase tracking-wider opacity-70">
 <div class="flex items-center gap-1 md:gap-2 text-rose-700">
 <span class="material-symbols-outlined text-[20px] md:text-[22px]">arrow_back</span>
-<span>👈 Gehen</span>
+<span class="">👈 Gehen</span>
 </div>
 <div class="flex items-center gap-1 md:gap-2 text-emerald-700">
-<span>Kommen 👉</span>
+<span class="">Kommen 👉</span>
 <span class="material-symbols-outlined text-[20px] md:text-[22px]">arrow_forward</span>
 </div>
 </div>
@@ -313,11 +308,11 @@ Mitarbeiter auswählen:
 <div class="w-full max-w-lg flex items-center justify-center gap-3 md:gap-4 pt-1">
 <button class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockIn('button')">
 <span class="material-symbols-outlined text-[20px]">login</span>
-<span>Kommen (Einstempeln)</span>
+<span class="">Kommen (Einstempeln)</span>
 </button>
 <button class="flex-1 py-3 px-4 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockOut('button')">
 <span class="material-symbols-outlined text-[20px]">logout</span>
-<span>Gehen (Ausstempeln)</span>
+<span class="">Gehen (Ausstempeln)</span>
 </button>
 </div>
 <p class="text-xs text-on-surface-variant max-w-md">
@@ -405,7 +400,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full">Schuljahr <span class="active-school-year-short">26/27</span></span>
 </div>
 <form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
+<input id="entry-id" type="hidden">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-employee">Mitarbeiter</label>
@@ -419,29 +414,29 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-date">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text">
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-from" type="time" value="07:30"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-to" type="time" value="12:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-from" type="time" value="07:30">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="vm-to" type="time" value="12:00">
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-to" type="time" value="16:30"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-from" type="time" value="13:00">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="nm-to" type="time" value="16:30">
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abend / Nacht</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-to" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-from" type="time" value="">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm font-semibold" id="abend-to" type="time" value="">
 </div>
 </div>
 </div>
@@ -457,7 +452,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase" for="entry-notes">Bemerkungen</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung, Förderunterricht" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung, Förderunterricht" type="text">
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-4">
@@ -564,23 +559,23 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </button>
 </div>
 <form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
+<input id="emp-id" type="hidden">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Name</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-name" required="" type="text">
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Rolle</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-role" required="" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Pensum (%)</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-pensum" max="100" min="1" required="" type="number"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-pensum" max="100" min="1" required="" type="number">
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Jahressoll (h)</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-yearly-total" required="" step="0.1" type="number"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-yearly-total" required="" step="0.1" type="number">
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4 pt-2">
@@ -1690,4 +1685,6 @@ window.addEventListener('DOMContentLoaded', () => {
     loadInitialData();
 });
 </script>
+
+
 </body></html>
