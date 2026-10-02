@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de-CH"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de-CH"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time – Smartphone Schnellzugriff &amp; QR-Code</title>
 <!-- Tailwind CSS CDN mit Forms und Container Queries -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -73,7 +71,7 @@
 <!-- Logo & App Name -->
 <div class="flex items-center space-x-4">
 <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-800 to-brand-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
-<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
 </svg>
 </div>
@@ -91,14 +89,14 @@
 <!-- Action Buttons -->
 <div class="flex items-center space-x-3 no-print">
 <button class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-brand-800 bg-brand-50 hover:bg-brand-100 border border-brand-200 transition-colors duration-150 shadow-sm" onclick="window.print()">
-<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
           Aushang drucken
         </button>
 <a class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-lg text-white bg-brand-700 hover:bg-brand-800 transition-colors duration-150 shadow-sm shadow-brand-700/20" href="https://ndepretto.github.io/Zeiterfassung/" rel="noopener noreferrer" target="_blank">
-<span>Web-App direkt öffnen</span>
-<svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<span class="">Web-App direkt öffnen</span>
+<svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </a>
@@ -138,28 +136,17 @@
 <span class="px-2.5 py-1 text-xs font-medium bg-slate-100 text-slate-600 rounded-md">iOS &amp; Android</span>
 </div>
 <!-- QR Code Image Box -->
-<div class="bg-gradient-to-b from-slate-50 to-white p-5 rounded-2xl border border-slate-200 flex flex-col items-center justify-center shadow-inner relative group">
-<div class="bg-white p-3 rounded-xl border border-slate-200 shadow-md transition-transform duration-300 group-hover:scale-[1.01]">
-<img alt="QR Code für Döltschi Time Zeiterfassung" class="w-56 h-56 md:w-60 md:h-60 object-contain mx-auto" id="qrImage" loading="eager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL2x8d0oMQLk-HEHlCdDNfY0ASkNS-k35Ofztmn0DEqUW4SYc0sDjEZINHtgUOgl2Ib4EJQCD-cDmBSGnxD1T7Nkwz1XxlCHCpZnmoUtE-lAepj_UjAqfrxb4zbUIuh90FYuYjuJXDi6kBn7BnLDOhION_luuz_DFdgABH653ik-sc1vNLjwCxbribJw1DeDrrf4YXwIdI91Xc1cCdjIaJPELWidl-9utLzUhUjkAk3FflQsX3YNNU"/>
-</div>
-<p class="text-xs text-slate-500 font-medium mt-3.5 flex items-center">
-<svg class="w-4 h-4 mr-1.5 text-brand-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-<path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-              Standard Smartphone-Kamera darauf halten
-            </p>
-</div>
+<div class="bg-gradient-to-b from-slate-50 to-white p-5 rounded-2xl border border-slate-200 flex flex-col items-center justify-center shadow-inner relative group"><div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md transition-transform duration-300 group-hover:scale-[1.01] flex items-center justify-center"><img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&amp;margin=10&amp;data=https%3A%2F%2Fndepretto.github.io%2FZeiterfassung%2F" alt="QR-Code für Döltschi Time Zeiterfassung (https://ndepretto.github.io/Zeiterfassung/)" class="w-56 h-56 md:w-60 md:h-60 object-contain mx-auto block" loading="eager"></div><p class="text-xs text-slate-600 font-semibold mt-3.5 flex items-center"><svg class="w-4 h-4 mr-1.5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>Mit Smartphone-Kamera scannen</p></div>
 <!-- Copyable Web Address -->
 <div class="mt-5" data-purpose="url-copy-box">
 <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Web-Adresse (URL)</label>
 <div class="flex items-center rounded-xl border border-slate-300 bg-slate-50 overflow-hidden focus-within:border-brand-600 focus-within:ring-1 focus-within:ring-brand-600">
-<input class="bg-transparent border-0 text-xs sm:text-sm text-slate-700 font-mono flex-1 px-3 py-2.5 focus:ring-0 select-all" id="urlInput" readonly="" type="text" value="https://ndepretto.github.io/Zeiterfassung/"/>
+<input class="bg-transparent border-0 text-xs sm:text-sm text-slate-700 font-mono flex-1 px-3 py-2.5 focus:ring-0 select-all" id="urlInput" readonly="" type="text" value="https://ndepretto.github.io/Zeiterfassung/">
 <button class="px-3.5 py-2.5 bg-white text-xs font-semibold text-brand-700 hover:bg-brand-50 border-l border-slate-300 transition-colors flex items-center whitespace-nowrap" id="copyUrlBtn" onclick="copyToClipboard('https://ndepretto.github.io/Zeiterfassung/', 'copyUrlBtn', 'Kopiert!')">
-<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Kopieren</span>
+<span class="">Kopieren</span>
 </button>
 </div>
 </div>
@@ -167,7 +154,7 @@
 <div class="mt-4 p-4 rounded-xl bg-amber-50/90 border border-amber-200/80 flex items-center justify-between" data-purpose="password-notice">
 <div class="flex items-center space-x-3">
 <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </div>
@@ -177,10 +164,10 @@
 </div>
 </div>
 <button class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-200/80 hover:bg-amber-300 text-amber-950 transition-colors flex items-center" id="copyPwBtn" onclick="copyToClipboard('Willma', 'copyPwBtn', 'Kopiert!')">
-<svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Passwort kopieren</span>
+<span class="">Passwort kopieren</span>
 </button>
 </div>
 </div>
@@ -240,29 +227,29 @@
 <!-- Apple iOS Safari -->
 <div class="bg-white p-3.5 rounded-xl border border-slate-200">
 <div class="flex items-center space-x-2 font-bold text-slate-800 mb-1.5">
-<svg class="w-4 h-4 text-slate-700" fill="currentColor" viewbox="0 0 24 24">
+<svg class="w-4 h-4 text-slate-700" fill="currentColor" viewBox="0 0 24 24">
 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.64-.78 1.08-1.86.96-2.95-1 .04-2.13.66-2.79 1.43-.57.65-1.08 1.73-.95 2.79 1.12.09 2.19-.55 2.78-1.27z"></path>
 </svg>
-<span>Apple iPhone (Safari)</span>
+<span class="">Apple iPhone (Safari)</span>
 </div>
 <ol class="list-decimal list-inside space-y-1 text-slate-600">
-<li>Unten auf <strong class="text-slate-800">«Teilen»</strong> (Viereck mit Pfeil nach oben) tippen.</li>
-<li>Nach unten scrollen zu <strong class="text-slate-800">«Zum Home-Bildschirm»</strong>.</li>
-<li>Oben rechts auf <strong class="text-slate-800">«Hinzufügen»</strong> tippen.</li>
+<li class="">Unten auf <strong class="text-slate-800">«Teilen»</strong> (Viereck mit Pfeil nach oben) tippen.</li>
+<li class="">Nach unten scrollen zu <strong class="text-slate-800">«Zum Home-Bildschirm»</strong>.</li>
+<li class="">Oben rechts auf <strong class="text-slate-800">«Hinzufügen»</strong> tippen.</li>
 </ol>
 </div>
 <!-- Android Chrome -->
 <div class="bg-white p-3.5 rounded-xl border border-slate-200">
 <div class="flex items-center space-x-2 font-bold text-slate-800 mb-1.5">
-<svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewbox="0 0 24 24">
+<svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
 <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993 0 .5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1523-.5676.416.416 0 00-.5676.1523l-2.0223 3.503C15.5902 8.4116 13.8533 8.125 12 8.125c-1.8533 0-3.5902.2866-5.1366.8249L4.8411 5.4469a.416.416 0 00-.5676-.1523.416.416 0 00-.1523.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.75h24c-.3432-4.0911-2.6889-7.5633-6.1185-9.4286"></path>
 </svg>
-<span>Android (Google Chrome)</span>
+<span class="">Android (Google Chrome)</span>
 </div>
 <ol class="list-decimal list-inside space-y-1 text-slate-600">
-<li>Oben rechts auf die <strong class="text-slate-800">3 Punkte (Menü)</strong> tippen.</li>
-<li><strong class="text-slate-800">«App installieren»</strong> oder <strong class="text-slate-800">«Zum Startbildschirm»</strong> wählen.</li>
-<li>Bestätigen – Icon erscheint sofort.</li>
+<li class="">Oben rechts auf die <strong class="text-slate-800">3 Punkte (Menü)</strong> tippen.</li>
+<li class=""><strong class="text-slate-800">«App installieren»</strong> oder <strong class="text-slate-800">«Zum Startbildschirm»</strong> wählen.</li>
+<li class="">Bestätigen – Icon erscheint sofort.</li>
 </ol>
 </div>
 </div>
@@ -340,7 +327,7 @@
 <section class="mt-10 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 no-print" data-purpose="quick-actions-bar">
 <div class="flex items-center space-x-4">
 <div class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-700 shrink-0">
-<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </div>
@@ -353,7 +340,7 @@
 </div>
 <div class="flex items-center space-x-3 shrink-0">
 <button class="px-4 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 text-xs sm:text-sm font-semibold transition-colors flex items-center shadow" onclick="window.print()">
-<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
           Aushang jetzt drucken
@@ -367,10 +354,10 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
 <div class="flex items-center space-x-2">
 <span class="font-semibold text-slate-700">Döltschi Time</span>
-<span>•</span>
-<span>Zürich</span>
-<span>•</span>
-<span>Version 2025.1</span>
+<span class="">•</span>
+<span class="">Zürich</span>
+<span class="">•</span>
+<span class="">Version 2025.1</span>
 </div>
 <div class="text-slate-400">
         Für Fragen zur Zeiterfassung: Leitungsteam Döltschi
@@ -421,4 +408,6 @@
     }
   </script>
 <!-- END: Copy-to-Clipboard Scripts -->
+
+
 </body></html>
