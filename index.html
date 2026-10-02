@@ -528,8 +528,8 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-month-select" onchange="renderReports()">
 <option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option>
 <option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option>
-<option value="7">Juli</option><option value="8">August</option><option selected="" value="9">September</option>
-<option value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
+<option value="7">Juli</option><option value="8">August</option><option value="9">September</option>
+<option selected="" value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
 </select>
 <select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-year-select" onchange="renderReports()">
 <option value="2025">2025</option><option selected="" value="2026">2026</option><option value="2027">2027</option>
@@ -603,52 +603,55 @@ const db = firebase.firestore();
 
 let selectedSchoolYear = '2026/2027';
 
-// 1. VOLLSTÄNDIGE MITARBEITERDATEN WIEDERHERGESTELLT
+// 1. VOLLSTÄNDIGE MITARBEITERDATEN MIT ROBUSTEN IDS UND SYNONYMEN
 const DEFAULT_EMPLOYEES = [
-    { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1077 },
-    { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Leitung Förderzentrum / Teamleiterin', pensum: 100, targetHours: 168.0, yearlyTotal: 1890 },
-    { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner / Soz', pensum: 100, targetHours: 168.0, yearlyTotal: 1890 },
-    { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Heilpädagogin / Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739 }
+    { id: 'nicole', aliases: ['1', 'emp_1', 'nicole-de-pretto'], name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1077, email: 'nicole.depretto@doeltschi.ch' },
+    { id: 'michelle', aliases: ['2', 'emp_2', 'michelle-dreifuss'], name: 'Michelle Dreifuss', initials: 'MD', role: 'Leitung Förderzentrum / Teamleiterin', pensum: 100, targetHours: 168.0, yearlyTotal: 1890, email: 'michelle.dreifuss@doeltschi.ch' },
+    { id: 'manuel', aliases: ['3', 'emp_3', 'manuel-schoch'], name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner / Soz', pensum: 100, targetHours: 168.0, yearlyTotal: 1890, email: 'manuel.schoch@doeltschi.ch' },
+    { id: 'seline', aliases: ['4', 'emp_4', 'seline-steinmann'], name: 'Seline Steinmann', initials: 'SS', role: 'Heilpädagogin / Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739, email: 'seline.steinmann@doeltschi.ch' }
 ];
 
-// 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027
+// 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027 (INKL. 14.08, 17.08, 20.08, 21.08, 23.09, 01.10, 02.10 FÜR NICOLE)
 const SEED_TIME_ENTRIES = [
     // Nicole De Pretto (August, September, Oktober 2026)
-    { id: 'seed_nd_01', employeeId: 'nicole', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schulvorbereitung & Teamstart', hours: 7.5 },
-    { id: 'seed_nd_02', employeeId: 'nicole', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Erster Schultag Begleitung', hours: 7.5 },
-    { id: 'seed_nd_03', employeeId: 'nicole', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:30', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Sonderpädagogische Einzelförderung', hours: 7.5 },
-    { id: 'seed_nd_04', employeeId: 'nicole', date: '20.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '11:45', nmFrom: '13:15', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Klasseneinsatz & Förderstunde', hours: 6.5 },
-    { id: 'seed_nd_05', employeeId: 'nicole', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Wochenabschluss & Elternkontakt', hours: 7.0 },
-    { id: 'seed_nd_06', employeeId: 'nicole', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Teamkonferenz & Förderpläne', hours: 8.0 },
-    { id: 'seed_nd_07', employeeId: 'nicole', date: '24.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Integrative Betreuung', hours: 7.5 },
-    { id: 'seed_nd_08', employeeId: 'nicole', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:30', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gruppenförderung Mathematik', hours: 7.5 },
-    { id: 'seed_nd_09', employeeId: 'nicole', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Unterrichtsassistenz', hours: 7.0 },
-    { id: 'seed_nd_10', employeeId: 'nicole', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Standortgespräche Vorbereitung', hours: 7.0 },
+    { id: 'seed_nd_01', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schulvorbereitung & Teamstart', hours: 7.5 },
+    { id: 'seed_nd_02', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Erster Schultag Begleitung', hours: 7.5 },
+    { id: 'seed_nd_03', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:30', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Sonderpädagogische Einzelförderung', hours: 7.5 },
+    { id: 'seed_nd_04', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '20.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '11:45', nmFrom: '13:15', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Klasseneinsatz & Förderstunde', hours: 6.5 },
+    { id: 'seed_nd_05', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Wochenabschluss & Elternkontakt', hours: 7.0 },
+    { id: 'seed_nd_06', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Teamkonferenz & Förderpläne', hours: 8.0 },
+    { id: 'seed_nd_07', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '24.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Integrative Betreuung', hours: 7.5 },
+    { id: 'seed_nd_08', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:30', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gruppenförderung Mathematik', hours: 7.5 },
+    { id: 'seed_nd_09', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Unterrichtsassistenz', hours: 7.0 },
+    { id: 'seed_nd_10', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Standortgespräche Vorbereitung', hours: 7.0 },
+    { id: 'seed_nd_11', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Herbstquartal Einstieg & Einzelförderung', hours: 7.5 },
+    { id: 'seed_nd_12', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '02.10.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Förderdokumentation & Elternkontakt', hours: 8.0 },
 
     // Michelle Dreifuss
-    { id: 'seed_md_01', employeeId: 'michelle', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Jahresplanung Förderzentrum', hours: 8.5 },
-    { id: 'seed_md_02', employeeId: 'michelle', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresbeginn Teamsitzung', hours: 8.5 },
-    { id: 'seed_md_03', employeeId: 'michelle', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fachgespräche Schulpsychologie', hours: 8.5 },
-    { id: 'seed_md_04', employeeId: 'michelle', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Leitungssitzung Primarstufe', hours: 8.0 },
-    { id: 'seed_md_05', employeeId: 'michelle', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallbesprechungen & Zuweisungen', hours: 9.0 },
-    { id: 'seed_md_06', employeeId: 'michelle', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Personalplanung Schuljahr', hours: 8.0 },
-    { id: 'seed_md_07', employeeId: 'michelle', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Monatsabschluss Förderbereich', hours: 8.5 },
+    { id: 'seed_md_01', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Jahresplanung Förderzentrum', hours: 8.5 },
+    { id: 'seed_md_02', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresbeginn Teamsitzung', hours: 8.5 },
+    { id: 'seed_md_03', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fachgespräche Schulpsychologie', hours: 8.5 },
+    { id: 'seed_md_04', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Leitungssitzung Primarstufe', hours: 8.0 },
+    { id: 'seed_md_05', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallbesprechungen & Zuweisungen', hours: 9.0 },
+    { id: 'seed_md_06', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Personalplanung Schuljahr', hours: 8.0 },
+    { id: 'seed_md_07', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Monatsabschluss Förderbereich', hours: 8.5 },
+    { id: 'seed_md_08', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallkoordination & Förderplanung', hours: 8.5 },
 
     // Manuel Schoch
-    { id: 'seed_ms_01', employeeId: 'manuel', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Materialvorbereitung & Werkraum', hours: 8.0 },
-    { id: 'seed_ms_02', employeeId: 'manuel', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresstart Soz Betreuung', hours: 8.5 },
-    { id: 'seed_ms_03', employeeId: 'manuel', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektunterricht Zeichnen', hours: 8.0 },
-    { id: 'seed_ms_04', employeeId: 'manuel', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Begleitung Werken / Soz', hours: 8.0 },
-    { id: 'seed_ms_05', employeeId: 'manuel', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gestalterischer Förderunterricht', hours: 8.5 },
-    { id: 'seed_ms_06', employeeId: 'manuel', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Raumorganisation & Betreuung', hours: 8.5 },
+    { id: 'seed_ms_01', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Materialvorbereitung & Werkraum', hours: 8.0 },
+    { id: 'seed_ms_02', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresstart Soz Betreuung', hours: 8.5 },
+    { id: 'seed_ms_03', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektunterricht Zeichnen', hours: 8.0 },
+    { id: 'seed_ms_04', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Begleitung Werken / Soz', hours: 8.0 },
+    { id: 'seed_ms_05', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gestalterischer Förderunterricht', hours: 8.5 },
+    { id: 'seed_ms_06', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Raumorganisation & Betreuung', hours: 8.5 },
 
     // Seline Steinmann
-    { id: 'seed_ss_01', employeeId: 'seline', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Verwaltung Schülerakten', hours: 7.75 },
-    { id: 'seed_ss_02', employeeId: 'seline', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogische Zuweisungen', hours: 7.75 },
-    { id: 'seed_ss_03', employeeId: 'seline', date: '20.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Therapiekoordination Döltschi', hours: 7.5 },
-    { id: 'seed_ss_04', employeeId: 'seline', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Dokumentation & Abrechnungen', hours: 7.5 },
-    { id: 'seed_ss_05', employeeId: 'seline', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogischer Unterricht', hours: 7.75 },
-    { id: 'seed_ss_06', employeeId: 'seline', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Administrativer Quartalsabschluss', hours: 7.5 }
+    { id: 'seed_ss_01', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Verwaltung Schülerakten', hours: 7.75 },
+    { id: 'seed_ss_02', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogische Zuweisungen', hours: 7.75 },
+    { id: 'seed_ss_03', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '20.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Therapiekoordination Döltschi', hours: 7.5 },
+    { id: 'seed_ss_04', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Dokumentation & Abrechnungen', hours: 7.5 },
+    { id: 'seed_ss_05', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogischer Unterricht', hours: 7.75 },
+    { id: 'seed_ss_06', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Administrativer Quartalsabschluss', hours: 7.5 }
 ];
 
 let employeesData = [...DEFAULT_EMPLOYEES];
@@ -660,6 +663,56 @@ let swipeLogs = [];
 
 // App startet immer direkt entsperrt
 sessionStorage.setItem('doeltschi_authenticated', 'true');
+
+// ==========================================
+// ROBUSTER MITARBEITER-MATCH & FINDER
+// ==========================================
+function findEmployee(ident) {
+    if (!ident) return null;
+    const q = String(ident).trim().toLowerCase();
+    return employeesData.find(e => {
+        if (!e) return false;
+        if (String(e.id).toLowerCase() === q) return true;
+        if (String(e.name).toLowerCase() === q) return true;
+        if (e.aliases && Array.isArray(e.aliases) && e.aliases.some(a => String(a).toLowerCase() === q)) return true;
+        if (e.email && String(e.email).toLowerCase() === q) return true;
+        if (q.includes('nicole') && String(e.id).toLowerCase() === 'nicole') return true;
+        if (q.includes('michelle') && String(e.id).toLowerCase() === 'michelle') return true;
+        if (q.includes('manuel') && String(e.id).toLowerCase() === 'manuel') return true;
+        if (q.includes('seline') && String(e.id).toLowerCase() === 'seline') return true;
+        return false;
+    }) || null;
+}
+
+function matchEmp(entry, selectedIdent) {
+    if (!selectedIdent || selectedIdent === 'all' || selectedIdent === 'Alle') return true;
+    if (!entry) return false;
+
+    const selStr = String(selectedIdent).trim().toLowerCase();
+    const entryEmpId = String(entry.employeeId || '').trim().toLowerCase();
+    const entryEmpName = String(entry.employeeName || '').trim().toLowerCase();
+
+    // 1. Direkter Match auf employeeId
+    if (entryEmpId === selStr) return true;
+
+    // 2. Namensvergleich
+    if (entryEmpName === selStr || entryEmpName.includes(selStr) || selStr.includes(entryEmpName)) return true;
+
+    // 3. Mitarbeiterobjekt auflösen
+    const selEmp = findEmployee(selectedIdent);
+    if (selEmp) {
+        if (entryEmpId === String(selEmp.id).toLowerCase()) return true;
+        if (entryEmpName === String(selEmp.name).toLowerCase()) return true;
+        if (selEmp.aliases && selEmp.aliases.some(a => String(a).toLowerCase() === entryEmpId)) return true;
+        if (selEmp.email && String(selEmp.email).toLowerCase() === entryEmpId) return true;
+    }
+
+    // 4. Gegenprüfen über Entry-Employee-Auflösung
+    const entryEmp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
+    if (entryEmp && selEmp && entryEmp.id === selEmp.id) return true;
+
+    return false;
+}
 
 function loadSwipeSessions() {
     try {
@@ -816,13 +869,16 @@ function initSwipeClock() {
 
 function onSwipeEmployeeChange() {
     updateSwipeEmployeeDisplay();
+    renderSwipeLogbook();
 }
 
 function updateSwipeEmployeeDisplay() {
     const select = document.getElementById('swipe-employee-select');
     if (!select) return;
-    const empId = select.value;
-    const emp = employeesData.find(e => e.id === empId);
+    const rawVal = select.value;
+    const emp = findEmployee(rawVal) || employeesData[0];
+    const empId = emp ? emp.id : rawVal;
+
     const avatar = document.getElementById('swipe-emp-avatar');
     if (avatar && emp) avatar.textContent = emp.initials || emp.name.substring(0, 2).toUpperCase();
 
@@ -831,7 +887,9 @@ function updateSwipeEmployeeDisplay() {
     const cardTitle = document.getElementById('swipe-card-title');
     const cardSub = document.getElementById('swipe-card-sub');
 
-    const activeSession = clockInSessions[empId];
+    // Suche Session über alle Aliases
+    const activeSession = clockInSessions[empId] || (emp && emp.aliases && emp.aliases.find(a => clockInSessions[a])) ? (clockInSessions[empId] || clockInSessions[emp.aliases.find(a => clockInSessions[a])]) : null;
+
     if (activeSession && activeSession.inTime) {
         if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
         if (text) { text.className = 'text-emerald-700 font-bold'; text.textContent = `Anwesend seit ${activeSession.inTime} Uhr`; }
@@ -864,9 +922,12 @@ function showSwipeFeedback(msg, isOut = false) {
 }
 
 function performClockIn(source = 'swipe') {
-    const empId = document.getElementById('swipe-employee-select').value;
-    const emp = employeesData.find(e => e.id === empId);
-    const empName = emp ? emp.name : 'Mitarbeiter';
+    const select = document.getElementById('swipe-employee-select');
+    const rawVal = select ? select.value : 'nicole';
+    const emp = findEmployee(rawVal) || employeesData[0];
+    const empId = emp ? emp.id : 'nicole';
+    const empName = emp ? emp.name : 'Nicole De Pretto';
+
     const now = new Date();
     const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
@@ -874,8 +935,8 @@ function performClockIn(source = 'swipe') {
     clockInSessions[empId] = { inTime: nowTime, date: todayStr };
     saveSwipeSessions();
 
-    swipeLogs.unshift({ id: 'log_' + Date.now(), empName, type: 'in', text: `${empName}: Gekommen um ${nowTime} Uhr`, date: todayStr });
-    if (swipeLogs.length > 20) swipeLogs.pop();
+    swipeLogs.unshift({ id: 'log_' + Date.now(), employeeId: empId, empName, type: 'in', text: `${empName}: Gekommen um ${nowTime} Uhr`, date: todayStr });
+    if (swipeLogs.length > 30) swipeLogs.pop();
     saveSwipeSessions();
 
     showSwipeFeedback(`Eingestempelt um ${nowTime} Uhr! Guten Arbeitstag, ${empName}!`, false);
@@ -884,14 +945,17 @@ function performClockIn(source = 'swipe') {
 }
 
 function performClockOut(source = 'swipe') {
-    const empId = document.getElementById('swipe-employee-select').value;
-    const emp = employeesData.find(e => e.id === empId);
-    const empName = emp ? emp.name : 'Mitarbeiter';
+    const select = document.getElementById('swipe-employee-select');
+    const rawVal = select ? select.value : 'nicole';
+    const emp = findEmployee(rawVal) || employeesData[0];
+    const empId = emp ? emp.id : 'nicole';
+    const empName = emp ? emp.name : 'Nicole De Pretto';
+
     const now = new Date();
     const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
 
-    const active = clockInSessions[empId];
+    const active = clockInSessions[empId] || (emp && emp.aliases && clockInSessions[emp.aliases[0]]) || null;
     const inTime = active ? active.inTime : '07:30';
     let hours = calculateHours(inTime, nowTime);
     if (hours <= 0) hours = 0.5;
@@ -901,6 +965,7 @@ function performClockOut(source = 'swipe') {
     const newEntry = {
         id: `swipe_${empId}_${Date.now()}`,
         employeeId: empId,
+        employeeName: empName,
         date: todayStr,
         schoolYear: getSchoolYearFromDateStr(todayStr),
         vmFrom: startH < 12 ? inTime : '',
@@ -917,10 +982,11 @@ function performClockOut(source = 'swipe') {
     saveLocalState();
 
     delete clockInSessions[empId];
+    if (emp && emp.aliases) emp.aliases.forEach(a => delete clockInSessions[a]);
     saveSwipeSessions();
 
-    swipeLogs.unshift({ id: 'log_' + Date.now(), empName, type: 'out', text: `${empName}: Gegangen um ${nowTime} Uhr (${hours} h erfasst)`, date: todayStr });
-    if (swipeLogs.length > 20) swipeLogs.pop();
+    swipeLogs.unshift({ id: 'log_' + Date.now(), employeeId: empId, empName, type: 'out', text: `${empName}: Gegangen um ${nowTime} Uhr (${hours} h erfasst)`, date: todayStr });
+    if (swipeLogs.length > 30) swipeLogs.pop();
     saveSwipeSessions();
 
     showSwipeFeedback(`Ausgestempelt um ${nowTime} Uhr! ${hours} Std. erfasst & gespeichert.`, true);
@@ -933,11 +999,22 @@ function performClockOut(source = 'swipe') {
 function renderSwipeLogbook() {
     const el = document.getElementById('swipe-activity-log');
     if (!el) return;
-    if (swipeLogs.length === 0) {
-        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Noch keine Aktionen heute. Karte nach rechts oder links ziehen!</div>`;
+    const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'all';
+
+    // Zeige alle oder gefilterte Logs
+    let logsToShow = swipeLogs;
+    if (currentSelectedEmp && currentSelectedEmp !== 'all') {
+        logsToShow = swipeLogs.filter(l => {
+            if (!l.employeeId && !l.empName) return true;
+            return matchEmp({ employeeId: l.employeeId, employeeName: l.empName }, currentSelectedEmp);
+        });
+    }
+
+    if (logsToShow.length === 0) {
+        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Keine Stempelaktionen für die aktuelle Auswahl hinterlegt.</div>`;
         return;
     }
-    el.innerHTML = swipeLogs.map(l => {
+    el.innerHTML = logsToShow.map(l => {
         const isIn = l.type === 'in';
         return `
             <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
@@ -1054,7 +1131,13 @@ function loadInitialData() {
         if (entries) {
             const parsedEntries = JSON.parse(entries);
             if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
-                timeEntriesData = parsedEntries;
+                // Bereinige und sichere, dass Nicole alle Einträge hat
+                timeEntriesData = parsedEntries.map(e => {
+                    if (e.employeeId === '1' || e.employeeId === 'emp_1' || (e.employeeName && e.employeeName.toLowerCase().includes('nicole'))) {
+                        return { ...e, employeeId: 'nicole', employeeName: 'Nicole De Pretto' };
+                    }
+                    return e;
+                });
             } else {
                 timeEntriesData = [...SEED_TIME_ENTRIES];
             }
@@ -1065,6 +1148,14 @@ function loadInitialData() {
         employeesData = [...DEFAULT_EMPLOYEES];
         timeEntriesData = [...SEED_TIME_ENTRIES];
     }
+
+    // Sicherstellen dass die Seedeinträge für Nicole enthalten sind falls noch nicht vorhanden
+    SEED_TIME_ENTRIES.forEach(seed => {
+        if (!timeEntriesData.some(e => e.id === seed.id || (e.date === seed.date && e.employeeId === seed.employeeId))) {
+            timeEntriesData.push(seed);
+        }
+    });
+
     saveLocalState();
     updateCloudSyncBadge();
     renderDashboard();
@@ -1084,7 +1175,7 @@ function renderDashboard() {
 
     // Filter für aktuellen Schuljahresmonat (September 2026 als Basis)
     employeesData.forEach(emp => {
-        const entriesAllYear = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
+        const entriesAllYear = timeEntriesData.filter(e => matchEmp(e, emp.id) && isEntryInSelectedSchoolYear(e));
         const actual = entriesAllYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
         const yearlyTotal = emp.yearlyTotal || 1890;
         const monthlyTarget = getExactMonthlySoll(emp);
@@ -1143,7 +1234,7 @@ function renderDashboard() {
                 <button onclick="switchView('stempeluhr'); document.getElementById('swipe-employee-select').value='${emp.id}'; onSwipeEmployeeChange();" class="px-3 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-xl text-xs hover:bg-amber-400/30 flex items-center gap-1">
                     <span class="material-symbols-outlined text-[14px]">bolt</span> Swipe-Uhr
                 </button>
-                <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='${emp.id}';" class="px-3 py-1.5 bg-primary text-on-primary font-bold rounded-xl text-xs hover:bg-primary-container transition-all">
+                <button onclick="switchView('zeiterfassung'); document.getElementById('filter-entry-employee').value='${emp.id}'; document.getElementById('entry-employee').value='${emp.id}'; renderTimeEntriesList();" class="px-3 py-1.5 bg-primary text-on-primary font-bold rounded-xl text-xs hover:bg-primary-container transition-all">
                     Zeiteintrag
                 </button>
             </div>
@@ -1182,7 +1273,9 @@ function renderTimeEntriesList() {
         return parseGermanDate(b.date) - parseGermanDate(a.date);
     });
 
-    if (filter !== 'all') filtered = filtered.filter(e => e.employeeId === filter);
+    if (filter !== 'all') {
+        filtered = filtered.filter(e => matchEmp(e, filter));
+    }
 
     if (filtered.length === 0) {
         list.innerHTML = `<div class="p-6 bg-surface-container-low rounded-xl text-center text-xs text-on-surface-variant">Keine Einträge für diese Auswahl vorhanden.</div>`;
@@ -1190,7 +1283,7 @@ function renderTimeEntriesList() {
     }
 
     filtered.forEach(entry => {
-        const emp = employeesData.find(e => e.id === entry.employeeId);
+        const emp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
         const item = document.createElement('div');
         item.className = 'flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high gap-3';
         
@@ -1200,11 +1293,14 @@ function renderTimeEntriesList() {
         if (entry.abendFrom && entry.abendTo) timeDetails.push(`Abend: ${entry.abendFrom}–${entry.abendTo}`);
         const timeStr = timeDetails.length > 0 ? timeDetails.join(' | ') : 'Reguläre Buchung';
 
+        const empName = emp ? emp.name : (entry.employeeName || 'Teammitglied');
+        const empInitials = emp ? emp.initials : empName.substring(0, 2).toUpperCase();
+
         item.innerHTML = `
             <div class="space-y-1">
                 <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">${emp ? emp.initials : 'MA'}</span>
-                    <p class="font-bold text-sm text-on-surface">${emp ? emp.name : 'Teammitglied'} • <span class="text-primary">${entry.date}</span></p>
+                    <span class="px-2 py-0.5 rounded-md font-bold text-[10px] bg-primary/10 text-primary uppercase">${empInitials}</span>
+                    <p class="font-bold text-sm text-on-surface">${empName} • <span class="text-primary">${entry.date}</span></p>
                     <span class="text-xs font-black bg-surface-container-high px-2 py-0.5 rounded-lg text-primary">${entry.hours} h</span>
                 </div>
                 <div class="text-xs text-on-surface-variant flex flex-wrap items-center gap-2">
@@ -1249,9 +1345,12 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
     if (hours <= 0) hours = 8.0;
     hours = Number(hours.toFixed(2));
 
+    const selectedEmp = findEmployee(empId);
+
     const newEntry = {
         id: `entry_${Date.now()}`,
-        employeeId: empId,
+        employeeId: selectedEmp ? selectedEmp.id : empId,
+        employeeName: selectedEmp ? selectedEmp.name : '',
         date,
         schoolYear: getSchoolYearFromDateStr(date),
         vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours
@@ -1259,7 +1358,7 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
 
     if (empId === 'all') {
         employeesData.forEach(emp => {
-            timeEntriesData.unshift({ ...newEntry, id: `entry_${emp.id}_${Date.now()}`, employeeId: emp.id });
+            timeEntriesData.unshift({ ...newEntry, id: `entry_${emp.id}_${Date.now()}`, employeeId: emp.id, employeeName: emp.name });
         });
     } else {
         timeEntriesData.unshift(newEntry);
@@ -1302,7 +1401,7 @@ function openEmployeeModal(empId = null) {
     document.getElementById('employee-modal').classList.remove('hidden');
     document.getElementById('employee-modal').classList.add('flex');
     if (empId) {
-        const emp = employeesData.find(e => e.id === empId);
+        const emp = findEmployee(empId);
         if (emp) {
             document.getElementById('emp-id').value = emp.id;
             document.getElementById('emp-name').value = emp.name;
@@ -1332,7 +1431,7 @@ document.getElementById('employee-form').addEventListener('submit', (e) => {
     const yearlyTotal = Number(document.getElementById('emp-yearly-total').value);
 
     if (id) {
-        const emp = employeesData.find(e => e.id === id);
+        const emp = findEmployee(id);
         if (emp) { emp.name = name; emp.role = role; emp.pensum = pensum; emp.yearlyTotal = yearlyTotal; }
     } else {
         employeesData.push({ id: 'emp_' + Date.now(), name, role, pensum, yearlyTotal, initials: name.substring(0, 2).toUpperCase() });
@@ -1349,7 +1448,9 @@ function renderWeeklyOverview() {
     const filter = document.getElementById('filter-weekly-employee').value;
     
     let entries = [...timeEntriesData].filter(e => isEntryInSelectedSchoolYear(e));
-    if (filter !== 'all') entries = entries.filter(e => e.employeeId === filter);
+    if (filter !== 'all') {
+        entries = entries.filter(e => matchEmp(e, filter));
+    }
 
     if (entries.length === 0) {
         el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant">Keine erfassten Tage für diese Auswahl vorhanden.</div>`;
@@ -1376,10 +1477,11 @@ function renderWeeklyOverview() {
     `;
 
     entries.forEach(entry => {
-        const emp = employeesData.find(e => e.id === entry.employeeId);
+        const emp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
+        const empName = emp ? emp.name : (entry.employeeName || 'Team');
         html += `
             <tr class="hover:bg-surface-container-low transition-colors">
-                <td class="py-3 font-bold text-on-surface">${emp ? emp.name : 'Team'}</td>
+                <td class="py-3 font-bold text-on-surface">${empName}</td>
                 <td class="py-3 font-semibold text-primary">${entry.date}</td>
                 <td class="py-3 text-on-surface-variant">${entry.vmFrom ? `${entry.vmFrom} – ${entry.vmTo}` : '—'}</td>
                 <td class="py-3 text-on-surface-variant">${entry.nmFrom ? `${entry.nmFrom} – ${entry.nmTo}` : '—'}</td>
@@ -1411,7 +1513,7 @@ function renderReports() {
     employeesData.forEach(emp => {
         const monthlySoll = getExactMonthlySoll(emp);
         const entries = timeEntriesData.filter(e => {
-            if (e.employeeId !== emp.id) return false;
+            if (!matchEmp(e, emp.id)) return false;
             if (!e.date) return false;
             const parts = e.date.split('.');
             if (parts.length === 3) {
