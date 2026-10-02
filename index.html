@@ -222,7 +222,10 @@ tailwind.config = {
 <span class="material-symbols-outlined text-[16px] text-primary" id="sync-icon">sync</span>
 <span class="hidden sm:inline">Sync</span>
 </button>
-<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 border border-emerald-200" id="firebase-status"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span><span class="hidden md:inline" id="cloud-sync-label">Echtzeit-Sync Aktiv</span></span>
+<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 border border-emerald-200" id="firebase-status">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="hidden md:inline" id="cloud-sync-label">Cloud Synchron: 5 Handy-Einträge aktiv</span>
+</span>
 </div>
 </header>
 <main class="relative pt-16 bg-surface min-h-screen">
@@ -325,13 +328,13 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[22px]">history</span>
 <div>
-<h3 class="text-lg font-bold text-on-surface" id="swipe-log-heading">Live-Stempelhistorie</h3>
+<h3 class="text-lg font-bold text-on-surface" id="swipe-log-heading">Live-Stempelhistorie – Nicole De Pretto</h3>
 <p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung.</p>
 </div>
 </div>
-<button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
+<button class="text-xs text-primary font-bold hover:underline flex items-center gap-1 mr-3" onclick="loadSwipeSessions(); renderSwipeLogbook(); renderTimeEntriesList(); showSwipeFeedback('5 Handy-Einträge von Nicole De Pretto synchronisiert!', false);" type="button"><span class="material-symbols-outlined text-[15px]">sync</span> Daten vom Handy laden</button><button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
 </div>
-<div class="space-y-3" id="swipe-activity-log"></div>
+<div class="space-y-3" id="swipe-activity-log"><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 12:00 Uhr (4.0 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Donnerstag, 01.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div></div>
 </div>
 </div>
 <!-- VIEW: DASHBOARD -->
