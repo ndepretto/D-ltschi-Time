@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -94,7 +95,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="qr-code-modal" onclick="if(event.target === this) closeQrCodeModal()">
 <div class="bg-surface-container-lowest max-w-md w-full p-6 md:p-8 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high my-8 relative">
 <div class="flex items-start justify-between border-b border-surface-container-high pb-3">
@@ -130,7 +130,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Desktop Sidebar (Hidden on Mobile) -->
 <aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
@@ -171,7 +170,6 @@ tailwind.config = {
 </a>
 </nav>
 </aside>
-
 <!-- Mobile Bottom Navigation Bar -->
 <div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container-high z-50 flex items-center justify-around px-2 no-print" id="mobile-nav-bar">
 <button class="flex flex-col items-center justify-center w-full py-1 text-amber-600 font-bold" id="mob-btn-stempeluhr" onclick="switchView('stempeluhr')">
@@ -195,7 +193,6 @@ tailwind.config = {
 <span class="text-[10px]">Berichte</span>
 </button>
 </div>
-
 <!-- Main Content Area -->
 <div class="md:pl-64">
 <header class="fixed top-0 left-0 md:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-4 md:px-8 no-print">
@@ -234,7 +231,6 @@ tailwind.config = {
 </div>
 </header>
 <main class="relative pt-16 bg-surface min-h-screen">
-
 <!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR -->
 <div class="view-container flex flex-col w-full p-4 md:p-8 max-w-[960px] mx-auto gap-6 md:gap-8 pb-20" id="view-stempeluhr">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -334,7 +330,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[22px]">history</span>
 <div>
-<h3 class="text-lg font-bold text-on-surface">Live-Stempelhistorie</h3>
+<h3 class="text-lg font-bold text-on-surface" id="swipe-log-heading">Live-Stempelhistorie</h3>
 <p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung.</p>
 </div>
 </div>
@@ -343,7 +339,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-3" id="swipe-activity-log"></div>
 </div>
 </div>
-
 <!-- VIEW: DASHBOARD -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1200px] mx-auto gap-6 md:gap-8 pb-20" id="view-dashboard">
 <div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
@@ -361,7 +356,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <span class="material-symbols-outlined text-[16px] text-amber-500">bolt</span> Stempeluhr öffnen
 </button>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
 <div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
 <span class="text-xs font-bold text-on-surface-variant uppercase">Aktives Team</span>
@@ -389,7 +383,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </div>
 </div>
-
 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-primary/5 p-6 rounded-2xl border border-primary/20 gap-4">
 <div>
 <h2 class="text-2xl font-bold text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
@@ -401,7 +394,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="dashboard-employees-grid"></div>
 </div>
-
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[900px] mx-auto gap-6 md:gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -474,13 +466,12 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </form>
 </div>
-
 <!-- Entries list with persistent filter -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
 <div>
 <h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten</h3>
-<p class="text-xs text-on-surface-variant mt-0.5">Chronologisch sortiert nach Datum (Neueste zuerst).</p>
+<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Alle Mitarbeiter</p>
 </div>
 <div class="flex items-center gap-2">
 <label class="text-xs font-bold text-on-surface-variant uppercase" for="filter-entry-employee">Filter:</label>
@@ -496,7 +487,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-3" id="time-entries-list"></div>
 </div>
 </div>
-
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1100px] mx-auto gap-6 md:gap-8 pb-20" id="view-wochenuebersicht">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -514,7 +504,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
 </div>
-
 <!-- VIEW: MITARBEITER -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1000px] mx-auto gap-6 md:gap-8 pb-20" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
@@ -528,7 +517,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
 </div>
-
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1050px] mx-auto gap-6 md:gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -555,7 +543,6 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-4" id="reports-content"></div>
 </div>
 </div>
-
 <!-- VIEW: ERKLÄRUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[950px] mx-auto gap-6 md:gap-8 pb-24" id="view-erklaerung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
@@ -565,10 +552,8 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </p>
 </div>
 </div>
-
 </main>
 </div>
-
 <!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
@@ -605,7 +590,6 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </form>
 </div>
 </div>
-
 <script>
 const firebaseConfig = {
     apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
@@ -630,7 +614,7 @@ const DEFAULT_EMPLOYEES = [
 
 // 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027
 const SEED_TIME_ENTRIES = [
-    // Nicole De Pretto (August, September, Oktober 2026)
+    // Nicole De Pretto (August, September, Oktober 2026) - 12 Einträge
     { id: 'seed_nd_01', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schulvorbereitung & Teamstart', hours: 7.5 },
     { id: 'seed_nd_02', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Erster Schultag Begleitung', hours: 7.5 },
     { id: 'seed_nd_03', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:30', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Sonderpädagogische Einzelförderung', hours: 7.5 },
@@ -643,7 +627,7 @@ const SEED_TIME_ENTRIES = [
     { id: 'seed_nd_10', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Standortgespräche Vorbereitung', hours: 7.0 },
     { id: 'seed_nd_11', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Herbstquartal Einstieg & Einzelförderung', hours: 7.5 },
     { id: 'seed_nd_12', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '02.10.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Förderdokumentation & Elternkontakt', hours: 8.0 },
-    // Michelle Dreifuss
+    // Michelle Dreifuss - 8 Einträge
     { id: 'seed_md_01', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Jahresplanung Förderzentrum', hours: 8.5 },
     { id: 'seed_md_02', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresbeginn Teamsitzung', hours: 8.5 },
     { id: 'seed_md_03', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fachgespräche Schulpsychologie', hours: 8.5 },
@@ -652,14 +636,14 @@ const SEED_TIME_ENTRIES = [
     { id: 'seed_md_06', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Personalplanung Schuljahr', hours: 8.0 },
     { id: 'seed_md_07', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Monatsabschluss Förderbereich', hours: 8.5 },
     { id: 'seed_md_08', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallkoordination & Förderplanung', hours: 8.5 },
-    // Manuel Schoch
+    // Manuel Schoch - 6 Einträge
     { id: 'seed_ms_01', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Materialvorbereitung & Werkraum', hours: 8.0 },
     { id: 'seed_ms_02', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresstart Soz Betreuung', hours: 8.5 },
     { id: 'seed_ms_03', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektunterricht Zeichnen', hours: 8.0 },
     { id: 'seed_ms_04', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Begleitung Werken / Soz', hours: 8.0 },
     { id: 'seed_ms_05', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gestalterischer Förderunterricht', hours: 8.5 },
     { id: 'seed_ms_06', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Raumorganisation & Betreuung', hours: 8.5 },
-    // Seline Steinmann
+    // Seline Steinmann - 6 Einträge
     { id: 'seed_ss_01', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Verwaltung Schülerakten', hours: 7.75 },
     { id: 'seed_ss_02', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogische Zuweisungen', hours: 7.75 },
     { id: 'seed_ss_03', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '20.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Therapiekoordination Döltschi', hours: 7.5 },
@@ -688,35 +672,35 @@ function findEmployee(ident) {
         if (String(e.name).toLowerCase() === q) return true;
         if (e.aliases && Array.isArray(e.aliases) && e.aliases.some(a => String(a).toLowerCase() === q)) return true;
         if (e.email && String(e.email).toLowerCase() === q) return true;
-        if (q.includes('nicole') && String(e.id).toLowerCase() === 'nicole') return true;
-        if (q.includes('michelle') && String(e.id).toLowerCase() === 'michelle') return true;
-        if (q.includes('manuel') && String(e.id).toLowerCase() === 'manuel') return true;
-        if (q.includes('seline') && String(e.id).toLowerCase() === 'seline') return true;
+        if (q === 'nicole' || q === 'emp_1' || q === '1') return String(e.id).toLowerCase() === 'nicole';
+        if (q === 'michelle' || q === 'emp_2' || q === '2') return String(e.id).toLowerCase() === 'michelle';
+        if (q === 'manuel' || q === 'emp_3' || q === '3') return String(e.id).toLowerCase() === 'manuel';
+        if (q === 'seline' || q === 'emp_4' || q === '4') return String(e.id).toLowerCase() === 'seline';
         return false;
     }) || null;
 }
 
-function matchEmp(entry, selectedIdent) {
-    if (!selectedIdent || selectedIdent === 'all' || selectedIdent === 'Alle') return true;
+// Strikter und präziser Mitarbeiter-Vergleich für Filterung
+function matchEmp(entry, filter) {
+    if (!filter || filter === 'all' || filter === 'Alle') return true;
     if (!entry) return false;
-    const selStr = String(selectedIdent).trim().toLowerCase();
-    const entryEmpId = String(entry.employeeId || '').trim().toLowerCase();
-    const entryEmpName = String(entry.employeeName || '').trim().toLowerCase();
+    const f = String(filter).trim().toLowerCase();
+    const eId = String(entry.employeeId || '').trim().toLowerCase();
+    const eName = String(entry.employeeName || '').trim().toLowerCase();
 
-    if (entryEmpId === selStr) return true;
-    if (entryEmpName === selStr || entryEmpName.includes(selStr) || selStr.includes(entryEmpName)) return true;
-
-    const selEmp = findEmployee(selectedIdent);
-    if (selEmp) {
-        if (entryEmpId === String(selEmp.id).toLowerCase()) return true;
-        if (entryEmpName === String(selEmp.name).toLowerCase()) return true;
-        if (selEmp.aliases && selEmp.aliases.some(a => String(a).toLowerCase() === entryEmpId)) return true;
-        if (selEmp.email && String(selEmp.email).toLowerCase() === entryEmpId) return true;
+    if (f === 'nicole') {
+        return eId === 'nicole' || eId === 'emp_1' || eId === '1' || eName.includes('nicole');
     }
-
-    const entryEmp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
-    if (entryEmp && selEmp && entryEmp.id === selEmp.id) return true;
-    return false;
+    if (f === 'michelle') {
+        return eId === 'michelle' || eId === 'emp_2' || eId === '2' || eName.includes('michelle');
+    }
+    if (f === 'manuel') {
+        return eId === 'manuel' || eId === 'emp_3' || eId === '3' || eName.includes('manuel');
+    }
+    if (f === 'seline') {
+        return eId === 'seline' || eId === 'emp_4' || eId === '4' || eName.includes('seline');
+    }
+    return eId === f || eName.includes(f);
 }
 
 function loadSwipeSessions() {
@@ -799,7 +783,7 @@ function closeJahresarbeitszeitModal() {
 }
 
 // ==========================================
-// ZENTRALE NAVIGATION (ALLE ANSICHTEN VERFÜGBAR)
+// ZENTRALE NAVIGATION
 // ==========================================
 function switchView(viewName) {
     if (!viewName) return;
@@ -990,16 +974,21 @@ function performClockOut(source = 'swipe') {
 function renderSwipeLogbook() {
     const el = document.getElementById('swipe-activity-log');
     if (!el) return;
-    const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'all';
-    let logsToShow = swipeLogs;
-    if (currentSelectedEmp && currentSelectedEmp !== 'all') {
-        logsToShow = swipeLogs.filter(l => {
-            if (!l.employeeId && !l.empName) return true;
-            return matchEmp({ employeeId: l.employeeId, employeeName: l.empName }, currentSelectedEmp);
-        });
+    const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'nicole';
+    const emp = findEmployee(currentSelectedEmp);
+    const empDisplayName = emp ? emp.name : 'Ausgewählter Mitarbeiter';
+
+    const headingEl = document.getElementById('swipe-log-heading');
+    if (headingEl) {
+        headingEl.textContent = `Live-Stempelhistorie – ${empDisplayName}`;
     }
+
+    let logsToShow = swipeLogs.filter(l => {
+        return matchEmp({ employeeId: l.employeeId, employeeName: l.empName }, currentSelectedEmp);
+    });
+
     if (logsToShow.length === 0) {
-        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Keine Stempelaktionen für die aktuelle Auswahl hinterlegt.</div>`;
+        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Keine Stempelaktionen für ${empDisplayName} hinterlegt.</div>`;
         return;
     }
     el.innerHTML = logsToShow.map(l => {
@@ -1024,7 +1013,12 @@ function renderSwipeLogbook() {
 }
 
 function clearSwipeLog() {
-    swipeLogs = [];
+    const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'nicole';
+    if (currentSelectedEmp && currentSelectedEmp !== 'all') {
+        swipeLogs = swipeLogs.filter(l => !matchEmp({ employeeId: l.employeeId, employeeName: l.empName }, currentSelectedEmp));
+    } else {
+        swipeLogs = [];
+    }
     saveSwipeSessions();
     renderSwipeLogbook();
 }
@@ -1111,8 +1105,19 @@ function loadInitialData() {
             const parsedEntries = JSON.parse(entries);
             if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
                 timeEntriesData = parsedEntries.map(e => {
-                    if (e.employeeId === '1' || e.employeeId === 'emp_1' || (e.employeeName && e.employeeName.toLowerCase().includes('nicole'))) {
+                    const eId = String(e.employeeId || '').toLowerCase();
+                    const eName = String(e.employeeName || '').toLowerCase();
+                    if (eId === '1' || eId === 'emp_1' || eName.includes('nicole')) {
                         return { ...e, employeeId: 'nicole', employeeName: 'Nicole De Pretto' };
+                    }
+                    if (eId === '2' || eId === 'emp_2' || eName.includes('michelle')) {
+                        return { ...e, employeeId: 'michelle', employeeName: 'Michelle Dreifuss' };
+                    }
+                    if (eId === '3' || eId === 'emp_3' || eName.includes('manuel')) {
+                        return { ...e, employeeId: 'manuel', employeeName: 'Manuel Schoch' };
+                    }
+                    if (eId === '4' || eId === 'emp_4' || eName.includes('seline')) {
+                        return { ...e, employeeId: 'seline', employeeName: 'Seline Steinmann' };
                     }
                     return e;
                 });
@@ -1127,6 +1132,7 @@ function loadInitialData() {
         timeEntriesData = [...SEED_TIME_ENTRIES];
     }
 
+    // Sicherstellen, dass die Seed-Einträge unbeschadet vorhanden sind
     SEED_TIME_ENTRIES.forEach(seed => {
         if (!timeEntriesData.some(e => e.id === seed.id || (e.date === seed.date && e.employeeId === seed.employeeId))) {
             timeEntriesData.push(seed);
@@ -1136,7 +1142,7 @@ function loadInitialData() {
     saveLocalState();
     updateCloudSyncBadge();
     
-    // Dropdowns initialisieren
+    // Dropdowns initialisieren mit Nicole als Standard-Auswahl
     syncAllEmployeeDropdowns();
 
     renderDashboard();
@@ -1154,17 +1160,17 @@ function syncAllEmployeeDropdowns() {
     const filterSelect = document.getElementById('filter-entry-employee');
     const weeklyFilter = document.getElementById('filter-weekly-employee');
 
-    const curSwipe = swipeSelect ? swipeSelect.value : 'nicole';
-    const curEntry = entrySelect ? entrySelect.value : 'nicole';
-    const curFilter = filterSelect ? filterSelect.value : 'nicole';
-    const curWeekly = weeklyFilter ? weeklyFilter.value : 'all';
+    const curSwipe = swipeSelect ? (swipeSelect.value || 'nicole') : 'nicole';
+    const curEntry = entrySelect ? (entrySelect.value || 'nicole') : 'nicole';
+    const curFilter = filterSelect ? (filterSelect.value || 'nicole') : 'nicole';
+    const curWeekly = weeklyFilter ? (weeklyFilter.value || 'all') : 'all';
 
     if (entrySelect) {
         entrySelect.innerHTML = `
             <option value="all">Ganzes Team</option>
             ${employeesData.map(e => `<option value="${e.id}">${e.name} (${e.pensum}%)</option>`).join('')}
         `;
-        entrySelect.value = curEntry || 'nicole';
+        entrySelect.value = curEntry;
     }
 
     if (filterSelect) {
@@ -1172,7 +1178,7 @@ function syncAllEmployeeDropdowns() {
             <option value="all">Ganzes Team anzeigen</option>
             ${employeesData.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
         `;
-        filterSelect.value = curFilter || 'nicole';
+        filterSelect.value = curFilter;
     }
 
     if (weeklyFilter) {
@@ -1180,17 +1186,17 @@ function syncAllEmployeeDropdowns() {
             <option value="all">Ganzes Team anzeigen</option>
             ${employeesData.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
         `;
-        weeklyFilter.value = curWeekly || 'all';
+        weeklyFilter.value = curWeekly;
     }
 }
 
+// Synchronisiere: Formularauswahl steuert auch den Filter der Liste
 function onEntryEmployeeSelectChange(val) {
-    // Wenn Mitarbeiter in Zeiterfassung gewählt wird, passe auch den Filter der Liste darunter an
     const filterEl = document.getElementById('filter-entry-employee');
     if (filterEl && val !== 'all') {
         filterEl.value = val;
-        renderTimeEntriesList();
     }
+    renderTimeEntriesList();
 }
 
 function onFilterEntryEmployeeChange(val) {
@@ -1285,19 +1291,41 @@ function parseGermanDate(str) {
     return new Date(str);
 }
 
+// EXAKTES RENDERN DER ZEITEINTRAGSLISTE MIT STRIKTER FILTERUNG
 function renderTimeEntriesList() {
     const list = document.getElementById('time-entries-list');
     if (!list) return;
     list.innerHTML = '';
     const filterSelect = document.getElementById('filter-entry-employee');
-    const filter = filterSelect ? filterSelect.value : 'all';
-    
+    const filter = filterSelect ? filterSelect.value : 'nicole';
+
     let filtered = [...timeEntriesData].sort((a, b) => {
         return parseGermanDate(b.date) - parseGermanDate(a.date);
     });
 
+    // Exakte Filterung nach Person
     if (filter !== 'all') {
-        filtered = filtered.filter(e => matchEmp(e, filter));
+        filtered = filtered.filter(e => {
+            const eId = String(e.employeeId || '').toLowerCase();
+            const eName = String(e.employeeName || '').toLowerCase();
+            if (filter === 'nicole') return eId === 'nicole' || eId === 'emp_1' || eId === '1' || eName.includes('nicole');
+            if (filter === 'michelle') return eId === 'michelle' || eId === 'emp_2' || eId === '2' || eName.includes('michelle');
+            if (filter === 'manuel') return eId === 'manuel' || eId === 'emp_3' || eId === '3' || eName.includes('manuel');
+            if (filter === 'seline') return eId === 'seline' || eId === 'emp_4' || eId === '4' || eName.includes('seline');
+            return eId === filter || eName.includes(filter);
+        });
+    }
+
+    // Indikator oben aktualisieren
+    const indicator = document.getElementById('entries-filter-indicator');
+    if (indicator) {
+        if (filter === 'all') {
+            indicator.textContent = `Zeige Einträge für: Ganzes Team (${filtered.length} Einträge)`;
+        } else {
+            const currentEmp = findEmployee(filter);
+            const empName = currentEmp ? currentEmp.name : filter;
+            indicator.textContent = `Zeige Einträge für: ${empName} (${filtered.length} Einträge)`;
+        }
     }
 
     if (filtered.length === 0) {
@@ -1421,7 +1449,7 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
 
     saveLocalState();
     
-    // Nach Speichern: Filter für die Liste aktualisieren
+    // Nach Speichern: Filter für die Liste exakt anpassen
     const filterEl = document.getElementById('filter-entry-employee');
     if (filterEl && empId !== 'all') {
         filterEl.value = empId;
