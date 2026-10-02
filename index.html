@@ -1,1221 +1,424 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
+
+<html lang="de-CH"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Döltschi Time - Mobile Swipe-Stempeluhr & Zeiterfassung</title>
-<style>
-@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
-::-webkit-scrollbar { display: none; }
-@media print {
-    aside, header, #sidebar-nav, .no-print, button, #auth-modal, #jahresarbeitszeit-modal, #employee-modal { display: none !important; }
-    .pl-64 { padding-left: 0 !important; }
-    main { padding-top: 0 !important; }
-    body { background: white !important; color: black !important; }
-    .view-container:not(.print-active) { display: none !important; }
-    .print-active { display: flex !important; }
-}
-.swipe-card-drag { touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-</style>
+<title>Döltschi Time – Smartphone Schnellzugriff &amp; QR-Code</title>
+<!-- Tailwind CSS CDN mit Forms und Container Queries -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-tailwind.config = {
-    darkMode: "class",
-    theme: {
+<script>
+    tailwind.config = {
+      theme: {
         extend: {
-            colors: {
-                "background": "#f9f9ff",
-                "primary-fixed": "#dae2ff",
-                "primary": "#003d9b",
-                "surface": "#f9f9ff",
-                "surface-container": "#e8edff",
-                "on-surface-variant": "#434654",
-                "error": "#ba1a1a",
-                "on-background": "#041b3c",
-                "outline": "#737685",
-                "on-primary": "#ffffff",
-                "surface-container-low": "#f1f3ff",
-                "on-surface": "#041b3c",
-                "surface-container-lowest": "#ffffff",
-                "surface-container-high": "#e0e8ff",
-                "primary-container": "#0052cc",
-                "on-primary-container": "#c4d2ff"
-            },
-            fontFamily: { "body-md": ["Work Sans"], "headline-md": ["Work Sans"] }
+          colors: {
+            brand: {
+              50: '#f0f5ff',
+              100: '#e0ecff',
+              200: '#c7dcfe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#00418f',
+              800: '#003373',
+              900: '#002554',
+              primary: '#00418f'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif']
+          }
         }
+      }
     }
-};
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  </script>
+<!-- BEGIN: Custom Styles for Print and Animations -->
+<style data-purpose="print-styles">
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .printable-card {
+        box-shadow: none !important;
+        border: 2px solid #00418f !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+      }
+    }
+  </style>
+<style data-purpose="visual-effects">
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+    }
+    .subtle-pulse {
+      animation: subtlePulse 3s infinite ease-in-out;
+    }
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.02); opacity: 0.95; }
+    }
+  </style>
+<!-- END: Custom Styles -->
 </head>
-<body class="bg-surface font-body-md text-on-surface">
-
-<!-- Password Protection Modal -->
-<div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md items-center justify-center p-4 flex" id="auth-modal">
-<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
-<div class="text-center">
-<h2 class="text-2xl font-bold text-primary">Döltschi Time Login</h2>
-<p class="text-sm text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans selection:bg-brand-100 selection:text-brand-900">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm" data-purpose="page-header">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Logo & App Name -->
+<div class="flex items-center space-x-4">
+<div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-800 to-brand-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
 </div>
-<form class="flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password"/>
-<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
-<p class="text-error text-center text-sm hidden" id="auth-error">Falsches Passwort!</p>
-</form>
-</div>
-</div>
-
-<!-- Modal: Erklärung Schuljahresarbeitszeit -->
-<div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
-<div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
-<div class="flex items-start justify-between border-b border-surface-container-high pb-4">
 <div>
-<div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
-<span class="material-symbols-outlined text-[18px]">school</span> Schuljahreszyklus Sommer zu Sommer (1. Aug. – 31. Juli)
+<div class="flex items-center space-x-2.5">
+<span class="text-xl font-bold tracking-tight text-brand-900">Döltschi Time</span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
+              Mobile Swipe bereit
+            </span>
 </div>
-<h3 class="text-2xl font-bold text-on-surface mt-1">Erklärung Schuljahresarbeitszeit (804 h / 1'072 h)</h3>
-<p class="text-sm text-on-surface-variant">Berechnungsgrundlage Primarstufe Döltschi (100% = 2'144 Std.)</p>
-</div>
-<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeJahresarbeitszeitModal()">
-<span class="material-symbols-outlined text-[20px]">close</span>
-</button>
-</div>
-<div class="space-y-4 text-sm leading-relaxed">
-<div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[28px]">calendar_sync</span>
-<div>
-<span class="text-xs uppercase tracking-wider font-bold text-primary block">Berechnungszeitraum</span>
-<p class="text-sm font-semibold text-on-surface">1. August bis 31. Juli (Sommer bis Sommer).</p>
+<p class="text-xs text-slate-500 font-medium">Team-Zeiterfassung Schule Döltschi</p>
 </div>
 </div>
-<div class="grid grid-cols-3 gap-3">
-<div class="bg-primary/5 p-4 rounded-xl border border-primary/20 text-center">
-<span class="text-xs font-bold text-primary block uppercase">Soll (50%)</span>
-<span class="text-xl font-bold text-primary mt-1 block">1'072 h</span>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
-<span class="text-xs font-bold text-on-surface-variant block uppercase">Monats-Soll (57%)</span>
-<span class="text-xl font-bold text-primary mt-1 block">95.8 h</span>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
-<span class="text-xs font-bold text-on-surface-variant block uppercase">Soll 3. Quartal</span>
-<span class="text-xl font-bold text-on-surface mt-1 block">804 h</span>
-</div>
-</div>
-</div>
-<div class="flex items-center justify-end gap-2 pt-4 border-t border-surface-container-high">
-<button class="px-5 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm" onclick="closeJahresarbeitszeitModal()">Schliessen</button>
-</div>
-</div>
-</div>
-
-<!-- Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
-<div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
-</div>
-<div class="mx-4 mb-4 p-3 bg-primary/5 rounded-xl border border-primary/20">
-<div class="text-[11px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
-<span class="material-symbols-outlined text-[15px]">event_repeat</span> Zyklus
-</div>
-<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2026/2027</div>
-<div class="text-[11px] text-on-surface-variant">1. Aug. 2026 – 31. Juli 2027</div>
-</div>
-<nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
-<a class="flex items-center px-4 py-2.5 rounded-xl text-amber-900 font-extrabold bg-amber-400/20 border border-amber-400/40 hover:bg-amber-400/30 transition-all cursor-pointer shadow-xs mb-2" data-view="stempeluhr">
-<span class="material-symbols-outlined mr-2.5 text-amber-600">bolt</span>⚡ Swipe-Stempeluhr
-<span class="ml-auto text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-full uppercase">Neu</span>
+<!-- Action Buttons -->
+<div class="flex items-center space-x-3 no-print">
+<button class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-brand-800 bg-brand-50 hover:bg-brand-100 border border-brand-200 transition-colors duration-150 shadow-sm" onclick="window.print()">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+          Aushang drucken
+        </button>
+<a class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-lg text-white bg-brand-700 hover:bg-brand-800 transition-colors duration-150 shadow-sm shadow-brand-700/20" href="https://ndepretto.github.io/Zeiterfassung/" rel="noopener noreferrer" target="_blank">
+<span>Web-App direkt öffnen</span>
+<svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
 </a>
-<a class="flex items-center px-4 py-2.5 bg-primary-container text-on-primary-container font-bold rounded-xl cursor-pointer shadow-sm" data-view="dashboard">
-<span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
-</a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung">
-<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
-</a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="wochenuebersicht">
-<span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
-</a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="mitarbeiter">
-<span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
-</a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="berichte">
-<span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
-</a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-primary font-semibold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/5 border border-primary/10 mt-1" data-view="erklaerung">
-<span class="material-symbols-outlined mr-3 text-primary">description</span>Erklärung Schuljahr (804h)
-</a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer mt-3 border border-outline/20" onclick="logoutApp()">
-<span class="material-symbols-outlined mr-3 text-error">logout</span>Abmelden
-</a>
-</nav>
-</aside>
-
-<!-- Main Content Area -->
-<div class="pl-64">
-<header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-8 no-print">
-<div class="flex items-center gap-4">
-<div class="text-lg font-bold text-on-surface" id="header-title">⚡ Mobile Swipe-Stempeluhr</div>
-<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high shadow-xs">
-<span class="material-symbols-outlined text-primary text-[18px]">school</span>
-<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)">
-<option value="all">Alle Schuljahre</option>
-<option value="2025/2026">Schuljahr 25/26</option>
-<option selected="" value="2026/2027">Schuljahr 26/27</option>
-<option value="2027/2028">Schuljahr 27/28</option>
-</select>
 </div>
-</div>
-<div class="flex items-center gap-3">
-<button class="px-3 py-1.5 bg-amber-500/10 text-amber-800 border border-amber-400/30 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition-all flex items-center gap-1.5 shadow-sm" onclick="switchView('stempeluhr')">
-<span class="material-symbols-outlined text-[16px] text-amber-600">bolt</span>
-<span>⚡ Swipe-Uhr</span>
-</button>
-<button class="px-3 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all flex items-center gap-1.5 shadow-sm" onclick="openJahresarbeitszeitModal()">
-<span class="material-symbols-outlined text-[16px]">info</span> Sommer–Sommer (804h)
-</button>
-<button class="px-3 py-1.5 bg-surface-container-high text-on-surface text-xs font-bold rounded-xl border border-outline/20 hover:bg-surface-container-highest transition-all flex items-center gap-1" onclick="forceCloudSync()">
-<span class="material-symbols-outlined text-[16px] text-primary" id="sync-icon">sync</span>
-<span>Sync</span>
-</button>
-<span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200" id="firebase-status">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span id="cloud-sync-label">Cloud Synchron</span>
-</span>
 </div>
 </header>
-
-<main class="relative pt-16 bg-surface min-h-screen">
-
-<!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR (STANDARD ODER SOFORT AUSWÄHLBAR) -->
-<div class="view-container flex flex-col w-full p-8 max-w-[960px] mx-auto gap-8 pb-20" id="view-stempeluhr">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+<!-- Hero Title Section -->
+<div class="text-center max-w-3xl mx-auto mb-10 no-print">
+<h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Smartphone-Schnellzugriff &amp; QR-Code
+      </h1>
+<p class="mt-3 text-base sm:text-lg text-slate-600">
+        Einfach mit dem Smartphone scannen, Passwort eingeben und die Arbeitszeit via Swipe erfassen.
+      </p>
+</div>
+<!-- Printable Header Banner (Only visible when printing) -->
+<div class="hidden print-only mb-6 text-center border-b pb-4">
+<h1 class="text-2xl font-bold text-slate-900">Döltschi Time – Schnellanleitung Team</h1>
+<p class="text-sm text-slate-600">Mobile Zeiterfassung für das Schul- und Betreuungsteam</p>
+</div>
+<!-- Main Grid: QR & Credentials + Smartphone Mockup & Instructions -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Column 1: Central QR Code Card (lg:col-span-5) -->
+<div class="lg:col-span-5 flex flex-col space-y-6">
+<!-- The QR Code Presentation Card -->
+<div class="printable-card bg-white rounded-3xl border border-slate-200/90 shadow-xl p-7 relative overflow-hidden" data-purpose="qr-code-container">
+<!-- Ambient Decorative Glow -->
+<div class="absolute -top-16 -right-16 w-44 h-44 bg-brand-100 rounded-full blur-3xl pointer-events-none no-print"></div>
+<div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
 <div>
-<div class="flex items-center gap-2 text-amber-600 font-bold text-xs uppercase tracking-wider mb-1">
-<span class="material-symbols-outlined text-[16px]">bolt</span> Touch- & Desktop-Stempeluhr
-</div>
-<h2 class="text-2xl font-bold text-on-surface">⚡ Mobile Swipe-Stempeluhr</h2>
-<p class="text-sm text-on-surface-variant">Arbeitszeit mobil und am Desktop blitzschnell per Wischgeste stempeln.</p>
-</div>
-<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-xs flex items-center gap-1.5 hover:bg-surface-container-highest transition-all" onclick="switchView('dashboard')">
-<span class="material-symbols-outlined text-[16px]">dashboard</span> Zum Dashboard
-</button>
-</div>
-
-<!-- Employee Selector Card -->
-<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col md:flex-row items-center justify-between gap-4">
-<div class="w-full md:w-1/2">
-<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1.5" for="swipe-employee-select">
-Mitarbeiter auswählen:
-</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold focus:outline-none focus:border-primary cursor-pointer text-base" id="swipe-employee-select" onchange="onSwipeEmployeeChange()">
-<option value="nicole">Nicole De Pretto (Assistenz Sonderpädagogik - 57%)</option>
-<option value="michelle">Michelle Dreifuss (Teamleiterin - 100%)</option>
-<option value="manuel">Manuel Schoch (Zeichner - 100%)</option>
-<option value="seline">Seline Steinmann (Administration - 92%)</option>
-</select>
-</div>
-<div class="w-full md:w-auto flex items-center gap-3 bg-surface-container-low px-5 py-3 rounded-xl border border-surface-container-high">
-<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-primary text-white" id="swipe-emp-avatar">ND</div>
-<div>
-<span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
-<div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
-<span class="w-2.5 h-2.5 rounded-full bg-slate-400" id="swipe-status-dot"></span>
-<span id="swipe-status-text">Abwesend / Ausgestempelt</span>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Main Interactive Swipe Zone Card -->
-<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-md border-2 border-primary/20 relative overflow-hidden flex flex-col items-center text-center gap-6">
-<!-- Live Clock Display -->
-<div class="space-y-1">
-<div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-<span id="swipe-clock-date">Freitag, 01. September 2026</span>
-</div>
-<div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
-<p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
-</div>
-
-<!-- Dynamic Feedback Banner -->
-<div class="w-full max-w-lg transition-all duration-300 hidden p-3 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2" id="swipe-feedback-toast">
-<span class="material-symbols-outlined text-[20px]" id="swipe-feedback-icon">check_circle</span>
-<span id="swipe-feedback-message">Erfolgreich gestempelt!</span>
-</div>
-
-<!-- Interactive Swipe Box Area -->
-<div class="w-full max-w-2xl bg-surface-container-low rounded-2xl p-3 border-2 border-dashed border-outline/40 relative overflow-hidden select-none" id="swipe-track">
-<!-- Background Direction Hints -->
-<div class="absolute inset-0 flex items-center justify-between px-6 pointer-events-none text-xs font-bold uppercase tracking-wider opacity-70">
-<div class="flex items-center gap-2 text-rose-700">
-<span class="material-symbols-outlined text-[22px]">arrow_back</span>
-<span>👈 Gehen (Ausstempeln)</span>
-</div>
-<div class="flex items-center gap-2 text-emerald-700">
-<span>Kommen (Einstempeln) 👉</span>
-<span class="material-symbols-outlined text-[22px]">arrow_forward</span>
-</div>
-</div>
-<!-- The Draggable Swipe Card -->
-<div class="relative z-10 w-full bg-white rounded-xl shadow-lg border border-primary/20 p-5 cursor-grab active:cursor-grabbing swipe-card-drag transition-transform flex items-center justify-between" id="swipe-card" style="transform: translateX(0px);">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-700 flex items-center justify-center">
-<span class="material-symbols-outlined text-[22px]">drag_indicator</span>
-</div>
-<div class="text-left">
-<span class="text-xs font-bold text-on-surface-variant block uppercase" id="swipe-card-sub">Geste ausführen</span>
-<p class="text-base font-bold text-on-surface" id="swipe-card-title">Karte nach rechts (Kommen) oder links (Gehen) ziehen</p>
-</div>
-</div>
-<div class="flex items-center gap-1 text-primary text-xs font-bold bg-primary/10 px-3 py-1.5 rounded-lg pointer-events-none">
-<span class="material-symbols-outlined text-[16px]">touch_app</span>
-<span>Wischen</span>
-</div>
-</div>
-</div>
-
-<!-- Quick 1-Click Fallback Buttons -->
-<div class="w-full max-w-lg flex items-center justify-center gap-4 pt-2">
-<button class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockIn('button')">
-<span class="material-symbols-outlined text-[20px]">login</span>
-<span>1-Klick Kommen</span>
-</button>
-<button class="flex-1 py-3 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockOut('button')">
-<span class="material-symbols-outlined text-[20px]">logout</span>
-<span>1-Klick Gehen</span>
-</button>
-</div>
-<p class="text-xs text-on-surface-variant max-w-md">
-Tipp: Am Handy mit dem Daumen nach rechts wischen zum Kommen, nach links zum Gehen. Zeiten fließen automatisch in Zeiterfassung & Dashboard!
-</p>
-</div>
-
-<!-- Live Activity Log -->
-<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-surface-container-high">
-<div class="flex items-center justify-between border-b border-surface-container-high pb-4 mb-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[22px]">history</span>
-<div>
-<h3 class="text-lg font-bold text-on-surface">Live-Stempelhistorie</h3>
-<p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung.</p>
-</div>
-</div>
-<button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
-</div>
-<div class="space-y-3" id="swipe-activity-log"></div>
-</div>
-</div>
-
-<!-- VIEW: DASHBOARD -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-dashboard">
-<!-- Swipe Promotion Widget -->
-<div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-amber-300">
-<span class="material-symbols-outlined text-[30px]">touch_app</span>
-</div>
-<div>
-<span class="text-xs uppercase tracking-wider font-extrabold bg-amber-400 text-on-background px-2 py-0.5 rounded-full">Neu</span>
-<h3 class="text-lg font-bold text-white mt-1">Mobile Swipe-Stempeluhr aktiv</h3>
-<p class="text-xs text-white/80">Nach rechts wischen (Kommen), nach links wischen (Gehen).</p>
-</div>
-</div>
-<button class="px-5 py-2.5 bg-white text-primary font-bold rounded-xl text-xs hover:bg-slate-100 transition-all flex items-center gap-1.5" onclick="switchView('stempeluhr')">
-<span class="material-symbols-outlined text-[16px] text-amber-500">bolt</span> Stempeluhr öffnen
-</button>
-</div>
-
-<!-- KPI Cards -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
-<span class="text-xs font-bold text-on-surface-variant uppercase">Aktives Team</span>
-<h2 class="text-2xl font-bold text-on-surface mt-1" id="summary-team-count">4 Mitglieder</h2>
-<div class="mt-4 flex items-center gap-2 text-primary font-bold text-xs"><span class="material-symbols-outlined text-[16px]">verified</span> 100% Einsatzbereitschaft</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
-<span class="text-xs font-bold text-on-surface-variant uppercase">Monats-Soll & Ist Team</span>
-<h2 class="text-2xl font-bold text-primary mt-1" id="summary-monthly-team-total">0.0 / 586.4 h</h2>
-<div class="mt-4 text-xs text-on-surface-variant font-bold" id="summary-monthly-basis-label">168h bei 100%</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
-<span class="text-xs font-bold text-on-surface-variant uppercase">Schuljahr Summe Total</span>
-<h2 class="text-2xl font-bold text-on-surface mt-1" id="summary-month-total">0.0 / 7'482 Std.</h2>
-<div class="mt-4 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div>
-</div>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
-<span class="text-xs font-bold text-on-surface-variant uppercase">Überstunden (Monat & Schuljahr)</span>
-<h2 class="text-2xl text-emerald-600 font-bold mt-1" id="summary-overtime-month">+0.0 h</h2>
-<div class="mt-4 flex items-center justify-between text-xs border-t border-surface-container-high pt-2">
-<span class="text-on-surface-variant font-bold">Schuljahr Saldo:</span>
-<span class="text-emerald-600 font-bold" id="summary-overtime-total">+0.0 Std.</span>
-</div>
-</div>
-</div>
-
-<div class="flex items-center justify-between bg-primary/5 p-6 rounded-2xl border border-primary/20">
-<div>
-<h2 class="text-2xl font-bold text-on-surface">Schuljahresarbeitszeit & Team-Stundensaldi</h2>
-<p class="text-sm text-on-surface-variant">Zyklus Sommer–Sommer <span class="font-bold text-primary active-school-year-text">2026/2027</span>.</p>
-</div>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" onclick="switchView('zeiterfassung')">
-<span class="material-symbols-outlined text-[16px]">add</span> Zeiteintrag erfassen
-</button>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid"></div>
-</div>
-
-<!-- VIEW: ZEITERFASSUNG -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex items-center justify-between mb-4">
-<h2 class="text-2xl font-bold text-on-surface">Zeiterfassung erfassen / bearbeiten</h2>
-<span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full">Schuljahr <span class="active-school-year-short">26/27</span></span>
-</div>
-<form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-employee" required="">
-<option value="all">Ganzes Team</option>
-<option value="nicole">Nicole De Pretto</option>
-<option value="michelle">Michelle Dreifuss</option>
-<option value="manuel">Manuel Schoch</option>
-<option value="seline">Seline Steinmann</option>
-</select>
-</div>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="vm-from" type="time" value="07:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="vm-to" type="time" value="12:00"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="nm-to" type="time" value="17:00"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abend / Nacht</span>
-<div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="abend-to" type="time" value=""/>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abwesenheiten / Status</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-status">
-<option value="Normal">Regulärer Arbeitstag</option>
-<option value="Krankheit">Krankheit</option>
-<option value="Ferien">Ferien</option>
-<option value="Unfall">Unfall / Sonstiges</option>
-</select>
-</div>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Bemerkungen</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung" type="text"/>
-</div>
-</div>
-<div class="flex justify-end gap-3 pt-4">
-<button class="px-5 py-2.5 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
-<button class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-xl" type="submit">Eintrag speichern</button>
-</div>
-</form>
-</div>
-
-<!-- Entries list -->
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex justify-between items-center mb-6">
-<h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten (Neueste zuerst)</h3>
-<select class="px-3 py-1.5 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-entry-employee" onchange="renderTimeEntriesList()">
-<option value="all">Ganzes Team anzeigen</option>
-<option value="nicole">Nicole De Pretto</option>
-<option value="michelle">Michelle Dreifuss</option>
-<option value="manuel">Manuel Schoch</option>
-<option value="seline">Seline Steinmann</option>
-</select>
-</div>
-<div class="space-y-3" id="time-entries-list"></div>
-</div>
-</div>
-
-<!-- VIEW: WOCHENÜBERSICHT -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-wochenuebersicht">
-<div class="flex justify-between items-center">
-<div>
-<h2 class="text-2xl font-bold text-on-surface">Wochenübersicht</h2>
-<p class="text-sm text-on-surface-variant">Schuljahr <span class="active-school-year-text font-bold text-primary">2026/2027</span>.</p>
-</div>
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-weekly-employee" onchange="renderWeeklyOverview()">
-<option value="all">Ganzes Team anzeigen</option>
-<option value="nicole">Nicole De Pretto</option>
-<option value="michelle">Michelle Dreifuss</option>
-<option value="manuel">Manuel Schoch</option>
-<option value="seline">Seline Steinmann</option>
-</select>
-</div>
-<div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
-</div>
-
-<!-- VIEW: MITARBEITER -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1000px] mx-auto gap-8 pb-20" id="view-mitarbeiter">
-<div class="flex items-center justify-between">
-<div>
-<h2 class="text-2xl font-bold text-on-surface">Mitarbeiterverwaltung</h2>
-<p class="text-sm text-on-surface-variant">Teammitglieder mit Pensen und Schuljahressoll (Sommer zu Sommer).</p>
-</div>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" onclick="openEmployeeModal()">
-<span class="material-symbols-outlined text-[16px]">person_add</span> Mitarbeiter hinzufügen
-</button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
-</div>
-
-<!-- VIEW: BERICHTE -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 no-print">
-<div>
-<h2 class="text-2xl font-bold text-on-surface" id="reports-view-heading">Monatsauswertung & Überstunden</h2>
-<p class="text-sm text-on-surface-variant">Soll/Ist-Vergleich für den Rechnungsmonat.</p>
-</div>
-<div class="flex items-center gap-3">
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-month-select" onchange="renderReports()">
-<option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option>
-<option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option>
-<option value="7">Juli</option><option value="8">August</option><option selected="" value="9">September</option>
-<option value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
-</select>
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-year-select" onchange="renderReports()">
-<option value="2025">2025</option><option selected="" value="2026">2026</option><option value="2027">2027</option>
-</select>
-<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1.5" onclick="printReportDocument()">
-<span class="material-symbols-outlined text-[16px]">print</span> Bericht drucken / PDF
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Offizieller QR-Zugang</span>
+<h2 class="text-lg font-bold text-slate-900">Direkt via Kamera scannen</h2>
+</div>
+<span class="px-2.5 py-1 text-xs font-medium bg-slate-100 text-slate-600 rounded-md">iOS &amp; Android</span>
+</div>
+<!-- QR Code Image Box -->
+<div class="bg-gradient-to-b from-slate-50 to-white p-5 rounded-2xl border border-slate-200 flex flex-col items-center justify-center shadow-inner relative group">
+<div class="bg-white p-3 rounded-xl border border-slate-200 shadow-md transition-transform duration-300 group-hover:scale-[1.01]">
+<img alt="QR Code für Döltschi Time Zeiterfassung" class="w-56 h-56 md:w-60 md:h-60 object-contain mx-auto" id="qrImage" loading="eager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL2x8d0oMQLk-HEHlCdDNfY0ASkNS-k35Ofztmn0DEqUW4SYc0sDjEZINHtgUOgl2Ib4EJQCD-cDmBSGnxD1T7Nkwz1XxlCHCpZnmoUtE-lAepj_UjAqfrxb4zbUIuh90FYuYjuJXDi6kBn7BnLDOhION_luuz_DFdgABH653ik-sc1vNLjwCxbribJw1DeDrrf4YXwIdI91Xc1cCdjIaJPELWidl-9utLzUhUjkAk3FflQsX3YNNU"/>
+</div>
+<p class="text-xs text-slate-500 font-medium mt-3.5 flex items-center">
+<svg class="w-4 h-4 mr-1.5 text-brand-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Standard Smartphone-Kamera darauf halten
+            </p>
+</div>
+<!-- Copyable Web Address -->
+<div class="mt-5" data-purpose="url-copy-box">
+<label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Web-Adresse (URL)</label>
+<div class="flex items-center rounded-xl border border-slate-300 bg-slate-50 overflow-hidden focus-within:border-brand-600 focus-within:ring-1 focus-within:ring-brand-600">
+<input class="bg-transparent border-0 text-xs sm:text-sm text-slate-700 font-mono flex-1 px-3 py-2.5 focus:ring-0 select-all" id="urlInput" readonly="" type="text" value="https://ndepretto.github.io/Zeiterfassung/"/>
+<button class="px-3.5 py-2.5 bg-white text-xs font-semibold text-brand-700 hover:bg-brand-50 border-l border-slate-300 transition-colors flex items-center whitespace-nowrap" id="copyUrlBtn" onclick="copyToClipboard('https://ndepretto.github.io/Zeiterfassung/', 'copyUrlBtn', 'Kopiert!')">
+<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Kopieren</span>
 </button>
 </div>
 </div>
-<div class="space-y-4" id="reports-content"></div>
+<!-- Team Password Notice Box -->
+<div class="mt-4 p-4 rounded-xl bg-amber-50/90 border border-amber-200/80 flex items-center justify-between" data-purpose="password-notice">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<p class="text-xs uppercase font-bold text-amber-900 tracking-wider">Team-Passwort</p>
+<div class="text-base font-extrabold text-amber-950 font-mono tracking-wide">Willma</div>
 </div>
 </div>
-
-<!-- VIEW: ERKLÄRUNG -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[950px] mx-auto gap-8 pb-24" id="view-erklaerung">
-<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
-<h2 class="text-2xl font-bold text-on-surface">Merkblatt zur Schuljahresarbeitszeit (804h)</h2>
-<p class="text-sm text-on-surface-variant leading-relaxed">
-Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 Jahresstunden. Ende April (nach 9 von 12 Monaten = 75%) sind exakt 804 Stunden Soll erreicht.
-</p>
-</div>
-</div>
-
-</main>
-</div>
-
-<!-- Employee Modal -->
-<div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
-<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
-<div class="flex items-center justify-between border-b border-surface-container-high pb-3">
-<h3 class="text-xl font-bold text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
-<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeEmployeeModal()" type="button">
-<span class="material-symbols-outlined text-[18px]">close</span>
+<button class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-200/80 hover:bg-amber-300 text-amber-950 transition-colors flex items-center" id="copyPwBtn" onclick="copyToClipboard('Willma', 'copyPwBtn', 'Kopiert!')">
+<svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Passwort kopieren</span>
 </button>
 </div>
-<form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Name</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
 </div>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Rolle</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Pensum (%)</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-pensum" max="100" min="1" required="" type="number"/>
-</div>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Jahressoll (h)</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-yearly-total" required="" step="0.1" type="number"/>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-4 pt-2">
-<button class="px-4 py-2.5 bg-surface-container-high font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
-<button class="px-4 py-2.5 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button>
-</div>
-</form>
-</div>
-</div>
-
-<script>
-const firebaseConfig = {
-    apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
-    authDomain: "doeltschi-time.firebaseapp.com",
-    projectId: "doeltschi-time",
-    storageBucket: "doeltschi-time.appspot.com",
-    messagingSenderId: "123456789012",
-    appId: "1:123456789012:web:abcdef123456789"
-};
-if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-const db = firebase.firestore();
-
-const BASE_FULL_YEAR_HOURS = 2144;
-let selectedSchoolYear = '2026/2027';
-const DEFAULT_EMPLOYEES = [
-    { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1072 },
-    { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168.0, yearlyTotal: 1890 },
-    { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168.0, yearlyTotal: 1890 },
-    { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739 }
-];
-let employeesData = [...DEFAULT_EMPLOYEES];
-let timeEntriesData = [];
-const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-
-let clockInSessions = {};
-let swipeLogs = [];
-
-function loadSwipeSessions() {
-    try {
-        const s = localStorage.getItem('doeltschi_swipe_sessions');
-        if (s) clockInSessions = JSON.parse(s);
-        const l = localStorage.getItem('doeltschi_swipe_logs');
-        if (l) swipeLogs = JSON.parse(l);
-    } catch(e){}
-}
-function saveSwipeSessions() {
-    try {
-        localStorage.setItem('doeltschi_swipe_sessions', JSON.stringify(clockInSessions));
-        localStorage.setItem('doeltschi_swipe_logs', JSON.stringify(swipeLogs));
-    } catch(e){}
-}
-
-function getSchoolYearFromDateStr(dateStr) {
-    if (!dateStr || typeof dateStr !== 'string') return '2026/2027';
-    const parts = dateStr.includes('.') ? dateStr.split('.') : dateStr.split('-');
-    let month = parts.length === 3 ? parseInt(parts[1], 10) : 9;
-    let year = parts.length === 3 ? parseInt(parts[2].length === 2 ? '20' + parts[2] : parts[2], 10) : 2026;
-    return (month >= 8) ? `${year}/${year + 1}` : `${year - 1}/${year}`;
-}
-
-function getExactMonthlySoll(emp) {
-    const p = Number(emp.pensum) || 100;
-    if (p === 57) return 95.8;
-    if (p === 100) return 168.0;
-    if (p === 92) return 154.6;
-    return Number((168 * (p / 100)).toFixed(1));
-}
-
-function isEntryInSelectedSchoolYear(entry, targetSchoolYear = selectedSchoolYear) {
-    if (!entry) return false;
-    if (targetSchoolYear === 'all') return true;
-    const computedYear = entry.schoolYear || getSchoolYearFromDateStr(entry.date);
-    return computedYear === targetSchoolYear || targetSchoolYear.includes(computedYear);
-}
-
-function calculateHours(from, to) {
-    if (!from || !to) return 0;
-    const [fromH, fromM] = from.split(':').map(Number);
-    const [toH, toM] = to.split(':').map(Number);
-    const diff = (toH * 60 + toM) - (fromH * 60 + fromM);
-    return diff > 0 ? diff / 60 : 0;
-}
-
-function normalizeDateInput(input) {
-    if (!input || !input.value) return;
-    const parts = input.value.split('.');
-    if (parts.length === 3 && parts[2].length === 2) {
-        input.value = `${parts[0]}.${parts[1]}.20${parts[2]}`;
-    }
-}
-
-function updateCloudSyncBadge() {
-    const count = timeEntriesData.length;
-    const el = document.getElementById('cloud-sync-label');
-    if (el) el.textContent = `Cloud Synchron: ${count} Einträge`;
-}
-
-function changeSchoolYear(newYear) {
-    selectedSchoolYear = newYear;
-    document.querySelectorAll('.active-school-year-text').forEach(el => el.textContent = newYear);
-    const sb = document.getElementById('sidebar-school-year-display');
-    if (sb) sb.textContent = `Schuljahr ${newYear}`;
-    renderDashboard();
-    renderWeeklyOverview();
-    renderReports();
-}
-
-function openJahresarbeitszeitModal() {
-    document.getElementById('jahresarbeitszeit-modal').classList.remove('hidden');
-    document.getElementById('jahresarbeitszeit-modal').classList.add('flex');
-}
-function closeJahresarbeitszeitModal() {
-    document.getElementById('jahresarbeitszeit-modal').classList.remove('flex');
-    document.getElementById('jahresarbeitszeit-modal').classList.add('hidden');
-}
-
-function logoutApp() {
-    sessionStorage.removeItem('doeltschi_authenticated');
-    document.getElementById('auth-modal').classList.remove('hidden');
-    document.getElementById('auth-modal').classList.add('flex');
-    document.getElementById('auth-password').value = '';
-}
-
-document.getElementById('auth-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (document.getElementById('auth-password').value === 'Willma') {
-        document.getElementById('auth-modal').classList.add('hidden');
-        document.getElementById('auth-modal').classList.remove('flex');
-        sessionStorage.setItem('doeltschi_authenticated', 'true');
-    } else {
-        document.getElementById('auth-error').classList.remove('hidden');
-    }
-});
-
-if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
-    document.getElementById('auth-modal').classList.add('hidden');
-    document.getElementById('auth-modal').classList.remove('flex');
-}
-
-function switchView(viewName) {
-    document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
-    const target = document.getElementById(`view-${viewName}`);
-    if (target) target.classList.remove('hidden');
-
-    document.querySelectorAll('#sidebar-nav a').forEach(el => {
-        el.classList.remove('bg-primary-container', 'text-on-primary-container');
-        if (el.getAttribute('data-view') === viewName) {
-            el.classList.add('bg-primary-container', 'text-on-primary-container');
-        }
-    });
-
-    const titles = {
-        stempeluhr: '⚡ Mobile Swipe-Stempeluhr',
-        dashboard: 'Zeitmanagement - Dashboard',
-        zeiterfassung: 'Zeiterfassung',
-        wochenuebersicht: 'Wochenübersicht',
-        mitarbeiter: 'Mitarbeiter-Verwaltung',
-        berichte: 'Schuljahresberichte',
-        erklaerung: 'Erklärung Schuljahresarbeitszeit'
-    };
-    document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
-
-    if (viewName === 'stempeluhr') updateSwipeEmployeeDisplay();
-    if (viewName === 'dashboard') renderDashboard();
-    if (viewName === 'zeiterfassung') renderTimeEntriesList();
-    if (viewName === 'wochenuebersicht') renderWeeklyOverview();
-    if (viewName === 'mitarbeiter') renderEmployeesManagement();
-    if (viewName === 'berichte') renderReports();
-}
-
-document.querySelectorAll('#sidebar-nav a[data-view]').forEach(link => {
-    link.addEventListener('click', () => switchView(link.getAttribute('data-view')));
-});
-
-// ==========================================
-// SWIPE INTERACTION & LIVE STEMPELUHR
-// ==========================================
-function initSwipeClock() {
-    const timeEl = document.getElementById('swipe-clock-time');
-    const dateEl = document.getElementById('swipe-clock-date');
-    const update = () => {
-        const now = new Date();
-        if (timeEl) {
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            timeEl.textContent = `${h}:${m}:${s}`;
-        }
-        if (dateEl) {
-            const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-            dateEl.textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')}. ${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
-        }
-    };
-    update();
-    setInterval(update, 1000);
-    updateSwipeEmployeeDisplay();
-    renderSwipeLogbook();
-}
-
-function onSwipeEmployeeChange() {
-    updateSwipeEmployeeDisplay();
-}
-
-function updateSwipeEmployeeDisplay() {
-    const select = document.getElementById('swipe-employee-select');
-    if (!select) return;
-    const empId = select.value;
-    const emp = employeesData.find(e => e.id === empId);
-    const avatar = document.getElementById('swipe-emp-avatar');
-    if (avatar && emp) avatar.textContent = emp.initials || emp.name.substring(0, 2).toUpperCase();
-
-    const dot = document.getElementById('swipe-status-dot');
-    const text = document.getElementById('swipe-status-text');
-    const cardTitle = document.getElementById('swipe-card-title');
-    const cardSub = document.getElementById('swipe-card-sub');
-
-    const activeSession = clockInSessions[empId];
-    if (activeSession && activeSession.inTime) {
-        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
-        if (text) { text.className = 'text-emerald-700 font-bold'; text.textContent = `Anwesend seit ${activeSession.inTime} Uhr`; }
-        if (cardTitle) cardTitle.textContent = `👈 Nach links ziehen zum Ausstempeln (Gehen)`;
-        if (cardSub) cardSub.textContent = `Bereits eingestempelt um ${activeSession.inTime} Uhr`;
-    } else {
-        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-400';
-        if (text) { text.className = 'text-on-surface-variant font-bold'; text.textContent = `Abwesend / Ausgestempelt`; }
-        if (cardTitle) cardTitle.textContent = `Nach rechts ziehen zum Einstempeln (Kommen) 👉`;
-        if (cardSub) cardSub.textContent = `Bereit für Zeiterfassung`;
-    }
-}
-
-function showSwipeFeedback(msg, isOut = false) {
-    const toast = document.getElementById('swipe-feedback-toast');
-    const msgEl = document.getElementById('swipe-feedback-message');
-    const iconEl = document.getElementById('swipe-feedback-icon');
-    if (!toast || !msgEl || !iconEl) return;
-
-    toast.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
-    if (isOut) {
-        toast.classList.add('bg-rose-100', 'text-rose-900', 'border', 'border-rose-300');
-        iconEl.textContent = 'logout';
-    } else {
-        toast.classList.add('bg-emerald-100', 'text-emerald-900', 'border', 'border-emerald-300');
-        iconEl.textContent = 'check_circle';
-    }
-    msgEl.textContent = msg;
-    setTimeout(() => { toast.classList.add('hidden'); }, 4000);
-}
-
-function performClockIn(source = 'swipe') {
-    const empId = document.getElementById('swipe-employee-select').value;
-    const emp = employeesData.find(e => e.id === empId);
-    const empName = emp ? emp.name : 'Mitarbeiter';
-    const now = new Date();
-    const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
-
-    clockInSessions[empId] = { inTime: nowTime, date: todayStr };
-    saveSwipeSessions();
-
-    swipeLogs.unshift({ id: 'log_' + Date.now(), empName, type: 'in', text: `${empName}: Gekommen um ${nowTime} Uhr`, date: todayStr });
-    if (swipeLogs.length > 20) swipeLogs.pop();
-    saveSwipeSessions();
-
-    showSwipeFeedback(`Eingestempelt um ${nowTime} Uhr! Guten Arbeitstag, ${empName}!`, false);
-    updateSwipeEmployeeDisplay();
-    renderSwipeLogbook();
-}
-
-function performClockOut(source = 'swipe') {
-    const empId = document.getElementById('swipe-employee-select').value;
-    const emp = employeesData.find(e => e.id === empId);
-    const empName = emp ? emp.name : 'Mitarbeiter';
-    const now = new Date();
-    const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
-
-    const active = clockInSessions[empId];
-    const inTime = active ? active.inTime : '07:30';
-    let hours = calculateHours(inTime, nowTime);
-    if (hours <= 0) hours = 0.5;
-    hours = Number(hours.toFixed(2));
-
-    const [startH] = inTime.split(':').map(Number);
-    const newEntry = {
-        id: `swipe_${empId}_${Date.now()}`,
-        employeeId: empId,
-        date: todayStr,
-        schoolYear: getSchoolYearFromDateStr(todayStr),
-        vmFrom: startH < 12 ? inTime : '',
-        vmTo: startH < 12 ? nowTime : '',
-        nmFrom: startH >= 12 ? inTime : '',
-        nmTo: startH >= 12 ? nowTime : '',
-        abendFrom: '', abendTo: '',
-        status: 'Normal',
-        notes: `⚡ Swipe-Uhr (${inTime} - ${nowTime})`,
-        hours
-    };
-
-    timeEntriesData.unshift(newEntry);
-    saveLocalState();
-
-    delete clockInSessions[empId];
-    saveSwipeSessions();
-
-    swipeLogs.unshift({ id: 'log_' + Date.now(), empName, type: 'out', text: `${empName}: Gegangen um ${nowTime} Uhr (${hours} h erfasst)`, date: todayStr });
-    if (swipeLogs.length > 20) swipeLogs.pop();
-    saveSwipeSessions();
-
-    showSwipeFeedback(`Ausgestempelt um ${nowTime} Uhr! ${hours} Std. erfasst & gespeichert.`, true);
-    updateSwipeEmployeeDisplay();
-    renderSwipeLogbook();
-    renderDashboard();
-    renderTimeEntriesList();
-}
-
-function renderSwipeLogbook() {
-    const el = document.getElementById('swipe-activity-log');
-    if (!el) return;
-    if (swipeLogs.length === 0) {
-        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Noch keine Aktionen heute. Karte nach rechts oder links ziehen!</div>`;
-        return;
-    }
-    el.innerHTML = swipeLogs.map(l => {
-        const isIn = l.type === 'in';
-        return `
-            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
-                <div class="flex items-center gap-3">
-                    <div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${isIn ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                        <span class="material-symbols-outlined text-[16px]">${isIn ? 'login' : 'logout'}</span>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-on-surface">${l.text}</span>
-                        <span class="text-[11px] text-on-surface-variant block">${l.date} • Live verbucht</span>
-                    </div>
-                </div>
-                <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${isIn ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                    ${isIn ? 'Kommen' : 'Gehen'}
-                </span>
-            </div>
-        `;
-    }).join('');
-}
-
-function clearSwipeLog() {
-    swipeLogs = [];
-    saveSwipeSessions();
-    renderSwipeLogbook();
-}
-
-// Touch & Mouse Gestures
-function initSwipeGestures() {
-    const card = document.getElementById('swipe-card');
-    if (!card) return;
-
-    let startX = 0, currentX = 0, isDragging = false;
-    const THRESHOLD = 85;
-
-    const onStart = (e) => {
-        isDragging = true;
-        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        card.style.transition = 'none';
-    };
-
-    const onMove = (e) => {
-        if (!isDragging) return;
-        const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        currentX = x - startX;
-        if (currentX > 160) currentX = 160;
-        if (currentX < -160) currentX = -160;
-        card.style.transform = `translateX(${currentX}px)`;
-
-        if (currentX > 25) {
-            card.style.backgroundColor = '#ecfdf5';
-            card.style.borderColor = '#10b981';
-        } else if (currentX < -25) {
-            card.style.backgroundColor = '#fff1f2';
-            card.style.borderColor = '#f43f5e';
-        } else {
-            card.style.backgroundColor = '';
-            card.style.borderColor = '';
-        }
-    };
-
-    const onEnd = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        card.style.transition = 'transform 0.25s ease-out, background-color 0.2s, border-color 0.2s';
-        card.style.transform = 'translateX(0px)';
-        card.style.backgroundColor = '';
-        card.style.borderColor = '';
-
-        if (currentX >= THRESHOLD) {
-            performClockIn('swipe');
-        } else if (currentX <= -THRESHOLD) {
-            performClockOut('swipe');
-        }
-        currentX = 0;
-    };
-
-    card.addEventListener('touchstart', onStart, { passive: true });
-    window.addEventListener('touchmove', onMove, { passive: true });
-    window.addEventListener('touchend', onEnd);
-    window.addEventListener('touchcancel', onEnd);
-
-    card.addEventListener('mousedown', onStart);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onEnd);
-}
-
-// ==========================================
-// FORMULAR & RENDERING LOGIK
-// ==========================================
-function saveLocalState() {
-    try {
-        localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
-        localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
-    } catch(e){}
-    updateCloudSyncBadge();
-}
-
-function loadInitialData() {
-    loadSwipeSessions();
-    try {
-        const emps = localStorage.getItem('doeltschi_employees');
-        if (emps) employeesData = JSON.parse(emps);
-        const entries = localStorage.getItem('doeltschi_entries');
-        if (entries) timeEntriesData = JSON.parse(entries);
-    } catch(e){}
-    updateCloudSyncBadge();
-    renderDashboard();
-    renderEmployeesManagement();
-    renderTimeEntriesList();
-    renderWeeklyOverview();
-    renderReports();
-    initSwipeClock();
-    initSwipeGestures();
-}
-
-function renderDashboard() {
-    const grid = document.getElementById('dashboard-employees-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    let totalActual = 0, totalYearlyTarget = 0, totalMonthlyIst = 0, totalMonthlySoll = 0;
-
-    employeesData.forEach(emp => {
-        const entries = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
-        const actual = entries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-        const yearlyTotal = emp.yearlyTotal || 1890;
-        const monthlyTarget = getExactMonthlySoll(emp);
-
-        totalActual += actual;
-        totalYearlyTarget += yearlyTotal;
-        totalMonthlyIst += actual;
-        totalMonthlySoll += monthlyTarget;
-
-        const card = document.createElement('div');
-        card.className = 'bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-4';
-        card.innerHTML = `
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container font-bold flex items-center justify-center">${emp.initials || 'MA'}</div>
-                    <div>
-                        <h4 class="font-bold text-on-surface">${emp.name}</h4>
-                        <span class="text-xs text-on-surface-variant">${emp.role} (${emp.pensum}%)</span>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <span class="text-xs text-on-surface-variant block uppercase font-bold">Monats-Soll</span>
-                    <span class="text-base font-bold text-primary">${monthlyTarget} h</span>
-                </div>
-            </div>
-            <div class="bg-surface-container-low p-3.5 rounded-xl border border-surface-container-high flex justify-between items-center text-xs">
-                <span>Schuljahres-Soll: <strong>${yearlyTotal} h</strong></span>
-                <span>Erfasst: <strong class="text-primary font-bold">${actual.toFixed(1)} h</strong></span>
-            </div>
-            <div class="flex justify-end gap-2 pt-2">
-                <button onclick="switchView('stempeluhr'); document.getElementById('swipe-employee-select').value='${emp.id}'; onSwipeEmployeeChange();" class="px-3 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-xl text-xs hover:bg-amber-400/30">⚡ Swipe-Uhr</button>
-                <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='${emp.id}';" class="px-3 py-1.5 bg-primary text-on-primary font-bold rounded-xl text-xs">Zeiteintrag</button>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
-
-    document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
-    document.getElementById('summary-monthly-team-total').textContent = `${totalMonthlyIst.toFixed(1)} / ${totalMonthlySoll.toFixed(1)} h`;
-    document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget} Std.`;
-    const pct = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
-    document.getElementById('summary-progress-bar').style.width = `${pct}%`;
-}
-
-function renderTimeEntriesList() {
-    const list = document.getElementById('time-entries-list');
-    if (!list) return;
-    list.innerHTML = '';
-    const filter = document.getElementById('filter-entry-employee').value;
-    let filtered = [...timeEntriesData];
-    if (filter !== 'all') filtered = filtered.filter(e => e.employeeId === filter);
-
-    if (filtered.length === 0) {
-        list.innerHTML = `<div class="p-6 bg-surface-container-low rounded-xl text-center text-xs text-on-surface-variant">Keine Einträge vorhanden.</div>`;
-        return;
-    }
-
-    filtered.forEach(entry => {
-        const emp = employeesData.find(e => e.id === entry.employeeId);
-        const item = document.createElement('div');
-        item.className = 'flex items-center justify-between p-3.5 bg-surface-container-low rounded-xl border border-surface-container-high text-xs';
-        item.innerHTML = `
-            <div>
-                <p class="font-bold text-on-surface">${emp ? emp.name : 'Teammitglied'} • <span class="text-primary">${entry.date}</span> (${entry.hours} h)</p>
-                <span class="text-on-surface-variant">${entry.notes || entry.status}</span>
-            </div>
-            <button onclick="deleteEntry('${entry.id}')" class="px-2.5 py-1 bg-error text-white font-bold rounded-lg text-xs">Löschen</button>
-        `;
-        list.appendChild(item);
-    });
-}
-
-function deleteEntry(id) {
-    if (confirm('Eintrag löschen?')) {
-        timeEntriesData = timeEntriesData.filter(e => e.id !== id);
-        saveLocalState();
-        renderTimeEntriesList();
-        renderDashboard();
-    }
-}
-
-document.getElementById('time-entry-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const empId = document.getElementById('entry-employee').value;
-    const date = document.getElementById('entry-date').value;
-    const vmFrom = document.getElementById('vm-from').value;
-    const vmTo = document.getElementById('vm-to').value;
-    const nmFrom = document.getElementById('nm-from').value;
-    const nmTo = document.getElementById('nm-to').value;
-    const abendFrom = document.getElementById('abend-from').value;
-    const abendTo = document.getElementById('abend-to').value;
-    const status = document.getElementById('entry-status').value;
-    const notes = document.getElementById('entry-notes').value;
-
-    let hours = calculateHours(vmFrom, vmTo) + calculateHours(nmFrom, nmTo) + calculateHours(abendFrom, abendTo);
-    hours = Number(hours.toFixed(2));
-
-    const newEntry = {
-        id: `entry_${Date.now()}`,
-        employeeId: empId,
-        date,
-        schoolYear: getSchoolYearFromDateStr(date),
-        vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours
-    };
-
-    if (empId === 'all') {
-        employeesData.forEach(emp => {
-            timeEntriesData.unshift({ ...newEntry, id: `entry_${emp.id}_${Date.now()}`, employeeId: emp.id });
-        });
-    } else {
-        timeEntriesData.unshift(newEntry);
-    }
-    saveLocalState();
-    renderTimeEntriesList();
-    renderDashboard();
-    alert('Zeiteintrag erfolgreich gespeichert!');
-});
-
-function resetTimeForm() {
-    document.getElementById('entry-date').value = '';
-    document.getElementById('entry-notes').value = '';
-}
-
-function renderEmployeesManagement() {
-    const list = document.getElementById('employees-management-list');
-    if (!list) return;
-    list.innerHTML = '';
-    employeesData.forEach(emp => {
-        const item = document.createElement('div');
-        item.className = 'bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high flex justify-between items-center text-xs';
-        item.innerHTML = `
-            <div>
-                <h4 class="font-bold text-on-surface text-sm">${emp.name}</h4>
-                <p class="text-on-surface-variant">${emp.role} • ${emp.pensum}% • Jahressoll: ${emp.yearlyTotal || 1890} h</p>
-            </div>
-            <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high font-bold rounded-lg">Bearbeiten</button>
-        `;
-        list.appendChild(item);
-    });
-}
-
-function openEmployeeModal(empId = null) {
-    document.getElementById('employee-modal').classList.remove('hidden');
-    document.getElementById('employee-modal').classList.add('flex');
-    if (empId) {
-        const emp = employeesData.find(e => e.id === empId);
-        if (emp) {
-            document.getElementById('emp-id').value = emp.id;
-            document.getElementById('emp-name').value = emp.name;
-            document.getElementById('emp-role').value = emp.role;
-            document.getElementById('emp-pensum').value = emp.pensum;
-            document.getElementById('emp-yearly-total').value = emp.yearlyTotal || 1890;
-        }
-    } else {
-        document.getElementById('emp-id').value = '';
-        document.getElementById('emp-name').value = '';
-        document.getElementById('emp-role').value = '';
-        document.getElementById('emp-pensum').value = '100';
-        document.getElementById('emp-yearly-total').value = '2144';
-    }
-}
-function closeEmployeeModal() {
-    document.getElementById('employee-modal').classList.remove('flex');
-    document.getElementById('employee-modal').classList.add('hidden');
-}
-
-document.getElementById('employee-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const id = document.getElementById('emp-id').value;
-    const name = document.getElementById('emp-name').value;
-    const role = document.getElementById('emp-role').value;
-    const pensum = Number(document.getElementById('emp-pensum').value);
-    const yearlyTotal = Number(document.getElementById('emp-yearly-total').value);
-
-    if (id) {
-        const emp = employeesData.find(e => e.id === id);
-        if (emp) { emp.name = name; emp.role = role; emp.pensum = pensum; emp.yearlyTotal = yearlyTotal; }
-    } else {
-        employeesData.push({ id: 'emp_' + Date.now(), name, role, pensum, yearlyTotal, initials: name.substring(0, 2).toUpperCase() });
-    }
-    saveLocalState();
-    closeEmployeeModal();
-    renderEmployeesManagement();
-    renderDashboard();
-});
-
-function renderWeeklyOverview() {
-    const el = document.getElementById('weekly-overview-container');
-    if (!el) return;
-    el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant">Wochenansicht für das Schuljahr ${selectedSchoolYear} aktiv.</div>`;
-}
-
-function renderReports() {
-    const el = document.getElementById('reports-content');
-    if (!el) return;
-    const m = document.getElementById('report-month-select').value;
-    const y = document.getElementById('report-year-select').value;
-    el.innerHTML = `
-        <div class="bg-surface-container-low p-6 rounded-xl border border-surface-container-high text-xs">
-            <h4 class="font-bold text-sm mb-2">Auswertung für ${MONTH_NAMES[m-1]} ${y}</h4>
-            <p class="text-on-surface-variant">Alle Monatsberichte und Überstunden saldiert.</p>
+<!-- Print-friendly footnote -->
+<div class="text-center text-xs text-slate-500 py-2 border-t border-slate-200 lg:hidden">
+          Hinweis: QR-Code am Team-Board oder im Büro anbringen für schnelle Registrierung.
         </div>
-    `;
-}
+</div>
+<!-- Column 2: 3-Steps Guide & Swipe Mockup (lg:col-span-7) -->
+<div class="lg:col-span-7 flex flex-col space-y-6">
+<!-- 3-Step Instruction Guide -->
+<div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-7" data-purpose="instructions-container">
+<div class="flex items-center space-x-2 pb-4 mb-4 border-b border-slate-100">
+<span class="w-2.5 h-2.5 rounded-full bg-brand-600"></span>
+<h2 class="text-xl font-bold text-slate-900">In 3 Schritten auf dem Smartphone einrichten</h2>
+</div>
+<div class="space-y-4">
+<!-- Step 1 -->
+<div class="flex items-start space-x-4 p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100/80 transition-colors">
+<div class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold flex items-center justify-center shrink-0 shadow-sm">
+                1
+              </div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-slate-900">Kamera öffnen &amp; QR-Code scannen</h3>
+<p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                  Öffnen Sie einfach die gewohnte <strong>Foto-Kamera</strong> Ihres Handys (iPhone oder Android) und tippen Sie auf den gelben Link, der im Display erscheint.
+                </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-start space-x-4 p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100/80 transition-colors">
+<div class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold flex items-center justify-center shrink-0 shadow-sm">
+                2
+              </div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-slate-900">Einloggen mit Team-Passwort</h3>
+<p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                  Geben Sie im Anmeldefenster das Passwort <span class="inline-block px-1.5 py-0.5 bg-slate-200 text-slate-900 font-mono font-bold rounded text-xs">Willma</span> ein. Sie bleiben anschliessend auf diesem Gerät eingeloggt.
+                </p>
+</div>
+</div>
+<!-- Step 3 (With Tabs for iOS / Android) -->
+<div class="p-4 rounded-2xl bg-brand-50/70 border border-brand-100">
+<div class="flex items-start space-x-4 mb-3">
+<div class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-bold flex items-center justify-center shrink-0 shadow-sm">
+                  3
+                </div>
+<div>
+<h3 class="text-sm font-bold text-slate-900">Als App auf den Home-Bildschirm legen</h3>
+<p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                    So haben Sie die Zeiterfassung immer mit 1 Klick wie eine echte App griffbereit:
+                  </p>
+</div>
+</div>
+<!-- Dual OS instructions -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2 text-xs">
+<!-- Apple iOS Safari -->
+<div class="bg-white p-3.5 rounded-xl border border-slate-200">
+<div class="flex items-center space-x-2 font-bold text-slate-800 mb-1.5">
+<svg class="w-4 h-4 text-slate-700" fill="currentColor" viewbox="0 0 24 24">
+<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.64-.78 1.08-1.86.96-2.95-1 .04-2.13.66-2.79 1.43-.57.65-1.08 1.73-.95 2.79 1.12.09 2.19-.55 2.78-1.27z"></path>
+</svg>
+<span>Apple iPhone (Safari)</span>
+</div>
+<ol class="list-decimal list-inside space-y-1 text-slate-600">
+<li>Unten auf <strong class="text-slate-800">«Teilen»</strong> (Viereck mit Pfeil nach oben) tippen.</li>
+<li>Nach unten scrollen zu <strong class="text-slate-800">«Zum Home-Bildschirm»</strong>.</li>
+<li>Oben rechts auf <strong class="text-slate-800">«Hinzufügen»</strong> tippen.</li>
+</ol>
+</div>
+<!-- Android Chrome -->
+<div class="bg-white p-3.5 rounded-xl border border-slate-200">
+<div class="flex items-center space-x-2 font-bold text-slate-800 mb-1.5">
+<svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewbox="0 0 24 24">
+<path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993 0 .5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1523-.5676.416.416 0 00-.5676.1523l-2.0223 3.503C15.5902 8.4116 13.8533 8.125 12 8.125c-1.8533 0-3.5902.2866-5.1366.8249L4.8411 5.4469a.416.416 0 00-.5676-.1523.416.416 0 00-.1523.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.75h24c-.3432-4.0911-2.6889-7.5633-6.1185-9.4286"></path>
+</svg>
+<span>Android (Google Chrome)</span>
+</div>
+<ol class="list-decimal list-inside space-y-1 text-slate-600">
+<li>Oben rechts auf die <strong class="text-slate-800">3 Punkte (Menü)</strong> tippen.</li>
+<li><strong class="text-slate-800">«App installieren»</strong> oder <strong class="text-slate-800">«Zum Startbildschirm»</strong> wählen.</li>
+<li>Bestätigen – Icon erscheint sofort.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature Spotlight: Mobile Swipe Preview Mockup -->
+<div class="bg-gradient-to-br from-brand-900 to-brand-800 text-white rounded-3xl p-6 sm:p-7 shadow-lg relative overflow-hidden" data-purpose="swipe-feature-preview">
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="max-w-md">
+<div class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-700/80 text-brand-100 border border-brand-500/40 mb-3">
+<span class="w-2 h-2 rounded-full bg-emerald-400 mr-1.5"></span>
+                Neu: Mobile Swipe-Gesten
+              </div>
+<h3 class="text-xl font-bold tracking-tight text-white mb-2">Zeiterfassung per Wischbewegung</h3>
+<p class="text-sm text-brand-100/90 leading-relaxed mb-4">
+                Schneller stempeln ohne langes Tippen. Einfach direkt auf dem Handy-Display nach links oder rechts wischen:
+              </p>
+<!-- Gestures Legend -->
+<div class="grid grid-cols-2 gap-3 text-xs">
+<div class="bg-brand-950/40 border border-white/10 rounded-xl p-3 flex items-center space-x-2.5">
+<div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0 text-base">
+                    👉
+                  </div>
+<div>
+<span class="font-bold text-emerald-300 block">Nach RECHTS</span>
+<span class="text-slate-300">«Kommen» stempeln</span>
+</div>
+</div>
+<div class="bg-brand-950/40 border border-white/10 rounded-xl p-3 flex items-center space-x-2.5">
+<div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center shrink-0 text-base">
+                    👈
+                  </div>
+<div>
+<span class="font-bold text-rose-300 block">Nach LINKS</span>
+<span class="text-slate-300">«Gehen» stempeln</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Smartphone Mockup Graphic -->
+<div class="shrink-0 w-52 bg-slate-900 border-4 border-slate-700 rounded-3xl p-3 shadow-2xl relative">
+<!-- Speaker Notch -->
+<div class="w-16 h-1 bg-slate-700 rounded-full mx-auto mb-3"></div>
+<!-- Screen Mockup Content -->
+<div class="bg-slate-100 rounded-2xl p-2.5 text-slate-800 text-center font-sans space-y-2">
+<div class="text-[10px] text-slate-500 font-semibold tracking-wide">DÖLTSCHI TIME MOBILE</div>
+<div class="bg-white rounded-lg p-2 shadow-sm border border-slate-200">
+<div class="text-[9px] text-slate-400">Aktueller Status</div>
+<div class="text-xs font-bold text-emerald-600 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
+                    Anwesend seit 07:45
+                  </div>
+</div>
+<!-- Visual Interactive Swipe Bar representation -->
+<div class="relative bg-slate-200 rounded-xl p-1 py-1.5 text-[10px] font-semibold text-slate-600 flex items-center justify-between overflow-hidden border border-slate-300">
+<span class="text-emerald-700 font-bold ml-1">Kommen</span>
+<div class="w-6 h-6 rounded-lg bg-brand-700 text-white flex items-center justify-center shadow-md animate-pulse">
+                    ↔
+                  </div>
+<span class="text-rose-700 font-bold mr-1">Gehen</span>
+</div>
+<div class="text-[9px] text-slate-400 italic">
+                  Tipp: Swipe-Balken ziehen
+                </div>
+</div>
+<!-- Home Indicator bar -->
+<div class="w-12 h-1 bg-slate-600 rounded-full mx-auto mt-3"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Extra Helpful Notice / Printout Reminder -->
+<section class="mt-10 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 no-print" data-purpose="quick-actions-bar">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-700 shrink-0">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h4 class="text-base font-bold text-slate-900">Tipp fürs Lehrerzimmer / Pausenraum</h4>
+<p class="text-xs sm:text-sm text-slate-600">
+            Drucken Sie diese Seite aus und hängen Sie sie gut sichtbar auf. Das Kollegium kann den Code beim Vorbeigehen mit dem Smartphone erfassen.
+          </p>
+</div>
+</div>
+<div class="flex items-center space-x-3 shrink-0">
+<button class="px-4 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 text-xs sm:text-sm font-semibold transition-colors flex items-center shadow" onclick="window.print()">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+          Aushang jetzt drucken
+        </button>
+</div>
+</section>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: Footer -->
+<footer class="mt-auto border-t border-slate-200 bg-white py-6 no-print" data-purpose="page-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+<div class="flex items-center space-x-2">
+<span class="font-semibold text-slate-700">Döltschi Time</span>
+<span>•</span>
+<span>Zürich</span>
+<span>•</span>
+<span>Version 2025.1</span>
+</div>
+<div class="text-slate-400">
+        Für Fragen zur Zeiterfassung: Leitungsteam Döltschi
+      </div>
+</div>
+</footer>
+<!-- END: Footer -->
+<!-- BEGIN: Copy-to-Clipboard Scripts -->
+<script data-purpose="clipboard-logic">
+    function copyToClipboard(text, buttonId, successLabel) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+          showFeedback(buttonId, successLabel);
+        }).catch(function() {
+          fallbackCopyText(text, buttonId, successLabel);
+        });
+      } else {
+        fallbackCopyText(text, buttonId, successLabel);
+      }
+    }
 
-function printReportDocument() {
-    window.print();
-}
+    function fallbackCopyText(text, buttonId, successLabel) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showFeedback(buttonId, successLabel);
+      } catch (err) {
+        console.error('Fallback: Kopieren fehlgeschlagen', err);
+      }
+      document.body.removeChild(textArea);
+    }
 
-function forceCloudSync() {
-    alert(`Cloud Synchronisation erfolgreich: ${timeEntriesData.length} Einträge live.`);
-}
-
-window.addEventListener('DOMContentLoaded', loadInitialData);
-</script>
-</body>
-</html>
+    function showFeedback(buttonId, successLabel) {
+      const btn = document.getElementById(buttonId);
+      if (!btn) return;
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = `<svg class="w-3.5 h-3.5 mr-1 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span class="text-emerald-700 font-bold">${successLabel}</span>`;
+      setTimeout(function() {
+        btn.innerHTML = originalHtml;
+      }, 2000);
+    }
+  </script>
+<!-- END: Copy-to-Clipboard Scripts -->
+</body></html>
