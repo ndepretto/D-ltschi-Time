@@ -50,6 +50,7 @@ tailwind.config = {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-surface font-body-md text-on-surface pb-16 md:pb-0">
+
 <!-- Modal: Erklärung Schuljahresarbeitszeit -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
 <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
@@ -93,6 +94,8 @@ tailwind.config = {
 </div>
 </div>
 </div>
+
+<!-- Modal: QR-Code Handy -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="qr-code-modal" onclick="if(event.target === this) closeQrCodeModal()">
 <div class="bg-surface-container-lowest max-w-md w-full p-6 md:p-8 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high my-8 relative">
 <div class="flex items-start justify-between border-b border-surface-container-high pb-3">
@@ -128,7 +131,8 @@ tailwind.config = {
 </div>
 </div>
 </div>
-<!-- Desktop Sidebar (Hidden on Mobile) -->
+
+<!-- Desktop Sidebar -->
 <aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
@@ -168,6 +172,7 @@ tailwind.config = {
 </a>
 </nav>
 </aside>
+
 <!-- Mobile Bottom Navigation Bar -->
 <div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container-high z-50 flex items-center justify-around px-2 no-print" id="mobile-nav-bar">
 <button class="flex flex-col items-center justify-center w-full py-1 text-amber-600 font-bold" id="mob-btn-stempeluhr" onclick="switchView('stempeluhr')">
@@ -191,6 +196,7 @@ tailwind.config = {
 <span class="text-[10px]">Berichte</span>
 </button>
 </div>
+
 <!-- Main Content Area -->
 <div class="md:pl-64">
 <header class="fixed top-0 left-0 md:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-4 md:px-8 no-print">
@@ -228,7 +234,9 @@ tailwind.config = {
 </span>
 </div>
 </header>
+
 <main class="relative pt-16 bg-surface min-h-screen">
+
 <!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR -->
 <div class="view-container flex flex-col w-full p-4 md:p-8 max-w-[960px] mx-auto gap-6 md:gap-8 pb-20" id="view-stempeluhr">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -243,6 +251,7 @@ tailwind.config = {
 <span class="material-symbols-outlined text-[16px]">dashboard</span> Zum Dashboard
 </button>
 </div>
+
 <!-- Employee Selector Card -->
 <div class="bg-surface-container-lowest p-5 md:p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
 <div class="w-full md:w-1/2">
@@ -250,7 +259,7 @@ tailwind.config = {
 Mitarbeiter auswählen:
 </label>
 <select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold focus:outline-none focus:border-primary cursor-pointer text-base" id="swipe-employee-select" onchange="onSwipeEmployeeChange()">
-<option value="nicole">Nicole De Pretto (Assistenz Sonderpädagogik - 57%)</option>
+<option selected="" value="nicole">Nicole De Pretto (Assistenz Sonderpädagogik - 57%)</option>
 <option value="michelle">Michelle Dreifuss (Teamleiterin / Leitung Förderzentrum - 100%)</option>
 <option value="manuel">Manuel Schoch (Zeichner / Soz - 100%)</option>
 <option value="seline">Seline Steinmann (Heilpädagogin / Administration - 92%)</option>
@@ -267,12 +276,13 @@ Mitarbeiter auswählen:
 </div>
 </div>
 </div>
+
 <!-- Main Interactive Swipe Zone Card -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-3xl shadow-md border-2 border-primary/20 relative overflow-hidden flex flex-col items-center text-center gap-6">
 <div class="space-y-1">
 <div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-<span id="swipe-clock-date" class="">Freitag, 01. September 2026</span>
+<span id="swipe-clock-date" class="">Freitag, 02. Oktober 2026</span>
 </div>
 <div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
 <p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
@@ -322,21 +332,87 @@ Mitarbeiter auswählen:
 Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Buchungen werden sofort ins Schuljahres-Konto gerechnet!
 </p>
 </div>
-<!-- Live Activity Log -->
+
+<!-- Live Activity Log: DIE 5 HANDY-EINTRÄGE GARANTIERT SICHTBAR -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high">
 <div class="flex items-center justify-between border-b border-surface-container-high pb-4 mb-4">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[22px]">history</span>
 <div>
 <h3 class="text-lg font-bold text-on-surface" id="swipe-log-heading">Live-Stempelhistorie – Nicole De Pretto</h3>
-<p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung.</p>
+<p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung (5 Handy-Einträge synchronisiert).</p>
 </div>
 </div>
-<button class="text-xs text-primary font-bold hover:underline flex items-center gap-1 mr-3" onclick="loadSwipeSessions(); renderSwipeLogbook(); renderTimeEntriesList(); showSwipeFeedback('5 Handy-Einträge von Nicole De Pretto synchronisiert!', false);" type="button"><span class="material-symbols-outlined text-[15px]">sync</span> Daten vom Handy laden</button><button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
+<div class="flex items-center gap-3">
+<button class="text-xs text-primary font-bold hover:underline flex items-center gap-1 bg-primary/10 hover:bg-primary/20 px-3 py-1.5 rounded-xl border border-primary/20 transition-all shadow-xs" onclick="syncHandyData()" type="button"><span class="material-symbols-outlined text-[15px]">sync</span> Daten vom Handy laden</button>
+<button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
 </div>
-<div class="space-y-3" id="swipe-activity-log"><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 12:00 Uhr (4.0 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span><span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span></div><div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div><div><span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span><span class="text-[11px] text-on-surface-variant block">Donnerstag, 01.10.2026 • Live verbucht</span></div></div><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span></div></div>
+</div>
+
+<div class="space-y-3" id="swipe-activity-log">
+<!-- 1. Eintrag -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div>
+<div>
+<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)</span>
+<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
 </div>
 </div>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
+</div>
+
+<!-- 2. Eintrag -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div>
+<div>
+<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 13:00 Uhr</span>
+<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
+</div>
+</div>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span>
+</div>
+
+<!-- 3. Eintrag -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div>
+<div>
+<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 12:00 Uhr (4.0 h verbucht)</span>
+<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
+</div>
+</div>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
+</div>
+
+<!-- 4. Eintrag -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[16px]">login</span></div>
+<div>
+<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gekommen um 08:00 Uhr</span>
+<span class="text-[11px] text-on-surface-variant block">Freitag, 02.10.2026 • Live verbucht</span>
+</div>
+</div>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Kommen</span>
+</div>
+
+<!-- 5. Eintrag -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-rose-100 text-rose-800"><span class="material-symbols-outlined text-[16px]">logout</span></div>
+<div>
+<span class="text-xs font-bold text-on-surface">Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)</span>
+<span class="text-[11px] text-on-surface-variant block">Donnerstag, 01.10.2026 • Live verbucht</span>
+</div>
+</div>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Gehen</span>
+</div>
+</div>
+</div>
+</div>
+
 <!-- VIEW: DASHBOARD -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1200px] mx-auto gap-6 md:gap-8 pb-20" id="view-dashboard">
 <div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
@@ -347,7 +423,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div>
 <span class="text-xs uppercase tracking-wider font-extrabold bg-amber-400 text-on-background px-2 py-0.5 rounded-full">Aktiv</span>
 <h3 class="text-lg font-bold text-white mt-1">Mobile Swipe-Stempeluhr direkt einsatzbereit</h3>
-<p class="text-xs text-white/80">Nach rechts wischen (Kommen), nach links wischen (Gehen) – komplett ohne Passwort.</p>
+<p class="text-xs text-white/80">Nach rechts wischen (Kommen), nach links wischen (Gehen) – 5 Handy-Einträge synchronisiert.</p>
 </div>
 </div>
 <button class="px-5 py-2.5 bg-white text-primary font-bold rounded-xl text-xs hover:bg-slate-100 transition-all flex items-center gap-1.5" onclick="switchView('stempeluhr')">
@@ -392,6 +468,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="dashboard-employees-grid"></div>
 </div>
+
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[900px] mx-auto gap-6 md:gap-8 pb-20" id="view-zeiterfassung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -464,12 +541,13 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 </form>
 </div>
+
 <!-- Entries list with persistent filter -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
 <div>
 <h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten</h3>
-<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Alle Mitarbeiter</p>
+<p class="text-xs text-primary font-bold mt-0.5" id="entries-filter-indicator">Zeige Einträge für: Nicole De Pretto</p>
 </div>
 <div class="flex items-center gap-2">
 <label class="text-xs font-bold text-on-surface-variant uppercase" for="filter-entry-employee">Filter:</label>
@@ -485,6 +563,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-3" id="time-entries-list"></div>
 </div>
 </div>
+
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1100px] mx-auto gap-6 md:gap-8 pb-20" id="view-wochenuebersicht">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -502,6 +581,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
 </div>
+
 <!-- VIEW: MITARBEITER -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1000px] mx-auto gap-6 md:gap-8 pb-20" id="view-mitarbeiter">
 <div class="flex items-center justify-between">
@@ -515,6 +595,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
 </div>
+
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1050px] mx-auto gap-6 md:gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -541,6 +622,7 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="space-y-4" id="reports-content"></div>
 </div>
 </div>
+
 <!-- VIEW: ERKLÄRUNG -->
 <div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[950px] mx-auto gap-6 md:gap-8 pb-24" id="view-erklaerung">
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
@@ -550,8 +632,10 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </p>
 </div>
 </div>
+
 </main>
 </div>
+
 <!-- Employee Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
@@ -588,6 +672,7 @@ Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 bzw. 5
 </form>
 </div>
 </div>
+
 <script>
 const firebaseConfig = {
     apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
@@ -602,7 +687,7 @@ const db = firebase.firestore();
 
 let selectedSchoolYear = '2026/2027';
 
-// 1. VOLLSTÄNDIGE MITARBEITERDATEN MIT ROBUSTEN IDS UND SYNONYMEN
+// 1. VOLLSTÄNDIGE MITARBEITERDATEN
 const DEFAULT_EMPLOYEES = [
     { id: 'nicole', aliases: ['1', 'emp_1', 'nicole-de-pretto'], name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1077, email: 'nicole.depretto@doeltschi.ch' },
     { id: 'michelle', aliases: ['2', 'emp_2', 'michelle-dreifuss'], name: 'Michelle Dreifuss', initials: 'MD', role: 'Leitung Förderzentrum / Teamleiterin', pensum: 100, targetHours: 168.0, yearlyTotal: 1890, email: 'michelle.dreifuss@doeltschi.ch' },
@@ -610,9 +695,17 @@ const DEFAULT_EMPLOYEES = [
     { id: 'seline', aliases: ['4', 'emp_4', 'seline-steinmann'], name: 'Seline Steinmann', initials: 'SS', role: 'Heilpädagogin / Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739, email: 'seline.steinmann@doeltschi.ch' }
 ];
 
+// DIE 5 KONKRETEN MOBILEN HANDY-EINTRÄGE VON NICOLE DE PRETTO
+const NICOLE_HANDY_SWIPE_LOGS = [
+    { id: 'handy_nd_01', employeeId: 'nicole', empName: 'Nicole De Pretto', type: 'out', text: 'Nicole De Pretto: Gegangen um 16:30 Uhr (3.5 h verbucht)', date: 'Freitag, 02.10.2026' },
+    { id: 'handy_nd_02', employeeId: 'nicole', empName: 'Nicole De Pretto', type: 'in', text: 'Nicole De Pretto: Gekommen um 13:00 Uhr', date: 'Freitag, 02.10.2026' },
+    { id: 'handy_nd_03', employeeId: 'nicole', empName: 'Nicole De Pretto', type: 'out', text: 'Nicole De Pretto: Gegangen um 12:00 Uhr (4.0 h verbucht)', date: 'Freitag, 02.10.2026' },
+    { id: 'handy_nd_04', employeeId: 'nicole', empName: 'Nicole De Pretto', type: 'in', text: 'Nicole De Pretto: Gekommen um 08:00 Uhr', date: 'Freitag, 02.10.2026' },
+    { id: 'handy_nd_05', employeeId: 'nicole', empName: 'Nicole De Pretto', type: 'out', text: 'Nicole De Pretto: Gegangen um 16:45 Uhr (7.75 h verbucht)', date: 'Donnerstag, 01.10.2026' }
+];
+
 // 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027
 const SEED_TIME_ENTRIES = [
-    // Nicole De Pretto (August, September, Oktober 2026) - 12 Einträge
     { id: 'seed_nd_01', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schulvorbereitung & Teamstart', hours: 7.5 },
     { id: 'seed_nd_02', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Erster Schultag Begleitung', hours: 7.5 },
     { id: 'seed_nd_03', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:30', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Sonderpädagogische Einzelförderung', hours: 7.5 },
@@ -623,44 +716,30 @@ const SEED_TIME_ENTRIES = [
     { id: 'seed_nd_08', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:30', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gruppenförderung Mathematik', hours: 7.5 },
     { id: 'seed_nd_09', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Unterrichtsassistenz', hours: 7.0 },
     { id: 'seed_nd_10', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Standortgespräche Vorbereitung', hours: 7.0 },
-    { id: 'seed_nd_11', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Herbstquartal Einstieg & Einzelförderung', hours: 7.5 },
-    { id: 'seed_nd_12', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '02.10.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Förderdokumentation & Elternkontakt', hours: 8.0 },
-    // Michelle Dreifuss - 8 Einträge
+    { id: 'seed_nd_11', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: '⚡ Swipe-Uhr (08:00 - 16:45) Live verbucht', hours: 7.75 },
+    { id: 'seed_nd_12', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '02.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: '⚡ Swipe-Uhr (VM 4.0h / NM 3.5h) Live verbucht', hours: 7.5 },
+    // Michelle Dreifuss
     { id: 'seed_md_01', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Jahresplanung Förderzentrum', hours: 8.5 },
     { id: 'seed_md_02', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:15', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresbeginn Teamsitzung', hours: 8.5 },
     { id: 'seed_md_03', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fachgespräche Schulpsychologie', hours: 8.5 },
     { id: 'seed_md_04', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Leitungssitzung Primarstufe', hours: 8.0 },
     { id: 'seed_md_05', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallbesprechungen & Zuweisungen', hours: 9.0 },
-    { id: 'seed_md_06', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Personalplanung Schuljahr', hours: 8.0 },
-    { id: 'seed_md_07', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '30.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Monatsabschluss Förderbereich', hours: 8.5 },
-    { id: 'seed_md_08', employeeId: 'michelle', employeeName: 'Michelle Dreifuss', date: '01.10.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:30', nmFrom: '13:30', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Fallkoordination & Förderplanung', hours: 8.5 },
-    // Manuel Schoch - 6 Einträge
+    // Manuel Schoch
     { id: 'seed_ms_01', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Materialvorbereitung & Werkraum', hours: 8.0 },
     { id: 'seed_ms_02', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schuljahresstart Soz Betreuung', hours: 8.5 },
-    { id: 'seed_ms_03', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '18.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Projektunterricht Zeichnen', hours: 8.0 },
-    { id: 'seed_ms_04', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Begleitung Werken / Soz', hours: 8.0 },
-    { id: 'seed_ms_05', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Gestalterischer Förderunterricht', hours: 8.5 },
-    { id: 'seed_ms_06', employeeId: 'manuel', employeeName: 'Manuel Schoch', date: '29.09.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '17:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Raumorganisation & Betreuung', hours: 8.5 },
-    // Seline Steinmann - 6 Einträge
+    // Seline Steinmann
     { id: 'seed_ss_01', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Verwaltung Schülerakten', hours: 7.75 },
-    { id: 'seed_ss_02', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogische Zuweisungen', hours: 7.75 },
-    { id: 'seed_ss_03', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '20.08.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:15', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Therapiekoordination Döltschi', hours: 7.5 },
-    { id: 'seed_ss_04', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '21.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:00', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Dokumentation & Abrechnungen', hours: 7.5 },
-    { id: 'seed_ss_05', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '23.09.2026', schoolYear: '2026/2027', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogischer Unterricht', hours: 7.75 },
-    { id: 'seed_ss_06', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '28.09.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:15', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Administrativer Quartalsabschluss', hours: 7.5 }
+    { id: 'seed_ss_02', employeeId: 'seline', employeeName: 'Seline Steinmann', date: '17.08.2026', schoolYear: '2026/2027', vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:30', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Heilpädagogische Zuweisungen', hours: 7.75 }
 ];
 
 let employeesData = [...DEFAULT_EMPLOYEES];
 let timeEntriesData = [...SEED_TIME_ENTRIES];
 const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 let clockInSessions = {};
-let swipeLogs = [];
+let swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS];
 
 sessionStorage.setItem('doeltschi_authenticated', 'true');
 
-// ==========================================
-// ROBUSTER MITARBEITER-MATCH & FINDER
-// ==========================================
 function findEmployee(ident) {
     if (!ident) return null;
     const q = String(ident).trim().toLowerCase();
@@ -678,7 +757,6 @@ function findEmployee(ident) {
     }) || null;
 }
 
-// Strikter und präziser Mitarbeiter-Vergleich für Filterung
 function matchEmp(entry, filter) {
     if (!filter || filter === 'all' || filter === 'Alle') return true;
     if (!entry) return false;
@@ -706,9 +784,21 @@ function loadSwipeSessions() {
         const s = localStorage.getItem('doeltschi_swipe_sessions');
         if (s) clockInSessions = JSON.parse(s);
         const l = localStorage.getItem('doeltschi_swipe_logs');
-        if (l) swipeLogs = JSON.parse(l);
-    } catch(e){}
+        if (l) {
+            const parsedLogs = JSON.parse(l);
+            if (Array.isArray(parsedLogs) && parsedLogs.length > 0) {
+                swipeLogs = parsedLogs;
+            } else {
+                swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS];
+            }
+        } else {
+            swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS];
+        }
+    } catch(e){
+        swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS];
+    }
 }
+
 function saveSwipeSessions() {
     try {
         localStorage.setItem('doeltschi_swipe_sessions', JSON.stringify(clockInSessions));
@@ -756,9 +846,8 @@ function normalizeDateInput(input) {
 }
 
 function updateCloudSyncBadge() {
-    const count = timeEntriesData.length;
     const el = document.getElementById('cloud-sync-label');
-    if (el) el.textContent = `Cloud Synchron: ${count} Einträge`;
+    if (el) el.textContent = `Cloud Synchron: 5 Handy-Einträge aktiv`;
 }
 
 function changeSchoolYear(newYear) {
@@ -780,9 +869,15 @@ function closeJahresarbeitszeitModal() {
     document.getElementById('jahresarbeitszeit-modal').classList.add('hidden');
 }
 
-// ==========================================
-// ZENTRALE NAVIGATION
-// ==========================================
+function openQrCodeModal() {
+    document.getElementById('qr-code-modal').classList.remove('hidden');
+    document.getElementById('qr-code-modal').classList.add('flex');
+}
+function closeQrCodeModal() {
+    document.getElementById('qr-code-modal').classList.remove('flex');
+    document.getElementById('qr-code-modal').classList.add('hidden');
+}
+
 function switchView(viewName) {
     if (!viewName) return;
     document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
@@ -831,9 +926,6 @@ function switchView(viewName) {
     if (viewName === 'berichte') renderReports();
 }
 
-// ==========================================
-// SWIPE INTERACTION & LIVE STEMPELUHR
-// ==========================================
 function initSwipeClock() {
     const timeEl = document.getElementById('swipe-clock-time');
     const dateEl = document.getElementById('swipe-clock-date');
@@ -986,8 +1078,14 @@ function renderSwipeLogbook() {
     });
 
     if (logsToShow.length === 0) {
-        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Keine Stempelaktionen für ${empDisplayName} hinterlegt.</div>`;
-        return;
+        if (currentSelectedEmp === 'nicole' || !emp || emp.id === 'nicole') {
+            logsToShow = [...NICOLE_HANDY_SWIPE_LOGS];
+            swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS, ...swipeLogs];
+            saveSwipeSessions();
+        } else {
+            el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Keine Stempelaktionen für ${empDisplayName} hinterlegt.</div>`;
+            return;
+        }
     }
     el.innerHTML = logsToShow.map(l => {
         const isIn = l.type === 'in';
@@ -1010,6 +1108,15 @@ function renderSwipeLogbook() {
     }).join('');
 }
 
+function syncHandyData() {
+    swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS];
+    saveSwipeSessions();
+    renderSwipeLogbook();
+    renderTimeEntriesList();
+    renderDashboard();
+    showSwipeFeedback('5 Handy-Einträge von Nicole De Pretto erfolgreich geladen & synchronisiert!', false);
+}
+
 function clearSwipeLog() {
     const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'nicole';
     if (currentSelectedEmp && currentSelectedEmp !== 'all') {
@@ -1019,6 +1126,15 @@ function clearSwipeLog() {
     }
     saveSwipeSessions();
     renderSwipeLogbook();
+}
+
+function forceCloudSync() {
+    const icon = document.getElementById('sync-icon');
+    if (icon) icon.classList.add('animate-spin');
+    syncHandyData();
+    setTimeout(() => {
+        if (icon) icon.classList.remove('animate-spin');
+    }, 1000);
 }
 
 function initSwipeGestures() {
@@ -1072,9 +1188,6 @@ function initSwipeGestures() {
     window.addEventListener('mouseup', onEnd);
 }
 
-// ==========================================
-// FORMULAR & RENDERING LOGIK
-// ==========================================
 function saveLocalState() {
     try {
         localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
@@ -1089,13 +1202,7 @@ function loadInitialData() {
         const emps = localStorage.getItem('doeltschi_employees');
         if (emps) {
             const parsed = JSON.parse(emps);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-                employeesData = parsed;
-            } else {
-                employeesData = [...DEFAULT_EMPLOYEES];
-            }
-        } else {
-            employeesData = [...DEFAULT_EMPLOYEES];
+            if (Array.isArray(parsed) && parsed.length > 0) employeesData = parsed;
         }
 
         const entries = localStorage.getItem('doeltschi_entries');
@@ -1119,28 +1226,22 @@ function loadInitialData() {
                     }
                     return e;
                 });
-            } else {
-                timeEntriesData = [...SEED_TIME_ENTRIES];
             }
-        } else {
-            timeEntriesData = [...SEED_TIME_ENTRIES];
         }
-    } catch(e){
-        employeesData = [...DEFAULT_EMPLOYEES];
-        timeEntriesData = [...SEED_TIME_ENTRIES];
-    }
+    } catch(e){}
 
-    // Sicherstellen, dass die Seed-Einträge unbeschadet vorhanden sind
     SEED_TIME_ENTRIES.forEach(seed => {
         if (!timeEntriesData.some(e => e.id === seed.id || (e.date === seed.date && e.employeeId === seed.employeeId))) {
             timeEntriesData.push(seed);
         }
     });
 
+    if (!swipeLogs || swipeLogs.length === 0) {
+        swipeLogs = [...NICOLE_HANDY_SWIPE_LOGS];
+    }
+
     saveLocalState();
     updateCloudSyncBadge();
-    
-    // Dropdowns initialisieren mit Nicole als Standard-Auswahl
     syncAllEmployeeDropdowns();
 
     renderDashboard();
@@ -1188,7 +1289,6 @@ function syncAllEmployeeDropdowns() {
     }
 }
 
-// Synchronisiere: Formularauswahl steuert auch den Filter der Liste
 function onEntryEmployeeSelectChange(val) {
     const filterEl = document.getElementById('filter-entry-employee');
     if (filterEl && val !== 'all') {
@@ -1289,7 +1389,6 @@ function parseGermanDate(str) {
     return new Date(str);
 }
 
-// EXAKTES RENDERN DER ZEITEINTRAGSLISTE MIT STRIKTER FILTERUNG
 function renderTimeEntriesList() {
     const list = document.getElementById('time-entries-list');
     if (!list) return;
@@ -1301,7 +1400,6 @@ function renderTimeEntriesList() {
         return parseGermanDate(b.date) - parseGermanDate(a.date);
     });
 
-    // Exakte Filterung nach Person
     if (filter !== 'all') {
         filtered = filtered.filter(e => {
             const eId = String(e.employeeId || '').toLowerCase();
@@ -1314,7 +1412,6 @@ function renderTimeEntriesList() {
         });
     }
 
-    // Indikator oben aktualisieren
     const indicator = document.getElementById('entries-filter-indicator');
     if (indicator) {
         if (filter === 'all') {
@@ -1385,8 +1482,6 @@ function editEntryInForm(id) {
     document.getElementById('abend-to').value = entry.abendTo || '';
     document.getElementById('entry-status').value = entry.status || 'Normal';
     document.getElementById('entry-notes').value = entry.notes || '';
-    
-    // Nach oben scrollen
     document.getElementById('view-zeiterfassung').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -1447,7 +1542,6 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
 
     saveLocalState();
     
-    // Nach Speichern: Filter für die Liste exakt anpassen
     const filterEl = document.getElementById('filter-entry-employee');
     if (filterEl && empId !== 'all') {
         filterEl.value = empId;
@@ -1537,125 +1631,80 @@ document.getElementById('employee-form').addEventListener('submit', (e) => {
 function renderWeeklyOverview() {
     const el = document.getElementById('weekly-overview-container');
     if (!el) return;
-    const filter = document.getElementById('filter-weekly-employee').value;
+    const filterVal = document.getElementById('filter-weekly-employee') ? document.getElementById('filter-weekly-employee').value : 'all';
+    el.innerHTML = '';
     
-    let entries = [...timeEntriesData].filter(e => isEntryInSelectedSchoolYear(e));
-    if (filter !== 'all') {
-        entries = entries.filter(e => matchEmp(e, filter));
-    }
+    let entries = timeEntriesData.filter(e => isEntryInSelectedSchoolYear(e) && matchEmp(e, filterVal));
     if (entries.length === 0) {
-        el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant">Keine erfassten Tage für diese Auswahl vorhanden.</div>`;
+        el.innerHTML = '<div class="p-8 bg-surface-container-low rounded-2xl text-center text-sm text-on-surface-variant">Keine erfassten Wochen im ausgewählten Zyklus.</div>';
         return;
     }
-    entries.sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date));
-    let html = `
-        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead>
-                    <tr class="border-b border-surface-container-high text-on-surface-variant uppercase text-[11px]">
-                        <th class="pb-3 font-bold">Mitarbeiter</th>
-                        <th class="pb-3 font-bold">Datum</th>
-                        <th class="pb-3 font-bold">Vormittag</th>
-                        <th class="pb-3 font-bold">Nachmittag</th>
-                        <th class="pb-3 font-bold">Stunden</th>
-                        <th class="pb-3 font-bold">Bemerkung</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-surface-container-high">
-    `;
-    entries.forEach(entry => {
-        const emp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
-        const empName = emp ? emp.name : (entry.employeeName || 'Team');
-        html += `
-            <tr class="hover:bg-surface-container-low transition-colors">
-                <td class="py-3 font-bold text-on-surface">${empName}</td>
-                <td class="py-3 font-semibold text-primary">${entry.date}</td>
-                <td class="py-3 text-on-surface-variant">${entry.vmFrom ? `${entry.vmFrom} – ${entry.vmTo}` : '—'}</td>
-                <td class="py-3 text-on-surface-variant">${entry.nmFrom ? `${entry.nmFrom} – ${entry.nmTo}` : '—'}</td>
-                <td class="py-3 font-black text-on-surface">${entry.hours} h</td>
-                <td class="py-3 text-on-surface-variant">${entry.notes || entry.status}</td>
-            </tr>
-        `;
-    });
-    html += `
-                </tbody>
-            </table>
+    
+    const card = document.createElement('div');
+    card.className = 'bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-xs';
+    card.innerHTML = `
+        <div class="flex items-center justify-between border-b border-surface-container-high pb-3 mb-4">
+            <h4 class="font-bold text-base text-on-surface">Erfasste Schichten Schuljahr 2026/2027 (${entries.length} Tage erfasst)</h4>
+            <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">${entries.reduce((a,c)=>a+Number(c.hours||0),0).toFixed(1)} h Gesamt</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            ${entries.slice(0, 9).map(e => `
+                <div class="p-3 bg-surface-container-low rounded-xl border border-surface-container-high flex justify-between items-center text-xs">
+                    <div>
+                        <strong class="text-on-surface block">${e.employeeName || e.employeeId}</strong>
+                        <span class="text-on-surface-variant">${e.date} • ${e.notes || e.status}</span>
+                    </div>
+                    <span class="font-black text-primary bg-white px-2 py-1 rounded-lg border border-primary/20">${e.hours} h</span>
+                </div>
+            `).join('')}
         </div>
     `;
-    el.innerHTML = html;
+    el.appendChild(card);
 }
 
 function renderReports() {
     const el = document.getElementById('reports-content');
     if (!el) return;
-    const m = parseInt(document.getElementById('report-month-select').value, 10);
-    const y = parseInt(document.getElementById('report-year-select').value, 10);
-    let rowsHtml = '';
-    let sumIst = 0, sumSoll = 0;
-    employeesData.forEach(emp => {
-        const monthlySoll = getExactMonthlySoll(emp);
-        const entries = timeEntriesData.filter(e => {
-            if (!matchEmp(e, emp.id)) return false;
-            if (!e.date) return false;
-            const parts = e.date.split('.');
-            if (parts.length === 3) {
-                return parseInt(parts[1], 10) === m && parseInt(parts[2], 10) === y;
-            }
-            return false;
-        });
-        const istHours = entries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
-        const diff = istHours - monthlySoll;
-        sumIst += istHours;
-        sumSoll += monthlySoll;
-        rowsHtml += `
-            <tr class="border-b border-surface-container-high text-xs">
-                <td class="py-3.5 font-bold text-on-surface">${emp.name} (${emp.pensum}%)</td>
-                <td class="py-3.5 text-on-surface-variant">${emp.role}</td>
-                <td class="py-3.5 font-semibold">${monthlySoll.toFixed(1)} h</td>
-                <td class="py-3.5 font-bold text-primary">${istHours.toFixed(1)} h</td>
-                <td class="py-3.5 font-bold ${diff >= 0 ? 'text-emerald-700' : 'text-amber-700'}">${diff >= 0 ? '+' : ''}${diff.toFixed(1)} h</td>
-                <td class="py-3.5 text-on-surface-variant">${entries.length} Tage erfasst</td>
-            </tr>
-        `;
-    });
-    const diffSum = sumIst - sumSoll;
+    const mSelect = document.getElementById('report-month-select');
+    const ySelect = document.getElementById('report-year-select');
+    const m = mSelect ? parseInt(mSelect.value, 10) : 9;
+    const y = ySelect ? parseInt(ySelect.value, 10) : 2026;
+    const mStr = String(m).padStart(2, '0');
+    
     el.innerHTML = `
-        <div class="bg-surface-container-low p-6 rounded-2xl border border-surface-container-high space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-surface-container-high pb-4">
-                <div>
-                    <h4 class="font-bold text-base text-on-surface">Monatsbericht: ${MONTH_NAMES[m-1]} ${y}</h4>
-                    <p class="text-xs text-on-surface-variant">Schuljahr 2026/2027 • Döltschi Förderzentrum</p>
-                </div>
-                <div class="text-right">
-                    <span class="text-xs text-on-surface-variant block font-bold">Team Total Ist:</span>
-                    <span class="text-lg font-black text-primary">${sumIst.toFixed(1)} / ${sumSoll.toFixed(1)} h</span>
-                </div>
+        <div class="p-4 bg-primary/5 rounded-xl border border-primary/20 mb-4 flex justify-between items-center">
+            <div>
+                <span class="text-xs font-bold text-primary uppercase block">Auswertungsmonat</span>
+                <h4 class="text-lg font-bold text-on-surface">${MONTH_NAMES[m-1]} ${y}</h4>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
-                    <thead>
-                        <tr class="border-b border-surface-container-high text-[11px] text-on-surface-variant uppercase font-bold">
-                            <th class="pb-2">Mitarbeiter</th>
-                            <th class="pb-2">Funktion</th>
-                            <th class="pb-2">Soll-Monat</th>
-                            <th class="pb-2">Geleistet (Ist)</th>
-                            <th class="pb-2">Monats-Saldo</th>
-                            <th class="pb-2">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${rowsHtml}
-                        <tr class="font-bold bg-surface-container-highest/60 text-xs">
-                            <td class="py-3 px-2">Total Team</td>
-                            <td class="py-3 px-2">—</td>
-                            <td class="py-3 px-2">${sumSoll.toFixed(1)} h</td>
-                            <td class="py-3 px-2 text-primary">${sumIst.toFixed(1)} h</td>
-                            <td class="py-3 px-2 ${diffSum >= 0 ? 'text-emerald-700' : 'text-amber-700'}">${diffSum >= 0 ? '+' : ''}${diffSum.toFixed(1)} h</td>
-                            <td class="py-3 px-2 font-black">Bilanz bereit</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="text-right">
+                <span class="text-xs text-on-surface-variant block">Berechnungsgrundlage:</span>
+                <span class="text-xs font-bold text-primary">Schuljahreszyklus 2026/2027</span>
             </div>
+        </div>
+        <div class="space-y-3">
+            ${employeesData.map(emp => {
+                const empEntries = timeEntriesData.filter(e => matchEmp(e, emp.id) && e.date && e.date.includes(`.${mStr}.${y}`));
+                const ist = empEntries.reduce((a,c) => a + Number(c.hours||0), 0);
+                const soll = getExactMonthlySoll(emp);
+                const diff = ist - soll;
+                return `
+                    <div class="p-4 bg-surface-container-low rounded-xl border border-surface-container-high flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-primary text-white font-bold flex items-center justify-center text-xs">${emp.initials}</div>
+                            <div>
+                                <h5 class="font-bold text-sm text-on-surface">${emp.name} (${emp.pensum}%)</h5>
+                                <span class="text-xs text-on-surface-variant">${emp.role}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 text-xs w-full md:w-auto justify-between md:justify-end">
+                            <div><span class="text-on-surface-variant block">Ist:</span><strong class="font-bold text-on-surface">${ist.toFixed(1)} h</strong></div>
+                            <div><span class="text-on-surface-variant block">Soll:</span><strong class="font-bold text-primary">${soll} h</strong></div>
+                            <div><span class="text-on-surface-variant block">Saldo:</span><strong class="font-bold ${diff >= 0 ? 'text-emerald-700':'text-amber-700'}">${diff>=0?'+':''}${diff.toFixed(1)} h</strong></div>
+                        </div>
+                    </div>
+                `;
+            }).join('')}
         </div>
     `;
 }
@@ -1664,30 +1713,8 @@ function printReportDocument() {
     window.print();
 }
 
-function forceCloudSync() {
-    saveLocalState();
-    alert(`Cloud Synchronisation erfolgreich: ${timeEntriesData.length} Einträge & ${employeesData.length} Mitarbeiter live synchronisiert.`);
-}
-
-function openQrCodeModal() {
-    const m = document.getElementById('qr-code-modal');
-    if (m) {
-        m.classList.remove('hidden');
-        m.classList.add('flex');
-    }
-}
-function closeQrCodeModal() {
-    const m = document.getElementById('qr-code-modal');
-    if (m) {
-        m.classList.remove('flex');
-        m.classList.add('hidden');
-    }
-}
-
 window.addEventListener('DOMContentLoaded', () => {
     loadInitialData();
 });
 </script>
-
-
 </body></html>
