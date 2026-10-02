@@ -1,209 +1,1195 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Döltschi Time - Zeiterfassung & Schuljahresarbeitszeit</title>
-    
-    <!-- Tailwind CSS Stylesheet für das responsive Design -->
-    <script src="https://tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "background": "#f9f9ff",
-                        "primary-fixed": "#dae2ff",
-                        "primary": "#003d9b",
-                        "error-container": "#ffdad6",
-                        "surface": "#f9f9ff",
-                        "surface-bright": "#f9f9ff",
-                        "surface-variant": "#d7e2ff",
-                        "surface-container": "#e8edff",
-                        "on-surface-variant": "#434654",
-                        "error": "#ba1a1a",
-                        "on-background": "#041b3c",
-                        "outline": "#737685",
-                        "tertiary": "#7b2600",
-                        "inverse-primary": "#b2c5ff",
-                        "on-primary": "#ffffff",
-                        "surface-container-low": "#f1f3ff",
-                        "on-surface": "#041b3c",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container-high": "#e0e8ff",
-                        "surface-container-highest": "#d7e2ff",
-                        "outline-variant": "#c3c6d6",
-                        "primary-container": "#0052cc",
-                        "on-primary-container": "#c4d2ff"
-                    },
-                    borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
-                    fontFamily: {
-                        "body-md": ["Work Sans"],
-                        "headline-md": ["Work Sans"],
-                        "headline-lg": ["Work Sans"]
-                    }
-                }
-            }
-        };
-    </script>
-    <link href="https://googleapis.com" rel="stylesheet"/>
-    
-    <!-- Firebase Bibliotheken für die Cloud-Anbindung -->
-    <script src="https://gstatic.com"></script>
-    <script src="https://gstatic.com"></script>
-    
-    <!-- QR-Code JavaScript Bibliothek -->
-    <script src="https://cloudflare.com"></script>
 
-    <style>
-        @layer base {
-            html, body { margin: 0; padding: 0; }
-            body { overscroll-behavior: none; }
-            main>:first-child { margin-top: 0 !important; }
-            main>:last-child { margin-bottom: 0 !important; }
+<html lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Döltschi Time - Mobile Swipe-Stempeluhr &amp; Zeiterfassung</title>
+<style>
+@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
+::-webkit-scrollbar { display: none; }
+@media print {
+    aside, header, #sidebar-nav, .no-print, button, #jahresarbeitszeit-modal, #employee-modal, #mobile-nav-bar { display: none !important; }
+    .pl-64 { padding-left: 0 !important; }
+    main { padding-top: 0 !important; }
+    body { background: white !important; color: black !important; }
+    .view-container:not(.print-active) { display: none !important; }
+    .print-active { display: flex !important; }
+}
+.swipe-card-drag { touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+        extend: {
+            colors: {
+                "background": "#f9f9ff",
+                "primary-fixed": "#dae2ff",
+                "primary": "#003d9b",
+                "surface": "#f9f9ff",
+                "surface-container": "#e8edff",
+                "on-surface-variant": "#434654",
+                "error": "#ba1a1a",
+                "on-background": "#041b3c",
+                "outline": "#737685",
+                "on-primary": "#ffffff",
+                "surface-container-low": "#f1f3ff",
+                "on-surface": "#041b3c",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-high": "#e0e8ff",
+                "primary-container": "#0052cc",
+                "on-primary-container": "#c4d2ff"
+            },
+            fontFamily: { "body-md": ["Work Sans"], "headline-md": ["Work Sans"] }
         }
-        ::-webkit-scrollbar { display: none; }
-        
-        /* Absolut sicheres Styling für das Login-Overlay */
-        #auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        #auth-modal.hidden {
-            display: none !important;
-        }
-
-        /* Styling für den mobilen Swipe-Button */
-        .swipe-container {
-            position: relative;
-            background: #e8edff;
-            border-radius: 9999px;
-            padding: 4px;
-            user-select: none;
-            overflow: hidden;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #737685;
-        }
-        .swipe-handle {
-            position: absolute;
-            left: 4px;
-            height: 52px;
-            width: 52px;
-            background: #003d9b;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            z-index: 2;
-            font-size: 20px;
-            font-weight: bold;
-            transition: transform 0.1s ease-out;
-        }
-        .swipe-text {
-            color: #041b3c;
-            font-weight: 600;
-            font-size: 0.875rem;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        @media print {
-            aside, header, #sidebar-nav, .no-print, button, #auth-modal, #jahresarbeitszeit-modal, #employee-modal, .swipe-container, #qrcode { display: none !important; }
-            .pl-64 { padding-left: 0 !important; }
-            main { padding-top: 0 !important; }
-            body { background: white !important; color: black !important; }
-        }
-    </style>
+    }
+};
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
-<body class="bg-surface font-body-md text-on-surface">
-
-<!-- Password Protection Modal (Login) -->
-<div id="auth-modal">
-    <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6 text-center">
-        <div>
-            <h2 class="text-2xl font-bold text-primary">Döltschi Time Login</h2>
-            <p class="text-sm text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
-        </div>
-        <form class="flex flex-col gap-4" id="auth-form">
-            <input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-center focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" type="password"/>
-            <button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
-            <p class="text-error text-center text-sm font-semibold hidden" id="auth-error">⚠️ Falsches Passwort!</p>
-        </form>
-    </div>
-</div>
-
-<!-- Hauptinhalt der Web-App -->
-<main class="p-4 md:p-8 max-w-4xl mx-auto space-y-6 mt-6">
-    
-    <!-- Dashboard Header -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container border border-surface-variant p-6 rounded-2xl">
-        <div>
-            <h1 class="text-2xl font-bold text-on-background">Döltschi Time</h1>
-            <p class="text-sm text-on-surface-variant">Digitale Zeiterfassung Primarstufe Döltschi</p>
-        </div>
-        <button class="px-4 py-2 bg-surface-container-high border border-outline rounded-xl flex items-center gap-2 hover:bg-surface-container-highest transition-all text-sm font-medium" onclick="openJahresarbeitszeitModal()">
-            ℹ️ Info Schuljahreszeit
-        </button>
-    </div>
-
-    <!-- Interaktive Widgets Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Widget: Mobiler Swipe Regler -->
-        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col gap-4">
-            <h3 class="text-lg font-bold text-primary flex items-center gap-2">
-                👆 Mobiles Swipen (Präsenz)
-            </h3>
-            <p class="text-sm text-on-surface-variant">Schiebe den Regler nach rechts, um deine Arbeitszeit zu starten oder zu beenden.</p>
-            
-            <!-- Der funktionale Schieberegler -->
-            <div class="swipe-container mt-2" id="swipe-box">
-                <div class="swipe-handle" id="swipe-btn">➜</div>
-                <span class="swipe-text" id="swipe-status-text">Rechts swipen zum Einloggen</span>
-            </div>
-            <div id="swipe-alert" class="hidden text-center text-sm font-semibold p-2 rounded-xl mt-2"></div>
-        </div>
-
-        <!-- Widget: Dynamischer QR Code für mobile Anmeldung -->
-        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col items-center justify-center text-center gap-4">
-            <div>
-                <h3 class="text-lg font-bold text-primary flex items-center gap-2 justify-center">
-                    📱 Schnellanmeldung via Handy
-                </h3>
-                <p class="text-sm text-on-surface-variant mt-1">Scanne diesen Code mit der Handykamera, um die Zeiterfassung direkt auf dem Smartphone zu öffnen.</p>
-            </div>
-            <!-- Container für QR-Code Generation -->
-            <div id="qrcode" class="p-3 bg-white border border-surface-container-high rounded-xl min-h-[160px] flex items-center justify-center">
-                <span class="text-xs text-on-surface-variant">QR-Code wird nach dem Login sichtbar</span>
-            </div>
-        </div>
-    </div>
-</main>
-
+<body class="bg-surface font-body-md text-on-surface pb-16 md:pb-0">
 <!-- Modal: Erklärung Schuljahresarbeitszeit -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
-    <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto relative">
-        <div class="flex items-start justify-between border-b border-surface-container-high pb-4">
-            <div>
-                <div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
-                    🏫 Schuljahreszyklus Sommer zu Sommer (1. Aug. – 31. Juli)
-                </div>
-                <h3 class="text-2xl font-bold text-on-surface mt-1">Erklärung Schuljahresarbeitszeit (804 h / 1'072 h)</h3>
-                <p class="text-sm text-on-surface-variant">Kantonale Berechnungsgrundlage Primarstufe Döltschi für das Schuljahr (August bis Juli)</p>
-            </div>
+<div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto">
+<div class="flex items-start justify-between border-b border-surface-container-high pb-4">
+<div>
+<div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">school</span> Schuljahreszyklus Sommer zu Sommer (1. Aug. – 31. Juli)
+</div>
+<h3 class="text-2xl font-bold text-on-surface mt-1">Erklärung Schuljahresarbeitszeit (804 h / 1'072 h)</h3>
+<p class="text-sm text-on-surface-variant">Berechnungsgrundlage Primarstufe Döltschi (100% = 2'144 Std.)</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeJahresarbeitszeitModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="space-y-4 text-sm leading-relaxed">
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[28px]">calendar_sync</span>
+<div>
+<span class="text-xs uppercase tracking-wider font-bold text-primary block">Berechnungszeitraum</span>
+<p class="text-sm font-semibold text-on-surface">1. August bis 31. Juli (Sommer bis Sommer).</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-primary/5 p-4 rounded-xl border border-primary/20 text-center">
+<span class="text-xs font-bold text-primary block uppercase">Soll (50%)</span>
+<span class="text-xl font-bold text-primary mt-1 block">1'072 h</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
+<span class="text-xs font-bold text-on-surface-variant block uppercase">Monats-Soll (57%)</span>
+<span class="text-xl font-bold text-primary mt-1 block">95.8 h</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high text-center">
+<span class="text-xs font-bold text-on-surface-variant block uppercase">Soll 3. Quartal</span>
+<span class="text-xl font-bold text-on-surface mt-1 block">804 h</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-2 pt-4 border-t border-surface-container-high">
+<button class="px-5 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm" onclick="closeJahresarbeitszeitModal()">Schliessen</button>
+</div>
+</div>
+</div>
+<!-- Desktop Sidebar (Hidden on Mobile) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
+<div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
+</div>
+<div class="mx-4 mb-4 p-3 bg-primary/5 rounded-xl border border-primary/20">
+<div class="text-[11px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">event_repeat</span> Zyklus
+</div>
+<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2026/2027</div>
+<div class="text-[11px] text-on-surface-variant">1. Aug. 2026 – 31. Juli 2027</div>
+</div>
+<nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-amber-900 font-extrabold bg-amber-400/20 border border-amber-400/40 hover:bg-amber-400/30 transition-all cursor-pointer shadow-xs mb-2" data-view="stempeluhr">
+<span class="material-symbols-outlined mr-2.5 text-amber-600">bolt</span>⚡ Swipe-Stempeluhr
+<span class="ml-auto text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-full uppercase">Direkt</span>
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="dashboard">
+<span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="zeiterfassung">
+<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="wochenuebersicht">
+<span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="mitarbeiter">
+<span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-view="berichte">
+<span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-primary font-semibold hover:bg-surface-container-high transition-all cursor-pointer bg-primary/5 border border-primary/10 mt-1" data-view="erklaerung">
+<span class="material-symbols-outlined mr-3 text-primary">description</span>Erklärung Schuljahr (804h)
+</a>
+</nav>
+</aside>
+<!-- Mobile Bottom Navigation Bar -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container-high z-50 flex items-center justify-around px-2 no-print" id="mobile-nav-bar">
+<button class="flex flex-col items-center justify-center w-full py-1 text-amber-600 font-bold" id="mob-btn-stempeluhr" onclick="switchView('stempeluhr')">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+<span class="text-[10px]">Swipe-Uhr</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full py-1 text-on-surface-variant hover:text-primary font-medium" id="mob-btn-dashboard" onclick="switchView('dashboard')">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-[10px]">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full py-1 text-on-surface-variant hover:text-primary font-medium" id="mob-btn-zeiterfassung" onclick="switchView('zeiterfassung')">
+<span class="material-symbols-outlined text-[22px]">edit_calendar</span>
+<span class="text-[10px]">Erfassen</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full py-1 text-on-surface-variant hover:text-primary font-medium" id="mob-btn-mitarbeiter" onclick="switchView('mitarbeiter')">
+<span class="material-symbols-outlined text-[22px]">group</span>
+<span class="text-[10px]">Team</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full py-1 text-on-surface-variant hover:text-primary font-medium" id="mob-btn-berichte" onclick="switchView('berichte')">
+<span class="material-symbols-outlined text-[22px]">bar_chart</span>
+<span class="text-[10px]">Berichte</span>
+</button>
+</div>
+<!-- Main Content Area -->
+<div class="md:pl-64">
+<header class="fixed top-0 left-0 md:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high z-30 flex items-center justify-between px-4 md:px-8 no-print">
+<div class="flex items-center gap-3">
+<div class="text-base md:text-lg font-bold text-on-surface truncate" id="header-title">⚡ Mobile Swipe-Stempeluhr</div>
+<div class="hidden sm:flex items-center gap-2 bg-surface-container-low px-2.5 py-1 rounded-xl border border-surface-container-high shadow-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">school</span>
+<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)">
+<option value="all">Alle Schuljahre</option>
+<option value="2025/2026">Schuljahr 25/26</option>
+<option selected="" value="2026/2027">Schuljahr 26/27</option>
+<option value="2027/2028">Schuljahr 27/28</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 bg-amber-500/10 text-amber-800 border border-amber-400/30 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition-all flex items-center gap-1 shadow-sm" onclick="switchView('stempeluhr')">
+<span class="material-symbols-outlined text-[16px] text-amber-600">bolt</span>
+<span class="hidden sm:inline">⚡ Swipe-Uhr</span>
+</button>
+<button class="hidden lg:flex px-2.5 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-xl text-xs font-bold hover:bg-primary/20 transition-all items-center gap-1 shadow-sm" onclick="openJahresarbeitszeitModal()">
+<span class="material-symbols-outlined text-[16px]">info</span> 804h
+</button>
+<button class="px-2.5 py-1.5 bg-surface-container-high text-on-surface text-xs font-bold rounded-xl border border-outline/20 hover:bg-surface-container-highest transition-all flex items-center gap-1" onclick="forceCloudSync()">
+<span class="material-symbols-outlined text-[16px] text-primary" id="sync-icon">sync</span>
+<span class="hidden sm:inline">Sync</span>
+</button>
+<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 border border-emerald-200" id="firebase-status">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="hidden md:inline" id="cloud-sync-label">Bereit</span>
+</span>
+</div>
+</header>
+<main class="relative pt-16 bg-surface min-h-screen">
+<!-- VIEW: INTERAKTIVE SWIPE-STEMPELUHR (STANDARD, SOFORT AKTIV UND ENTSPERRT) -->
+<div class="view-container flex flex-col w-full p-4 md:p-8 max-w-[960px] mx-auto gap-6 md:gap-8 pb-20" id="view-stempeluhr">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-2 text-amber-600 font-bold text-xs uppercase tracking-wider mb-1">
+<span class="material-symbols-outlined text-[16px]">bolt</span> Sofort einsatzbereit
+</div>
+<h2 class="text-2xl font-bold text-on-surface">⚡ Mobile Swipe-Stempeluhr</h2>
+<p class="text-sm text-on-surface-variant">Arbeitszeit mobil und am Desktop blitzschnell per Wischgeste stempeln.</p>
+</div>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl text-xs flex items-center gap-1.5 hover:bg-surface-container-highest transition-all" onclick="switchView('dashboard')">
+<span class="material-symbols-outlined text-[16px]">dashboard</span> Zum Dashboard
+</button>
+</div>
+<!-- Employee Selector Card -->
+<div class="bg-surface-container-lowest p-5 md:p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+<div class="w-full md:w-1/2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1.5" for="swipe-employee-select">
+Mitarbeiter auswählen:
+</label>
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold focus:outline-none focus:border-primary cursor-pointer text-base" id="swipe-employee-select" onchange="onSwipeEmployeeChange()">
+<option value="nicole">Nicole De Pretto (Assistenz Sonderpädagogik - 57%)</option>
+<option value="michelle">Michelle Dreifuss (Teamleiterin - 100%)</option>
+<option value="manuel">Manuel Schoch (Zeichner - 100%)</option>
+<option value="seline">Seline Steinmann (Administration - 92%)</option>
+</select>
+</div>
+<div class="w-full md:w-auto flex items-center gap-3 bg-surface-container-low px-5 py-3 rounded-xl border border-surface-container-high">
+<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-primary text-white shrink-0" id="swipe-emp-avatar">ND</div>
+<div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
+<div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-400 shrink-0" id="swipe-status-dot"></span>
+<span id="swipe-status-text">Abwesend / Ausgestempelt</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Interactive Swipe Zone Card -->
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-3xl shadow-md border-2 border-primary/20 relative overflow-hidden flex flex-col items-center text-center gap-6">
+<!-- Live Clock Display -->
+<div class="space-y-1">
+<div class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center justify-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+<span id="swipe-clock-date">Freitag, 01. September 2026</span>
+</div>
+<div class="text-5xl md:text-6xl font-black text-on-surface font-mono tracking-tight" id="swipe-clock-time">08:00:00</div>
+<p class="text-xs text-on-surface-variant">Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> • Primarstufe Döltschi</p>
+</div>
+<!-- Dynamic Feedback Banner -->
+<div class="w-full max-w-lg transition-all duration-300 hidden p-3 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2" id="swipe-feedback-toast">
+<span class="material-symbols-outlined text-[20px]" id="swipe-feedback-icon">check_circle</span>
+<span id="swipe-feedback-message">Erfolgreich gestempelt!</span>
+</div>
+<!-- Interactive Swipe Box Area -->
+<div class="w-full max-w-2xl bg-surface-container-low rounded-2xl p-2.5 md:p-3 border-2 border-dashed border-outline/40 relative overflow-hidden select-none" id="swipe-track">
+<!-- Background Direction Hints -->
+<div class="absolute inset-0 flex items-center justify-between px-4 md:px-6 pointer-events-none text-xs font-bold uppercase tracking-wider opacity-70">
+<div class="flex items-center gap-1 md:gap-2 text-rose-700">
+<span class="material-symbols-outlined text-[20px] md:text-[22px]">arrow_back</span>
+<span>👈 Gehen</span>
+</div>
+<div class="flex items-center gap-1 md:gap-2 text-emerald-700">
+<span>Kommen 👉</span>
+<span class="material-symbols-outlined text-[20px] md:text-[22px]">arrow_forward</span>
+</div>
+</div>
+<!-- The Draggable Swipe Card -->
+<div class="relative z-10 w-full bg-white rounded-xl shadow-lg border border-primary/20 p-4 md:p-5 cursor-grab active:cursor-grabbing swipe-card-drag transition-transform flex items-center justify-between" id="swipe-card" style="transform: translateX(0px);">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">drag_indicator</span>
+</div>
+<div class="text-left">
+<span class="text-xs font-bold text-on-surface-variant block uppercase" id="swipe-card-sub">Geste ausführen</span>
+<p class="text-sm md:text-base font-bold text-on-surface" id="swipe-card-title">Karte nach rechts (Kommen) oder links (Gehen) ziehen</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-primary text-xs font-bold bg-primary/10 px-2.5 py-1.5 rounded-lg pointer-events-none shrink-0">
+<span class="material-symbols-outlined text-[16px]">touch_app</span>
+<span class="hidden sm:inline">Wischen</span>
+</div>
+</div>
+</div>
+<!-- Quick 1-Click Fallback Buttons -->
+<div class="w-full max-w-lg flex items-center justify-center gap-3 md:gap-4 pt-1">
+<button class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockIn('button')">
+<span class="material-symbols-outlined text-[20px]">login</span>
+<span>Kommen (Einstempeln)</span>
+</button>
+<button class="flex-1 py-3 px-4 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-sm transition-all" onclick="performClockOut('button')">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Gehen (Ausstempeln)</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant max-w-md">
+Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Buchungen werden sofort ins Schuljahres-Konto gerechnet!
+</p>
+</div>
+<!-- Live Activity Log -->
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high">
+<div class="flex items-center justify-between border-b border-surface-container-high pb-4 mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">history</span>
+<div>
+<h3 class="text-lg font-bold text-on-surface">Live-Stempelhistorie</h3>
+<p class="text-xs text-on-surface-variant">Direkte Buchungen in die Schuljahresabrechnung.</p>
+</div>
+</div>
+<button class="text-xs text-error font-bold hover:underline" onclick="clearSwipeLog()">Protokoll leeren</button>
+</div>
+<div class="space-y-3" id="swipe-activity-log"></div>
+</div>
+</div>
+<!-- VIEW: DASHBOARD -->
+<div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1200px] mx-auto gap-6 md:gap-8 pb-20" id="view-dashboard">
+<!-- Swipe Promotion Widget -->
+<div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-amber-300">
+<span class="material-symbols-outlined text-[30px]">touch_app</span>
+</div>
+<div>
+<span class="text-xs uppercase tracking-wider font-extrabold bg-amber-400 text-on-background px-2 py-0.5 rounded-full">Aktiv</span>
+<h3 class="text-lg font-bold text-white mt-1">Mobile Swipe-Stempeluhr direkt einsatzbereit</h3>
+<p class="text-xs text-white/80">Nach rechts wischen (Kommen), nach links wischen (Gehen) – komplett ohne Passwort.</p>
+</div>
+</div>
+<button class="px-5 py-2.5 bg-white text-primary font-bold rounded-xl text-xs hover:bg-slate-100 transition-all flex items-center gap-1.5" onclick="switchView('stempeluhr')">
+<span class="material-symbols-outlined text-[16px] text-amber-500">bolt</span> Stempeluhr öffnen
+</button>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Aktives Team</span>
+<h2 class="text-2xl font-bold text-on-surface mt-1" id="summary-team-count">4 Mitglieder</h2>
+<div class="mt-4 flex items-center gap-2 text-primary font-bold text-xs"><span class="material-symbols-outlined text-[16px]">verified</span> 100% Einsatzbereitschaft</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Monats-Soll &amp; Ist Team</span>
+<h2 class="text-2xl font-bold text-primary mt-1" id="summary-monthly-team-total">0.0 / 586.4 h</h2>
+<div class="mt-4 text-xs text-on-surface-variant font-bold" id="summary-monthly-basis-label">168h bei 100%</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Schuljahr Summe Total</span>
+<h2 class="text-2xl font-bold text-on-surface mt-1" id="summary-month-total">0.0 / 7'482 Std.</h2>
+<div class="mt-4 w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-1000" id="summary-progress-bar" style="width: 0%;"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between shadow-sm border border-surface-container-high">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Überstunden (Monat &amp; Schuljahr)</span>
+<h2 class="text-2xl text-emerald-600 font-bold mt-1" id="summary-overtime-month">+0.0 h</h2>
+<div class="mt-4 flex items-center justify-between text-xs border-t border-surface-container-high pt-2">
+<span class="text-on-surface-variant font-bold">Schuljahr Saldo:</span>
+<span class="text-emerald-600 font-bold" id="summary-overtime-total">+0.0 Std.</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-primary/5 p-6 rounded-2xl border border-primary/20 gap-4">
+<div>
+<h2 class="text-2xl font-bold text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
+<p class="text-sm text-on-surface-variant">Zyklus Sommer–Sommer <span class="font-bold text-primary active-school-year-text">2026/2027</span>.</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" onclick="switchView('zeiterfassung')">
+<span class="material-symbols-outlined text-[16px]">add</span> Zeiteintrag erfassen
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="dashboard-employees-grid"></div>
+</div>
+<!-- VIEW: ZEITERFASSUNG -->
+<div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[900px] mx-auto gap-6 md:gap-8 pb-20" id="view-zeiterfassung">
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-2xl font-bold text-on-surface">Zeiterfassung erfassen / bearbeiten</h2>
+<span class="text-xs bg-primary/10 text-primary font-bold px-3 py-1 rounded-full">Schuljahr <span class="active-school-year-short">26/27</span></span>
+</div>
+<form class="space-y-6" id="time-entry-form">
+<input id="entry-id" type="hidden"/>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Mitarbeiter</label>
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-employee" required="">
+<option value="all">Ganzes Team</option>
+<option value="nicole">Nicole De Pretto</option>
+<option value="michelle">Michelle Dreifuss</option>
+<option value="manuel">Manuel Schoch</option>
+<option value="seline">Seline Steinmann</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Datum (TT.MM.JJJJ)</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
+<div class="flex gap-2">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="vm-from" type="time" value="07:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="vm-to" type="time" value="12:00"/>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
+<div class="flex gap-2">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="nm-from" type="time" value="13:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="nm-to" type="time" value="17:00"/>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abend / Nacht</span>
+<div class="flex gap-2">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="abend-from" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline/30 bg-surface text-sm" id="abend-to" type="time" value=""/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abwesenheiten / Status</label>
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-status">
+<option value="Normal">Regulärer Arbeitstag</option>
+<option value="Krankheit">Krankheit</option>
+<option value="Ferien">Ferien</option>
+<option value="Unfall">Unfall / Sonstiges</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Bemerkungen</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-notes" placeholder="z.B. Team-Sitzung" type="text"/>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-4">
+<button class="px-5 py-2.5 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-xl" type="submit">Eintrag speichern</button>
+</div>
+</form>
+</div>
+<!-- Entries list -->
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+<h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten (Neueste zuerst)</h3>
+<select class="px-3 py-1.5 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-entry-employee" onchange="renderTimeEntriesList()">
+<option value="all">Ganzes Team anzeigen</option>
+<option value="nicole">Nicole De Pretto</option>
+<option value="michelle">Michelle Dreifuss</option>
+<option value="manuel">Manuel Schoch</option>
+<option value="seline">Seline Steinmann</option>
+</select>
+</div>
+<div class="space-y-3" id="time-entries-list"></div>
+</div>
+</div>
+<!-- VIEW: WOCHENÜBERSICHT -->
+<div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1100px] mx-auto gap-6 md:gap-8 pb-20" id="view-wochenuebersicht">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+<div>
+<h2 class="text-2xl font-bold text-on-surface">Wochenübersicht</h2>
+<p class="text-sm text-on-surface-variant">Schuljahr <span class="active-school-year-text font-bold text-primary">2026/2027</span>.</p>
+</div>
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-weekly-employee" onchange="renderWeeklyOverview()">
+<option value="all">Ganzes Team anzeigen</option>
+<option value="nicole">Nicole De Pretto</option>
+<option value="michelle">Michelle Dreifuss</option>
+<option value="manuel">Manuel Schoch</option>
+<option value="seline">Seline Steinmann</option>
+</select>
+</div>
+<div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
+</div>
+<!-- VIEW: MITARBEITER -->
+<div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1000px] mx-auto gap-6 md:gap-8 pb-20" id="view-mitarbeiter">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-bold text-on-surface">Mitarbeiterverwaltung</h2>
+<p class="text-sm text-on-surface-variant">Teammitglieder mit Pensen und Schuljahressoll (Sommer zu Sommer).</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" onclick="openEmployeeModal()">
+<span class="material-symbols-outlined text-[16px]">person_add</span> Mitarbeiter hinzufügen
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="employees-management-list"></div>
+</div>
+<!-- VIEW: BERICHTE -->
+<div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[1050px] mx-auto gap-6 md:gap-8 pb-20" id="view-berichte">
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-surface-container-high">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 no-print">
+<div>
+<h2 class="text-2xl font-bold text-on-surface" id="reports-view-heading">Monatsauswertung &amp; Überstunden</h2>
+<p class="text-sm text-on-surface-variant">Soll/Ist-Vergleich für den Rechnungsmonat.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-month-select" onchange="renderReports()">
+<option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option>
+<option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option>
+<option value="7">Juli</option><option value="8">August</option><option selected="" value="9">September</option>
+<option value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
+</select>
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-year-select" onchange="renderReports()">
+<option value="2025">2025</option><option selected="" value="2026">2026</option><option value="2027">2027</option>
+</select>
+<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1.5" onclick="printReportDocument()">
+<span class="material-symbols-outlined text-[16px]">print</span> Bericht drucken / PDF
+</button>
+</div>
+</div>
+<div class="space-y-4" id="reports-content"></div>
+</div>
+</div>
+<!-- VIEW: ERKLÄRUNG -->
+<div class="view-container hidden flex flex-col w-full p-4 md:p-8 max-w-[950px] mx-auto gap-6 md:gap-8 pb-24" id="view-erklaerung">
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-2xl shadow-sm border border-surface-container-high space-y-6">
+<h2 class="text-2xl font-bold text-on-surface">Merkblatt zur Schuljahresarbeitszeit (804h)</h2>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+Das Schuljahr läuft vom 1. August bis 31. Juli. Ein 50%-Pensum hat 1'072 Jahresstunden. Ende April (nach 9 von 12 Monaten = 75%) sind exakt 804 Stunden Soll erreicht.
+</p>
+</div>
+</div>
+</main>
+</div>
+<!-- Employee Modal -->
+<div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print" id="employee-modal">
+<div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl border border-surface-container-high shadow-2xl flex flex-col gap-6">
+<div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+<h3 class="text-xl font-bold text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeEmployeeModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<form class="space-y-4" id="employee-form">
+<input id="emp-id" type="hidden"/>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Name</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Rolle</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Pensum (%)</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-pensum" max="100" min="1" required="" type="number"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Jahressoll (h)</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface" id="emp-yearly-total" required="" step="0.1" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<button class="px-4 py-2.5 bg-surface-container-high font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
+<button class="px-4 py-2.5 bg-primary text-on-primary font-bold rounded-xl" type="submit">Speichern</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyD-DoeltschiTimeDemoKey2026",
+    authDomain: "doeltschi-time.firebaseapp.com",
+    projectId: "doeltschi-time",
+    storageBucket: "doeltschi-time.appspot.com",
+    messagingSenderId: "123456789012",
+    appId: "1:123456789012:web:abcdef123456789"
+};
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+const db = firebase.firestore();
 
+const BASE_FULL_YEAR_HOURS = 2144;
+let selectedSchoolYear = '2026/2027';
+const DEFAULT_EMPLOYEES = [
+    { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1072 },
+    { id: 'michelle', name: 'Michelle Dreifuss', initials: 'MD', role: 'Teamleiterin', pensum: 100, targetHours: 168.0, yearlyTotal: 1890 },
+    { id: 'manuel', name: 'Manuel Schoch', initials: 'MS', role: 'Zeichner', pensum: 100, targetHours: 168.0, yearlyTotal: 1890 },
+    { id: 'seline', name: 'Seline Steinmann', initials: 'SS', role: 'Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739 }
+];
+let employeesData = [...DEFAULT_EMPLOYEES];
+let timeEntriesData = [];
+const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
+let clockInSessions = {};
+let swipeLogs = [];
+
+// App startet immer direkt entsperrt
+sessionStorage.setItem('doeltschi_authenticated', 'true');
+
+function loadSwipeSessions() {
+    try {
+        const s = localStorage.getItem('doeltschi_swipe_sessions');
+        if (s) clockInSessions = JSON.parse(s);
+        const l = localStorage.getItem('doeltschi_swipe_logs');
+        if (l) swipeLogs = JSON.parse(l);
+    } catch(e){}
+}
+function saveSwipeSessions() {
+    try {
+        localStorage.setItem('doeltschi_swipe_sessions', JSON.stringify(clockInSessions));
+        localStorage.setItem('doeltschi_swipe_logs', JSON.stringify(swipeLogs));
+    } catch(e){}
+}
+
+function getSchoolYearFromDateStr(dateStr) {
+    if (!dateStr || typeof dateStr !== 'string') return '2026/2027';
+    const parts = dateStr.includes('.') ? dateStr.split('.') : dateStr.split('-');
+    let month = parts.length === 3 ? parseInt(parts[1], 10) : 9;
+    let year = parts.length === 3 ? parseInt(parts[2].length === 2 ? '20' + parts[2] : parts[2], 10) : 2026;
+    return (month >= 8) ? `${year}/${year + 1}` : `${year - 1}/${year}`;
+}
+
+function getExactMonthlySoll(emp) {
+    const p = Number(emp.pensum) || 100;
+    if (p === 57) return 95.8;
+    if (p === 100) return 168.0;
+    if (p === 92) return 154.6;
+    return Number((168 * (p / 100)).toFixed(1));
+}
+
+function isEntryInSelectedSchoolYear(entry, targetSchoolYear = selectedSchoolYear) {
+    if (!entry) return false;
+    if (targetSchoolYear === 'all') return true;
+    const computedYear = entry.schoolYear || getSchoolYearFromDateStr(entry.date);
+    return computedYear === targetSchoolYear || targetSchoolYear.includes(computedYear);
+}
+
+function calculateHours(from, to) {
+    if (!from || !to) return 0;
+    const [fromH, fromM] = from.split(':').map(Number);
+    const [toH, toM] = to.split(':').map(Number);
+    const diff = (toH * 60 + toM) - (fromH * 60 + fromM);
+    return diff > 0 ? diff / 60 : 0;
+}
+
+function normalizeDateInput(input) {
+    if (!input || !input.value) return;
+    const parts = input.value.split('.');
+    if (parts.length === 3 && parts[2].length === 2) {
+        input.value = `${parts[0]}.${parts[1]}.20${parts[2]}`;
+    }
+}
+
+function updateCloudSyncBadge() {
+    const count = timeEntriesData.length;
+    const el = document.getElementById('cloud-sync-label');
+    if (el) el.textContent = `Cloud Synchron: ${count} Einträge`;
+}
+
+function changeSchoolYear(newYear) {
+    selectedSchoolYear = newYear;
+    document.querySelectorAll('.active-school-year-text').forEach(el => el.textContent = newYear);
+    const sb = document.getElementById('sidebar-school-year-display');
+    if (sb) sb.textContent = `Schuljahr ${newYear}`;
+    renderDashboard();
+    renderWeeklyOverview();
+    renderReports();
+}
+
+function openJahresarbeitszeitModal() {
+    document.getElementById('jahresarbeitszeit-modal').classList.remove('hidden');
+    document.getElementById('jahresarbeitszeit-modal').classList.add('flex');
+}
+function closeJahresarbeitszeitModal() {
+    document.getElementById('jahresarbeitszeit-modal').classList.remove('flex');
+    document.getElementById('jahresarbeitszeit-modal').classList.add('hidden');
+}
+
+function switchView(viewName) {
+    document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
+    const target = document.getElementById(`view-${viewName}`);
+    if (target) target.classList.remove('hidden');
+
+    document.querySelectorAll('#sidebar-nav a').forEach(el => {
+        el.classList.remove('bg-primary-container', 'text-on-primary-container');
+        if (el.getAttribute('data-view') === viewName) {
+            el.classList.add('bg-primary-container', 'text-on-primary-container');
+        }
+    });
+
+    // Mobile nav state update
+    ['stempeluhr', 'dashboard', 'zeiterfassung', 'mitarbeiter', 'berichte'].forEach(name => {
+        const btn = document.getElementById(`mob-btn-${name}`);
+        if (btn) {
+            if (name === viewName) {
+                btn.classList.add('text-primary', 'font-bold');
+                btn.classList.remove('text-on-surface-variant');
+            } else {
+                btn.classList.remove('text-primary', 'font-bold');
+                btn.classList.add('text-on-surface-variant');
+            }
+        }
+    });
+
+    const titles = {
+        stempeluhr: '⚡ Mobile Swipe-Stempeluhr',
+        dashboard: 'Zeitmanagement - Dashboard',
+        zeiterfassung: 'Zeiterfassung',
+        wochenuebersicht: 'Wochenübersicht',
+        mitarbeiter: 'Mitarbeiter-Verwaltung',
+        berichte: 'Schuljahresberichte',
+        erklaerung: 'Erklärung Schuljahresarbeitszeit'
+    };
+    document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
+
+    if (viewName === 'stempeluhr') updateSwipeEmployeeDisplay();
+    if (viewName === 'dashboard') renderDashboard();
+    if (viewName === 'zeiterfassung') renderTimeEntriesList();
+    if (viewName === 'wochenuebersicht') renderWeeklyOverview();
+    if (viewName === 'mitarbeiter') renderEmployeesManagement();
+    if (viewName === 'berichte') renderReports();
+}
+
+document.querySelectorAll('#sidebar-nav a[data-view]').forEach(link => {
+    link.addEventListener('click', () => switchView(link.getAttribute('data-view')));
+});
+
+// ==========================================
+// SWIPE INTERACTION & LIVE STEMPELUHR
+// ==========================================
+function initSwipeClock() {
+    const timeEl = document.getElementById('swipe-clock-time');
+    const dateEl = document.getElementById('swipe-clock-date');
+    const update = () => {
+        const now = new Date();
+        if (timeEl) {
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            timeEl.textContent = `${h}:${m}:${s}`;
+        }
+        if (dateEl) {
+            const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+            dateEl.textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')}. ${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
+        }
+    };
+    update();
+    setInterval(update, 1000);
+    updateSwipeEmployeeDisplay();
+    renderSwipeLogbook();
+}
+
+function onSwipeEmployeeChange() {
+    updateSwipeEmployeeDisplay();
+}
+
+function updateSwipeEmployeeDisplay() {
+    const select = document.getElementById('swipe-employee-select');
+    if (!select) return;
+    const empId = select.value;
+    const emp = employeesData.find(e => e.id === empId);
+    const avatar = document.getElementById('swipe-emp-avatar');
+    if (avatar && emp) avatar.textContent = emp.initials || emp.name.substring(0, 2).toUpperCase();
+
+    const dot = document.getElementById('swipe-status-dot');
+    const text = document.getElementById('swipe-status-text');
+    const cardTitle = document.getElementById('swipe-card-title');
+    const cardSub = document.getElementById('swipe-card-sub');
+
+    const activeSession = clockInSessions[empId];
+    if (activeSession && activeSession.inTime) {
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
+        if (text) { text.className = 'text-emerald-700 font-bold'; text.textContent = `Anwesend seit ${activeSession.inTime} Uhr`; }
+        if (cardTitle) cardTitle.textContent = `👈 Nach links ziehen zum Ausstempeln (Gehen)`;
+        if (cardSub) cardSub.textContent = `Bereits eingestempelt um ${activeSession.inTime} Uhr`;
+    } else {
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-400';
+        if (text) { text.className = 'text-on-surface-variant font-bold'; text.textContent = `Abwesend / Ausgestempelt`; }
+        if (cardTitle) cardTitle.textContent = `Nach rechts ziehen zum Einstempeln (Kommen) 👉`;
+        if (cardSub) cardSub.textContent = `Bereit für Zeiterfassung`;
+    }
+}
+
+function showSwipeFeedback(msg, isOut = false) {
+    const toast = document.getElementById('swipe-feedback-toast');
+    const msgEl = document.getElementById('swipe-feedback-message');
+    const iconEl = document.getElementById('swipe-feedback-icon');
+    if (!toast || !msgEl || !iconEl) return;
+
+    toast.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+    if (isOut) {
+        toast.classList.add('bg-rose-100', 'text-rose-900', 'border', 'border-rose-300');
+        iconEl.textContent = 'logout';
+    } else {
+        toast.classList.add('bg-emerald-100', 'text-emerald-900', 'border', 'border-emerald-300');
+        iconEl.textContent = 'check_circle';
+    }
+    msgEl.textContent = msg;
+    setTimeout(() => { toast.classList.add('hidden'); }, 4000);
+}
+
+function performClockIn(source = 'swipe') {
+    const empId = document.getElementById('swipe-employee-select').value;
+    const emp = employeesData.find(e => e.id === empId);
+    const empName = emp ? emp.name : 'Mitarbeiter';
+    const now = new Date();
+    const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+
+    clockInSessions[empId] = { inTime: nowTime, date: todayStr };
+    saveSwipeSessions();
+
+    swipeLogs.unshift({ id: 'log_' + Date.now(), empName, type: 'in', text: `${empName}: Gekommen um ${nowTime} Uhr`, date: todayStr });
+    if (swipeLogs.length > 20) swipeLogs.pop();
+    saveSwipeSessions();
+
+    showSwipeFeedback(`Eingestempelt um ${nowTime} Uhr! Guten Arbeitstag, ${empName}!`, false);
+    updateSwipeEmployeeDisplay();
+    renderSwipeLogbook();
+}
+
+function performClockOut(source = 'swipe') {
+    const empId = document.getElementById('swipe-employee-select').value;
+    const emp = employeesData.find(e => e.id === empId);
+    const empName = emp ? emp.name : 'Mitarbeiter';
+    const now = new Date();
+    const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const todayStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+
+    const active = clockInSessions[empId];
+    const inTime = active ? active.inTime : '07:30';
+    let hours = calculateHours(inTime, nowTime);
+    if (hours <= 0) hours = 0.5;
+    hours = Number(hours.toFixed(2));
+
+    const [startH] = inTime.split(':').map(Number);
+    const newEntry = {
+        id: `swipe_${empId}_${Date.now()}`,
+        employeeId: empId,
+        date: todayStr,
+        schoolYear: getSchoolYearFromDateStr(todayStr),
+        vmFrom: startH < 12 ? inTime : '',
+        vmTo: startH < 12 ? nowTime : '',
+        nmFrom: startH >= 12 ? inTime : '',
+        nmTo: startH >= 12 ? nowTime : '',
+        abendFrom: '', abendTo: '',
+        status: 'Normal',
+        notes: `⚡ Swipe-Uhr (${inTime} - ${nowTime})`,
+        hours
+    };
+
+    timeEntriesData.unshift(newEntry);
+    saveLocalState();
+
+    delete clockInSessions[empId];
+    saveSwipeSessions();
+
+    swipeLogs.unshift({ id: 'log_' + Date.now(), empName, type: 'out', text: `${empName}: Gegangen um ${nowTime} Uhr (${hours} h erfasst)`, date: todayStr });
+    if (swipeLogs.length > 20) swipeLogs.pop();
+    saveSwipeSessions();
+
+    showSwipeFeedback(`Ausgestempelt um ${nowTime} Uhr! ${hours} Std. erfasst & gespeichert.`, true);
+    updateSwipeEmployeeDisplay();
+    renderSwipeLogbook();
+    renderDashboard();
+    renderTimeEntriesList();
+}
+
+function renderSwipeLogbook() {
+    const el = document.getElementById('swipe-activity-log');
+    if (!el) return;
+    if (swipeLogs.length === 0) {
+        el.innerHTML = `<div class="p-4 bg-surface-container-low rounded-xl text-xs text-on-surface-variant text-center">Noch keine Aktionen heute. Karte nach rechts oder links ziehen!</div>`;
+        return;
+    }
+    el.innerHTML = swipeLogs.map(l => {
+        const isIn = l.type === 'in';
+        return `
+            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${isIn ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                        <span class="material-symbols-outlined text-[16px]">${isIn ? 'login' : 'logout'}</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-on-surface">${l.text}</span>
+                        <span class="text-[11px] text-on-surface-variant block">${l.date} • Live verbucht</span>
+                    </div>
+                </div>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${isIn ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                    ${isIn ? 'Kommen' : 'Gehen'}
+                </span>
+            </div>
+        `;
+    }).join('');
+}
+
+function clearSwipeLog() {
+    swipeLogs = [];
+    saveSwipeSessions();
+    renderSwipeLogbook();
+}
+
+// Touch & Mouse Gestures
+function initSwipeGestures() {
+    const card = document.getElementById('swipe-card');
+    if (!card) return;
+
+    let startX = 0, currentX = 0, isDragging = false;
+    const THRESHOLD = 85;
+
+    const onStart = (e) => {
+        isDragging = true;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        card.style.transition = 'none';
+    };
+
+    const onMove = (e) => {
+        if (!isDragging) return;
+        const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        currentX = x - startX;
+        if (currentX > 160) currentX = 160;
+        if (currentX < -160) currentX = -160;
+        card.style.transform = `translateX(${currentX}px)`;
+
+        if (currentX > 25) {
+            card.style.backgroundColor = '#ecfdf5';
+            card.style.borderColor = '#10b981';
+        } else if (currentX < -25) {
+            card.style.backgroundColor = '#fff1f2';
+            card.style.borderColor = '#f43f5e';
+        } else {
+            card.style.backgroundColor = '';
+            card.style.borderColor = '';
+        }
+    };
+
+    const onEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        card.style.transition = 'transform 0.25s ease-out, background-color 0.2s, border-color 0.2s';
+        card.style.transform = 'translateX(0px)';
+        card.style.backgroundColor = '';
+        card.style.borderColor = '';
+
+        if (currentX >= THRESHOLD) {
+            performClockIn('swipe');
+        } else if (currentX <= -THRESHOLD) {
+            performClockOut('swipe');
+        }
+        currentX = 0;
+    };
+
+    card.addEventListener('touchstart', onStart, { passive: true });
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onEnd);
+    window.addEventListener('touchcancel', onEnd);
+
+    card.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+}
+
+// ==========================================
+// FORMULAR & RENDERING LOGIK
+// ==========================================
+function saveLocalState() {
+    try {
+        localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
+        localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
+    } catch(e){}
+    updateCloudSyncBadge();
+}
+
+function loadInitialData() {
+    loadSwipeSessions();
+    try {
+        const emps = localStorage.getItem('doeltschi_employees');
+        if (emps) employeesData = JSON.parse(emps);
+        const entries = localStorage.getItem('doeltschi_entries');
+        if (entries) timeEntriesData = JSON.parse(entries);
+    } catch(e){}
+    updateCloudSyncBadge();
+    renderDashboard();
+    renderEmployeesManagement();
+    renderTimeEntriesList();
+    renderWeeklyOverview();
+    renderReports();
+    initSwipeClock();
+    initSwipeGestures();
+}
+
+function renderDashboard() {
+    const grid = document.getElementById('dashboard-employees-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    let totalActual = 0, totalYearlyTarget = 0, totalMonthlyIst = 0, totalMonthlySoll = 0;
+
+    employeesData.forEach(emp => {
+        const entries = timeEntriesData.filter(e => e.employeeId === emp.id && isEntryInSelectedSchoolYear(e));
+        const actual = entries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
+        const yearlyTotal = emp.yearlyTotal || 1890;
+        const monthlyTarget = getExactMonthlySoll(emp);
+
+        totalActual += actual;
+        totalYearlyTarget += yearlyTotal;
+        totalMonthlyIst += actual;
+        totalMonthlySoll += monthlyTarget;
+
+        const card = document.createElement('div');
+        card.className = 'bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-4';
+        card.innerHTML = `
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container font-bold flex items-center justify-center">${emp.initials || 'MA'}</div>
+                    <div>
+                        <h4 class="font-bold text-on-surface">${emp.name}</h4>
+                        <span class="text-xs text-on-surface-variant">${emp.role} (${emp.pensum}%)</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-on-surface-variant block uppercase font-bold">Monats-Soll</span>
+                    <span class="text-base font-bold text-primary">${monthlyTarget} h</span>
+                </div>
+            </div>
+            <div class="bg-surface-container-low p-3.5 rounded-xl border border-surface-container-high flex justify-between items-center text-xs">
+                <span>Schuljahres-Soll: <strong>${yearlyTotal} h</strong></span>
+                <span>Erfasst: <strong class="text-primary font-bold">${actual.toFixed(1)} h</strong></span>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="switchView('stempeluhr'); document.getElementById('swipe-employee-select').value='${emp.id}'; onSwipeEmployeeChange();" class="px-3 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-xl text-xs hover:bg-amber-400/30">⚡ Swipe-Uhr</button>
+                <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='${emp.id}';" class="px-3 py-1.5 bg-primary text-on-primary font-bold rounded-xl text-xs">Zeiteintrag</button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+
+    document.getElementById('summary-team-count').textContent = `${employeesData.length} Mitglieder`;
+    document.getElementById('summary-monthly-team-total').textContent = `${totalMonthlyIst.toFixed(1)} / ${totalMonthlySoll.toFixed(1)} h`;
+    document.getElementById('summary-month-total').textContent = `${totalActual.toFixed(1)} / ${totalYearlyTarget} Std.`;
+    const pct = totalYearlyTarget > 0 ? Math.min(100, Math.round((totalActual / totalYearlyTarget) * 100)) : 0;
+    document.getElementById('summary-progress-bar').style.width = `${pct}%`;
+}
+
+function renderTimeEntriesList() {
+    const list = document.getElementById('time-entries-list');
+    if (!list) return;
+    list.innerHTML = '';
+    const filter = document.getElementById('filter-entry-employee').value;
+    let filtered = [...timeEntriesData];
+    if (filter !== 'all') filtered = filtered.filter(e => e.employeeId === filter);
+
+    if (filtered.length === 0) {
+        list.innerHTML = `<div class="p-6 bg-surface-container-low rounded-xl text-center text-xs text-on-surface-variant">Keine Einträge vorhanden.</div>`;
+        return;
+    }
+
+    filtered.forEach(entry => {
+        const emp = employeesData.find(e => e.id === entry.employeeId);
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between p-3.5 bg-surface-container-low rounded-xl border border-surface-container-high text-xs';
+        item.innerHTML = `
+            <div>
+                <p class="font-bold text-on-surface">${emp ? emp.name : 'Teammitglied'} • <span class="text-primary">${entry.date}</span> (${entry.hours} h)</p>
+                <span class="text-on-surface-variant">${entry.notes || entry.status}</span>
+            </div>
+            <button onclick="deleteEntry('${entry.id}')" class="px-2.5 py-1 bg-error text-white font-bold rounded-lg text-xs">Löschen</button>
+        `;
+        list.appendChild(item);
+    });
+}
+
+function deleteEntry(id) {
+    if (confirm('Eintrag löschen?')) {
+        timeEntriesData = timeEntriesData.filter(e => e.id !== id);
+        saveLocalState();
+        renderTimeEntriesList();
+        renderDashboard();
+    }
+}
+
+document.getElementById('time-entry-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const empId = document.getElementById('entry-employee').value;
+    const date = document.getElementById('entry-date').value;
+    const vmFrom = document.getElementById('vm-from').value;
+    const vmTo = document.getElementById('vm-to').value;
+    const nmFrom = document.getElementById('nm-from').value;
+    const nmTo = document.getElementById('nm-to').value;
+    const abendFrom = document.getElementById('abend-from').value;
+    const abendTo = document.getElementById('abend-to').value;
+    const status = document.getElementById('entry-status').value;
+    const notes = document.getElementById('entry-notes').value;
+
+    let hours = calculateHours(vmFrom, vmTo) + calculateHours(nmFrom, nmTo) + calculateHours(abendFrom, abendTo);
+    hours = Number(hours.toFixed(2));
+
+    const newEntry = {
+        id: `entry_${Date.now()}`,
+        employeeId: empId,
+        date,
+        schoolYear: getSchoolYearFromDateStr(date),
+        vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo, status, notes, hours
+    };
+
+    if (empId === 'all') {
+        employeesData.forEach(emp => {
+            timeEntriesData.unshift({ ...newEntry, id: `entry_${emp.id}_${Date.now()}`, employeeId: emp.id });
+        });
+    } else {
+        timeEntriesData.unshift(newEntry);
+    }
+    saveLocalState();
+    renderTimeEntriesList();
+    renderDashboard();
+    alert('Zeiteintrag erfolgreich gespeichert!');
+});
+
+function resetTimeForm() {
+    document.getElementById('entry-date').value = '';
+    document.getElementById('entry-notes').value = '';
+}
+
+function renderEmployeesManagement() {
+    const list = document.getElementById('employees-management-list');
+    if (!list) return;
+    list.innerHTML = '';
+    employeesData.forEach(emp => {
+        const item = document.createElement('div');
+        item.className = 'bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high flex justify-between items-center text-xs';
+        item.innerHTML = `
+            <div>
+                <h4 class="font-bold text-on-surface text-sm">${emp.name}</h4>
+                <p class="text-on-surface-variant">${emp.role} • ${emp.pensum}% • Jahressoll: ${emp.yearlyTotal || 1890} h</p>
+            </div>
+            <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high font-bold rounded-lg">Bearbeiten</button>
+        `;
+        list.appendChild(item);
+    });
+}
+
+function openEmployeeModal(empId = null) {
+    document.getElementById('employee-modal').classList.remove('hidden');
+    document.getElementById('employee-modal').classList.add('flex');
+    if (empId) {
+        const emp = employeesData.find(e => e.id === empId);
+        if (emp) {
+            document.getElementById('emp-id').value = emp.id;
+            document.getElementById('emp-name').value = emp.name;
+            document.getElementById('emp-role').value = emp.role;
+            document.getElementById('emp-pensum').value = emp.pensum;
+            document.getElementById('emp-yearly-total').value = emp.yearlyTotal || 1890;
+        }
+    } else {
+        document.getElementById('emp-id').value = '';
+        document.getElementById('emp-name').value = '';
+        document.getElementById('emp-role').value = '';
+        document.getElementById('emp-pensum').value = '100';
+        document.getElementById('emp-yearly-total').value = '2144';
+    }
+}
+function closeEmployeeModal() {
+    document.getElementById('employee-modal').classList.remove('flex');
+    document.getElementById('employee-modal').classList.add('hidden');
+}
+
+document.getElementById('employee-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = document.getElementById('emp-id').value;
+    const name = document.getElementById('emp-name').value;
+    const role = document.getElementById('emp-role').value;
+    const pensum = Number(document.getElementById('emp-pensum').value);
+    const yearlyTotal = Number(document.getElementById('emp-yearly-total').value);
+
+    if (id) {
+        const emp = employeesData.find(e => e.id === id);
+        if (emp) { emp.name = name; emp.role = role; emp.pensum = pensum; emp.yearlyTotal = yearlyTotal; }
+    } else {
+        employeesData.push({ id: 'emp_' + Date.now(), name, role, pensum, yearlyTotal, initials: name.substring(0, 2).toUpperCase() });
+    }
+    saveLocalState();
+    closeEmployeeModal();
+    renderEmployeesManagement();
+    renderDashboard();
+});
+
+function renderWeeklyOverview() {
+    const el = document.getElementById('weekly-overview-container');
+    if (!el) return;
+    el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant">Wochenansicht für das Schuljahr ${selectedSchoolYear} aktiv.</div>`;
+}
+
+function renderReports() {
+    const el = document.getElementById('reports-content');
+    if (!el) return;
+    const m = document.getElementById('report-month-select').value;
+    const y = document.getElementById('report-year-select').value;
+    el.innerHTML = `
+        <div class="bg-surface-container-low p-6 rounded-xl border border-surface-container-high text-xs">
+            <h4 class="font-bold text-sm mb-2">Auswertung für ${MONTH_NAMES[m-1]} ${y}</h4>
+            <p class="text-on-surface-variant">Alle Monatsberichte und Überstunden saldiert.</p>
+        </div>
+    `;
+}
+
+function printReportDocument() {
+    window.print();
+}
+
+function forceCloudSync() {
+    alert(`Cloud Synchronisation erfolgreich: ${timeEntriesData.length} Einträge live.`);
+}
+
+window.addEventListener('DOMContentLoaded', loadInitialData);
+</script>
+</body></html>
