@@ -5,19 +5,67 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Döltschi Time - Zeiterfassung & Schuljahresarbeitszeit</title>
     
-    <!-- Tailwind CSS Backup via Standard-CDN -->
+    <!-- Tailwind CSS Stylesheet für das responsive Design -->
     <script src="https://tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#f9f9ff",
+                        "primary-fixed": "#dae2ff",
+                        "primary": "#003d9b",
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9ff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-variant": "#d7e2ff",
+                        "surface-container": "#e8edff",
+                        "on-surface-variant": "#434654",
+                        "error": "#ba1a1a",
+                        "on-background": "#041b3c",
+                        "outline": "#737685",
+                        "tertiary": "#7b2600",
+                        "inverse-primary": "#b2c5ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-surface": "#041b3c",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e0e8ff",
+                        "surface-container-highest": "#d7e2ff",
+                        "outline-variant": "#c3c6d6",
+                        "primary-container": "#0052cc",
+                        "on-primary-container": "#c4d2ff"
+                    },
+                    borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+                    fontFamily: {
+                        "body-md": ["Work Sans"],
+                        "headline-md": ["Work Sans"],
+                        "headline-lg": ["Work Sans"]
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://googleapis.com" rel="stylesheet"/>
     
+    <!-- Firebase Bibliotheken für die Cloud-Anbindung -->
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
+    
+    <!-- QR-Code JavaScript Bibliothek -->
+    <script src="https://cloudflare.com"></script>
+
     <style>
-        html, body { 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9ff;
-            color: #041b3c;
+        @layer base {
+            html, body { margin: 0; padding: 0; }
+            body { overscroll-behavior: none; }
+            main>:first-child { margin-top: 0 !important; }
+            main>:last-child { margin-bottom: 0 !important; }
         }
+        ::-webkit-scrollbar { display: none; }
         
-        /* Absolut sicheres Fallback-Styling für das Login-Modal, falls Tailwind blockiert wird */
+        /* Absolut sicheres Styling für das Login-Overlay */
         #auth-modal {
             position: fixed;
             top: 0;
@@ -34,16 +82,6 @@
         }
         #auth-modal.hidden {
             display: none !important;
-        }
-        
-        .modal-box {
-            background: white;
-            max-width: 400px;
-            width: 100%;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
 
         /* Styling für den mobilen Swipe-Button */
@@ -86,56 +124,54 @@
         }
 
         @media print {
-            #auth-modal, #jahresarbeitszeit-modal, button, .swipe-container, #qrcode { display: none !important; }
+            aside, header, #sidebar-nav, .no-print, button, #auth-modal, #jahresarbeitszeit-modal, #employee-modal, .swipe-container, #qrcode { display: none !important; }
+            .pl-64 { padding-left: 0 !important; }
+            main { padding-top: 0 !important; }
+            body { background: white !important; color: black !important; }
         }
     </style>
-    
-    <!-- Firebase Bibliotheken -->
-    <script src="https://gstatic.com"></script>
-    <script src="https://gstatic.com"></script>
-    
-    <!-- QR-Code Bibliothek -->
-    <script src="https://cloudflare.com"></script>
 </head>
-<body class="bg-slate-50">
+<body class="bg-surface font-body-md text-on-surface">
 
-<!-- Password Protection Modal -->
+<!-- Password Protection Modal (Login) -->
 <div id="auth-modal">
-    <div class="modal-box">
-        <h2 class="text-2xl font-bold text-blue-900 mb-2">Döltschi Time Login</h2>
-        <p class="text-sm text-slate-600 mb-6">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
-        
-        <form id="auth-form" class="space-y-4">
-            <input class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-800" id="auth-password" placeholder="Passwort eingeben" required type="password"/>
-            <button class="w-full py-3 bg-blue-900 text-white font-bold rounded-xl hover:bg-blue-800 transition-all shadow-md" type="submit">Anmelden</button>
-            <p class="text-red-600 text-center text-sm font-semibold mt-2 hidden" id="auth-error">⚠️ Falsches Passwort!</p>
+    <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6 text-center">
+        <div>
+            <h2 class="text-2xl font-bold text-primary">Döltschi Time Login</h2>
+            <p class="text-sm text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
+        </div>
+        <form class="flex flex-col gap-4" id="auth-form">
+            <input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-center focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required type="password"/>
+            <button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
+            <p class="text-error text-center text-sm font-semibold hidden" id="auth-error">⚠️ Falsches Passwort!</p>
         </form>
     </div>
 </div>
 
-<!-- Hauptinhalt der App -->
+<!-- Hauptinhalt der Web-App -->
 <main class="p-4 md:p-8 max-w-4xl mx-auto space-y-6 mt-6">
     
     <!-- Dashboard Header -->
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white border border-slate-200 p-6 rounded-2xl shadow-sm">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container border border-surface-variant p-6 rounded-2xl">
         <div>
-            <h1 class="text-2xl font-bold text-slate-900">Döltschi Time</h1>
-            <p class="text-sm text-slate-500">Digitale Zeiterfassung Primarstufe Döltschi</p>
+            <h1 class="text-2xl font-bold text-on-background">Döltschi Time</h1>
+            <p class="text-sm text-on-surface-variant">Digitale Zeiterfassung Primarstufe Döltschi</p>
         </div>
-        <button class="px-4 py-2 bg-slate-100 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl flex items-center gap-2 hover:bg-slate-200 transition-all" onclick="openJahresarbeitszeitModal()">
+        <button class="px-4 py-2 bg-surface-container-high border border-outline rounded-xl flex items-center gap-2 hover:bg-surface-container-highest transition-all text-sm font-medium" onclick="openJahresarbeitszeitModal()">
             ℹ️ Info Schuljahreszeit
         </button>
     </div>
 
+    <!-- Interaktive Widgets Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Bereich: Mobiler Swipe Regler -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col gap-4">
-            <h3 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+        <!-- Widget: Mobiler Swipe Regler -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col gap-4">
+            <h3 class="text-lg font-bold text-primary flex items-center gap-2">
                 👆 Mobiles Swipen (Präsenz)
             </h3>
-            <p class="text-sm text-slate-500">Schiebe den Regler nach rechts, um deine Arbeitszeit zu starten oder zu beenden.</p>
+            <p class="text-sm text-on-surface-variant">Schiebe den Regler nach rechts, um deine Arbeitszeit zu starten oder zu beenden.</p>
             
-            <!-- Der Swipe-Mechanismus -->
+            <!-- Der funktionale Schieberegler -->
             <div class="swipe-container mt-2" id="swipe-box">
                 <div class="swipe-handle" id="swipe-btn">➜</div>
                 <span class="swipe-text" id="swipe-status-text">Rechts swipen zum Einloggen</span>
@@ -143,80 +179,30 @@
             <div id="swipe-alert" class="hidden text-center text-sm font-semibold p-2 rounded-xl mt-2"></div>
         </div>
 
-        <!-- Bereich: QR Code für Smartphone-Anmeldung -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center justify-center text-center gap-4">
+        <!-- Widget: Dynamischer QR Code für mobile Anmeldung -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-surface-container-high flex flex-col items-center justify-center text-center gap-4">
             <div>
-                <h3 class="text-lg font-bold text-blue-900 flex items-center gap-2 justify-center">
+                <h3 class="text-lg font-bold text-primary flex items-center gap-2 justify-center">
                     📱 Schnellanmeldung via Handy
                 </h3>
-                <p class="text-sm text-slate-500 mt-1">Scanne diesen Code mit der Handykamera, um die Zeiterfassung direkt auf dem Smartphone zu öffnen.</p>
+                <p class="text-sm text-on-surface-variant mt-1">Scanne diesen Code mit der Handykamera, um die Zeiterfassung direkt auf dem Smartphone zu öffnen.</p>
             </div>
-            <!-- Hier wird der QR-Code hineingeneriert -->
-            <div id="qrcode" class="p-2 bg-white border border-slate-200 rounded-xl min-h-[160px] flex items-center justify-center">
-                <span class="text-xs text-slate-400">QR-Code wird nach Login generiert</span>
+            <!-- Container für QR-Code Generation -->
+            <div id="qrcode" class="p-3 bg-white border border-surface-container-high rounded-xl min-h-[160px] flex items-center justify-center">
+                <span class="text-xs text-on-surface-variant">QR-Code wird nach dem Login sichtbar</span>
             </div>
         </div>
     </div>
 </main>
 
-<!-- Modal: Erklärung Schuljahresarbeitszeit -->
-<div class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" id="jahresarbeitszeit-modal">
-    <div class="bg-white max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 my-8 max-h-[90vh] overflow-y-auto relative">
-        <div class="flex items-start justify-between border-b border-slate-200 pb-4">
+<!-- Modal: Erklärung Schuljahresarbeitszeit (Wiederhergestellt & vervollständigt) -->
+<div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4 no-print overflow-y-auto" id="jahresarbeitszeit-modal">
+    <div class="bg-surface-container-lowest max-w-2xl w-full p-8 rounded-2xl shadow-2xl flex flex-col gap-6 border border-surface-container-high my-8 max-h-[90vh] overflow-y-auto relative">
+        <div class="flex items-start justify-between border-b border-surface-container-high pb-4">
             <div>
-                <div class="text-blue-950 font-bold text-xs uppercase tracking-wider">
+                <div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
                     🏫 Schuljahreszyklus Sommer zu Sommer (1. Aug. – 31. Juli)
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 mt-1">Erklärung Schuljahresarbeitszeit (804 h / 1'072 h)</h3>
-                <p class="text-sm text-slate-500">Kantonale Berechnungsgrundlage Primarstufe Döltschi für das Schuljahr</p>
+                <h3 class="text-2xl font-bold text-on-surface mt-1">Erklärung Schuljahresarbeitszeit (804 h / 1'072 h)</h3>
+                <p class="text-sm text-on-surface-variant">Kantonale Berechnungsgrundlage Primarstufe Döltschi für das Schuljahr (August bis Juli)</p>
             </div>
-            <button class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition-all font-bold" onclick="closeJahresarbeitszeitModal()">✕</button>
-        </div>
-        <div class="space-y-6 text-slate-800">
-            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3">
-                <span class="text-2xl">🔄</span>
-                <div>
-                    <span class="text-xs uppercase tracking-wider font-bold text-blue-900 block">Gültiger Berechnungszeitraum</span>
-                    <p class="text-sm font-semibold text-slate-900">1. August bis 31. Juli. Zeiten ausserhalb zählen zum jeweiligen Vor- bzw. Folge-Schuljahr.</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-3 gap-3">
-                <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 text-center">
-                    <span class="text-xs font-bold text-blue-900 block uppercase">Schuljahressoll</span>
-                    <span class="text-xl font-bold text-blue-900 mt-1 block">1'072 h</span>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
-                    <span class="text-xs font-bold text-slate-500 block uppercase">Monats-Soll</span>
-                    <span class="text-xl font-bold text-blue-950 mt-1 block">95.8 h</span>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
-                    <span class="text-xs font-bold text-slate-500 block uppercase">Soll 3. Quartal</span>
-                    <span class="text-xl font-bold text-slate-900 mt-1 block">804 h</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // 1. Firebase Konfiguration & Initialisierung
-    // TODO: Ersetze diese Platzhalter mit deinen echten Firebase-Daten!
-    const firebaseConfig = {
-        apiKey: "DEIN_API_KEY",
-        authDomain: "DEIN_PROJECT_://firebaseapp.com",
-        projectId: "DEIN_PROJECT_ID",
-        storageBucket: "DEIN_PROJECT_://appspot.com",
-        messagingSenderId: "DEINE_SENDER_ID",
-        appId: "DEINE_APP_ID"
-    };
-    
-    // Initialisiere Firebase sicher falls konfiguriert
-    try {
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
-    } catch(e) {
-        console.warn("Firebase wurde ohne gültige Keys geladen.");
-    }
-
-    let isCheckedIn = false; 
-
