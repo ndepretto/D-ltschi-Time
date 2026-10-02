@@ -248,7 +248,7 @@ tailwind.config = {
 <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1.5" for="swipe-employee-select">
 Mitarbeiter auswählen:
 </label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold focus:outline-none focus:border-primary cursor-pointer text-base" id="swipe-employee-select" onchange="onSwipeEmployeeChange()">
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold focus:outline-none focus:border-primary cursor-pointer text-base" id="swipe-employee-select" onchange="onSwipeEmployeeChange(this.value)" oninput="onSwipeEmployeeChange(this.value)">
 <option value="nicole">Nicole De Pretto (Assistenz Sonderpädagogik - 57%)</option>
 <option value="michelle">Michelle Dreifuss (Teamleiterin / Leitung Förderzentrum - 100%)</option>
 <option value="manuel">Manuel Schoch (Zeichner / Soz - 100%)</option>
@@ -256,12 +256,15 @@ Mitarbeiter auswählen:
 </select>
 </div>
 <div class="w-full md:w-auto flex items-center gap-3 bg-surface-container-low px-5 py-3 rounded-xl border border-surface-container-high">
-<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-primary text-white shrink-0" id="swipe-emp-avatar">ND</div>
+<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-primary text-white shrink-0 shadow-xs" id="swipe-emp-avatar">ND</div>
 <div>
-<span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">Live-Status</span>
-<div class="flex items-center gap-2 font-bold text-sm" id="swipe-live-status">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface" id="swipe-emp-name-badge">Nicole De Pretto</span>
+<span class="text-[10px] font-bold text-primary uppercase bg-primary/10 px-1.5 py-0.2 rounded" id="swipe-emp-pensum-badge">57%</span>
+</div>
+<div class="flex items-center gap-2 font-bold text-xs mt-0.5" id="swipe-live-status">
 <span class="w-2.5 h-2.5 rounded-full bg-slate-400 shrink-0" id="swipe-status-dot"></span>
-<span class="" id="swipe-status-text">Abwesend / Ausgestempelt</span>
+<span class="text-on-surface-variant" id="swipe-status-text">Abwesend / Ausgestempelt</span>
 </div>
 </div>
 </div>
@@ -411,12 +414,12 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-medium" id="entry-employee" required="">
+<select class="w-full px-4 py-3 rounded-xl border border-outline/30 bg-surface-container-low text-on-surface font-bold cursor-pointer" id="entry-employee" onchange="onFormEmployeeChange(this.value)" oninput="onFormEmployeeChange(this.value)" required="">
 <option value="all">Ganzes Team</option>
-<option value="nicole">Nicole De Pretto</option>
-<option value="michelle">Michelle Dreifuss</option>
-<option value="manuel">Manuel Schoch</option>
-<option value="seline">Seline Steinmann</option>
+<option value="nicole">Nicole De Pretto (57%)</option>
+<option value="michelle">Michelle Dreifuss (100%)</option>
+<option value="manuel">Manuel Schoch (100%)</option>
+<option value="seline">Seline Steinmann (92%)</option>
 </select>
 </div>
 <div>
@@ -473,15 +476,18 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
 <div>
 <h3 class="text-xl font-bold text-on-surface">Eingetragene Zeiten (Chronologisch sortiert)</h3>
-<p class="text-xs text-on-surface-variant">Vollständige Historie aus Schuljahr 2026/2027.</p>
+<p class="text-xs text-on-surface-variant" id="entries-subtitle">Vollständige Historie aus Schuljahr 2026/2027.</p>
 </div>
-<select class="px-3 py-1.5 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-entry-employee" onchange="renderTimeEntriesList()">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface-variant hidden sm:inline">Filter:</span>
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold text-on-surface cursor-pointer focus:border-primary" id="filter-entry-employee" onchange="onFilterEmployeeChange(this.value)" oninput="onFilterEmployeeChange(this.value)">
 <option value="all">Ganzes Team anzeigen</option>
 <option value="nicole">Nicole De Pretto</option>
 <option value="michelle">Michelle Dreifuss</option>
 <option value="manuel">Manuel Schoch</option>
 <option value="seline">Seline Steinmann</option>
 </select>
+</div>
 </div>
 <div class="space-y-3" id="time-entries-list"></div>
 </div>
@@ -493,13 +499,16 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <h2 class="text-2xl font-bold text-on-surface">Wochen- und Monatsübersicht</h2>
 <p class="text-sm text-on-surface-variant">Schuljahr <span class="active-school-year-text font-bold text-primary">2026/2027</span> – Übersicht aller erfassten Tage nach Kalenderwochen.</p>
 </div>
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="filter-weekly-employee" onchange="renderWeeklyOverview()">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface-variant hidden sm:inline">Mitarbeiter:</span>
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold text-on-surface cursor-pointer focus:border-primary" id="filter-weekly-employee" onchange="onWeeklyEmployeeChange(this.value)" oninput="onWeeklyEmployeeChange(this.value)">
 <option value="all">Ganzes Team anzeigen</option>
 <option value="nicole">Nicole De Pretto</option>
 <option value="michelle">Michelle Dreifuss</option>
 <option value="manuel">Manuel Schoch</option>
 <option value="seline">Seline Steinmann</option>
 </select>
+</div>
 </div>
 <div class="grid grid-cols-1 gap-6" id="weekly-overview-container"></div>
 </div>
@@ -525,13 +534,13 @@ Am Handy mit dem Finger nach rechts wischen zum Kommen, nach links zum Gehen. Bu
 <p class="text-sm text-on-surface-variant">Soll/Ist-Vergleich für den Rechnungsmonat.</p>
 </div>
 <div class="flex flex-wrap items-center gap-3">
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-month-select" onchange="renderReports()">
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold cursor-pointer" id="report-month-select" onchange="renderReports()">
 <option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option>
 <option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option>
 <option value="7">Juli</option><option value="8">August</option><option value="9">September</option>
 <option selected="" value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option>
 </select>
-<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold" id="report-year-select" onchange="renderReports()">
+<select class="px-3 py-2 rounded-xl border border-outline/30 bg-surface-container-low text-xs font-bold cursor-pointer" id="report-year-select" onchange="renderReports()">
 <option value="2025">2025</option><option selected="" value="2026">2026</option><option value="2027">2027</option>
 </select>
 <button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-xs flex items-center gap-1.5" onclick="printReportDocument()">
@@ -603,6 +612,9 @@ const db = firebase.firestore();
 
 let selectedSchoolYear = '2026/2027';
 
+// GLOBALER ZENTRALER STATE FÜR DEN AKTUELL AUSGEWÄHLTEN MITARBEITER
+let currentSelectedEmployeeId = 'nicole';
+
 // 1. VOLLSTÄNDIGE MITARBEITERDATEN MIT ROBUSTEN IDS UND SYNONYMEN
 const DEFAULT_EMPLOYEES = [
     { id: 'nicole', aliases: ['1', 'emp_1', 'nicole-de-pretto'], name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1077, email: 'nicole.depretto@doeltschi.ch' },
@@ -611,7 +623,7 @@ const DEFAULT_EMPLOYEES = [
     { id: 'seline', aliases: ['4', 'emp_4', 'seline-steinmann'], name: 'Seline Steinmann', initials: 'SS', role: 'Heilpädagogin / Administration', pensum: 92, targetHours: 154.6, yearlyTotal: 1739, email: 'seline.steinmann@doeltschi.ch' }
 ];
 
-// 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027 (INKL. 14.08, 17.08, 20.08, 21.08, 23.09, 01.10, 02.10 FÜR NICOLE)
+// 2. VOLLSTÄNDIGE HISTORISCHE ZEITERFASSUNGSDATEN SCHULJAHR 2026/2027
 const SEED_TIME_ENTRIES = [
     // Nicole De Pretto (August, September, Oktober 2026)
     { id: 'seed_nd_01', employeeId: 'nicole', employeeName: 'Nicole De Pretto', date: '14.08.2026', schoolYear: '2026/2027', vmFrom: '07:30', vmTo: '11:45', nmFrom: '13:00', nmTo: '16:15', abendFrom: '', abendTo: '', status: 'Normal', notes: 'Schulvorbereitung & Teamstart', hours: 7.5 },
@@ -661,7 +673,6 @@ const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli
 let clockInSessions = {};
 let swipeLogs = [];
 
-// App startet immer direkt entsperrt
 sessionStorage.setItem('doeltschi_authenticated', 'true');
 
 // ==========================================
@@ -692,26 +703,113 @@ function matchEmp(entry, selectedIdent) {
     const entryEmpId = String(entry.employeeId || '').trim().toLowerCase();
     const entryEmpName = String(entry.employeeName || '').trim().toLowerCase();
 
-    // 1. Direkter Match auf employeeId
     if (entryEmpId === selStr) return true;
-
-    // 2. Namensvergleich
     if (entryEmpName === selStr || entryEmpName.includes(selStr) || selStr.includes(entryEmpName)) return true;
 
-    // 3. Mitarbeiterobjekt auflösen
     const selEmp = findEmployee(selectedIdent);
     if (selEmp) {
         if (entryEmpId === String(selEmp.id).toLowerCase()) return true;
         if (entryEmpName === String(selEmp.name).toLowerCase()) return true;
         if (selEmp.aliases && selEmp.aliases.some(a => String(a).toLowerCase() === entryEmpId)) return true;
-        if (selEmp.email && String(selEmp.email).toLowerCase() === entryEmpId) return true;
+        if (selEmp.email && String(selEmp.email).toLowerCase() === entryEmpId)) return true;
     }
 
-    // 4. Gegenprüfen über Entry-Employee-Auflösung
     const entryEmp = findEmployee(entry.employeeId) || findEmployee(entry.employeeName);
     if (entryEmp && selEmp && entryEmp.id === selEmp.id) return true;
 
     return false;
+}
+
+// ==========================================
+// ZENTRALE SYNCHRONISIERUNG ALLER DROPDOWNS
+// ==========================================
+function populateAllEmployeeDropdowns() {
+    // 1. Swipe Dropdown
+    const swipeSelect = document.getElementById('swipe-employee-select');
+    if (swipeSelect) {
+        swipeSelect.innerHTML = employeesData.map(e => `
+            <option value="${e.id}">${e.name} (${e.role} - ${e.pensum}%)</option>
+        `).join('');
+        if (currentSelectedEmployeeId && currentSelectedEmployeeId !== 'all') {
+            swipeSelect.value = currentSelectedEmployeeId;
+        }
+    }
+
+    // 2. Entry Form Dropdown
+    const entrySelect = document.getElementById('entry-employee');
+    if (entrySelect) {
+        let opts = `<option value="all">Ganzes Team</option>`;
+        opts += employeesData.map(e => `<option value="${e.id}">${e.name} (${e.pensum}%)</option>`).join('');
+        entrySelect.innerHTML = opts;
+        if (currentSelectedEmployeeId) {
+            entrySelect.value = currentSelectedEmployeeId;
+        }
+    }
+
+    // 3. Filter Entry List Dropdown
+    const filterSelect = document.getElementById('filter-entry-employee');
+    if (filterSelect) {
+        let opts = `<option value="all">Ganzes Team anzeigen</option>`;
+        opts += employeesData.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+        filterSelect.innerHTML = opts;
+        if (currentSelectedEmployeeId) {
+            filterSelect.value = currentSelectedEmployeeId;
+        }
+    }
+
+    // 4. Weekly Filter Dropdown
+    const weeklySelect = document.getElementById('filter-weekly-employee');
+    if (weeklySelect) {
+        let opts = `<option value="all">Ganzes Team anzeigen</option>`;
+        opts += employeesData.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+        weeklySelect.innerHTML = opts;
+        if (currentSelectedEmployeeId) {
+            weeklySelect.value = currentSelectedEmployeeId;
+        }
+    }
+}
+
+function setGlobalEmployee(empId, source = null) {
+    if (!empId) return;
+    currentSelectedEmployeeId = empId;
+    try {
+        localStorage.setItem('doeltschi_selected_emp', empId);
+    } catch(e){}
+
+    // Update Dropdown Values
+    const swipeSelect = document.getElementById('swipe-employee-select');
+    if (swipeSelect && source !== 'swipe' && empId !== 'all') swipeSelect.value = empId;
+
+    const entrySelect = document.getElementById('entry-employee');
+    if (entrySelect && source !== 'form') entrySelect.value = empId;
+
+    const filterSelect = document.getElementById('filter-entry-employee');
+    if (filterSelect && source !== 'filter') filterSelect.value = empId;
+
+    const weeklySelect = document.getElementById('filter-weekly-employee');
+    if (weeklySelect && source !== 'weekly') weeklySelect.value = empId;
+
+    // Sofortige visuelle Aktualisierung
+    updateSwipeEmployeeDisplay();
+    renderSwipeLogbook();
+    renderTimeEntriesList();
+    renderWeeklyOverview();
+}
+
+function onSwipeEmployeeChange(val) {
+    setGlobalEmployee(val, 'swipe');
+}
+
+function onFormEmployeeChange(val) {
+    setGlobalEmployee(val, 'form');
+}
+
+function onFilterEmployeeChange(val) {
+    setGlobalEmployee(val, 'filter');
+}
+
+function onWeeklyEmployeeChange(val) {
+    setGlobalEmployee(val, 'weekly');
 }
 
 function loadSwipeSessions() {
@@ -720,6 +818,8 @@ function loadSwipeSessions() {
         if (s) clockInSessions = JSON.parse(s);
         const l = localStorage.getItem('doeltschi_swipe_logs');
         if (l) swipeLogs = JSON.parse(l);
+        const savedEmp = localStorage.getItem('doeltschi_selected_emp');
+        if (savedEmp) currentSelectedEmployeeId = savedEmp;
     } catch(e){}
 }
 function saveSwipeSessions() {
@@ -805,7 +905,6 @@ function switchView(viewName) {
         }
     });
 
-    // Mobile nav state update
     ['stempeluhr', 'dashboard', 'zeiterfassung', 'mitarbeiter', 'berichte'].forEach(name => {
         const btn = document.getElementById(`mob-btn-${name}`);
         if (btn) {
@@ -867,27 +966,31 @@ function initSwipeClock() {
     renderSwipeLogbook();
 }
 
-function onSwipeEmployeeChange() {
-    updateSwipeEmployeeDisplay();
-    renderSwipeLogbook();
-}
-
 function updateSwipeEmployeeDisplay() {
     const select = document.getElementById('swipe-employee-select');
-    if (!select) return;
-    const rawVal = select.value;
+    const rawVal = (select && select.value) ? select.value : currentSelectedEmployeeId;
     const emp = findEmployee(rawVal) || employeesData[0];
-    const empId = emp ? emp.id : rawVal;
+    const empId = emp ? emp.id : 'nicole';
+
+    // Dropdown synchronisieren
+    if (select && select.value !== empId && empId !== 'all') {
+        select.value = empId;
+    }
 
     const avatar = document.getElementById('swipe-emp-avatar');
     if (avatar && emp) avatar.textContent = emp.initials || emp.name.substring(0, 2).toUpperCase();
+
+    const nameBadge = document.getElementById('swipe-emp-name-badge');
+    if (nameBadge && emp) nameBadge.textContent = emp.name;
+
+    const pensumBadge = document.getElementById('swipe-emp-pensum-badge');
+    if (pensumBadge && emp) pensumBadge.textContent = `${emp.pensum}%`;
 
     const dot = document.getElementById('swipe-status-dot');
     const text = document.getElementById('swipe-status-text');
     const cardTitle = document.getElementById('swipe-card-title');
     const cardSub = document.getElementById('swipe-card-sub');
 
-    // Suche Session über alle Aliases
     const activeSession = clockInSessions[empId] || (emp && emp.aliases && emp.aliases.find(a => clockInSessions[a])) ? (clockInSessions[empId] || clockInSessions[emp.aliases.find(a => clockInSessions[a])]) : null;
 
     if (activeSession && activeSession.inTime) {
@@ -899,7 +1002,7 @@ function updateSwipeEmployeeDisplay() {
         if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-400';
         if (text) { text.className = 'text-on-surface-variant font-bold'; text.textContent = `Abwesend / Ausgestempelt`; }
         if (cardTitle) cardTitle.textContent = `Nach rechts ziehen zum Einstempeln (Kommen) 👉`;
-        if (cardSub) cardSub.textContent = `Bereit für Zeiterfassung`;
+        if (cardSub) cardSub.textContent = `Bereit für Zeiterfassung (${emp ? emp.name : ''})`;
     }
 }
 
@@ -909,7 +1012,7 @@ function showSwipeFeedback(msg, isOut = false) {
     const iconEl = document.getElementById('swipe-feedback-icon');
     if (!toast || !msgEl || !iconEl) return;
 
-    toast.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+    toast.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900', 'border-emerald-300', 'border-rose-300');
     if (isOut) {
         toast.classList.add('bg-rose-100', 'text-rose-900', 'border', 'border-rose-300');
         iconEl.textContent = 'logout';
@@ -923,7 +1026,7 @@ function showSwipeFeedback(msg, isOut = false) {
 
 function performClockIn(source = 'swipe') {
     const select = document.getElementById('swipe-employee-select');
-    const rawVal = select ? select.value : 'nicole';
+    const rawVal = select ? select.value : currentSelectedEmployeeId;
     const emp = findEmployee(rawVal) || employeesData[0];
     const empId = emp ? emp.id : 'nicole';
     const empName = emp ? emp.name : 'Nicole De Pretto';
@@ -946,7 +1049,7 @@ function performClockIn(source = 'swipe') {
 
 function performClockOut(source = 'swipe') {
     const select = document.getElementById('swipe-employee-select');
-    const rawVal = select ? select.value : 'nicole';
+    const rawVal = select ? select.value : currentSelectedEmployeeId;
     const emp = findEmployee(rawVal) || employeesData[0];
     const empId = emp ? emp.id : 'nicole';
     const empName = emp ? emp.name : 'Nicole De Pretto';
@@ -999,9 +1102,8 @@ function performClockOut(source = 'swipe') {
 function renderSwipeLogbook() {
     const el = document.getElementById('swipe-activity-log');
     if (!el) return;
-    const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : 'all';
+    const currentSelectedEmp = document.getElementById('swipe-employee-select') ? document.getElementById('swipe-employee-select').value : currentSelectedEmployeeId;
 
-    // Zeige alle oder gefilterte Logs
     let logsToShow = swipeLogs;
     if (currentSelectedEmp && currentSelectedEmp !== 'all') {
         logsToShow = swipeLogs.filter(l => {
@@ -1131,7 +1233,6 @@ function loadInitialData() {
         if (entries) {
             const parsedEntries = JSON.parse(entries);
             if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
-                // Bereinige und sichere, dass Nicole alle Einträge hat
                 timeEntriesData = parsedEntries.map(e => {
                     if (e.employeeId === '1' || e.employeeId === 'emp_1' || (e.employeeName && e.employeeName.toLowerCase().includes('nicole'))) {
                         return { ...e, employeeId: 'nicole', employeeName: 'Nicole De Pretto' };
@@ -1149,7 +1250,6 @@ function loadInitialData() {
         timeEntriesData = [...SEED_TIME_ENTRIES];
     }
 
-    // Sicherstellen dass die Seedeinträge für Nicole enthalten sind falls noch nicht vorhanden
     SEED_TIME_ENTRIES.forEach(seed => {
         if (!timeEntriesData.some(e => e.id === seed.id || (e.date === seed.date && e.employeeId === seed.employeeId))) {
             timeEntriesData.push(seed);
@@ -1158,6 +1258,7 @@ function loadInitialData() {
 
     saveLocalState();
     updateCloudSyncBadge();
+    populateAllEmployeeDropdowns();
     renderDashboard();
     renderEmployeesManagement();
     renderTimeEntriesList();
@@ -1173,14 +1274,12 @@ function renderDashboard() {
     grid.innerHTML = '';
     let totalActual = 0, totalYearlyTarget = 0, totalMonthlyIst = 0, totalMonthlySoll = 0;
 
-    // Filter für aktuellen Schuljahresmonat (September 2026 als Basis)
     employeesData.forEach(emp => {
         const entriesAllYear = timeEntriesData.filter(e => matchEmp(e, emp.id) && isEntryInSelectedSchoolYear(e));
         const actual = entriesAllYear.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
         const yearlyTotal = emp.yearlyTotal || 1890;
         const monthlyTarget = getExactMonthlySoll(emp);
 
-        // Monat September 2026 für Monatsauswertung
         const sepEntries = entriesAllYear.filter(e => e.date && e.date.includes('.09.2026'));
         const sepIst = sepEntries.reduce((acc, curr) => acc + (Number(curr.hours) || 0), 0);
         const monatsDiff = sepIst - monthlyTarget;
@@ -1231,10 +1330,10 @@ function renderDashboard() {
             </div>
 
             <div class="flex justify-end gap-2 pt-1 border-t border-surface-container-high/60">
-                <button onclick="switchView('stempeluhr'); document.getElementById('swipe-employee-select').value='${emp.id}'; onSwipeEmployeeChange();" class="px-3 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-xl text-xs hover:bg-amber-400/30 flex items-center gap-1">
+                <button onclick="setGlobalEmployee('${emp.id}'); switchView('stempeluhr');" class="px-3 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-xl text-xs hover:bg-amber-400/30 flex items-center gap-1">
                     <span class="material-symbols-outlined text-[14px]">bolt</span> Swipe-Uhr
                 </button>
-                <button onclick="switchView('zeiterfassung'); document.getElementById('filter-entry-employee').value='${emp.id}'; document.getElementById('entry-employee').value='${emp.id}'; renderTimeEntriesList();" class="px-3 py-1.5 bg-primary text-on-primary font-bold rounded-xl text-xs hover:bg-primary-container transition-all">
+                <button onclick="setGlobalEmployee('${emp.id}'); switchView('zeiterfassung');" class="px-3 py-1.5 bg-primary text-on-primary font-bold rounded-xl text-xs hover:bg-primary-container transition-all">
                     Zeiteintrag
                 </button>
             </div>
@@ -1267,7 +1366,23 @@ function renderTimeEntriesList() {
     const list = document.getElementById('time-entries-list');
     if (!list) return;
     list.innerHTML = '';
-    const filter = document.getElementById('filter-entry-employee').value;
+    
+    const filterSelect = document.getElementById('filter-entry-employee');
+    const filter = (filterSelect && filterSelect.value) ? filterSelect.value : currentSelectedEmployeeId;
+
+    if (filterSelect && filterSelect.value !== filter) {
+        filterSelect.value = filter;
+    }
+
+    const subtitle = document.getElementById('entries-subtitle');
+    if (subtitle) {
+        const empObj = findEmployee(filter);
+        if (empObj && filter !== 'all') {
+            subtitle.textContent = `Zeiteinträge für ${empObj.name} (${empObj.role} - ${empObj.pensum}%).`;
+        } else {
+            subtitle.textContent = `Vollständige Historie aus Schuljahr 2026/2027 aller Teammitglieder.`;
+        }
+    }
     
     let filtered = [...timeEntriesData].sort((a, b) => {
         return parseGermanDate(b.date) - parseGermanDate(a.date);
@@ -1278,7 +1393,8 @@ function renderTimeEntriesList() {
     }
 
     if (filtered.length === 0) {
-        list.innerHTML = `<div class="p-6 bg-surface-container-low rounded-xl text-center text-xs text-on-surface-variant">Keine Einträge für diese Auswahl vorhanden.</div>`;
+        const empName = findEmployee(filter) ? findEmployee(filter).name : filter;
+        list.innerHTML = `<div class="p-6 bg-surface-container-low rounded-xl text-center text-xs text-on-surface-variant font-medium">Keine Einträge für ${filter === 'all' ? 'dieses Team' : empName} vorhanden.</div>`;
         return;
     }
 
@@ -1363,6 +1479,10 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
     } else {
         timeEntriesData.unshift(newEntry);
     }
+    
+    // Mitarbeiter-Auswahl beibehalten
+    setGlobalEmployee(empId);
+
     saveLocalState();
     renderTimeEntriesList();
     renderDashboard();
@@ -1374,6 +1494,9 @@ document.getElementById('time-entry-form').addEventListener('submit', (e) => {
 function resetTimeForm() {
     document.getElementById('entry-date').value = '';
     document.getElementById('entry-notes').value = '';
+    // Der ausgewählte Mitarbeiter bleibt erhalten!
+    const entryEmp = document.getElementById('entry-employee');
+    if (entryEmp && currentSelectedEmployeeId) entryEmp.value = currentSelectedEmployeeId;
 }
 
 function renderEmployeesManagement() {
@@ -1391,7 +1514,12 @@ function renderEmployeesManagement() {
                 </h4>
                 <p class="text-on-surface-variant mt-1">${emp.role} • Schuljahressoll: <strong>${emp.yearlyTotal || 1890} h</strong> (Monat: ${getExactMonthlySoll(emp)} h)</p>
             </div>
-            <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high font-bold rounded-lg hover:bg-surface-container-highest transition-all">Bearbeiten</button>
+            <div class="flex items-center gap-2">
+                <button onclick="setGlobalEmployee('${emp.id}'); switchView('stempeluhr');" class="px-2.5 py-1.5 bg-amber-400/20 text-amber-800 font-bold rounded-lg hover:bg-amber-400/30 transition-all flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">bolt</span> Auswählen
+                </button>
+                <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1.5 bg-surface-container-high font-bold rounded-lg hover:bg-surface-container-highest transition-all">Bearbeiten</button>
+            </div>
         `;
         list.appendChild(item);
     });
@@ -1434,10 +1562,12 @@ document.getElementById('employee-form').addEventListener('submit', (e) => {
         const emp = findEmployee(id);
         if (emp) { emp.name = name; emp.role = role; emp.pensum = pensum; emp.yearlyTotal = yearlyTotal; }
     } else {
-        employeesData.push({ id: 'emp_' + Date.now(), name, role, pensum, yearlyTotal, initials: name.substring(0, 2).toUpperCase() });
+        const newEmpId = 'emp_' + Date.now();
+        employeesData.push({ id: newEmpId, name, role, pensum, yearlyTotal, initials: name.substring(0, 2).toUpperCase() });
     }
     saveLocalState();
     closeEmployeeModal();
+    populateAllEmployeeDropdowns();
     renderEmployeesManagement();
     renderDashboard();
 });
@@ -1445,7 +1575,13 @@ document.getElementById('employee-form').addEventListener('submit', (e) => {
 function renderWeeklyOverview() {
     const el = document.getElementById('weekly-overview-container');
     if (!el) return;
-    const filter = document.getElementById('filter-weekly-employee').value;
+    
+    const weeklySelect = document.getElementById('filter-weekly-employee');
+    const filter = (weeklySelect && weeklySelect.value) ? weeklySelect.value : currentSelectedEmployeeId;
+
+    if (weeklySelect && weeklySelect.value !== filter) {
+        weeklySelect.value = filter;
+    }
     
     let entries = [...timeEntriesData].filter(e => isEntryInSelectedSchoolYear(e));
     if (filter !== 'all') {
@@ -1453,11 +1589,12 @@ function renderWeeklyOverview() {
     }
 
     if (entries.length === 0) {
-        el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant">Keine erfassten Tage für diese Auswahl vorhanden.</div>`;
+        const empObj = findEmployee(filter);
+        const name = empObj ? empObj.name : filter;
+        el.innerHTML = `<div class="p-6 bg-surface-container-lowest rounded-xl border border-surface-container-high text-xs text-on-surface-variant font-medium text-center">Keine erfassten Tage für ${filter === 'all' ? 'das gesamte Team' : name} vorhanden.</div>`;
         return;
     }
 
-    // Sortieren nach Datum
     entries.sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date));
 
     let html = `
