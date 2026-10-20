@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
-<html class="h-full bg-slate-50" lang="de"><head>
+<html class="h-full bg-slate-50" lang="de">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time – Zeiterfassung Primarschule Döltschi</title>
-<!-- Tailwind CSS CDN with Forms & Container Queries -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
     tailwind.config = {
@@ -29,790 +28,1153 @@
         }
       }
     }
-  </script>
-<!-- BEGIN: Style Blocks -->
-<style data-purpose="custom-layout">
-    /* Subtle scrollbar and refined line heights */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-  </style>
-<!-- END: Style Blocks -->
-<meta content="web_dashboard" name="shell-type"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head>
+</script>
+<style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .view-container { display: none; }
+    .view-container.active { display: block; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+</head>
 <body class="h-full text-slate-800 antialiased font-sans flex flex-col bg-slate-100">
-<!-- BEGIN: GlobalTopNotificationBar -->
-<header class="bg-white border-b border-slate-200 px-6 py-2.5 flex items-center justify-between text-xs sticky top-0 z-30 shadow-sm" data-purpose="top-navigation-status">
-<div class="flex items-center space-x-3">
-<div class="flex items-center space-x-1.5 font-bold text-slate-900 text-sm">
-<span class="text-amber-500 text-base">⚡</span>
-<span class="">Mobile Swipe-Stempeluhr</span>
-</div>
-<div class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium border border-blue-200">
-<svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">Schuljahr 26/27</span>
-</div>
-<div class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200 font-semibold">
-<span class="">⚡ Swipe-Uhr</span>
-</div>
-<div class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">
-<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">QR-Code</span>
-</div>
-<div class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">
-<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">804h</span>
-</div>
-<div class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200 font-medium">
-<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">Sync</span>
-</div>
-</div>
-<!-- Live sync indicator badge -->
-<div class="flex items-center gap-2">
-<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        Cloud Synchron: Alle Team-Einträge aktiv
-      </span>
-</div>
+
+<!-- Header Top Notification Bar -->
+<header class="bg-white border-b border-slate-200 px-4 md:px-6 py-2.5 flex items-center justify-between text-xs sticky top-0 z-30 shadow-sm">
+  <div class="flex items-center space-x-2 md:space-x-3 overflow-x-auto">
+    <div class="flex items-center space-x-1.5 font-bold text-slate-900 text-sm shrink-0">
+      <span class="text-amber-500 text-base">⚡</span>
+      <span class="hidden sm:inline">Mobile Swipe-Stempeluhr</span>
+      <span class="sm:hidden">Döltschi Time</span>
+    </div>
+    <div class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium border border-blue-200 shrink-0">
+      <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      <span>Schuljahr 26/27</span>
+    </div>
+    <button onclick="switchView('view-swipe')" class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 hover:bg-amber-100 px-2 py-0.5 rounded border border-amber-200 font-semibold transition-colors shrink-0">
+      <span>⚡ Swipe-Uhr</span>
+    </button>
+    <button onclick="openModal('modal-qr')" class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 transition-colors shrink-0">
+      <span>QR-Code</span>
+    </button>
+    <button onclick="openModal('modal-804h')" class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 transition-colors shrink-0">
+      <span>804h</span>
+    </button>
+  </div>
+  <div class="flex items-center gap-2 shrink-0">
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="hidden md:inline">Cloud Synchron: Alle Team-Einträge aktiv</span>
+      <span class="md:hidden">Sync aktiv</span>
+    </span>
+  </div>
 </header>
-<!-- END: GlobalTopNotificationBar -->
+
 <div class="flex flex-1 overflow-hidden">
-<!-- BEGIN: LeftSidebar -->
-<aside class="w-64 bg-slate-50 border-r border-slate-200 flex flex-col justify-between shrink-0 p-4" data-purpose="sidebar-navigation">
-<div class="space-y-4">
-<!-- School / Brand Logo Box -->
-<div class="flex items-center gap-2.5 px-3 py-2 bg-white rounded-lg border border-slate-200 shadow-sm">
-<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<div>
-<h1 class="text-sm font-bold text-blue-950 leading-tight">Döltschi Time</h1>
-<p class="text-[11px] text-slate-500">Primarschule Döltschi</p>
-</div>
-</div>
-<!-- School Year Badge Info -->
-<div class="bg-blue-50/70 border border-blue-200/60 rounded-lg p-3 text-xs space-y-1">
-<div class="flex items-center gap-1.5 font-bold text-blue-900 uppercase text-[10px] tracking-wider">
-<svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">Zyklus</span>
-</div>
-<p class="font-bold text-slate-900 text-xs">Schuljahr 2026/2027</p>
-<p class="text-[10px] text-slate-500 leading-tight">1. Aug. 2026 – 31. Juli 2027</p>
-</div>
-<!-- Active Quick Swipe Primary Button -->
-<div class="bg-amber-100/80 border border-amber-300 rounded-lg p-3 shadow-sm flex items-center justify-between cursor-pointer hover:bg-amber-100 transition-colors">
-<div class="flex items-center gap-2">
-<span class="text-amber-600 font-bold text-base">⚡</span>
-<div>
-<p class="text-xs font-bold text-amber-950 leading-tight">Swipe-Stempeluhr</p>
-<p class="text-[10px] text-amber-800">Mobile Ansicht</p>
-</div>
-</div>
-<span class="bg-amber-500 text-white font-extrabold text-[9px] uppercase px-1.5 py-0.5 rounded tracking-wide">Direkt</span>
-</div>
-<!-- Navigation Menu Items -->
-<nav class="space-y-1 text-xs" data-purpose="main-nav-links" id="sidebar-nav"><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-dashboard" href="#view-dashboard"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Dashboard</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50/70 border border-blue-100 nav-item" data-view="view-zeiterfassung" href="#view-zeiterfassung"><svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Zeiterfassung</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-swipe" href="#view-swipe"><span class="text-amber-500 font-bold">⚡</span><span class="">Swipe-Stempeluhr</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-wochenuebersicht" href="#view-wochenuebersicht"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Wochenübersicht</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-mitarbeiter" href="#view-mitarbeiter"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Mitarbeiter</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-berichte" href="#view-berichte"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Berichte</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-einstellungen" href="#view-einstellungen"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Profil &amp; Einstellungen</span></a></nav>
-</div>
-<!-- Footer Quick Links in Sidebar -->
-<div class="space-y-2 pt-4 border-t border-slate-200 text-xs">
-<a class="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50/50 hover:bg-blue-50 border border-blue-200/50 text-blue-900 font-medium" href="#">
-<svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="text-[11px] font-semibold">Erklärung Schuljahr (804h)</span>
-</a>
-<a class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-medium" href="#">
-<span class="text-sm">📱</span>
-<span class="text-[11px] font-semibold">QR-Code Handy</span>
-</a>
-</div>
-</aside>
-<!-- END: LeftSidebar -->
-<!-- BEGIN: MainContentArea -->
-<main class="flex-1 overflow-y-auto p-6 space-y-6" data-purpose="primary-dashboard-container"><div class="flex flex-col w-full">
-<!-- Interactive View State Controller Header -->
-<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-surface-container-lowest p-6 rounded-xl shadow-sm mb-6">
-<div class="flex flex-col sm:flex-row sm:items-center gap-4">
-<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
-</div>
-<div>
-<div class="flex items-center gap-2">
-<span class="font-label-caps text-label-caps text-primary uppercase">Döltschi Time Live-Cockpit</span>
-<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-surface-container text-on-surface-variant">Zyklus 2026/27</span>
-</div>
-<div class="flex items-center gap-2 mt-0.5">
-<span class="font-headline-md text-headline-md text-on-surface">Team Schuljahresarbeitszeit</span>
-<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-</div>
-</div>
-</div>
-<!-- Employee Filter Select & Quick Status -->
-<div class="flex flex-wrap items-center gap-3">
-<div class="flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded-lg">
-<span class="material-symbols-outlined text-secondary text-sm">badge</span>
-<label class="font-label-caps text-label-caps text-on-surface-variant" for="employee-select">Filter:</label>
-<select class="bg-transparent font-body-md text-body-md text-on-surface font-semibold focus:outline-none cursor-pointer" id="employee-select">
-<option selected="">Ganzes Team / Seline Steinmann (92% Pensum – 45.25 h)</option>
-<option>Ganzes Team (Alle 4 Lehrpersonen)</option>
-<option>Seline Steinmann (92% Primarstufe)</option>
-<option>Nicole De Pretto (57% Fachlehrperson)</option>
-<option>Michelle Dreifuss (100% Klassenlehrperson)</option>
-<option>Manuel Schoch (100% Fachlehrperson)</option>
-</select>
-</div>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-caps text-label-caps shadow-sm hover:bg-primary-container transition-colors" type="button">
-<span class="material-symbols-outlined text-sm">sync</span>
-<span>Jetzt Aktualisieren</span>
-</button>
-</div>
-</div>
-<!-- Hero Visual & Key Metrics Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-<!-- Card 1: Team Strength -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
-<div class="flex items-start justify-between">
-<div>
-<span class="font-label-caps text-label-caps text-secondary uppercase">Aktives Team</span>
-<p class="font-headline-lg text-headline-lg text-on-surface mt-1">4 <span class="font-body-md text-body-md text-secondary">Lehrpersonen</span></p>
-</div>
-<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">diversity_3</span>
-</div>
-</div>
-<div class="mt-4 pt-3 bg-surface-container-low p-2.5 rounded-lg flex items-center justify-between text-xs text-on-surface-variant font-medium">
-<span>Nicole 57%</span>
-<span>•</span>
-<span>Michelle 100%</span>
-<span>•</span>
-<span>Manuel 100%</span>
-<span>•</span>
-<span class="font-bold text-primary">Seline 92%</span>
-</div>
-</div>
-<!-- Card 2: October Recorded -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
-<div class="flex items-start justify-between">
-<div>
-<span class="font-label-caps text-label-caps text-secondary uppercase">Monats-Soll &amp; Ist (Okt 2026)</span>
-<p class="font-headline-lg text-headline-lg text-primary mt-1">153.75 <span class="font-body-md text-body-md text-secondary">h</span></p>
-</div>
-<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
-<span class="material-symbols-outlined">schedule</span>
-</div>
-</div>
-<div class="mt-4">
-<div class="flex justify-between items-center text-xs mb-1">
-<span class="text-on-surface-variant font-medium">Fortschritt Oktober (Total 586.4 h)</span>
-<span class="font-bold text-on-surface">26.2%</span>
-</div>
-<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-<div class="h-full bg-primary rounded-full" style="width: 26.2%;"></div>
-</div>
-</div>
-</div>
-<!-- Card 3: School Year Total -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
-<div class="flex items-start justify-between">
-<div>
-<span class="font-label-caps text-label-caps text-secondary uppercase">Schuljahr Summe Basis</span>
-<p class="font-headline-lg text-headline-lg text-on-surface mt-1">2'144 <span class="font-body-md text-body-md text-secondary">h</span></p>
-</div>
-<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined">history_edu</span>
-</div>
-</div>
-<div class="mt-4 pt-3 flex items-center gap-2 text-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm text-primary">info</span>
-<span>Schuljahr 26/27 Sollvorgabe Stadt Zürich</span>
-</div>
-</div>
-<!-- Card 4: Overtime / Balance -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
-<div class="flex items-start justify-between">
-<div>
-<span class="font-label-caps text-label-caps text-secondary uppercase">Überstunden / Saldo Team</span>
-<p class="font-headline-lg text-headline-lg text-emerald-600 mt-1">+14.40 <span class="font-body-md text-body-md text-secondary">h</span></p>
-</div>
-<div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
-<span class="material-symbols-outlined">trending_up</span>
-</div>
-</div>
-<div class="mt-4 flex items-center justify-between text-xs text-on-surface-variant">
-<span class="text-emerald-700 font-semibold">Guthaben akkumuliert</span>
-<span class="bg-surface-container px-2 py-0.5 rounded text-[11px] font-mono">1. Quartal OK</span>
-</div>
-</div>
-</div>
-<!-- Primary Asymmetric Split: Team Overview + Swipe Stempeluhr -->
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6">
-<!-- Team Members Detail Cards (8 cols) -->
-<div class="xl:col-span-8 space-y-4">
-<div class="flex items-center justify-between px-1">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">group_work</span>
-<h2 class="font-headline-md text-headline-md text-on-surface">Teammitglieder &amp; Pensen (Oktober 2026)</h2>
-</div>
-<span class="font-label-caps text-label-caps text-secondary">4 Profile erfasst</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<!-- 1. Seline Steinmann (Highlighted active profile) -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-md relative overflow-hidden transition-all duration-300 hover:shadow-lg">
-<div class="absolute top-0 right-0 bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-            Aktiv Ausgewählt
+  <!-- Left Sidebar Navigation -->
+  <aside class="w-64 bg-slate-50 border-r border-slate-200 flex flex-col justify-between shrink-0 p-4" id="sidebar">
+    <div class="space-y-4">
+      <!-- School Logo Box -->
+      <div onclick="switchView('view-dashboard')" class="flex items-center gap-2.5 px-3 py-2 bg-white rounded-lg border border-slate-200 shadow-sm cursor-pointer hover:border-blue-300 transition-all">
+        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        </div>
+        <div>
+          <h1 class="text-sm font-bold text-blue-950 leading-tight">Döltschi Time</h1>
+          <p class="text-[11px] text-slate-500">Primarschule Döltschi</p>
+        </div>
+      </div>
+
+      <!-- School Year Info -->
+      <div class="bg-blue-50/70 border border-blue-200/60 rounded-lg p-3 text-xs space-y-1">
+        <div class="flex items-center gap-1.5 font-bold text-blue-900 uppercase text-[10px] tracking-wider">
+          <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          <span>Zyklus</span>
+        </div>
+        <p class="font-bold text-slate-900 text-xs">Schuljahr 2026/2027</p>
+        <p class="text-[10px] text-slate-500 leading-tight">1. Aug. 2026 – 31. Juli 2027</p>
+      </div>
+
+      <!-- Swipe Stempeluhr Highlight Button -->
+      <div onclick="switchView('view-swipe')" class="bg-amber-100/80 border border-amber-300 rounded-lg p-3 shadow-sm flex items-center justify-between cursor-pointer hover:bg-amber-100 transition-colors">
+        <div class="flex items-center gap-2">
+          <span class="text-amber-600 font-bold text-base">⚡</span>
+          <div>
+            <p class="text-xs font-bold text-amber-950 leading-tight">Swipe-Stempeluhr</p>
+            <p class="text-[10px] text-amber-800">Mobile Ansicht</p>
           </div>
-<div class="flex items-start gap-3">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
-<img class="w-full h-full object-cover" data-alt="Warm natural portrait of Seline Steinmann, professional elementary school teacher in Zurich with subtle spectacles, smiling kindly in soft morning natural daylight with school classroom background out of focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTQ4Vry3nb5C3JfvuLD0u2PWrLSjMEa48Q-G5Tn-Fu2Fpj-F8JYo5sWPcv7DdPZiJBRqwkZ-F3J2hzWVsLo6B0vc0vy6IIkxnX54lG8ppOvdLmUrAbkc1rq3-EgQUVKKaYb3gqfvtScnlPMCsfjLB3mIy7ldEDeSm85UGmEXi_vTAHI9kwQtpUp7wwjauh4ItnFtK3Rpqnh1LJr7UFnROzD-cOEImoihJNYDi6ymW0zY9YRWyu3oJt"/>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="font-body-lg text-body-lg font-bold text-on-surface truncate">Seline Steinmann</h3>
-<p class="font-label-caps text-label-caps text-primary">92% Pensum • Primarstufe</p>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-3 rounded-lg text-xs">
-<div>
-<span class="text-secondary block">Jahressoll:</span>
-<span class="font-semibold text-on-surface font-mono">1'739 h</span>
-</div>
-<div>
-<span class="text-secondary block">Monats-Soll (Okt):</span>
-<span class="font-semibold text-on-surface font-mono">154.6 h</span>
-</div>
-<div>
-<span class="text-secondary block">Erfasst Oktober:</span>
-<span class="font-bold text-primary font-mono text-sm">45.25 h</span>
-</div>
-<div>
-<span class="text-secondary block">Schichten gebucht:</span>
-<span class="font-semibold text-on-surface">6 Schichten</span>
-</div>
-</div>
-<div class="flex items-center justify-between text-xs pt-1">
-<span class="text-secondary">Zeitraum: 02.10. – 16.10.2026</span>
-<span class="inline-flex items-center gap-1 text-emerald-600 font-semibold">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced
-            </span>
-</div>
-</div>
-<!-- 2. Nicole De Pretto -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-<div class="flex items-start gap-3">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
-<img class="w-full h-full object-cover" data-alt="Corporate headshot portrait of Nicole De Pretto, Swiss female specialized teacher with confident expression wearing professional navy blazer, soft neutral studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="font-body-lg text-body-lg font-bold text-on-surface truncate">Nicole De Pretto</h3>
-<p class="font-label-caps text-label-caps text-secondary">57% Pensum • Fachlehrerin</p>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-3 rounded-lg text-xs">
-<div>
-<span class="text-secondary block">Jahressoll:</span>
-<span class="font-semibold text-on-surface font-mono">1'077 h</span>
-</div>
-<div>
-<span class="text-secondary block">Monats-Soll (Okt):</span>
-<span class="font-semibold text-on-surface font-mono">95.8 h</span>
-</div>
-<div>
-<span class="text-secondary block">Erfasst Oktober:</span>
-<span class="font-bold text-on-surface font-mono text-sm">66.50 h</span>
-</div>
-<div>
-<span class="text-secondary block">Spezialregel:</span>
-<span class="font-semibold text-on-surface">804 h 3. Quartal</span>
-</div>
-</div>
-<div class="flex items-center justify-between text-xs pt-1">
-<span class="text-secondary">Inklusive Handy-Swipe Live</span>
-<span class="text-primary font-medium">8 Schichten</span>
-</div>
-</div>
-<!-- 3. Michelle Dreifuss -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-<div class="flex items-start gap-3">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
-<img class="w-full h-full object-cover" data-alt="Portrait of Michelle Dreifuss, elementary school team leader in Zurich with warm engaging smile, wearing emerald sweater in brightly lit primary school staff lounge." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4BUj20ooLSRyTP45S9_GPcy9RuhsijR2mmU2P9M_AqiX-j9taCUOYtw61XbTdOduV33Gb6uFRCe5oKEJ335XFsODvnaUotPs5pqBXFHt1APh12vrYLKN-eH_0mpNCJ4mg8Qhmk4GnKjwK3nZSyTA7VcHjsnfIoFgsWxggq0ehO5jnsmITLkj3N0BfiBasemyVU6Q1HvawLlTOutcNoE_IFrJWcH1xPcIZr6A38QN-ioDmtUE14MhB"/>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="font-body-lg text-body-lg font-bold text-on-surface truncate">Michelle Dreifuss</h3>
-<p class="font-label-caps text-label-caps text-secondary">100% Pensum • Klassenlehrerin</p>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-3 rounded-lg text-xs">
-<div>
-<span class="text-secondary block">Jahressoll:</span>
-<span class="font-semibold text-on-surface font-mono">1'890 h</span>
-</div>
-<div>
-<span class="text-secondary block">Monats-Soll (Okt):</span>
-<span class="font-semibold text-on-surface font-mono">168.0 h</span>
-</div>
-<div>
-<span class="text-secondary block">Erfasst Oktober:</span>
-<span class="font-bold text-on-surface font-mono text-sm">26.00 h</span>
-</div>
-<div>
-<span class="text-secondary block">Status:</span>
-<span class="font-semibold text-on-surface">Herbstlager Vorb.</span>
-</div>
-</div>
-<div class="flex items-center justify-between text-xs pt-1">
-<span class="text-secondary">Wochenbuchung aktiv</span>
-<span class="text-primary font-medium">3 Schichten</span>
-</div>
-</div>
-<!-- 4. Manuel Schoch -->
-<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-<div class="flex items-start gap-3">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
-<img class="w-full h-full object-cover" data-alt="Portrait of Manuel Schoch, dedicated male Swiss primary school teacher, mid-thirties, thoughtful friendly expression, dressed casually in light grey knit in modern educational setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnPArArQJM5DQsbdxtW8N03q0CGjMbIC-f9QhWuYAU0Y1WxotDek_MgJXfd_vPPT80w__r6Yxpf0hMd2fAcx7vsp54YBKsVeJjIHLneTxoc2LIB2RFuG43GVCpIao_ehs-dhxy9EfjTHifjhHa4STXMnuKFaYJg-fFXqFYfPYdqJEdpAfzVoVAPrRFcla2M58kCP-4ZbuqRbu1PM3c0TdT62w5f2q6pEheGyqW09FPGG-uJEySntP9"/>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="font-body-lg text-body-lg font-bold text-on-surface truncate">Manuel Schoch</h3>
-<p class="font-label-caps text-label-caps text-secondary">100% Pensum • Fachlehrer</p>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-3 rounded-lg text-xs">
-<div>
-<span class="text-secondary block">Jahressoll:</span>
-<span class="font-semibold text-on-surface font-mono">1'890 h</span>
-</div>
-<div>
-<span class="text-secondary block">Monats-Soll (Okt):</span>
-<span class="font-semibold text-on-surface font-mono">168.0 h</span>
-</div>
-<div>
-<span class="text-secondary block">Erfasst Oktober:</span>
-<span class="font-bold text-on-surface font-mono text-sm">16.00 h</span>
-</div>
-<div>
-<span class="text-secondary block">Einsatzort:</span>
-<span class="font-semibold text-on-surface">Turnhalle / Werken</span>
-</div>
-</div>
-<div class="flex items-center justify-between text-xs pt-1">
-<span class="text-secondary">Einträge per Handy-App</span>
-<span class="text-primary font-medium">2 Schichten</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Live Interactive Swipe-Stempeluhr Device Simulation (4 cols) -->
-<div class="xl:col-span-4 flex flex-col">
-<div class="bg-surface-container-lowest p-6 rounded-xl shadow-md flex-1 flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2">
-<span class="w-3 h-3 rounded-full bg-amber-500 animate-ping"></span>
-<span class="font-label-caps text-label-caps text-on-surface uppercase">Live Swipe-Stempeluhr</span>
-</div>
-<span class="bg-amber-100 text-amber-900 text-[11px] font-bold px-2 py-0.5 rounded">Mobil Sync</span>
-</div>
-<!-- Digital Clock Display -->
-<div class="bg-on-surface text-surface rounded-xl p-6 text-center shadow-inner mb-5 relative overflow-hidden">
-<div class="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-primary/20 blur-xl"></div>
-<span class="font-label-caps text-label-caps text-surface-variant block mb-1">Zürich Schulzeit • Aktuell</span>
-<div class="font-headline-lg text-headline-lg font-mono text-white tracking-wider" id="live-clock">
-              08:14:22
+        </div>
+        <span class="bg-amber-500 text-white font-extrabold text-[9px] uppercase px-1.5 py-0.5 rounded tracking-wide">Direkt</span>
+      </div>
+
+      <!-- Main Navigation Links -->
+      <nav class="space-y-1 text-xs" id="sidebar-nav">
+        <button onclick="switchView('view-dashboard')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50/70 border border-blue-100 nav-item" data-view="view-dashboard">
+          <span class="material-symbols-outlined text-sm">dashboard</span>
+          <span>Dashboard</span>
+        </button>
+        <button onclick="switchView('view-zeiterfassung')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-zeiterfassung">
+          <span class="material-symbols-outlined text-sm">schedule</span>
+          <span>Zeiterfassung</span>
+        </button>
+        <button onclick="switchView('view-swipe')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-swipe">
+          <span class="material-symbols-outlined text-sm text-amber-500">bolt</span>
+          <span>Swipe-Stempeluhr</span>
+        </button>
+        <button onclick="switchView('view-wochenuebersicht')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-wochenuebersicht">
+          <span class="material-symbols-outlined text-sm">calendar_view_week</span>
+          <span>Wochenübersicht</span>
+        </button>
+        <button onclick="switchView('view-mitarbeiter')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-mitarbeiter">
+          <span class="material-symbols-outlined text-sm">badge</span>
+          <span>Mitarbeiter</span>
+        </button>
+        <button onclick="switchView('view-berichte')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-berichte">
+          <span class="material-symbols-outlined text-sm">summarize</span>
+          <span>Berichte</span>
+        </button>
+        <button onclick="switchView('view-einstellungen')" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-einstellungen">
+          <span class="material-symbols-outlined text-sm">settings</span>
+          <span>Profil & Einstellungen</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="space-y-2 pt-4 border-t border-slate-200 text-xs">
+      <button onclick="openModal('modal-804h')" class="w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50/50 hover:bg-blue-50 border border-blue-200/50 text-blue-900 font-medium transition-colors">
+        <span class="material-symbols-outlined text-sm text-blue-600">info</span>
+        <span class="text-[11px] font-semibold">Erklärung Schuljahr (804h)</span>
+      </button>
+      <button onclick="openModal('modal-qr')" class="w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-medium transition-colors">
+        <span class="text-sm">📱</span>
+        <span class="text-[11px] font-semibold">QR-Code Handy</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Views Container -->
+  <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+
+    <!-- 1. VIEW: DASHBOARD -->
+    <div class="view-container active flex flex-col w-full" id="view-dashboard">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-5 md:p-6 rounded-xl border border-slate-200 shadow-sm mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center text-white shadow-sm shrink-0">
+            <span class="material-symbols-outlined">groups</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-blue-700 uppercase tracking-wider">Döltschi Time Live-Cockpit</span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600">Zyklus 2026/27</span>
             </div>
-<p class="font-body-md text-body-md text-inverse-on-surface/80 mt-1">Freitag, 16. Oktober 2026</p>
-</div>
-<!-- Interactive Swipe Gesture Simulator Area -->
-<div class="bg-surface-container-low p-4 rounded-xl text-center mb-5 relative select-none">
-<div class="flex justify-between items-center text-xs font-semibold text-secondary mb-3 px-2">
-<span class="flex items-center gap-1 text-emerald-700">
-<span class="material-symbols-outlined text-sm">west</span> Kommen
-              </span>
-<span class="text-on-surface-variant">Stempel-Geste</span>
-<span class="flex items-center gap-1 text-tertiary-container">
-                Gehen <span class="material-symbols-outlined text-sm">east</span>
-</span>
-</div>
-<!-- Draggable Card Item -->
-<div class="bg-surface-container-lowest py-5 px-4 rounded-lg shadow-sm cursor-grab active:cursor-grabbing transition-transform duration-150 flex flex-col items-center justify-center gap-1" id="swipe-card">
-<span class="material-symbols-outlined text-primary text-3xl">swipe</span>
-<p class="font-body-md text-body-md font-semibold text-on-surface">Seline Steinmann</p>
-<p class="font-label-caps text-label-caps text-secondary text-[11px]">Karte nach rechts (Kommen) oder links (Gehen) ziehen</p>
-</div>
-</div>
-</div>
-<!-- Quick Manual Action Buttons -->
-<div class="space-y-2">
-<div class="grid grid-cols-2 gap-2">
-<button class="py-3 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-label-caps text-label-caps flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95" id="btn-kommen" type="button">
-<span class="material-symbols-outlined text-sm">login</span>
-<span>Kommen buchen</span>
-</button>
-<button class="py-3 px-4 rounded-lg bg-tertiary hover:bg-tertiary-container text-white font-label-caps text-label-caps flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95" id="btn-gehen" type="button">
-<span class="material-symbols-outlined text-sm">logout</span>
-<span>Gehen buchen</span>
-</button>
-</div>
-<p class="text-center font-label-caps text-[11px] text-secondary h-4 transition-opacity" id="swipe-feedback">
-            Bereit für Zeiterfassung
-          </p>
-</div>
-</div>
-</div>
-</div>
-<!-- Recent Time Entries Table Section -->
-<div class="bg-surface-container-lowest rounded-xl shadow-sm p-6">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-<div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">view_timeline</span>
-<h2 class="font-headline-md text-headline-md text-on-surface">Eingetragene Zeiten – Neueste zuerst</h2>
-</div>
-<p class="font-body-md text-body-md text-secondary mt-0.5">
-          Alle aktuellen Arbeitszeiteinträge im Oktober 2026 inklusive Live-Swipe-Stempelungen
-        </p>
-</div>
-<div class="flex items-center gap-2">
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-caps text-label-caps hover:bg-surface-container-high transition-colors">
-          Filter: Oktober 2026
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="text-xl md:text-2xl font-bold text-slate-900">Team Schuljahresarbeitszeit</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2 bg-slate-100 px-3 py-2 rounded-lg border border-slate-200">
+            <span class="material-symbols-outlined text-slate-500 text-sm">badge</span>
+            <label class="text-xs font-bold text-slate-600 uppercase" for="employee-select">Filter:</label>
+            <select class="bg-transparent text-sm text-slate-900 font-semibold focus:outline-none cursor-pointer" id="employee-select" onchange="filterDashboardEmployee(this.value)">
+              <option value="all" selected>Ganzes Team / Seline Steinmann (92% Pensum – 45.25 h)</option>
+              <option value="all">Ganzes Team (Alle 4 Lehrpersonen)</option>
+              <option value="seline">Seline Steinmann (92% Primarstufe)</option>
+              <option value="nicole">Nicole De Pretto (57% Fachlehrperson)</option>
+              <option value="michelle">Michelle Dreifuss (100% Klassenlehrperson)</option>
+              <option value="manuel">Manuel Schoch (100% Fachlehrperson)</option>
+            </select>
+          </div>
+          <button onclick="renderTable(); showFlash('Daten für Schuljahr 2026/27 synchronisiert!')" class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-blue-800 transition-colors">
+            <span class="material-symbols-outlined text-sm">sync</span>
+            <span>Jetzt Aktualisieren</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Key Metrics Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Aktives Team</span>
+              <p class="text-3xl font-extrabold text-slate-900 mt-1">4 <span class="text-sm font-normal text-slate-500">Lehrpersonen</span></p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-700">
+              <span class="material-symbols-outlined">diversity_3</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 bg-slate-50 p-2.5 rounded-lg flex items-center justify-between text-xs text-slate-600 font-medium border border-slate-100">
+            <span>Nicole 57%</span><span>•</span><span>Michelle 100%</span><span>•</span><span>Manuel 100%</span><span>•</span><span class="font-bold text-blue-700">Seline 92%</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Monats-Soll & Ist (Okt 2026)</span>
+              <p class="text-3xl font-extrabold text-blue-700 mt-1">153.75 <span class="text-sm font-normal text-slate-500">h</span></p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-700">
+              <span class="material-symbols-outlined">schedule</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="flex justify-between items-center text-xs mb-1">
+              <span class="text-slate-600 font-medium">Fortschritt Oktober (Total 586.4 h)</span>
+              <span class="font-bold text-slate-900">26.2%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+              <div class="h-full bg-blue-700 rounded-full" style="width: 26.2%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Schuljahr Summe Basis</span>
+              <p class="text-3xl font-extrabold text-slate-900 mt-1">2'144 <span class="text-sm font-normal text-slate-500">h</span></p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
+              <span class="material-symbols-outlined">history_edu</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 flex items-center gap-2 text-xs text-slate-600">
+            <span class="material-symbols-outlined text-sm text-blue-700">info</span>
+            <span>Schuljahr 26/27 Sollvorgabe Stadt Zürich</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Überstunden / Saldo Team</span>
+              <p class="text-3xl font-extrabold text-emerald-600 mt-1">+14.40 <span class="text-sm font-normal text-slate-500">h</span></p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+              <span class="material-symbols-outlined">trending_up</span>
+            </div>
+          </div>
+          <div class="mt-4 flex items-center justify-between text-xs text-slate-600">
+            <span class="text-emerald-700 font-semibold">Guthaben akkumuliert</span>
+            <span class="bg-slate-100 px-2 py-0.5 rounded text-[11px] font-mono">1. Quartal OK</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Cards + Live Swipe Stempeluhr -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6">
+        <!-- 4 Team Cards -->
+        <div class="xl:col-span-8 space-y-4">
+          <div class="flex items-center justify-between px-1">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-700">group_work</span>
+              <h2 class="text-lg md:text-xl font-bold text-slate-900">Teammitglieder & Pensen (Oktober 2026)</h2>
+            </div>
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">4 Profile erfasst</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Seline Steinmann (92%) -->
+            <div class="bg-white p-5 rounded-xl border-2 border-blue-500 shadow-sm relative overflow-hidden transition-all duration-300 hover:shadow-md">
+              <div class="absolute top-0 right-0 bg-blue-700 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Aktiv Ausgewählt</div>
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
+                  <img class="w-full h-full object-cover" alt="Portrait Seline Steinmann" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTQ4Vry3nb5C3JfvuLD0u2PWrLSjMEa48Q-G5Tn-Fu2Fpj-F8JYo5sWPcv7DdPZiJBRqwkZ-F3J2hzWVsLo6B0vc0vy6IIkxnX54lG8ppOvdLmUrAbkc1rq3-EgQUVKKaYb3gqfvtScnlPMCsfjLB3mIy7ldEDeSm85UGmEXi_vTAHI9kwQtpUp7wwjauh4ItnFtK3Rpqnh1LJr7UFnROzD-cOEImoihJNYDi6ymW0zY9YRWyu3oJt"/>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-base font-bold text-slate-900 truncate">Seline Steinmann</h3>
+                  <p class="text-xs font-bold text-blue-700">92% Pensum • Primarstufe</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 my-4 bg-slate-50 p-3 rounded-lg text-xs border border-slate-100">
+                <div><span class="text-slate-500 block">Jahressoll:</span><span class="font-semibold text-slate-900 font-mono">1'739 h</span></div>
+                <div><span class="text-slate-500 block">Monats-Soll (Okt):</span><span class="font-semibold text-slate-900 font-mono">154.6 h</span></div>
+                <div><span class="text-slate-500 block">Erfasst Oktober:</span><span class="font-bold text-blue-700 font-mono text-sm">45.25 h</span></div>
+                <div><span class="text-slate-500 block">Schichten gebucht:</span><span class="font-semibold text-slate-900">6 Schichten</span></div>
+              </div>
+              <div class="flex items-center justify-between text-xs pt-1">
+                <span class="text-slate-500">Zeitraum: 02.10. – 16.10.2026</span>
+                <span class="inline-flex items-center gap-1 text-emerald-600 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced</span>
+              </div>
+            </div>
+
+            <!-- Nicole De Pretto (57%) -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
+                  <img class="w-full h-full object-cover" alt="Portrait Nicole De Pretto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-base font-bold text-slate-900 truncate">Nicole De Pretto</h3>
+                  <p class="text-xs font-bold text-slate-500">57% Pensum • Fachlehrerin</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 my-4 bg-slate-50 p-3 rounded-lg text-xs border border-slate-100">
+                <div><span class="text-slate-500 block">Jahressoll:</span><span class="font-semibold text-slate-900 font-mono">1'077 h</span></div>
+                <div><span class="text-slate-500 block">Monats-Soll (Okt):</span><span class="font-semibold text-slate-900 font-mono">95.8 h</span></div>
+                <div><span class="text-slate-500 block">Erfasst Oktober:</span><span class="font-bold text-slate-900 font-mono text-sm">66.50 h</span></div>
+                <div><span class="text-slate-500 block">Spezialregel:</span><span class="font-semibold text-slate-900">804 h 3. Quartal</span></div>
+              </div>
+              <div class="flex items-center justify-between text-xs pt-1">
+                <span class="text-slate-500">Inklusive Handy-Swipe Live</span>
+                <span class="text-blue-700 font-medium">8 Schichten</span>
+              </div>
+            </div>
+
+            <!-- Michelle Dreifuss (100%) -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
+                  <img class="w-full h-full object-cover" alt="Portrait Michelle Dreifuss" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4BUj20ooLSRyTP45S9_GPcy9RuhsijR2mmU2P9M_AqiX-j9taCUOYtw61XbTdOduV33Gb6uFRCe5oKEJ335XFsODvnaUotPs5pqBXFHt1APh12vrYLKN-eH_0mpNCJ4mg8Qhmk4GnKjwK3nZSyTA7VcHjsnfIoFgsWxggq0ehO5jnsmITLkj3N0BfiBasemyVU6Q1HvawLlTOutcNoE_IFrJWcH1xPcIZr6A38QN-ioDmtUE14MhB"/>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-base font-bold text-slate-900 truncate">Michelle Dreifuss</h3>
+                  <p class="text-xs font-bold text-slate-500">100% Pensum • Klassenlehrerin</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 my-4 bg-slate-50 p-3 rounded-lg text-xs border border-slate-100">
+                <div><span class="text-slate-500 block">Jahressoll:</span><span class="font-semibold text-slate-900 font-mono">1'890 h</span></div>
+                <div><span class="text-slate-500 block">Monats-Soll (Okt):</span><span class="font-semibold text-slate-900 font-mono">168.0 h</span></div>
+                <div><span class="text-slate-500 block">Erfasst Oktober:</span><span class="font-bold text-slate-900 font-mono text-sm">26.00 h</span></div>
+                <div><span class="text-slate-500 block">Status:</span><span class="font-semibold text-slate-900">Herbstlager Vorb.</span></div>
+              </div>
+              <div class="flex items-center justify-between text-xs pt-1">
+                <span class="text-slate-500">Wochenbuchung aktiv</span>
+                <span class="text-blue-700 font-medium">3 Schichten</span>
+              </div>
+            </div>
+
+            <!-- Manuel Schoch (100%) -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
+                  <img class="w-full h-full object-cover" alt="Portrait Manuel Schoch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnPArArQJM5DQsbdxtW8N03q0CGjMbIC-f9QhWuYAU0Y1WxotDek_MgJXfd_vPPT80w__r6Yxpf0hMd2fAcx7vsp54YBKsVeJjIHLneTxoc2LIB2RFuG43GVCpIao_ehs-dhxy9EfjTHifjhHa4STXMnuKFaYJg-fFXqFYfPYdqJEdpAfzVoVAPrRFcla2M58kCP-4ZbuqRbu1PM3c0TdT62w5f2q6pEheGyqW09FPGG-uJEySntP9"/>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-base font-bold text-slate-900 truncate">Manuel Schoch</h3>
+                  <p class="text-xs font-bold text-slate-500">100% Pensum • Fachlehrer</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 my-4 bg-slate-50 p-3 rounded-lg text-xs border border-slate-100">
+                <div><span class="text-slate-500 block">Jahressoll:</span><span class="font-semibold text-slate-900 font-mono">1'890 h</span></div>
+                <div><span class="text-slate-500 block">Monats-Soll (Okt):</span><span class="font-semibold text-slate-900 font-mono">168.0 h</span></div>
+                <div><span class="text-slate-500 block">Erfasst Oktober:</span><span class="font-bold text-slate-900 font-mono text-sm">16.00 h</span></div>
+                <div><span class="text-slate-500 block">Einsatzort:</span><span class="font-semibold text-slate-900">Turnhalle / Werken</span></div>
+              </div>
+              <div class="flex items-center justify-between text-xs pt-1">
+                <span class="text-slate-500">Einträge per Handy-App</span>
+                <span class="text-blue-700 font-medium">2 Schichten</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Swipe Clock Widget -->
+        <div class="xl:col-span-4 flex flex-col">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-amber-500 animate-ping"></span>
+                  <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Live Swipe-Stempeluhr</span>
+                </div>
+                <span class="bg-amber-100 text-amber-900 text-[11px] font-bold px-2 py-0.5 rounded">Mobil Sync</span>
+              </div>
+              <div class="bg-slate-900 text-white rounded-xl p-6 text-center shadow-inner mb-5 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-blue-500/20 blur-xl"></div>
+                <span class="text-xs font-bold text-slate-400 block mb-1 uppercase tracking-wider">Zürich Schulzeit • Aktuell</span>
+                <div class="text-4xl font-extrabold font-mono text-white tracking-wider" id="live-clock">08:14:22</div>
+                <p class="text-sm text-slate-300 mt-1">Freitag, 16. Oktober 2026</p>
+              </div>
+              <!-- Drag Area -->
+              <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-center mb-5 relative select-none">
+                <div class="flex justify-between items-center text-xs font-semibold text-slate-500 mb-3 px-2">
+                  <span class="flex items-center gap-1 text-emerald-700"><span class="material-symbols-outlined text-sm">west</span> Kommen</span>
+                  <span class="text-slate-600 font-medium">Stempel-Geste</span>
+                  <span class="flex items-center gap-1 text-amber-700">Gehen <span class="material-symbols-outlined text-sm">east</span></span>
+                </div>
+                <div class="bg-white border border-slate-200 py-5 px-4 rounded-lg shadow-sm cursor-grab active:cursor-grabbing transition-transform flex flex-col items-center justify-center gap-1" id="swipe-card">
+                  <span class="material-symbols-outlined text-blue-600 text-3xl">swipe</span>
+                  <p class="text-sm font-bold text-slate-900">Seline Steinmann</p>
+                  <p class="text-[11px] text-slate-500">Karte nach links (Kommen) oder rechts (Gehen) ziehen</p>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="recordQuickSwipe('Kommen')" class="py-3 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95" type="button">
+                  <span class="material-symbols-outlined text-sm">login</span>
+                  <span>Kommen buchen</span>
+                </button>
+                <button onclick="recordQuickSwipe('Gehen')" class="py-3 px-4 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95" type="button">
+                  <span class="material-symbols-outlined text-sm">logout</span>
+                  <span>Gehen buchen</span>
+                </button>
+              </div>
+              <p class="text-center text-[11px] font-bold text-slate-500 h-4 transition-opacity" id="swipe-feedback">Bereit für Zeiterfassung</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Entries Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 md:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-700">view_timeline</span>
+              <h2 class="text-xl font-bold text-slate-900">Eingetragene Zeiten – Neueste zuerst</h2>
+            </div>
+            <p class="text-sm text-slate-500 mt-0.5">Alle aktuellen Arbeitszeiteinträge im Oktober 2026 inklusive Live-Swipe-Stempelungen</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="switchView('view-zeiterfassung')" class="px-3 py-1.5 rounded-lg bg-blue-700 text-white text-xs font-bold hover:bg-blue-800 transition-colors inline-flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">add_circle</span> Neuer Eintrag
+            </button>
+            <button onclick="exportCSV()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition-colors border border-slate-200 inline-flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">download</span> Export CSV
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="bg-slate-50 text-slate-600 text-xs font-bold uppercase tracking-wider border-y border-slate-200">
+                <th class="py-3 px-4 rounded-l-lg">Datum & Wochentag</th>
+                <th class="py-3 px-4">Lehrperson</th>
+                <th class="py-3 px-4">Zeitspanne</th>
+                <th class="py-3 px-4">Pause</th>
+                <th class="py-3 px-4">Nettozeit</th>
+                <th class="py-3 px-4">Kategorie & Notiz</th>
+                <th class="py-3 px-4 text-center">Methode</th>
+                <th class="py-3 px-4 rounded-r-lg text-right">Aktionen</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-sm text-slate-800" id="time-entries-tbody-dash">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-blue-700">check_circle</span>
+            <span class="text-slate-900 font-semibold">Seline Steinmann Oktober-Zusammenfassung:</span>
+            <span class="text-slate-500">6 dokumentierte Schichten (02.10. – 16.10.2026)</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-slate-600 font-medium">Summe erfasst: <strong class="text-blue-700 font-mono text-sm" id="summary-hours">45.25 h</strong></span>
+            <span class="text-slate-600 font-medium">Rest Monats-Soll: <strong class="text-slate-900 font-mono">109.35 h</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. VIEW: ZEITERFASSUNG -->
+    <div class="view-container flex flex-col w-full" id="view-zeiterfassung">
+      <div class="flex items-center justify-between mb-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined">edit_calendar</span>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Zeiterfassung Manuell & Korrektur</h2>
+            <p class="text-xs text-slate-500">Schuljahr 2026/2027 • Erfassen, bearbeiten und verbuchen von Arbeitszeiten</p>
+          </div>
+        </div>
+        <button onclick="resetZeiterfassungForm()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-lg transition-colors border border-slate-200">
+          Formular leeren
         </button>
-<button class="px-3 py-1.5 rounded-lg bg-surface-container-high text-primary font-label-caps text-label-caps hover:bg-surface-container transition-colors">
-          Export CSV / Excel
+      </div>
+
+      <!-- Form Card -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-6">
+        <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-700 text-lg">post_add</span>
+          <span id="form-title">Neuen Zeiteintrag hinzufügen</span>
+        </h3>
+        <form id="entry-form" onsubmit="handleSaveEntry(event)" class="space-y-4">
+          <input type="hidden" id="entry-edit-id" value="" />
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Mitarbeiter *</label>
+              <select id="form-mitarbeiter" required class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <option value="Seline Steinmann">Seline Steinmann (92% Primarstufe)</option>
+                <option value="Nicole De Pretto">Nicole De Pretto (57% Fachlehrperson)</option>
+                <option value="Michelle Dreifuss">Michelle Dreifuss (100% Klassenlehrperson)</option>
+                <option value="Manuel Schoch">Manuel Schoch (100% Fachlehrperson)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Datum (TT.MM.JJJJ) *</label>
+              <input type="text" id="form-datum" required placeholder="16.10.2026" value="16.10.2026" class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Status / Methode</label>
+              <select id="form-methode" class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <option value="⚡ Swipe Live">⚡ Swipe Live</option>
+                <option value="📱 Handy App">📱 Handy App</option>
+                <option value="💻 Web-Dashboard" selected>💻 Web-Dashboard</option>
+                <option value="📋 Manuell Nachtrag">📋 Manuell Nachtrag</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Vormittag (von – bis)</label>
+              <div class="flex items-center gap-1">
+                <input type="text" id="form-vm-von" placeholder="08:00" value="08:00" class="w-1/2 text-xs border-slate-300 rounded-md font-mono" />
+                <span class="text-slate-400">–</span>
+                <input type="text" id="form-vm-bis" placeholder="12:00" value="12:00" class="w-1/2 text-xs border-slate-300 rounded-md font-mono" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nachmittag (von – bis)</label>
+              <div class="flex items-center gap-1">
+                <input type="text" id="form-nm-von" placeholder="13:30" value="13:30" class="w-1/2 text-xs border-slate-300 rounded-md font-mono" />
+                <span class="text-slate-400">–</span>
+                <input type="text" id="form-nm-bis" placeholder="16:30" value="16:30" class="w-1/2 text-xs border-slate-300 rounded-md font-mono" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Abend (von – bis)</label>
+              <div class="flex items-center gap-1">
+                <input type="text" id="form-ab-von" placeholder="17:30" class="w-1/2 text-xs border-slate-300 rounded-md font-mono" />
+                <span class="text-slate-400">–</span>
+                <input type="text" id="form-ab-bis" placeholder="19:00" class="w-1/2 text-xs border-slate-300 rounded-md font-mono" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Pause & Netto (h)</label>
+              <div class="flex items-center gap-2">
+                <input type="text" id="form-pause" placeholder="30 min" value="30 min" class="w-1/2 text-xs border-slate-300 rounded-md" />
+                <input type="text" id="form-netto" placeholder="7.00 h" value="7.00 h" required class="w-1/2 text-xs font-bold text-blue-700 border-slate-300 rounded-md font-mono" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Kategorie, Bemerkung & Notiz *</label>
+            <input type="text" id="form-notiz" required placeholder="z. B. Klassenunterricht, Vorbereitung Elterngespräche" value="Unterricht & Teamberatung" class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-2">
+            <button type="button" onclick="resetZeiterfassungForm()" class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-100 transition-colors">Abbrechen</button>
+            <button type="submit" class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm">save</span>
+              <span id="form-submit-btn">Eintrag speichern</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Table in Zeiterfassung -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <h3 class="text-lg font-bold text-slate-900 mb-4">Verbuchte Schichten & Zeiteinträge</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="bg-slate-50 text-slate-600 text-xs font-bold uppercase tracking-wider border-y border-slate-200">
+                <th class="py-3 px-4">Datum</th>
+                <th class="py-3 px-4">Lehrperson</th>
+                <th class="py-3 px-4">Zeitspanne</th>
+                <th class="py-3 px-4">Pause</th>
+                <th class="py-3 px-4">Netto</th>
+                <th class="py-3 px-4">Kategorie / Notiz</th>
+                <th class="py-3 px-4 text-center">Methode</th>
+                <th class="py-3 px-4 text-right">Aktionen</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-sm text-slate-800" id="time-entries-tbody-form">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. VIEW: SWIPE-STEMPELUHR -->
+    <div class="view-container flex flex-col w-full max-w-4xl mx-auto" id="view-swipe">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="text-center max-w-xl mx-auto mb-6">
+          <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-bold mb-3">
+            <span>⚡ Vollbild Swipe-Stempeluhr</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Echtzeit-Präsenzerfassung Primarschule</h2>
+          <p class="text-sm text-slate-500 mt-1">Stempeln Sie bequem per Touch-Geste, Mauszug oder Direktklick ein und aus.</p>
+        </div>
+
+        <div class="max-w-md mx-auto mb-6">
+          <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider text-center mb-1.5">Aktuell ausgewählte Lehrperson:</label>
+          <select id="swipe-active-teacher" class="w-full font-bold text-base text-slate-900 border-2 border-blue-500 rounded-xl px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <option value="Seline Steinmann" selected>Seline Steinmann (92% • Primarstufe)</option>
+            <option value="Nicole De Pretto">Nicole De Pretto (57% • Fachlehrerin)</option>
+            <option value="Michelle Dreifuss">Michelle Dreifuss (100% • Klassenlehrerin)</option>
+            <option value="Manuel Schoch">Manuel Schoch (100% • Fachlehrer)</option>
+          </select>
+        </div>
+
+        <div class="max-w-md mx-auto bg-slate-900 text-white rounded-2xl p-8 text-center shadow-lg mb-6">
+          <div class="text-xs uppercase font-mono tracking-widest text-slate-400 mb-2">Offizielle Schulzeit Stadt Zürich</div>
+          <div class="text-5xl font-mono font-bold tracking-wider text-white" id="live-clock-large">08:14:22</div>
+          <div class="text-sm text-slate-300 mt-2 font-medium">Freitag, 16. Oktober 2026 • Schulwoche 42</div>
+        </div>
+
+        <div class="max-w-md mx-auto grid grid-cols-2 gap-3 mb-4">
+          <button onclick="handleSwipeAction('Kommen')" class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow transition-all active:scale-95">
+            <span class="material-symbols-outlined">login</span>
+            <span>Kommen erfassen</span>
+          </button>
+          <button onclick="handleSwipeAction('Gehen')" class="py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow transition-all active:scale-95">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Gehen erfassen</span>
+          </button>
+        </div>
+        <div id="swipe-large-feedback" class="text-center text-xs font-bold text-slate-500 h-6">Bereit für die nächste Erfassung</div>
+      </div>
+    </div>
+
+    <!-- 4. VIEW: WOCHENÜBERSICHT -->
+    <div class="view-container flex flex-col w-full" id="view-wochenuebersicht">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined">calendar_view_week</span>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Wochenübersicht & Kalenderwochen</h2>
+            <p class="text-xs text-slate-500">Kalenderwoche 42 (12.10. – 18.10.2026) • Schuljahr 2026/2027</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-sm px-3 py-1.5 bg-slate-100 rounded-lg">KW 42 • Okt 2026</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <!-- Montag -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col">
+          <div class="border-b border-slate-100 pb-2 mb-3">
+            <span class="text-xs font-bold text-blue-700 uppercase">Mo, 12.10.2026</span>
+            <div class="text-xs text-slate-500">8.50 h erfasst</div>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs">
+              <div class="font-bold text-blue-900">Seline Steinmann (92%)</div>
+              <div class="font-mono text-slate-600">07:45 – 17:00 (Pause 45m)</div>
+              <div class="text-[11px] text-slate-500 mt-1">Wochenstart & Elterntelefonat</div>
+            </div>
+          </div>
+        </div>
+        <!-- Dienstag -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col">
+          <div class="border-b border-slate-100 pb-2 mb-3">
+            <span class="text-xs font-bold text-blue-700 uppercase">Di, 13.10.2026</span>
+            <div class="text-xs text-slate-500">8.50 h erfasst</div>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+              <div class="font-bold text-slate-900">Michelle Dreifuss (100%)</div>
+              <div class="font-mono text-slate-600">08:00 – 17:15 (Pause 45m)</div>
+              <div class="text-[11px] text-slate-500 mt-1">Schulreise Vorbereitung</div>
+            </div>
+          </div>
+        </div>
+        <!-- Mittwoch -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col">
+          <div class="border-b border-slate-100 pb-2 mb-3">
+            <span class="text-xs font-bold text-blue-700 uppercase">Mi, 14.10.2026</span>
+            <div class="text-xs text-slate-500">4.50 h erfasst</div>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs">
+              <div class="font-bold text-blue-900">Seline Steinmann (92%)</div>
+              <div class="font-mono text-slate-600">07:50 – 12:20 (0m Pause)</div>
+              <div class="text-[11px] text-slate-500 mt-1">Vormittagsblock & Korrektur</div>
+            </div>
+          </div>
+        </div>
+        <!-- Donnerstag -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col">
+          <div class="border-b border-slate-100 pb-2 mb-3">
+            <span class="text-xs font-bold text-blue-700 uppercase">Do, 15.10.2026</span>
+            <div class="text-xs text-slate-500">6.25 h erfasst</div>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs">
+              <div class="font-bold text-emerald-900">Nicole De Pretto (57%)</div>
+              <div class="font-mono text-slate-600">08:00 – 14:45 (Pause 30m)</div>
+              <div class="text-[11px] text-slate-500 mt-1">Spezialförderung / DaZ</div>
+            </div>
+          </div>
+        </div>
+        <!-- Freitag -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col">
+          <div class="border-b border-slate-100 pb-2 mb-3">
+            <span class="text-xs font-bold text-blue-700 uppercase">Fr, 16.10.2026</span>
+            <div class="text-xs text-slate-500">8.00 h erfasst</div>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs">
+              <div class="font-bold text-blue-900">Seline Steinmann (92%)</div>
+              <div class="font-mono text-slate-600">07:45 – 16:30 (Pause 45m)</div>
+              <div class="text-[11px] text-slate-500 mt-1">Unterricht & Teamberatung</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. VIEW: MITARBEITER -->
+    <div class="view-container flex flex-col w-full" id="view-mitarbeiter">
+      <div class="flex items-center justify-between mb-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined">badge</span>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Mitarbeiterverwaltung Primarschule Döltschi</h2>
+            <p class="text-xs text-slate-500">4 Lehrpersonen im Schuljahr 2026/2027 erfasst</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start gap-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+              <img class="w-full h-full object-cover" alt="Portrait Seline Steinmann" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTQ4Vry3nb5C3JfvuLD0u2PWrLSjMEa48Q-G5Tn-Fu2Fpj-F8JYo5sWPcv7DdPZiJBRqwkZ-F3J2hzWVsLo6B0vc0vy6IIkxnX54lG8ppOvdLmUrAbkc1rq3-EgQUVKKaYb3gqfvtScnlPMCsfjLB3mIy7ldEDeSm85UGmEXi_vTAHI9kwQtpUp7wwjauh4ItnFtK3Rpqnh1LJr7UFnROzD-cOEImoihJNYDi6ymW0zY9YRWyu3oJt"/>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-slate-900">Seline Steinmann</h3>
+              <p class="text-xs font-semibold text-blue-700">Primarstufe • 92% Pensum</p>
+              <div class="mt-2 text-xs text-slate-600 space-y-1">
+                <p><strong>Schuljahressoll:</strong> 1'739 Stunden</p>
+                <p><strong>Erfasst Oktober:</strong> 45.25 h (6 Schichten)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start gap-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+              <img class="w-full h-full object-cover" alt="Portrait Nicole De Pretto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-slate-900">Nicole De Pretto</h3>
+              <p class="text-xs font-semibold text-slate-600">Fachlehrerin DaZ • 57% Pensum</p>
+              <div class="mt-2 text-xs text-slate-600 space-y-1">
+                <p><strong>Schuljahressoll:</strong> 1'077 Stunden</p>
+                <p><strong>Erfasst Oktober:</strong> 66.50 h (8 Schichten)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start gap-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+              <img class="w-full h-full object-cover" alt="Portrait Michelle Dreifuss" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4BUj20ooLSRyTP45S9_GPcy9RuhsijR2mmU2P9M_AqiX-j9taCUOYtw61XbTdOduV33Gb6uFRCe5oKEJ335XFsODvnaUotPs5pqBXFHt1APh12vrYLKN-eH_0mpNCJ4mg8Qhmk4GnKjwK3nZSyTA7VcHjsnfIoFgsWxggq0ehO5jnsmITLkj3N0BfiBasemyVU6Q1HvawLlTOutcNoE_IFrJWcH1xPcIZr6A38QN-ioDmtUE14MhB"/>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-slate-900">Michelle Dreifuss</h3>
+              <p class="text-xs font-semibold text-slate-600">Klassenlehrerin • 100% Pensum</p>
+              <div class="mt-2 text-xs text-slate-600 space-y-1">
+                <p><strong>Schuljahressoll:</strong> 1'890 Stunden</p>
+                <p><strong>Erfasst Oktober:</strong> 26.00 h (3 Schichten)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-start gap-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+              <img class="w-full h-full object-cover" alt="Portrait Manuel Schoch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnPArArQJM5DQsbdxtW8N03q0CGjMbIC-f9QhWuYAU0Y1WxotDek_MgJXfd_vPPT80w__r6Yxpf0hMd2fAcx7vsp54YBKsVeJjIHLneTxoc2LIB2RFuG43GVCpIao_ehs-dhxy9EfjTHifjhHa4STXMnuKFaYJg-fFXqFYfPYdqJEdpAfzVoVAPrRFcla2M58kCP-4ZbuqRbu1PM3c0TdT62w5f2q6pEheGyqW09FPGG-uJEySntP9"/>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-slate-900">Manuel Schoch</h3>
+              <p class="text-xs font-semibold text-slate-600">Fachlehrer Sport/Werken • 100% Pensum</p>
+              <div class="mt-2 text-xs text-slate-600 space-y-1">
+                <p><strong>Schuljahressoll:</strong> 1'890 Stunden</p>
+                <p><strong>Erfasst Oktober:</strong> 16.00 h (2 Schichten)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. VIEW: BERICHTE -->
+    <div class="view-container flex flex-col w-full" id="view-berichte">
+      <div class="flex items-center justify-between mb-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined">summarize</span>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Berichte & Saldo-Abrechnung</h2>
+            <p class="text-xs text-slate-500">Schuljahr 2026/2027 • Offizielle Stundenabrechnung nach Vorgaben Stadt Zürich</p>
+          </div>
+        </div>
+        <button onclick="window.print()" class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">print</span>
+          <span>Bericht drucken / PDF</span>
         </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500 uppercase font-semibold">Total Ist-Stunden</div>
+            <div class="text-2xl font-bold text-blue-700 mt-1">153.75 h</div>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500 uppercase font-semibold">Sollvorgabe Oktober</div>
+            <div class="text-2xl font-bold text-slate-800 mt-1">586.40 h</div>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500 uppercase font-semibold">Überstundensaldo</div>
+            <div class="text-2xl font-bold text-emerald-600 mt-1">+14.40 h</div>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500 uppercase font-semibold">Soll Schuljahr 26/27</div>
+            <div class="text-2xl font-bold text-slate-900 mt-1">6'596 h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. VIEW: EINSTELLUNGEN -->
+    <div class="view-container flex flex-col w-full" id="view-einstellungen">
+      <div class="flex items-center justify-between mb-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined">settings</span>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Profil & Schuleinstellungen</h2>
+            <p class="text-xs text-slate-500">Konfiguration Schuljahresarbeitszeit & Stempeluhr-Parameter</p>
+          </div>
+        </div>
+        <button onclick="showFlash('Einstellungen erfolgreich gespeichert!')" class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-lg shadow-sm transition-colors">
+          Speichern
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-6">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900 mb-2">Schuljahr & Soll-Parameter</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-600 mb-1">Bezeichnung des Zyklus</label>
+              <input type="text" value="Schuljahr 2026/2027 (1. Aug. 2026 – 31. Juli 2027)" class="w-full text-sm border-slate-300 rounded-lg" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-600 mb-1">Vollzeit Jahresarbeitszeit (100% Pensum)</label>
+              <input type="text" value="1'890 Stunden" class="w-full text-sm border-slate-300 rounded-lg font-mono" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
+
+<!-- MODAL 804h -->
+<div id="modal-804h" class="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-200">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+          <span class="material-symbols-outlined text-sm">info</span>
+        </span>
+        <h3 class="font-bold text-base text-slate-900">Erklärung Schuljahr (804h Regelung)</h3>
+      </div>
+      <button onclick="closeModal('modal-804h')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
+    </div>
+    <div class="text-xs text-slate-600 space-y-3 leading-relaxed">
+      <p>Die <strong>804-Stunden-Regel</strong> der Primarschule Döltschi basiert auf den Richtlinien der Stadt Zürich für Jahresarbeitszeitmodelle von Lehrpersonen:</p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Basis-Pensum:</strong> Das 100%-Jahressoll beträgt 1'890 Arbeitsstunden für das Schuljahr 26/27.</li>
+        <li><strong>Quartalskontingent 804h:</strong> Gilt primär für Teilzeitpensen (z. B. Nicole De Pretto mit 57%), um saisonale Spitzen im DaZ- und Förderunterricht flexibel ohne Überstundenverfall auszugleichen.</li>
+      </ul>
+    </div>
+    <div class="mt-6 flex justify-end">
+      <button onclick="closeModal('modal-804h')" class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold">Schliessen</button>
+    </div>
+  </div>
 </div>
-<!-- Table Container -->
-<div class="overflow-x-auto">
-<table class="w-full text-left">
-<thead>
-<tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps">
-<th class="py-3.5 px-4 rounded-l-lg">Datum &amp; Wochentag</th>
-<th class="py-3.5 px-4">Lehrperson</th>
-<th class="py-3.5 px-4">Zeitspanne</th>
-<th class="py-3.5 px-4">Pause</th>
-<th class="py-3.5 px-4">Nettozeit</th>
-<th class="py-3.5 px-4">Kategorie &amp; Notiz</th>
-<th class="py-3.5 px-4 rounded-r-lg text-right">Methode</th>
-</tr>
-</thead>
-<tbody class="divide-y-0 text-on-surface font-body-md text-body-md">
-<!-- Row 1: Seline (16.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">16.10.2026</span>
-<span class="text-secondary text-xs block">Freitag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-bold text-primary">Seline Steinmann</span>
-<span class="text-xs text-secondary block">92% Primar</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">07:45 – 16:30</td>
-<td class="py-3 px-4 text-secondary text-sm">45 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.00 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Unterricht &amp; Teamberatung</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-xs px-2 py-0.5 rounded font-bold">
-                ⚡ Swipe Live
-              </span>
-</td>
-</tr>
-<!-- Row 2: Nicole (15.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">15.10.2026</span>
-<span class="text-secondary text-xs block">Donnerstag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-medium text-on-surface">Nicole De Pretto</span>
-<span class="text-xs text-secondary block">57% Fachlehrerin</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">08:00 – 14:45</td>
-<td class="py-3 px-4 text-secondary text-sm">30 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">6.25 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Spezialförderung / DaZ</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-blue-100 text-primary text-xs px-2 py-0.5 rounded font-medium">
-                📱 Handy App
-              </span>
-</td>
-</tr>
-<!-- Row 3: Seline (14.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">14.10.2026</span>
-<span class="text-secondary text-xs block">Mittwoch</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-bold text-primary">Seline Steinmann</span>
-<span class="text-xs text-secondary block">92% Primar</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">07:50 – 12:20</td>
-<td class="py-3 px-4 text-secondary text-sm">0 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">4.50 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Vormittagsblock &amp; Korrektur</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-xs px-2 py-0.5 rounded font-bold">
-                ⚡ Swipe Live
-              </span>
-</td>
-</tr>
-<!-- Row 4: Michelle (13.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">13.10.2026</span>
-<span class="text-secondary text-xs block">Dienstag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-medium text-on-surface">Michelle Dreifuss</span>
-<span class="text-xs text-secondary block">100% Klassenlehrerin</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">08:00 – 17:15</td>
-<td class="py-3 px-4 text-secondary text-sm">45 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.50 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Schulreise Vorbereitung</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-surface-container text-on-surface-variant text-xs px-2 py-0.5 rounded font-medium">
-                💻 Web-Dashboard
-              </span>
-</td>
-</tr>
-<!-- Row 5: Seline (12.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">12.10.2026</span>
-<span class="text-secondary text-xs block">Montag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-bold text-primary">Seline Steinmann</span>
-<span class="text-xs text-secondary block">92% Primar</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">07:45 – 17:00</td>
-<td class="py-3 px-4 text-secondary text-sm">45 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.50 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Wochenstart &amp; Elterntelefonat</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-xs px-2 py-0.5 rounded font-bold">
-                ⚡ Swipe Live
-              </span>
-</td>
-</tr>
-<!-- Row 6: Manuel (09.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">09.10.2026</span>
-<span class="text-secondary text-xs block">Freitag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-medium text-on-surface">Manuel Schoch</span>
-<span class="text-xs text-secondary block">100% Fachlehrer</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">08:00 – 16:30</td>
-<td class="py-3 px-4 text-secondary text-sm">30 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.00 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Sporttag Organisation</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-blue-100 text-primary text-xs px-2 py-0.5 rounded font-medium">
-                📱 Handy App
-              </span>
-</td>
-</tr>
-<!-- Row 7: Seline (08.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">08.10.2026</span>
-<span class="text-secondary text-xs block">Donnerstag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-bold text-primary">Seline Steinmann</span>
-<span class="text-xs text-secondary block">92% Primar</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">08:00 – 16:30</td>
-<td class="py-3 px-4 text-secondary text-sm">30 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.00 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Unterricht, Sitzung Schulstufen</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-xs px-2 py-0.5 rounded font-bold">
-                ⚡ Swipe Live
-              </span>
-</td>
-</tr>
-<!-- Row 8: Seline (06.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">06.10.2026</span>
-<span class="text-secondary text-xs block">Dienstag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-bold text-primary">Seline Steinmann</span>
-<span class="text-xs text-secondary block">92% Primar</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">08:15 – 17:00</td>
-<td class="py-3 px-4 text-secondary text-sm">45 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.00 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Fachunterricht &amp; Teammeeting</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-xs px-2 py-0.5 rounded font-bold">
-                ⚡ Swipe Live
-              </span>
-</td>
-</tr>
-<!-- Row 9: Seline (02.10) -->
-<tr class="hover:bg-surface-container-low/60 transition-colors">
-<td class="py-3 px-4 font-medium">
-<span class="font-bold text-on-surface">02.10.2026</span>
-<span class="text-secondary text-xs block">Freitag</span>
-</td>
-<td class="py-3 px-4">
-<span class="font-bold text-primary">Seline Steinmann</span>
-<span class="text-xs text-secondary block">92% Primar</span>
-</td>
-<td class="py-3 px-4 font-mono text-sm">07:45 – 16:30</td>
-<td class="py-3 px-4 text-secondary text-sm">30 min</td>
-<td class="py-3 px-4 font-bold font-mono text-on-surface">8.25 h</td>
-<td class="py-3 px-4">
-<span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs font-medium text-on-surface">Monatsanfang &amp; Unterricht</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-xs px-2 py-0.5 rounded font-bold">
-                ⚡ Swipe Live
-              </span>
-</td>
-</tr>
-</tbody>
-</table>
+
+<!-- MODAL QR -->
+<div id="modal-qr" class="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative border border-slate-200 text-center">
+    <button onclick="closeModal('modal-qr')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
+    <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center mx-auto mb-3">
+      <span class="material-symbols-outlined text-2xl">qr_code_scanner</span>
+    </div>
+    <h3 class="font-bold text-lg text-slate-900">QR-Code Handy-Stempeluhr</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-4">Scannen Sie den Code mit dem Smartphone für die mobile Direkt-Stempelung:</p>
+    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 inline-block shadow-inner mb-4">
+      <svg class="w-40 h-40 text-slate-900 mx-auto" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14-2h4v2h-4v-2zm-4 0h2v4h-2v-4zm2 2h2v2h-2v-2zm2 2h2v4h-2v-4zm-4 2h2v2h-2v-2zm4 2h4v2h-4v-2zm-8-6h2v2h-2v-2zm2 2h2v2h-2v-2z"/>
+      </svg>
+    </div>
+    <p class="text-[11px] font-mono text-slate-600 bg-slate-100 py-1 px-2 rounded">https://ndepretto.github.io/D-ltschi-Time/</p>
+  </div>
 </div>
-<!-- Seline Summary Footer Banner -->
-<div class="mt-4 p-4 rounded-xl bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">check_circle</span>
-<span class="text-on-surface font-semibold">Seline Steinmann Oktober-Zusammenfassung:</span>
-<span class="text-secondary">6 dokumentierte Schichten (02.10. – 16.10.2026)</span>
+
+<!-- TOAST NOTIFICATION -->
+<div id="flash-toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <span class="material-symbols-outlined text-emerald-400 text-lg">check_circle</span>
+  <span id="flash-text" class="text-xs font-medium">Aktion erfolgreich ausgeführt</span>
 </div>
-<div class="flex items-center gap-4">
-<span class="text-on-surface-variant font-medium">Summe erfasst: <strong class="text-primary font-mono text-sm">45.25 h</strong></span>
-<span class="text-on-surface-variant font-medium">Rest Monats-Soll: <strong class="text-on-surface font-mono">109.35 h</strong></span>
-</div>
-</div>
-</div>
-</div>
+
 <script>
-  (function initDoltschiTime() {
-    // Live Clock Engine
-    const clockEl = document.getElementById('live-clock');
-    if (clockEl) {
-      function updateClock() {
-        const now = new Date();
-        const pad = (n) => String(n).padStart(2, '0');
-        clockEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-      }
-      setInterval(updateClock, 1000);
-      updateClock();
+  let timeEntries = [
+    { id: 1, datum: '16.10.2026', tag: 'Freitag', name: 'Seline Steinmann', role: '92% Primar', vonBis: '07:45 – 16:30', pause: '45 min', netto: '8.00 h', notiz: 'Unterricht & Teamberatung', methode: '⚡ Swipe Live' },
+    { id: 2, datum: '15.10.2026', tag: 'Donnerstag', name: 'Nicole De Pretto', role: '57% Fachlehrerin', vonBis: '08:00 – 14:45', pause: '30 min', netto: '6.25 h', notiz: 'Spezialförderung / DaZ', methode: '📱 Handy App' },
+    { id: 3, datum: '14.10.2026', tag: 'Mittwoch', name: 'Seline Steinmann', role: '92% Primar', vonBis: '07:50 – 12:20', pause: '0 min', netto: '4.50 h', notiz: 'Vormittagsblock & Korrektur', methode: '⚡ Swipe Live' },
+    { id: 4, datum: '13.10.2026', tag: 'Dienstag', name: 'Michelle Dreifuss', role: '100% Klassenlehrerin', vonBis: '08:00 – 17:15', pause: '45 min', netto: '8.50 h', notiz: 'Schulreise Vorbereitung', methode: '💻 Web-Dashboard' },
+    { id: 5, datum: '12.10.2026', tag: 'Montag', name: 'Seline Steinmann', role: '92% Primar', vonBis: '07:45 – 17:00', pause: '45 min', netto: '8.50 h', notiz: 'Wochenstart & Elterntelefonat', methode: '⚡ Swipe Live' },
+    { id: 6, datum: '09.10.2026', tag: 'Freitag', name: 'Manuel Schoch', role: '100% Fachlehrer', vonBis: '08:00 – 16:30', pause: '30 min', netto: '8.00 h', notiz: 'Sporttag Organisation', methode: '📱 Handy App' },
+    { id: 7, datum: '08.10.2026', tag: 'Donnerstag', name: 'Seline Steinmann', role: '92% Primar', vonBis: '08:00 – 16:30', pause: '30 min', netto: '8.00 h', notiz: 'Unterricht, Sitzung Schulstufen', methode: '⚡ Swipe Live' },
+    { id: 8, datum: '06.10.2026', tag: 'Dienstag', name: 'Seline Steinmann', role: '92% Primar', vonBis: '08:15 – 17:00', pause: '45 min', netto: '8.00 h', notiz: 'Fachunterricht & Teammeeting', methode: '⚡ Swipe Live' },
+    { id: 9, datum: '02.10.2026', tag: 'Freitag', name: 'Seline Steinmann', role: '92% Primar', vonBis: '07:45 – 16:30', pause: '30 min', netto: '8.25 h', notiz: 'Monatsanfang & Unterricht', methode: '⚡ Swipe Live' }
+  ];
+
+  function switchView(viewId) {
+    document.querySelectorAll('.view-container').forEach(view => {
+      view.classList.remove('active');
+    });
+
+    const target = document.getElementById(viewId);
+    if (target) {
+      target.classList.add('active');
     }
 
-    // Draggable / Swiping Simulation for Mobile Stempeluhr
-    const card = document.getElementById('swipe-card');
-    const feedback = document.getElementById('swipe-feedback');
-    const btnKommen = document.getElementById('btn-kommen');
-    const btnGehen = document.getElementById('btn-gehen');
+    const navLinks = document.querySelectorAll('#sidebar-nav .nav-item');
+    navLinks.forEach(link => {
+      const linkView = link.getAttribute('data-view');
+      if (linkView === viewId) {
+        link.className = 'w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50/70 border border-blue-100 nav-item';
+      } else {
+        link.className = 'w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item';
+      }
+    });
 
-    function notifyAction(text, colorClass) {
-      if (!feedback) return;
-      feedback.textContent = text;
-      feedback.className = 'text-center font-label-caps text-[11px] font-bold h-4 transition-opacity ' + colorClass;
+    renderTable();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderTable() {
+    const tbodyDash = document.getElementById('time-entries-tbody-dash');
+    const tbodyForm = document.getElementById('time-entries-tbody-form');
+
+    const generateRows = () => {
+      return timeEntries.map(e => `
+        <tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+          <td class="py-3 px-4 font-medium">
+            <span class="font-bold text-slate-900">${e.datum}</span>
+            <span class="text-slate-400 text-xs block">${e.tag}</span>
+          </td>
+          <td class="py-3 px-4">
+            <span class="font-bold ${e.name.includes('Seline') ? 'text-blue-700' : 'text-slate-900'}">${e.name}</span>
+            <span class="text-xs text-slate-400 block">${e.role}</span>
+          </td>
+          <td class="py-3 px-4 font-mono text-sm">${e.vonBis}</td>
+          <td class="py-3 px-4 text-slate-500 text-sm">${e.pause}</td>
+          <td class="py-3 px-4 font-bold font-mono text-slate-900">${e.netto}</td>
+          <td class="py-3 px-4">
+            <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">${e.notiz}</span>
+          </td>
+          <td class="py-3 px-4 text-center">
+            <span class="inline-flex items-center gap-1 ${e.methode.includes('Swipe') ? 'bg-amber-100 text-amber-900 font-bold' : e.methode.includes('Handy') ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-slate-100 text-slate-700 font-medium'} text-xs px-2 py-0.5 rounded">
+              ${e.methode}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-right">
+            <div class="inline-flex items-center gap-1">
+              <button onclick="editEntry(${e.id})" class="p-1 hover:text-blue-700 text-slate-500 transition-colors" title="Bearbeiten">
+                <span class="material-symbols-outlined text-sm">edit</span>
+              </button>
+              <button onclick="deleteEntry(${e.id})" class="p-1 hover:text-red-700 text-slate-400 transition-colors" title="Löschen">
+                <span class="material-symbols-outlined text-sm">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    if (tbodyDash) tbodyDash.innerHTML = generateRows();
+    if (tbodyForm) tbodyForm.innerHTML = generateRows();
+
+    const selineSum = timeEntries
+      .filter(e => e.name.includes('Seline'))
+      .reduce((acc, curr) => acc + parseFloat(curr.netto), 0);
+    const summaryEl = document.getElementById('summary-hours');
+    if (summaryEl) summaryEl.textContent = selineSum.toFixed(2) + ' h';
+  }
+
+  function handleSaveEntry(e) {
+    e.preventDefault();
+    const editId = document.getElementById('entry-edit-id').value;
+    const mitarbeiter = document.getElementById('form-mitarbeiter').value;
+    const datum = document.getElementById('form-datum').value;
+    const methode = document.getElementById('form-methode').value;
+    const vmVon = document.getElementById('form-vm-von').value || '08:00';
+    const nmBis = document.getElementById('form-nm-bis').value || '16:30';
+    const pause = document.getElementById('form-pause').value || '30 min';
+    const netto = document.getElementById('form-netto').value || '7.50 h';
+    const notiz = document.getElementById('form-notiz').value;
+
+    const role = mitarbeiter.includes('Nicole') ? '57% Fachlehrerin' : mitarbeiter.includes('Seline') ? '92% Primar' : mitarbeiter.includes('Michelle') ? '100% Klassenlehrerin' : '100% Fachlehrer';
+
+    if (editId) {
+      const idx = timeEntries.findIndex(item => item.id == editId);
+      if (idx !== -1) {
+        timeEntries[idx] = { ...timeEntries[idx], datum, name: mitarbeiter, role, vonBis: `${vmVon} – ${nmBis}`, pause, netto, notiz, methode };
+        showFlash('Zeiteintrag erfolgreich aktualisiert!');
+      }
+    } else {
+      const newEntry = { id: Date.now(), datum, tag: 'Freitag', name: mitarbeiter, role, vonBis: `${vmVon} – ${nmBis}`, pause, netto, notiz, methode };
+      timeEntries.unshift(newEntry);
+      showFlash('Neuer Zeiteintrag erfasst und verbucht!');
+    }
+
+    resetZeiterfassungForm();
+    renderTable();
+  }
+
+  function editEntry(id) {
+    const entry = timeEntries.find(e => e.id == id);
+    if (!entry) return;
+    switchView('view-zeiterfassung');
+    document.getElementById('entry-edit-id').value = entry.id;
+    document.getElementById('form-mitarbeiter').value = entry.name;
+    document.getElementById('form-datum').value = entry.datum;
+    document.getElementById('form-methode').value = entry.methode;
+    document.getElementById('form-pause').value = entry.pause;
+    document.getElementById('form-netto').value = entry.netto;
+    document.getElementById('form-notiz').value = entry.notiz;
+    document.getElementById('form-title').textContent = `Eintrag bearbeiten (#${entry.id})`;
+    document.getElementById('form-submit-btn').textContent = 'Änderungen speichern';
+  }
+
+  function deleteEntry(id) {
+    if (confirm('Möchten Sie diesen Zeiteintrag wirklich löschen?')) {
+      timeEntries = timeEntries.filter(e => e.id != id);
+      renderTable();
+      showFlash('Eintrag wurde gelöscht.');
+    }
+  }
+
+  function resetZeiterfassungForm() {
+    document.getElementById('entry-form').reset();
+    document.getElementById('entry-edit-id').value = '';
+    document.getElementById('form-title').textContent = 'Neuen Zeiteintrag hinzufügen';
+    document.getElementById('form-submit-btn').textContent = 'Eintrag speichern';
+    document.getElementById('form-datum').value = '16.10.2026';
+    document.getElementById('form-vm-von').value = '08:00';
+    document.getElementById('form-vm-bis').value = '12:00';
+    document.getElementById('form-nm-von').value = '13:30';
+    document.getElementById('form-nm-bis').value = '16:30';
+    document.getElementById('form-pause').value = '30 min';
+    document.getElementById('form-netto').value = '7.50 h';
+  }
+
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.remove('hidden');
+  }
+
+  function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.add('hidden');
+  }
+
+  function showFlash(text) {
+    const toast = document.getElementById('flash-toast');
+    const msg = document.getElementById('flash-text');
+    if (!toast || !msg) return;
+    msg.textContent = text;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    setTimeout(() => { toast.classList.add('translate-y-20', 'opacity-0'); }, 3000);
+  }
+
+  function exportCSV() {
+    let csv = 'Datum;Lehrperson;Pensum;Zeitspanne;Pause;Nettozeit;Kategorie;Methode\n';
+    timeEntries.forEach(e => {
+      csv += `"${e.datum}";"${e.name}";"${e.role}";"${e.vonBis}";"${e.pause}";"${e.netto}";"${e.notiz}";"${e.methode}"\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Doeltschi_Time_Oktober_2026.csv';
+    link.click();
+    showFlash('CSV-Datei erfolgreich heruntergeladen!');
+  }
+
+  function recordQuickSwipe(type) {
+    const fb = document.getElementById('swipe-feedback');
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    if (fb) {
+      fb.textContent = `✓ ${type} gebucht um ${timeStr} Uhr für Seline Steinmann`;
+      fb.className = 'text-center text-[11px] font-bold h-4 transition-opacity ' + (type === 'Kommen' ? 'text-emerald-700' : 'text-amber-700');
       setTimeout(() => {
-        feedback.textContent = 'Bereit für Zeiterfassung';
-        feedback.className = 'text-center font-label-caps text-[11px] text-secondary h-4 transition-opacity';
+        fb.textContent = 'Bereit für Zeiterfassung';
+        fb.className = 'text-center text-[11px] text-slate-500 h-4 transition-opacity';
+      }, 3000);
+    }
+    showFlash(`${type} gebucht: Seline Steinmann (${timeStr})`);
+  }
+
+  function handleSwipeAction(type) {
+    const teacher = document.getElementById('swipe-active-teacher')?.value || 'Seline Steinmann';
+    const feedback = document.getElementById('swipe-large-feedback');
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    if (feedback) {
+      feedback.textContent = `✓ ${type} erfasst für ${teacher} um ${timeStr} Uhr.`;
+      feedback.className = 'text-center text-xs font-bold h-6 ' + (type === 'Kommen' ? 'text-emerald-700' : 'text-amber-700');
+      setTimeout(() => {
+        feedback.textContent = 'Bereit für die nächste Erfassung';
+        feedback.className = 'text-center text-xs font-bold text-slate-500 h-6';
       }, 3500);
     }
+    showFlash(`${type} gebucht: ${teacher} (${timeStr})`);
+  }
 
-    if (btnKommen) {
-      btnKommen.addEventListener('click', () => {
-        notifyAction('✓ Kommen erfasst für Seline Steinmann (' + (clockEl ? clockEl.textContent : 'Jetzt') + ')', 'text-emerald-700');
-      });
+  function filterDashboardEmployee(val) {
+    showFlash(`Filter aktiv: ${val}`);
+  }
+
+  // Init Clocks
+  (function init() {
+    renderTable();
+    const clk1 = document.getElementById('live-clock');
+    const clk2 = document.getElementById('live-clock-large');
+    function tick() {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const str = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      if (clk1) clk1.textContent = str;
+      if (clk2) clk2.textContent = str;
     }
-
-    if (btnGehen) {
-      btnGehen.addEventListener('click', () => {
-        notifyAction('✓ Gehen gebucht für Seline Steinmann. Schicht synchronisiert!', 'text-tertiary');
-      });
-    }
-
-    if (card) {
-      let isDragging = false;
-      let startX = 0;
-      let currentX = 0;
-
-      const onStart = (clientX) => {
-        isDragging = true;
-        startX = clientX;
-        card.style.transition = 'none';
-      };
-
-      const onMove = (clientX) => {
-        if (!isDragging) return;
-        currentX = clientX - startX;
-        // Limit movement
-        if (Math.abs(currentX) < 140) {
-          card.style.transform = `translateX(${currentX}px)`;
-          if (currentX > 50) {
-            card.style.backgroundColor = '#ecfdf5'; // light emerald tint
-          } else if (currentX < -50) {
-            card.style.backgroundColor = '#fff1f2'; // light rose tint
-          } else {
-            card.style.backgroundColor = '';
-          }
-        }
-      };
-
-      const onEnd = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        card.style.transition = 'all 0.25s ease';
-        if (currentX > 75) {
-          notifyAction('✓ Swipe-Kommen registriert: Seline Steinmann!', 'text-emerald-700');
-        } else if (currentX < -75) {
-          notifyAction('✓ Swipe-Gehen registriert: Auf Wiedersehen!', 'text-tertiary');
-        }
-        card.style.transform = 'translateX(0px)';
-        card.style.backgroundColor = '';
-        currentX = 0;
-      };
-
-      // Mouse Events
-      card.addEventListener('mousedown', (e) => onStart(e.clientX));
-      window.addEventListener('mousemove', (e) => onMove(e.clientX));
-      window.addEventListener('mouseup', onEnd);
-
-      // Touch Events for mobile-like inspection
-      card.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX));
-      card.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX));
-      card.addEventListener('touchend', onEnd);
-    }
+    setInterval(tick, 1000);
+    tick();
   })();
-</script></main>
-<!-- END: MainContentArea -->
-</div>
-</body></html>
+</script>
+</body>
+</html>
