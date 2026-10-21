@@ -50,17 +50,17 @@
 </div>
 <div class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium border border-blue-200 shrink-0">
 <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>Schuljahr 26/27</span>
+<span class="">Schuljahr 26/27</span>
 </div>
 <button class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 hover:bg-amber-100 px-2 py-0.5 rounded border border-amber-200 font-semibold transition-colors shrink-0" onclick="switchView('view-stempeluhr')">
-<span>⚡ Swipe-Uhr</span>
+<span class="">⚡ Swipe-Uhr</span>
 </button>
 <button class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 transition-colors shrink-0" onclick="openModal('modal-qr')">
-<span>QR-Code</span>
+<span class="">QR-Code</span>
 </button>
 <button class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 transition-colors shrink-0" onclick="openModal('modal-804h')">
-<span>804h</span>
-</button><button class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 font-semibold transition-colors shrink-0" onclick="document.getElementById('modal-berichte').classList.remove('hidden')"><span>📊 Berichte (Pop-up)</span></button><button class="inline-flex items-center gap-1 bg-slate-100 text-slate-800 hover:bg-slate-200 px-2 py-0.5 rounded border border-slate-300 font-semibold transition-colors shrink-0 cursor-pointer" onclick="navigator.clipboard.writeText(document.documentElement.outerHTML).then(() =&gt; showFlash('Kompletter HTML-Code in die Zwischenablage kopiert!'))"><span>📋 Code kopieren</span></button><button class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 font-semibold transition-colors shrink-0 cursor-pointer" onclick="const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html;charset=utf-8;' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click(); showFlash('index.html erfolgreich heruntergeladen!');"><span>💾 HTML Export</span></button>
+<span class="">804h</span>
+</button><button class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 font-semibold transition-colors shrink-0" onclick="document.getElementById('modal-berichte').classList.remove('hidden')"><span class="">📊 Berichte (Pop-up)</span></button><button class="inline-flex items-center gap-1 bg-slate-100 text-slate-800 hover:bg-slate-200 px-2 py-0.5 rounded border border-slate-300 font-semibold transition-colors shrink-0 cursor-pointer" onclick="navigator.clipboard.writeText(document.documentElement.outerHTML).then(() =&gt; showFlash('Kompletter HTML-Code in die Zwischenablage kopiert!'))"><span class="">📋 Code kopieren</span></button><button class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 font-semibold transition-colors shrink-0 cursor-pointer" onclick="const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html;charset=utf-8;' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click(); showFlash('index.html erfolgreich heruntergeladen!');"><span class="">💾 HTML Export</span></button>
 </div>
 <div class="flex items-center gap-2 shrink-0">
 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm">
@@ -88,7 +88,7 @@
 <div class="bg-blue-50/70 border border-blue-200/60 rounded-lg p-3 text-xs space-y-1">
 <div class="flex items-center gap-1.5 font-bold text-blue-900 uppercase text-[10px] tracking-wider">
 <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>Zyklus</span>
+<span class="">Zyklus</span>
 </div>
 <p class="font-bold text-slate-900 text-xs">Schuljahr 2026/2027</p>
 <p class="text-[10px] text-slate-500 leading-tight">1. Aug. 2026 – 31. Juli 2027</p>
@@ -108,28 +108,28 @@
 <nav class="space-y-1 text-xs" id="sidebar-nav">
 <button class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50/70 border border-blue-100 nav-item" data-view="view-dashboard" onclick="switchView('view-dashboard')">
 <span class="material-symbols-outlined text-sm">dashboard</span>
-<span>Dashboard</span>
+<span class="">Dashboard</span>
 </button>
 <button class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-zeiterfassung" onclick="switchView('view-zeiterfassung')">
 <span class="material-symbols-outlined text-sm">schedule</span>
-<span>Zeiterfassung</span>
+<span class="">Zeiterfassung</span>
 </button>
 <button class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-stempeluhr" onclick="switchView('view-stempeluhr')">
 <span class="material-symbols-outlined text-sm text-amber-500">bolt</span>
-<span>Swipe-Stempeluhr</span>
+<span class="">Swipe-Stempeluhr</span>
 </button>
 <button class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-wochenuebersicht" onclick="switchView('view-wochenuebersicht')">
 <span class="material-symbols-outlined text-sm">calendar_view_week</span>
-<span>Wochenübersicht</span>
+<span class="">Wochenübersicht</span>
 </button>
 <button class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-mitarbeiter" onclick="switchView('view-mitarbeiter')">
 <span class="material-symbols-outlined text-sm">badge</span>
-<span>Mitarbeiter</span>
+<span class="">Mitarbeiter</span>
 </button>
-<button class="w-full text-left flex items-center justify-between px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-berichte" onclick="document.getElementById('modal-berichte').classList.remove('hidden')"><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-sm">summarize</span><span>Berichte</span></div><span class="bg-blue-100 text-blue-700 font-bold text-[10px] px-1.5 py-0.5 rounded">Pop-up</span></button>
+<button class="w-full text-left flex items-center justify-between px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-berichte" onclick="document.getElementById('modal-berichte').classList.remove('hidden')"><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-sm">summarize</span><span class="">Berichte</span></div><span class="bg-blue-100 text-blue-700 font-bold text-[10px] px-1.5 py-0.5 rounded">Pop-up</span></button>
 <button class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 nav-item" data-view="view-einstellungen" onclick="switchView('view-einstellungen')">
 <span class="material-symbols-outlined text-sm">settings</span>
-<span>Profil &amp; Einstellungen</span>
+<span class="">Profil &amp; Einstellungen</span>
 </button>
 </nav>
 </div>
@@ -169,17 +169,11 @@
 <div class="flex items-center gap-2 bg-slate-100 px-3 py-2 rounded-lg border border-slate-200">
 <span class="material-symbols-outlined text-slate-500 text-sm">badge</span>
 <label class="text-xs font-bold text-slate-600 uppercase" for="employee-select">Filter:</label>
-<select class="bg-transparent text-sm text-slate-900 font-semibold focus:outline-none cursor-pointer" id="employee-select" onchange="setEmployee(this.value)">
-<option value="all">Ganzes Team (Alle 4 Lehrpersonen)</option>
-<option selected="" value="seline">Seline Steinmann (92% Pensum – 45.25 h)</option>
-<option value="nicole">Nicole De Pretto (57% Fachlehrperson – 66.50 h)</option>
-<option value="michelle">Michelle Dreifuss (100% Klassenlehrperson – 26.00 h)</option>
-<option value="manuel">Manuel Schoch (100% Fachlehrperson – 16.00 h)</option>
-</select>
+<select class="bg-transparent text-sm text-slate-900 font-semibold focus:outline-none cursor-pointer" id="employee-select" onchange="setEmployee(this.value)"><option selected="" value="all">Ganzes Team (Alle Lehrpersonen)</option><option value="seline">Seline Steinmann (92% Pensum – 45.25 h)</option><option value="nicole">Nicole De Pretto (57% Fachlehrerin – 66.50 h)</option><option value="michelle">Michelle Dreifuss (100% Klassenlehrerin – 26.00 h)</option><option value="manuel">Manuel Schoch (100% Fachlehrer – 16.00 h)</option></select>
 </div>
 <button class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-blue-800 transition-colors" onclick="renderTable(); showFlash('Daten für Schuljahr 2026/27 synchronisiert!')">
 <span class="material-symbols-outlined text-sm">sync</span>
-<span>Jetzt Aktualisieren</span>
+<span class="">Jetzt Aktualisieren</span>
 </button>
 </div>
 </div>
@@ -196,17 +190,17 @@
 </div>
 </div>
 <div class="mt-4 pt-3 bg-slate-50 p-2.5 rounded-lg flex items-center justify-between text-xs text-slate-600 font-medium border border-slate-100" id="team-pills">
-<span class="cursor-pointer hover:text-blue-700" onclick="setEmployee('nicole')">Nicole 57%</span><span>•</span>
-<span class="cursor-pointer hover:text-blue-700" onclick="setEmployee('michelle')">Michelle 100%</span><span>•</span>
-<span class="cursor-pointer hover:text-blue-700" onclick="setEmployee('manuel')">Manuel 100%</span><span>•</span>
+<span class="cursor-pointer hover:text-blue-700" onclick="setEmployee('nicole')">Nicole 57%</span><span class="">•</span>
+<span class="cursor-pointer hover:text-blue-700" onclick="setEmployee('michelle')">Michelle 100%</span><span class="">•</span>
+<span class="cursor-pointer hover:text-blue-700" onclick="setEmployee('manuel')">Manuel 100%</span><span class="">•</span>
 <span class="cursor-pointer font-bold text-blue-700" onclick="setEmployee('seline')">Seline 92%</span>
 </div>
 </div>
 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
 <div class="flex items-start justify-between">
 <div>
-<span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="metric-month-title">Monats-Soll &amp; Ist (Okt 2026)</span>
-<p class="text-3xl font-extrabold text-blue-700 mt-1"><span id="metric-ist-hours">45.25</span> <span class="text-sm font-normal text-slate-500">h</span></p>
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="metric-month-title">Monats-Soll &amp; Ist (Seline)</span>
+<p class="text-3xl font-extrabold text-blue-700 mt-1"><span class="" id="metric-ist-hours">45.25</span> <span class="text-sm font-normal text-slate-500">h</span></p>
 </div>
 <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-700">
 <span class="material-symbols-outlined">schedule</span>
@@ -226,7 +220,7 @@
 <div class="flex items-start justify-between">
 <div>
 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Schuljahr Summe Basis</span>
-<p class="text-3xl font-extrabold text-slate-900 mt-1"><span id="metric-year-soll">1'739</span> <span class="text-sm font-normal text-slate-500">h</span></p>
+<p class="text-3xl font-extrabold text-slate-900 mt-1"><span class="" id="metric-year-soll">1'739</span> <span class="text-sm font-normal text-slate-500">h</span></p>
 </div>
 <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
 <span class="material-symbols-outlined">history_edu</span>
@@ -234,14 +228,14 @@
 </div>
 <div class="mt-4 pt-3 flex items-center gap-2 text-xs text-slate-600">
 <span class="material-symbols-outlined text-sm text-blue-700">info</span>
-<span id="metric-year-subtitle">Schuljahr 26/27 Sollvorgabe Stadt Zürich</span>
+<span class="" id="metric-year-subtitle">Schuljahr 26/27 Sollvorgabe Stadt Zürich</span>
 </div>
 </div>
 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
 <div class="flex items-start justify-between">
 <div>
 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Überstunden / Saldo</span>
-<p class="text-3xl font-extrabold text-emerald-600 mt-1"><span id="metric-saldo">+3.40</span> <span class="text-sm font-normal text-slate-500">h</span></p>
+<p class="text-3xl font-extrabold text-emerald-600 mt-1"><span class="" id="metric-saldo">+3.40</span> <span class="text-sm font-normal text-slate-500">h</span></p>
 </div>
 <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
 <span class="material-symbols-outlined">trending_up</span>
@@ -377,7 +371,7 @@
 <div class="bg-slate-900 text-white rounded-xl p-6 text-center shadow-inner mb-5 relative overflow-hidden">
 <div class="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-blue-500/20 blur-xl"></div>
 <span class="text-xs font-bold text-slate-400 block mb-1 uppercase tracking-wider">Zürich Schulzeit • Aktuell</span>
-<div class="text-4xl font-extrabold font-mono text-white tracking-wider" id="live-clock">08:14:22</div>
+<div class="text-4xl font-extrabold font-mono text-white tracking-wider" id="live-clock">07:39:26</div>
 <p class="text-sm text-slate-300 mt-1">Freitag, 16. Oktober 2026</p>
 </div>
 <!-- Drag Area -->
@@ -403,11 +397,11 @@
 <div class="grid grid-cols-2 gap-2">
 <button class="py-3 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95" onclick="recordQuickSwipe('Kommen')" type="button">
 <span class="material-symbols-outlined text-sm">login</span>
-<span>Kommen buchen</span>
+<span class="">Kommen buchen</span>
 </button>
 <button class="py-3 px-4 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95" onclick="recordQuickSwipe('Gehen')" type="button">
 <span class="material-symbols-outlined text-sm">logout</span>
-<span>Gehen buchen</span>
+<span class="">Gehen buchen</span>
 </button>
 </div>
 <p class="text-center text-[11px] font-bold text-slate-500 h-4 transition-opacity" id="swipe-feedback">Bereit für Zeiterfassung</p>
@@ -449,7 +443,192 @@
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 text-sm text-slate-800" id="time-entries-tbody-dash">
-<!-- Populated by JS -->
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">16.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Unterricht &amp; Teamberatung</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(1)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(1)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">14.10.2026</span>
+<span class="text-slate-400 text-xs block">Mittwoch</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:50 – 12:20</td>
+<td class="py-3 px-4 text-slate-500 text-sm">0 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">4.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Vormittagsblock &amp; Korrektur</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(3)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(3)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">12.10.2026</span>
+<span class="text-slate-400 text-xs block">Montag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Wochenstart &amp; Elterntelefonat</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(5)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(5)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">08.10.2026</span>
+<span class="text-slate-400 text-xs block">Donnerstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Unterricht, Sitzung Schulstufen</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(7)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(7)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">06.10.2026</span>
+<span class="text-slate-400 text-xs block">Dienstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:15 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Fachunterricht &amp; Teammeeting</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(8)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(8)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">02.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.25 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Monatsanfang &amp; Unterricht</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(9)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(9)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -457,7 +636,7 @@
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-blue-700">check_circle</span>
 <span class="text-slate-900 font-semibold" id="table-summary-title">Seline Steinmann Oktober-Zusammenfassung:</span>
-<span class="text-slate-500" id="table-summary-count">6 dokumentierte Schichten (02.10. – 16.10.2026)</span>
+<span class="text-slate-500" id="table-summary-count">6 dokumentierte Schichten (Oktober 2026)</span>
 </div>
 <div class="flex items-center gap-4">
 <span class="text-slate-600 font-medium">Summe erfasst: <strong class="text-blue-700 font-mono text-sm" id="summary-hours">45.25 h</strong></span>
@@ -486,7 +665,7 @@
 <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-6">
 <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
 <span class="material-symbols-outlined text-blue-700 text-lg">post_add</span>
-<span id="form-title">Neuen Zeiteintrag hinzufügen</span>
+<span class="" id="form-title">Neuen Zeiteintrag hinzufügen</span>
 </h3>
 <form class="space-y-4" id="entry-form" onsubmit="handleSaveEntry(event)">
 <input id="entry-edit-id" type="hidden" value=""/>
@@ -555,7 +734,7 @@
 <button class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-100 transition-colors" onclick="resetZeiterfassungForm()" type="button">Abbrechen</button>
 <button class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5" type="submit">
 <span class="material-symbols-outlined text-sm">save</span>
-<span id="form-submit-btn">Eintrag speichern</span>
+<span class="" id="form-submit-btn">Eintrag speichern</span>
 </button>
 </div>
 </form>
@@ -578,7 +757,595 @@
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 text-sm text-slate-800" id="time-entries-tbody-form">
-<!-- Populated by JS -->
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">16.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Unterricht &amp; Teamberatung</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(1)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(1)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">14.10.2026</span>
+<span class="text-slate-400 text-xs block">Mittwoch</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:50 – 12:20</td>
+<td class="py-3 px-4 text-slate-500 text-sm">0 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">4.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Vormittagsblock &amp; Korrektur</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(3)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(3)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">12.10.2026</span>
+<span class="text-slate-400 text-xs block">Montag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Wochenstart &amp; Elterntelefonat</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(5)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(5)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">08.10.2026</span>
+<span class="text-slate-400 text-xs block">Donnerstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Unterricht, Sitzung Schulstufen</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(7)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(7)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">06.10.2026</span>
+<span class="text-slate-400 text-xs block">Dienstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:15 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Fachunterricht &amp; Teammeeting</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(8)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(8)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">02.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-blue-700">Seline Steinmann</span>
+<span class="text-xs text-slate-400 block">92% Primar</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.25 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Monatsanfang &amp; Unterricht</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(9)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(9)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">16.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 16:45</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">DaZ Intensivförderung &amp; Teamsitzung</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(10)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(10)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">15.10.2026</span>
+<span class="text-slate-400 text-xs block">Donnerstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 14:45</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">6.25 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Spezialförderung / DaZ</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 font-medium text-xs px-2 py-0.5 rounded">
+              📱 Handy App
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(2)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(2)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">14.10.2026</span>
+<span class="text-slate-400 text-xs block">Mittwoch</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:15 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Unterricht &amp; Förderplanung 3. Quartal</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(11)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(11)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">12.10.2026</span>
+<span class="text-slate-400 text-xs block">Montag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Lernstandserhebung DaZ</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 font-medium text-xs px-2 py-0.5 rounded">
+              📱 Handy App
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(12)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(12)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">09.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 17:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">60 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Fremdsprachen-Koordination</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(13)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(13)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">07.10.2026</span>
+<span class="text-slate-400 text-xs block">Mittwoch</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 17:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.75 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">DaZ Kleingruppen &amp; Förderberichte</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 font-medium text-xs px-2 py-0.5 rounded">
+              📱 Handy App
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(14)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(14)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">05.10.2026</span>
+<span class="text-slate-400 text-xs block">Montag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 17:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">9.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Begleitung Schulleitung &amp; DaZ</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(15)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(15)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">01.10.2026</span>
+<span class="text-slate-400 text-xs block">Donnerstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Nicole De Pretto</span>
+<span class="text-xs text-slate-400 block">57% Fachlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 18:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">9.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Quartalsstart Vorbereitung</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 font-medium text-xs px-2 py-0.5 rounded">
+              📱 Handy App
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(16)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(16)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">13.10.2026</span>
+<span class="text-slate-400 text-xs block">Dienstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Michelle Dreifuss</span>
+<span class="text-xs text-slate-400 block">100% Klassenlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 17:15</td>
+<td class="py-3 px-4 text-slate-500 text-sm">45 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Schulreise Vorbereitung</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-slate-100 text-slate-700 font-medium text-xs px-2 py-0.5 rounded">
+              💻 Web-Dashboard
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(4)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(4)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">08.10.2026</span>
+<span class="text-slate-400 text-xs block">Donnerstag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Michelle Dreifuss</span>
+<span class="text-xs text-slate-400 block">100% Klassenlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">07:45 – 17:15</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">9.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Elternabend Vorbereitung</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-slate-100 text-slate-700 font-medium text-xs px-2 py-0.5 rounded">
+              💻 Web-Dashboard
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(17)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(17)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">05.10.2026</span>
+<span class="text-slate-400 text-xs block">Montag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Michelle Dreifuss</span>
+<span class="text-xs text-slate-400 block">100% Klassenlehrerin</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 17:00</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.50 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Klassenunterricht &amp; Herbstlager</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 font-bold text-xs px-2 py-0.5 rounded">
+              ⚡ Swipe Live
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(18)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(18)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">09.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Manuel Schoch</span>
+<span class="text-xs text-slate-400 block">100% Fachlehrer</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Sporttag Organisation</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 font-medium text-xs px-2 py-0.5 rounded">
+              📱 Handy App
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(6)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(6)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+<td class="py-3 px-4 font-medium">
+<span class="font-bold text-slate-900">02.10.2026</span>
+<span class="text-slate-400 text-xs block">Freitag</span>
+</td>
+<td class="py-3 px-4">
+<span class="font-bold text-slate-900">Manuel Schoch</span>
+<span class="text-xs text-slate-400 block">100% Fachlehrer</span>
+</td>
+<td class="py-3 px-4 font-mono text-sm">08:00 – 16:30</td>
+<td class="py-3 px-4 text-slate-500 text-sm">30 min</td>
+<td class="py-3 px-4 font-bold font-mono text-slate-900">8.00 h</td>
+<td class="py-3 px-4">
+<span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-medium text-slate-700">Werken Materialien Inventur</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 font-medium text-xs px-2 py-0.5 rounded">
+              📱 Handy App
+            </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 hover:text-blue-700 text-slate-500 transition-colors" onclick="editEntry(19)" title="Bearbeiten">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-1 hover:text-red-700 text-slate-400 transition-colors" onclick="deleteEntry(19)" title="Löschen">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -589,7 +1356,7 @@
 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
 <div class="text-center max-w-xl mx-auto mb-6">
 <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-bold mb-3">
-<span>⚡ Vollbild Swipe-Stempeluhr</span>
+<span class="">⚡ Vollbild Swipe-Stempeluhr</span>
 </div>
 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Echtzeit-Präsenzerfassung Primarschule</h2>
 <p class="text-sm text-slate-500 mt-1">Stempeln Sie bequem per Touch-Geste, Mauszug oder Direktklick ein und aus.</p>
@@ -605,17 +1372,17 @@
 </div>
 <div class="max-w-md mx-auto bg-slate-900 text-white rounded-2xl p-8 text-center shadow-lg mb-6 relative overflow-hidden">
 <div class="text-xs uppercase font-mono tracking-widest text-slate-400 mb-2">Offizielle Schulzeit Stadt Zürich</div>
-<div class="text-5xl font-mono font-bold tracking-wider text-white" id="live-clock-large">08:14:22</div>
+<div class="text-5xl font-mono font-bold tracking-wider text-white" id="live-clock-large">07:39:26</div>
 <div class="text-sm text-slate-300 mt-2 font-medium">Freitag, 16. Oktober 2026 • Schulwoche 42</div>
 </div>
 <div class="max-w-md mx-auto grid grid-cols-2 gap-3 mb-4">
 <button class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow transition-all active:scale-95" onclick="handleSwipeAction('Kommen')">
 <span class="material-symbols-outlined">login</span>
-<span>Kommen erfassen</span>
+<span class="">Kommen erfassen</span>
 </button>
 <button class="py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow transition-all active:scale-95" onclick="handleSwipeAction('Gehen')">
 <span class="material-symbols-outlined">logout</span>
-<span>Gehen erfassen</span>
+<span class="">Gehen erfassen</span>
 </button>
 </div>
 <div class="text-center text-xs font-bold text-slate-500 h-6" id="swipe-large-feedback">Bereit für die nächste Erfassung</div>
@@ -733,8 +1500,8 @@
 <h3 class="text-lg font-bold text-slate-900">Seline Steinmann</h3>
 <p class="text-xs font-semibold text-blue-700">Primarstufe • 92% Pensum</p>
 <div class="mt-2 text-xs text-slate-600 space-y-1">
-<p><strong>Schuljahressoll:</strong> 1'739 Stunden</p>
-<p><strong>Erfasst Oktober:</strong> 45.25 h (6 Schichten)</p>
+<p class=""><strong>Schuljahressoll:</strong> 1'739 Stunden</p>
+<p class=""><strong>Erfasst Oktober:</strong> 45.25 h (6 Schichten)</p>
 </div>
 </div>
 </div>
@@ -748,8 +1515,8 @@
 <h3 class="text-lg font-bold text-slate-900">Nicole De Pretto</h3>
 <p class="text-xs font-semibold text-slate-600">Fachlehrerin DaZ • 57% Pensum</p>
 <div class="mt-2 text-xs text-slate-600 space-y-1">
-<p><strong>Schuljahressoll:</strong> 1'077 Stunden (804h Quartal)</p>
-<p><strong>Erfasst Oktober:</strong> 66.50 h (8 Schichten)</p>
+<p class=""><strong>Schuljahressoll:</strong> 1'077 Stunden (804h Quartal)</p>
+<p class=""><strong>Erfasst Oktober:</strong> 66.50 h (8 Schichten)</p>
 </div>
 </div>
 </div>
@@ -763,8 +1530,8 @@
 <h3 class="text-lg font-bold text-slate-900">Michelle Dreifuss</h3>
 <p class="text-xs font-semibold text-slate-600">Klassenlehrerin • 100% Pensum</p>
 <div class="mt-2 text-xs text-slate-600 space-y-1">
-<p><strong>Schuljahressoll:</strong> 1'890 Stunden</p>
-<p><strong>Erfasst Oktober:</strong> 26.00 h (3 Schichten)</p>
+<p class=""><strong>Schuljahressoll:</strong> 1'890 Stunden</p>
+<p class=""><strong>Erfasst Oktober:</strong> 26.00 h (3 Schichten)</p>
 </div>
 </div>
 </div>
@@ -778,8 +1545,8 @@
 <h3 class="text-lg font-bold text-slate-900">Manuel Schoch</h3>
 <p class="text-xs font-semibold text-slate-600">Fachlehrer Sport/Werken • 100% Pensum</p>
 <div class="mt-2 text-xs text-slate-600 space-y-1">
-<p><strong>Schuljahressoll:</strong> 1'890 Stunden</p>
-<p><strong>Erfasst Oktober:</strong> 16.00 h (2 Schichten)</p>
+<p class=""><strong>Schuljahressoll:</strong> 1'890 Stunden</p>
+<p class=""><strong>Erfasst Oktober:</strong> 16.00 h (2 Schichten)</p>
 </div>
 </div>
 </div>
@@ -800,7 +1567,7 @@
 </div>
 <button class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-1.5" onclick="window.print()">
 <span class="material-symbols-outlined text-sm">print</span>
-<span>Bericht drucken / PDF</span>
+<span class="">Bericht drucken / PDF</span>
 </button>
 </div>
 <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm mb-6">
@@ -871,10 +1638,10 @@
 <button class="text-slate-400 hover:text-slate-600 text-xl font-bold" onclick="closeModal('modal-804h')">×</button>
 </div>
 <div class="text-xs text-slate-600 space-y-3 leading-relaxed">
-<p>Die <strong>804-Stunden-Regel</strong> der Primarschule Döltschi basiert auf den Richtlinien der Stadt Zürich für Jahresarbeitszeitmodelle von Lehrpersonen:</p>
+<p class="">Die <strong>804-Stunden-Regel</strong> der Primarschule Döltschi basiert auf den Richtlinien der Stadt Zürich für Jahresarbeitszeitmodelle von Lehrpersonen:</p>
 <ul class="list-disc pl-5 space-y-1">
-<li><strong>Basis-Pensum:</strong> Das 100%-Jahressoll beträgt 1'890 Arbeitsstunden für das Schuljahr 26/27.</li>
-<li><strong>Quartalskontingent 804h:</strong> Gilt primär für Teilzeitpensen (z. B. Nicole De Pretto mit 57%), um saisonale Spitzen im DaZ- und Förderunterricht flexibel ohne Überstundenverfall auszugleichen.</li>
+<li class=""><strong>Basis-Pensum:</strong> Das 100%-Jahressoll beträgt 1'890 Arbeitsstunden für das Schuljahr 26/27.</li>
+<li class=""><strong>Quartalskontingent 804h:</strong> Gilt primär für Teilzeitpensen (z. B. Nicole De Pretto mit 57%), um saisonale Spitzen im DaZ- und Förderunterricht flexibel ohne Überstundenverfall auszugleichen.</li>
 </ul>
 </div>
 <div class="mt-6 flex justify-end">
@@ -1451,4 +2218,5 @@
     tick();
   })();
 </script>
-<div class="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4" id="modal-berichte"><div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl border border-slate-200 overflow-hidden overflow-y-auto max-h-full"><div class="flex items-center justify-between pb-4 border-b border-slate-200"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-700 flex items-center justify-center text-white"><span class="material-symbols-outlined">summarize</span></div><div><h2 class="text-xl font-bold text-slate-900">Monatsbericht &amp; Stundenabrechnung</h2><p class="text-xs text-slate-500">Primarschule Döltschi • Schuljahr 2026/2027 • Offizielle Auswertung Stadt Zürich</p></div></div><button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none p-1 cursor-pointer" onclick="document.getElementById('modal-berichte').classList.add('hidden')">×</button></div><div class="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-slate-100"><div class="flex items-center gap-2 text-xs"><span class="font-bold text-slate-700 uppercase">Zeitraum:</span><select class="bg-slate-50 border border-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 text-slate-800"><option selected="">Oktober 2026</option><option>September 2026</option><option>August 2026</option><option>1. Quartal 26/27</option></select></div><div class="flex items-center gap-2 text-xs"><span class="font-bold text-slate-700 uppercase">Lehrperson:</span><select class="bg-slate-50 border border-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 text-slate-800"><option selected="">Alle Lehrpersonen (4 Profile)</option><option>Seline Steinmann (92%)</option><option>Nicole De Pretto (57%)</option><option>Michelle Dreifuss (100%)</option><option>Manuel Schoch (100%)</option></select></div></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 my-4"><div class="p-3.5 bg-blue-50/70 border border-blue-100 rounded-xl"><div class="text-[11px] font-bold text-blue-900 uppercase tracking-wider">Total Ist-Stunden</div><div class="text-2xl font-extrabold text-blue-700 font-mono mt-0.5">153.75 h</div><div class="text-[10px] text-blue-600 mt-1">19 gebuchte Schichten</div></div><div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl"><div class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Monats-Soll</div><div class="text-2xl font-extrabold text-slate-900 font-mono mt-0.5">586.40 h</div><div class="text-[10px] text-slate-500 mt-1">Basis 4 Lehrpersonen</div></div><div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl"><div class="text-[11px] font-bold text-emerald-900 uppercase tracking-wider">Überstunden-Saldo</div><div class="text-2xl font-extrabold text-emerald-600 font-mono mt-0.5">+14.40 h</div><div class="text-[10px] text-emerald-700 mt-1">Akkumuliert im Team</div></div><div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl"><div class="text-[11px] font-bold text-amber-900 uppercase tracking-wider">Quartalsstatus</div><div class="text-sm font-bold text-amber-950 mt-1.5">804 h Sonderregel</div><div class="text-[10px] text-amber-800 mt-1">Aktiv für Teilzeit</div></div></div><div class="overflow-x-auto border border-slate-200 rounded-xl mb-4"><table class="w-full text-left text-xs"><thead class="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider border-b border-slate-200"><tr><th class="py-2.5 px-3">Lehrperson</th><th class="py-2.5 px-3">Pensum</th><th class="py-2.5 px-3 font-mono">Ist (Okt)</th><th class="py-2.5 px-3 font-mono">Soll (Okt)</th><th class="py-2.5 px-3">Schichten</th><th class="py-2.5 px-3">Status / Besonderheit</th></tr></thead><tbody class="divide-y divide-slate-100 text-slate-800"><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-blue-700">Seline Steinmann</td><td class="py-2.5 px-3">92% Primar</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">45.25 h</td><td class="py-2.5 px-3 font-mono text-slate-600">154.6 h</td><td class="py-2.5 px-3">6 Schichten</td><td class="py-2.5 px-3"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Regelstunden</span></td></tr><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-slate-900">Nicole De Pretto</td><td class="py-2.5 px-3">57% Fachlehrerin</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">66.50 h</td><td class="py-2.5 px-3 font-mono text-slate-600">95.8 h</td><td class="py-2.5 px-3">8 Schichten</td><td class="py-2.5 px-3"><span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded text-[11px] font-medium">Inkl. Handy-Swipe (804h)</span></td></tr><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-slate-900">Michelle Dreifuss</td><td class="py-2.5 px-3">100% Klassenlehrerin</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">26.00 h</td><td class="py-2.5 px-3 font-mono text-slate-600">168.0 h</td><td class="py-2.5 px-3">3 Schichten</td><td class="py-2.5 px-3"><span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px]">Herbstlager Vorbereitung</span></td></tr><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-slate-900">Manuel Schoch</td><td class="py-2.5 px-3">100% Fachlehrer</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">16.00 h</td><td class="py-2.5 px-3 font-mono text-slate-600">168.0 h</td><td class="py-2.5 px-3">2 Schichten</td><td class="py-2.5 px-3"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Mobil-App</span></td></tr></tbody></table></div><div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200"><div class="flex items-center gap-2"><button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer" onclick="window.print()"><span class="material-symbols-outlined text-sm">print</span><span>Drucken / PDF</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold transition-colors cursor-pointer" onclick="alert('Monatsbericht CSV exportiert!')"><span class="material-symbols-outlined text-sm">download</span><span>CSV Export</span></button></div><button class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold transition-colors cursor-pointer" onclick="document.getElementById('modal-berichte').classList.add('hidden')">Schliessen</button></div></div></div></body></html>
+<div class="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 hidden" id="modal-berichte"><div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl border border-slate-200 overflow-hidden overflow-y-auto max-h-full"><div class="flex items-center justify-between pb-4 border-b border-slate-200"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-700 flex items-center justify-center text-white"><span class="material-symbols-outlined">summarize</span></div><div><h2 class="text-xl font-bold text-slate-900">Monatsbericht &amp; Stundenabrechnung</h2><p class="text-xs text-slate-500">Primarschule Döltschi • Schuljahr 2026/2027 • Offizielle Auswertung Stadt Zürich</p></div></div><button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none p-1 cursor-pointer" onclick="document.getElementById('modal-berichte').classList.add('hidden')">×</button></div><div class="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-slate-100"><div class="flex items-center gap-2 text-xs"><span class="font-bold text-slate-700 uppercase">Zeitraum:</span><select class="bg-slate-50 border border-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 text-slate-800"><option selected="">Oktober 2026</option><option>September 2026</option><option>August 2026</option><option>1. Quartal 26/27</option></select></div><div class="flex items-center gap-2 text-xs"><span class="font-bold text-slate-700 uppercase">Lehrperson:</span><select class="bg-slate-50 border border-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 text-slate-800"><option selected="">Alle Lehrpersonen (4 Profile)</option><option>Seline Steinmann (92%)</option><option>Nicole De Pretto (57%)</option><option>Michelle Dreifuss (100%)</option><option>Manuel Schoch (100%)</option></select></div></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 my-4"><div class="p-3.5 bg-blue-50/70 border border-blue-100 rounded-xl"><div class="text-[11px] font-bold text-blue-900 uppercase tracking-wider">Total Ist-Stunden</div><div class="text-2xl font-extrabold text-blue-700 font-mono mt-0.5">153.75 h</div><div class="text-[10px] text-blue-600 mt-1">19 gebuchte Schichten</div></div><div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl"><div class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Monats-Soll</div><div class="text-2xl font-extrabold text-slate-900 font-mono mt-0.5">586.40 h</div><div class="text-[10px] text-slate-500 mt-1">Basis 4 Lehrpersonen</div></div><div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl"><div class="text-[11px] font-bold text-emerald-900 uppercase tracking-wider">Überstunden-Saldo</div><div class="text-2xl font-extrabold text-emerald-600 font-mono mt-0.5">+14.40 h</div><div class="text-[10px] text-emerald-700 mt-1">Akkumuliert im Team</div></div><div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl"><div class="text-[11px] font-bold text-amber-900 uppercase tracking-wider">Quartalsstatus</div><div class="text-sm font-bold text-amber-950 mt-1.5">804 h Sonderregel</div><div class="text-[10px] text-amber-800 mt-1">Aktiv für Teilzeit</div></div></div><div class="overflow-x-auto border border-slate-200 rounded-xl mb-4"><table class="w-full text-left text-xs"><thead class="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider border-b border-slate-200"><tr><th class="py-2.5 px-3">Lehrperson</th><th class="py-2.5 px-3">Pensum</th><th class="py-2.5 px-3 font-mono">Ist (Okt)</th><th class="py-2.5 px-3 font-mono">Soll (Okt)</th><th class="py-2.5 px-3">Schichten</th><th class="py-2.5 px-3">Status / Besonderheit</th></tr></thead><tbody class="divide-y divide-slate-100 text-slate-800"><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-blue-700">Seline Steinmann</td><td class="py-2.5 px-3">92% Primar</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">45.25 h</td><td class="py-2.5 px-3 font-mono text-slate-600">154.6 h</td><td class="py-2.5 px-3">6 Schichten</td><td class="py-2.5 px-3"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Regelstunden</span></td></tr><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-slate-900">Nicole De Pretto</td><td class="py-2.5 px-3">57% Fachlehrerin</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">66.50 h</td><td class="py-2.5 px-3 font-mono text-slate-600">95.8 h</td><td class="py-2.5 px-3">8 Schichten</td><td class="py-2.5 px-3"><span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded text-[11px] font-medium">Inkl. Handy-Swipe (804h)</span></td></tr><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-slate-900">Michelle Dreifuss</td><td class="py-2.5 px-3">100% Klassenlehrerin</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">26.00 h</td><td class="py-2.5 px-3 font-mono text-slate-600">168.0 h</td><td class="py-2.5 px-3">3 Schichten</td><td class="py-2.5 px-3"><span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px]">Herbstlager Vorbereitung</span></td></tr><tr class="hover:bg-slate-50"><td class="py-2.5 px-3 font-bold text-slate-900">Manuel Schoch</td><td class="py-2.5 px-3">100% Fachlehrer</td><td class="py-2.5 px-3 font-mono font-bold text-slate-900">16.00 h</td><td class="py-2.5 px-3 font-mono text-slate-600">168.0 h</td><td class="py-2.5 px-3">2 Schichten</td><td class="py-2.5 px-3"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Mobil-App</span></td></tr></tbody></table></div><div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200"><div class="flex items-center gap-2"><button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer" onclick="window.print()"><span class="material-symbols-outlined text-sm">print</span><span class="">Drucken / PDF</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold transition-colors cursor-pointer" onclick="alert('Monatsbericht CSV exportiert!')"><span class="material-symbols-outlined text-sm">download</span><span class="">CSV Export</span></button></div><button class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold transition-colors cursor-pointer" onclick="document.getElementById('modal-berichte').classList.add('hidden')">Schliessen</button></div></div></div>
+</body></html>
