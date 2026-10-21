@@ -533,7 +533,7 @@
 </div>
 <button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none p-1 cursor-pointer" onclick="closeModal('modal-edit-employee')">×</button>
 </div>
-<form class="space-y-4 py-4" id="form-edit-employee" onsubmit="handleSaveTeacher(event)"><input id="edit-teacher-key" type="hidden" value=""/><div class="bg-blue-50/70 p-4 rounded-xl border border-blue-100 flex flex-col sm:flex-row items-center gap-4"><div class="relative group cursor-pointer shrink-0" onclick="document.getElementById('edit-teacher-file').click()"><img alt="Portrait Vorschau" class="w-20 h-20 rounded-full object-cover border-2 border-blue-600 shadow-md group-hover:opacity-80 transition-opacity" id="edit-teacher-preview-avatar" src=""/><div class="absolute inset-0 rounded-full bg-slate-900/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity"><span class="material-symbols-outlined text-xl">photo_camera</span><span class="text-[9px] font-bold uppercase mt-0.5">Ändern</span></div><span class="absolute bottom-0 right-0 bg-blue-700 text-white rounded-full p-1 shadow border-2 border-white"><span class="material-symbols-outlined text-xs block">edit</span></span></div><div class="flex-1 text-center sm:text-left min-w-0"><div class="flex items-center justify-center sm:justify-start gap-2"><span class="text-[11px] font-bold text-blue-900 uppercase tracking-wider">Mitarbeiterprofil Foto</span><span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Aktiv</span></div><p class="text-base font-bold text-slate-900 truncate mt-0.5" id="edit-teacher-preview-name">Seline Steinmann</p><p class="text-xs text-blue-700 font-medium truncate" id="edit-teacher-preview-sub">92% Pensum • Primarstufe</p><p class="text-[11px] text-slate-500 mt-1 truncate" id="edit-teacher-preview-email">seline.steinmann@schulen.zuerich.ch</p></div></div><div class="space-y-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200"><div class="flex items-center justify-between"><label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Foto ändern / Schnellauswahl</label><span class="text-[10px] text-slate-500">URL, Upload oder Preset</span></div><div class="flex flex-wrap items-center gap-2 pt-1"><span class="text-xs text-slate-600 font-medium">Vorlagen:</span><div class="flex items-center gap-2" id="edit-avatar-presets"><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTQ4Vry3nb5C3JfvuLD0u2PWrLSjMEa48Q-G5Tn-Fu2Fpj-F8JYo5sWPcv7DdPZiJBRqwkZ-F3J2hzWVsLo6B0vc0vy6IIkxnX54lG8ppOvdLmUrAbkc1rq3-EgQUVKKaYb3gqfvtScnlPMCsfjLB3mIy7ldEDeSm85UGmEXi_vTAHI9kwQtpUp7wwjauh4ItnFtK3Rpqnh1LJr7UFnROzD-cOEImoihJNYDi6ymW0zY9YRWyu3oJt"/></button><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-slate-300 hover:border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/></button><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-slate-300 hover:border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4BUj20ooLSRyTP45S9_GPcy9RuhsijR2mmU2P9M_AqiX-j9taCUOYtw61XbTdOduV33Gb6uFRCe5oKEJ335XFsODvnaUotPs5pqBXFHt1APh12vrYLKN-eH_0mpNCJ4mg8Qhmk4GnKjwK3nZSyTA7VcHjsnfIoFgsWxggq0ehO5jnsmITLkj3N0BfiBasemyVU6Q1HvawLlTOutcNoE_IFrJWcH1xPcIZr6A38QN-ioDmtUE14MhB"/></button><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-slate-300 hover:border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 4" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnPArArQJM5DQsbdxtW8N03q0CGjMbIC-f9QhWuYAU0Y1WxotDek_MgJXfd_vPPT80w__r6Yxpf0hMd2fAcx7vsp54YBKsVeJjIHLneTxoc2LIB2RFuG43GVCpIao_ehs-dhxy9EfjTHifjhHa4STXMnuKFaYJg-fFXqFYfPYdqJEdpAfzVoVAPrRFcla2M58kCP-4ZbuqRbu1PM3c0TdT62w5f2q6pEheGyqW09FPGG-uJEySntP9"/></button></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1"><div class="flex items-center gap-1.5"><input class="w-full text-xs border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-avatar-url" oninput="onAvatarUrlChange(this.value)" placeholder="Bild-Webadresse (https://...)" type="url"/></div><div class="flex items-center gap-2"><input accept="image/*" class="hidden" id="edit-teacher-file" onchange="handleTeacherImageUpload(event)" type="file"/><button class="w-full py-1.5 px-3 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-300 flex items-center justify-center gap-1.5 shadow-sm transition-colors cursor-pointer" onclick="document.getElementById('edit-teacher-file').click()" type="button"><span class="material-symbols-outlined text-sm text-blue-700">upload_file</span><span>Eigenes Bild hochladen</span></button></div></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-name">Vor- &amp; Nachname *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-semibold" id="edit-teacher-name" required="" type="text"/></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-email">Offizielle E-Mail</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-email" placeholder="vorname.nachname@schulen.zuerich.ch" type="email"/></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-pensum">Pensum (%) *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-semibold" id="edit-teacher-pensum" placeholder="z. B. 92%" required="" type="text"/></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-role">Rolle / Funktion *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-role" placeholder="z. B. Primarstufe" required="" type="text"/></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-yearsoll">Jahressoll (Stunden) *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono" id="edit-teacher-yearsoll" placeholder="z. B. 1'739" required="" type="text"/><span class="text-[10px] text-slate-400 mt-0.5 block">Vollzeit = 1'890 h</span></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-monthsoll">Monats-Soll (Okt in h) *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono" id="edit-teacher-monthsoll" placeholder="z. B. 154.6" required="" step="0.1" type="number"/><span class="text-[10px] text-slate-400 mt-0.5 block">Sollvorgabe für Oktober</span></div></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-notes">Notizen, Einsatzbereiche &amp; Besonderheiten</label><textarea class="w-full text-xs border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-notes" placeholder="z. B. Klassenleitung, DaZ-Förderung, Turnhalle &amp; Werken" rows="2"></textarea></div><div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200"><button class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-100 transition-colors cursor-pointer" onclick="closeModal('modal-edit-employee')" type="button">Abbrechen</button><button class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer" type="submit"><span class="material-symbols-outlined text-sm">save</span><span>Änderungen speichern</span></button></div></form>
+<form class="space-y-4 py-4" id="form-edit-employee" onsubmit="handleSaveTeacher(event)"><input id="edit-teacher-key" type="hidden" value=""/><input id="edit-photo-data" type="hidden" value=""/><div class="bg-blue-50/70 p-4 rounded-xl border border-blue-100 flex flex-col sm:flex-row items-center gap-4"><div class="relative group cursor-pointer shrink-0" id="edit-photo-dropzone" onclick="document.getElementById('edit-photo-input').click()" ondragleave="this.classList.remove('ring-2','ring-blue-500');" ondragover="event.preventDefault(); this.classList.add('ring-2','ring-blue-500');" ondrop="handlePhotoDrop(event)"><img alt="Portrait Vorschau" class="w-20 h-20 rounded-full object-cover border-2 border-blue-600 shadow-md group-hover:opacity-80 transition-opacity" id="edit-photo-preview" src=""/><div class="absolute inset-0 rounded-full bg-slate-900/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity"><span class="material-symbols-outlined text-xl">photo_camera</span><span class="text-[9px] font-bold uppercase mt-0.5">Ändern</span></div><span class="absolute bottom-0 right-0 bg-blue-700 text-white rounded-full p-1 shadow border-2 border-white"><span class="material-symbols-outlined text-xs block">edit</span></span></div><div class="flex-1 text-center sm:text-left min-w-0"><div class="flex items-center justify-center sm:justify-start gap-2"><span class="text-[11px] font-bold text-blue-900 uppercase tracking-wider">Mitarbeiterprofil Foto</span><span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full" id="edit-photo-status-badge">Aktiv</span></div><p class="text-base font-bold text-slate-900 truncate mt-0.5" id="edit-teacher-preview-name">Seline Steinmann</p><p class="text-xs text-blue-700 font-medium truncate" id="edit-teacher-preview-sub">92% Pensum • Primarstufe</p><p class="text-[11px] text-slate-500 mt-1 truncate" id="edit-teacher-preview-email">seline.steinmann@schulen.zuerich.ch</p></div></div><div class="space-y-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200"><div class="flex items-center justify-between"><label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Foto ändern / Schnellauswahl</label><span class="text-[10px] text-slate-500">Upload, Drag &amp; Drop oder Preset</span></div><div class="flex flex-wrap items-center gap-2 pt-1"><span class="text-xs text-slate-600 font-medium">Vorlagen:</span><div class="flex items-center gap-2" id="edit-avatar-presets"><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTQ4Vry3nb5C3JfvuLD0u2PWrLSjMEa48Q-G5Tn-Fu2Fpj-F8JYo5sWPcv7DdPZiJBRqwkZ-F3J2hzWVsLo6B0vc0vy6IIkxnX54lG8ppOvdLmUrAbkc1rq3-EgQUVKKaYb3gqfvtScnlPMCsfjLB3mIy7ldEDeSm85UGmEXi_vTAHI9kwQtpUp7wwjauh4ItnFtK3Rpqnh1LJr7UFnROzD-cOEImoihJNYDi6ymW0zY9YRWyu3oJt"/></button><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-slate-300 hover:border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/></button><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-slate-300 hover:border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4BUj20ooLSRyTP45S9_GPcy9RuhsijR2mmU2P9M_AqiX-j9taCUOYtw61XbTdOduV33Gb6uFRCe5oKEJ335XFsODvnaUotPs5pqBXFHt1APh12vrYLKN-eH_0mpNCJ4mg8Qhmk4GnKjwK3nZSyTA7VcHjsnfIoFgsWxggq0ehO5jnsmITLkj3N0BfiBasemyVU6Q1HvawLlTOutcNoE_IFrJWcH1xPcIZr6A38QN-ioDmtUE14MhB"/></button><button class="w-9 h-9 rounded-full overflow-hidden border-2 border-slate-300 hover:border-blue-500 hover:scale-105 transition-transform cursor-pointer shadow-sm" onclick="applyPresetAvatar(this.querySelector('img').src)" type="button"><img alt="Preset 4" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnPArArQJM5DQsbdxtW8N03q0CGjMbIC-f9QhWuYAU0Y1WxotDek_MgJXfd_vPPT80w__r6Yxpf0hMd2fAcx7vsp54YBKsVeJjIHLneTxoc2LIB2RFuG43GVCpIao_ehs-dhxy9EfjTHifjhHa4STXMnuKFaYJg-fFXqFYfPYdqJEdpAfzVoVAPrRFcla2M58kCP-4ZbuqRbu1PM3c0TdT62w5f2q6pEheGyqW09FPGG-uJEySntP9"/></button></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1"><div class="flex items-center gap-1.5"><input class="w-full text-xs border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-avatar-url" oninput="onAvatarUrlChange(this.value)" placeholder="Bild-Webadresse (https://...)" type="url"/></div><div class="flex items-center gap-2"><input accept="image/*" class="hidden" id="edit-photo-input" onchange="handlePhotoFileSelect(event)" type="file"/><button class="w-full py-1.5 px-3 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-300 flex items-center justify-center gap-1.5 shadow-sm transition-colors cursor-pointer" onclick="document.getElementById('edit-photo-input').click()" type="button"><span class="material-symbols-outlined text-sm text-blue-700">upload_file</span><span>Foto auswählen / hochladen</span></button></div></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-name">Vor- &amp; Nachname *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-semibold" id="edit-teacher-name" required="" type="text"/></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-email">Offizielle E-Mail</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-email" placeholder="vorname.nachname@schulen.zuerich.ch" type="email"/></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-pensum">Pensum (%) *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-semibold" id="edit-teacher-pensum" placeholder="z. B. 92%" required="" type="text"/></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-role">Rolle / Funktion *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-role" placeholder="z. B. Primarstufe" required="" type="text"/></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-yearsoll">Jahressoll (Stunden) *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono" id="edit-teacher-yearsoll" placeholder="z. B. 1'739" required="" type="text"/><span class="text-[10px] text-slate-400 mt-0.5 block">Vollzeit = 1'890 h</span></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-monthsoll">Monats-Soll (Okt in h) *</label><input class="w-full text-sm border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono" id="edit-teacher-monthsoll" placeholder="z. B. 154.6" required="" step="0.1" type="number"/><span class="text-[10px] text-slate-400 mt-0.5 block">Sollvorgabe für Oktober</span></div></div><div><label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider" for="edit-teacher-notes">Notizen, Einsatzbereiche &amp; Besonderheiten</label><textarea class="w-full text-xs border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="edit-teacher-notes" placeholder="z. B. Klassenleitung, DaZ-Förderung, Turnhalle &amp; Werken" rows="2"></textarea></div><div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200"><button class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-100 transition-colors cursor-pointer" onclick="closeModal('modal-edit-employee')" type="button">Abbrechen</button><button class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer" type="submit"><span class="material-symbols-outlined text-sm">save</span><span>Änderungen speichern</span></button></div></form>
 </div>
 </div>
 <!-- ========================================================================= -->
@@ -951,7 +951,199 @@
 <div class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none" id="flash-toast">
 <span class="material-symbols-outlined text-emerald-400 text-lg">check_circle</span>
 <span class="text-xs font-medium" id="flash-text">Aktion erfolgreich ausgeführt</span>
-</div>
+</div><script id="photo-edit-handler-script">
+function handlePhotoFileSelect(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    applyPhotoDataUrl(dataUrl);
+  };
+  reader.readAsDataURL(file);
+}
+
+function handlePhotoDrop(event) {
+  event.preventDefault();
+  const dropzone = document.getElementById('edit-photo-dropzone');
+  if (dropzone) dropzone.classList.remove('ring-2', 'ring-blue-500');
+  const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    applyPhotoDataUrl(e.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyPhotoDataUrl(dataUrl) {
+  const preview = document.getElementById('edit-photo-preview');
+  if (preview) preview.src = dataUrl;
+  const hiddenInput = document.getElementById('edit-photo-data');
+  if (hiddenInput) hiddenInput.value = dataUrl;
+  const badge = document.getElementById('edit-photo-status-badge');
+  if (badge) {
+    badge.textContent = 'Neues Foto bereit';
+    badge.className = 'bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full';
+  }
+  showFlash('Neues Foto erfolgreich geladen!');
+}
+
+function onAvatarUrlChange(url) {
+  if (!url || !url.startsWith('http')) return;
+  applyPhotoDataUrl(url);
+}
+
+function applyPresetAvatar(src) {
+  applyPhotoDataUrl(src);
+  const urlInput = document.getElementById('edit-teacher-avatar-url');
+  if (urlInput) urlInput.value = src;
+}
+
+function handleSettingsImageUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    const preview = document.getElementById('settings-preview-avatar');
+    if (preview) preview.src = dataUrl;
+    if (teacherConfig && teacherConfig.seline) {
+      teacherConfig.seline.avatar = dataUrl;
+      const headAv = document.getElementById('header-active-avatar');
+      if (headAv) headAv.src = dataUrl;
+      const cardImg = document.querySelector('#card-seline img');
+      if (cardImg) cardImg.src = dataUrl;
+      const dashImg = document.getElementById('dash-clock-avatar');
+      if (dashImg) dashImg.src = dataUrl;
+    }
+    showFlash('Admin-Profilbild aktualisiert!');
+  };
+  reader.readAsDataURL(file);
+}
+
+// Override openEditTeacherModal to prepare the preview and hidden inputs
+const originalOpenEditTeacherModal = window.openEditTeacherModal;
+window.openEditTeacherModal = function(key) {
+  const t = teacherConfig[key];
+  if (!t) return;
+  const keyInput = document.getElementById('edit-teacher-key');
+  if (keyInput) keyInput.value = key;
+  const nameInput = document.getElementById('edit-teacher-name');
+  if (nameInput) nameInput.value = t.fullName;
+  const pensumInput = document.getElementById('edit-teacher-pensum');
+  if (pensumInput) pensumInput.value = t.pensum;
+  const roleInput = document.getElementById('edit-teacher-role');
+  if (roleInput) roleInput.value = t.role;
+  const yearInput = document.getElementById('edit-teacher-yearsoll');
+  if (yearInput) yearInput.value = t.yearSoll;
+  const monthInput = document.getElementById('edit-teacher-monthsoll');
+  if (monthInput) monthInput.value = t.monthSoll;
+  const emailInput = document.getElementById('edit-teacher-email');
+  if (emailInput) emailInput.value = `${t.fullName.toLowerCase().replace(/\s+/g, '.')}@schulen.zuerich.ch`;
+
+  const previewName = document.getElementById('edit-teacher-preview-name');
+  if (previewName) previewName.textContent = t.fullName;
+  const previewSub = document.getElementById('edit-teacher-preview-sub');
+  if (previewSub) previewSub.textContent = `${t.pensum} Pensum • ${t.role}`;
+  const previewEmail = document.getElementById('edit-teacher-preview-email');
+  if (previewEmail) previewEmail.textContent = `${t.fullName.toLowerCase().replace(/\s+/g, '.')}@schulen.zuerich.ch`;
+  const previewImg = document.getElementById('edit-photo-preview');
+  if (previewImg) previewImg.src = t.avatar;
+  const photoData = document.getElementById('edit-photo-data');
+  if (photoData) photoData.value = '';
+  const badge = document.getElementById('edit-photo-status-badge');
+  if (badge) {
+    badge.textContent = 'Aktiv';
+    badge.className = 'bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full';
+  }
+  const headerEl = document.getElementById('edit-employee-header');
+  if (headerEl) headerEl.textContent = `${t.fullName} bearbeiten`;
+
+  openModal('modal-edit-employee');
+};
+
+// Full handler implementation for saving teacher with updated photo
+window.handleSaveTeacher = function(e) {
+  e.preventDefault();
+  const key = document.getElementById('edit-teacher-key').value;
+  const t = teacherConfig[key];
+  if (!t) return;
+
+  const newName = document.getElementById('edit-teacher-name').value.trim();
+  const newPensum = document.getElementById('edit-teacher-pensum').value.trim();
+  const newRole = document.getElementById('edit-teacher-role').value.trim();
+  const newYearSoll = document.getElementById('edit-teacher-yearsoll').value.trim();
+  const newMonthSoll = parseFloat(document.getElementById('edit-teacher-monthsoll').value) || t.monthSoll;
+  const newPhoto = document.getElementById('edit-photo-data').value;
+
+  if (newName) t.fullName = newName;
+  if (newPensum) t.pensum = newPensum;
+  if (newRole) t.role = newRole;
+  if (newYearSoll) t.yearSoll = newYearSoll;
+  t.monthSoll = newMonthSoll;
+  if (newPhoto) t.avatar = newPhoto;
+
+  // Update time entries
+  if (window.timeEntries) {
+    window.timeEntries.forEach(entry => {
+      if (entry.teacherKey === key) {
+        entry.name = t.fullName;
+        entry.role = `${t.pensum} ${t.role}`;
+      }
+    });
+  }
+
+  // Update header if active or seline
+  if (key === 'seline') {
+    const hName = document.getElementById('header-active-name');
+    if (hName) hName.textContent = t.fullName;
+    const hAvatar = document.getElementById('header-active-avatar');
+    if (hAvatar) hAvatar.src = t.avatar;
+    const sAvatar = document.getElementById('settings-preview-avatar');
+    if (sAvatar) sAvatar.src = t.avatar;
+    const sName = document.getElementById('settings-admin-name');
+    if (sName) sName.value = t.fullName;
+  }
+
+  // Update dashboard card image directly
+  const card = document.getElementById(`card-${key}`);
+  if (card) {
+    const img = card.querySelector('img');
+    if (img) img.src = t.avatar;
+  }
+
+  // Update live clock widget if selected
+  const clockName = document.getElementById('dash-clock-name');
+  if (clockName && clockName.textContent.includes(t.fullName.split(' ')[0])) {
+    const clockAvatar = document.getElementById('dash-clock-avatar');
+    if (clockAvatar) clockAvatar.src = t.avatar;
+    const clockRole = document.getElementById('dash-clock-role');
+    if (clockRole) clockRole.textContent = `${t.pensum} Pensum • ${t.role}`;
+  }
+
+  closeModal('modal-edit-employee');
+  renderAll();
+  showFlash('Profil & Foto erfolgreich gespeichert!');
+};
+
+window.handleSaveSettings = function(e) {
+  e.preventDefault();
+  const newName = document.getElementById('settings-admin-name').value.trim();
+  const preview = document.getElementById('settings-preview-avatar');
+  if (teacherConfig && teacherConfig.seline) {
+    if (newName) teacherConfig.seline.fullName = newName;
+    if (preview && preview.src) teacherConfig.seline.avatar = preview.src;
+    const hName = document.getElementById('header-active-name');
+    if (hName) hName.textContent = teacherConfig.seline.fullName;
+    const hAvatar = document.getElementById('header-active-avatar');
+    if (hAvatar && preview) hAvatar.src = preview.src;
+  }
+  closeModal('modal-einstellungen');
+  renderAll();
+  showFlash('Profil & Schuleinstellungen erfolgreich gespeichert!');
+};
+</script>
 <script>
   // Teacher metadata store
   const teacherConfig = {
