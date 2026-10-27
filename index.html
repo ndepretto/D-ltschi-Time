@@ -18,56 +18,7 @@
 </head>
 <body class="h-full text-slate-800 antialiased flex flex-col bg-slate-100/70">
 <!-- Header Top Navigation Bar -->
-<header class="bg-white border-b border-slate-200/90 px-4 lg:px-6 py-2.5 flex items-center justify-between sticky top-0 z-30 shadow-xs">
-<div class="flex items-center gap-3 md:gap-5 overflow-x-auto no-scrollbar">
-<div class="flex items-center gap-2.5 shrink-0 cursor-pointer" onclick="switchView('dashboard')">
-<div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-sm font-bold">
-<span class="material-symbols-outlined text-lg">schedule</span>
-</div>
-<div>
-<span class="font-extrabold text-slate-900 tracking-tight text-sm md:text-base leading-none block">Döltschi Time</span>
-<span class="text-[10px] text-slate-500 font-medium leading-none">Primarschule Stadt Zürich</span>
-</div>
-</div>
-<div class="hidden sm:inline-flex items-center gap-1.5 bg-blue-50/80 text-blue-800 px-2.5 py-1 rounded-md text-xs font-semibold border border-blue-200/60">
-<span class="material-symbols-outlined text-xs text-blue-600">school</span>
-<span>Schuljahr 26/27</span>
-</div>
-<!-- Quick Navigation Pills -->
-<div class="flex items-center gap-1.5 shrink-0">
-<button class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 px-2.5 py-1 rounded-md text-xs font-bold border border-blue-200 transition-colors" onclick="switchView('tagesansicht')">
-<span class="material-symbols-outlined text-sm">calendar_month</span>
-<span>📅 Tagesansicht</span>
-</button>
-<button class="inline-flex items-center gap-1 bg-amber-50 text-amber-800 hover:bg-amber-100 px-2.5 py-1 rounded-md text-xs font-bold border border-amber-200 transition-colors" onclick="openModal('modal-stempeluhr')">
-<span class="material-symbols-outlined text-sm text-amber-600">bolt</span>
-<span>Swipe-Uhr</span>
-</button>
-<button class="hidden md:inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 transition-colors" onclick="openModal('modal-804h')">
-<span>804h Regel</span>
-</button>
-<button class="hidden md:inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 transition-colors" onclick="openModal('modal-qr')">
-<span class="material-symbols-outlined text-xs">qr_code_2</span>
-<span>Handy QR</span>
-</button>
-</div>
-</div>
-<div class="flex items-center gap-2 shrink-0">
-<button class="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md text-xs font-semibold border border-slate-200 transition-colors" onclick="navigator.clipboard.writeText(document.documentElement.outerHTML).then(() =&gt; showToast('Kompletter HTML-Code in Zwischenablage kopiert!'))">
-<span class="material-symbols-outlined text-xs">content_copy</span>
-<span class="hidden sm:inline">Code kopieren</span>
-</button>
-<button class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 px-2.5 py-1 rounded-md text-xs font-semibold border border-emerald-200 transition-colors" onclick="exportHTML()">
-<span class="material-symbols-outlined text-xs text-emerald-600">download</span>
-<span class="hidden sm:inline">HTML Export</span>
-</button>
-<div class="h-4 w-[1px] bg-slate-200 mx-1"></div>
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="hidden lg:inline">Cloud Synchron</span>
-</span>
-</div>
-</header>
+<header class="bg-white border-b border-slate-200/90 px-4 lg:px-6 py-2.5 flex items-center justify-between sticky top-0 z-30 shadow-xs"><div class="flex items-center gap-6 overflow-x-auto no-scrollbar"><div class="flex items-center gap-2.5 shrink-0 cursor-pointer" onclick="switchView('dashboard')"><div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm font-bold"><span class="material-symbols-outlined text-xl">schedule</span></div><div><div class="flex items-center gap-2"><span class="font-extrabold text-slate-900 tracking-tight text-base leading-none block">Döltschi Time</span><span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-1.5 py-0.5 rounded border border-blue-200">2026/27</span></div><span class="text-[11px] text-slate-500 font-medium leading-none">Primarschule Stadt Zürich</span></div></div><nav class="hidden md:flex items-center gap-1 shrink-0"><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 transition-colors" id="top-nav-cockpit" onclick="switchView('dashboard')"><span class="material-symbols-outlined text-sm">dashboard</span><span>Cockpit</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors" id="top-nav-tagesansicht" onclick="switchView('tagesansicht')"><span class="material-symbols-outlined text-sm text-blue-600">calendar_month</span><span>Tagesansicht</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors" onclick="openEditEmployeeModal('nicole')"><span class="material-symbols-outlined text-sm text-slate-500">badge</span><span>Mitarbeiter-Verwaltung</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors" onclick="openModal('modal-berichte')"><span class="material-symbols-outlined text-sm text-slate-500">summarize</span><span>Berichte</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 transition-colors" onclick="openModal('modal-stempeluhr')"><span class="material-symbols-outlined text-sm text-amber-600">bolt</span><span>Swipe-Stempeluhr</span></button></nav></div><div class="flex items-center gap-2.5 shrink-0"><button class="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 transition-colors" onclick="navigator.clipboard.writeText(document.documentElement.outerHTML).then(() =&gt; showToast('HTML in Zwischenablage kopiert!'))"><span class="material-symbols-outlined text-sm">content_copy</span><span class="hidden sm:inline">Code kopieren</span></button><button class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 px-3 py-1.5 rounded-lg text-xs font-semibold border border-emerald-200 transition-colors" onclick="exportHTML()"><span class="material-symbols-outlined text-sm text-emerald-600">download</span><span class="hidden sm:inline">HTML Export</span></button><div class="h-4 w-[1px] bg-slate-200 mx-0.5"></div><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="hidden lg:inline font-semibold">Cloud Synchron</span></span></div></header>
 <div class="flex flex-1 overflow-hidden">
 <!-- Clean Left Sidebar Navigation -->
 <aside class="w-60 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 p-4">
@@ -153,72 +104,7 @@
 <!-- Main View Container -->
 <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
 <!-- Global Top Filter & Context Header (clean & modern Swiss design) -->
-<section class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
-<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
-<div>
-<div class="flex items-center gap-2.5">
-<span class="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded border border-blue-100">Döltschi Time Live-Cockpit</span>
-<span class="text-xs text-slate-400">•</span>
-<span class="text-xs text-slate-600 font-semibold" id="top-status-indicator">Aktive Ansicht: Nicole De Pretto (Oktober 2026)</span>
-</div>
-<h1 class="text-xl md:text-2xl font-black text-slate-900 mt-1 tracking-tight" id="main-view-title">Tagesansicht &amp; Schuljahresarbeitszeit</h1>
-</div>
-<!-- Master Interactive Controls -->
-<div class="flex flex-wrap items-center gap-2.5">
-<!-- Month Dropdown -->
-<div class="flex items-center gap-1.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
-<span class="material-symbols-outlined text-slate-500 text-sm">calendar_month</span>
-<label class="text-xs font-bold text-slate-600 uppercase" for="filter-month">Monat:</label>
-<select class="bg-transparent text-xs font-bold text-slate-900 border-none focus:ring-0 p-0 cursor-pointer" id="filter-month" onchange="handleFilterChange()">
-<option selected="" value="10">Oktober 2026</option>
-<option value="11">November 2026</option>
-<option value="09">September 2026</option>
-<option value="all">Alle Monate (Schuljahr 26/27)</option>
-</select>
-</div>
-<!-- Employee Dropdown -->
-<div class="flex items-center gap-1.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
-<span class="material-symbols-outlined text-slate-500 text-sm">badge</span>
-<label class="text-xs font-bold text-slate-600 uppercase" for="filter-employee">Mitarbeiter:</label>
-<select class="bg-transparent text-xs font-bold text-slate-900 border-none focus:ring-0 p-0 cursor-pointer" id="filter-employee" onchange="handleFilterChange()">
-<option selected="" value="nicole">Nicole De Pretto (nur Nicole)</option>
-<option value="seline">Seline Steinmann (92%)</option>
-<option value="michelle">Michelle Dreifuss (100%)</option>
-<option value="manuel">Manuel Schoch (100%)</option>
-<option value="team">Ganzes Team</option>
-</select>
-</div>
-<!-- Quick Action Buttons -->
-<button class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer" onclick="openModal('modal-zeiterfassung')">
-<span class="material-symbols-outlined text-sm">add_circle</span>
-<span>+ Zeit erfassen</span>
-</button>
-<button class="inline-flex items-center gap-1 px-3 py-2 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded-xl text-xs font-bold transition-colors cursor-pointer" id="btn-toggle-tagesansicht" onclick="switchView('tagesansicht')">
-<span class="material-symbols-outlined text-sm">view_agenda</span>
-<span>Tagesansicht</span>
-</button>
-</div>
-</div>
-<!-- Quick Filter Pills -->
-<div class="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-slate-100">
-<span class="text-xs font-bold text-slate-500 uppercase tracking-wider mr-1">Filter-Pills:</span>
-<button class="px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white shadow-xs transition-all" id="pill-nicole" onclick="applyQuickFilter('nicole')">
-          ✓ Nur Nicole (Okt 2026)
-        </button>
-<button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all" id="pill-team" onclick="applyQuickFilter('team')">
-          Ganzes Team
-        </button>
-<button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all" id="pill-seline" onclick="applyQuickFilter('seline')">
-          Nur Seline
-        </button>
-<button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all" id="pill-heute" onclick="applyQuickFilter('heute')">
-          Heute (21.10.2026)
-        </button>
-<button class="ml-auto inline-flex items-center gap-1 text-xs text-blue-700 hover:text-blue-900 font-bold" onclick="openEditEmployeeModal('nicole')">
-<span class="material-symbols-outlined text-xs">edit</span> Profil Nicole bearbeiten
-        </button>
-</div>
-</section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs"><div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 pb-4 border-b border-slate-100"><div><div class="flex items-center gap-2"><span class="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded border border-blue-100">Döltschi Time • Schuljahres-Cockpit</span><span class="text-xs text-slate-400">•</span><span class="text-xs text-slate-600 font-semibold" id="top-status-indicator">Aktive Ansicht: Nicole De Pretto (Oktober 2026)</span></div><h1 class="text-xl md:text-2xl font-black text-slate-900 mt-1 tracking-tight" id="main-view-title">Tagesansicht &amp; Schuljahresarbeitszeit</h1></div><div class="flex flex-wrap items-center gap-2.5"><div class="flex items-center gap-1.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200"><span class="material-symbols-outlined text-slate-500 text-sm">calendar_month</span><label class="text-xs font-bold text-slate-600 uppercase" for="filter-month">Monat:</label><select class="bg-transparent text-xs font-bold text-slate-900 border-none focus:ring-0 p-0 cursor-pointer" id="filter-month" onchange="handleFilterChange()"><option selected="" value="10">Oktober 2026</option><option value="11">November 2026</option><option value="09">September 2026</option><option value="all">Alle Monate (Schuljahr 26/27)</option></select></div><button class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer" onclick="openModal('modal-zeiterfassung')"><span class="material-symbols-outlined text-sm">add_circle</span><span>+ Zeit erfassen</span></button><button class="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer" onclick="openEditEmployeeModal(activeFilterEmp)"><span class="material-symbols-outlined text-sm text-blue-600">edit</span><span>Mitarbeiter bearbeiten</span></button></div></div><div class="flex flex-wrap items-center justify-between gap-3 pt-3"><div class="flex flex-wrap items-center gap-2"><span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Mitarbeiter-Filter:</span><button class="px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white shadow-xs transition-all cursor-pointer" id="pill-nicole" onclick="applyQuickFilter('nicole')">Nicole De Pretto (57%)</button><button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer" id="pill-seline" onclick="applyQuickFilter('seline')">Seline Steinmann (92%)</button><button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer" id="pill-michelle" onclick="applyQuickFilter('michelle')">Michelle Dreifuss (100%)</button><button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer" id="pill-manuel" onclick="applyQuickFilter('manuel')">Manuel Schoch (100%)</button><button class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer" id="pill-team" onclick="applyQuickFilter('team')">Ganzes Team</button></div><div class="flex items-center gap-2"><button class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all cursor-pointer" id="pill-heute" onclick="applyQuickFilter('heute')">📅 Heute (21.10.2026)</button></div></div></section>
 <!-- KPI Summary Cards (Real-time dynamic according to filter) -->
 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="kpi-cards">
 <!-- Card 1: Active Filter Target -->
@@ -229,9 +115,7 @@
 <h3 class="text-lg font-black text-slate-900 mt-1" id="kpi-person-title">Nicole De Pretto</h3>
 <p class="text-xs text-blue-700 font-semibold mt-0.5" id="kpi-pensum-title">57% Pensum • DaZ &amp; IS</p>
 </div>
-<div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold">
-<span class="material-symbols-outlined text-lg">person</span>
-</div>
+<button class="w-9 h-9 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 flex items-center justify-center font-bold border border-blue-200 transition-colors cursor-pointer" onclick="openEditEmployeeModal(activeFilterEmp)" title="Mitarbeiterprofil bearbeiten"><span class="material-symbols-outlined text-lg">edit</span></button>
 </div>
 <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
 <span class="text-slate-500">Monat:</span>
@@ -618,62 +502,7 @@
 <!-- ========================================== -->
 <!-- MODAL: MITARBEITER PROFIL BEARBEITEN       -->
 <!-- ========================================== -->
-<div class="fixed inset-0 z-[99999] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden" id="modal-edit-employee" onclick="if(event.target===this)closeModal('modal-edit-employee')">
-<div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 overflow-hidden relative max-h-[92vh] overflow-y-auto">
-<div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-<div class="flex items-center gap-2.5">
-<div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 font-bold">
-<span class="material-symbols-outlined text-base">manage_accounts</span>
-</div>
-<div>
-<h3 class="font-extrabold text-base text-slate-900 leading-tight">Mitarbeiterprofil bearbeiten</h3>
-<p class="text-xs text-slate-500">Stammdaten &amp; Jahresarbeitszeit (804h Basis)</p>
-</div>
-</div>
-<button class="text-slate-400 hover:text-slate-700 p-1 text-xl font-bold cursor-pointer" onclick="closeModal('modal-edit-employee')">✕</button>
-</div>
-<form class="space-y-3.5" onsubmit="handleSaveEmployee(event)">
-<div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-3">
-<img alt="Avatar" class="w-12 h-12 rounded-full object-cover border border-blue-400" id="edit-emp-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/>
-<div>
-<span class="text-xs font-bold text-slate-800 block" id="edit-emp-name-label">Nicole De Pretto</span>
-<button class="text-[11px] font-bold text-blue-700 hover:underline" onclick="showToast('Foto-Upload aufgerufen')" type="button">Foto ändern</button>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Vollständiger Name *</label>
-<input class="w-full text-xs font-bold border-slate-300 rounded-xl text-slate-900" id="edit-emp-name" required="" type="text" value="Nicole De Pretto"/>
-</div>
-<div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Funktion / Fachbereich *</label>
-<input class="w-full text-xs font-medium border-slate-300 rounded-xl text-slate-900" id="edit-emp-role" required="" type="text" value="Fachlehrerin DaZ &amp; IS"/>
-</div>
-</div>
-<div class="grid grid-cols-3 gap-3 p-3 bg-blue-50/60 rounded-xl border border-blue-100">
-<div>
-<label class="block text-[10px] font-bold text-blue-900 mb-1 uppercase">Pensum % *</label>
-<input class="w-full text-xs font-mono font-bold border-slate-300 rounded-lg text-slate-900" id="edit-emp-pensum" required="" type="number" value="57"/>
-</div>
-<div>
-<label class="block text-[10px] font-bold text-blue-900 mb-1 uppercase">Jahressoll (h) *</label>
-<input class="w-full text-xs font-mono font-bold border-slate-300 rounded-lg text-slate-900" id="edit-emp-jahressoll" required="" type="number" value="1077"/>
-</div>
-<div>
-<label class="block text-[10px] font-bold text-blue-900 mb-1 uppercase">Monats-Soll (h) *</label>
-<input class="w-full text-xs font-mono font-bold border-slate-300 rounded-lg text-slate-900" id="edit-emp-monatssoll" required="" type="text" value="95.8"/>
-</div>
-</div>
-<div class="flex items-center justify-between pt-3 border-t border-slate-100">
-<button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-50 cursor-pointer" onclick="closeModal('modal-edit-employee')" type="button">Abbrechen</button>
-<button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer inline-flex items-center gap-1.5" type="submit">
-<span class="material-symbols-outlined text-sm">save</span>
-<span>Speichern</span>
-</button>
-</div>
-</form>
-</div>
-</div>
+<div class="fixed inset-0 z-[999999] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden" id="modal-edit-employee" onclick="if(event.target===this)closeModal('modal-edit-employee')"><div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 overflow-hidden relative max-h-[92vh] overflow-y-auto"><div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4"><div class="flex items-center gap-2.5"><div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 font-bold shadow-sm"><span class="material-symbols-outlined text-lg">badge</span></div><div><h3 class="font-extrabold text-base text-slate-900 leading-tight">Mitarbeiterprofil bearbeiten</h3><p class="text-xs text-slate-500">Stammdaten &amp; Schuljahresarbeitszeit (804h Basis)</p></div></div><button class="text-slate-400 hover:text-slate-700 p-1 text-xl font-bold cursor-pointer" onclick="closeModal('modal-edit-employee')">✕</button></div><form class="space-y-4" onsubmit="handleSaveEmployee(event)"><input id="edit-emp-key" type="hidden" value="nicole"/><div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-3.5"><img alt="Avatar" class="w-14 h-14 rounded-full object-cover border-2 border-blue-500 shadow-xs" id="edit-emp-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg5YLe6674YcS7YsVa_DeEpCb0hoIYG23FhmcYeKMgr_poDASD6Vxu9h854qH-PVmFQxkgdKLZW9ycam5syoqceryAXDl8VCePl5qel7tAkqFKyK8tHnY4wEPwvHxh6piLjt0oSV4JJeyn0asiHRVzweWSeJT4H3uOroskqAnFIi20YlWHF3pTD7joOUA6UgENcdBy1r4BaPAXqsJPhvrxMRhLk9bNnHO8vfcHhsw9OFqIgiwFfiVW"/><div class="flex-1"><span class="text-sm font-extrabold text-slate-900 block leading-tight" id="edit-emp-name-label">Nicole De Pretto</span><span class="text-xs text-blue-700 font-semibold block" id="edit-emp-role-label">Fachlehrerin DaZ &amp; IS</span><div class="flex items-center gap-2 mt-1"><button class="text-xs font-bold text-blue-700 hover:text-blue-900 bg-blue-50 px-2 py-0.5 rounded border border-blue-200" onclick="showToast('Foto-Auswahl geöffnet')" type="button">Foto ändern</button><button class="text-xs text-slate-500 hover:text-slate-700" onclick="showToast('Standard-Avatar wiederhergestellt')" type="button">Zurücksetzen</button></div></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-3"><div><label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Vollständiger Name *</label><input class="w-full text-xs font-bold border-slate-300 rounded-xl text-slate-900 p-2.5" id="edit-emp-name" required="" type="text" value="Nicole De Pretto"/></div><div><label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Rolle &amp; Funktion *</label><input class="w-full text-xs font-medium border-slate-300 rounded-xl text-slate-900 p-2.5" id="edit-emp-role" required="" type="text" value="DaZ &amp; Förderlehrerin"/></div></div><div class="grid grid-cols-3 gap-3 p-3.5 bg-blue-50/60 rounded-xl border border-blue-200/80"><div><label class="block text-[10px] font-bold text-blue-900 mb-1 uppercase tracking-wider">Pensum (%) *</label><input class="w-full text-xs font-mono font-bold border-slate-300 rounded-lg text-slate-900 p-2" id="edit-emp-pensum" max="100" min="1" required="" type="number" value="57"/></div><div><label class="block text-[10px] font-bold text-blue-900 mb-1 uppercase tracking-wider">Jahressoll (h) *</label><input class="w-full text-xs font-mono font-bold border-slate-300 rounded-lg text-slate-900 p-2" id="edit-emp-jahressoll" required="" type="number" value="1077"/></div><div><label class="block text-[10px] font-bold text-blue-900 mb-1 uppercase tracking-wider">Monatssoll (h) *</label><input class="w-full text-xs font-mono font-bold border-slate-300 rounded-lg text-slate-900 p-2" id="edit-emp-monatssoll" required="" type="text" value="95.8"/></div></div><div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-600 flex items-center gap-2"><span class="material-symbols-outlined text-blue-600 text-sm">info</span><span>Berechnung basiert auf dem 804h Schuljahresarbeitszeit-Modell der Stadt Zürich.</span></div><div class="flex items-center justify-between pt-3 border-t border-slate-100"><button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-50 cursor-pointer" onclick="closeModal('modal-edit-employee')" type="button">Abbrechen</button><button class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer inline-flex items-center gap-1.5" type="submit"><span class="material-symbols-outlined text-sm">save</span><span>Änderungen speichern</span></button></div></form></div></div>
 <!-- ========================================== -->
 <!-- MODAL: 804h MODELL INFO                    -->
 <!-- ========================================== -->
