@@ -627,7 +627,7 @@
 <!-- Digital Clock Display -->
 <div class="bg-slate-900 text-white rounded-xl p-4 text-center shadow-inner mb-4">
 <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">Zürich Schulzeit • Aktuell</span>
-<div class="text-3xl font-black font-mono text-white tracking-wider my-0.5" id="live-clock">08 : 42 : 19</div>
+<div class="text-3xl font-black font-mono text-white tracking-wider my-0.5" id="live-clock">10 : 01 : 20</div>
 <p class="text-xs text-slate-300 font-medium">Mittwoch, 21. Oktober 2026</p>
 </div>
 <!-- Employee selection in clock -->
@@ -680,43 +680,99 @@
 </div>
 <form class="space-y-3.5" onsubmit="handleSaveEntry(event)">
 <input id="entry-id" type="hidden" value="">
+
+<!-- Mitarbeiter Auswahl -->
 <div>
 <label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Mitarbeiter *</label>
-<select class="w-full text-xs font-bold border-slate-300 rounded-xl text-slate-900" id="form-employee" required="">
+<select class="w-full text-xs font-bold border border-slate-300 rounded-xl text-slate-900 p-2 bg-slate-50 focus:bg-white" id="form-employee" required="">
 <option value="Nicole De Pretto">Nicole De Pretto (57%)</option>
 <option value="Seline Steinmann">Seline Steinmann (92%)</option>
 <option value="Michelle Dreifuss">Michelle Dreifuss (100%)</option>
 <option value="Manuel Schoch">Manuel Schoch (100%)</option>
 </select>
 </div>
-<div class="grid grid-cols-2 gap-3">
+
+<!-- 1. Optimierte Datumsauswahl mit Dropdown & Schnellwahl & Schweizer Format -->
+<div class="p-3 bg-blue-50/50 rounded-xl border border-blue-200/80 space-y-2">
+<div class="flex items-center justify-between">
+<label class="block text-[11px] font-bold text-blue-900 uppercase tracking-wider">Datum &amp; Schultag *</label>
+<span class="text-[10px] text-blue-700 font-semibold">Schweizer Format (TT.MM.JJJJ)</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
 <div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Datum *</label>
-<input class="w-full text-xs font-bold border-slate-300 rounded-xl text-slate-900" id="form-date" required="" type="text" value="21.10.2026 (Mi)">
+<select class="w-full text-xs font-semibold border border-blue-200 rounded-lg text-slate-800 p-2 bg-white cursor-pointer" id="form-date-preset" onchange="handleDatePresetChange(this.value)">
+<option value="21.10.2026 (Mi)">Heute (21.10.2026, Mi)</option>
+<option value="20.10.2026 (Di)">Gestern (20.10.2026, Di)</option>
+<option value="19.10.2026 (Mo)">Montag (19.10.2026, Mo)</option>
+<option value="16.10.2026 (Fr)">Freitag (16.10.2026, Fr)</option>
+<option value="custom">Anderes Datum wählen...</option>
+</select>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-blue-600 text-sm absolute left-2.5 pointer-events-none">calendar_today</span>
+<input class="w-full text-xs font-bold border border-blue-200 rounded-lg text-slate-900 py-2 pr-2.5 pl-8 bg-white" id="form-date" required="" type="text" value="21.10.2026 (Mi)" placeholder="TT.MM.JJJJ (Wochentag)">
+</div>
+</div>
+</div>
+
+<!-- 2. Praktische Schnellwahl-Buttons für typische Arbeitszeiten -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Schnellwahl typische Zeiten</span>
+<span class="text-[10px] text-slate-400">1-Klick Vorlagen</span>
+</div>
+<div class="grid grid-cols-2 gap-1.5">
+<button type="button" class="text-left p-2 rounded-lg bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors text-xs cursor-pointer group" onclick="applyShiftPreset('08:00 - 12:00', '13:00 - 17:00', 60, 8.00, 'Ganztag (8.00h)')">
+<div class="font-bold text-slate-900 group-hover:text-blue-700 flex items-center justify-between"><span class="">Ganztag standard</span><span class="font-mono text-blue-600">8.00 h</span></div>
+<div class="text-[10px] text-slate-500 font-mono">08:00–12:00 &amp; 13:00–17:00 (60m)</div>
+</button>
+<button type="button" class="text-left p-2 rounded-lg bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors text-xs cursor-pointer group" onclick="applyShiftPreset('08:15 - 12:00', '13:15 - 16:45', 45, 7.50, 'Schultag kompakt (7.50h)')">
+<div class="font-bold text-slate-900 group-hover:text-blue-700 flex items-center justify-between"><span class="">Schultag kompakt</span><span class="font-mono text-blue-600">7.50 h</span></div>
+<div class="text-[10px] text-slate-500 font-mono">08:15–12:00 &amp; 13:15–16:45 (45m)</div>
+</button>
+<button type="button" class="text-left p-2 rounded-lg bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors text-xs cursor-pointer group" onclick="applyShiftPreset('08:00 - 12:00', '', 0, 4.00, 'Vormittag DaZ (4.00h)')">
+<div class="font-bold text-slate-900 group-hover:text-blue-700 flex items-center justify-between"><span class="">Nur Vormittag</span><span class="font-mono text-blue-600">4.00 h</span></div>
+<div class="text-[10px] text-slate-500 font-mono">08:00–12:00 (Pause 0m)</div>
+</button>
+<button type="button" class="text-left p-2 rounded-lg bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors text-xs cursor-pointer group" onclick="applyShiftPreset('', '13:00 - 17:00', 0, 4.00, 'Nachmittag Förderung (4.00h)')">
+<div class="font-bold text-slate-900 group-hover:text-blue-700 flex items-center justify-between"><span class="">Nur Nachmittag</span><span class="font-mono text-blue-600">4.00 h</span></div>
+<div class="text-[10px] text-slate-500 font-mono">13:00–17:00 (Pause 0m)</div>
+</button>
+</div>
+</div>
+
+<!-- Manuelle Zeit- & Pausenfelder mit Live-Rechner -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+<div>
+<label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Vormittag (Von - Bis)</label>
+<input class="w-full text-xs font-mono font-medium border border-slate-300 rounded-xl text-slate-900 p-2" id="form-shift1" type="text" value="08:00 - 12:00" placeholder="08:00 - 12:00" oninput="calculateLiveHours()">
 </div>
 <div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Pause (Minuten) *</label>
-<input class="w-full text-xs font-semibold border-slate-300 rounded-xl text-slate-900" id="form-pause" required="" type="number" value="60">
-</div>
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Vormittag (z.B. 08:00 - 12:00)</label>
-<input class="w-full text-xs font-mono font-medium border-slate-300 rounded-xl text-slate-900" id="form-shift1" type="text" value="08:00 - 12:00">
+<label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Nachmittag (Von - Bis)</label>
+<input class="w-full text-xs font-mono font-medium border border-slate-300 rounded-xl text-slate-900 p-2" id="form-shift2" type="text" value="13:00 - 17:00" placeholder="13:00 - 17:00" oninput="calculateLiveHours()">
 </div>
 <div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Nachmittag (z.B. 13:00 - 17:00)</label>
-<input class="w-full text-xs font-mono font-medium border-slate-300 rounded-xl text-slate-900" id="form-shift2" type="text" value="13:00 - 17:00">
+<label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Pause (Minuten)</label>
+<input class="w-full text-xs font-semibold border border-slate-300 rounded-xl text-slate-900 p-2" id="form-pause" required="" type="number" value="60" min="0" step="5" oninput="calculateLiveHours()">
 </div>
 </div>
+
+<!-- Live Netto-Stunden Anzeige -->
+<div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
 <div>
-<label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Netto-Stunden (h) *</label>
-<input class="w-full text-xs font-mono font-bold border-slate-300 rounded-xl text-blue-700" id="form-hours" required="" type="text" value="8.00">
+<label class="block text-[10px] font-bold text-slate-600 uppercase tracking-wider">Berechnete Netto-Stunden (h) *</label>
+<span class="text-[10px] text-emerald-600 font-semibold">Automatisch berechnet (oder manuell)</span>
 </div>
+<div class="w-24">
+<input class="w-full text-sm font-mono font-black border-2 border-blue-500 rounded-lg text-blue-700 bg-white p-1.5 text-right" id="form-hours" required="" type="text" value="8.00">
+</div>
+</div>
+
 <div>
 <label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Kategorie &amp; Tätigkeitsbeschrieb *</label>
-<input class="w-full text-xs font-medium border-slate-300 rounded-xl text-slate-900" id="form-task" required="" type="text" value="DaZ / Förderunterricht">
+<input class="w-full text-xs font-medium border border-slate-300 rounded-xl text-slate-900 p-2.5" id="form-task" required="" type="text" value="DaZ / Förderunterricht" placeholder="z.B. DaZ / Förderunterricht, Teamteaching...">
 </div>
+
 <div class="flex items-center justify-between pt-3 border-t border-slate-100">
 <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-50 cursor-pointer" onclick="closeModal('modal-zeiterfassung')" type="button">Abbrechen</button>
 <button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer inline-flex items-center gap-1.5" type="submit">
@@ -1337,4 +1393,59 @@
 </script>
 
 
-</body></html>
+
+
+<script>
+  function handleDatePresetChange(val) {
+    const dateInput = document.getElementById('form-date');
+    if (!dateInput) return;
+    if (val !== 'custom') {
+      dateInput.value = val;
+      showToast('Datum gewählt: ' + val);
+    } else {
+      dateInput.focus();
+      dateInput.select();
+    }
+  }
+
+  function applyShiftPreset(shift1, shift2, pauseMinutes, netHours, label) {
+    const s1 = document.getElementById('form-shift1');
+    const s2 = document.getElementById('form-shift2');
+    const pause = document.getElementById('form-pause');
+    const hours = document.getElementById('form-hours');
+    if (s1) s1.value = shift1;
+    if (s2) s2.value = shift2;
+    if (pause) pause.value = pauseMinutes;
+    if (hours) hours.value = Number(netHours).toFixed(2);
+    showToast('Vorlage aktiviert: ' + label);
+  }
+
+  function parseTimeRangeToMinutes(rangeStr) {
+    if (!rangeStr || !rangeStr.includes('-')) return 0;
+    const parts = rangeStr.split('-').map(s => s.trim());
+    if (parts.length < 2) return 0;
+    const p1 = parts[0].split(':').map(Number);
+    const p2 = parts[1].split(':').map(Number);
+    if (isNaN(p1[0]) || isNaN(p1[1]) || isNaN(p2[0]) || isNaN(p2[1])) return 0;
+    const m1 = p1[0] * 60 + p1[1];
+    const m2 = p2[0] * 60 + p2[1];
+    return Math.max(0, m2 - m1);
+  }
+
+  function calculateLiveHours() {
+    const s1 = document.getElementById('form-shift1')?.value || '';
+    const s2 = document.getElementById('form-shift2')?.value || '';
+    const pauseMin = parseFloat(document.getElementById('form-pause')?.value) || 0;
+    const hoursInput = document.getElementById('form-hours');
+    if (!hoursInput) return;
+
+    const m1 = parseTimeRangeToMinutes(s1);
+    const m2 = parseTimeRangeToMinutes(s2);
+    const totalMinutes = Math.max(0, (m1 + m2) - pauseMin);
+
+    if (totalMinutes > 0 || (s1 || s2)) {
+      const computedHours = totalMinutes / 60;
+      hoursInput.value = computedHours.toFixed(2);
+    }
+  }
+</script></body></html>
