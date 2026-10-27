@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - Zeiterfassung, Tagesansicht &amp; Schuljahresarbeitszeit</title>
 <style>
         @layer base {
@@ -63,11 +61,11 @@
             }
         };
     </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-</head>
+<style>.badge-ferien { background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; } .badge-krankheit { background-color: #fffbeb; color: #b45309; border: 1px solid #fde68a; }</style></head>
 <body class="bg-surface font-body-md text-on-surface">
 <!-- Password Protection Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md items-center justify-center p-4 flex" id="auth-modal">
@@ -77,7 +75,7 @@
 <p class="text-sm text-on-surface-variant mt-1">Bitte geben Sie das Passwort ein, um fortzufahren.</p>
 </div>
 <form class="flex flex-col gap-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary" id="auth-password" placeholder="Passwort" required="" type="password">
 <button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all" type="submit">Anmelden</button>
 <p class="text-error text-center text-sm hidden" id="auth-error">Falsches Passwort!</p>
 </form>
@@ -366,7 +364,7 @@
 </div>
 <p class="text-sm text-on-surface-variant mb-6">Erfassen Sie Ihre Arbeitszeiten im Schweizer Format (TT.MM.JJJJ). Einträge werden automatisch dem Schuljahr zugeordnet.</p>
 <form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
+<input id="entry-id" type="hidden">
 <div class="space-y-4">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
@@ -383,50 +381,48 @@
 <div class="flex items-center justify-between mb-2">
 <label class="text-xs font-bold text-on-surface-variant uppercase" id="entry-date-label">Datum (TT.MM.JJJJ)</label>
 <label class="flex items-center gap-1.5 cursor-pointer text-xs font-semibold text-primary select-none">
-<input class="rounded border-outline-variant text-primary focus:ring-0 cursor-pointer" id="entry-range-toggle" onchange="toggleDateRangeMode()" type="checkbox"/>
-<span>Zeitraum erfassen (Von – Bis)</span>
+<input class="rounded border-outline-variant text-primary focus:ring-0 cursor-pointer" id="entry-range-toggle" onchange="toggleDateRangeMode()" type="checkbox">
+<span class="">Zeitraum erfassen (Von – Bis)</span>
 </label>
 </div>
 <div class="grid grid-cols-1 gap-2" id="entry-date-inputs-container">
 <div>
 <label class="block text-[11px] font-bold text-on-surface-variant mb-1 uppercase hidden" id="entry-date-start-label">Von Datum (z.B. 05.10.2026)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" onblur="normalizeDateInput(this)" placeholder="01.09.2026" required="" type="text">
 </div>
 <div class="hidden" id="entry-date-to-wrapper">
 <label class="block text-[11px] font-bold text-on-surface-variant mb-1 uppercase">Bis Datum (z.B. 18.10.2026)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date-to" onblur="normalizeDateInput(this)" placeholder="18.10.2026" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date-to" onblur="normalizeDateInput(this)" placeholder="18.10.2026" type="text">
 </div>
 </div>
 </div>
 </div>
-<div class="p-4 bg-primary/5 rounded-xl border border-primary/20 flex items-start gap-3 text-xs text-on-surface leading-relaxed">
-<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">info</span>
+<div class="p-4 bg-primary/5 rounded-xl border border-primary/20 flex items-start gap-3 text-xs text-on-surface leading-relaxed"><span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">info</span>
 <div>
-<strong class="text-primary font-bold block mb-0.5">Automatische Tagessoll-Gutschrift bei Abwesenheiten</strong>
-<span class="">Bei Auswahl von <strong>Ferien</strong> oder <strong>Krankheit</strong> (auch für Zeiträume Mo–Fr) werden automatisch die exakten Tagessollstunden gemäss Beschäftigungsgrad pro Werktag gutgeschrieben (z. B. <strong>4.56 h</strong> bei 57 % Pensum, <strong>8.00 h</strong> bei 100 %). Dadurch entsteht kein Minusstundensaldo.</span>
-</div>
-</div>
+<strong class="text-primary font-bold block mb-0.5">Automatische Tagessoll-Gutschrift bei Ferien und Krankheit</strong>
+<span class="">Bei Auswahl von <strong>Ferien</strong> (<span class="material-symbols-outlined text-[14px] text-emerald-600 inline align-middle">palm_tree</span>) oder <strong>Krankheit</strong> (<span class="material-symbols-outlined text-[14px] text-amber-600 inline align-middle">local_hospital</span>) wird automatisch das exakte Tagessoll gutgeschrieben (z. B. <strong>4.56 h</strong> bei 57 % Pensum für Nicole De Pretto, <strong>8.00 h</strong> bei 100 %). Dadurch entsteht ein Saldo von <strong>±0.00 h</strong> ohne Minusstunden. Für den Zeitraum 05.10.–16.10.2026 (10 Schultage) sind 45.60 h Feriengutschrift hinterlegt.</span>
+</div></div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-from" type="time" value="07:00">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="vm-to" type="time" value="12:00">
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00"/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-from" type="time" value="13:00">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="nm-to" type="time" value="17:00">
 </div>
 </div>
 <div class="bg-surface-container-low p-4 rounded-xl">
 <span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Abend / Nacht</span>
 <div class="flex gap-2">
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value=""/>
-<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value=""/>
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-from" type="time" value="">
+<input class="w-1/2 px-2 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm" id="abend-to" type="time" value="">
 </div>
 </div>
 </div>
@@ -440,7 +436,7 @@
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Bemerkungen</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Schulzimmer vorbereiten, Team-Sitzung" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-notes" placeholder="z.B. Schulzimmer vorbereiten, Team-Sitzung" type="text">
 </div>
 </div>
 <div class="flex justify-end gap-4 pt-4">
@@ -701,14 +697,14 @@ function formatSwissDate(d) {
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
 <h3 class="text-xl font-bold text-primary" id="employee-modal-title">Mitarbeiter bearbeiten</h3>
 <form class="space-y-4" id="employee-form">
-<input id="emp-id" type="hidden"/>
+<input id="emp-id" type="hidden">
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Vollständiger Name</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-name" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-name" required="" type="text">
 </div>
 <div>
 <label class="block text-xs font-bold text-on-surface-variant mb-1 uppercase">Rolle / Position</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface" id="emp-role" required="" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <button class="px-4 py-2 bg-surface-container-high text-on-surface font-bold rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
@@ -1773,4 +1769,6 @@ function formatSwissDate(d) {
         await seedInitialDataIfNeeded();
     });
 </script>
+
+
 </body></html>
