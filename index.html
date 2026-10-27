@@ -75,16 +75,7 @@
 <!-- Quick Preset Filter Section in Sidebar -->
 <div class="pt-2 border-t border-slate-200 text-xs">
 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Schnell-Ansichten</p>
-<div class="space-y-1">
-<button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-between transition-colors" onclick="applyQuickFilter('nicole')">
-<span class="">👤 Nur Nicole (57%)</span>
-<span class="text-[11px] font-mono font-bold text-blue-600">68.25h</span>
-</button>
-<button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-slate-100 flex items-center justify-between transition-colors" onclick="applyQuickFilter('team')">
-<span class="">👥 Gesamtes Team</span>
-<span class="text-[11px] text-slate-400">4 Pers.</span>
-</button>
-</div>
+<div class="space-y-1"><button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-between transition-colors" onclick="applyQuickFilter('nicole')"><span class="">👤 Nicole (57%)</span><span class="text-[11px] font-mono font-bold text-blue-600">68.25h</span></button><button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-between transition-colors" onclick="applyQuickFilter('seline')"><span class="">👤 Seline (92%)</span><span class="text-[11px] font-mono font-bold text-blue-600">45.25h</span></button><button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-between transition-colors" onclick="applyQuickFilter('michelle')"><span class="">👤 Michelle (100%)</span><span class="text-[11px] font-mono font-bold text-blue-600">26.00h</span></button><button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-between transition-colors" onclick="applyQuickFilter('manuel')"><span class="">👤 Manuel (100%)</span><span class="text-[11px] font-mono font-bold text-blue-600">16.00h</span></button><button class="w-full text-left px-2.5 py-1.5 rounded text-slate-700 hover:bg-slate-100 flex items-center justify-between transition-colors" onclick="applyQuickFilter('team')"><span class="">👥 Gesamtes Team</span><span class="text-[11px] text-slate-400">4 Pers.</span></button></div>
 </div>
 </div>
 <!-- Sidebar Bottom Info -->
@@ -566,7 +557,7 @@
 <span class="material-symbols-outlined text-xs">edit</span>
 </button>
 </div>
-<p class="text-xs text-slate-500 font-semibold">100% Pensum • Klassenlehrerin</p>
+<p class="text-xs text-slate-500 font-semibold">100% Pensum • Teamleiterin / Leitung Förderzentrum</p>
 <div class="grid grid-cols-2 gap-2 mt-3 pt-2 border-t border-slate-100 text-xs">
 <div>
 <span class="text-slate-400 text-[10px] block uppercase font-bold">Erfasst Okt:</span>
@@ -594,7 +585,7 @@
 <span class="material-symbols-outlined text-xs">edit</span>
 </button>
 </div>
-<p class="text-xs text-slate-500 font-semibold">100% Pensum • Fachlehrer Sport</p>
+<p class="text-xs text-slate-500 font-semibold">100% Pensum • Zeichner / Sozialpädagoge</p>
 <div class="grid grid-cols-2 gap-2 mt-3 pt-2 border-t border-slate-100 text-xs">
 <div>
 <span class="text-slate-400 text-[10px] block uppercase font-bold">Erfasst Okt:</span>
@@ -627,7 +618,7 @@
 <!-- Digital Clock Display -->
 <div class="bg-slate-900 text-white rounded-xl p-4 text-center shadow-inner mb-4">
 <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">Zürich Schulzeit • Aktuell</span>
-<div class="text-3xl font-black font-mono text-white tracking-wider my-0.5" id="live-clock">10 : 11 : 05</div>
+<div class="text-3xl font-black font-mono text-white tracking-wider my-0.5" id="live-clock">10 : 18 : 21</div>
 <p class="text-xs text-slate-300 font-medium">Dienstag, 27. Oktober 2026</p>
 </div>
 <!-- Employee selection in clock -->
@@ -878,6 +869,264 @@
 <span class="material-symbols-outlined text-emerald-400 text-lg">check_circle</span>
 <span class="text-xs font-semibold" id="flash-text">Aktion ausgeführt</span>
 </div><script>
+  // Add complete dataset for Michelle Dreifuss and Manuel Schoch
+  const MICHELLE_ENTRIES = [
+    { id: 201, date: '20.10.2026 (Di)', emp: 'Michelle Dreifuss', range: '08:00 - 12:00 & 13:00 - 17:00', pause: '60 min', hours: 8.00, task: 'Leitung Förderzentrum / Koordination', isNew: true },
+    { id: 202, date: '16.10.2026 (Fr)', emp: 'Michelle Dreifuss', range: '08:00 - 12:00 & 13:00 - 16:00', pause: '60 min', hours: 7.00, task: 'Teamleitung & Fallbesprechungen', isNew: false },
+    { id: 203, date: '14.10.2026 (Mi)', emp: 'Michelle Dreifuss', range: '08:15 - 12:00 & 13:00 - 15:45', pause: '45 min', hours: 6.00, task: 'Interdisziplinäre Beratung', isNew: false },
+    { id: 204, date: '08.10.2026 (Do)', emp: 'Michelle Dreifuss', range: '08:30 - 11:30 & 13:30 - 15:30', pause: '0 min', hours: 5.00, task: 'Elterngespräche & Förderdiagnostik', isNew: false }
+  ];
+
+  const MANUEL_ENTRIES = [
+    { id: 301, date: '21.10.2026 (Mi)', emp: 'Manuel Schoch', range: '08:00 - 12:00 & 13:00 - 17:00', pause: '60 min', hours: 8.00, task: 'Sozialpädagogische Begleitung', isNew: true },
+    { id: 302, date: '15.10.2026 (Do)', emp: 'Manuel Schoch', range: '08:30 - 12:00 & 13:00 - 15:00', pause: '30 min', hours: 5.00, task: 'Zeichnen & Projektwerkstatt', isNew: false },
+    { id: 303, date: '09.10.2026 (Fr)', emp: 'Manuel Schoch', range: '09:00 - 12:00', pause: '0 min', hours: 3.00, task: 'Einzelbetreuung Schüler', isNew: false }
+  ];
+
+  // Enhance global filter and KPI functions to fully render Michelle & Manuel
+  window.filterByEmployee = function(empName) {
+    if (empName.includes('Nicole')) applyQuickFilter('nicole');
+    else if (empName.includes('Seline')) applyQuickFilter('seline');
+    else if (empName.includes('Michelle')) applyQuickFilter('michelle');
+    else if (empName.includes('Manuel')) applyQuickFilter('manuel');
+    else applyQuickFilter('team');
+  };
+
+  const originalRenderTable = window.renderTable;
+  window.renderTable = function(filterQuery = '') {
+    const tbody = document.getElementById('table-body');
+    if (!tbody) return;
+
+    let itemsToDisplay = [];
+    if (activeFilterEmp === 'nicole') {
+      itemsToDisplay = [...currentEntries];
+    } else if (activeFilterEmp === 'seline') {
+      itemsToDisplay = OTHER_ENTRIES.filter(e => e.emp.includes('Seline'));
+    } else if (activeFilterEmp === 'michelle') {
+      itemsToDisplay = [...MICHELLE_ENTRIES];
+    } else if (activeFilterEmp === 'manuel') {
+      itemsToDisplay = [...MANUEL_ENTRIES];
+    } else {
+      itemsToDisplay = [...currentEntries, ...OTHER_ENTRIES.filter(e => e.emp.includes('Seline')), ...MICHELLE_ENTRIES, ...MANUEL_ENTRIES];
+    }
+
+    if (filterQuery) {
+      itemsToDisplay = itemsToDisplay.filter(e =>
+        e.task.toLowerCase().includes(filterQuery.toLowerCase()) ||
+        e.date.toLowerCase().includes(filterQuery.toLowerCase()) ||
+        e.emp.toLowerCase().includes(filterQuery.toLowerCase())
+      );
+    }
+
+    tbody.innerHTML = '';
+    if (itemsToDisplay.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center py-8 text-slate-400">Keine Einträge für diese Auswahl gefunden.</td></tr>';
+      return;
+    }
+
+    itemsToDisplay.forEach((item, index) => {
+      const isTopHighlight = item.isNew || index === 0;
+      const rowClass = isTopHighlight
+        ? 'bg-blue-50/70 border-l-4 border-blue-600 font-semibold text-slate-900'
+        : 'hover:bg-slate-50/80 transition-colors text-slate-700';
+      const tr = document.createElement('tr');
+      tr.className = rowClass;
+      tr.innerHTML = `
+        <td class="py-3 px-4">
+          <div class="flex items-center gap-2">
+            ${isTopHighlight ? '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>' : ''}
+            <span class="font-bold text-slate-900">${item.date}</span>
+            ${item.isNew ? '<span class="bg-blue-600 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded">Neu</span>' : ''}
+          </div>
+        </td>
+        <td class="py-3 px-4 font-semibold text-slate-900">${item.emp}</td>
+        <td class="py-3 px-4 font-mono text-xs text-slate-600">${item.range}</td>
+        <td class="py-3 px-4 text-center text-slate-500">${item.pause}</td>
+        <td class="py-3 px-4 text-right font-mono font-black text-blue-700 text-sm">${item.hours.toFixed(2)} h</td>
+        <td class="py-3 px-4 font-medium text-slate-800">${item.task}</td>
+        <td class="py-3 px-4 text-center">
+          <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-200">Erfasst</span>
+        </td>
+        <td class="py-3 px-4 text-right">
+          <div class="flex items-center justify-end gap-1">
+            <button onclick="editEntry(${item.id})" class="p-1 hover:text-blue-700 text-slate-400 transition-colors" title="Bearbeiten">
+              <span class="material-symbols-outlined text-sm">edit</span>
+            </button>
+            <button onclick="deleteEntry(${item.id})" class="p-1 hover:text-rose-600 text-slate-400 transition-colors" title="Löschen">
+              <span class="material-symbols-outlined text-sm">delete</span>
+            </button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    const totalHours = itemsToDisplay.reduce((acc, cur) => acc + cur.hours, 0);
+    const sumEl = document.getElementById('table-footer-sum');
+    const countEl = document.getElementById('table-footer-count');
+    const remEl = document.getElementById('table-footer-remaining');
+    if (sumEl) sumEl.textContent = totalHours.toFixed(2) + ' h';
+    if (countEl) countEl.textContent = itemsToDisplay.length + ' Einträge erfasst';
+    const targetMonthSoll = (activeFilterEmp === 'nicole') ? 95.8 : (activeFilterEmp === 'seline') ? 154.6 : 168.0;
+    if (remEl) remEl.textContent = Math.max(0, targetMonthSoll - totalHours).toFixed(2) + ' h';
+  };
+
+  window.updateKPIs = function() {
+    const kpiPerson = document.getElementById('kpi-person-title');
+    const kpiPensum = document.getElementById('kpi-pensum-title');
+    const kpiIstHours = document.getElementById('kpi-ist-hours');
+    const kpiSollHours = document.getElementById('kpi-soll-hours');
+    const kpiProgressPct = document.getElementById('kpi-progress-pct');
+    const kpiProgressBar = document.getElementById('kpi-progress-bar');
+    const kpiJahrSoll = document.getElementById('kpi-jahr-soll');
+    const kpiSaldo = document.getElementById('kpi-saldo');
+    const kpiEntryCount = document.getElementById('kpi-entry-count');
+    const statusInd = document.getElementById('top-status-indicator');
+    const subtitle = document.getElementById('tagesansicht-subtitle');
+
+    if (activeFilterEmp === 'michelle') {
+      kpiPerson.textContent = 'Michelle Dreifuss';
+      kpiPensum.textContent = '100% Pensum • Teamleiterin / Leitung Förderzentrum';
+      kpiIstHours.textContent = '26.00';
+      kpiSollHours.textContent = '168.0';
+      kpiProgressPct.textContent = '15.5%';
+      if (kpiProgressBar) kpiProgressBar.style.width = '15.5%';
+      kpiJahrSoll.textContent = "1'890";
+      kpiSaldo.textContent = '-142.00';
+      kpiEntryCount.textContent = '4 Tage';
+      if (statusInd) statusInd.textContent = 'Aktive Ansicht: Michelle Dreifuss (100% Pensum, Oktober 2026)';
+      if (subtitle) subtitle.innerHTML = 'Zeigt chronologisch alle <strong class="text-blue-700">4 Einträge</strong> für <strong class="text-slate-800">Michelle Dreifuss</strong> (Total: <span class="font-mono font-bold text-blue-700">26.00 h</span>) im Oktober 2026.';
+    } else if (activeFilterEmp === 'manuel') {
+      kpiPerson.textContent = 'Manuel Schoch';
+      kpiPensum.textContent = '100% Pensum • Zeichner / Sozialpädagoge';
+      kpiIstHours.textContent = '16.00';
+      kpiSollHours.textContent = '168.0';
+      kpiProgressPct.textContent = '9.5%';
+      if (kpiProgressBar) kpiProgressBar.style.width = '9.5%';
+      kpiJahrSoll.textContent = "1'890";
+      kpiSaldo.textContent = '-152.00';
+      kpiEntryCount.textContent = '3 Tage';
+      if (statusInd) statusInd.textContent = 'Aktive Ansicht: Manuel Schoch (100% Pensum, Oktober 2026)';
+      if (subtitle) subtitle.innerHTML = 'Zeigt chronologisch alle <strong class="text-blue-700">3 Einträge</strong> für <strong class="text-slate-800">Manuel Schoch</strong> (Total: <span class="font-mono font-bold text-blue-700">16.00 h</span>) im Oktober 2026.';
+    } else if (activeFilterEmp === 'seline') {
+      kpiPerson.textContent = 'Seline Steinmann';
+      kpiPensum.textContent = '92% Pensum • Primarstufe';
+      kpiIstHours.textContent = '45.25';
+      kpiSollHours.textContent = '154.6';
+      kpiProgressPct.textContent = '29.2%';
+      if (kpiProgressBar) kpiProgressBar.style.width = '29.2%';
+      kpiJahrSoll.textContent = "1'739";
+      kpiSaldo.textContent = '-109.35';
+      kpiEntryCount.textContent = '6 Tage';
+      if (statusInd) statusInd.textContent = 'Aktive Ansicht: Seline Steinmann (Oktober 2026)';
+      if (subtitle) subtitle.innerHTML = 'Zeigt chronologisch alle <strong class="text-blue-700">6 Einträge</strong> für <strong class="text-slate-800">Seline Steinmann</strong> (Total: <span class="font-mono font-bold text-blue-700">45.25 h</span>) im Oktober 2026.';
+    } else if (activeFilterEmp === 'team') {
+      kpiPerson.textContent = 'Gesamtes Team';
+      kpiPensum.textContent = '4 Lehrpersonen erfasst';
+      kpiIstHours.textContent = '155.50';
+      kpiSollHours.textContent = '586.4';
+      kpiProgressPct.textContent = '26.5%';
+      if (kpiProgressBar) kpiProgressBar.style.width = '26.5%';
+      kpiJahrSoll.textContent = "5'896";
+      kpiSaldo.textContent = '-430.90';
+      kpiEntryCount.textContent = '19 Tage';
+      if (statusInd) statusInd.textContent = 'Aktive Ansicht: Gesamtes Team (Oktober 2026)';
+      if (subtitle) subtitle.innerHTML = 'Zeigt chronologisch alle Einträge für das gesamte Team (Total: <span class="font-mono font-bold text-blue-700">155.50 h</span>) im Oktober 2026.';
+    } else {
+      const sum = currentEntries.reduce((a, b) => a + b.hours, 0);
+      kpiPerson.textContent = 'Nicole De Pretto';
+      kpiPensum.textContent = '57% Pensum • DaZ & IS';
+      kpiIstHours.textContent = sum.toFixed(2);
+      kpiSollHours.textContent = '95.8';
+      const pct = ((sum / 95.8) * 100).toFixed(1);
+      kpiProgressPct.textContent = pct + '%';
+      if (kpiProgressBar) kpiProgressBar.style.width = pct + '%';
+      kpiJahrSoll.textContent = "1'077";
+      kpiSaldo.textContent = (sum - 95.8).toFixed(2);
+      kpiEntryCount.textContent = currentEntries.length + ' Tage';
+      if (statusInd) statusInd.textContent = 'Aktive Ansicht: Nicole De Pretto (Oktober 2026)';
+      if (subtitle) subtitle.innerHTML = `Zeigt chronologisch alle <strong class="text-blue-700">${currentEntries.length} Einträge</strong> für <strong class="text-slate-800">Nicole De Pretto</strong> (Total: <span class="font-mono font-bold text-blue-700">${sum.toFixed(2)} h</span>) im Oktober 2026.`;
+    }
+  };
+
+  // Modal profile edit enhancement for Michelle and Manuel
+  const originalOpenEditEmployeeModal = window.openEditEmployeeModal;
+  window.openEditEmployeeModal = function(personKey) {
+    const nameInput = document.getElementById('edit-emp-name');
+    const roleInput = document.getElementById('edit-emp-role');
+    const pensumInput = document.getElementById('edit-emp-pensum');
+    const jahresInput = document.getElementById('edit-emp-jahressoll');
+    const monatInput = document.getElementById('edit-emp-monatssoll');
+    const label = document.getElementById('edit-emp-name-label');
+    const roleLabel = document.getElementById('edit-emp-role-label');
+
+    if (personKey === 'michelle') {
+      if (nameInput) nameInput.value = 'Michelle Dreifuss';
+      if (roleInput) roleInput.value = 'Teamleiterin / Leitung Förderzentrum';
+      if (pensumInput) pensumInput.value = '100';
+      if (jahresInput) jahresInput.value = '1890';
+      if (monatInput) monatInput.value = '168.0';
+      if (label) label.textContent = 'Michelle Dreifuss (100%)';
+      if (roleLabel) roleLabel.textContent = 'Teamleiterin / Leitung Förderzentrum';
+      openModal('modal-edit-employee');
+      return;
+    } else if (personKey === 'manuel') {
+      if (nameInput) nameInput.value = 'Manuel Schoch';
+      if (roleInput) roleInput.value = 'Zeichner / Sozialpädagoge';
+      if (pensumInput) pensumInput.value = '100';
+      if (jahresInput) jahresInput.value = '1890';
+      if (monatInput) monatInput.value = '168.0';
+      if (label) label.textContent = 'Manuel Schoch (100%)';
+      if (roleLabel) roleLabel.textContent = 'Zeichner / Sozialpädagoge';
+      openModal('modal-edit-employee');
+      return;
+    }
+    if (typeof originalOpenEditEmployeeModal === 'function') {
+      originalOpenEditEmployeeModal(personKey);
+    }
+  };
+
+  // Handle entry saving into specific array
+  const originalHandleSaveEntry = window.handleSaveEntry;
+  window.handleSaveEntry = function(e) {
+    e.preventDefault();
+    const emp = document.getElementById('form-employee').value;
+    const date = document.getElementById('form-date').value;
+    const hours = parseFloat(document.getElementById('form-hours').value) || 8.00;
+    const task = document.getElementById('form-task').value;
+    const shift1 = document.getElementById('form-shift1').value;
+    const shift2 = document.getElementById('form-shift2').value;
+    const pause = document.getElementById('form-pause').value + ' min';
+    const range = `${shift1} & ${shift2}`;
+
+    const newRec = {
+      id: Date.now(),
+      date: date,
+      emp: emp,
+      range: range,
+      pause: pause,
+      hours: hours,
+      task: task,
+      isNew: true
+    };
+
+    if (emp.includes('Michelle')) {
+      MICHELLE_ENTRIES.unshift(newRec);
+      applyQuickFilter('michelle');
+    } else if (emp.includes('Manuel')) {
+      MANUEL_ENTRIES.unshift(newRec);
+      applyQuickFilter('manuel');
+    } else if (emp.includes('Seline')) {
+      OTHER_ENTRIES.unshift(newRec);
+      applyQuickFilter('seline');
+    } else {
+      currentEntries.unshift(newRec);
+      applyQuickFilter('nicole');
+    }
+    closeModal('modal-zeiterfassung');
+    showToast(`Neuer Eintrag über ${hours.toFixed(2)} h für ${emp} gespeichert!`);
+  };
+</script><script>
   function handleEmpDropdownChange(val) {
     if (typeof applyQuickFilter === 'function') {
       applyQuickFilter(val);
@@ -1429,6 +1678,8 @@
     }
   }
 </script>
+
+
 
 
 
