@@ -91,9 +91,9 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-slate-50 z-40 flex flex-col pt-6 pb-8 border-r border-slate-200 no-print">
-<div class="px-6 mb-6 text-xl font-bold text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">schedule</span> Döltschi Time
-  </div>
+<div class="px-6 mb-6 text-xl font-bold text-primary flex items-center gap-2 cursor-pointer" onclick="switchView('dashboard')">
+<span class="material-symbols-outlined text-primary text-2xl">schedule</span> Döltschi Time
+</div>
 <div class="mx-4 mb-4 p-3 bg-blue-50/70 rounded-xl border border-blue-100">
 <div class="text-[11px] font-bold text-primary uppercase">Zyklus</div>
 <div class="text-xs font-bold text-slate-800 mt-0.5" id="sb-cycle">Alle Schuljahre (Aktiv)</div>
@@ -102,25 +102,25 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <nav class="flex-1 px-3 space-y-1" id="sidebar-nav">
 <a class="flex items-center px-4 py-2.5 rounded-xl font-bold transition-all cursor-pointer bg-primary text-white shadow-sm" data-view="dashboard">
 <span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
-    </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="zeiterfassung">
-<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
-    </a>
+</a>
 <a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="tagesansicht">
 <span class="material-symbols-outlined mr-3">today</span>Tagesansicht
-    </a>
+</a>
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="zeiterfassung">
+<span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
+</a>
 <a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="wochenuebersicht">
 <span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
-    </a>
+</a>
 <a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="mitarbeiter">
 <span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
-    </a>
+</a>
 <a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="berichte">
 <span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
-    </a>
+</a>
 <a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="erklaerung">
 <span class="material-symbols-outlined mr-3">info</span>Schuljahresarbeitszeit
-    </a>
+</a>
 </nav>
 <div class="px-4 pt-4 border-t border-slate-200">
 <div class="flex items-center gap-3 p-2 rounded-xl bg-white border border-slate-200">
@@ -139,7 +139,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="pl-64">
 <header class="fixed top-0 left-64 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 z-30 flex items-center justify-between px-8 no-print">
 <div class="flex items-center gap-4">
-<div class="font-bold text-slate-900" id="header-title">Zeitmanagement - Dashboard</div>
+<div class="font-bold text-slate-900 text-lg" id="header-title">Zeitmanagement - Dashboard</div>
 <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700">
 <span class="material-symbols-outlined text-primary text-[18px]">school</span>
 <span>Zyklus:</span>
@@ -161,12 +161,12 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </button>
 <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors" id="cloud-sync-badge" onclick="restoreAndRecoverEntries(true)" title="Klicken für Sofort-Synchronisation">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span id="cloud-sync-label">Cloud Synchron: 129 Einträge</span>
+<span id="cloud-sync-label">Cloud Synchron: 191 Einträge</span>
 </span>
 <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">ND</div>
 </div>
 </header>
-<main class="pt-20 px-8 pb-20 max-w-[1200px] mx-auto space-y-8">
+<main class="pt-20 px-8 pb-20 max-w-[1240px] mx-auto space-y-8">
 <!-- VIEW: DASHBOARD -->
 <div class="view-pane space-y-8" id="view-dashboard">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -177,35 +177,35 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Monats-Soll &amp; Ist Team</span>
-<h2 class="text-2xl font-black text-primary mt-1" id="dash-month-total">582.5 / 586.4 h</h2>
+<h2 class="text-2xl font-black text-primary mt-1" id="dash-month-total">188.8 / 586.4 h</h2>
 <span class="text-xs text-slate-500 mt-2 block" id="dash-month-subtext">Laufender Monat (Krankheit/Ferien = Tagessoll angerechnet)</span>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Schuljahr Summe Total</span>
-<h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-year-total">587.4 / 7'482 Std.</h2>
+<h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-year-total">594.9 / 7'482 Std.</h2>
 <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
-<div class="bg-primary h-full" id="dash-progress" style="width: 7.9%"></div>
+<div class="bg-primary h-full" id="dash-progress" style="width: 8%"></div>
 </div>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Überstunden Saldo</span>
-<h2 class="text-2xl font-black mt-1 text-emerald-600" id="dash-overtime">+0.0 h</h2>
-<span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Ausgeglichener Saldo (Absenzen zählen als Tagessoll)</span>
+<h2 class="text-2xl font-black mt-1 text-slate-900" id="dash-overtime">+0.0 h</h2>
+<span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Total erfasst: 594.9 Std.</span>
 </div>
 </div>
 <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex items-center justify-between">
 <div>
 <span class="text-xs font-bold text-primary uppercase">Schuljahreszyklus Zürich</span>
 <h3 class="text-xl font-bold text-slate-900">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h3>
-<p class="text-xs text-slate-600">Zeiterfassung, Monats- und Schuljahressaldi für Nicole, Michelle, Manuel &amp; Seline. Absenzen (Krankheit/Ferien) zählen voll als Tagessoll.</p>
+<p class="text-xs text-slate-600 mt-0.5">Zeiterfassung, Monats- und Schuljahressaldi für Nicole, Michelle, Manuel &amp; Seline. Absenzen (Krankheit/Ferien) zählen voll als Tagessoll.</p>
 </div>
 <div class="flex gap-2">
 <button class="px-4 py-2 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-emerald-700 flex items-center gap-1 transition-all" onclick="switchView('tagesansicht')">
 <span class="material-symbols-outlined text-[16px]">today</span> Zur Tagesansicht
-          </button>
+</button>
 <button class="px-4 py-2 bg-primary text-white font-bold text-xs rounded-xl shadow-xs hover:bg-blue-800 flex items-center gap-1 transition-all" onclick="switchView('zeiterfassung')">
 <span class="material-symbols-outlined text-[16px]">add</span> Zeiteintrag erfassen
-          </button>
+</button>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboard-employees-grid"></div>
@@ -216,45 +216,57 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div>
 <span class="text-xs font-bold uppercase text-primary tracking-wider flex items-center gap-1">
 <span class="material-symbols-outlined text-[16px]">today</span> Tägliche Stundenkontrolle &amp; Schichten
-          </span>
+</span>
 <h2 class="text-3xl font-black text-slate-900 mt-0.5">Tagesansicht</h2>
-<p class="text-xs text-slate-500">Detaillierte Schicht-, Arbeitszeit- und Saldoübersicht für jeden Tag. Absenzen wie Krankheit &amp; Ferien werden automatisch mit dem Tagessoll gutgeschrieben (Saldo: 0.00 h).</p>
+<p class="text-xs text-slate-500">Detaillierte Schicht-, Arbeitszeit- und Saldoübersicht. Absenzen (Krankheit, Ferien, Unfall) werden automatisch mit dem vollen Tagessoll gutgeschrieben (Tagessaldo = 0.00 h).</p>
 </div>
 <div class="flex items-center gap-2">
+<button class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 hover:bg-slate-200 transition-colors" onclick="toggleDailyFilterMode()">
+<span class="material-symbols-outlined text-[16px]" id="daily-view-mode-icon">calendar_view_week</span>
+<span id="daily-view-mode-text">Alle Tage zeigen</span>
+</button>
 <button class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm hover:bg-emerald-700" onclick="jumpToLatestDailyEntry()">
 <span class="material-symbols-outlined text-[16px]">fast_forward</span> Neuster erfasster Tag
-          </button>
+</button>
 <button class="px-4 py-2 bg-primary text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm hover:bg-blue-800" onclick="createEntryForSelectedDate()">
 <span class="material-symbols-outlined text-[16px]">add</span> Neuer Eintrag an diesem Tag
-          </button>
+</button>
 </div>
 </div>
 <!-- Quick Finder & Recent Dates Bar -->
-<div class="bg-blue-50/60 p-4 rounded-2xl border border-blue-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+<div class="bg-blue-50/60 p-4 rounded-2xl border border-blue-100 space-y-3">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[20px]">dataset</span>
 <span class="text-xs font-bold text-slate-800" id="daily-total-entries-info">0 Einträge insgesamt erfasst</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-600 font-medium">
+<span>Tage mit Einträgen anklicken für Direktansicht:</span>
+</div>
 </div>
 <div class="flex flex-wrap items-center gap-1.5" id="daily-recent-dates-pills"></div>
 </div>
 <!-- Date Navigator & Employee Filter -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
-<div class="flex items-center gap-2">
-<button class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center font-bold" onclick="changeDay(-1)">
+<div class="flex flex-wrap items-center gap-2">
+<button class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center font-bold" onclick="changeDay(-1)" title="Vorheriger Tag">
 <span class="material-symbols-outlined text-[18px]">chevron_left</span>
 </button>
 <button class="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-bold text-primary" onclick="setToday()">
-            Heute
-          </button>
-<button class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center font-bold" onclick="changeDay(1)">
+Heute
+</button>
+<button class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center font-bold" onclick="changeDay(1)" title="Nächster Tag">
 <span class="material-symbols-outlined text-[18px]">chevron_right</span>
 </button>
-<div class="flex items-center gap-2 ml-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
+<div class="flex items-center gap-2 ml-1 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
 <span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span>
 <input class="bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date"/>
 </div>
 <button class="px-2.5 py-1.5 bg-blue-50 text-primary border border-blue-200 rounded-xl text-xs font-bold hover:bg-blue-100 transition-all ml-1" onclick="setDailyDateTo('23.10.2026')">
-  23.10.2026 prüfen
+23.10.2026 (Krankheit/Gutschrift)
+</button>
+<button class="px-2.5 py-1.5 bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold hover:bg-slate-100 transition-all" onclick="setDailyDateTo('27.10.2026')">
+27.10.2026
 </button>
 </div>
 <div class="flex items-center gap-2">
@@ -271,19 +283,19 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <!-- Daily KPI Metrics -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
-<span class="text-xs uppercase font-bold text-slate-400">Ist-Arbeitszeit heute</span>
+<span class="text-xs uppercase font-bold text-slate-400">Ist-Arbeitszeit</span>
 <p class="text-2xl font-black text-primary mt-1" id="daily-sum-ist">0.00 h</p>
 <span class="text-[11px] text-slate-500">Effektiv geleistet + Absenzgutschriften</span>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
 <span class="text-xs uppercase font-bold text-slate-400">Tagessoll</span>
 <p class="text-2xl font-black text-slate-800 mt-1" id="daily-sum-soll">0.00 h</p>
-<span class="text-[11px] text-slate-500">Basis: 8.0h × Pensum</span>
+<span class="text-[11px] text-slate-500">Rechnerisches Soll (Basis 8.0h × Pensum)</span>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
 <span class="text-xs uppercase font-bold text-slate-400">Tagessaldo</span>
 <p class="text-2xl font-black text-emerald-600 mt-1" id="daily-sum-saldo">±0.00 h</p>
-<span class="text-[11px] text-slate-500">Differenz heute (0.00 h bei Krankheit/Ferien)</span>
+<span class="text-[11px] text-slate-500">Keine Minusstunden bei Krankheit/Ferien</span>
 </div>
 </div>
 <!-- Entries Container -->
@@ -291,7 +303,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="flex items-center justify-between">
 <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">list_alt</span> Detaillierte Schichten &amp; Buchungen
-          </h3>
+</h3>
 <span class="px-3 py-1 bg-primary/10 text-primary font-bold text-xs rounded-full" id="daily-selected-date-badge">Datum: -</span>
 </div>
 <div class="space-y-4" id="daily-entries-container"></div>
@@ -300,64 +312,82 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-pane hidden space-y-6" id="view-zeiterfassung">
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
-<div>
+<div class="border-b border-slate-100 pb-4">
 <h2 class="text-2xl font-black text-slate-900">Zeiteintrag erfassen / bearbeiten</h2>
-<p class="text-xs text-slate-500 mt-1">Geben Sie das Datum im Format TT.MM.JJJJ oder JJJJ-MM-TT ein. Bei Krankheit, Ferien oder Unfall wird automatisch das Tagespensum voll gutgeschrieben (z.B. Nicole 57% = 4.56 h, 100% = 8.00 h, 92% = 7.36 h) ohne Minusstunden.</p>
+<p class="text-xs text-slate-500 mt-1">Erfassen Sie einzelne Arbeitstage oder komplette Zeiträume (z.B. Ferien oder Krankheitswochen Mo–Fr). Bei Krankheit, Ferien oder Unfall wird automatisch das tägliche Pensum (z.B. Nicole 57% = 4.56 h, 100% = 8.00 h, Seline 92% = 7.36 h) ohne Minusstunden gutgeschrieben.</p>
 </div>
 <form class="space-y-6" id="time-entry-form">
 <input id="entry-id" type="hidden"/>
+<!-- Employee & Date Selection -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Mitarbeiter</label>
 <select class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold cursor-pointer" id="entry-employee" onchange="updateFormHint()">
-<option value="all">Ganzes Team</option>
+<option value="all">Ganzes Team (Nicole, Michelle, Manuel, Seline)</option>
 <option value="nicole">Nicole De Pretto (57% - Soll: 4.56 h/Tag)</option>
 <option value="michelle">Michelle Dreifuss (100% - Soll: 8.00 h/Tag)</option>
 <option value="manuel">Manuel Schoch (100% - Soll: 8.00 h/Tag)</option>
 <option value="seline">Seline Steinmann (92% - Soll: 7.36 h/Tag)</option>
 </select>
 </div>
+<!-- ZEITRAUM-AUSWAHL VOLLSTÄNDIG SICHTBAR & ANKLICKBAR -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="text-xs font-bold uppercase text-slate-500">Datum oder Zeitraum</label>
+<label class="inline-flex items-center gap-1.5 cursor-pointer bg-blue-50 text-primary px-2.5 py-1 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
+<input class="w-4 h-4 rounded text-primary border-blue-300 focus:ring-primary cursor-pointer" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox"/>
+<span class="text-xs font-bold">Zeitraum erfassen (Von – Bis)</span>
+</label>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="date-inputs-wrapper">
 <div>
-<div class="flex items-center justify-between mb-1">
-<label class="text-xs font-bold uppercase text-slate-500">Datum / Zeitraum (TT.MM.JJJJ)</label>
-<label class="text-[11px] font-bold text-primary cursor-pointer flex items-center gap-1">
-<input class="rounded text-primary" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox"/> Zeitraum (z.B. Ferien Mo-Fr)
-                </label>
+<span class="text-[11px] font-bold text-slate-500 block mb-0.5" id="date-start-label">Datum (TT.MM.JJJJ)</span>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 23.10.2026" required="" type="text"/>
 </div>
-<div class="flex gap-2">
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="23.10.2026" required="" type="text"/>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold hidden" id="entry-date-end" placeholder="Bis Datum (z.B. 30.10.2026)" type="text"/>
+<div class="hidden" id="entry-date-end-container">
+<span class="text-[11px] font-bold text-primary block mb-0.5">Bis Datum (TT.MM.JJJJ)</span>
+<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text"/>
 </div>
 </div>
+<p class="text-[11px] text-slate-500" id="range-hint-text">Tipp: Im Zeitraum-Modus werden automatisch für jeden Werktag (Mo–Fr) Einträge angelegt.</p>
 </div>
+</div>
+<!-- Shifts Block -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="form-shifts-block">
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-<span class="text-xs font-bold text-slate-500 block mb-2">Vormittag</span>
+<span class="text-xs font-bold text-slate-700 block mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">wb_sunny</span> Vormittag
+</span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-from" type="time" value="07:00"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-from" type="time" value="08:00"/>
 <input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-to" type="time" value="12:00"/>
 </div>
 </div>
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-<span class="text-xs font-bold text-slate-500 block mb-2">Nachmittag</span>
+<span class="text-xs font-bold text-slate-700 block mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-amber-600">wb_twilight</span> Nachmittag
+</span>
 <div class="flex gap-2">
 <input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-from" type="time" value="13:00"/>
 <input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-to" type="time" value="17:00"/>
 </div>
 </div>
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-<span class="text-xs font-bold text-slate-500 block mb-2">Abend / Nacht</span>
+<span class="text-xs font-bold text-slate-700 block mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-indigo-600">nights_stay</span> Abend / Zusatz
+</span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-from" type="time"/>
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-to" type="time"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-from" placeholder="Von" type="time"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-to" placeholder="Bis" type="time"/>
 </div>
 </div>
 </div>
+<!-- Status & Notes -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
-<label class="block text-xs font-bold uppercase text-slate-500 mb-1">Status / Abwesenheit</label>
+<label class="block text-xs font-bold uppercase text-slate-500 mb-1">Status / Abwesenheitstyp</label>
 <select class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-status" onchange="updateFormHint()">
-<option value="Normal">Regulärer Arbeitstag (Zeiten zählen)</option>
+<option value="Normal">Regulärer Arbeitstag (Schichtzeiten zählen)</option>
 <option value="Krankheit">Krankheit (Automatische Tagessoll-Gutschrift, Saldo: 0.00h)</option>
 <option value="Ferien">Ferien (Automatische Tagessoll-Gutschrift, Saldo: 0.00h)</option>
 <option value="Unfall">Unfall (Automatische Tagessoll-Gutschrift, Saldo: 0.00h)</option>
@@ -366,7 +396,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Bemerkung</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Unterrichtsvorbereitung, Betreuung, Grippe etc." type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, Grippe etc." type="text"/>
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-2">
@@ -467,10 +497,10 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <h4 class="font-bold text-slate-900 text-sm">Gutschrift bei Abwesenheiten (Krankheit, Ferien, Unfall):</h4>
 <p class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-emerald-950 font-medium">
 <strong>Keine Minusstunden:</strong> An Feiertagen, bei ärztlich attestierter Krankheit, Unfall oder genehmigten Ferien wird den Mitarbeitenden das volle rechnerische Tagessoll gemäss Beschäftigungsgrad gutgeschrieben:
-  <br/>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
-  <br/>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
-  <br/>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
-  <br/>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
+<br/>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
+<br/>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
+<br/>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
+<br/>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
 </p>
 </div>
 </div>
@@ -492,7 +522,8 @@ const db = firebase.firestore();
 
 const BASE_FULL_YEAR_HOURS = 2144;
 let selectedSchoolYear = 'all';
-let currentDailyDate = new Date(2026, 9, 23); // Standardmässig auf den 23.10.2026 setzen
+let currentDailyDate = new Date(2026, 9, 23); // 23.10.2026 als Standard
+let showAllDaysInDaily = false;
 
 const DEFAULT_EMPLOYEES = [
   { id: 'nicole', name: 'Nicole De Pretto', initials: 'ND', role: 'Assistenz Sonderpädagogik', pensum: 57, targetHours: 95.8, yearlyTotal: 1222, dailyTarget: 4.56 },
@@ -504,7 +535,7 @@ const DEFAULT_EMPLOYEES = [
 let employeesData = [...DEFAULT_EMPLOYEES];
 let timeEntriesData = [];
 
-// Berechnungshelfer für Tagessoll
+// Hilfsfunktionen für Tagessoll & Absenzen
 function getDailyTargetHours(emp) {
   if (!emp) return 8.00;
   if (emp.dailyTarget) return Number(emp.dailyTarget);
@@ -518,7 +549,6 @@ function isAbsenceStatus(status) {
   return s === 'krankheit' || s === 'krank' || s === 'ferien' || s === 'unfall' || s === 'abwesenheit';
 }
 
-// Schweizer Datums- und Rechenhelfer
 function normalizeDateToDDMMYYYY(dateInput) {
   if (!dateInput) return '';
   if (dateInput instanceof Date) {
@@ -597,12 +627,9 @@ function parseDateSafely(str) {
 function getSchoolYearOfDate(dateObj) {
   if (!dateObj) return '2026/2027';
   const y = dateObj.getFullYear();
-  const m = dateObj.getMonth() + 1; // 1-12
-  if (m >= 8) {
-    return `${y}/${y + 1}`;
-  } else {
-    return `${y - 1}/${y}`;
-  }
+  const m = dateObj.getMonth() + 1;
+  if (m >= 8) return `${y}/${y + 1}`;
+  return `${y - 1}/${y}`;
 }
 
 function calculateHours(from, to) {
@@ -613,7 +640,7 @@ function calculateHours(from, to) {
   return diff > 0 ? diff / 60 : 0;
 }
 
-// ZENTRALE FUNKTION: Nie 0 zurückgeben bei Abwesenheit/Ferien/Krankheit, sondern volles Tagessoll
+// BERECHNUNG: Bei Absenz immer Tagessoll, Saldo 0.00h
 function calculateTotalEntryHours(entry, emp) {
   if (!entry) return 0;
   if (!emp && entry.employeeId) {
@@ -621,17 +648,14 @@ function calculateTotalEntryHours(entry, emp) {
   }
   const dailyTarget = getDailyTargetHours(emp);
 
-  // Wenn Krankheit oder Ferien oder Unfall, MUSS die Arbeitszeit automatisch dem täglichen Soll entsprechen!
   if (isAbsenceStatus(entry.status)) {
     return dailyTarget;
   }
 
-  // Falls explizit erfasste Stunden vorhanden sind und > 0
   if (entry.hours !== undefined && entry.hours !== null && !isNaN(entry.hours) && Number(entry.hours) > 0) {
     return Number(Number(entry.hours).toFixed(2));
   }
 
-  // Aus Schichten berechnen
   let total = 0;
   total += calculateHours(entry.vmFrom, entry.vmTo);
   total += calculateHours(entry.nmFrom, entry.nmTo);
@@ -639,11 +663,7 @@ function calculateTotalEntryHours(entry, emp) {
   return Number(total.toFixed(2));
 }
 
-function calculateEffectiveHours(entry, emp) {
-  return calculateTotalEntryHours(entry, emp);
-}
-
-// Modals
+// Modal Helfer
 function openModalHerleitung() {
   document.getElementById('modal-herleitung').classList.remove('hidden');
   document.getElementById('modal-herleitung').classList.add('flex');
@@ -653,12 +673,39 @@ function closeModalHerleitung() {
   document.getElementById('modal-herleitung').classList.remove('flex');
 }
 
-// Robuste und vollständige Grunddaten für Nicole, Michelle, Manuel (155.7h) & Seline
+// Umschaltung Zeitraum-Checkbox
+function toggleDateRangeInput(checked) {
+  const endContainer = document.getElementById('entry-date-end-container');
+  const endInput = document.getElementById('entry-date-end');
+  const startLabel = document.getElementById('date-start-label');
+  const hintText = document.getElementById('range-hint-text');
+
+  if (checked) {
+    if (endContainer) endContainer.classList.remove('hidden');
+    if (endInput) {
+      endInput.required = true;
+      if (!endInput.value && document.getElementById('entry-date').value) {
+        endInput.value = document.getElementById('entry-date').value;
+      }
+    }
+    if (startLabel) startLabel.textContent = 'Von Datum (Start)';
+    if (hintText) hintText.textContent = 'Aktiv: Generiert automatisch für jeden Werktag (Mo–Fr) im Zeitraum einen Eintrag.';
+  } else {
+    if (endContainer) endContainer.classList.add('hidden');
+    if (endInput) {
+      endInput.required = false;
+    }
+    if (startLabel) startLabel.textContent = 'Datum (TT.MM.JJJJ)';
+    if (hintText) hintText.textContent = 'Tipp: Im Zeitraum-Modus werden automatisch für jeden Werktag (Mo–Fr) Einträge angelegt.';
+  }
+}
+
+// Robuster Master-Seed-Bestand für alle 4 Mitarbeiter
 function getMasterSeedEntries() {
   const list = [];
 
-  // Nicole De Pretto: Exakte Erfassung Oktober 2026 gemäss Spezifikation
-  const nicoleOctoberData = [
+  // Nicole De Pretto (57%, Tagessoll 4.56h)
+  const nicoleEntries = [
     { date: '27.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Unterrichtsunterstützung & Nachbereitung' },
     { date: '23.10.2026', hours: 4.56, status: 'Krankheit', vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', notes: 'Krankheit - 100% Tagessoll-Gutschrift gemäss 57% Pensum (keine Minusstunden)' },
     { date: '21.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung Förderunterricht' },
@@ -667,45 +714,66 @@ function getMasterSeedEntries() {
     { date: '14.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Schulbegleitung' },
     { date: '09.10.2026', hours: 5.0, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '14:00', notes: 'Unterrichtsassistenz Regelklasse' },
     { date: '06.10.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Unterrichtsassistenz und Betreuung' },
-    { date: '02.10.2026', hours: 5.0, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '14:00', notes: 'Schuljahresbeginn Oktober' }
+    { date: '02.10.2026', hours: 5.0, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '14:00', notes: 'Schuljahresbeginn Oktober' },
+    // September & August
+    { date: '29.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '25.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '22.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '18.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '15.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '11.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '08.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
+    { date: '04.09.2026', hours: 4.56, status: 'Ferien', vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', notes: 'Kompensation / Tagessoll voll angerechnet' }
   ];
-
-  nicoleOctoberData.forEach(item => {
+  nicoleEntries.forEach((it, idx) => {
     list.push({
-      id: `seed_nicole_${item.date.replace(/\./g, '_')}`,
+      id: `seed_nicole_${it.date.replace(/\./g, '_')}_${idx}`,
       employeeId: 'nicole',
-      date: item.date,
-      vmFrom: item.vmFrom,
-      vmTo: item.vmTo,
-      nmFrom: item.nmFrom,
-      nmTo: item.nmTo,
+      date: it.date,
+      vmFrom: it.vmFrom || '',
+      vmTo: it.vmTo || '',
+      nmFrom: it.nmFrom || '',
+      nmTo: it.nmTo || '',
       abendFrom: '',
       abendTo: '',
-      status: item.status,
-      notes: item.notes,
-      hours: item.hours,
-      updatedAt: 1729680000000
+      status: it.status,
+      notes: it.notes,
+      hours: it.hours,
+      updatedAt: 1729680000000 + idx
     });
   });
 
-  // Weitere Einträge für Nicole im September 2026 (damit Schuljahresarbeitszeit realistisch belegt ist)
-  const nicoleSepDates = ['04.09.2026', '08.09.2026', '11.09.2026', '15.09.2026', '18.09.2026', '22.09.2026', '25.09.2026', '29.09.2026'];
-  nicoleSepDates.forEach((dt, idx) => {
+  // Michelle Dreifuss (100%, Soll 8.00h)
+  const michelleOct = ['02.10.2026', '06.10.2026', '09.10.2026', '14.10.2026', '16.10.2026', '21.10.2026', '23.10.2026', '27.10.2026'];
+  michelleOct.forEach((dt, idx) => {
     list.push({
-      id: `seed_nicole_sep_${idx}`,
-      employeeId: 'nicole',
+      id: `seed_michelle_oct_${idx}`,
+      employeeId: 'michelle',
       date: dt,
-      vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45',
+      vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
       abendFrom: '', abendTo: '',
       status: 'Normal',
-      notes: 'Schulassistenz Sonderpädagogik',
-      hours: 4.75,
-      updatedAt: 1726000000000
+      notes: 'Teamleitung & Koordinationssitzungen',
+      hours: 8.25,
+      updatedAt: 1729680000000 + idx
+    });
+  });
+  const michellePast = ['18.08.2026', '21.08.2026', '25.08.2026', '28.08.2026', '01.09.2026', '08.09.2026', '15.09.2026', '22.09.2026'];
+  michellePast.forEach((dt, idx) => {
+    list.push({
+      id: `seed_michelle_past_${idx}`,
+      employeeId: 'michelle',
+      date: dt,
+      vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
+      abendFrom: '', abendTo: '',
+      status: 'Normal',
+      notes: 'Schuljahresvorbereitung & Administration',
+      hours: 8.25,
+      updatedAt: 1724000000000 + idx
     });
   });
 
-  // Manuel Schoch: Exakt 155.7 Stunden Schuljahresarbeitszeit erfasst (Oktober: 10.8 h, Rest Vormonate)
-  // Laufender Monat Oktober: 10.8 h (z.B. 23.10. 8.0h + 26.10. 2.8h)
+  // Manuel Schoch (100%, 311.4h / 155.7h Schuljahresarbeitszeit)
   list.push({
     id: 'seed_manuel_23_10_2026',
     employeeId: 'manuel',
@@ -728,16 +796,14 @@ function getMasterSeedEntries() {
     hours: 2.8,
     updatedAt: 1729680000000
   });
-
-  // Verbleibende Stunden für Manuel aus Aug/Sep 2026: 155.7 - 10.8 = 144.9 h (18 Tage à ca. 8.05 h)
   const manuelPastDates = [
     '17.08.2026', '19.08.2026', '21.08.2026', '24.08.2026', '26.08.2026', '28.08.2026', '31.08.2026',
     '02.09.2026', '04.09.2026', '07.09.2026', '09.09.2026', '11.09.2026', '14.09.2026', '16.09.2026',
-    '18.09.2026', '21.09.2026', '23.09.2026', '25.09.2026'
+    '18.09.2026', '21.09.2026', '23.09.2026', '25.09.2026', '28.09.2026', '30.09.2026',
+    '05.10.2026', '07.10.2026', '12.10.2026', '14.10.2026', '19.10.2026', '21.10.2026',
+    '03.08.2026', '05.08.2026', '07.08.2026', '10.08.2026', '12.08.2026', '14.08.2026'
   ];
   manuelPastDates.forEach((dt, idx) => {
-    const isLast = idx === (manuelPastDates.length - 1);
-    const hrs = isLast ? 8.9 : 8.0; // 17*8.0 = 136 + 8.9 = 144.9 h -> Total Manuel = 155.7 h
     list.push({
       id: `seed_manuel_past_${idx}`,
       employeeId: 'manuel',
@@ -746,32 +812,16 @@ function getMasterSeedEntries() {
       abendFrom: '', abendTo: '',
       status: 'Normal',
       notes: 'Schulraumplanung & Werkzeichnungen',
-      hours: hrs,
-      updatedAt: 1725000000000
+      hours: 8.5,
+      updatedAt: 1725000000000 + idx
     });
   });
 
-  // Michelle Dreifuss (100% Pensum, Soll: 8.0 h/Tag)
-  const michelleDates = ['02.10.2026', '06.10.2026', '09.10.2026', '14.10.2026', '16.10.2026', '21.10.2026', '23.10.2026', '27.10.2026'];
-  michelleDates.forEach((dt, idx) => {
-    list.push({
-      id: `seed_michelle_${idx}`,
-      employeeId: 'michelle',
-      date: dt,
-      vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
-      abendFrom: '', abendTo: '',
-      status: 'Normal',
-      notes: 'Teamleitung & Koordinationssitzungen',
-      hours: 8.25,
-      updatedAt: 1729680000000
-    });
-  });
-
-  // Seline Steinmann (92% Pensum, Soll: 7.36 h/Tag)
+  // Seline Steinmann (92%, Soll 7.36h)
   const selineDates = ['02.10.2026', '06.10.2026', '09.10.2026', '14.10.2026', '16.10.2026', '21.10.2026', '23.10.2026', '27.10.2026'];
   selineDates.forEach((dt, idx) => {
     list.push({
-      id: `seed_seline_${idx}`,
+      id: `seed_seline_oct_${idx}`,
       employeeId: 'seline',
       date: dt,
       vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:25',
@@ -779,26 +829,13 @@ function getMasterSeedEntries() {
       status: 'Normal',
       notes: 'Schulsekretariat & Personaladministration',
       hours: 7.4,
-      updatedAt: 1729680000000
+      updatedAt: 1729680000000 + idx
     });
   });
-
-  // Ergänzende historische Daten für das Schuljahr 2026/2027
-  const histDates = ['18.08.2026', '25.08.2026', '01.09.2026', '15.09.2026', '22.09.2026'];
-  histDates.forEach((dt, idx) => {
+  const selinePast = ['18.08.2026', '25.08.2026', '01.09.2026', '15.09.2026', '22.09.2026'];
+  selinePast.forEach((dt, idx) => {
     list.push({
-      id: `seed_michelle_hist_${idx}`,
-      employeeId: 'michelle',
-      date: dt,
-      vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
-      abendFrom: '', abendTo: '',
-      status: 'Normal',
-      notes: 'Schuljahresvorbereitung & Klassenorganisation',
-      hours: 8.25,
-      updatedAt: 1724000000000
-    });
-    list.push({
-      id: `seed_seline_hist_${idx}`,
+      id: `seed_seline_past_${idx}`,
       employeeId: 'seline',
       date: dt,
       vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:25',
@@ -806,7 +843,7 @@ function getMasterSeedEntries() {
       status: 'Normal',
       notes: 'Stammdatenpflege & Schülerdossiers',
       hours: 7.4,
-      updatedAt: 1724000000000
+      updatedAt: 1724000000000 + idx
     });
   });
 
@@ -826,13 +863,9 @@ function getLatestEntryDate() {
 }
 
 function initDailyViewDate() {
-  // Primär 23.10.2026 wenn vorhanden, sonst neustes Datum
   const oct23 = parseDateSafely('23.10.2026');
-  if (oct23) {
-    currentDailyDate = oct23;
-  } else {
-    currentDailyDate = getLatestEntryDate();
-  }
+  if (oct23) currentDailyDate = oct23;
+  else currentDailyDate = getLatestEntryDate();
   syncDailyDatePickerInput();
 }
 
@@ -848,6 +881,8 @@ function onDailyDatePickerChange(val) {
   const p = parseDateSafely(val);
   if (p) {
     currentDailyDate = p;
+    showAllDaysInDaily = false;
+    updateDailyModeButton();
     renderDailyOverview();
   }
 }
@@ -855,12 +890,16 @@ function onDailyDatePickerChange(val) {
 function changeDay(delta) {
   if (!currentDailyDate) currentDailyDate = new Date(2026, 9, 23);
   currentDailyDate.setDate(currentDailyDate.getDate() + delta);
+  showAllDaysInDaily = false;
+  updateDailyModeButton();
   syncDailyDatePickerInput();
   renderDailyOverview();
 }
 
 function setToday() {
   currentDailyDate = new Date();
+  showAllDaysInDaily = false;
+  updateDailyModeButton();
   syncDailyDatePickerInput();
   renderDailyOverview();
 }
@@ -869,6 +908,8 @@ function setDailyDateTo(str) {
   const p = parseDateSafely(str);
   if (p) {
     currentDailyDate = p;
+    showAllDaysInDaily = false;
+    updateDailyModeButton();
     syncDailyDatePickerInput();
     renderDailyOverview();
   }
@@ -878,8 +919,30 @@ function jumpToLatestDailyEntry() {
   const l = getLatestEntryDate();
   if (l) {
     currentDailyDate = l;
+    showAllDaysInDaily = false;
+    updateDailyModeButton();
     syncDailyDatePickerInput();
     renderDailyOverview();
+  }
+}
+
+function toggleDailyFilterMode() {
+  showAllDaysInDaily = !showAllDaysInDaily;
+  updateDailyModeButton();
+  renderDailyOverview();
+}
+
+function updateDailyModeButton() {
+  const icon = document.getElementById('daily-view-mode-icon');
+  const text = document.getElementById('daily-view-mode-text');
+  if (icon && text) {
+    if (showAllDaysInDaily) {
+      icon.textContent = 'today';
+      text.textContent = 'Einzelnen Tag filtern';
+    } else {
+      icon.textContent = 'calendar_view_week';
+      text.textContent = 'Alle Tage zeigen';
+    }
   }
 }
 
@@ -891,14 +954,6 @@ function createEntryForSelectedDate() {
   updateFormHint();
 }
 
-function toggleDateRangeInput(checked) {
-  const endInput = document.getElementById('entry-date-end');
-  if (endInput) {
-    if (checked) { endInput.classList.remove('hidden'); endInput.required = true; }
-    else { endInput.classList.add('hidden'); endInput.required = false; }
-  }
-}
-
 function updateFormHint() {
   const status = document.getElementById('entry-status').value;
   const empId = document.getElementById('entry-employee').value;
@@ -908,9 +963,9 @@ function updateFormHint() {
 
   if (isAbsenceStatus(status)) {
     if (empId === 'all') {
-      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv für jedes Teammitglied (z.B. Nicole 4.56 h, Vollzeit 8.00 h, Seline 7.36 h). Tagessaldo: 0.00 h.`;
+      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv für alle (Nicole: 4.56h, Michelle & Manuel: 8.00h, Seline: 7.36h). Tagessaldo: 0.00 h (keine Minusstunden).`;
     } else {
-      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv: ${target.toFixed(2)} h werden voll angerechnet. Tagessaldo für diesen Tag: 0.00 h (keine Minusstunden).`;
+      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv: ${target.toFixed(2)} h werden voll gutgeschrieben. Tagessaldo für diesen Tag: 0.00 h.`;
     }
     hintEl.className = 'text-[11px] text-emerald-700 font-bold mt-1.5 flex items-center gap-1';
   } else {
@@ -919,7 +974,6 @@ function updateFormHint() {
   }
 }
 
-// Filterfunktion für Schuljahr
 function entryMatchesSchoolYear(entry, sy) {
   if (!sy || sy === 'all') return true;
   const d = parseDateSafely(entry.date);
@@ -927,7 +981,7 @@ function entryMatchesSchoolYear(entry, sy) {
   return getSchoolYearOfDate(d) === sy;
 }
 
-// RENDERN DER TAGESANSICHT (ZENTRAL MIT EXAKTEM 0.00h SALDO BEI KRANKHEIT/FERIEN)
+// RENDERN DER TAGESANSICHT: Garantiert gefüllt & responsive
 function renderDailyOverview() {
   const container = document.getElementById('daily-entries-container');
   const dateBadge = document.getElementById('daily-selected-date-badge');
@@ -939,19 +993,23 @@ function renderDailyOverview() {
   syncDailyDatePickerInput();
 
   const targetDateStr = normalizeDateToDDMMYYYY(currentDailyDate);
+  const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+
   if (dateBadge) {
-    const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-    dateBadge.textContent = `${days[currentDailyDate.getDay()]}, ${targetDateStr}`;
+    if (showAllDaysInDaily) {
+      dateBadge.textContent = 'Alle erfassten Schichten & Tage';
+    } else {
+      dateBadge.textContent = `${days[currentDailyDate.getDay()]}, ${targetDateStr}`;
+    }
   }
   if (totalInfo) {
-    totalInfo.textContent = `${timeEntriesData.length} Zeiteinträge insgesamt im System registriert`;
+    totalInfo.textContent = `${timeEntriesData.length} Zeiteinträge im System registriert`;
   }
 
-  // Quick Pills
+  // Datums-Buttons oben rendern
   if (recentPills) {
     recentPills.innerHTML = '';
     const dateMap = new Map();
-    // 23.10.2026 immer an oberster Stelle
     dateMap.set('23.10.2026', parseDateSafely('23.10.2026').getTime());
     timeEntriesData.forEach(e => {
       const norm = normalizeDateToDDMMYYYY(e.date);
@@ -960,15 +1018,11 @@ function renderDailyOverview() {
         if (parsed) dateMap.set(norm, parsed.getTime());
       }
     });
-    const sorted = Array.from(dateMap.entries()).sort((a,b) => b[1] - a[1]).slice(0, 8);
+    const sorted = Array.from(dateMap.entries()).sort((a,b) => b[1] - a[1]).slice(0, 10);
     if (sorted.length > 0) {
-      const lbl = document.createElement('span');
-      lbl.className = 'text-xs text-slate-500 font-bold mr-1';
-      lbl.textContent = 'Tage mit Daten:';
-      recentPills.appendChild(lbl);
       sorted.forEach(([dStr]) => {
         const btn = document.createElement('button');
-        const isSel = dStr === targetDateStr;
+        const isSel = (!showAllDaysInDaily && dStr === targetDateStr);
         btn.className = `px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${isSel ? 'bg-primary text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'}`;
         btn.textContent = dStr;
         btn.onclick = () => setDailyDateTo(dStr);
@@ -979,39 +1033,52 @@ function renderDailyOverview() {
 
   const filterEmp = document.getElementById('filter-daily-employee') ? document.getElementById('filter-daily-employee').value : 'all';
 
-  const dayEntries = timeEntriesData.filter(e => {
-    const norm = normalizeDateToDDMMYYYY(e.date);
-    if (norm !== targetDateStr) return false;
+  let displayEntries = timeEntriesData.filter(e => {
+    if (!showAllDaysInDaily) {
+      const norm = normalizeDateToDDMMYYYY(e.date);
+      if (norm !== targetDateStr) return false;
+    }
     if (filterEmp !== 'all' && e.employeeId !== filterEmp) return false;
     return true;
   });
 
+  // Sortierung: Neueste Tage zuerst
+  displayEntries.sort((a, b) => (parseDateSafely(b.date) || 0) - (parseDateSafely(a.date) || 0));
+
+  // Metriken berechnen
   let dailySoll = 0;
   let dailyIst = 0;
 
-  if (filterEmp === 'all') {
-    if (dayEntries.length > 0) {
-      const uniqueEmps = new Set(dayEntries.map(e => e.employeeId));
-      uniqueEmps.forEach(empId => {
-        const emp = employeesData.find(e => e.id === empId);
-        dailySoll += emp ? getDailyTargetHours(emp) : 8.0;
-      });
+  if (!showAllDaysInDaily) {
+    if (filterEmp === 'all') {
+      if (displayEntries.length > 0) {
+        const uniqueEmps = new Set(displayEntries.map(e => e.employeeId));
+        uniqueEmps.forEach(empId => {
+          const emp = employeesData.find(e => e.id === empId);
+          dailySoll += emp ? getDailyTargetHours(emp) : 8.0;
+        });
+      } else {
+        employeesData.forEach(emp => { dailySoll += getDailyTargetHours(emp); });
+      }
     } else {
-      employeesData.forEach(emp => { dailySoll += getDailyTargetHours(emp); });
+      const emp = employeesData.find(e => e.id === filterEmp);
+      dailySoll = emp ? getDailyTargetHours(emp) : 8.0;
     }
+    displayEntries.forEach(entry => {
+      const emp = employeesData.find(e => e.id === entry.employeeId);
+      dailyIst += calculateTotalEntryHours(entry, emp);
+    });
   } else {
-    const emp = employeesData.find(e => e.id === filterEmp);
-    dailySoll = emp ? getDailyTargetHours(emp) : 8.0;
+    // Wenn alle Tage angezeigt werden: Summe der gefilterten Einträge
+    displayEntries.forEach(entry => {
+      const emp = employeesData.find(e => e.id === entry.employeeId);
+      dailyIst += calculateTotalEntryHours(entry, emp);
+      dailySoll += emp ? getDailyTargetHours(emp) : 8.0;
+    });
   }
-
-  dayEntries.forEach(entry => {
-    const emp = employeesData.find(e => e.id === entry.employeeId);
-    dailyIst += calculateTotalEntryHours(entry, emp);
-  });
 
   let saldo = dailyIst - dailySoll;
   if (Math.abs(saldo) < 0.005) saldo = 0;
-
   const saldoSign = saldo > 0 ? '+' : (saldo === 0 ? '±' : '');
 
   document.getElementById('daily-sum-ist').textContent = `${dailyIst.toFixed(2)} h`;
@@ -1022,30 +1089,33 @@ function renderDailyOverview() {
 
   container.innerHTML = '';
 
-  if (dayEntries.length === 0) {
-    container.innerHTML = `
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-4">
-        <div class="w-12 h-12 rounded-full bg-blue-50 text-primary mx-auto flex items-center justify-center font-bold">
-          <span class="material-symbols-outlined text-[24px]">event_busy</span>
-        </div>
-        <div>
-          <h4 class="text-lg font-bold text-slate-900">Keine Zeiteinträge am ${targetDateStr}</h4>
-          <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">Für dieses Datum sind bisher noch keine Buchungen registriert.</p>
-        </div>
-        <div class="flex justify-center gap-3 pt-2">
-          <button onclick="createEntryForSelectedDate()" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-xs shadow-xs hover:bg-blue-800 transition-colors">
-            Zeiteintrag für heute erfassen
-          </button>
-          <button onclick="jumpToLatestDailyEntry()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-xs hover:bg-emerald-700 transition-colors">
-            Zum neusten erfassten Tag springen
-          </button>
-        </div>
+  // Wenn keine Einträge für den spezifischen Tag vorhanden sind: Nicht leer lassen, sondern Hilfskarte + Neuste Daten zeigen!
+  if (displayEntries.length === 0) {
+    const hintBox = document.createElement('div');
+    hintBox.className = 'bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-4';
+    hintBox.innerHTML = `
+      <div class="w-12 h-12 rounded-full bg-blue-50 text-primary mx-auto flex items-center justify-center font-bold">
+        <span class="material-symbols-outlined text-[24px]">event_busy</span>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold text-slate-900">Keine Zeiteinträge am ${targetDateStr}</h4>
+        <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">Für diesen spezifischen Tag liegt kein Eintrag vor. Sie können direkt einen Eintrag erstellen oder die anderen erfassten Tage ansehen.</p>
+      </div>
+      <div class="flex justify-center gap-3 pt-2">
+        <button onclick="setDailyDateTo('23.10.2026')" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-xs shadow-xs hover:bg-blue-800 transition-colors">
+          23.10.2026 anzeigen
+        </button>
+        <button onclick="toggleDailyFilterMode()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-xs hover:bg-emerald-700 transition-colors">
+          Alle ${timeEntriesData.length} Tage auflisten
+        </button>
       </div>
     `;
+    container.appendChild(hintBox);
     return;
   }
 
-  dayEntries.forEach(entry => {
+  // Einträge sauber auflisten
+  displayEntries.forEach(entry => {
     const emp = employeesData.find(e => e.id === entry.employeeId) || { name: 'Mitarbeiter', role: 'Team', pensum: 100, initials: 'MA' };
     const effH = calculateTotalEntryHours(entry, emp);
     const tagessoll = getDailyTargetHours(emp);
@@ -1053,7 +1123,6 @@ function renderDailyOverview() {
 
     let diff = effH - tagessoll;
     if (Math.abs(diff) < 0.005 || isAbsence) diff = 0;
-
     const diffSign = diff > 0 ? '+' : (diff === 0 ? '±' : '');
 
     const card = document.createElement('div');
@@ -1066,27 +1135,28 @@ function renderDailyOverview() {
         <div class="space-y-1 flex-1">
           <div class="flex items-center gap-2 flex-wrap">
             <h4 class="font-bold text-slate-900">${emp.name}</h4>
+            <span class="text-xs bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full">${entry.date}</span>
             <span class="text-xs bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full">${emp.pensum}% Pensum</span>
             <span class="text-xs ${isAbsence ? 'bg-amber-100 text-amber-900 border border-amber-200' : 'bg-emerald-100 text-emerald-900'} font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
               ${isAbsence ? '<span class="material-symbols-outlined text-[13px]">healing</span>' : ''}
               ${entry.status || 'Normal'}
             </span>
-            ${isAbsence ? `<span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">Keine Minusstunden (100% Tagessoll gutgeschrieben)</span>` : ''}
+            ${isAbsence ? `<span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">Volles Tagessoll gutgeschrieben (0.00 h Saldo)</span>` : ''}
           </div>
           <p class="text-xs text-slate-500">${emp.role} • Rechnerisches Tagessoll: <strong>${tagessoll.toFixed(2)} h</strong></p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-xs">
-            <div class="bg-slate-50 p-2 rounded-lg"><span class="text-slate-500 block font-bold">Vormittag:</span>${entry.vmFrom ? `${entry.vmFrom} bis ${entry.vmTo}` : (isAbsence ? 'Automatische Gutschrift' : '-')}</div>
-            <div class="bg-slate-50 p-2 rounded-lg"><span class="text-slate-500 block font-bold">Nachmittag:</span>${entry.nmFrom ? `${entry.nmFrom} bis ${entry.nmTo}` : (isAbsence ? 'Automatische Gutschrift' : '-')}</div>
-            <div class="bg-slate-50 p-2 rounded-lg"><span class="text-slate-500 block font-bold">Abend / Status:</span>${entry.abendFrom ? entry.abendFrom + ' - ' + (entry.abendTo || '') : (isAbsence ? `Vollwertige Gutschrift (${effH.toFixed(2)} h)` : 'Keine')}</div>
+            <div class="bg-slate-50 p-2 rounded-lg"><span class="text-slate-500 block font-bold">Vormittag:</span>${entry.vmFrom ? `${entry.vmFrom} bis ${entry.vmTo}` : (isAbsence ? 'Gutschrift Abwesenheit' : '-')}</div>
+            <div class="bg-slate-50 p-2 rounded-lg"><span class="text-slate-500 block font-bold">Nachmittag:</span>${entry.nmFrom ? `${entry.nmFrom} bis ${entry.nmTo}` : (isAbsence ? 'Gutschrift Abwesenheit' : '-')}</div>
+            <div class="bg-slate-50 p-2 rounded-lg"><span class="text-slate-500 block font-bold">Abend / Status:</span>${entry.abendFrom ? `${entry.abendFrom} - ${entry.abendTo || ''}` : (isAbsence ? `${effH.toFixed(2)} h angerechnet` : 'Keine')}</div>
           </div>
           ${entry.notes ? `<div class="mt-2 text-xs bg-slate-50 p-2 rounded-lg text-slate-700"><strong>Notiz:</strong> ${entry.notes}</div>` : ''}
         </div>
       </div>
       <div class="flex flex-row md:flex-col items-end justify-between w-full md:w-auto gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
         <div class="text-right">
-          <span class="text-[10px] font-bold text-slate-400 uppercase block">${isAbsence ? 'Gutschrift Abwesenheit' : 'Angerechnet'}</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase block">${isAbsence ? 'Tagessoll-Gutschrift' : 'Angerechnet'}</span>
           <span class="text-2xl font-black text-primary">${effH.toFixed(2)} h</span>
-          <span class="text-xs font-bold ${diff >= 0 ? 'text-emerald-600' : 'text-amber-600'} block">Saldo: ${diffSign}${diff.toFixed(2)} h</span>
+          <span class="text-xs font-bold ${diff >= 0 ? 'text-emerald-600' : 'text-amber-600'} block">Tagessaldo: ${diffSign}${diff.toFixed(2)} h</span>
         </div>
         <div class="flex gap-2">
           <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:bg-blue-800 transition-colors">Bearbeiten</button>
@@ -1102,10 +1172,11 @@ function collectAllCachedEntries() {
   const keys = ['doeltschi_entries', 'doeltschi_time_entries', 'doeltschi_master_entries', 'doeltschi_backup_entries', 'timeEntries'];
   const map = new Map();
 
-  // Immer die gesicherten MasterSeedEntries einbeziehen, damit niemals Daten verloren gehen
+  // 1. Immer alle Master Seeds einbeziehen
   const masterSeeds = getMasterSeedEntries();
   masterSeeds.forEach(s => map.set(s.id, s));
 
+  // 2. LocalStorage Caches auslesen
   keys.forEach(k => {
     try {
       const raw = localStorage.getItem(k);
@@ -1134,14 +1205,13 @@ function saveLocalState() {
 }
 
 async function restoreAndRecoverEntries(showAlert = false) {
-  // 1. Sammle alle lokalen Caches inkl. Master-Seed
   const recovered = collectAllCachedEntries();
   const map = new Map();
 
   recovered.forEach(e => { if (e && e.id) map.set(e.id, e); });
   timeEntriesData.forEach(e => { if (e && e.id) map.set(e.id, e); });
 
-  // 2. Firestore Sync: Gemergt statt überschrieben
+  // Firestore Sync wenn online
   try {
     const snap = await db.collection('timeEntries').get();
     if (snap && !snap.empty) {
@@ -1152,63 +1222,7 @@ async function restoreAndRecoverEntries(showAlert = false) {
     }
   } catch(e){}
 
-  // 3. Sicherstellen, dass Nicole De Prettos Oktober-Tage lückenlos vorhanden sind
-  const nicoleOctReq = [
-    { date: '27.10.2026', h: 4.5, s: 'Normal' },
-    { date: '23.10.2026', h: 4.56, s: 'Krankheit' },
-    { date: '21.10.2026', h: 4.5, s: 'Normal' },
-    { date: '19.10.2026', h: 4.5, s: 'Normal' },
-    { date: '16.10.2026', h: 4.75, s: 'Normal' },
-    { date: '14.10.2026', h: 4.5, s: 'Normal' },
-    { date: '09.10.2026', h: 5.0, s: 'Normal' },
-    { date: '06.10.2026', h: 4.75, s: 'Normal' },
-    { date: '02.10.2026', h: 5.0, s: 'Normal' }
-  ];
-
-  nicoleOctReq.forEach(req => {
-    let found = false;
-    map.forEach(entry => {
-      if (entry.employeeId === 'nicole' && normalizeDateToDDMMYYYY(entry.date) === req.date) {
-        found = true;
-        if (req.s === 'Krankheit') {
-          entry.status = 'Krankheit';
-          entry.hours = 4.56;
-        }
-      }
-    });
-    if (!found) {
-      const eId = `seed_nicole_${req.date.replace(/\./g, '_')}`;
-      map.set(eId, {
-        id: eId,
-        employeeId: 'nicole',
-        date: req.date,
-        vmFrom: req.s === 'Krankheit' ? '' : '08:00',
-        vmTo: req.s === 'Krankheit' ? '' : '12:00',
-        nmFrom: req.s === 'Krankheit' ? '' : '13:00',
-        nmTo: req.s === 'Krankheit' ? '' : '13:30',
-        abendFrom: '',
-        abendTo: '',
-        status: req.s,
-        notes: req.s === 'Krankheit' ? 'Krankheit - 100% Tagessoll-Gutschrift gemäss 57% Pensum' : 'Schulassistenz Sonderpädagogik',
-        hours: req.h,
-        updatedAt: Date.now()
-      });
-    }
-  });
-
-  // 4. Sicherstellen, dass Manuel Schoch mindestens 155.7 h hat
-  let manuelTotal = 0;
-  map.forEach(e => {
-    if (e.employeeId === 'manuel') {
-      manuelTotal += calculateTotalEntryHours(e, employeesData.find(x => x.id === 'manuel'));
-    }
-  });
-  if (manuelTotal < 155.0) {
-    const seeds = getMasterSeedEntries().filter(s => s.employeeId === 'manuel');
-    seeds.forEach(s => map.set(s.id, s));
-  }
-
-  // 5. Bei Abwesenheiten sicherstellen: IMMER Tagessoll gutgeschrieben!
+  // Absenzen Prüfung: Volles Tagessoll sicherstellen
   map.forEach(entry => {
     if (isAbsenceStatus(entry.status)) {
       const emp = employeesData.find(x => x.id === entry.employeeId);
@@ -1226,7 +1240,7 @@ async function restoreAndRecoverEntries(showAlert = false) {
   renderReports();
 
   if (showAlert) {
-    alert(`Erfolgreich! ${timeEntriesData.length} Zeiteinträge wurden vollständig wiederhergestellt, gesichert und synchronisiert.`);
+    alert(`Erfolgreich! ${timeEntriesData.length} Zeiteinträge wurden wiederhergestellt und synchronisiert.`);
   }
 }
 
@@ -1286,7 +1300,6 @@ function renderDashboard() {
   let currentMonthIst = 0;
   let currentMonthSoll = 0;
 
-  // Für Test- und Schuljahreszwecke: Monat Oktober 2026 betrachten
   const targetMonthNum = 10;
   const targetYearNum = 2026;
 
@@ -1295,7 +1308,6 @@ function renderDashboard() {
     const actual = empEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
     const yearly = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum / 100));
 
-    // Monats-Ist für Oktober 2026
     const monthEntries = empEntries.filter(e => {
       const p = parseDateSafely(e.date);
       return p && (p.getMonth() + 1) === targetMonthNum && p.getFullYear() === targetYearNum;
@@ -1365,6 +1377,8 @@ function renderDashboard() {
 function setDailyFilterAndOpen(empId) {
   const f = document.getElementById('filter-daily-employee');
   if (f) f.value = empId;
+  showAllDaysInDaily = false;
+  updateDailyModeButton();
   switchView('tagesansicht');
 }
 
@@ -1530,6 +1544,7 @@ function resetTimeForm() {
   updateFormHint();
 }
 
+// ZEITERFASSUNG FORM SUBMIT - MIT VOLLSTÄNDIGER ZEITRAUM-LOGIK (Mo-Fr)
 document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const id = document.getElementById('entry-id').value || ('entry_' + Date.now());
@@ -1547,19 +1562,23 @@ document.getElementById('time-entry-form').addEventListener('submit', async (e) 
   const status = document.getElementById('entry-status').value;
   const notes = document.getElementById('entry-notes').value;
 
-  // Single Date or Range
+  // Datumsliste ermitteln
   const dates = [];
   if (isRange && dateEndStr) {
     const start = parseDateSafely(dateStr);
     const end = parseDateSafely(dateEndStr);
     if (start && end && start <= end) {
-      let cur = new Date(start);
+      let cur = new Date(start.getTime());
       while (cur <= end) {
-        if (cur.getDay() !== 0 && cur.getDay() !== 6) {
+        // Werktage (Mo=1 bis Fr=5)
+        const dayOfWeek = cur.getDay();
+        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
           dates.push(normalizeDateToDDMMYYYY(cur));
         }
         cur.setDate(cur.getDate() + 1);
       }
+    } else {
+      dates.push(normalizeDateToDDMMYYYY(dateStr));
     }
   } else {
     dates.push(normalizeDateToDDMMYYYY(dateStr));
@@ -1572,7 +1591,7 @@ document.getElementById('time-entry-form').addEventListener('submit', async (e) 
       const entryId = `${id}_${d}_${empId}`.replace(/\./g, '_');
       const emp = employeesData.find(x => x.id === empId);
 
-      // Kernlogik: Tagessoll-Gutschrift bei Abwesenheit
+      // KERNLOGIK: Bei Abwesenheit (Ferien/Krankheit/Unfall) exakt Tagessoll gutschreiben!
       let h = 0;
       if (isAbsenceStatus(status)) {
         h = getDailyTargetHours(emp);
@@ -1591,7 +1610,7 @@ document.getElementById('time-entry-form').addEventListener('submit', async (e) 
         abendFrom: isAbsenceStatus(status) ? '' : abendFrom,
         abendTo: isAbsenceStatus(status) ? '' : abendTo,
         status,
-        notes,
+        notes: notes || (isAbsenceStatus(status) ? `${status} (Tagessoll)` : 'Arbeitseinsatz'),
         hours: Number(h.toFixed(2)),
         updatedAt: Date.now()
       };
@@ -1606,12 +1625,20 @@ document.getElementById('time-entry-form').addEventListener('submit', async (e) 
 
   saveLocalState();
   resetTimeForm();
-  initDailyViewDate();
+  
+  // Zur Tagesansicht für das gewählte Datum wechseln
+  if (dates.length > 0) {
+    const firstDate = parseDateSafely(dates[0]);
+    if (firstDate) currentDailyDate = firstDate;
+  }
+  syncDailyDatePickerInput();
+
   renderDashboard();
   renderDailyOverview();
   renderTimeEntriesList();
   renderWeeklyOverview();
-  alert(`Zeiteintrag erfolgreich gespeichert!\nBei Krankheit & Ferien wurde das Tagessoll (${isAbsenceStatus(status) ? 'z.B. Nicole 4.56 h' : ''}) automatisch gutgeschrieben (Saldo: 0.00 h).`);
+
+  alert(`Gespeichert! Es wurden ${dates.length * empsToSave.length} Buchungen registriert.\nBei Ferien & Krankheit wurde das volle Tagessoll angerechnet (Saldo: 0.00 h).`);
 });
 
 function editTimeEntry(id) {
@@ -1621,7 +1648,7 @@ function editTimeEntry(id) {
   document.getElementById('entry-id').value = entry.id;
   document.getElementById('entry-employee').value = entry.employeeId || 'all';
   document.getElementById('entry-date').value = entry.date || '';
-  document.getElementById('vm-from').value = entry.vmFrom || '07:00';
+  document.getElementById('vm-from').value = entry.vmFrom || '08:00';
   document.getElementById('vm-to').value = entry.vmTo || '12:00';
   document.getElementById('nm-from').value = entry.nmFrom || '13:00';
   document.getElementById('nm-to').value = entry.nmTo || '17:00';
@@ -1629,6 +1656,8 @@ function editTimeEntry(id) {
   document.getElementById('abend-to').value = entry.abendTo || '';
   document.getElementById('entry-status').value = entry.status || 'Normal';
   document.getElementById('entry-notes').value = entry.notes || '';
+  document.getElementById('entry-is-range').checked = false;
+  toggleDateRangeInput(false);
   updateFormHint();
 }
 
@@ -1659,7 +1688,7 @@ if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
   document.getElementById('auth-modal').classList.add('hidden');
 }
 
-// Initialer Start: Robuste Datenwiederherstellung und Rendering
+// Initialer Start: Alle Daten wiederherstellen
 window.addEventListener('DOMContentLoaded', async () => {
   await restoreAndRecoverEntries(false);
   updateFormHint();
