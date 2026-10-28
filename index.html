@@ -205,7 +205,7 @@
 <div class="text-[11px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
 <span class="material-symbols-outlined text-[15px]">event_repeat</span> Zyklus
     </div>
-<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Schuljahr 2026/2027</div>
+<div class="text-xs font-bold text-on-surface mt-0.5" id="sidebar-school-year-display">Alle Schuljahre (Aktiv)</div>
 <div class="text-[11px] text-on-surface-variant">1. Aug. 2026 – 31. Juli 2027</div>
 </div>
 <nav class="flex-1 px-4 space-y-1" id="sidebar-nav">
@@ -241,7 +241,7 @@
 <div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high shadow-xs">
 <span class="material-symbols-outlined text-primary text-[18px]">school</span>
 <label class="text-xs font-bold text-on-surface-variant" for="school-year-select">Zyklus:</label>
-<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)"><option value="all">Alle Schuljahre (Alle Einträge)</option><option value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option><option selected="" value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option><option value="2027/2028">Schuljahr 27/28 (Sommer–Sommer)</option></select>
+<select class="text-xs font-bold bg-transparent text-primary border-none p-0 focus:ring-0 cursor-pointer" id="school-year-select" onchange="changeSchoolYear(this.value)"><option selected="" value="all">Alle Schuljahre (Alle Einträge)</option><option value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option><option value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option><option value="2027/2028">Schuljahr 27/28 (Sommer–Sommer)</option></select>
 </div>
 </div>
 <div class="flex items-center gap-3">
@@ -322,7 +322,7 @@
 <span class="material-symbols-outlined text-[16px]">school</span> Schuljahreszyklus Zürich (Sommer zu Sommer: 1. August – 31. Juli)
 </div>
 <h2 class="text-headline-md text-on-surface">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h2>
-<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2026/2027</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
+<p class="text-body-md text-on-surface-variant">Zeiterfassung, Monats- und Schuljahressaldi basierend auf dem Schuljahr <span class="font-bold text-primary active-school-year-text">2025/2026 &amp; 2026/2027</span> (1. Aug. – 31. Juli) für alle Pensen.</p>
 </div>
 <div class="flex items-center gap-3">
 <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl text-body-md font-bold flex items-center gap-1.5 shadow-sm transition-all" onclick="restoreAndRecoverEntries()">
@@ -362,10 +362,7 @@
 <option value="seline">Seline Steinmann (Administration)</option>
 </select>
 </div>
-<div>
-<label class="block text-label-caps text-on-surface-variant mb-2">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.09.2026" required="" type="text"/>
-</div>
+<div><div class="flex items-center justify-between mb-2"><label class="block text-label-caps text-on-surface-variant">Datum / Zeitraum (TT.MM.JJJJ)</label><span class="text-xs text-primary font-bold"><label class="inline-flex items-center gap-1 cursor-pointer"><input class="rounded text-primary border-outline-variant" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox"/> Zeitraum (z.B. Ferien/Krankheit)</label></span></div><div class="flex gap-2"><input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary" id="entry-date" placeholder="01.10.2026" required="" type="text"/><input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:outline-none focus:border-primary hidden" id="entry-date-end" placeholder="Bis Datum (z.B. 15.10.2026)" type="text"/></div></div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-surface-container-low p-4 rounded-xl">
