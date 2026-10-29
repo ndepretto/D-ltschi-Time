@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - Zeiterfassung &amp; Schuljahresarbeitszeit</title>
 <style>
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
@@ -26,7 +24,7 @@ tailwind.config = {
   }
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
@@ -42,7 +40,7 @@ tailwind.config = {
 <p class="text-xs text-slate-500 mt-1">Bitte geben Sie das Passwort ein (Standard: Willma).</p>
 </div>
 <form class="space-y-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-0" id="auth-password" placeholder="Passwort" required="" type="password"/>
+<input class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-0" id="auth-password" placeholder="Passwort" required="" type="password">
 <button class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-blue-800 transition-colors" type="submit">Anmelden</button>
 <p class="text-red-600 text-xs text-center hidden font-bold" id="auth-error">Falsches Passwort!</p>
 </form>
@@ -63,14 +61,14 @@ tailwind.config = {
 <div class="space-y-4 text-xs text-slate-700 leading-relaxed">
 <div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2">
 <h4 class="font-bold text-primary text-sm">Grundsatzberechnung bei Vollzeit &amp; Teilzeit</h4>
-<p>Die Jahresarbeitszeit für das Schulpersonal im Kanton Zürich basiert auf dem Zyklus vom <strong>1. August bis 31. Juli</strong>. Eine 100% Vollzeitanstellung entspricht <strong>2'144 Arbeitsstunden</strong> pro Schuljahr (42 Wochen à ca. 51.05 h bzw. brutto 52 Wochen abzüglich Ferienanspruch).</p>
+<p class="">Die Jahresarbeitszeit für das Schulpersonal im Kanton Zürich basiert auf dem Zyklus vom <strong>1. August bis 31. Juli</strong>. Eine 100% Vollzeitanstellung entspricht <strong>2'144 Arbeitsstunden</strong> pro Schuljahr (42 Wochen à ca. 51.05 h bzw. brutto 52 Wochen abzüglich Ferienanspruch).</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
 <span class="text-[10px] font-bold uppercase text-slate-500">Nicole De Pretto (57% Pensum)</span>
 <h5 class="text-base font-black text-slate-900 mt-1">1'222.1 h Jahresarbeitszeit</h5>
-<p class="text-slate-600 mt-1">57% von 2'144 h = 1'222.08 h pro Schuljahr.<br/>
-Monatssoll im Durchschnitt: <strong>95.8 h</strong>.<br/>
+<p class="text-slate-600 mt-1">57% von 2'144 h = 1'222.08 h pro Schuljahr.<br>
+Monatssoll im Durchschnitt: <strong>95.8 h</strong>.<br>
 Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
@@ -81,14 +79,14 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-950">
 <div class="font-bold mb-1 flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px]">verified</span> Keine Minusstunden bei Absenzen:</div>
-<p>An Feiertagen, bei bewilligten Ferien oder ärztlich attestierter Krankheit wird exakt das rechnerische Tagessoll angerechnet (Nicole 57% = <strong>4.56 h</strong>, Vollzeit 100% = <strong>8.00 h</strong>, Seline 92% = <strong>7.36 h</strong>). Der Tagessaldo beträgt <strong>0.00 h</strong>.</p>
+<p class="">An Feiertagen, bei bewilligten Ferien oder ärztlich attestierter Krankheit wird exakt das rechnerische Tagessoll angerechnet (Nicole 57% = <strong>4.56 h</strong>, Vollzeit 100% = <strong>8.00 h</strong>, Seline 92% = <strong>7.36 h</strong>). Der Tagessaldo beträgt <strong>0.00 h</strong>.</p>
 </div>
 </div>
 <div class="flex justify-end pt-2">
 <button class="px-5 py-2.5 bg-primary text-white rounded-xl text-xs font-bold hover:bg-blue-800 transition-colors" onclick="closeModalHerleitung()">Verstanden &amp; Schliessen</button>
 </div>
 </div>
-</div>
+</div><div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-employee-edit"><div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"><div class="flex justify-between items-start border-b border-slate-100 pb-4"><div><span class="text-xs font-bold uppercase text-primary tracking-wider">Mitarbeiterprofil anpassen</span><h3 class="text-xl font-black text-slate-900 mt-0.5" id="emp-modal-title">Mitarbeiter bearbeiten</h3></div><button class="text-slate-400 hover:text-slate-700 p-1 rounded-lg" onclick="closeEmployeeModal()"><span class="material-symbols-outlined text-2xl">close</span></button></div><form class="space-y-4" id="employee-edit-form" onsubmit="saveEmployeeModal(event)"><input type="hidden" id="modal-emp-id"><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Vollständiger Name</label><input type="text" id="modal-emp-name" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" required=""></div><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Funktion / Rolle</label><input type="text" id="modal-emp-role" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" required=""></div><div><div class="flex justify-between items-center mb-1"><label class="text-xs font-bold uppercase text-slate-500">Pensum (%)</label><span class="text-xs font-black text-primary" id="modal-emp-pensum-val">100%</span></div><div class="flex items-center gap-3"><input type="number" id="modal-emp-pensum" min="10" max="100" step="1" class="w-24 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-center" oninput="onPensumChange(this.value)" required=""><input type="range" id="modal-emp-pensum-range" min="10" max="100" step="1" class="flex-1 cursor-pointer accent-primary" oninput="onPensumSlider(this.value)"></div></div><div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2"><h4 class="font-bold text-primary text-xs uppercase tracking-wider">Berechnete Richtwerte (Kanton Zürich)</h4><div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Tagessoll (Basis 8.0h)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-daily">8.00 h / Tag</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Monatssoll (Schnitt)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-month">168.0 h / Mt</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100 col-span-2"><span class="text-slate-500 block text-[10px] uppercase font-bold">Jahresarbeitszeit (Basis 2'144h)</span><strong class="text-sm text-primary font-black" id="modal-emp-calc-year">2'144 h / Schuljahr</strong></div></div><p class="text-[11px] text-slate-500 mt-1">Abwesenheiten (Krankheit/Ferien) erhalten automatisch das neue Tagessoll ohne Saldo-Abzug gutgeschrieben.</p></div><div class="flex justify-end gap-2 pt-2"><button type="button" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl" onclick="closeEmployeeModal()">Abbrechen</button><button type="submit" class="px-5 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">save</span><span class="">Änderungen speichern</span></button></div></form></div></div>
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-slate-50 z-40 flex flex-col pt-6 pb-8 border-r border-slate-200 no-print">
 <div class="px-6 mb-6 text-xl font-bold text-primary flex items-center gap-2 cursor-pointer" onclick="switchView('dashboard')">
@@ -142,26 +140,26 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="font-bold text-slate-900 text-lg" id="header-title">Zeitmanagement - Dashboard</div>
 <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700">
 <span class="material-symbols-outlined text-primary text-[18px]">school</span>
-<span>Zyklus:</span>
+<span class="">Zyklus:</span>
 <select class="text-xs font-bold bg-transparent text-primary border-none p-0 cursor-pointer focus:ring-0" id="school-year-select" onchange="changeSchoolYear(this.value)">
 <option selected="" value="all">Alle Schuljahre (Alle Einträge)</option>
 <option value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option>
 <option value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option>
 </select>
-</div><div class="flex items-center gap-2 bg-blue-50/70 border border-blue-200 px-3 py-1.5 rounded-xl text-xs font-bold text-primary shadow-xs"><span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span><span>Monat:</span><select class="text-xs font-bold bg-transparent text-primary border-none p-0 cursor-pointer focus:ring-0" id="header-month-select" onchange="changeDashboardMonth(this.value)"><option value="all">Alle Monate</option><option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option><option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">August</option><option value="9">September</option><option selected="" value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option></select></div>
+</div><div class="flex items-center gap-2 bg-blue-50/70 border border-blue-200 px-3 py-1.5 rounded-xl text-xs font-bold text-primary shadow-xs"><span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span><span class="">Monat:</span><select class="text-xs font-bold bg-transparent text-primary border-none p-0 cursor-pointer focus:ring-0" id="header-month-select" onchange="changeDashboardMonth(this.value)"><option value="all">Alle Monate</option><option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option><option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">August</option><option value="9">September</option><option selected="" value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option></select></div>
 </div>
 <div class="flex items-center gap-3">
 <button class="px-3 py-1.5 bg-indigo-50 text-indigo-900 border border-indigo-200 rounded-xl text-xs font-bold hover:bg-indigo-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="openModalHerleitung()">
 <span class="material-symbols-outlined text-[16px] text-indigo-700">calculate</span>
-<span>804h Herleitung</span>
+<span class="">804h Herleitung</span>
 </button>
 <button class="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="restoreAndRecoverEntries(true)">
 <span class="material-symbols-outlined text-[16px] text-emerald-700">settings_backup_restore</span>
-<span>Einträge wiederherstellen / Cache prüfen</span>
+<span class="">Einträge wiederherstellen / Cache prüfen</span>
 </button>
 <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors" id="cloud-sync-badge" onclick="restoreAndRecoverEntries(true)" title="Klicken für Sofort-Synchronisation">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span id="cloud-sync-label">Cloud Synchron: 208 Einträge</span>
+<span id="cloud-sync-label" class="">Cloud Synchron: 208 Einträge</span>
 </span>
 <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">ND</div>
 </div>
@@ -223,7 +221,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="flex items-center gap-2">
 <button class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 hover:bg-slate-200 transition-colors" onclick="toggleDailyFilterMode()">
 <span class="material-symbols-outlined text-[16px]" id="daily-view-mode-icon">calendar_month</span>
-<span id="daily-view-mode-text">Monatsliste zeigen</span>
+<span id="daily-view-mode-text" class="">Monatsliste zeigen</span>
 </button>
 <button class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm hover:bg-emerald-700" onclick="jumpToLatestDailyEntry()">
 <span class="material-symbols-outlined text-[16px]">fast_forward</span> Neuster erfasster Tag
@@ -282,7 +280,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px] text-primary">event</span> Einzelner Stichtag (Optional):
 </label>
 <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
-<input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date"/>
+<input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date">
 <button class="text-xs text-primary font-bold hover:underline shrink-0" onclick="setToday()">Heute</button>
 </div>
 </div>
@@ -312,7 +310,7 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <span class="text-xs font-bold text-slate-800" id="daily-total-entries-info">0 Einträge insgesamt erfasst</span>
 </div>
 <div class="flex items-center gap-2 text-xs text-slate-600 font-medium">
-<span>Tage im gewählten Zeitraum anklicken für Einzelfokus:</span>
+<span class="">Tage im gewählten Zeitraum anklicken für Einzelfokus:</span>
 </div>
 </div>
 <div class="flex flex-wrap items-center gap-1.5" id="daily-recent-dates-pills"></div>
@@ -359,7 +357,7 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <p class="text-xs text-slate-500 mt-1">Erfassen Sie einzelne Arbeitstage oder komplette Zeiträume (z.B. Ferien oder Krankheitswochen Mo–Fr). Bei Krankheit, Ferien oder Unfall wird automatisch das tägliche Pensum (z.B. Nicole 57% = 4.56 h, 100% = 8.00 h, Seline 92% = 7.36 h) ohne Minusstunden gutgeschrieben.</p>
 </div>
 <form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden"/>
+<input id="entry-id" type="hidden">
 <!-- Employee & Date Selection -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
@@ -377,18 +375,18 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <div class="flex items-center justify-between">
 <label class="text-xs font-bold uppercase text-slate-500">Datum oder Zeitraum</label>
 <label class="inline-flex items-center gap-1.5 cursor-pointer bg-blue-50 text-primary px-2.5 py-1 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
-<input class="w-4 h-4 rounded text-primary border-blue-300 focus:ring-primary cursor-pointer" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox"/>
+<input class="w-4 h-4 rounded text-primary border-blue-300 focus:ring-primary cursor-pointer" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox">
 <span class="text-xs font-bold">Zeitraum erfassen (Von – Bis)</span>
 </label>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="date-inputs-wrapper">
 <div>
 <span class="text-[11px] font-bold text-slate-500 block mb-0.5" id="date-start-label">Datum (TT.MM.JJJJ)</span>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 23.10.2026" required="" type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 23.10.2026" required="" type="text">
 </div>
 <div class="hidden" id="entry-date-end-container">
 <span class="text-[11px] font-bold text-primary block mb-0.5">Bis Datum (TT.MM.JJJJ)</span>
-<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text">
 </div>
 </div>
 <p class="text-[11px] text-slate-500" id="range-hint-text">Tipp: Im Zeitraum-Modus werden automatisch für jeden Werktag (Mo–Fr) Einträge angelegt.</p>
@@ -401,8 +399,8 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <span class="material-symbols-outlined text-[16px] text-primary">wb_sunny</span> Vormittag
 </span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-from" type="time" value="08:00"/>
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-to" type="time" value="12:00"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-from" type="time" value="08:00">
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-to" type="time" value="12:00">
 </div>
 </div>
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -410,8 +408,8 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <span class="material-symbols-outlined text-[16px] text-amber-600">wb_twilight</span> Nachmittag
 </span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-from" type="time" value="13:00"/>
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-to" type="time" value="17:00"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-from" type="time" value="13:00">
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-to" type="time" value="17:00">
 </div>
 </div>
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -419,8 +417,8 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <span class="material-symbols-outlined text-[16px] text-indigo-600">nights_stay</span> Abend / Zusatz
 </span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-from" placeholder="Von" type="time"/>
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-to" placeholder="Bis" type="time"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-from" placeholder="Von" type="time">
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-to" placeholder="Bis" type="time">
 </div>
 </div>
 </div>
@@ -438,7 +436,7 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 </div>
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Bemerkung</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, Grippe etc." type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, Grippe etc." type="text">
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-2">
@@ -539,10 +537,10 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <h4 class="font-bold text-slate-900 text-sm">Gutschrift bei Abwesenheiten (Krankheit, Ferien, Unfall):</h4>
 <p class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-emerald-950 font-medium">
 <strong>Keine Minusstunden:</strong> An Feiertagen, bei ärztlich attestierter Krankheit, Unfall oder genehmigten Ferien wird den Mitarbeitenden das volle rechnerische Tagessoll gemäss Beschäftigungsgrad gutgeschrieben:
-<br/>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
-<br/>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
-<br/>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
-<br/>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
+<br>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
+<br>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
+<br>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
+<br>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
 </p>
 </div>
 </div>
@@ -1750,4 +1748,201 @@ window.addEventListener('DOMContentLoaded', async () => {
   updateFormHint();
 });
 </script>
-</body></html>
+
+
+<script>
+function openEmployeeModal(empId) {
+  const emp = employeesData.find(e => e.id === empId);
+  if (!emp) return;
+  document.getElementById('modal-emp-id').value = emp.id;
+  document.getElementById('modal-emp-name').value = emp.name;
+  document.getElementById('modal-emp-role').value = emp.role;
+  document.getElementById('modal-emp-pensum').value = emp.pensum;
+  document.getElementById('modal-emp-pensum-range').value = emp.pensum;
+  document.getElementById('modal-emp-pensum-val').textContent = emp.pensum + '%';
+  document.getElementById('emp-modal-title').textContent = `${emp.name} bearbeiten`;
+  updateModalCalculations(Number(emp.pensum));
+  const modal = document.getElementById('modal-employee-edit');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+function closeEmployeeModal() {
+  const modal = document.getElementById('modal-employee-edit');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+function onPensumChange(val) {
+  const num = Math.min(100, Math.max(10, Number(val) || 10));
+  document.getElementById('modal-emp-pensum-range').value = num;
+  document.getElementById('modal-emp-pensum-val').textContent = num + '%';
+  updateModalCalculations(num);
+}
+
+function onPensumSlider(val) {
+  const num = Number(val);
+  document.getElementById('modal-emp-pensum').value = num;
+  document.getElementById('modal-emp-pensum-val').textContent = num + '%';
+  updateModalCalculations(num);
+}
+
+function updateModalCalculations(pensum) {
+  const daily = Number((8.0 * (pensum / 100)).toFixed(2));
+  const month = Number((168.0 * (pensum / 100)).toFixed(1));
+  const year = Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
+  document.getElementById('modal-emp-calc-daily').textContent = daily.toFixed(2) + ' h / Tag';
+  document.getElementById('modal-emp-calc-month').textContent = month.toFixed(1) + ' h / Mt';
+  document.getElementById('modal-emp-calc-year').textContent = year.toLocaleString('de-CH') + ' h / Schuljahr';
+}
+
+function saveEmployeeModal(event) {
+  event.preventDefault();
+  const id = document.getElementById('modal-emp-id').value;
+  const name = document.getElementById('modal-emp-name').value.trim();
+  const role = document.getElementById('modal-emp-role').value.trim();
+  const pensum = Number(document.getElementById('modal-emp-pensum').value) || 100;
+  const empIndex = employeesData.findIndex(e => e.id === id);
+  if (empIndex >= 0) {
+    const initials = name.split(' ').filter(Boolean).map(p => p[0]).join('').substring(0, 2).toUpperCase() || 'MA';
+    const daily = Number((8.0 * (pensum / 100)).toFixed(2));
+    const month = Number((168.0 * (pensum / 100)).toFixed(1));
+    const year = Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
+    employeesData[empIndex] = {
+      ...employeesData[empIndex],
+      name,
+      role,
+      initials,
+      pensum,
+      dailyTarget: daily,
+      targetHours: month,
+      yearlyTotal: year
+    };
+    saveLocalState();
+    renderDashboard();
+    renderEmployeesManagement();
+    renderReports();
+    renderDailyOverview();
+    renderTimeEntriesList();
+    renderWeeklyOverview();
+    closeEmployeeModal();
+  }
+}
+
+// Überschreibe renderDashboard & renderEmployeesManagement so dass der auffällige Bearbeiten-Button gerendert wird
+const _origRenderDashboard = renderDashboard;
+renderDashboard = function() {
+  const grid = document.getElementById('dashboard-employees-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  let totalActual = 0;
+  let totalYearly = 0;
+  let currentMonthIst = 0;
+  let currentMonthSoll = 0;
+  const targetMonthNum = 10;
+  const targetYearNum = 2026;
+  employeesData.forEach(emp => {
+    const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id && entryMatchesSchoolYear(e, selectedSchoolYear));
+    const actual = empEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
+    const yearly = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum / 100));
+    const monthEntries = empEntries.filter(e => {
+      const p = parseDateSafely(e.date);
+      return p && (p.getMonth() + 1) === targetMonthNum && p.getFullYear() === targetYearNum;
+    });
+    const mIst = monthEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
+    currentMonthIst += mIst;
+    currentMonthSoll += Number(emp.targetHours || 0);
+    totalActual += actual;
+    totalYearly += yearly;
+    const mSaldo = (mIst - emp.targetHours).toFixed(1);
+    const mSaldoSign = mSaldo > 0 ? '+' : '';
+    const card = document.createElement('div');
+    card.className = 'bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all';
+    card.innerHTML = `
+      <div class="flex justify-between items-start">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">${emp.initials}</div>
+          <div>
+            <h4 class="font-bold text-slate-900">${emp.name}</h4>
+            <span class="text-xs text-slate-500">${emp.role}</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">${emp.pensum}% Pensum (Soll: ${getDailyTargetHours(emp).toFixed(2)} h/Tag)</span>
+          <button onclick="openEmployeeModal('${emp.id}')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" title="Mitarbeiter bearbeiten">
+            <span class="material-symbols-outlined text-[15px]">edit</span>
+            <span>Bearbeiten</span>
+          </button>
+        </div>
+      </div>
+      <div class="bg-slate-50 p-4 rounded-xl space-y-2">
+        <div class="flex justify-between text-xs font-bold">
+          <span>Schuljahresarbeitszeit</span>
+          <span class="text-primary">${actual.toFixed(1)} / ${yearly} h</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+          <div class="bg-primary h-full transition-all duration-500" style="width: ${yearly > 0 ? Math.min(100, Math.round((actual / yearly)*100)) : 0}%"></div>
+        </div>
+        <div class="flex justify-between text-[11px] text-slate-500 pt-1">
+          <span>Monatssoll: ${emp.targetHours} h</span>
+          <span>Diesen Monat: <strong class="text-slate-800">${mIst.toFixed(1)} h</strong> (<span class="${mSaldo >= 0 ? 'text-emerald-600' : 'text-amber-600'} font-bold">${mSaldoSign}${mSaldo} h</span>)</span>
+        </div>
+      </div>
+      <div class="flex justify-between items-center pt-2">
+        <button onclick="setDailyFilterAndOpen('${emp.id}')" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
+        </button>
+        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='${emp.id}'; updateFormHint();" class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors">
+          Zeiteintrag erfassen
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  document.getElementById('dash-team-count').textContent = `${employeesData.length} Mitglieder`;
+  document.getElementById('dash-month-total').textContent = `${currentMonthIst.toFixed(1)} / ${currentMonthSoll.toFixed(1)} h`;
+  document.getElementById('dash-year-total').textContent = `${totalActual.toFixed(1)} / ${totalYearly.toLocaleString('de-CH')} Std.`;
+  const pct = totalYearly > 0 ? Math.min(100, Math.round((totalActual / totalYearly) * 100)) : 0;
+  document.getElementById('dash-progress').style.width = `${pct}%`;
+  const overSaldo = (currentMonthIst - currentMonthSoll).toFixed(1);
+  const overSign = overSaldo >= 0 ? '+' : '';
+  const overEl = document.getElementById('dash-overtime');
+  overEl.textContent = `${overSign}${overSaldo} h`;
+  overEl.className = overSaldo >= 0 ? 'text-2xl font-black text-emerald-600 mt-1' : 'text-2xl font-black text-amber-600 mt-1';
+  document.getElementById('dash-year-saldo').textContent = `Total erfasst: ${totalActual.toFixed(1)} Std.`;
+};
+
+renderEmployeesManagement = function() {
+  const list = document.getElementById('employees-management-list');
+  if (!list) return;
+  list.innerHTML = '';
+  employeesData.forEach(emp => {
+    const daily = getDailyTargetHours(emp);
+    const card = document.createElement('div');
+    card.className = 'bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center';
+    card.innerHTML = `
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">${emp.initials}</div>
+        <div>
+          <h4 class="font-bold text-slate-900 text-sm">${emp.name}</h4>
+          <span class="text-xs text-slate-500">${emp.role} | ${emp.pensum}% Pensum</span>
+          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>${daily.toFixed(2)} h</strong> (Absenzen zählen voll)</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="text-right">
+          <span class="font-bold text-primary text-xs block">${emp.targetHours}h / Mt</span>
+          <span class="text-[10px] text-slate-400">Total: ${emp.yearlyTotal}h</span>
+        </div>
+        <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
+          <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
+        </button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+};
+
+renderDashboard();
+renderEmployeesManagement();
+</script></body></html>
