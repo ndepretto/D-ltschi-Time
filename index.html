@@ -192,7 +192,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div>
 <span class="text-xs font-bold text-primary uppercase">Schuljahreszyklus Zürich</span>
 <h3 class="text-xl font-bold text-slate-900">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h3>
-<p class="text-xs text-slate-600 mt-0.5">Zeiterfassung, Monats- und Schuljahressaldi für Nicole, Michelle, Manuel &amp; Seline. Absenzen (Krankheit/Ferien) zählen voll als Tagessoll.</p>
+<p class="text-xs text-slate-600 mt-0.5">Zeiterfassung, Monats- und Schuljahressaldi für Nicole, Michelle, Manuel &amp; Seline. Absenzen (z.B. Ferien 05.–17.10. &amp; Krankheit) haben Priorität und werden voll als Tagessoll vergütet.</p>
 </div>
 <div class="flex gap-2">
 <button class="px-4 py-2 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-emerald-700 flex items-center gap-1 transition-all" onclick="switchView('tagesansicht')">
@@ -431,7 +431,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
 <input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date">
 <button class="text-xs text-primary font-bold hover:underline shrink-0" onclick="setToday()">Heute</button>
-</div>
+<button class="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[14px]">auto_fix_high</span> 05.–17.10. Ferien bereinigen</button></div>
 </div>
 </div>
 <!-- Schnellwahl-Buttons für beliebte Monate & Stichtage -->
@@ -448,8 +448,8 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <button class="px-2.5 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100 transition-all" onclick="setDailyDateTo('23.10.2026')">
 Stichtag 23.10.2026 (Krankheit/Gutschrift)
 </button>
-</div>
-</div>
+<button class="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[14px]">auto_fix_high</span> 05.–17.10. Ferien bereinigen</button></div>
+<button class="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[14px]">auto_fix_high</span> 05.–17.10. Ferien bereinigen</button></div>
 </div>
 <!-- Quick Finder & Recent Dates Bar -->
 <div class="bg-blue-50/60 p-4 rounded-2xl border border-blue-100 space-y-3">
@@ -503,7 +503,7 @@ Stichtag 23.10.2026 (Krankheit/Gutschrift)
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
 <div class="border-b border-slate-100 pb-4">
 <h2 class="text-2xl font-black text-slate-900">Zeiteintrag erfassen / bearbeiten</h2>
-<p class="text-xs text-slate-500 mt-1">Erfassen Sie einzelne Arbeitstage oder komplette Zeiträume (z.B. Ferien oder Krankheitswochen Mo–Fr). Bei Krankheit, Ferien oder Unfall wird automatisch das tägliche Pensum (z.B. Nicole 57% = 4.56 h, 100% = 8.00 h, Seline 92% = 7.36 h) ohne Minusstunden gutgeschrieben.</p>
+<div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950 text-xs mt-2 space-y-1"><p class="font-bold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-700">verified_user</span> Vorrang-Regel für Absenzen (Ferien / Krankheit / Unfall):</p><p class="text-[11px] leading-relaxed text-emerald-900">Werden Ferien, Krankheit oder Unfall erfasst (auch Zeiträume wie 05.10. – 17.10.2026), überschreiben diese automatisch allfällige reguläre Schichten desselben Tages. Es wird exakt das Tagessoll (z.B. Nicole 57% = 4.56 h, Michelle/Manuel 100% = 8.00 h, Seline 92% = 7.36 h) gutgeschrieben (Saldo: ±0.00 h).</p></div>
 </div>
 <form class="space-y-6" id="time-entry-form">
 <input id="entry-id" type="hidden">
@@ -2167,5 +2167,7 @@ renderEmployeesManagement = function() {
 renderDashboard();
 renderEmployeesManagement();
 </script>
+
+
 
 </body></html>
