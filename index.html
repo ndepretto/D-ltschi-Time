@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="de">
-<head>
+<html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - Mobile Swipe &amp; Schuljahresarbeitszeit</title>
@@ -75,25 +74,37 @@
 </button>
 </div>
 <div class="flex flex-col items-center text-center gap-3 py-1">
-<div class="p-3 bg-white rounded-2xl shadow-md border-2 border-emerald-500/30 flex items-center justify-center">
-<svg class="w-44 h-44" fill="currentColor" viewbox="0 0 160 160">
-<path d="M10 10h40v40h-40z m8 8v24h24v-24z m8 8h8v8h-8z"></path>
-<path d="M110 10h40v40h-40z m8 8v24h24v-24z m8 8h8v8h-8z"></path>
-<path d="M10 110h40v40h-40z m8 8v24h24v-24z m8 8h8v8h-8z"></path>
-<path d="M60 15h10v10h-10z M80 15h15v8h-15z M60 35h8v8h-8z M85 30h12v10h-12z M20 60h10v10h-10z M40 60h8v8h-8z M60 60h8v8h-8z M80 60h8v8h-8z M100 60h15v8h-15z M130 60h10v10h-10z M60 80h15v10h-15z M90 75h10v10h-10z M110 80h10v10h-10z M135 80h8v8h-8z M60 100h8v8h-8z M75 105h12v10h-12z M100 100h15v10h-15z M130 100h12v10h-12z M60 125h12v12h-12z M85 125h10v10h-10z M110 120h15v12h-15z M135 130h12v15h-12z M75 140h15v10h-15z M100 140h10v10h-10z"></path>
-<circle cx="80" cy="80" fill="#003d9b" r="14"></circle>
-<text fill="white" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle" x="80" y="84">SWIPE</text>
-</svg>
+<div class="p-3 bg-white rounded-2xl shadow-md border-2 border-emerald-500/30 flex flex-col items-center justify-center relative">
+<img alt="QR-Code zur Döltschi Time Live Web-App" class="w-48 h-48 rounded-lg shadow-sm object-contain" id="live-qr-code-img" loading="eager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvki9mOJwavSCyylwha88YcDLrkazFIu0SxDq4q5uLEG5I_x3Qhd6uAMBK8gOQH7qxoZdYt3MJAAMgLLTwSIn1SbqxqpUSQsn4b40tzWXwgRPYKSa7CIB7lur_rIte1aVZ_7XxAs71RUJm7n_PIKmzRBCvWZDzu2AakvAdqdoErjuUxE8lFBXUDvRXqma6pmwkGPQpKlKx-CNBmzmN4DFNnpppzJKYZ4J54HNzYuU"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-10 h-10 bg-white/95 rounded-xl shadow-md border border-emerald-500/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px] text-primary">schedule</span>
+</div>
+</div>
 </div>
 <p class="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full inline-flex items-center gap-1.5 border border-emerald-300">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
 Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 </p>
-<div class="w-full flex flex-col gap-2 pt-2 border-t border-surface-container-high">
-<button class="w-full py-2.5 px-4 bg-primary text-on-primary text-xs font-bold rounded-xl hover:bg-primary-container transition-all flex items-center justify-center gap-2 shadow-sm" onclick="copyMobileUrl()">
+<!-- Klartext-Ziel-URL Anzeige -->
+<div class="w-full bg-surface-container-low px-3 py-2 rounded-xl border border-surface-container-high text-center">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider block mb-0.5">Ziel-URL der Web-App</span>
+<a class="text-xs font-mono font-bold text-primary hover:underline break-all inline-flex items-center gap-1 justify-center" href="https://ndepretto.github.io/D-ltschi-Time/" rel="noopener noreferrer" target="_blank">
+<span>https://ndepretto.github.io/D-ltschi-Time/</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+<div class="w-full flex flex-col gap-2 pt-1 border-t border-surface-container-high">
+<div class="grid grid-cols-2 gap-2">
+<button class="w-full py-2.5 px-3 bg-primary text-on-primary text-xs font-bold rounded-xl hover:bg-primary-container transition-all flex items-center justify-center gap-1.5 shadow-sm" onclick="copyMobileUrl()">
 <span class="material-symbols-outlined text-[16px]">content_copy</span>
-<span id="btn-copy-link-text">Direktlink kopieren</span>
+<span id="btn-copy-link-text">Link kopieren</span>
 </button>
+<a class="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm text-center" href="https://ndepretto.github.io/D-ltschi-Time/" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+<span>Im neuen Tab</span>
+</a>
+</div>
 <button class="w-full py-2.5 px-4 bg-surface-container-low text-primary text-xs font-bold rounded-xl hover:bg-surface-container-high transition-all flex items-center justify-center gap-1.5 border border-primary/20" onclick="closeQrModal(); switchView('mobile-swipe');">
 <span class="material-symbols-outlined text-[16px]">smartphone</span>
 <span>Stempeluhr am Bildschirm testen</span>
@@ -1087,14 +1098,19 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
         }
     }
 
+    const TARGET_LIVE_URL = 'https://ndepretto.github.io/D-ltschi-Time/';
+
     function copyMobileUrl() {
-        const url = window.location.href;
+        const url = TARGET_LIVE_URL;
         navigator.clipboard.writeText(url).then(() => {
             const btnText = document.getElementById('btn-copy-link-text');
             if (btnText) {
-                btnText.textContent = 'Link kopiert! ✅';
-                setTimeout(() => { btnText.textContent = 'Direktlink kopieren'; }, 2000);
+                btnText.textContent = 'Kopiert! ✅';
+                setTimeout(() => { btnText.textContent = 'Link kopieren'; }, 2200);
             }
+        }).catch(() => {
+            // Fallback falls Clipboard blockiert ist
+            prompt('Ziel-URL zum Kopieren:', url);
         });
     }
 
@@ -1346,5 +1362,4 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
     renderTagesansicht();
     renderWeekly();
 </script>
-</body>
-</html>
+</body></html>
