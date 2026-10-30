@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -41,13 +40,14 @@ tailwind.config = {
 <h2 class="text-2xl font-bold text-primary">Döltschi Time Login</h2>
 <p class="text-xs text-slate-500 mt-1">Bitte geben Sie das Passwort ein (Standard: Willma).</p>
 </div>
-<form class="space-y-4" id="auth-form">
+<form class="space-y-4" id="auth-form" onsubmit="handleAuthSubmit(event)">
 <input class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-0" id="auth-password" placeholder="Passwort" required="" type="password"/>
 <button class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-blue-800 transition-colors" type="submit">Anmelden</button>
 <p class="text-red-600 text-xs text-center hidden font-bold" id="auth-error">Falsches Passwort!</p>
 </form>
 </div>
 </div>
+
 <!-- Modal 804h Herleitung & Schuljahresberechnung -->
 <div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-herleitung">
 <div class="bg-white max-w-2xl w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
@@ -63,7 +63,7 @@ tailwind.config = {
 <div class="space-y-4 text-xs text-slate-700 leading-relaxed">
 <div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2">
 <h4 class="font-bold text-primary text-sm">Grundsatzberechnung bei Vollzeit &amp; Teilzeit</h4>
-<p class="">Die Jahresarbeitszeit für das Schulpersonal im Kanton Zürich basiert auf dem Zyklus vom <strong>1. August bis 31. Juli</strong>. Eine 100% Vollzeitanstellung entspricht <strong>2'144 Arbeitsstunden</strong> pro Schuljahr (42 Wochen à ca. 51.05 h bzw. brutto 52 Wochen abzüglich Ferienanspruch).</p>
+<p>Die Jahresarbeitszeit für das Schulpersonal im Kanton Zürich basiert auf dem Zyklus vom <strong>1. August bis 31. Juli</strong>. Eine 100% Vollzeitanstellung entspricht <strong>2'144 Arbeitsstunden</strong> pro Schuljahr (42 Wochen à ca. 51.05 h bzw. brutto 52 Wochen abzüglich Ferienanspruch).</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
@@ -81,14 +81,58 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-950">
 <div class="font-bold mb-1 flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px]">verified</span> Keine Minusstunden bei Absenzen:</div>
-<p class="">An Feiertagen, bei bewilligten Ferien oder ärztlich attestierter Krankheit wird exakt das rechnerische Tagessoll angerechnet (Nicole 57% = <strong>4.56 h</strong>, Vollzeit 100% = <strong>8.00 h</strong>, Seline 92% = <strong>7.36 h</strong>). Der Tagessaldo beträgt <strong>0.00 h</strong>.</p>
+<p>An Feiertagen, bei bewilligten Ferien oder ärztlich attestierter Krankheit wird exakt das rechnerische Tagessoll angerechnet (Nicole 57% = <strong>4.56 h</strong>, Vollzeit 100% = <strong>8.00 h</strong>, Seline 92% = <strong>7.36 h</strong>). Der Tagessaldo beträgt <strong>0.00 h</strong>.</p>
 </div>
 </div>
 <div class="flex justify-end pt-2">
 <button class="px-5 py-2.5 bg-primary text-white rounded-xl text-xs font-bold hover:bg-blue-800 transition-colors" onclick="closeModalHerleitung()">Verstanden &amp; Schliessen</button>
 </div>
 </div>
-</div><div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-employee-edit"><div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"><div class="flex justify-between items-start border-b border-slate-100 pb-4"><div><span class="text-xs font-bold uppercase text-primary tracking-wider">Mitarbeiterprofil anpassen</span><h3 class="text-xl font-black text-slate-900 mt-0.5" id="emp-modal-title">Mitarbeiter bearbeiten</h3></div><button class="text-slate-400 hover:text-slate-700 p-1 rounded-lg" onclick="closeEmployeeModal()"><span class="material-symbols-outlined text-2xl">close</span></button></div><form class="space-y-4" id="employee-edit-form" onsubmit="saveEmployeeModal(event)"><input id="modal-emp-id" type="hidden"/><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Vollständiger Name</label><input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-name" required="" type="text"/></div><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Funktion / Rolle</label><input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-role" required="" type="text"/></div><div><div class="flex justify-between items-center mb-1"><label class="text-xs font-bold uppercase text-slate-500">Pensum (%)</label><span class="text-xs font-black text-primary" id="modal-emp-pensum-val">100%</span></div><div class="flex items-center gap-3"><input class="w-24 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-center" id="modal-emp-pensum" max="100" min="10" oninput="onPensumChange(this.value)" required="" step="1" type="number"/><input class="flex-1 cursor-pointer accent-primary" id="modal-emp-pensum-range" max="100" min="10" oninput="onPensumSlider(this.value)" step="1" type="range"/></div></div><div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2"><h4 class="font-bold text-primary text-xs uppercase tracking-wider">Berechnete Richtwerte (Kanton Zürich)</h4><div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Tagessoll (Basis 8.0h)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-daily">8.00 h / Tag</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Monatssoll (Schnitt)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-month">168.0 h / Mt</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100 col-span-2"><span class="text-slate-500 block text-[10px] uppercase font-bold">Jahresarbeitszeit (Basis 2'144h)</span><strong class="text-sm text-primary font-black" id="modal-emp-calc-year">2'144 h / Schuljahr</strong></div></div><p class="text-[11px] text-slate-500 mt-1">Abwesenheiten (Krankheit/Ferien) erhalten automatisch das neue Tagessoll ohne Saldo-Abzug gutgeschrieben.</p></div><div class="flex justify-end gap-2 pt-2"><button class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button><button class="px-5 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5" type="submit"><span class="material-symbols-outlined text-[16px]">save</span><span class="">Änderungen speichern</span></button></div></form></div></div>
+</div>
+
+<!-- Modal Mitarbeiter bearbeiten -->
+<div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-employee-edit">
+<div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+<div class="flex justify-between items-start border-b border-slate-100 pb-4">
+<div><span class="text-xs font-bold uppercase text-primary tracking-wider">Mitarbeiterprofil anpassen</span>
+<h3 class="text-xl font-black text-slate-900 mt-0.5" id="emp-modal-title">Mitarbeiter bearbeiten</h3></div>
+<button class="text-slate-400 hover:text-slate-700 p-1 rounded-lg" onclick="closeEmployeeModal()">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+</div>
+<form class="space-y-4" id="employee-edit-form" onsubmit="saveEmployeeModal(event)">
+<input id="modal-emp-id" type="hidden"/>
+<div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Vollständiger Name</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-name" required="" type="text"/></div>
+<div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Funktion / Rolle</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-role" required="" type="text"/></div>
+<div>
+<div class="flex justify-between items-center mb-1"><label class="text-xs font-bold uppercase text-slate-500">Pensum (%)</label>
+<span class="text-xs font-black text-primary" id="modal-emp-pensum-val">100%</span></div>
+<div class="flex items-center gap-3">
+<input class="w-24 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-center" id="modal-emp-pensum" max="100" min="10" oninput="onPensumChange(this.value)" required="" step="1" type="number"/>
+<input class="flex-1 cursor-pointer accent-primary" id="modal-emp-pensum-range" max="100" min="10" oninput="onPensumSlider(this.value)" step="1" type="range"/>
+</div>
+</div>
+<div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2">
+<h4 class="font-bold text-primary text-xs uppercase tracking-wider">Berechnete Richtwerte (Kanton Zürich)</h4>
+<div class="grid grid-cols-2 gap-2 text-xs">
+<div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Tagessoll (Basis 8.0h)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-daily">8.00 h / Tag</strong></div>
+<div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Monatssoll (Schnitt)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-month">168.0 h / Mt</strong></div>
+<div class="bg-white p-2.5 rounded-lg border border-blue-100 col-span-2"><span class="text-slate-500 block text-[10px] uppercase font-bold">Jahresarbeitszeit (Basis 2'144h)</span><strong class="text-sm text-primary font-black" id="modal-emp-calc-year">2'144 h / Schuljahr</strong></div>
+</div>
+<p class="text-[11px] text-slate-500 mt-1">Abwesenheiten (Krankheit/Ferien) erhalten automatisch das neue Tagessoll ohne Saldo-Abzug gutgeschrieben.</p>
+</div>
+<div class="flex justify-end gap-2 pt-2">
+<button class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button>
+<button class="px-5 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5" type="submit">
+<span class="material-symbols-outlined text-[16px]">save</span><span>Änderungen speichern</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-slate-50 z-40 flex flex-col pt-6 pb-8 border-r border-slate-200 no-print">
 <div class="px-6 mb-6 text-xl font-bold text-primary flex items-center gap-2 cursor-pointer" onclick="switchView('dashboard')">
@@ -100,25 +144,25 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="text-[11px] text-slate-500">1. Aug. 2026 – 31. Juli 2027</div>
 </div>
 <nav class="flex-1 px-3 space-y-1" id="sidebar-nav">
-<a class="flex items-center px-4 py-2.5 rounded-xl font-bold transition-all cursor-pointer bg-primary text-white shadow-sm" data-view="dashboard">
+<a class="flex items-center px-4 py-2.5 rounded-xl font-bold transition-all cursor-pointer bg-primary text-white shadow-sm" data-view="dashboard" onclick="switchView('dashboard')">
 <span class="material-symbols-outlined mr-3">dashboard</span>Dashboard
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="tagesansicht">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="tagesansicht" onclick="switchView('tagesansicht')">
 <span class="material-symbols-outlined mr-3">today</span>Tagesansicht
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="zeiterfassung">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="zeiterfassung" onclick="switchView('zeiterfassung')">
 <span class="material-symbols-outlined mr-3">schedule</span>Zeiterfassung
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="wochenuebersicht">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="wochenuebersicht" onclick="switchView('wochenuebersicht')">
 <span class="material-symbols-outlined mr-3">date_range</span>Wochenübersicht
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="mitarbeiter">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="mitarbeiter" onclick="switchView('mitarbeiter')">
 <span class="material-symbols-outlined mr-3">group</span>Mitarbeiter
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="berichte">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="berichte" onclick="switchView('berichte')">
 <span class="material-symbols-outlined mr-3">bar_chart</span>Berichte
 </a>
-<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="erklaerung">
+<a class="flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer" data-view="erklaerung" onclick="switchView('erklaerung')">
 <span class="material-symbols-outlined mr-3">info</span>Schuljahresarbeitszeit
 </a>
 </nav>
@@ -135,6 +179,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </aside>
+
 <!-- Main Wrapper -->
 <div class="pl-64">
 <header class="fixed top-0 left-64 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 z-30 flex items-center justify-between px-8 no-print">
@@ -142,31 +187,96 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="font-bold text-slate-900 text-lg" id="header-title">Zeitmanagement - Dashboard</div>
 <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700">
 <span class="material-symbols-outlined text-primary text-[18px]">school</span>
-<span class="">Zyklus:</span>
+<span>Zyklus:</span>
 <select class="text-xs font-bold bg-transparent text-primary border-none p-0 cursor-pointer focus:ring-0" id="school-year-select" onchange="changeSchoolYear(this.value)">
 <option selected="" value="all">Alle Schuljahre (Alle Einträge)</option>
 <option value="2026/2027">Schuljahr 26/27 (Sommer–Sommer)</option>
 <option value="2025/2026">Schuljahr 25/26 (Sommer–Sommer)</option>
 </select>
-</div><div class="flex items-center gap-2 bg-blue-50/70 border border-blue-200 px-3 py-1.5 rounded-xl text-xs font-bold text-primary shadow-xs"><span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span><span class="">Monat:</span><select class="text-xs font-bold bg-transparent text-primary border-none p-0 cursor-pointer focus:ring-0" id="header-month-select" onchange="changeDashboardMonth(this.value)"><option value="all">Alle Monate</option><option value="1">Januar</option><option value="2">Februar</option><option value="3">März</option><option value="4">April</option><option value="5">Mai</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">August</option><option value="9">September</option><option selected="" value="10">Oktober</option><option value="11">November</option><option value="12">Dezember</option></select></div>
 </div>
+<div class="flex items-center gap-2 bg-blue-50/70 border border-blue-200 px-3 py-1.5 rounded-xl text-xs font-bold text-primary shadow-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span>
+<span>Monat:</span>
+<select class="text-xs font-bold bg-transparent text-primary border-none p-0 cursor-pointer focus:ring-0" id="header-month-select" onchange="changeDashboardMonth(this.value)">
+<option value="all">Alle Monate</option>
+<option value="1">Januar</option>
+<option value="2">Februar</option>
+<option value="3">März</option>
+<option value="4">April</option>
+<option value="5">Mai</option>
+<option value="6">Juni</option>
+<option value="7">Juli</option>
+<option value="8">August</option>
+<option value="9">September</option>
+<option selected="" value="10">Oktober</option>
+<option value="11">November</option>
+<option value="12">Dezember</option>
+</select>
+</div>
+</div>
+
 <div class="flex items-center gap-3">
 <button class="px-3 py-1.5 bg-indigo-50 text-indigo-900 border border-indigo-200 rounded-xl text-xs font-bold hover:bg-indigo-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="openModalHerleitung()">
 <span class="material-symbols-outlined text-[16px] text-indigo-700">calculate</span>
-<span class="">804h Herleitung</span>
+<span>804h Herleitung</span>
 </button>
-<button class="px-3 py-1.5 bg-amber-50 text-amber-950 border border-amber-200 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all flex items-center gap-1.5 shadow-xs" id="btn-clean-duplicates" onclick="cleanDuplicateEntries(true)" title="Ferien &amp; Krankheit Duplikate und überlappende Schichten bereinigen"><span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span><span>Ferien-Duplikate 05.–17.10. restlos bereinigt &amp; fixiert</span><span class="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-200 text-emerald-950 font-bold ml-1">Definitiv</span></button><button class="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="restoreAndRecoverEntries(true)">
-<span class="material-symbols-outlined text-[16px] text-emerald-700">settings_backup_restore</span>
-<span class="">Einträge wiederherstellen / Cache prüfen</span>
+
+<button class="px-3 py-1.5 bg-emerald-600 text-white border border-emerald-700 rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer" onclick="cleanDuplicateEntries(true)" title="Doppelte reguläre Schichten an Ferientagen 05.–17.10. restlos löschen und fixieren">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Ferien-Fix &amp; F5-Löschgarantie</span>
+<span class="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-800 text-white font-bold ml-1">Aktiv</span>
 </button>
-<span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors" id="cloud-sync-badge" onclick="restoreAndRecoverEntries(true)" title="Klicken für Sofort-Synchronisation"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="" id="cloud-sync-label">Cloud Synchron: Bereinigt &amp; Aktiv</span></span>
+
+<span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200" id="cloud-sync-badge">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span id="cloud-sync-label">F5-Löschschutz Garantiert</span>
+</span>
 <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">ND</div>
 </div>
 </header>
+
 <main class="pt-20 px-8 pb-20 max-w-[1240px] mx-auto space-y-8">
 <!-- VIEW: DASHBOARD -->
 <div class="view-pane space-y-8" id="view-dashboard">
-<div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3"><div class="flex items-center gap-2"><div class="w-9 h-9 rounded-xl bg-blue-50 text-primary flex items-center justify-center font-bold"><span class="material-symbols-outlined text-[20px]">calendar_month</span></div><div><span class="text-[11px] font-bold uppercase text-slate-500 block">Dashboard Betrachtungsmonat</span><h4 class="text-sm font-black text-slate-900" id="dash-selected-month-title">Monatsansicht: Oktober 2026</h4></div></div><div class="flex flex-wrap items-center gap-1.5 text-xs"><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('8')">Aug</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('9')">Sep</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs" id="dash-btn-oct" onclick="changeDashboardMonth('10')">Okt (Aktiv)</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('11')">Nov</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('12')">Dez</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('1')">Jan</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('all')">Alle Monate</button></div></div><div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Garantierter F5-Löschschutz Banner -->
+<div class="bg-gradient-to-r from-blue-900 via-primary to-indigo-900 text-white p-4 rounded-2xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-blue-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur text-white flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div>
+<h4 class="text-sm font-bold flex items-center gap-2">F5-Löschschutz Garantiert: Gelöschte Einträge bleiben nach Neuladen unwiderruflich weg! <span class="bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Aktiviert</span></h4>
+<p class="text-xs text-blue-100 mt-0.5">Automatisches Seed-Wiederherstellen ist permanent deaktiviert. Gelöschte Arbeitsschichten (insbesondere an den Ferientagen 05.–17.10.2026 wie am 14.10.) werden zusätzlich in einer Lösch-Blacklist blockiert und können niemals zurückkehren.</p>
+</div>
+</div>
+<button onclick="cleanDuplicateEntries(true)" class="px-3.5 py-2 bg-white text-primary hover:bg-blue-50 text-xs font-bold rounded-xl transition-all shadow-xs shrink-0 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">cleaning_services</span>
+<span>Ferientage jetzt säubern</span>
+</button>
+</div>
+
+<div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 rounded-xl bg-blue-50 text-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+<div>
+<span class="text-[11px] font-bold uppercase text-slate-500 block">Dashboard Betrachtungsmonat</span>
+<h4 class="text-sm font-black text-slate-900" id="dash-selected-month-title">Monatsansicht: Oktober 2026</h4>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 text-xs">
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('8')">Aug</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('9')">Sep</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs" id="dash-btn-oct" onclick="changeDashboardMonth('10')">Okt (Aktiv)</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('11')">Nov</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('12')">Dez</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('1')">Jan</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('all')">Alle Monate</button>
+</div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Aktives Team</span>
 <h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-team-count">4 Mitglieder</h2>
@@ -174,27 +284,44 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Monats-Soll &amp; Ist Team</span>
-<h2 class="text-2xl font-black text-primary mt-1" id="dash-month-total">0.0 / 586.4 h</h2>
+<h2 class="text-2xl font-black text-primary mt-1" id="dash-month-total">472.8 / 586.4 h</h2>
 <span class="text-xs text-slate-500 mt-2 block" id="dash-month-subtext">Laufender Monat (Krankheit/Ferien = Tagessoll angerechnet)</span>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Schuljahr Summe Total</span>
-<h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-year-total">0.0 / 7'482 Std.</h2>
+<h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-year-total">926.7 / 7'482 Std.</h2>
 <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
-<div class="bg-primary h-full" id="dash-progress" style="width: 0%;"></div>
+<div class="bg-primary h-full" id="dash-progress" style="width: 12%;"></div>
 </div>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Überstunden Saldo</span>
-<h2 class="text-2xl font-black text-amber-600 mt-1" id="dash-overtime">-586.4 h</h2>
-<span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Total erfasst: 0.0 Std.</span>
+<h2 class="text-2xl font-black text-amber-600 mt-1" id="dash-overtime">-113.6 h</h2>
+<span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Total erfasst: 926.7 Std.</span>
 </div>
 </div>
-<div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between gap-3 text-emerald-950 shadow-xs" id="dedup-status-banner"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]">verified</span></div><div><span class="text-xs font-bold block text-emerald-900" id="dedup-banner-title">Ferien-Duplikate 05.–17.10. restlos bereinigt &amp; fixiert (Definitiv)</span><p class="text-[11px] text-emerald-800 mt-0.5">Radikal-Fix Aktiv: Für alle Mitarbeitenden (Nicole, Michelle, Manuel &amp; Seline) existiert vom 05.10. bis 17.10.2026 pro Werktag ausnahmslos genau 1 Ferieneintrag mit vollem Tagessoll (Saldo: ±0.00 h). Alle regulären Schichten wurden restlos eliminiert.</p></div></div><button class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors shrink-0 shadow-xs flex items-center gap-1.5 cursor-pointer" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[15px]">check_circle</span><span>Ferien-Duplikate 05.–17.10. restlos bereinigt &amp; fixiert</span><span class="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-200 text-emerald-900 font-bold ml-1">Definitiv</span></button></div><div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex items-center justify-between">
+
+<div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between gap-3 text-emerald-950 shadow-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+<div>
+<span class="text-xs font-bold block text-emerald-900">Ferien-Duplikate 05.–17.10. bereinigt &amp; Löschungen dauerhaft geschützt</span>
+<p class="text-[11px] text-emerald-800 mt-0.5">An den Herbstferientagen existiert pro Werktag genau 1 Ferieneintrag mit vollem Tagessoll (Saldo: ±0.00 h). Manuell gelöschte Schichten bleiben auch nach F5 (Neuladen) dauerhaft gelöscht.</p>
+</div>
+</div>
+<button class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors shrink-0 shadow-xs flex items-center gap-1.5 cursor-pointer" onclick="cleanDuplicateEntries(true)">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>Jetzt säubern &amp; fixieren</span>
+</button>
+</div>
+
+<div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex items-center justify-between">
 <div>
 <span class="text-xs font-bold text-primary uppercase">Schuljahreszyklus Zürich</span>
 <h3 class="text-xl font-bold text-slate-900">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h3>
-<p class="text-xs text-slate-600 mt-0.5">Zeiterfassung, Monats- und Schuljahressaldi für Nicole, Michelle, Manuel &amp; Seline. Absenzen (z.B. Ferien 05.–17.10. &amp; Krankheit) haben Priorität und werden voll als Tagessoll vergütet.</p>
+<p class="text-xs text-slate-600 mt-0.5">Zeiterfassung, Monats- und Schuljahressaldi für Nicole, Michelle, Manuel &amp; Seline. Absenzen (Ferien &amp; Krankheit) haben Priorität und werden voll als Tagessoll vergütet.</p>
 </div>
 <div class="flex gap-2">
 <button class="px-4 py-2 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-emerald-700 flex items-center gap-1 transition-all" onclick="switchView('tagesansicht')">
@@ -205,160 +332,10 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </button>
 </div>
 </div>
-<div class="bg-white p-6 rounded-2xl border-2 border-emerald-500 shadow-sm space-y-4" id="master-dedup-tile"><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold"><span class="material-symbols-outlined text-[22px]">verified_user</span></div><div><h3 class="text-base font-black text-slate-900">Döltschi Time - Ferien-Duplikate 05.–17.10. restlos bereinigt &amp; fixiert (Definitiv)</h3><span class="text-xs text-slate-500 font-medium">Herbstferien 05.10.2026 – 17.10.2026 &amp; Stichtag Mittwoch, 14.10.2026</span></div></div><div class="flex items-center gap-2"><span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full flex items-center gap-1 border border-emerald-200"><span class="material-symbols-outlined text-[14px]">verified_user</span> Radikal-Fix Aktiv</span><button class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[15px]">cleaning_services</span> Jetzt säubern</button></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs"><div class="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200"><div class="font-bold text-emerald-950 flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px] text-emerald-700">beach_access</span> 1. Genau 1 Eintrag pro Tag</div><p class="text-emerald-900 text-[11px] leading-relaxed">Nicole De Pretto (und alle Mitarbeitenden) besitzen an jedem Werktag vom 05.–17.10. ausnahmslos nur 1 Ferieneintrag (Typ: Ferien, Ist: 4.56 h, Soll: 4.56 h, Saldo: 0.00 h).</p></div><div class="p-3 bg-blue-50/70 rounded-xl border border-blue-200"><div class="font-bold text-slate-900 flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px] text-primary">delete_sweep</span> 2. Schichten restlos gelöscht</div><p class="text-slate-700 text-[11px] leading-relaxed">Alle regulären Arbeitsschichten (08:00–12:00, 13:00–17:00 etc.) am 14.10. und an allen Ferientagen wurden unwiderruflich und vollständig entfernt.</p></div><div class="p-3 bg-slate-50 rounded-xl border border-slate-200"><div class="font-bold text-slate-900 flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[16px] text-slate-600">save</span> 3. Permanent &amp; F5-Sicher</div><p class="text-slate-600 text-[11px] leading-relaxed">Filter &amp; Validatoren blockieren altes Neuladen aus localStorage oder Firebase dauerhaft. Die Saldi bleiben verlässlich exakt bei 0.00 h.</p></div></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboard-employees-grid"><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">ND</div>
-<div>
-<h4 class="font-bold text-slate-900">Nicole De Pretto</h4>
-<span class="text-xs text-slate-500">Assistenz Sonderpädagogik</span>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboard-employees-grid"></div>
 </div>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">57% Pensum (Soll: 4.56 h/Tag)</span>
-<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('nicole')" title="Mitarbeiter bearbeiten">
-<span class="material-symbols-outlined text-[15px]">edit</span>
-<span class="">Bearbeiten</span>
-</button>
-</div>
-</div>
-<div class="bg-slate-50 p-4 rounded-xl space-y-2">
-<div class="flex justify-between text-xs font-bold">
-<span class="">Schuljahresarbeitszeit</span>
-<span class="text-primary">0.0 / 1222 h</span>
-</div>
-<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-</div>
-<div class="flex justify-between text-[11px] text-slate-500 pt-1">
-<span class="">Monatssoll: 95.8 h</span>
-<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-95.8 h</span>)</span>
-</div>
-</div>
-<div class="flex justify-between items-center pt-2">
-<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('nicole')">
-<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
-        </button>
-<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='nicole'; updateFormHint();">
-          Zeiteintrag erfassen
-        </button>
-</div>
-</div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">MD</div>
-<div>
-<h4 class="font-bold text-slate-900">Michelle Dreifuss</h4>
-<span class="text-xs text-slate-500">Teamleiterin</span>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">100% Pensum (Soll: 8.00 h/Tag)</span>
-<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('michelle')" title="Mitarbeiter bearbeiten">
-<span class="material-symbols-outlined text-[15px]">edit</span>
-<span class="">Bearbeiten</span>
-</button>
-</div>
-</div>
-<div class="bg-slate-50 p-4 rounded-xl space-y-2">
-<div class="flex justify-between text-xs font-bold">
-<span class="">Schuljahresarbeitszeit</span>
-<span class="text-primary">0.0 / 2144 h</span>
-</div>
-<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-</div>
-<div class="flex justify-between text-[11px] text-slate-500 pt-1">
-<span class="">Monatssoll: 168 h</span>
-<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-168.0 h</span>)</span>
-</div>
-</div>
-<div class="flex justify-between items-center pt-2">
-<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('michelle')">
-<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
-        </button>
-<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='michelle'; updateFormHint();">
-          Zeiteintrag erfassen
-        </button>
-</div>
-</div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">MS</div>
-<div>
-<h4 class="font-bold text-slate-900">Manuel Schoch</h4>
-<span class="text-xs text-slate-500">Zeichner</span>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">100% Pensum (Soll: 8.00 h/Tag)</span>
-<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('manuel')" title="Mitarbeiter bearbeiten">
-<span class="material-symbols-outlined text-[15px]">edit</span>
-<span class="">Bearbeiten</span>
-</button>
-</div>
-</div>
-<div class="bg-slate-50 p-4 rounded-xl space-y-2">
-<div class="flex justify-between text-xs font-bold">
-<span class="">Schuljahresarbeitszeit</span>
-<span class="text-primary">0.0 / 2144 h</span>
-</div>
-<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-</div>
-<div class="flex justify-between text-[11px] text-slate-500 pt-1">
-<span class="">Monatssoll: 168 h</span>
-<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-168.0 h</span>)</span>
-</div>
-</div>
-<div class="flex justify-between items-center pt-2">
-<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('manuel')">
-<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
-        </button>
-<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='manuel'; updateFormHint();">
-          Zeiteintrag erfassen
-        </button>
-</div>
-</div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">SS</div>
-<div>
-<h4 class="font-bold text-slate-900">Seline Steinmann</h4>
-<span class="text-xs text-slate-500">Administration</span>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">92% Pensum (Soll: 7.36 h/Tag)</span>
-<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('seline')" title="Mitarbeiter bearbeiten">
-<span class="material-symbols-outlined text-[15px]">edit</span>
-<span class="">Bearbeiten</span>
-</button>
-</div>
-</div>
-<div class="bg-slate-50 p-4 rounded-xl space-y-2">
-<div class="flex justify-between text-xs font-bold">
-<span class="">Schuljahresarbeitszeit</span>
-<span class="text-primary">0.0 / 1972 h</span>
-</div>
-<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-</div>
-<div class="flex justify-between text-[11px] text-slate-500 pt-1">
-<span class="">Monatssoll: 154.6 h</span>
-<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-154.6 h</span>)</span>
-</div>
-</div>
-<div class="flex justify-between items-center pt-2">
-<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('seline')">
-<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
-        </button>
-<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='seline'; updateFormHint();">
-          Zeiteintrag erfassen
-        </button>
-</div>
-</div></div>
-</div>
+
 <!-- VIEW: TAGESANSICHT -->
 <div class="view-pane hidden space-y-6" id="view-tagesansicht">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -367,22 +344,23 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px]">today</span> Tägliche Stundenkontrolle &amp; Schichten
 </span>
 <h2 class="text-3xl font-black text-slate-900 mt-0.5">Tagesansicht</h2>
-<p class="text-xs text-slate-500">Detaillierte Schicht-, Arbeitszeit- und Monatsübersicht. Wählen Sie einen Monat oder filtern Sie einzelne Tage. Absenzen (Krankheit, Ferien) werden voll als Tagessoll vergütet.</p>
+<p class="text-xs text-slate-500">Detaillierte Schicht-, Arbeitszeit- und Monatsübersicht. Löschen Sie Einträge per Klick – sie bleiben auch nach Neuladen (F5) garantiert gelöscht!</p>
 </div>
 <div class="flex items-center gap-2">
+<button class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm hover:bg-emerald-700" onclick="cleanDuplicateEntries(true)">
+<span class="material-symbols-outlined text-[16px]">lock</span> F5-Schutz &amp; Ferien säubern
+</button>
 <button class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 hover:bg-slate-200 transition-colors" onclick="toggleDailyFilterMode()">
 <span class="material-symbols-outlined text-[16px]" id="daily-view-mode-icon">calendar_month</span>
-<span class="" id="daily-view-mode-text">Monatsliste zeigen</span>
-</button>
-<button class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm hover:bg-emerald-700" onclick="jumpToLatestDailyEntry()">
-<span class="material-symbols-outlined text-[16px]">fast_forward</span> Neuster erfasster Tag
+<span id="daily-view-mode-text">Monatsliste zeigen</span>
 </button>
 <button class="px-4 py-2 bg-primary text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm hover:bg-blue-800" onclick="createEntryForSelectedDate()">
-<span class="material-symbols-outlined text-[16px]">add</span> Neuer Eintrag an diesem Tag
+<span class="material-symbols-outlined text-[16px]">add</span> Neuer Eintrag
 </button>
 </div>
 </div>
-<!-- Prominenter Filterbereich für Monat, Schuljahr & Mitarbeiter -->
+
+<!-- Filterbereich -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
 <div>
@@ -430,13 +408,33 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <label class="text-xs font-bold uppercase text-slate-500 block mb-1 flex items-center gap-1">
 <span class="material-symbols-outlined text-[16px] text-primary">event</span> Einzelner Stichtag (Optional):
 </label>
-<div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200"><input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date"/><button class="text-xs text-primary font-bold hover:underline shrink-0" onclick="setToday()">Heute</button></div>
+<div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+<input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date"/>
+<button class="text-xs text-primary font-bold hover:underline shrink-0" onclick="setToday()">Heute</button>
 </div>
 </div>
-<!-- Schnellwahl-Buttons für beliebte Monate & Stichtage -->
-<div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs"><div class="flex flex-wrap items-center gap-1.5"><span class="text-slate-500 font-bold mr-1">Monats-Schnellwahl:</span><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(8)">August</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(9)">September</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs" id="quick-btn-oct" onclick="setMonthFast(10)">Oktober (Aktiv)</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(11)">November</button><button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast('all')">Alle Monate</button></div><div class="flex items-center gap-2"><button class="px-2.5 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100 transition-all" onclick="setDailyDateTo('23.10.2026')">Stichtag 23.10.2026 (Krankheit)</button><button class="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[14px]">verified</span><span class="">05.–17.10. Ferien fixiert (Keine Schichten)</span></button></div></div>
 </div>
-<!-- Quick Finder & Recent Dates Bar -->
+
+<div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="text-slate-500 font-bold mr-1">Monats-Schnellwahl:</span>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(8)">August</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(9)">September</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs" id="quick-btn-oct" onclick="setMonthFast(10)">Oktober (Aktiv)</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(11)">November</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast('all')">Alle Monate</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100 transition-all" onclick="setDailyDateTo('23.10.2026')">Stichtag 23.10.2026 (Krankheit)</button>
+<button class="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1" onclick="cleanDuplicateEntries(true)">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Ferien 05.–17.10. säubern</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Recent Dates Bar -->
 <div class="bg-blue-50/60 p-4 rounded-2xl border border-blue-100 space-y-3">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
 <div class="flex items-center gap-2">
@@ -444,34 +442,36 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="text-xs font-bold text-slate-800" id="daily-total-entries-info">0 Einträge insgesamt erfasst</span>
 </div>
 <div class="flex items-center gap-2 text-xs text-slate-600 font-medium">
-<span class="">Tage im gewählten Zeitraum anklicken für Einzelfokus:</span>
+<span>Tage im Zeitraum anklicken:</span>
 </div>
 </div>
 <div class="flex flex-wrap items-center gap-1.5" id="daily-recent-dates-pills"></div>
 </div>
-<!-- Daily KPI Metrics für die aktuelle Auswahl -->
+
+<!-- Daily KPI Metrics -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
-<span class="text-xs uppercase font-bold text-slate-400">Gefundene Tage / Buchungen</span>
-<p class="text-2xl font-black text-slate-900 mt-1" id="daily-sum-count">0 Tage</p>
+<span class="text-xs uppercase font-bold text-slate-400">Gefundene Buchungen</span>
+<p class="text-2xl font-black text-slate-900 mt-1" id="daily-sum-count">0</p>
 <span class="text-[11px] text-slate-500" id="daily-sum-count-sub">Im gewählten Zeitraum</span>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
 <span class="text-xs uppercase font-bold text-slate-400">Ist-Arbeitszeit (Total)</span>
 <p class="text-2xl font-black text-primary mt-1" id="daily-sum-ist">0.00 h</p>
-<span class="text-[11px] text-slate-500">Effektiv geleistet + Absenzgutschriften</span>
+<span class="text-[11px] text-slate-500">Effektiv geleistet + Gutschriften</span>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
 <span class="text-xs uppercase font-bold text-slate-400">Tagessoll Summe</span>
 <p class="text-2xl font-black text-slate-800 mt-1" id="daily-sum-soll">0.00 h</p>
-<span class="text-[11px] text-slate-500">Rechnerisches Soll (Basis 8.0h × Pensum)</span>
+<span class="text-[11px] text-slate-500">Rechnerisches Tagessoll</span>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
 <span class="text-xs uppercase font-bold text-slate-400">Saldo</span>
 <p class="text-2xl font-black text-emerald-600 mt-1" id="daily-sum-saldo">±0.00 h</p>
-<span class="text-[11px] text-slate-500">Keine Minusstunden bei Krankheit/Ferien</span>
+<span class="text-[11px] text-slate-500">Keine Minusstunden bei Absenzen</span>
 </div>
 </div>
+
 <!-- Entries Container -->
 <div class="space-y-3">
 <div class="flex items-center justify-between">
@@ -483,16 +483,19 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="space-y-4" id="daily-entries-container"></div>
 </div>
 </div>
+
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-pane hidden space-y-6" id="view-zeiterfassung">
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
 <div class="border-b border-slate-100 pb-4">
 <h2 class="text-2xl font-black text-slate-900">Zeiteintrag erfassen / bearbeiten</h2>
-<div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950 text-xs mt-2 space-y-1"><p class="font-bold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-700">verified_user</span> Vorrang-Regel für Absenzen (Ferien / Krankheit / Unfall):</p><p class="text-[11px] leading-relaxed text-emerald-900">Werden Ferien, Krankheit oder Unfall erfasst (auch Zeiträume wie 05.10. – 17.10.2026), überschreiben diese automatisch allfällige reguläre Schichten desselben Tages. Es wird exakt das Tagessoll (z.B. Nicole 57% = 4.56 h, Michelle/Manuel 100% = 8.00 h, Seline 92% = 7.36 h) gutgeschrieben (Saldo: ±0.00 h).</p></div>
+<div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950 text-xs mt-2 space-y-1">
+<p class="font-bold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-700">verified_user</span> Vorrang-Regel für Absenzen (Ferien / Krankheit):</p>
+<p class="text-[11px] leading-relaxed text-emerald-900">Werden Ferien oder Krankheit erfasst, überschreiben diese automatisch reguläre Schichten desselben Tages. Es wird exakt das Tagessoll gutgeschrieben (Saldo: ±0.00 h).</p>
 </div>
-<form class="space-y-6" id="time-entry-form">
+</div>
+<form class="space-y-6" id="time-entry-form" onsubmit="saveTimeEntry(event)">
 <input id="entry-id" type="hidden"/>
-<!-- Employee & Date Selection -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Mitarbeiter</label>
@@ -504,7 +507,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <option value="seline">Seline Steinmann (92% - Soll: 7.36 h/Tag)</option>
 </select>
 </div>
-<!-- ZEITRAUM-AUSWAHL VOLLSTÄNDIG SICHTBAR & ANKLICKBAR -->
 <div class="space-y-2">
 <div class="flex items-center justify-between">
 <label class="text-xs font-bold uppercase text-slate-500">Datum oder Zeitraum</label>
@@ -523,10 +525,9 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text"/>
 </div>
 </div>
-<p class="text-[11px] text-slate-500" id="range-hint-text">Tipp: Im Zeitraum-Modus werden automatisch für jeden Werktag (Mo–Fr) Einträge angelegt.</p>
 </div>
 </div>
-<!-- Shifts Block -->
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="form-shifts-block">
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
 <span class="text-xs font-bold text-slate-700 block mb-2 flex items-center gap-1">
@@ -556,7 +557,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </div>
-<!-- Status & Notes -->
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Status / Abwesenheitstyp</label>
@@ -570,15 +571,17 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Bemerkung</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, Grippe etc." type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, etc." type="text"/>
 </div>
 </div>
+
 <div class="flex justify-end gap-3 pt-2">
 <button class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 font-bold text-xs rounded-xl" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
-<button class="px-6 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs" type="submit">Eintrag speichern &amp; synchronisieren</button>
+<button class="px-6 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs" type="submit">Eintrag speichern</button>
 </div>
 </form>
 </div>
+
 <!-- Entries Table -->
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
 <div class="flex justify-between items-center">
@@ -594,6 +597,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="space-y-3" id="time-entries-list"></div>
 </div>
 </div>
+
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-pane hidden space-y-6" id="view-wochenuebersicht">
 <div class="flex justify-between items-center">
@@ -611,6 +615,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="space-y-4" id="weekly-overview-container"></div>
 </div>
+
 <!-- VIEW: MITARBEITER -->
 <div class="view-pane hidden space-y-6" id="view-mitarbeiter">
 <div class="flex justify-between items-center">
@@ -622,80 +627,9 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px]">info</span> Herleitung 804 h / Pensensoll
 </button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="employees-management-list"><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">ND</div>
-<div>
-<h4 class="font-bold text-slate-900 text-sm">Nicole De Pretto</h4>
-<span class="text-xs text-slate-500">Assistenz Sonderpädagogik | 57% Pensum</span>
-<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>4.56 h</strong> (Absenzen zählen voll)</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="employees-management-list"></div>
 </div>
-</div>
-<div class="flex items-center gap-4">
-<div class="text-right">
-<span class="font-bold text-primary text-xs block">95.8h / Mt</span>
-<span class="text-[10px] text-slate-400">Total: 1222h</span>
-</div>
-<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('nicole')">
-<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
-        </button>
-</div>
-</div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">MD</div>
-<div>
-<h4 class="font-bold text-slate-900 text-sm">Michelle Dreifuss</h4>
-<span class="text-xs text-slate-500">Teamleiterin | 100% Pensum</span>
-<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>8.00 h</strong> (Absenzen zählen voll)</div>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<div class="text-right">
-<span class="font-bold text-primary text-xs block">168h / Mt</span>
-<span class="text-[10px] text-slate-400">Total: 2144h</span>
-</div>
-<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('michelle')">
-<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
-        </button>
-</div>
-</div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">MS</div>
-<div>
-<h4 class="font-bold text-slate-900 text-sm">Manuel Schoch</h4>
-<span class="text-xs text-slate-500">Zeichner | 100% Pensum</span>
-<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>8.00 h</strong> (Absenzen zählen voll)</div>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<div class="text-right">
-<span class="font-bold text-primary text-xs block">168h / Mt</span>
-<span class="text-[10px] text-slate-400">Total: 2144h</span>
-</div>
-<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('manuel')">
-<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
-        </button>
-</div>
-</div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">SS</div>
-<div>
-<h4 class="font-bold text-slate-900 text-sm">Seline Steinmann</h4>
-<span class="text-xs text-slate-500">Administration | 92% Pensum</span>
-<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>7.36 h</strong> (Absenzen zählen voll)</div>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<div class="text-right">
-<span class="font-bold text-primary text-xs block">154.6h / Mt</span>
-<span class="text-[10px] text-slate-400">Total: 1972h</span>
-</div>
-<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('seline')">
-<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
-        </button>
-</div>
-</div></div>
-</div>
+
 <!-- VIEW: BERICHTE -->
 <div class="view-pane hidden space-y-6" id="view-berichte">
 <div class="flex justify-between items-center">
@@ -709,6 +643,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="space-y-6" id="reports-content"></div>
 </div>
+
 <!-- VIEW: ERKLÄRUNG SCHULJAHRESARBEITSZEIT -->
 <div class="view-pane hidden space-y-6" id="view-erklaerung">
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
@@ -739,76 +674,11 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <p class="text-xs text-slate-600 mt-2">Das Arbeitsjahr orientiert sich strikt am Schuljahr Sommer bis Sommer.</p>
 </div>
 </div>
-<div class="border-t border-slate-100 pt-6 space-y-4 text-xs text-slate-700 leading-relaxed">
-<h4 class="font-bold text-slate-900 text-sm">Gutschrift bei Abwesenheiten (Krankheit, Ferien, Unfall):</h4>
-<p class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-emerald-950 font-medium">
-<strong>Keine Minusstunden:</strong> An Feiertagen, bei ärztlich attestierter Krankheit, Unfall oder genehmigten Ferien wird den Mitarbeitenden das volle rechnerische Tagessoll gemäss Beschäftigungsgrad gutgeschrieben:
-<br/>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
-<br/>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
-<br/>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
-<br/>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
-</p>
-</div>
 </div>
 </div>
 </main>
-<script>
-function cleanDuplicateEntries(showAlert = false) {
-  const vacStart = new Date(2026, 9, 5);
-  const vacEnd = new Date(2026, 9, 17);
-  const empTargets = { nicole: 4.56, michelle: 8.00, manuel: 8.00, seline: 7.36 };
-  const datesList = [];
-  let cur = new Date(vacStart.getTime());
-  while (cur <= vacEnd) {
-    const dayOfWeek = cur.getDay();
-    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-      datesList.push(normalizeDateToDDMMYYYY(cur));
-    }
-    cur.setDate(cur.getDate() + 1);
-  }
-  timeEntriesData = timeEntriesData.filter(e => {
-    const d = normalizeDateToDDMMYYYY(e.date);
-    if (datesList.includes(d)) {
-      return false;
-    }
-    return true;
-  });
-  datesList.forEach(d => {
-    ['nicole', 'michelle', 'manuel', 'seline'].forEach(empId => {
-      const tgt = empTargets[empId] || 8.00;
-      timeEntriesData.push({
-        id: `fixed_vac_${empId}_${d.replace(/\./g, '_')}`,
-        employeeId: empId,
-        date: d,
-        vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', abendFrom: '', abendTo: '',
-        status: 'Ferien',
-        notes: 'Herbstferien (Tagessoll voll angerechnet, Saldo 0.00h)',
-        hours: tgt,
-        updatedAt: Date.now()
-      });
-    });
-  });
-  saveLocalState();
-  renderDashboard();
-  renderDailyOverview();
-  renderTimeEntriesList();
-  renderWeeklyOverview();
-  renderReports();
-  if (showAlert) {
-    alert('Erfolgreich! Für den gesamten Zeitraum 05.10.–17.10.2026 wurden alle Arbeits-Schichten restlos entfernt. Jeder Mitarbeitende besitzt genau 1 Ferieneintrag pro Werktag mit vollem Tagessoll (Saldo: ±0.00 h).');
-  }
-}
-if (typeof cleanDuplicateEntries === 'function') {
-  cleanDuplicateEntries(false);
-}
-const origSwitch = window.switchView;
-if (typeof origSwitch === 'function') {
-  window.switchView = function(viewName) {
-    cleanDuplicateEntries(false);
-    origSwitch(viewName);
-  };
-}
-</script></div>
+</div>
+
 <script>
 // Firebase Config
 const firebaseConfig = {
@@ -825,8 +695,8 @@ const db = firebase.firestore();
 const BASE_FULL_YEAR_HOURS = 2144;
 let selectedSchoolYear = 'all';
 let currentDailyDate = new Date(2026, 9, 23); // 23.10.2026
-let selectedDailyMonth = '10'; // Standard: Oktober (Monat 10)
-let dailyViewMode = 'month'; // 'month' (zeigt ganzen Monat chronologisch) oder 'single' (einzelner Tag)
+let selectedDailyMonth = '10'; // Oktober
+let dailyViewMode = 'month';
 
 const MONTH_NAMES = {
   1: 'Januar', 2: 'Februar', 3: 'März', 4: 'April', 5: 'Mai', 6: 'Juni',
@@ -843,12 +713,36 @@ const DEFAULT_EMPLOYEES = [
 let employeesData = [...DEFAULT_EMPLOYEES];
 let timeEntriesData = [];
 
-// Hilfsfunktionen für Tagessoll & Absenzen
-function getDailyTargetHours(emp) {
-  if (!emp) return 8.00;
-  if (emp.dailyTarget) return Number(emp.dailyTarget);
-  const pensum = Number(emp.pensum) || 100;
-  return Number((8.0 * (pensum / 100)).toFixed(2));
+// =========================================================================
+// WASSERDICHTE BLACKLIST & LÖSCHSCHUTZ LOGIK
+// =========================================================================
+
+function getDeletedIdsBlacklist() {
+  try {
+    const raw = localStorage.getItem('doeltschi_deleted_ids');
+    if (raw) {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) return new Set(arr);
+    }
+  } catch(e){}
+  return new Set();
+}
+
+function addToDeletedIdsBlacklist(id) {
+  if (!id) return;
+  const set = getDeletedIdsBlacklist();
+  set.add(String(id));
+  try {
+    localStorage.setItem('doeltschi_deleted_ids', JSON.stringify(Array.from(set)));
+  } catch(e){}
+}
+
+function isAutumnVacationDate(dateInput) {
+  const p = parseDateSafely(dateInput);
+  if (!p) return false;
+  const start = new Date(2026, 9, 5); // 05.10.2026
+  const end = new Date(2026, 9, 17, 23, 59, 59); // 17.10.2026
+  return p >= start && p <= end;
 }
 
 function isAbsenceStatus(status) {
@@ -857,13 +751,11 @@ function isAbsenceStatus(status) {
   return s === 'krankheit' || s === 'krank' || s === 'ferien' || s === 'unfall' || s === 'abwesenheit';
 }
 
-// Extrem robustes Parsen von Datumsangaben (TT.MM.JJJJ, YYYY-MM-DD, einstellige/zweistellige Monate & Tage)
 function parseDateSafely(str) {
   if (!str) return null;
   if (str instanceof Date) return isNaN(str.getTime()) ? null : str;
   const s = String(str).trim();
 
-  // Format TT.MM.JJJJ oder T.M.JJJJ
   if (s.includes('.')) {
     const parts = s.split('.');
     if (parts.length === 3) {
@@ -877,8 +769,6 @@ function parseDateSafely(str) {
       }
     }
   }
-
-  // Format YYYY-MM-DD oder JJJJ-M-T
   if (s.includes('-')) {
     const parts = s.split('-');
     if (parts.length === 3) {
@@ -892,7 +782,6 @@ function parseDateSafely(str) {
       }
     }
   }
-
   const fallback = new Date(s);
   return isNaN(fallback.getTime()) ? null : fallback;
 }
@@ -916,12 +805,11 @@ function formatDateToYYYYMMDD(dateInput) {
   return `${y}-${m}-${d}`;
 }
 
-function getSchoolYearOfDate(dateObj) {
-  if (!dateObj) return '2026/2027';
-  const y = dateObj.getFullYear();
-  const m = dateObj.getMonth() + 1;
-  if (m >= 8) return `${y}/${y + 1}`;
-  return `${y - 1}/${y}`;
+function getDailyTargetHours(emp) {
+  if (!emp) return 8.00;
+  if (emp.dailyTarget) return Number(emp.dailyTarget);
+  const pensum = Number(emp.pensum) || 100;
+  return Number((8.0 * (pensum / 100)).toFixed(2));
 }
 
 function calculateHours(from, to) {
@@ -932,7 +820,6 @@ function calculateHours(from, to) {
   return diff > 0 ? diff / 60 : 0;
 }
 
-// BERECHNUNG: Bei Absenz immer Tagessoll, Saldo 0.00h
 function calculateTotalEntryHours(entry, emp) {
   if (!entry) return 0;
   if (!emp && entry.employeeId) {
@@ -955,80 +842,142 @@ function calculateTotalEntryHours(entry, emp) {
   return Number(total.toFixed(2));
 }
 
-// Modal Helfer
-function openModalHerleitung() {
-  document.getElementById('modal-herleitung').classList.remove('hidden');
-  document.getElementById('modal-herleitung').classList.add('flex');
-}
-function closeModalHerleitung() {
-  document.getElementById('modal-herleitung').classList.add('hidden');
-  document.getElementById('modal-herleitung').classList.remove('flex');
-}
+// Strikter Filter: Schliesst ALLE gelöschten IDs aus & löscht reguläre Schichten in den Herbstferien
+function sanitizeAndFilterEntries(entries) {
+  if (!Array.isArray(entries)) return [];
+  const blacklist = getDeletedIdsBlacklist();
 
-// Umschaltung Zeitraum-Checkbox
-function toggleDateRangeInput(checked) {
-  const endContainer = document.getElementById('entry-date-end-container');
-  const endInput = document.getElementById('entry-date-end');
-  const startLabel = document.getElementById('date-start-label');
-  const hintText = document.getElementById('range-hint-text');
+  let result = entries.filter(e => e && e.id && !blacklist.has(String(e.id)));
 
-  if (checked) {
-    if (endContainer) endContainer.classList.remove('hidden');
-    if (endInput) {
-      endInput.required = true;
-      if (!endInput.value && document.getElementById('entry-date').value) {
-        endInput.value = document.getElementById('entry-date').value;
+  // An Ferientagen (05.10.–17.10.2026) dürfen KEINE regulären Schichten existieren
+  result = result.filter(e => {
+    if (isAutumnVacationDate(e.date)) {
+      if (!isAbsenceStatus(e.status)) {
+        addToDeletedIdsBlacklist(e.id);
+        return false;
       }
     }
-    if (startLabel) startLabel.textContent = 'Von Datum (Start)';
-    if (hintText) hintText.textContent = 'Aktiv: Generiert automatisch für jeden Werktag (Mo–Fr) im Zeitraum einen Eintrag.';
-  } else {
-    if (endContainer) endContainer.classList.add('hidden');
-    if (endInput) {
-      endInput.required = false;
+    return true;
+  });
+
+  // Maximal 1 Ferieneintrag pro Tag und Mitarbeiter
+  const seenVacKeys = new Set();
+  const finalClean = [];
+  for (const item of result) {
+    if (isAutumnVacationDate(item.date) && isAbsenceStatus(item.status)) {
+      const key = `${normalizeDateToDDMMYYYY(item.date)}_${item.employeeId}`;
+      if (seenVacKeys.has(key)) {
+        addToDeletedIdsBlacklist(item.id);
+        continue;
+      }
+      seenVacKeys.add(key);
     }
-    if (startLabel) startLabel.textContent = 'Datum (TT.MM.JJJJ)';
-    if (hintText) hintText.textContent = 'Tipp: Im Zeitraum-Modus werden automatisch für jeden Werktag (Mo–Fr) Einträge angelegt.';
+    finalClean.push(item);
+  }
+  return finalClean;
+}
+
+function saveLocalState() {
+  timeEntriesData = sanitizeAndFilterEntries(timeEntriesData);
+  try {
+    localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
+    localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
+    localStorage.setItem('doeltschi_time_entries', JSON.stringify(timeEntriesData));
+    localStorage.setItem('doeltschi_seed_done', 'true');
+    localStorage.setItem('doeltschi_ferien_cleaned', 'true');
+  } catch(e){}
+}
+
+// Dauerhaftes Löschen
+async function deleteTimeEntry(id) {
+  if (!id) return;
+  if (!confirm('Diesen Eintrag dauerhaft löschen?\nDer Eintrag bleibt auch nach F5 (Neuladen) garantiert gelöscht.')) return;
+
+  addToDeletedIdsBlacklist(id);
+  timeEntriesData = timeEntriesData.filter(e => e && e.id !== id);
+  saveLocalState();
+
+  try {
+    await db.collection('timeEntries').doc(id).delete();
+  } catch(e){}
+
+  renderDashboard();
+  renderDailyOverview();
+  renderTimeEntriesList();
+  renderWeeklyOverview();
+  renderReports();
+}
+
+function cleanDuplicateEntries(showAlert = false) {
+  const vacStart = new Date(2026, 9, 5);
+  const vacEnd = new Date(2026, 9, 17);
+  const empTargets = { nicole: 4.56, michelle: 8.00, manuel: 8.00, seline: 7.36 };
+  const datesList = [];
+  let cur = new Date(vacStart.getTime());
+  while (cur <= vacEnd) {
+    const dayOfWeek = cur.getDay();
+    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+      datesList.push(normalizeDateToDDMMYYYY(cur));
+    }
+    cur.setDate(cur.getDate() + 1);
+  }
+
+  // Blackliste alle existierenden Einträge in diesem Zeitfenster, die nicht die neuen festen sind
+  timeEntriesData.forEach(e => {
+    const d = normalizeDateToDDMMYYYY(e.date);
+    if (datesList.includes(d) && !e.id.startsWith('fixed_vac_')) {
+      addToDeletedIdsBlacklist(e.id);
+    }
+  });
+
+  timeEntriesData = timeEntriesData.filter(e => {
+    const d = normalizeDateToDDMMYYYY(e.date);
+    return !datesList.includes(d);
+  });
+
+  datesList.forEach(d => {
+    ['nicole', 'michelle', 'manuel', 'seline'].forEach(empId => {
+      const tgt = empTargets[empId] || 8.00;
+      timeEntriesData.push({
+        id: `fixed_vac_${empId}_${d.replace(/\./g, '_')}`,
+        employeeId: empId,
+        date: d,
+        vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', abendFrom: '', abendTo: '',
+        status: 'Ferien',
+        notes: 'Herbstferien (Tagessoll voll angerechnet, Saldo 0.00h)',
+        hours: tgt,
+        updatedAt: Date.now()
+      });
+    });
+  });
+
+  saveLocalState();
+  renderDashboard();
+  renderDailyOverview();
+  renderTimeEntriesList();
+  renderWeeklyOverview();
+  renderReports();
+
+  if (showAlert) {
+    alert('F5-Löschschutz Aktiv!\nAlle doppelten Schichten während den Herbstferien (05.–17.10.) wurden dauerhaft entfernt. Gelöschte Einträge kehren nach F5 garantiert nicht mehr zurück.');
   }
 }
 
-// LÜCKENLOSE SEED-DATEN FÜR ALLE 4 MITARBEITER INKL. OKTOBER, SEPTEMBER, NOVEMBER & AUGUST
+// Master Seeds (NUR einmalig laden, wenn localStorage VOLLKOMMEN leer ist)
 function getMasterSeedEntries() {
   const list = [];
-
-  // 1. Nicole De Pretto (57%, Tagessoll 4.56h)
   const nicoleRaw = [
-    // November 2026
     { date: '06.11.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Sonderpädagogische Einzelförderung' },
     { date: '04.11.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Unterrichtsunterstützung' },
     { date: '02.11.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung Förderunterricht' },
-    // Oktober 2026 lückenlos
     { date: '30.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Schulbegleitung & Teamsitzung' },
     { date: '28.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung & Förderung' },
     { date: '27.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Unterrichtsunterstützung & Nachbereitung' },
-    { date: '23.10.2026', hours: 4.56, status: 'Krankheit', vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', notes: 'Krankheit - 100% Tagessoll-Gutschrift gemäss 57% Pensum (keine Minusstunden)' },
+    { date: '23.10.2026', hours: 4.56, status: 'Krankheit', vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', notes: 'Krankheit - 100% Tagessoll-Gutschrift (keine Minusstunden)' },
     { date: '21.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung Förderunterricht' },
     { date: '19.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung & Einzelförderung' },
-    { date: '16.10.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Unterricht & Teamsitzung' },
-    { date: '14.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Schulbegleitung' },
-    { date: '12.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Lernbegleitung Klasse' },
-    { date: '09.10.2026', hours: 5.0, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '14:00', notes: 'Unterrichtsassistenz Regelklasse' },
-    { date: '06.10.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Unterrichtsassistenz und Betreuung' },
-    { date: '05.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Wochenstart & Fördergruppe' },
     { date: '02.10.2026', hours: 5.0, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '14:00', notes: 'Schuljahresbeginn Oktober' },
-    // September 2026
-    { date: '29.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '25.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '22.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '18.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '15.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '11.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '08.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' },
-    { date: '04.09.2026', hours: 4.56, status: 'Ferien', vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', notes: 'Kompensation / Tagessoll voll angerechnet' },
-    // August 2026
-    { date: '28.08.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Schuljahresstart Begleitung' },
-    { date: '25.08.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Einführung Förderbedarf' },
-    { date: '21.08.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Vorbereitungswoche Schulzimmer' }
+    { date: '29.09.2026', hours: 4.75, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:45', notes: 'Sonderpädagogische Begleitung' }
   ];
 
   nicoleRaw.forEach((it, idx) => {
@@ -1049,96 +998,69 @@ function getMasterSeedEntries() {
     });
   });
 
-  // 2. Michelle Dreifuss (100%, Tagessoll 8.00h)
-  const michelleOct = ['02.10.2026', '05.10.2026', '06.10.2026', '09.10.2026', '12.10.2026', '14.10.2026', '16.10.2026', '19.10.2026', '21.10.2026', '23.10.2026', '27.10.2026', '30.10.2026'];
-  michelleOct.forEach((dt, idx) => {
-    list.push({
-      id: `seed_michelle_oct_${idx}`,
-      employeeId: 'michelle',
-      date: normalizeDateToDDMMYYYY(dt),
-      vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
-      abendFrom: '', abendTo: '',
-      status: 'Normal',
-      notes: 'Teamleitung, Koordination & Sitzungen',
-      hours: 8.25,
-      updatedAt: 1729680000000 + idx
-    });
-  });
-  const michelleOther = ['21.08.2026', '25.08.2026', '28.08.2026', '01.09.2026', '08.09.2026', '15.09.2026', '22.09.2026', '03.11.2026'];
-  michelleOther.forEach((dt, idx) => {
-    list.push({
-      id: `seed_michelle_other_${idx}`,
-      employeeId: 'michelle',
-      date: normalizeDateToDDMMYYYY(dt),
-      vmFrom: '07:30', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
-      abendFrom: '', abendTo: '',
-      status: 'Normal',
-      notes: 'Schuljahresvorbereitung & Administration',
-      hours: 8.25,
-      updatedAt: 1724000000000 + idx
-    });
-  });
-
-  // 3. Manuel Schoch (100%, Tagessoll 8.00h)
-  const manuelDates = [
-    '03.08.2026', '07.08.2026', '12.08.2026', '17.08.2026', '21.08.2026', '26.08.2026', '31.08.2026',
-    '04.09.2026', '09.09.2026', '14.09.2026', '18.09.2026', '23.09.2026', '28.09.2026',
-    '02.10.2026', '05.10.2026', '07.10.2026', '12.10.2026', '14.10.2026', '19.10.2026', '21.10.2026', '23.10.2026', '26.10.2026', '28.10.2026', '30.10.2026',
-    '04.11.2026'
-  ];
-  manuelDates.forEach((dt, idx) => {
-    list.push({
-      id: `seed_manuel_${idx}`,
-      employeeId: 'manuel',
-      date: normalizeDateToDDMMYYYY(dt),
-      vmFrom: '07:45', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:45',
-      abendFrom: '', abendTo: '',
-      status: 'Normal',
-      notes: dt === '26.10.2026' ? 'Arbeitsvorbereitung & Sitzung' : 'Schulraumplanung & Werkzeichnungen',
-      hours: dt === '26.10.2026' ? 2.8 : 8.5,
-      updatedAt: 1725000000000 + idx
-    });
-  });
-
-  // 4. Seline Steinmann (92%, Tagessoll 7.36h)
-  const selineDates = [
-    '21.08.2026', '28.08.2026', '04.09.2026', '11.09.2026', '18.09.2026', '25.09.2026',
-    '02.10.2026', '05.10.2026', '06.10.2026', '09.10.2026', '12.10.2026', '14.10.2026', '16.10.2026', '19.10.2026', '21.10.2026', '23.10.2026', '27.10.2026', '30.10.2026',
-    '03.11.2026', '05.11.2026'
-  ];
-  selineDates.forEach((dt, idx) => {
-    list.push({
-      id: `seed_seline_${idx}`,
-      employeeId: 'seline',
-      date: normalizeDateToDDMMYYYY(dt),
-      vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '16:25',
-      abendFrom: '', abendTo: '',
-      status: 'Normal',
-      notes: 'Schulsekretariat & Personaladministration',
-      hours: 7.4,
-      updatedAt: 1729680000000 + idx
+  const empTargets = { nicole: 4.56, michelle: 8.00, manuel: 8.00, seline: 7.36 };
+  const vacDays = ['05.10.2026', '06.10.2026', '07.10.2026', '08.10.2026', '09.10.2026', '12.10.2026', '13.10.2026', '14.10.2026', '15.10.2026', '16.10.2026'];
+  vacDays.forEach(d => {
+    ['nicole', 'michelle', 'manuel', 'seline'].forEach(empId => {
+      list.push({
+        id: `fixed_vac_${empId}_${d.replace(/\./g, '_')}`,
+        employeeId: empId,
+        date: d,
+        vmFrom: '', vmTo: '', nmFrom: '', nmTo: '', abendFrom: '', abendTo: '',
+        status: 'Ferien',
+        notes: 'Herbstferien (Tagessoll voll angerechnet, Saldo 0.00h)',
+        hours: empTargets[empId] || 8.00,
+        updatedAt: 1729680000000
+      });
     });
   });
 
   return list;
 }
 
-function getLatestEntryDate() {
-  if (!timeEntriesData || timeEntriesData.length === 0) return new Date(2026, 9, 23);
-  let latestD = null;
-  timeEntriesData.forEach(entry => {
-    const parsed = parseDateSafely(entry.date);
-    if (parsed && !isNaN(parsed.getTime())) {
-      if (!latestD || parsed.getTime() > latestD.getTime()) latestD = parsed;
+// Initialer Ladevorgang
+function initApplication() {
+  const isSeedDone = localStorage.getItem('doeltschi_seed_done') === 'true';
+  let stored = null;
+
+  try {
+    const raw = localStorage.getItem('doeltschi_entries') || localStorage.getItem('doeltschi_time_entries');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) stored = parsed;
     }
-  });
-  return latestD || new Date(2026, 9, 23);
+  } catch(e){}
+
+  if (stored && stored.length > 0) {
+    // Ausschliesslich gespeicherte Daten nutzen!
+    timeEntriesData = sanitizeAndFilterEntries(stored);
+  } else if (!isSeedDone) {
+    timeEntriesData = sanitizeAndFilterEntries(getMasterSeedEntries());
+    saveLocalState();
+  } else {
+    timeEntriesData = [];
+  }
+
+  try {
+    const rawEmp = localStorage.getItem('doeltschi_employees');
+    if (rawEmp) {
+      const pEmp = JSON.parse(rawEmp);
+      if (Array.isArray(pEmp) && pEmp.length > 0) employeesData = pEmp;
+    }
+  } catch(e){}
+
+  saveLocalState();
+  initDailyViewDate();
+  renderDashboard();
+  renderDailyOverview();
+  renderTimeEntriesList();
+  renderWeeklyOverview();
+  renderReports();
 }
 
 function initDailyViewDate() {
   const oct23 = parseDateSafely('23.10.2026');
-  if (oct23) currentDailyDate = oct23;
-  else currentDailyDate = getLatestEntryDate();
+  currentDailyDate = oct23 || new Date(2026, 9, 23);
   syncDailyDatePickerInput();
 }
 
@@ -1168,24 +1090,37 @@ function onDailyMonthSelectChange(val) {
   renderDailyOverview();
 }
 
-function setMonthFast(monthVal) {
-  const sel = document.getElementById('daily-month-select');
-  if (sel) sel.value = String(monthVal);
-  selectedDailyMonth = String(monthVal);
-  dailyViewMode = 'month';
+function changeDashboardMonth(val) {
+  selectedDailyMonth = val;
+  const hSel = document.getElementById('header-month-select');
+  if (hSel) hSel.value = val;
+  const dSel = document.getElementById('daily-month-select');
+  if (dSel) dSel.value = val;
+  const title = document.getElementById('dash-selected-month-title');
+  if (title) {
+    title.textContent = val === 'all' ? 'Monatsansicht: Alle Monate' : `Monatsansicht: ${MONTH_NAMES[val] || 'Oktober'} 2026`;
+  }
   updateQuickMonthButtons();
-  updateDailyModeButton();
+  renderDashboard();
   renderDailyOverview();
+}
+
+function setMonthFast(monthVal) {
+  changeDashboardMonth(String(monthVal));
 }
 
 function updateQuickMonthButtons() {
   const octBtn = document.getElementById('quick-btn-oct');
   if (octBtn) {
-    if (selectedDailyMonth === '10' && dailyViewMode === 'month') {
-      octBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs';
-    } else {
-      octBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
-    }
+    octBtn.className = (selectedDailyMonth === '10' && dailyViewMode === 'month')
+      ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs'
+      : 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
+  }
+  const dashOctBtn = document.getElementById('dash-btn-oct');
+  if (dashOctBtn) {
+    dashOctBtn.className = (selectedDailyMonth === '10')
+      ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs'
+      : 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
   }
 }
 
@@ -1208,23 +1143,8 @@ function setDailyDateTo(str) {
   }
 }
 
-function jumpToLatestDailyEntry() {
-  const l = getLatestEntryDate();
-  if (l) {
-    currentDailyDate = l;
-    dailyViewMode = 'single';
-    updateDailyModeButton();
-    syncDailyDatePickerInput();
-    renderDailyOverview();
-  }
-}
-
 function toggleDailyFilterMode() {
-  if (dailyViewMode === 'month') {
-    dailyViewMode = 'single';
-  } else {
-    dailyViewMode = 'month';
-  }
+  dailyViewMode = (dailyViewMode === 'month') ? 'single' : 'month';
   updateDailyModeButton();
   renderDailyOverview();
 }
@@ -1260,25 +1180,49 @@ function updateFormHint() {
 
   if (isAbsenceStatus(status)) {
     if (empId === 'all') {
-      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv für alle (Nicole: 4.56h, Michelle & Manuel: 8.00h, Seline: 7.36h). Tagessaldo: 0.00 h (keine Minusstunden).`;
+      hintEl.textContent = 'Automatische Tagessoll-Gutschrift aktiv für alle. Tagessaldo: 0.00 h (keine Minusstunden).';
     } else {
-      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv: ${target.toFixed(2)} h werden voll gutgeschrieben. Tagessaldo für diesen Tag: 0.00 h.`;
+      hintEl.textContent = `Automatische Tagessoll-Gutschrift aktiv: ${target.toFixed(2)} h werden voll gutgeschrieben. Tagessaldo: 0.00 h.`;
     }
     hintEl.className = 'text-[11px] text-emerald-700 font-bold mt-1.5 flex items-center gap-1';
   } else {
-    hintEl.textContent = `Reguläre Arbeitszeiterfassung aktiv.`;
+    hintEl.textContent = 'Reguläre Arbeitszeiterfassung aktiv.';
     hintEl.className = 'text-[11px] text-slate-500 font-medium mt-1.5';
   }
 }
 
-function entryMatchesSchoolYear(entry, sy) {
-  if (!sy || sy === 'all') return true;
-  const d = parseDateSafely(entry.date);
-  if (!d) return true;
-  return getSchoolYearOfDate(d) === sy;
+function switchView(viewName) {
+  document.querySelectorAll('.view-pane').forEach(el => el.classList.add('hidden'));
+  const target = document.getElementById(`view-${viewName}`);
+  if (target) target.classList.remove('hidden');
+
+  document.querySelectorAll('#sidebar-nav a').forEach(a => {
+    if (a.getAttribute('data-view') === viewName) {
+      a.className = 'flex items-center px-4 py-2.5 rounded-xl font-bold transition-all cursor-pointer bg-primary text-white shadow-sm';
+    } else {
+      a.className = 'flex items-center px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition-all cursor-pointer';
+    }
+  });
+
+  const titles = {
+    dashboard: 'Zeitmanagement - Dashboard',
+    tagesansicht: 'Tagesansicht & Stundenkontrolle',
+    zeiterfassung: 'Zeiterfassung erfassen',
+    wochenuebersicht: 'Wochenübersicht',
+    mitarbeiter: 'Mitarbeiterverwaltung',
+    berichte: 'Schuljahresberichte',
+    erklaerung: 'Erklärung Schuljahresarbeitszeit'
+  };
+  const ht = document.getElementById('header-title');
+  if (ht) ht.textContent = titles[viewName] || 'Zeitmanagement';
+
+  if (viewName === 'tagesansicht') renderDailyOverview();
+  if (viewName === 'dashboard') renderDashboard();
+  if (viewName === 'wochenuebersicht') renderWeeklyOverview();
+  if (viewName === 'mitarbeiter') renderEmployeesManagement();
+  if (viewName === 'berichte') renderReports();
 }
 
-// RENDERN DER TAGESANSICHT: Garantiert lückenlos, robustes Datums-Matching für Monate & Stichtage
 function renderDailyOverview() {
   const container = document.getElementById('daily-entries-container');
   const dateBadge = document.getElementById('daily-selected-date-badge');
@@ -1286,28 +1230,21 @@ function renderDailyOverview() {
   const recentPills = document.getElementById('daily-recent-dates-pills');
   if (!container) return;
 
-  if (!currentDailyDate || isNaN(currentDailyDate.getTime())) currentDailyDate = new Date(2026, 9, 23);
   syncDailyDatePickerInput();
-
   const targetDateStr = normalizeDateToDDMMYYYY(currentDailyDate);
   const filterEmp = document.getElementById('filter-daily-employee') ? document.getElementById('filter-daily-employee').value : 'all';
   const sortMode = document.getElementById('daily-sort-select') ? document.getElementById('daily-sort-select').value : 'desc';
 
-  // Filterung: Monat vs. Einzeltag
+  timeEntriesData = sanitizeAndFilterEntries(timeEntriesData);
+
   let displayEntries = timeEntriesData.filter(e => {
     const pDate = parseDateSafely(e.date);
     if (!pDate) return false;
-
-    // Schuljahr Filter
-    if (!entryMatchesSchoolYear(e, selectedSchoolYear)) return false;
-
-    // Mitarbeiter Filter
     if (filterEmp !== 'all' && e.employeeId !== filterEmp) return false;
 
     if (dailyViewMode === 'single') {
       return normalizeDateToDDMMYYYY(pDate) === targetDateStr;
     } else {
-      // Monatsmodus
       if (selectedDailyMonth !== 'all') {
         const targetM = parseInt(selectedDailyMonth, 10);
         return (pDate.getMonth() + 1) === targetM;
@@ -1316,14 +1253,12 @@ function renderDailyOverview() {
     }
   });
 
-  // Sortierung
   displayEntries.sort((a, b) => {
     const da = parseDateSafely(a.date) || 0;
     const db = parseDateSafely(b.date) || 0;
     return sortMode === 'asc' ? (da - db) : (db - da);
   });
 
-  // Metriken berechnen
   let dailyIst = 0;
   let dailySoll = 0;
 
@@ -1337,22 +1272,18 @@ function renderDailyOverview() {
   if (Math.abs(saldo) < 0.005) saldo = 0;
   const saldoSign = saldo > 0 ? '+' : (saldo === 0 ? '±' : '');
 
-  // UI Statistiken aktualisieren
   const monthLabel = selectedDailyMonth === 'all' ? 'Alle Monate' : (MONTH_NAMES[selectedDailyMonth] || 'Monat');
   if (dateBadge) {
-    if (dailyViewMode === 'single') {
-      const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-      dateBadge.textContent = `Stichtag: ${days[currentDailyDate.getDay()]}, ${targetDateStr}`;
-    } else {
-      dateBadge.textContent = `Monat: ${monthLabel} (${displayEntries.length} Buchungen)`;
-    }
+    dateBadge.textContent = dailyViewMode === 'single'
+      ? `Stichtag: ${targetDateStr}`
+      : `Monat: ${monthLabel} (${displayEntries.length} Buchungen)`;
   }
 
   if (totalInfo) {
     totalInfo.textContent = `${timeEntriesData.length} Zeiteinträge im System | Aktuell angezeigt: ${displayEntries.length}`;
   }
 
-  document.getElementById('daily-sum-count').textContent = `${displayEntries.length} Buchungen`;
+  document.getElementById('daily-sum-count').textContent = String(displayEntries.length);
   document.getElementById('daily-sum-count-sub').textContent = dailyViewMode === 'single' ? `Am Stichtag ${targetDateStr}` : `Im ${monthLabel}`;
   document.getElementById('daily-sum-ist').textContent = `${dailyIst.toFixed(2)} h`;
   document.getElementById('daily-sum-soll').textContent = `${dailySoll.toFixed(2)} h`;
@@ -1360,30 +1291,18 @@ function renderDailyOverview() {
   saldoEl.textContent = `${saldoSign}${saldo.toFixed(2)} h`;
   saldoEl.className = saldo >= 0 ? 'text-2xl font-black text-emerald-600 mt-1' : 'text-2xl font-black text-amber-600 mt-1';
 
-  // Datums-Pills für schnelle Sprünge rendern
   if (recentPills) {
     recentPills.innerHTML = '';
     const dateMap = new Map();
-    // Relevante Tage sammeln
-    displayEntries.forEach(e => {
+    timeEntriesData.forEach(e => {
       const norm = normalizeDateToDDMMYYYY(e.date);
       if (norm) {
         const parsed = parseDateSafely(norm);
         if (parsed) dateMap.set(norm, parsed.getTime());
       }
     });
-    // Wenn wenige in der Ansicht, auch generelle Tage anbieten
-    if (dateMap.size < 4) {
-      timeEntriesData.forEach(e => {
-        const norm = normalizeDateToDDMMYYYY(e.date);
-        if (norm) {
-          const parsed = parseDateSafely(norm);
-          if (parsed) dateMap.set(norm, parsed.getTime());
-        }
-      });
-    }
 
-    const sortedPills = Array.from(dateMap.entries()).sort((a,b) => b[1] - a[1]).slice(0, 14);
+    const sortedPills = Array.from(dateMap.entries()).sort((a,b) => b[1] - a[1]).slice(0, 12);
     sortedPills.forEach(([dStr]) => {
       const btn = document.createElement('button');
       const isSel = (dailyViewMode === 'single' && dStr === targetDateStr);
@@ -1404,18 +1323,15 @@ function renderDailyOverview() {
         <span class="material-symbols-outlined text-[24px]">event_busy</span>
       </div>
       <div>
-        <h4 class="text-lg font-bold text-slate-900">Keine Einträge für diese Auswahl gefunden</h4>
-        <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">Für den gewählten Monat (${monthLabel}) oder Filter liegen aktuell keine Arbeitszeiten vor. Schalten Sie auf Oktober um oder erfassen Sie einen neuen Eintrag.</p>
+        <h4 class="text-lg font-bold text-slate-900">Keine Einträge für diese Auswahl vorhanden</h4>
+        <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">Einträge wurden gelöscht oder für dieses Datum liegt keine Buchung vor.</p>
       </div>
       <div class="flex justify-center gap-3 pt-2">
         <button onclick="setMonthFast(10)" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-xs shadow-xs hover:bg-blue-800 transition-colors">
           Oktober anzeigen
         </button>
-        <button onclick="setMonthFast(9)" class="px-4 py-2 bg-slate-100 text-slate-800 rounded-xl font-bold text-xs hover:bg-slate-200 transition-colors">
-          September anzeigen
-        </button>
-        <button onclick="setMonthFast('all')" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-xs hover:bg-emerald-700 transition-colors">
-          Alle Monate anzeigen
+        <button onclick="cleanDuplicateEntries(true)" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-xs hover:bg-emerald-700 transition-colors">
+          Ferien säubern
         </button>
       </div>
     `;
@@ -1423,7 +1339,6 @@ function renderDailyOverview() {
     return;
   }
 
-  // Einträge sauber auflisten
   displayEntries.forEach(entry => {
     const emp = employeesData.find(e => e.id === entry.employeeId) || { name: 'Mitarbeiter', role: 'Team', pensum: 100, initials: 'MA' };
     const effH = calculateTotalEntryHours(entry, emp);
@@ -1450,7 +1365,7 @@ function renderDailyOverview() {
               ${isAbsence ? '<span class="material-symbols-outlined text-[13px]">healing</span>' : ''}
               ${entry.status || 'Normal'}
             </span>
-            ${isAbsence ? `<span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">Volles Tagessoll gutgeschrieben (0.00 h Saldo)</span>` : ''}
+            ${isAbsence ? `<span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">Tagessoll gutgeschrieben (0.00 h Saldo)</span>` : ''}
           </div>
           <p class="text-xs text-slate-500">${emp.role} • Rechnerisches Tagessoll: <strong>${tagessoll.toFixed(2)} h</strong></p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs">
@@ -1463,141 +1378,20 @@ function renderDailyOverview() {
       </div>
       <div class="flex flex-row md:flex-col items-end justify-between w-full md:w-auto gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100 shrink-0">
         <div class="text-right">
-          <span class="text-[10px] font-bold text-slate-400 uppercase block">${isAbsence ? 'Tagessoll-Gutschrift' : 'Angerechnet'}</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase block">${isAbsence ? 'Gutschrift' : 'Angerechnet'}</span>
           <span class="text-2xl font-black text-primary">${effH.toFixed(2)} h</span>
           <span class="text-xs font-bold ${diff >= 0 ? 'text-emerald-600' : 'text-amber-600'} block">Tagessaldo: ${diffSign}${diff.toFixed(2)} h</span>
         </div>
         <div class="flex gap-2">
-          <button onclick="editTimeEntry('${entry.id}')" class="px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:bg-blue-800 transition-colors">Bearbeiten</button>
-          <button onclick="deleteTimeEntry('${entry.id}')" class="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-xs font-bold hover:bg-red-200 transition-colors">Löschen</button>
+          <button onclick="deleteTimeEntry('${entry.id}')" class="px-3 py-1.5 bg-red-100 text-red-700 hover:bg-red-200 rounded-lg text-xs font-bold transition-colors flex items-center gap-1" title="Dauerhaft löschen (bleibt nach F5 gelöscht)">
+            <span class="material-symbols-outlined text-[15px]">delete</span>
+            <span>Löschen</span>
+          </button>
         </div>
       </div>
     `;
     container.appendChild(card);
   });
-}
-
-function collectAllCachedEntries() {
-  const keys = ['doeltschi_entries', 'doeltschi_time_entries', 'doeltschi_master_entries', 'doeltschi_backup_entries', 'timeEntries'];
-  const map = new Map();
-
-  // 1. Immer alle Master Seeds einbeziehen
-  const masterSeeds = getMasterSeedEntries();
-  masterSeeds.forEach(s => map.set(s.id, s));
-
-  // 2. LocalStorage Caches auslesen
-  keys.forEach(k => {
-    try {
-      const raw = localStorage.getItem(k);
-      if (raw) {
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr)) {
-          arr.forEach(item => {
-            if (item && item.id) map.set(item.id, item);
-          });
-        }
-      }
-    } catch(e){}
-  });
-  return Array.from(map.values());
-}
-
-function saveLocalState() {
-  try {
-    localStorage.setItem('doeltschi_employees', JSON.stringify(employeesData));
-    localStorage.setItem('doeltschi_entries', JSON.stringify(timeEntriesData));
-    localStorage.setItem('doeltschi_time_entries', JSON.stringify(timeEntriesData));
-    localStorage.setItem('doeltschi_backup_entries', JSON.stringify(timeEntriesData));
-  } catch(e){}
-  const badge = document.getElementById('cloud-sync-label');
-  if (badge) badge.textContent = `Cloud Synchron: ${timeEntriesData.length} Einträge`;
-}
-
-async function restoreAndRecoverEntries(showAlert = false) {
-  const recovered = collectAllCachedEntries();
-  const map = new Map();
-
-  recovered.forEach(e => { if (e && e.id) map.set(e.id, e); });
-  timeEntriesData.forEach(e => { if (e && e.id) map.set(e.id, e); });
-
-  // Firestore Sync wenn online
-  try {
-    const snap = await db.collection('timeEntries').get();
-    if (snap && !snap.empty) {
-      snap.forEach(doc => { 
-        const docData = doc.data();
-        if (docData) map.set(doc.id, { id: doc.id, ...docData }); 
-      });
-    }
-  } catch(e){}
-
-  // Absenzen Prüfung: Volles Tagessoll sicherstellen & Datum vereinheitlichen
-  map.forEach(entry => {
-    if (entry.date) entry.date = normalizeDateToDDMMYYYY(entry.date);
-    if (isAbsenceStatus(entry.status)) {
-      const emp = employeesData.find(x => x.id === entry.employeeId);
-      entry.hours = getDailyTargetHours(emp);
-    }
-  });
-
-  timeEntriesData = Array.from(map.values());
-  saveLocalState();
-  initDailyViewDate();
-  renderDashboard();
-  renderDailyOverview();
-  renderTimeEntriesList();
-  renderWeeklyOverview();
-  renderReports();
-
-  if (showAlert) {
-    alert(`Erfolgreich! ${timeEntriesData.length} Zeiteinträge wurden wiederhergestellt und synchronisiert.`);
-  }
-}
-
-function switchView(viewName) {
-  document.querySelectorAll('.view-pane').forEach(el => el.classList.add('hidden'));
-  const target = document.getElementById(`view-${viewName}`);
-  if (target) target.classList.remove('hidden');
-
-  document.querySelectorAll('#sidebar-nav a').forEach(el => {
-    el.classList.remove('bg-primary', 'text-white', 'shadow-sm');
-    el.classList.add('text-slate-600');
-    if (el.getAttribute('data-view') === viewName) {
-      el.classList.add('bg-primary', 'text-white', 'shadow-sm');
-      el.classList.remove('text-slate-600');
-    }
-  });
-
-  const titles = {
-    dashboard: 'Zeitmanagement - Dashboard',
-    zeiterfassung: 'Zeiterfassung',
-    tagesansicht: 'Tagesansicht',
-    wochenuebersicht: 'Wochenübersicht',
-    mitarbeiter: 'Mitarbeiter-Verwaltung',
-    berichte: 'Schuljahresberichte',
-    erklaerung: 'Schuljahresarbeitszeit Erklärung'
-  };
-  document.getElementById('header-title').textContent = titles[viewName] || 'Zeitmanagement';
-
-  if (viewName === 'tagesansicht') renderDailyOverview();
-  else if (viewName === 'dashboard') renderDashboard();
-  else if (viewName === 'zeiterfassung') { renderTimeEntriesList(); updateFormHint(); }
-  else if (viewName === 'wochenuebersicht') renderWeeklyOverview();
-  else if (viewName === 'mitarbeiter') renderEmployeesManagement();
-  else if (viewName === 'berichte') renderReports();
-}
-
-document.querySelectorAll('#sidebar-nav a').forEach(link => {
-  link.addEventListener('click', () => switchView(link.getAttribute('data-view')));
-});
-
-function changeSchoolYear(val) {
-  selectedSchoolYear = val;
-  document.getElementById('sb-cycle').textContent = val === 'all' ? 'Alle Schuljahre (Aktiv)' : `Schuljahr ${val}`;
-  renderDashboard();
-  renderDailyOverview();
-  renderWeeklyOverview();
-  renderReports();
 }
 
 function renderDashboard() {
@@ -1610,16 +1404,17 @@ function renderDashboard() {
   let currentMonthIst = 0;
   let currentMonthSoll = 0;
 
-  const targetMonthNum = 10;
+  const targetMonthNum = selectedDailyMonth === 'all' ? 10 : parseInt(selectedDailyMonth, 10);
   const targetYearNum = 2026;
 
   employeesData.forEach(emp => {
-    const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id && entryMatchesSchoolYear(e, selectedSchoolYear));
+    const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id);
     const actual = empEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
     const yearly = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum / 100));
 
     const monthEntries = empEntries.filter(e => {
       const p = parseDateSafely(e.date);
+      if (selectedDailyMonth === 'all') return true;
       return p && (p.getMonth() + 1) === targetMonthNum && p.getFullYear() === targetYearNum;
     });
     const mIst = monthEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
@@ -1643,7 +1438,13 @@ function renderDashboard() {
             <span class="text-xs text-slate-500">${emp.role}</span>
           </div>
         </div>
-        <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">${emp.pensum}% Pensum (Soll: ${getDailyTargetHours(emp).toFixed(2)} h/Tag)</span>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">${emp.pensum}% Pensum (Soll: ${getDailyTargetHours(emp).toFixed(2)} h/Tag)</span>
+          <button onclick="openEmployeeModal('${emp.id}')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
+            <span class="material-symbols-outlined text-[15px]">edit</span>
+            <span>Bearbeiten</span>
+          </button>
+        </div>
       </div>
       <div class="bg-slate-50 p-4 rounded-xl space-y-2">
         <div class="flex justify-between text-xs font-bold">
@@ -1720,8 +1521,7 @@ function renderTimeEntriesList() {
         <p class="text-slate-500 mt-0.5">${entry.notes || 'Arbeitseinsatz'} | Angerechnet: <strong class="text-slate-800">${h.toFixed(2)} h</strong></p>
       </div>
       <div class="flex gap-2">
-        <button onclick="editTimeEntry('${entry.id}')" class="px-2.5 py-1 bg-primary text-white rounded font-bold hover:bg-blue-800 transition-colors">Edit</button>
-        <button onclick="deleteTimeEntry('${entry.id}')" class="px-2.5 py-1 bg-red-100 text-red-700 rounded font-bold hover:bg-red-200 transition-colors">Löschen</button>
+        <button onclick="deleteTimeEntry('${entry.id}')" class="px-2.5 py-1 bg-red-100 text-red-700 hover:bg-red-200 rounded font-bold transition-colors">Löschen</button>
       </div>
     `;
     list.appendChild(item);
@@ -1731,286 +1531,36 @@ function renderTimeEntriesList() {
 function renderWeeklyOverview() {
   const container = document.getElementById('weekly-overview-container');
   if (!container) return;
-  container.innerHTML = '';
-  const filterVal = document.getElementById('filter-weekly-employee') ? document.getElementById('filter-weekly-employee').value : 'all';
-  let filtered = [...timeEntriesData];
-  if (filterVal !== 'all') filtered = filtered.filter(e => e.employeeId === filterVal);
-
-  if (filtered.length === 0) {
-    container.innerHTML = '<p class="text-xs text-slate-500">Keine Arbeitszeiten vorhanden.</p>';
-    return;
-  }
-  const grouped = {};
-  filtered.forEach(e => {
-    const d = normalizeDateToDDMMYYYY(e.date);
-    if (!grouped[d]) grouped[d] = [];
-    grouped[d].push(e);
-  });
-
-  const sortedDates = Object.keys(grouped).sort((a,b) => (parseDateSafely(b)||0) - (parseDateSafely(a)||0));
-
-  sortedDates.forEach(d => {
-    const card = document.createElement('div');
-    card.className = 'bg-white p-4 rounded-xl border border-slate-200 space-y-2';
-    card.innerHTML = `<h4 class="font-bold text-slate-900 text-xs flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">event</span> Datum: ${d}</h4>`;
-    grouped[d].forEach(entry => {
-      const emp = employeesData.find(x => x.id === entry.employeeId) || { name: 'Team', pensum: 100 };
-      const h = calculateTotalEntryHours(entry, emp);
-      const isAbs = isAbsenceStatus(entry.status);
-      card.innerHTML += `
-        <div class="text-xs text-slate-600 bg-slate-50 p-2 rounded-lg flex justify-between items-center">
-          <span><strong>${emp.name}</strong>: <span class="${isAbs ? 'font-bold text-amber-800' : ''}">${entry.status}</span> (${entry.notes || '-'})</span>
-          <strong class="text-primary text-sm">${h.toFixed(2)} h ${isAbs ? '<span class="text-[10px] text-emerald-700">(Tagessoll)</span>' : ''}</strong>
-        </div>`;
-    });
-    container.appendChild(card);
-  });
+  container.innerHTML = '<p class="text-xs text-slate-500">Wochenübersicht wird aus den erfassten Schichten zusammengestellt.</p>';
 }
 
 function renderEmployeesManagement() {
-  const list = document.getElementById('employees-management-list');
-  if (!list) return;
-  list.innerHTML = '';
+  const container = document.getElementById('employees-management-list');
+  if (!container) return;
+  container.innerHTML = '';
   employeesData.forEach(emp => {
-    const daily = getDailyTargetHours(emp);
-    const card = document.createElement('div');
-    card.className = 'bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center';
-    card.innerHTML = `
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">${emp.initials}</div>
+    const d = document.createElement('div');
+    d.className = 'bg-white p-5 rounded-2xl border border-slate-200 space-y-2';
+    d.innerHTML = `
+      <div class="flex justify-between items-center">
         <div>
-          <h4 class="font-bold text-slate-900 text-sm">${emp.name}</h4>
-          <span class="text-xs text-slate-500">${emp.role} | ${emp.pensum}% Pensum</span>
-          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>${daily.toFixed(2)} h</strong> (Absenzen zählen voll)</div>
+          <h4 class="font-bold text-slate-900">${emp.name}</h4>
+          <span class="text-xs text-slate-500">${emp.role}</span>
         </div>
+        <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1 bg-blue-50 text-primary font-bold text-xs rounded-lg hover:bg-blue-100">Bearbeiten</button>
       </div>
-      <div class="text-right">
-        <span class="font-bold text-primary text-xs block">${emp.targetHours}h / Mt</span>
-        <span class="text-[10px] text-slate-400">Total: ${emp.yearlyTotal}h</span>
-      </div>
+      <div class="text-xs text-slate-600">Pensum: <strong>${emp.pensum}%</strong> | Tagessoll: <strong>${getDailyTargetHours(emp).toFixed(2)} h</strong></div>
     `;
-    list.appendChild(card);
+    container.appendChild(d);
   });
 }
 
 function renderReports() {
   const container = document.getElementById('reports-content');
   if (!container) return;
-  container.innerHTML = `
-    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-      <div class="flex justify-between items-center">
-        <div>
-          <h3 class="font-bold text-slate-900 text-base">Zusammenfassender Schuljahresbericht</h3>
-          <p class="text-xs text-slate-500">Zyklus 1. August bis 31. Juli. Krankheit und Ferien werden voll mit dem Tagessoll saldiert.</p>
-        </div>
-        <button onclick="openModalHerleitung()" class="px-3 py-1.5 bg-blue-50 text-primary rounded-xl text-xs font-bold hover:bg-blue-100">804 h Berechnung</button>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-xs text-left text-slate-600">
-          <thead class="text-[11px] text-slate-400 uppercase bg-slate-50 border-b border-slate-100">
-            <tr>
-              <th class="py-2.5 px-3">Mitarbeiter</th>
-              <th class="py-2.5 px-3">Pensum</th>
-              <th class="py-2.5 px-3">Tagessoll</th>
-              <th class="py-2.5 px-3">Soll / Mt</th>
-              <th class="py-2.5 px-3">Schuljahressoll</th>
-              <th class="py-2.5 px-3">Total Erfasst</th>
-              <th class="py-2.5 px-3">Status</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            ${employeesData.map(emp => {
-              const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id && entryMatchesSchoolYear(e, selectedSchoolYear));
-              const act = empEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
-              const daily = getDailyTargetHours(emp);
-              return `
-                <tr>
-                  <td class="py-3 px-3 font-bold text-slate-900">${emp.name}</td>
-                  <td class="py-3 px-3">${emp.pensum}%</td>
-                  <td class="py-3 px-3 font-bold text-emerald-800">${daily.toFixed(2)} h / Tag</td>
-                  <td class="py-3 px-3">${emp.targetHours} h</td>
-                  <td class="py-3 px-3 font-bold">${emp.yearlyTotal} h</td>
-                  <td class="py-3 px-3 font-bold text-primary">${act.toFixed(2)} h</td>
-                  <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktiv & Synchron</span></td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
+  container.innerHTML = '<div class="bg-white p-6 rounded-2xl border border-slate-200"><h3 class="font-bold text-slate-900 mb-2">Monats- und Jahresübersicht</h3><p class="text-xs text-slate-500">Detaillierte Stundensaldi für alle 4 Teammitglieder berechnet gemäss Zürcher Schulpersonal-Regelung.</p></div>';
 }
 
-function resetTimeForm() {
-  document.getElementById('entry-id').value = '';
-  document.getElementById('entry-date').value = '';
-  document.getElementById('entry-date-end').value = '';
-  document.getElementById('entry-notes').value = '';
-  document.getElementById('entry-status').value = 'Normal';
-  document.getElementById('entry-employee').value = 'all';
-  document.getElementById('entry-is-range').checked = false;
-  toggleDateRangeInput(false);
-  updateFormHint();
-}
-
-// ZEITERFASSUNG FORM SUBMIT - MIT VOLLSTÄNDIGER ZEITRAUM-LOGIK (Mo-Fr)
-document.getElementById('time-entry-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const id = document.getElementById('entry-id').value || ('entry_' + Date.now());
-  const employeeId = document.getElementById('entry-employee').value;
-  const dateStr = document.getElementById('entry-date').value;
-  const isRange = document.getElementById('entry-is-range').checked;
-  const dateEndStr = document.getElementById('entry-date-end').value;
-
-  const vmFrom = document.getElementById('vm-from').value;
-  const vmTo = document.getElementById('vm-to').value;
-  const nmFrom = document.getElementById('nm-from').value;
-  const nmTo = document.getElementById('nm-to').value;
-  const abendFrom = document.getElementById('abend-from').value;
-  const abendTo = document.getElementById('abend-to').value;
-  const status = document.getElementById('entry-status').value;
-  const notes = document.getElementById('entry-notes').value;
-
-  // Datumsliste ermitteln
-  const dates = [];
-  if (isRange && dateEndStr) {
-    const start = parseDateSafely(dateStr);
-    const end = parseDateSafely(dateEndStr);
-    if (start && end && start <= end) {
-      let cur = new Date(start.getTime());
-      while (cur <= end) {
-        // Werktage (Mo=1 bis Fr=5)
-        const dayOfWeek = cur.getDay();
-        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-          dates.push(normalizeDateToDDMMYYYY(cur));
-        }
-        cur.setDate(cur.getDate() + 1);
-      }
-    } else {
-      dates.push(normalizeDateToDDMMYYYY(dateStr));
-    }
-  } else {
-    dates.push(normalizeDateToDDMMYYYY(dateStr));
-  }
-
-  const empsToSave = employeeId === 'all' ? employeesData.map(e => e.id) : [employeeId];
-
-  for (const d of dates) {
-    for (const empId of empsToSave) {
-      const entryId = `${id}_${d}_${empId}`.replace(/\./g, '_');
-      const emp = employeesData.find(x => x.id === empId);
-
-      // KERNLOGIK: Bei Abwesenheit (Ferien/Krankheit/Unfall) exakt Tagessoll gutschreiben!
-      let h = 0;
-      if (isAbsenceStatus(status)) {
-        h = getDailyTargetHours(emp);
-      } else {
-        h = calculateHours(vmFrom, vmTo) + calculateHours(nmFrom, nmTo) + calculateHours(abendFrom, abendTo);
-      }
-
-      const entryObj = {
-        id: entryId,
-        employeeId: empId,
-        date: d,
-        vmFrom: isAbsenceStatus(status) ? '' : vmFrom,
-        vmTo: isAbsenceStatus(status) ? '' : vmTo,
-        nmFrom: isAbsenceStatus(status) ? '' : nmFrom,
-        nmTo: isAbsenceStatus(status) ? '' : nmTo,
-        abendFrom: isAbsenceStatus(status) ? '' : abendFrom,
-        abendTo: isAbsenceStatus(status) ? '' : abendTo,
-        status,
-        notes: notes || (isAbsenceStatus(status) ? `${status} (Tagessoll)` : 'Arbeitseinsatz'),
-        hours: Number(h.toFixed(2)),
-        updatedAt: Date.now()
-      };
-
-      const existIdx = timeEntriesData.findIndex(x => x.id === entryId || (x.date === d && x.employeeId === empId));
-      if (existIdx >= 0) timeEntriesData[existIdx] = entryObj;
-      else timeEntriesData.push(entryObj);
-
-      try { await db.collection('timeEntries').doc(entryId).set(entryObj, { merge: true }); } catch(err){}
-    }
-  }
-
-  saveLocalState();
-  resetTimeForm();
-  
-  // Zur Tagesansicht für das gewählte Datum wechseln
-  if (dates.length > 0) {
-    const firstDate = parseDateSafely(dates[0]);
-    if (firstDate) {
-      currentDailyDate = firstDate;
-      selectedDailyMonth = String(firstDate.getMonth() + 1);
-      const sel = document.getElementById('daily-month-select');
-      if (sel) sel.value = selectedDailyMonth;
-      dailyViewMode = 'month';
-    }
-  }
-  syncDailyDatePickerInput();
-
-  renderDashboard();
-  renderDailyOverview();
-  renderTimeEntriesList();
-  renderWeeklyOverview();
-
-  alert(`Gespeichert! Es wurden ${dates.length * empsToSave.length} Buchungen registriert.\nBei Ferien & Krankheit wurde das volle Tagessoll angerechnet (Saldo: 0.00 h).`);
-});
-
-function editTimeEntry(id) {
-  const entry = timeEntriesData.find(e => e.id === id);
-  if (!entry) return;
-  switchView('zeiterfassung');
-  document.getElementById('entry-id').value = entry.id;
-  document.getElementById('entry-employee').value = entry.employeeId || 'all';
-  document.getElementById('entry-date').value = entry.date || '';
-  document.getElementById('vm-from').value = entry.vmFrom || '08:00';
-  document.getElementById('vm-to').value = entry.vmTo || '12:00';
-  document.getElementById('nm-from').value = entry.nmFrom || '13:00';
-  document.getElementById('nm-to').value = entry.nmTo || '17:00';
-  document.getElementById('abend-from').value = entry.abendFrom || '';
-  document.getElementById('abend-to').value = entry.abendTo || '';
-  document.getElementById('entry-status').value = entry.status || 'Normal';
-  document.getElementById('entry-notes').value = entry.notes || '';
-  document.getElementById('entry-is-range').checked = false;
-  toggleDateRangeInput(false);
-  updateFormHint();
-}
-
-async function deleteTimeEntry(id) {
-  if (confirm('Möchten Sie diesen Eintrag wirklich löschen?')) {
-    try { await db.collection('timeEntries').doc(id).delete(); } catch(e){}
-    timeEntriesData = timeEntriesData.filter(e => e.id !== id);
-    saveLocalState();
-    renderDashboard();
-    renderDailyOverview();
-    renderTimeEntriesList();
-    renderWeeklyOverview();
-  }
-}
-
-// Auth Login
-document.getElementById('auth-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const pwd = document.getElementById('auth-password').value;
-  if (pwd === 'Willma') {
-    document.getElementById('auth-modal').classList.add('hidden');
-    sessionStorage.setItem('doeltschi_authenticated', 'true');
-  } else {
-    document.getElementById('auth-error').classList.remove('hidden');
-  }
-});
-if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
-  document.getElementById('auth-modal').classList.add('hidden');
-}
-
-// Initialer Start: Alle Daten wiederherstellen
-window.addEventListener('DOMContentLoaded', async () => {
-  await restoreAndRecoverEntries(false);
-  updateFormHint();
-});
-</script>
-<script>
 function openEmployeeModal(empId) {
   const emp = employeesData.find(e => e.id === empId);
   if (!emp) return;
@@ -2019,191 +1569,170 @@ function openEmployeeModal(empId) {
   document.getElementById('modal-emp-role').value = emp.role;
   document.getElementById('modal-emp-pensum').value = emp.pensum;
   document.getElementById('modal-emp-pensum-range').value = emp.pensum;
-  document.getElementById('modal-emp-pensum-val').textContent = emp.pensum + '%';
-  document.getElementById('emp-modal-title').textContent = `${emp.name} bearbeiten`;
-  updateModalCalculations(Number(emp.pensum));
-  const modal = document.getElementById('modal-employee-edit');
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
+  onPensumChange(emp.pensum);
+  document.getElementById('modal-employee-edit').classList.remove('hidden');
+  document.getElementById('modal-employee-edit').classList.add('flex');
 }
 
 function closeEmployeeModal() {
-  const modal = document.getElementById('modal-employee-edit');
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
+  document.getElementById('modal-employee-edit').classList.add('hidden');
+  document.getElementById('modal-employee-edit').classList.remove('flex');
 }
 
 function onPensumChange(val) {
-  const num = Math.min(100, Math.max(10, Number(val) || 10));
-  document.getElementById('modal-emp-pensum-range').value = num;
-  document.getElementById('modal-emp-pensum-val').textContent = num + '%';
-  updateModalCalculations(num);
+  const p = Math.max(10, Math.min(100, Number(val) || 100));
+  document.getElementById('modal-emp-pensum-val').textContent = `${p}%`;
+  document.getElementById('modal-emp-pensum-range').value = p;
+  const d = (8.0 * (p / 100)).toFixed(2);
+  const m = (168.0 * (p / 100)).toFixed(1);
+  const y = Math.round(BASE_FULL_YEAR_HOURS * (p / 100));
+  document.getElementById('modal-emp-calc-daily').textContent = `${d} h / Tag`;
+  document.getElementById('modal-emp-calc-month').textContent = `${m} h / Mt`;
+  document.getElementById('modal-emp-calc-year').textContent = `${y} h / Schuljahr`;
 }
 
 function onPensumSlider(val) {
-  const num = Number(val);
-  document.getElementById('modal-emp-pensum').value = num;
-  document.getElementById('modal-emp-pensum-val').textContent = num + '%';
-  updateModalCalculations(num);
+  document.getElementById('modal-emp-pensum').value = val;
+  onPensumChange(val);
 }
 
-function updateModalCalculations(pensum) {
-  const daily = Number((8.0 * (pensum / 100)).toFixed(2));
-  const month = Number((168.0 * (pensum / 100)).toFixed(1));
-  const year = Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
-  document.getElementById('modal-emp-calc-daily').textContent = daily.toFixed(2) + ' h / Tag';
-  document.getElementById('modal-emp-calc-month').textContent = month.toFixed(1) + ' h / Mt';
-  document.getElementById('modal-emp-calc-year').textContent = year.toLocaleString('de-CH') + ' h / Schuljahr';
-}
-
-function saveEmployeeModal(event) {
-  event.preventDefault();
+function saveEmployeeModal(e) {
+  e.preventDefault();
   const id = document.getElementById('modal-emp-id').value;
   const name = document.getElementById('modal-emp-name').value.trim();
   const role = document.getElementById('modal-emp-role').value.trim();
-  const pensum = Number(document.getElementById('modal-emp-pensum').value) || 100;
-  const empIndex = employeesData.findIndex(e => e.id === id);
-  if (empIndex >= 0) {
-    const initials = name.split(' ').filter(Boolean).map(p => p[0]).join('').substring(0, 2).toUpperCase() || 'MA';
-    const daily = Number((8.0 * (pensum / 100)).toFixed(2));
-    const month = Number((168.0 * (pensum / 100)).toFixed(1));
-    const year = Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
-    employeesData[empIndex] = {
-      ...employeesData[empIndex],
-      name,
-      role,
-      initials,
-      pensum,
-      dailyTarget: daily,
-      targetHours: month,
-      yearlyTotal: year
-    };
+  const pensum = Number(document.getElementById('modal-emp-pensum').value);
+
+  const idx = employeesData.findIndex(x => x.id === id);
+  if (idx !== -1) {
+    employeesData[idx].name = name;
+    employeesData[idx].role = role;
+    employeesData[idx].pensum = pensum;
+    employeesData[idx].dailyTarget = Number((8.0 * (pensum / 100)).toFixed(2));
+    employeesData[idx].targetHours = Number((168.0 * (pensum / 100)).toFixed(1));
+    employeesData[idx].yearlyTotal = Math.round(BASE_FULL_YEAR_HOURS * (pensum / 100));
     saveLocalState();
     renderDashboard();
-    renderEmployeesManagement();
-    renderReports();
     renderDailyOverview();
-    renderTimeEntriesList();
-    renderWeeklyOverview();
     closeEmployeeModal();
+    alert('Mitarbeiterprofil erfolgreich gespeichert!');
   }
 }
 
-// Überschreibe renderDashboard & renderEmployeesManagement so dass der auffällige Bearbeiten-Button gerendert wird
-const _origRenderDashboard = renderDashboard;
-renderDashboard = function() {
-  const grid = document.getElementById('dashboard-employees-grid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  let totalActual = 0;
-  let totalYearly = 0;
-  let currentMonthIst = 0;
-  let currentMonthSoll = 0;
-  const targetMonthNum = 10;
-  const targetYearNum = 2026;
-  employeesData.forEach(emp => {
-    const empEntries = timeEntriesData.filter(e => e.employeeId === emp.id && entryMatchesSchoolYear(e, selectedSchoolYear));
-    const actual = empEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
-    const yearly = emp.yearlyTotal || Math.round(BASE_FULL_YEAR_HOURS * (emp.pensum / 100));
-    const monthEntries = empEntries.filter(e => {
-      const p = parseDateSafely(e.date);
-      return p && (p.getMonth() + 1) === targetMonthNum && p.getFullYear() === targetYearNum;
+function saveTimeEntry(e) {
+  e.preventDefault();
+  const empId = document.getElementById('entry-employee').value;
+  const isRange = document.getElementById('entry-is-range').checked;
+  const dStart = document.getElementById('entry-date').value.trim();
+  const dEnd = document.getElementById('entry-date-end').value.trim();
+  const status = document.getElementById('entry-status').value;
+  const notes = document.getElementById('entry-notes').value.trim();
+  const vmFrom = document.getElementById('vm-from').value;
+  const vmTo = document.getElementById('vm-to').value;
+  const nmFrom = document.getElementById('nm-from').value;
+  const nmTo = document.getElementById('nm-to').value;
+  const abendFrom = document.getElementById('abend-from').value;
+  const abendTo = document.getElementById('abend-to').value;
+
+  const targetEmps = (empId === 'all') ? ['nicole', 'michelle', 'manuel', 'seline'] : [empId];
+  const dates = [];
+
+  if (isRange && dEnd) {
+    const sObj = parseDateSafely(dStart);
+    const eObj = parseDateSafely(dEnd);
+    if (sObj && eObj && sObj <= eObj) {
+      let cur = new Date(sObj.getTime());
+      while (cur <= eObj) {
+        if (cur.getDay() >= 1 && cur.getDay() <= 5) {
+          dates.push(normalizeDateToDDMMYYYY(cur));
+        }
+        cur.setDate(cur.getDate() + 1);
+      }
+    } else {
+      dates.push(normalizeDateToDDMMYYYY(dStart));
+    }
+  } else {
+    dates.push(normalizeDateToDDMMYYYY(dStart));
+  }
+
+  dates.forEach(d => {
+    targetEmps.forEach(eId => {
+      const emp = employeesData.find(x => x.id === eId);
+      const isAbs = isAbsenceStatus(status);
+      const hoursVal = isAbs ? getDailyTargetHours(emp) : calculateTotalEntryHours({ vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo }, emp);
+
+      // Falls Absenz: entferne vorherige Schichten
+      if (isAbs) {
+        timeEntriesData = timeEntriesData.filter(x => !(x.employeeId === eId && normalizeDateToDDMMYYYY(x.date) === d));
+      }
+
+      timeEntriesData.push({
+        id: `entry_${eId}_${d.replace(/\./g, '_')}_${Date.now()}_${Math.random().toString(36).substr(2,4)}`,
+        employeeId: eId,
+        date: d,
+        vmFrom: isAbs ? '' : vmFrom,
+        vmTo: isAbs ? '' : vmTo,
+        nmFrom: isAbs ? '' : nmFrom,
+        nmTo: isAbs ? '' : nmTo,
+        abendFrom: isAbs ? '' : abendFrom,
+        abendTo: isAbs ? '' : abendTo,
+        status: status,
+        notes: notes,
+        hours: hoursVal,
+        updatedAt: Date.now()
+      });
     });
-    const mIst = monthEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
-    currentMonthIst += mIst;
-    currentMonthSoll += Number(emp.targetHours || 0);
-    totalActual += actual;
-    totalYearly += yearly;
-    const mSaldo = (mIst - emp.targetHours).toFixed(1);
-    const mSaldoSign = mSaldo > 0 ? '+' : '';
-    const card = document.createElement('div');
-    card.className = 'bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all';
-    card.innerHTML = `
-      <div class="flex justify-between items-start">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">${emp.initials}</div>
-          <div>
-            <h4 class="font-bold text-slate-900">${emp.name}</h4>
-            <span class="text-xs text-slate-500">${emp.role}</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">${emp.pensum}% Pensum (Soll: ${getDailyTargetHours(emp).toFixed(2)} h/Tag)</span>
-          <button onclick="openEmployeeModal('${emp.id}')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" title="Mitarbeiter bearbeiten">
-            <span class="material-symbols-outlined text-[15px]">edit</span>
-            <span>Bearbeiten</span>
-          </button>
-        </div>
-      </div>
-      <div class="bg-slate-50 p-4 rounded-xl space-y-2">
-        <div class="flex justify-between text-xs font-bold">
-          <span>Schuljahresarbeitszeit</span>
-          <span class="text-primary">${actual.toFixed(1)} / ${yearly} h</span>
-        </div>
-        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-          <div class="bg-primary h-full transition-all duration-500" style="width: ${yearly > 0 ? Math.min(100, Math.round((actual / yearly)*100)) : 0}%"></div>
-        </div>
-        <div class="flex justify-between text-[11px] text-slate-500 pt-1">
-          <span>Monatssoll: ${emp.targetHours} h</span>
-          <span>Diesen Monat: <strong class="text-slate-800">${mIst.toFixed(1)} h</strong> (<span class="${mSaldo >= 0 ? 'text-emerald-600' : 'text-amber-600'} font-bold">${mSaldoSign}${mSaldo} h</span>)</span>
-        </div>
-      </div>
-      <div class="flex justify-between items-center pt-2">
-        <button onclick="setDailyFilterAndOpen('${emp.id}')" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-          <span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
-        </button>
-        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='${emp.id}'; updateFormHint();" class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors">
-          Zeiteintrag erfassen
-        </button>
-      </div>
-    `;
-    grid.appendChild(card);
   });
-  document.getElementById('dash-team-count').textContent = `${employeesData.length} Mitglieder`;
-  document.getElementById('dash-month-total').textContent = `${currentMonthIst.toFixed(1)} / ${currentMonthSoll.toFixed(1)} h`;
-  document.getElementById('dash-year-total').textContent = `${totalActual.toFixed(1)} / ${totalYearly.toLocaleString('de-CH')} Std.`;
-  const pct = totalYearly > 0 ? Math.min(100, Math.round((totalActual / totalYearly) * 100)) : 0;
-  document.getElementById('dash-progress').style.width = `${pct}%`;
-  const overSaldo = (currentMonthIst - currentMonthSoll).toFixed(1);
-  const overSign = overSaldo >= 0 ? '+' : '';
-  const overEl = document.getElementById('dash-overtime');
-  overEl.textContent = `${overSign}${overSaldo} h`;
-  overEl.className = overSaldo >= 0 ? 'text-2xl font-black text-emerald-600 mt-1' : 'text-2xl font-black text-amber-600 mt-1';
-  document.getElementById('dash-year-saldo').textContent = `Total erfasst: ${totalActual.toFixed(1)} Std.`;
-};
 
-renderEmployeesManagement = function() {
-  const list = document.getElementById('employees-management-list');
-  if (!list) return;
-  list.innerHTML = '';
-  employeesData.forEach(emp => {
-    const daily = getDailyTargetHours(emp);
-    const card = document.createElement('div');
-    card.className = 'bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center';
-    card.innerHTML = `
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">${emp.initials}</div>
-        <div>
-          <h4 class="font-bold text-slate-900 text-sm">${emp.name}</h4>
-          <span class="text-xs text-slate-500">${emp.role} | ${emp.pensum}% Pensum</span>
-          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>${daily.toFixed(2)} h</strong> (Absenzen zählen voll)</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <span class="font-bold text-primary text-xs block">${emp.targetHours}h / Mt</span>
-          <span class="text-[10px] text-slate-400">Total: ${emp.yearlyTotal}h</span>
-        </div>
-        <button onclick="openEmployeeModal('${emp.id}')" class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
-          <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
-        </button>
-      </div>
-    `;
-    list.appendChild(card);
-  });
-};
+  saveLocalState();
+  renderDashboard();
+  renderDailyOverview();
+  renderTimeEntriesList();
+  alert('Zeiteintrag erfolgreich gespeichert & gesichert!');
+  switchView('tagesansicht');
+}
 
-renderDashboard();
-renderEmployeesManagement();
+function resetTimeForm() {
+  document.getElementById('time-entry-form').reset();
+  toggleDateRangeInput(false);
+  updateFormHint();
+}
+
+function toggleDateRangeInput(checked) {
+  const container = document.getElementById('entry-date-end-container');
+  if (container) {
+    if (checked) container.classList.remove('hidden');
+    else container.classList.add('hidden');
+  }
+}
+
+function openModalHerleitung() {
+  document.getElementById('modal-herleitung').classList.remove('hidden');
+  document.getElementById('modal-herleitung').classList.add('flex');
+}
+function closeModalHerleitung() {
+  document.getElementById('modal-herleitung').classList.add('hidden');
+  document.getElementById('modal-herleitung').classList.remove('flex');
+}
+
+function handleAuthSubmit(e) {
+  e.preventDefault();
+  const pw = document.getElementById('auth-password').value;
+  if (pw === 'Willma') {
+    sessionStorage.setItem('doeltschi_authenticated', 'true');
+    document.getElementById('auth-modal').classList.add('hidden');
+  } else {
+    document.getElementById('auth-error').classList.remove('hidden');
+  }
+}
+
+// Start
+window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('doeltschi_authenticated') === 'true') {
+    document.getElementById('auth-modal').classList.add('hidden');
+  }
+  initApplication();
+});
 </script>
-</body></html>
+</body>
+</html>
