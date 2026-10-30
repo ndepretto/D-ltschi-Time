@@ -1,6 +1,8 @@
-<!DOCTYPE html><html lang="de"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Döltschi Time - Zeiterfassung &amp; Schuljahresarbeitszeit</title>
 <style>
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
@@ -24,7 +26,7 @@ tailwind.config = {
   }
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
@@ -40,7 +42,7 @@ tailwind.config = {
 <p class="text-xs text-slate-500 mt-1">Bitte geben Sie das Passwort ein (Standard: Willma).</p>
 </div>
 <form class="space-y-4" id="auth-form">
-<input class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-0" id="auth-password" placeholder="Passwort" required="" type="password">
+<input class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-0" id="auth-password" placeholder="Passwort" required="" type="password"/>
 <button class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-blue-800 transition-colors" type="submit">Anmelden</button>
 <p class="text-red-600 text-xs text-center hidden font-bold" id="auth-error">Falsches Passwort!</p>
 </form>
@@ -67,8 +69,8 @@ tailwind.config = {
 <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
 <span class="text-[10px] font-bold uppercase text-slate-500">Nicole De Pretto (57% Pensum)</span>
 <h5 class="text-base font-black text-slate-900 mt-1">1'222.1 h Jahresarbeitszeit</h5>
-<p class="text-slate-600 mt-1">57% von 2'144 h = 1'222.08 h pro Schuljahr.<br>
-Monatssoll im Durchschnitt: <strong>95.8 h</strong>.<br>
+<p class="text-slate-600 mt-1">57% von 2'144 h = 1'222.08 h pro Schuljahr.<br/>
+Monatssoll im Durchschnitt: <strong>95.8 h</strong>.<br/>
 Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
@@ -86,7 +88,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <button class="px-5 py-2.5 bg-primary text-white rounded-xl text-xs font-bold hover:bg-blue-800 transition-colors" onclick="closeModalHerleitung()">Verstanden &amp; Schliessen</button>
 </div>
 </div>
-</div><div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-employee-edit"><div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"><div class="flex justify-between items-start border-b border-slate-100 pb-4"><div><span class="text-xs font-bold uppercase text-primary tracking-wider">Mitarbeiterprofil anpassen</span><h3 class="text-xl font-black text-slate-900 mt-0.5" id="emp-modal-title">Mitarbeiter bearbeiten</h3></div><button class="text-slate-400 hover:text-slate-700 p-1 rounded-lg" onclick="closeEmployeeModal()"><span class="material-symbols-outlined text-2xl">close</span></button></div><form class="space-y-4" id="employee-edit-form" onsubmit="saveEmployeeModal(event)"><input id="modal-emp-id" type="hidden"><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Vollständiger Name</label><input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-name" required="" type="text"></div><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Funktion / Rolle</label><input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-role" required="" type="text"></div><div><div class="flex justify-between items-center mb-1"><label class="text-xs font-bold uppercase text-slate-500">Pensum (%)</label><span class="text-xs font-black text-primary" id="modal-emp-pensum-val">100%</span></div><div class="flex items-center gap-3"><input class="w-24 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-center" id="modal-emp-pensum" max="100" min="10" oninput="onPensumChange(this.value)" required="" step="1" type="number"><input class="flex-1 cursor-pointer accent-primary" id="modal-emp-pensum-range" max="100" min="10" oninput="onPensumSlider(this.value)" step="1" type="range"></div></div><div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2"><h4 class="font-bold text-primary text-xs uppercase tracking-wider">Berechnete Richtwerte (Kanton Zürich)</h4><div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Tagessoll (Basis 8.0h)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-daily">8.00 h / Tag</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Monatssoll (Schnitt)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-month">168.0 h / Mt</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100 col-span-2"><span class="text-slate-500 block text-[10px] uppercase font-bold">Jahresarbeitszeit (Basis 2'144h)</span><strong class="text-sm text-primary font-black" id="modal-emp-calc-year">2'144 h / Schuljahr</strong></div></div><p class="text-[11px] text-slate-500 mt-1">Abwesenheiten (Krankheit/Ferien) erhalten automatisch das neue Tagessoll ohne Saldo-Abzug gutgeschrieben.</p></div><div class="flex justify-end gap-2 pt-2"><button class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button><button class="px-5 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5" type="submit"><span class="material-symbols-outlined text-[16px]">save</span><span class="">Änderungen speichern</span></button></div></form></div></div>
+</div><div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-employee-edit"><div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"><div class="flex justify-between items-start border-b border-slate-100 pb-4"><div><span class="text-xs font-bold uppercase text-primary tracking-wider">Mitarbeiterprofil anpassen</span><h3 class="text-xl font-black text-slate-900 mt-0.5" id="emp-modal-title">Mitarbeiter bearbeiten</h3></div><button class="text-slate-400 hover:text-slate-700 p-1 rounded-lg" onclick="closeEmployeeModal()"><span class="material-symbols-outlined text-2xl">close</span></button></div><form class="space-y-4" id="employee-edit-form" onsubmit="saveEmployeeModal(event)"><input id="modal-emp-id" type="hidden"/><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Vollständiger Name</label><input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-name" required="" type="text"/></div><div><label class="text-xs font-bold uppercase text-slate-500 block mb-1">Funktion / Rolle</label><input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold focus:border-primary focus:ring-0" id="modal-emp-role" required="" type="text"/></div><div><div class="flex justify-between items-center mb-1"><label class="text-xs font-bold uppercase text-slate-500">Pensum (%)</label><span class="text-xs font-black text-primary" id="modal-emp-pensum-val">100%</span></div><div class="flex items-center gap-3"><input class="w-24 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-center" id="modal-emp-pensum" max="100" min="10" oninput="onPensumChange(this.value)" required="" step="1" type="number"/><input class="flex-1 cursor-pointer accent-primary" id="modal-emp-pensum-range" max="100" min="10" oninput="onPensumSlider(this.value)" step="1" type="range"/></div></div><div class="p-4 bg-blue-50/70 rounded-xl border border-blue-100 space-y-2"><h4 class="font-bold text-primary text-xs uppercase tracking-wider">Berechnete Richtwerte (Kanton Zürich)</h4><div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Tagessoll (Basis 8.0h)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-daily">8.00 h / Tag</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100"><span class="text-slate-500 block text-[10px] uppercase font-bold">Monatssoll (Schnitt)</span><strong class="text-sm text-slate-900 font-black" id="modal-emp-calc-month">168.0 h / Mt</strong></div><div class="bg-white p-2.5 rounded-lg border border-blue-100 col-span-2"><span class="text-slate-500 block text-[10px] uppercase font-bold">Jahresarbeitszeit (Basis 2'144h)</span><strong class="text-sm text-primary font-black" id="modal-emp-calc-year">2'144 h / Schuljahr</strong></div></div><p class="text-[11px] text-slate-500 mt-1">Abwesenheiten (Krankheit/Ferien) erhalten automatisch das neue Tagessoll ohne Saldo-Abzug gutgeschrieben.</p></div><div class="flex justify-end gap-2 pt-2"><button class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl" onclick="closeEmployeeModal()" type="button">Abbrechen</button><button class="px-5 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5" type="submit"><span class="material-symbols-outlined text-[16px]">save</span><span class="">Änderungen speichern</span></button></div></form></div></div>
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-slate-50 z-40 flex flex-col pt-6 pb-8 border-r border-slate-200 no-print">
 <div class="px-6 mb-6 text-xl font-bold text-primary flex items-center gap-2 cursor-pointer" onclick="switchView('dashboard')">
@@ -153,7 +155,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px] text-indigo-700">calculate</span>
 <span class="">804h Herleitung</span>
 </button>
-<button class="px-3 py-1.5 bg-amber-50 text-amber-950 border border-amber-200 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all flex items-center gap-1.5 shadow-xs" id="btn-clean-duplicates" onclick="cleanDuplicateEntries(true)" title="Ferien &amp; Krankheit Duplikate und überlappende Schichten bereinigen"><span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span><span class="">05.–17.10. Ferien fixiert (Keine Schichten)</span><span class="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-200 text-emerald-900 font-bold ml-1">Auto-Check</span></button><button class="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="restoreAndRecoverEntries(true)">
+<button class="px-3 py-1.5 bg-amber-50 text-amber-950 border border-amber-200 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all flex items-center gap-1.5 shadow-xs" id="btn-clean-duplicates" onclick="cleanDuplicateEntries(true)" title="Ferien &amp; Krankheit Duplikate und überlappende Schichten bereinigen"><span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span><span>Bereinigung aktiv (F5-Schutz &amp; 05.–17.10. Ferien fixiert)</span><span class="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-200 text-emerald-900 font-bold ml-1">Aktiv</span></button><button class="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="restoreAndRecoverEntries(true)">
 <span class="material-symbols-outlined text-[16px] text-emerald-700">settings_backup_restore</span>
 <span class="">Einträge wiederherstellen / Cache prüfen</span>
 </button>
@@ -188,7 +190,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Total erfasst: 0.0 Std.</span>
 </div>
 </div>
-<div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between gap-3 text-emerald-950 shadow-xs" id="dedup-status-banner"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[20px]">verified</span></div><div><span class="text-xs font-bold block text-emerald-900" id="dedup-banner-title">05.–17.10.2026 Bereinigung definitiv: Nur Ferientage (4.56 h / Saldo 0.00 h) aktiv. Normale Arbeitstage restlos entfernt.</span><p class="text-[11px] text-emerald-800 mt-0.5">Für Nicole De Pretto (57%, 4.56 h/Tag) sowie das gesamte Team wurden alle überschneidenden Schichten im Ferienfenster 05.–17.10. sowie am Krankheitstag 23.10. restlos bereinigt.</p></div></div><button class="px-3 py-1.5 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors shrink-0 shadow-xs flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[14px]">verified</span><span class="">05.–17.10. Ferien fixiert (Keine Schichten)</span></button></div><div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex items-center justify-between">
+<div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between gap-3 text-emerald-950 shadow-xs" id="dedup-status-banner"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[20px]">verified</span></div><div><span class="text-xs font-bold block text-emerald-900" id="dedup-banner-title">F5-Lösch-Garantie aktiv: 05.–17.10.2026 nur Ferientage (4.56 h / Saldo 0.00 h). Schichten dauerhaft blockiert.</span><p class="text-[11px] text-emerald-800 mt-0.5">Gelöschte Schichten sind persistent in deleted_entry_keys gesichert. Vorrang-Regel aktiv: Ferien (05.–17.10.) und Krankheit (23.10.) überschreiben reguläre Schichten restlos.</p></div></div><button class="px-3 py-1.5 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors shrink-0 shadow-xs flex items-center gap-1" onclick="cleanDuplicateEntries(true)"><span class="material-symbols-outlined text-[14px]">verified</span><span>Bereinigung aktiv (F5-Schutz)</span></button></div><div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex items-center justify-between">
 <div>
 <span class="text-xs font-bold text-primary uppercase">Schuljahreszyklus Zürich</span>
 <h3 class="text-xl font-bold text-slate-900">Schuljahresarbeitszeit &amp; Team-Stundensaldi</h3>
@@ -204,158 +206,158 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboard-employees-grid"><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-      <div class="flex justify-between items-start">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">ND</div>
-          <div>
-            <h4 class="font-bold text-slate-900">Nicole De Pretto</h4>
-            <span class="text-xs text-slate-500">Assistenz Sonderpädagogik</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">57% Pensum (Soll: 4.56 h/Tag)</span>
-          <button onclick="openEmployeeModal('nicole')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" title="Mitarbeiter bearbeiten">
-            <span class="material-symbols-outlined text-[15px]">edit</span>
-            <span class="">Bearbeiten</span>
-          </button>
-        </div>
-      </div>
-      <div class="bg-slate-50 p-4 rounded-xl space-y-2">
-        <div class="flex justify-between text-xs font-bold">
-          <span class="">Schuljahresarbeitszeit</span>
-          <span class="text-primary">0.0 / 1222 h</span>
-        </div>
-        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-          <div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-        <div class="flex justify-between text-[11px] text-slate-500 pt-1">
-          <span class="">Monatssoll: 95.8 h</span>
-          <span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-95.8 h</span>)</span>
-        </div>
-      </div>
-      <div class="flex justify-between items-center pt-2">
-        <button onclick="setDailyFilterAndOpen('nicole')" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-          <span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">ND</div>
+<div>
+<h4 class="font-bold text-slate-900">Nicole De Pretto</h4>
+<span class="text-xs text-slate-500">Assistenz Sonderpädagogik</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">57% Pensum (Soll: 4.56 h/Tag)</span>
+<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('nicole')" title="Mitarbeiter bearbeiten">
+<span class="material-symbols-outlined text-[15px]">edit</span>
+<span class="">Bearbeiten</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="">Schuljahresarbeitszeit</span>
+<span class="text-primary">0.0 / 1222 h</span>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<div class="flex justify-between text-[11px] text-slate-500 pt-1">
+<span class="">Monatssoll: 95.8 h</span>
+<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-95.8 h</span>)</span>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('nicole')">
+<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
         </button>
-        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='nicole'; updateFormHint();" class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors">
+<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='nicole'; updateFormHint();">
           Zeiteintrag erfassen
         </button>
-      </div>
-    </div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-      <div class="flex justify-between items-start">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">MD</div>
-          <div>
-            <h4 class="font-bold text-slate-900">Michelle Dreifuss</h4>
-            <span class="text-xs text-slate-500">Teamleiterin</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">100% Pensum (Soll: 8.00 h/Tag)</span>
-          <button onclick="openEmployeeModal('michelle')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" title="Mitarbeiter bearbeiten">
-            <span class="material-symbols-outlined text-[15px]">edit</span>
-            <span class="">Bearbeiten</span>
-          </button>
-        </div>
-      </div>
-      <div class="bg-slate-50 p-4 rounded-xl space-y-2">
-        <div class="flex justify-between text-xs font-bold">
-          <span class="">Schuljahresarbeitszeit</span>
-          <span class="text-primary">0.0 / 2144 h</span>
-        </div>
-        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-          <div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-        <div class="flex justify-between text-[11px] text-slate-500 pt-1">
-          <span class="">Monatssoll: 168 h</span>
-          <span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-168.0 h</span>)</span>
-        </div>
-      </div>
-      <div class="flex justify-between items-center pt-2">
-        <button onclick="setDailyFilterAndOpen('michelle')" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-          <span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
+</div>
+</div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">MD</div>
+<div>
+<h4 class="font-bold text-slate-900">Michelle Dreifuss</h4>
+<span class="text-xs text-slate-500">Teamleiterin</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">100% Pensum (Soll: 8.00 h/Tag)</span>
+<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('michelle')" title="Mitarbeiter bearbeiten">
+<span class="material-symbols-outlined text-[15px]">edit</span>
+<span class="">Bearbeiten</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="">Schuljahresarbeitszeit</span>
+<span class="text-primary">0.0 / 2144 h</span>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<div class="flex justify-between text-[11px] text-slate-500 pt-1">
+<span class="">Monatssoll: 168 h</span>
+<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-168.0 h</span>)</span>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('michelle')">
+<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
         </button>
-        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='michelle'; updateFormHint();" class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors">
+<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='michelle'; updateFormHint();">
           Zeiteintrag erfassen
         </button>
-      </div>
-    </div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-      <div class="flex justify-between items-start">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">MS</div>
-          <div>
-            <h4 class="font-bold text-slate-900">Manuel Schoch</h4>
-            <span class="text-xs text-slate-500">Zeichner</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">100% Pensum (Soll: 8.00 h/Tag)</span>
-          <button onclick="openEmployeeModal('manuel')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" title="Mitarbeiter bearbeiten">
-            <span class="material-symbols-outlined text-[15px]">edit</span>
-            <span class="">Bearbeiten</span>
-          </button>
-        </div>
-      </div>
-      <div class="bg-slate-50 p-4 rounded-xl space-y-2">
-        <div class="flex justify-between text-xs font-bold">
-          <span class="">Schuljahresarbeitszeit</span>
-          <span class="text-primary">0.0 / 2144 h</span>
-        </div>
-        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-          <div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-        <div class="flex justify-between text-[11px] text-slate-500 pt-1">
-          <span class="">Monatssoll: 168 h</span>
-          <span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-168.0 h</span>)</span>
-        </div>
-      </div>
-      <div class="flex justify-between items-center pt-2">
-        <button onclick="setDailyFilterAndOpen('manuel')" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-          <span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
+</div>
+</div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">MS</div>
+<div>
+<h4 class="font-bold text-slate-900">Manuel Schoch</h4>
+<span class="text-xs text-slate-500">Zeichner</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">100% Pensum (Soll: 8.00 h/Tag)</span>
+<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('manuel')" title="Mitarbeiter bearbeiten">
+<span class="material-symbols-outlined text-[15px]">edit</span>
+<span class="">Bearbeiten</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="">Schuljahresarbeitszeit</span>
+<span class="text-primary">0.0 / 2144 h</span>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<div class="flex justify-between text-[11px] text-slate-500 pt-1">
+<span class="">Monatssoll: 168 h</span>
+<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-168.0 h</span>)</span>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('manuel')">
+<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
         </button>
-        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='manuel'; updateFormHint();" class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors">
+<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='manuel'; updateFormHint();">
           Zeiteintrag erfassen
         </button>
-      </div>
-    </div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
-      <div class="flex justify-between items-start">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">SS</div>
-          <div>
-            <h4 class="font-bold text-slate-900">Seline Steinmann</h4>
-            <span class="text-xs text-slate-500">Administration</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">92% Pensum (Soll: 7.36 h/Tag)</span>
-          <button onclick="openEmployeeModal('seline')" class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" title="Mitarbeiter bearbeiten">
-            <span class="material-symbols-outlined text-[15px]">edit</span>
-            <span class="">Bearbeiten</span>
-          </button>
-        </div>
-      </div>
-      <div class="bg-slate-50 p-4 rounded-xl space-y-2">
-        <div class="flex justify-between text-xs font-bold">
-          <span class="">Schuljahresarbeitszeit</span>
-          <span class="text-primary">0.0 / 1972 h</span>
-        </div>
-        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-          <div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-        <div class="flex justify-between text-[11px] text-slate-500 pt-1">
-          <span class="">Monatssoll: 154.6 h</span>
-          <span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-154.6 h</span>)</span>
-        </div>
-      </div>
-      <div class="flex justify-between items-center pt-2">
-        <button onclick="setDailyFilterAndOpen('seline')" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-          <span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
+</div>
+</div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 hover:shadow-sm transition-all">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary font-bold text-lg flex items-center justify-center">SS</div>
+<div>
+<h4 class="font-bold text-slate-900">Seline Steinmann</h4>
+<span class="text-xs text-slate-500">Administration</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-700">92% Pensum (Soll: 7.36 h/Tag)</span>
+<button class="px-2.5 py-1 bg-blue-50 text-primary hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('seline')" title="Mitarbeiter bearbeiten">
+<span class="material-symbols-outlined text-[15px]">edit</span>
+<span class="">Bearbeiten</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="">Schuljahresarbeitszeit</span>
+<span class="text-primary">0.0 / 1972 h</span>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<div class="flex justify-between text-[11px] text-slate-500 pt-1">
+<span class="">Monatssoll: 154.6 h</span>
+<span class="">Diesen Monat: <strong class="text-slate-800">0.0 h</strong> (<span class="text-amber-600 font-bold">-154.6 h</span>)</span>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1" onclick="setDailyFilterAndOpen('seline')">
+<span class="material-symbols-outlined text-[16px]">visibility</span> In Tagesansicht anzeigen
         </button>
-        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='seline'; updateFormHint();" class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors">
+<button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-blue-800 transition-colors" onclick="switchView('zeiterfassung'); document.getElementById('entry-employee').value='seline'; updateFormHint();">
           Zeiteintrag erfassen
         </button>
-      </div>
-    </div></div>
+</div>
+</div></div>
 </div>
 <!-- VIEW: TAGESANSICHT -->
 <div class="view-pane hidden space-y-6" id="view-tagesansicht">
@@ -428,7 +430,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <label class="text-xs font-bold uppercase text-slate-500 block mb-1 flex items-center gap-1">
 <span class="material-symbols-outlined text-[16px] text-primary">event</span> Einzelner Stichtag (Optional):
 </label>
-<div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200"><input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date"><button class="text-xs text-primary font-bold hover:underline shrink-0" onclick="setToday()">Heute</button></div>
+<div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200"><input class="w-full bg-transparent border-none p-0 text-xs font-bold text-slate-800 cursor-pointer focus:ring-0" id="daily-date-picker" onchange="onDailyDatePickerChange(this.value)" type="date"/><button class="text-xs text-primary font-bold hover:underline shrink-0" onclick="setToday()">Heute</button></div>
 </div>
 </div>
 <!-- Schnellwahl-Buttons für beliebte Monate & Stichtage -->
@@ -489,7 +491,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950 text-xs mt-2 space-y-1"><p class="font-bold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-700">verified_user</span> Vorrang-Regel für Absenzen (Ferien / Krankheit / Unfall):</p><p class="text-[11px] leading-relaxed text-emerald-900">Werden Ferien, Krankheit oder Unfall erfasst (auch Zeiträume wie 05.10. – 17.10.2026), überschreiben diese automatisch allfällige reguläre Schichten desselben Tages. Es wird exakt das Tagessoll (z.B. Nicole 57% = 4.56 h, Michelle/Manuel 100% = 8.00 h, Seline 92% = 7.36 h) gutgeschrieben (Saldo: ±0.00 h).</p></div>
 </div>
 <form class="space-y-6" id="time-entry-form">
-<input id="entry-id" type="hidden">
+<input id="entry-id" type="hidden"/>
 <!-- Employee & Date Selection -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
@@ -507,18 +509,18 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="flex items-center justify-between">
 <label class="text-xs font-bold uppercase text-slate-500">Datum oder Zeitraum</label>
 <label class="inline-flex items-center gap-1.5 cursor-pointer bg-blue-50 text-primary px-2.5 py-1 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
-<input class="w-4 h-4 rounded text-primary border-blue-300 focus:ring-primary cursor-pointer" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox">
+<input class="w-4 h-4 rounded text-primary border-blue-300 focus:ring-primary cursor-pointer" id="entry-is-range" onchange="toggleDateRangeInput(this.checked)" type="checkbox"/>
 <span class="text-xs font-bold">Zeitraum erfassen (Von – Bis)</span>
 </label>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="date-inputs-wrapper">
 <div>
 <span class="text-[11px] font-bold text-slate-500 block mb-0.5" id="date-start-label">Datum (TT.MM.JJJJ)</span>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 23.10.2026" required="" type="text">
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 23.10.2026" required="" type="text"/>
 </div>
 <div class="hidden" id="entry-date-end-container">
 <span class="text-[11px] font-bold text-primary block mb-0.5">Bis Datum (TT.MM.JJJJ)</span>
-<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text">
+<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text"/>
 </div>
 </div>
 <p class="text-[11px] text-slate-500" id="range-hint-text">Tipp: Im Zeitraum-Modus werden automatisch für jeden Werktag (Mo–Fr) Einträge angelegt.</p>
@@ -531,8 +533,8 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px] text-primary">wb_sunny</span> Vormittag
 </span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-from" type="time" value="08:00">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-to" type="time" value="12:00">
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-from" type="time" value="08:00"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="vm-to" type="time" value="12:00"/>
 </div>
 </div>
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -540,8 +542,8 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px] text-amber-600">wb_twilight</span> Nachmittag
 </span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-from" type="time" value="13:00">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-to" type="time" value="17:00">
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-from" type="time" value="13:00"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="nm-to" type="time" value="17:00"/>
 </div>
 </div>
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -549,8 +551,8 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="material-symbols-outlined text-[16px] text-indigo-600">nights_stay</span> Abend / Zusatz
 </span>
 <div class="flex gap-2">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-from" placeholder="Von" type="time">
-<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-to" placeholder="Bis" type="time">
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-from" placeholder="Von" type="time"/>
+<input class="w-1/2 p-2 border border-slate-200 rounded-lg text-xs" id="abend-to" placeholder="Bis" type="time"/>
 </div>
 </div>
 </div>
@@ -568,7 +570,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Bemerkung</label>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, Grippe etc." type="text">
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, Grippe etc." type="text"/>
 </div>
 </div>
 <div class="flex justify-end gap-3 pt-2">
@@ -621,78 +623,78 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </button>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="employees-management-list"><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">ND</div>
-        <div>
-          <h4 class="font-bold text-slate-900 text-sm">Nicole De Pretto</h4>
-          <span class="text-xs text-slate-500">Assistenz Sonderpädagogik | 57% Pensum</span>
-          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>4.56 h</strong> (Absenzen zählen voll)</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <span class="font-bold text-primary text-xs block">95.8h / Mt</span>
-          <span class="text-[10px] text-slate-400">Total: 1222h</span>
-        </div>
-        <button onclick="openEmployeeModal('nicole')" class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
-          <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">ND</div>
+<div>
+<h4 class="font-bold text-slate-900 text-sm">Nicole De Pretto</h4>
+<span class="text-xs text-slate-500">Assistenz Sonderpädagogik | 57% Pensum</span>
+<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>4.56 h</strong> (Absenzen zählen voll)</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<span class="font-bold text-primary text-xs block">95.8h / Mt</span>
+<span class="text-[10px] text-slate-400">Total: 1222h</span>
+</div>
+<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('nicole')">
+<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
         </button>
-      </div>
-    </div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">MD</div>
-        <div>
-          <h4 class="font-bold text-slate-900 text-sm">Michelle Dreifuss</h4>
-          <span class="text-xs text-slate-500">Teamleiterin | 100% Pensum</span>
-          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>8.00 h</strong> (Absenzen zählen voll)</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <span class="font-bold text-primary text-xs block">168h / Mt</span>
-          <span class="text-[10px] text-slate-400">Total: 2144h</span>
-        </div>
-        <button onclick="openEmployeeModal('michelle')" class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
-          <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
+</div>
+</div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">MD</div>
+<div>
+<h4 class="font-bold text-slate-900 text-sm">Michelle Dreifuss</h4>
+<span class="text-xs text-slate-500">Teamleiterin | 100% Pensum</span>
+<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>8.00 h</strong> (Absenzen zählen voll)</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<span class="font-bold text-primary text-xs block">168h / Mt</span>
+<span class="text-[10px] text-slate-400">Total: 2144h</span>
+</div>
+<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('michelle')">
+<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
         </button>
-      </div>
-    </div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">MS</div>
-        <div>
-          <h4 class="font-bold text-slate-900 text-sm">Manuel Schoch</h4>
-          <span class="text-xs text-slate-500">Zeichner | 100% Pensum</span>
-          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>8.00 h</strong> (Absenzen zählen voll)</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <span class="font-bold text-primary text-xs block">168h / Mt</span>
-          <span class="text-[10px] text-slate-400">Total: 2144h</span>
-        </div>
-        <button onclick="openEmployeeModal('manuel')" class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
-          <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
+</div>
+</div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">MS</div>
+<div>
+<h4 class="font-bold text-slate-900 text-sm">Manuel Schoch</h4>
+<span class="text-xs text-slate-500">Zeichner | 100% Pensum</span>
+<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>8.00 h</strong> (Absenzen zählen voll)</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<span class="font-bold text-primary text-xs block">168h / Mt</span>
+<span class="text-[10px] text-slate-400">Total: 2144h</span>
+</div>
+<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('manuel')">
+<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
         </button>
-      </div>
-    </div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">SS</div>
-        <div>
-          <h4 class="font-bold text-slate-900 text-sm">Seline Steinmann</h4>
-          <span class="text-xs text-slate-500">Administration | 92% Pensum</span>
-          <div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>7.36 h</strong> (Absenzen zählen voll)</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <span class="font-bold text-primary text-xs block">154.6h / Mt</span>
-          <span class="text-[10px] text-slate-400">Total: 1972h</span>
-        </div>
-        <button onclick="openEmployeeModal('seline')" class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs">
-          <span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
+</div>
+</div><div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-100 text-primary font-bold flex items-center justify-center">SS</div>
+<div>
+<h4 class="font-bold text-slate-900 text-sm">Seline Steinmann</h4>
+<span class="text-xs text-slate-500">Administration | 92% Pensum</span>
+<div class="text-[11px] text-emerald-700 font-bold mt-0.5">Tagessoll: <strong>7.36 h</strong> (Absenzen zählen voll)</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<span class="font-bold text-primary text-xs block">154.6h / Mt</span>
+<span class="text-[10px] text-slate-400">Total: 1972h</span>
+</div>
+<button class="px-3 py-1.5 bg-primary text-white hover:bg-blue-800 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors shadow-xs" onclick="openEmployeeModal('seline')">
+<span class="material-symbols-outlined text-[15px]">edit</span> Bearbeiten
         </button>
-      </div>
-    </div></div>
+</div>
+</div></div>
 </div>
 <!-- VIEW: BERICHTE -->
 <div class="view-pane hidden space-y-6" id="view-berichte">
@@ -741,10 +743,10 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <h4 class="font-bold text-slate-900 text-sm">Gutschrift bei Abwesenheiten (Krankheit, Ferien, Unfall):</h4>
 <p class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-emerald-950 font-medium">
 <strong>Keine Minusstunden:</strong> An Feiertagen, bei ärztlich attestierter Krankheit, Unfall oder genehmigten Ferien wird den Mitarbeitenden das volle rechnerische Tagessoll gemäss Beschäftigungsgrad gutgeschrieben:
-<br>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
-<br>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
-<br>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
-<br>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
+<br/>• Nicole De Pretto (57%): <strong>4.56 h / Tag</strong> (Saldo: 0.00 h)
+<br/>• Michelle Dreifuss &amp; Manuel Schoch (100%): <strong>8.00 h / Tag</strong> (Saldo: 0.00 h)
+<br/>• Seline Steinmann (92%): <strong>7.36 h / Tag</strong> (Saldo: 0.00 h)
+<br/>Dadurch entstehen weder Minusstunden noch fälschliche Überstundenabzüge bei berechtigten Abwesenheiten.
 </p>
 </div>
 </div>
@@ -2148,6 +2150,4 @@ renderEmployeesManagement = function() {
 renderDashboard();
 renderEmployeesManagement();
 </script>
-
-
 </body></html>
