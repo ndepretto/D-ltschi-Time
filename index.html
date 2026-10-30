@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="de">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Döltschi Time - Zeiterfassung &amp; Schuljahresarbeitszeit</title>
 <style>
     @layer base {
@@ -56,10 +53,127 @@
         }
     };
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body class="bg-surface font-body-md text-on-surface">
+<script>
+    function toggleEntryMode(mode) {
+        const singleContainer = document.getElementById('container-single-date');
+        const rangeContainer = document.getElementById('container-range-date');
+        const labelSingle = document.getElementById('label-mode-single');
+        const labelRange = document.getElementById('label-mode-range');
+        const btnLabel = document.getElementById('btn-submit-label');
+
+        if (!singleContainer || !rangeContainer) return;
+
+        if (mode === 'range') {
+            singleContainer.classList.add('hidden');
+            rangeContainer.classList.remove('hidden');
+            labelSingle.classList.remove('border-primary');
+            labelSingle.classList.add('border-transparent');
+            labelRange.classList.add('border-primary');
+            labelRange.classList.remove('border-transparent');
+            if (btnLabel) btnLabel.textContent = 'Zeitraum buchen & gutschreiben';
+            updateCalculationsInfo();
+        } else {
+            singleContainer.classList.remove('hidden');
+            rangeContainer.classList.add('hidden');
+            labelSingle.classList.add('border-primary');
+            labelSingle.classList.remove('border-transparent');
+            labelRange.classList.remove('border-primary');
+            labelRange.classList.add('border-transparent');
+            if (btnLabel) btnLabel.textContent = 'Eintrag speichern';
+        }
+    }
+
+    function countWorkdays(startDateStr, endDateStr) {
+        if (!startDateStr || !endDateStr) return 0;
+        const start = new Date(startDateStr);
+        const end = new Date(endDateStr);
+        if (start > end) return 0;
+
+        let count = 0;
+        let cur = new Date(start);
+        while (cur <= end) {
+            const dayOfWeek = cur.getDay();
+            if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                count++;
+            }
+            cur.setDate(cur.getDate() + 1);
+        }
+        return count;
+    }
+
+    function updateCalculationsInfo() {
+        const empId = document.getElementById('form-emp') ? document.getElementById('form-emp').value : 'nicole';
+        const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
+        const fromVal = document.getElementById('form-range-from') ? document.getElementById('form-range-from').value : '';
+        const toVal = document.getElementById('form-range-to') ? document.getElementById('form-range-to').value : '';
+        
+        const workdays = countWorkdays(fromVal, toVal);
+        const totalHours = (workdays * emp.dailyTarget).toFixed(2);
+
+        const summaryEl = document.getElementById('range-calc-summary');
+        const badgeEl = document.getElementById('range-calc-badge');
+        if (summaryEl) {
+            summaryEl.innerHTML = `${workdays} Werktage à ${emp.dailyTarget.toFixed(2)} h (${emp.pensum}% Pensum) = <strong>${totalHours} Stunden Gesamtgutschrift</strong>`;
+        }
+        if (badgeEl) {
+            badgeEl.textContent = `${workdays} Werktage`;
+        }
+    }
+
+    function handleZeiterfassungSubmit() {
+        const modeRange = document.getElementById('mode-range') && document.getElementById('mode-range').checked;
+        const empId = document.getElementById('form-emp').value;
+        const status = document.getElementById('form-status').value;
+        const notes = document.getElementById('form-notes').value;
+        const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
+
+        if (modeRange) {
+            const fromStr = document.getElementById('form-range-from').value;
+            const toStr = document.getElementById('form-range-to').value;
+            if (!fromStr || !toStr) {
+                alert('Bitte Start- und Enddatum auswählen.');
+                return;
+            }
+            const start = new Date(fromStr);
+            const end = new Date(toStr);
+            if (start > end) {
+                alert('Das Enddatum darf nicht vor dem Startdatum liegen.');
+                return;
+            }
+
+            let addedCount = 0;
+            let cur = new Date(start);
+            while (cur <= end) {
+                const day = cur.getDay();
+                if (day !== 0 && day !== 6) {
+                    const dd = String(cur.getDate()).padStart(2, '0');
+                    const mm = String(cur.getMonth() + 1).padStart(2, '0');
+                    const yyyy = cur.getFullYear();
+                    const dateSwiss = `${dd}.${mm}.${yyyy}`;
+
+                    entries.unshift({
+                        id: 'range_' + Date.now() + '_' + Math.random(),
+                        empId: empId,
+                        date: dateSwiss,
+                        hours: emp.dailyTarget,
+                        status: status,
+                        notes: notes || (status + ' ' + dateSwiss)
+                    });
+                    addedCount++;
+                }
+                cur.setDate(cur.getDate() + 1);
+            }
+
+            alert(`Zeitraum für ${emp.name} erfolgreich erfasst: ${addedCount} Werktage (${(addedCount * emp.dailyTarget).toFixed(2)} h)!`);
+            switchView('tagesansicht');
+        } else {
+            saveEntry();
+        }
+    }
+</script><body class="bg-surface font-body-md text-on-surface">
 <!-- Password Protection Modal -->
 <div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md items-center justify-center p-4 hidden" id="auth-modal">
 <div class="bg-surface-container-lowest max-w-md w-full p-8 rounded-xl shadow-2xl flex flex-col gap-6">
@@ -71,12 +185,12 @@
 <p class="text-sm text-on-surface-variant mt-1">Bitte Passwort eingeben (Standard: <strong>Willma</strong>)</p>
 </div>
 <form class="flex flex-col gap-4" id="auth-form" onsubmit="event.preventDefault(); checkAuth();">
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary font-medium" id="auth-password" placeholder="Passwort (Willma)" type="password"/>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface focus:outline-none focus:border-primary font-medium" id="auth-password" placeholder="Passwort (Willma)" type="password">
 <button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all shadow-md" type="submit">Anmelden</button>
 <p class="text-error text-center text-sm font-semibold hidden" id="auth-error">Falsches Passwort! Bitte "Willma" eingeben.</p>
 </form>
 </div>
-</div><div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md items-center justify-center p-4 hidden" id="emp-edit-modal"><div class="bg-surface-container-lowest max-w-md w-full p-6 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high"><div class="flex items-center justify-between border-b border-surface-container-high pb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-base" id="modal-emp-avatar">ND</div><div><h3 class="text-lg font-bold text-on-surface" id="modal-emp-name">Nicole De Pretto</h3><p class="text-xs text-on-surface-variant">Mitarbeiterprofil anpassen</p></div></div><button class="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant transition-colors" onclick="closeEmpModal()"><span class="material-symbols-outlined text-[20px]">close</span></button></div><form class="flex flex-col gap-4" onsubmit="event.preventDefault(); saveEmpModal();"><input id="modal-emp-id" type="hidden" value=""/><div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Vorname</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-firstname" required="" type="text" value="Nicole"/></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Nachname</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-lastname" required="" type="text" value="De Pretto"/></div></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Rolle</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-role" required="" type="text" value="Assistenz Sonderpädagogik"/></div><div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Pensum (%)</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-pensum" max="100" min="10" required="" type="number" value="57"/></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Jahressoll (h)</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-yearly" required="" type="number" value="1077"/></div></div><div class="flex justify-end gap-2.5 pt-2 border-t border-surface-container-high"><button class="px-4 py-2.5 rounded-xl text-xs font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="closeEmpModal()" type="button">Abbrechen</button><button class="px-5 py-2.5 bg-primary text-on-primary text-xs font-bold rounded-xl hover:bg-primary-container transition-all shadow-sm flex items-center gap-1.5" type="submit"><span class="material-symbols-outlined text-[16px]">save</span>Speichern</button></div></form></div></div>
+</div><div class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md items-center justify-center p-4 hidden" id="emp-edit-modal"><div class="bg-surface-container-lowest max-w-md w-full p-6 rounded-2xl shadow-2xl flex flex-col gap-5 border border-surface-container-high"><div class="flex items-center justify-between border-b border-surface-container-high pb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-base" id="modal-emp-avatar">ND</div><div><h3 class="text-lg font-bold text-on-surface" id="modal-emp-name">Nicole De Pretto</h3><p class="text-xs text-on-surface-variant">Mitarbeiterprofil anpassen</p></div></div><button class="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant transition-colors" onclick="closeEmpModal()"><span class="material-symbols-outlined text-[20px]">close</span></button></div><form class="flex flex-col gap-4" onsubmit="event.preventDefault(); saveEmpModal();"><input id="modal-emp-id" type="hidden" value=""><div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Vorname</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-firstname" required="" type="text" value="Nicole"></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Nachname</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-lastname" required="" type="text" value="De Pretto"></div></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Rolle</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-role" required="" type="text" value="Assistenz Sonderpädagogik"></div><div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Pensum (%)</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-pensum" max="100" min="10" required="" type="number" value="57"></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Jahressoll (h)</label><input class="w-full px-3.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface text-sm font-medium focus:outline-none focus:border-primary" id="modal-emp-yearly" required="" type="number" value="1077"></div></div><div class="flex justify-end gap-2.5 pt-2 border-t border-surface-container-high"><button class="px-4 py-2.5 rounded-xl text-xs font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="closeEmpModal()" type="button">Abbrechen</button><button class="px-5 py-2.5 bg-primary text-on-primary text-xs font-bold rounded-xl hover:bg-primary-container transition-all shadow-sm flex items-center gap-1.5" type="submit"><span class="material-symbols-outlined text-[16px]">save</span>Speichern</button></div></form></div></div>
 <!-- Sidebar Navigation -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col pt-6 pb-8 border-r border-surface-container-high no-print">
 <div class="px-8 mb-6 text-xl font-bold text-primary flex items-center gap-2">
@@ -124,7 +238,7 @@
 <div class="flex items-center gap-3">
 <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span>Herbstferien &amp; Krankheit aktiv (10 Tage + 1 Tag)</span>
+<span class="">Herbstferien &amp; Krankheit aktiv (10 Tage + 1 Tag)</span>
 </span>
 <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">ND</div>
 </div>
@@ -170,8 +284,209 @@
 </div>
 </div>
 <!-- Team Kacheln -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid"><div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-5"><div class="flex items-start justify-between flex-wrap gap-3"><div class="flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">ND</div><div><h3 class="text-xl font-bold text-on-surface">Nicole De Pretto</h3><span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Assistenz Sonderpädagogik</span></div></div><div class="flex items-center gap-2"><button class="w-10 h-10 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 flex items-center justify-center transition-all cursor-pointer shadow-sm" onclick="openEmpModal('nicole')" title="Mitarbeiter bearbeiten"><span class="material-symbols-outlined text-[18px]">edit</span></button><div class="text-right bg-surface-container-low px-3.5 py-1.5 rounded-xl border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Pensum</span><p class="text-lg text-primary font-bold">57%</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3"><div class="flex items-center justify-between border-b border-surface-container-high pb-2"><span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span><span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span></div><div class="grid grid-cols-3 gap-3 text-center"><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span><p class="text-lg font-black text-on-surface mt-0.5">95.8 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span><p class="text-lg font-black text-primary mt-0.5">69.4 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700"><span class="text-[11px] font-bold block uppercase">Saldo</span><p class="text-lg font-black mt-0.5">-26.4 h</p></div></div><div class="flex items-center gap-2 pt-1 text-xs"><span class="badge-ferien px-2.5 py-1 rounded-full font-bold">🌴 10 Ferientage (45.60 h gutgeschrieben)</span><span class="badge-krankheit px-2.5 py-1 rounded-full font-bold">🩺 1 Krank (4.56 h)</span></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5"><div class="flex justify-between items-center text-sm font-bold"><span class="text-on-surface">Schuljahresarbeitszeit</span><span class="text-primary font-bold">69.4 / 1077 h (6%)</span></div><div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden"><div class="bg-primary h-full rounded-full" style="width: 6%;"></div></div><div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div></div><button class="w-full mt-1 py-2.5 px-4 bg-primary text-on-primary hover:bg-primary-container font-semibold rounded-lg flex items-center justify-center gap-2 border border-primary/20 transition-all cursor-pointer shadow-sm" onclick="openEmpModal('nicole')"><span class="material-symbols-outlined text-lg">edit</span> Mitarbeiter bearbeiten</button></div><div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-5"><div class="flex items-start justify-between flex-wrap gap-3"><div class="flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">MD</div><div><h3 class="text-xl font-bold text-on-surface">Michelle Dreifuss</h3><span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Teamleiterin</span></div></div><div class="flex items-center gap-2"><button class="w-10 h-10 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 flex items-center justify-center transition-all cursor-pointer shadow-sm" onclick="openEmpModal('michelle')" title="Mitarbeiter bearbeiten"><span class="material-symbols-outlined text-[18px]">edit</span></button><div class="text-right bg-surface-container-low px-3.5 py-1.5 rounded-xl border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Pensum</span><p class="text-lg text-primary font-bold">100%</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3"><div class="flex items-center justify-between border-b border-surface-container-high pb-2"><span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span><span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span></div><div class="grid grid-cols-3 gap-3 text-center"><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span><p class="text-lg font-black text-on-surface mt-0.5">168 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span><p class="text-lg font-black text-primary mt-0.5">16.5 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700"><span class="text-[11px] font-bold block uppercase">Saldo</span><p class="text-lg font-black mt-0.5">-151.5 h</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5"><div class="flex justify-between items-center text-sm font-bold"><span class="text-on-surface">Schuljahresarbeitszeit</span><span class="text-primary font-bold">16.5 / 1890 h (1%)</span></div><div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden"><div class="bg-primary h-full rounded-full" style="width: 1%;"></div></div><div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div></div><button class="w-full mt-1 py-2.5 px-4 bg-primary text-on-primary hover:bg-primary-container font-semibold rounded-lg flex items-center justify-center gap-2 border border-primary/20 transition-all cursor-pointer shadow-sm" onclick="openEmpModal('michelle')"><span class="material-symbols-outlined text-lg">edit</span> Mitarbeiter bearbeiten</button></div><div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-5"><div class="flex items-start justify-between flex-wrap gap-3"><div class="flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">MS</div><div><h3 class="text-xl font-bold text-on-surface">Manuel Schoch</h3><span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Zeichner</span></div></div><div class="flex items-center gap-2"><button class="w-10 h-10 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 flex items-center justify-center transition-all cursor-pointer shadow-sm" onclick="openEmpModal('manuel')" title="Mitarbeiter bearbeiten"><span class="material-symbols-outlined text-[18px]">edit</span></button><div class="text-right bg-surface-container-low px-3.5 py-1.5 rounded-xl border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Pensum</span><p class="text-lg text-primary font-bold">100%</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3"><div class="flex items-center justify-between border-b border-surface-container-high pb-2"><span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span><span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span></div><div class="grid grid-cols-3 gap-3 text-center"><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span><p class="text-lg font-black text-on-surface mt-0.5">168 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span><p class="text-lg font-black text-primary mt-0.5">16.0 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700"><span class="text-[11px] font-bold block uppercase">Saldo</span><p class="text-lg font-black mt-0.5">-152.0 h</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5"><div class="flex justify-between items-center text-sm font-bold"><span class="text-on-surface">Schuljahresarbeitszeit</span><span class="text-primary font-bold">16.0 / 1890 h (1%)</span></div><div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden"><div class="bg-primary h-full rounded-full" style="width: 1%;"></div></div><div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div></div><button class="w-full mt-1 py-2.5 px-4 bg-primary text-on-primary hover:bg-primary-container font-semibold rounded-lg flex items-center justify-center gap-2 border border-primary/20 transition-all cursor-pointer shadow-sm" onclick="openEmpModal('manuel')"><span class="material-symbols-outlined text-lg">edit</span> Mitarbeiter bearbeiten</button></div><div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-5"><div class="flex items-start justify-between flex-wrap gap-3"><div class="flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">SS</div><div><h3 class="text-xl font-bold text-on-surface">Seline Steinmann</h3><span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Administration</span></div></div><div class="flex items-center gap-2"><button class="w-10 h-10 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 flex items-center justify-center transition-all cursor-pointer shadow-sm" onclick="openEmpModal('seline')" title="Mitarbeiter bearbeiten"><span class="material-symbols-outlined text-[18px]">edit</span></button><div class="text-right bg-surface-container-low px-3.5 py-1.5 rounded-xl border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Pensum</span><p class="text-lg text-primary font-bold">92%</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3"><div class="flex items-center justify-between border-b border-surface-container-high pb-2"><span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span><span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span></div><div class="grid grid-cols-3 gap-3 text-center"><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span><p class="text-lg font-black text-on-surface mt-0.5">154.6 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high"><span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span><p class="text-lg font-black text-primary mt-0.5">14.9 h</p></div><div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700"><span class="text-[11px] font-bold block uppercase">Saldo</span><p class="text-lg font-black mt-0.5">-139.7 h</p></div></div></div><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5"><div class="flex justify-between items-center text-sm font-bold"><span class="text-on-surface">Schuljahresarbeitszeit</span><span class="text-primary font-bold">14.9 / 1739 h (1%)</span></div><div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden"><div class="bg-primary h-full rounded-full" style="width: 1%;"></div></div><div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div></div><button class="w-full mt-1 py-2.5 px-4 bg-primary text-on-primary hover:bg-primary-container font-semibold rounded-lg flex items-center justify-center gap-2 border border-primary/20 transition-all cursor-pointer shadow-sm" onclick="openEmpModal('seline')"><span class="material-symbols-outlined text-lg">edit</span> Mitarbeiter bearbeiten</button></div></div>
-</div><div class="view-container hidden flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-mitarbeiter"><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high"><div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-surface-container-high pb-4"><div><h2 class="text-2xl font-bold text-on-surface">Mitarbeiterübersicht &amp; Pensen</h2><p class="text-sm text-on-surface-variant">Verwalte Teammitglieder, Beschäftigungsgrade (Pensen) und die Schuljahres-Arbeitszeit.</p></div><div class="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 rounded-xl font-bold text-xs"><span class="material-symbols-outlined text-[18px]">verified_user</span><span>4 Aktive Teammitglieder</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="mitarbeiter-list-grid"></div></div></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="dashboard-employees-grid"><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-6">
+                <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">
+                            ND
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-on-surface">Nicole De Pretto</h3>
+                            <span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Assistenz Sonderpädagogik</span>
+                        </div>
+                    </div>
+                    <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
+                        <span class="text-xs font-bold text-on-surface-variant block uppercase">Pensum</span>
+                        <p class="text-xl text-primary font-bold">57%</p>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span>
+                            <p class="text-lg font-black text-on-surface mt-0.5">95.8 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
+                            <p class="text-lg font-black text-primary mt-0.5">69.4 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
+                            <span class="text-[11px] font-bold block uppercase">Saldo</span>
+                            <p class="text-lg font-black mt-0.5">-26.4 h</p>
+                        </div>
+                    </div>
+                    
+                        <div class="flex items-center gap-2 pt-1 text-xs">
+                            <span class="badge-ferien px-2.5 py-1 rounded-full font-bold">🌴 10 Ferientage (45.60 h gutgeschrieben)</span>
+                            <span class="badge-krankheit px-2.5 py-1 rounded-full font-bold">🩺 1 Krank (4.56 h)</span>
+                        </div>
+                    
+                </div>
+
+                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex justify-between items-center text-sm font-bold">
+                        <span class="text-on-surface">Schuljahresarbeitszeit</span>
+                        <span class="text-primary font-bold">69.4 / 1077 h (6%)</span>
+                    </div>
+                    <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full rounded-full" style="width: 6%;"></div>
+                    </div>
+                    <div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div>
+                </div>
+            </div><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-6">
+                <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">
+                            MD
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-on-surface">Michelle Dreifuss</h3>
+                            <span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Teamleiterin</span>
+                        </div>
+                    </div>
+                    <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
+                        <span class="text-xs font-bold text-on-surface-variant block uppercase">Pensum</span>
+                        <p class="text-xl text-primary font-bold">100%</p>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span>
+                            <p class="text-lg font-black text-on-surface mt-0.5">168 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
+                            <p class="text-lg font-black text-primary mt-0.5">16.5 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
+                            <span class="text-[11px] font-bold block uppercase">Saldo</span>
+                            <p class="text-lg font-black mt-0.5">-151.5 h</p>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex justify-between items-center text-sm font-bold">
+                        <span class="text-on-surface">Schuljahresarbeitszeit</span>
+                        <span class="text-primary font-bold">16.5 / 1890 h (1%)</span>
+                    </div>
+                    <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full rounded-full" style="width: 1%;"></div>
+                    </div>
+                    <div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div>
+                </div>
+            </div><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-6">
+                <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">
+                            MS
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-on-surface">Manuel Schoch</h3>
+                            <span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Zeichner</span>
+                        </div>
+                    </div>
+                    <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
+                        <span class="text-xs font-bold text-on-surface-variant block uppercase">Pensum</span>
+                        <p class="text-xl text-primary font-bold">100%</p>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span>
+                            <p class="text-lg font-black text-on-surface mt-0.5">168 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
+                            <p class="text-lg font-black text-primary mt-0.5">16.0 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
+                            <span class="text-[11px] font-bold block uppercase">Saldo</span>
+                            <p class="text-lg font-black mt-0.5">-152.0 h</p>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex justify-between items-center text-sm font-bold">
+                        <span class="text-on-surface">Schuljahresarbeitszeit</span>
+                        <span class="text-primary font-bold">16.0 / 1890 h (1%)</span>
+                    </div>
+                    <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full rounded-full" style="width: 1%;"></div>
+                    </div>
+                    <div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div>
+                </div>
+            </div><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between gap-6">
+                <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shadow-sm">
+                            SS
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-on-surface">Seline Steinmann</h3>
+                            <span class="text-xs text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full inline-block mt-1">Administration</span>
+                        </div>
+                    </div>
+                    <div class="text-right bg-surface-container-low px-4 py-2 rounded-xl">
+                        <span class="text-xs font-bold text-on-surface-variant block uppercase">Pensum</span>
+                        <p class="text-xl text-primary font-bold">92%</p>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Tagessaldo: ±0.00 h</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Soll</span>
+                            <p class="text-lg font-black text-on-surface mt-0.5">154.6 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                            <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
+                            <p class="text-lg font-black text-primary mt-0.5">14.9 h</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
+                            <span class="text-[11px] font-bold block uppercase">Saldo</span>
+                            <p class="text-lg font-black mt-0.5">-139.7 h</p>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex justify-between items-center text-sm font-bold">
+                        <span class="text-on-surface">Schuljahresarbeitszeit</span>
+                        <span class="text-primary font-bold">14.9 / 1739 h (1%)</span>
+                    </div>
+                    <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full rounded-full" style="width: 1%;"></div>
+                    </div>
+                    <div class="text-xs text-on-surface-variant">Zyklus: Sommer–Sommer (1. Aug. – 31. Juli)</div>
+                </div>
+            </div></div>
+</div><div class="view-container hidden flex flex-col w-full p-8 max-w-[1200px] mx-auto gap-8 pb-20" id="view-mitarbeiter"><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high"><div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-surface-container-high pb-4"><div><h2 class="text-2xl font-bold text-on-surface">Mitarbeiterübersicht &amp; Pensen</h2><p class="text-sm text-on-surface-variant">Verwalte Teammitglieder, Beschäftigungsgrade (Pensen) und die Schuljahres-Arbeitszeit.</p></div><div class="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 rounded-xl font-bold text-xs"><span class="material-symbols-outlined text-[18px]">verified_user</span><span class="">4 Aktive Teammitglieder</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="mitarbeiter-list-grid"></div></div></div>
 <!-- VIEW: TAGESANSICHT -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-tagesansicht">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -229,60 +544,7 @@
 </div>
 </div>
 <!-- VIEW: ZEITERFASSUNG -->
-<div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung">
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<h2 class="text-2xl font-bold text-on-surface mb-2">Zeiterfassung erfassen</h2>
-<p class="text-sm text-on-surface-variant mb-6">Erfasse Einzeltage oder Ferien-/Krankheitszeiträume mit automatischer Tagessoll-Gutschrift.</p>
-<form class="space-y-6" id="time-form" onsubmit="event.preventDefault(); saveEntry();">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Mitarbeiter</label>
-<select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium cursor-pointer" id="form-emp">
-<option selected="" value="nicole">Nicole De Pretto (57%)</option>
-<option value="michelle">Michelle Dreifuss (100%)</option>
-<option value="manuel">Manuel Schoch (100%)</option>
-<option value="seline">Seline Steinmann (92%)</option>
-</select>
-</div>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Datum (TT.MM.JJJJ)</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low font-medium" id="form-date" placeholder="28.10.2026" required="" type="text"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Vormittag</span>
-<div class="flex gap-2">
-<input class="w-1/2 p-2 rounded-lg border border-outline-variant text-sm" id="form-vm-from" type="time" value="08:00"/>
-<input class="w-1/2 p-2 rounded-lg border border-outline-variant text-sm" id="form-vm-to" type="time" value="12:34"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Nachmittag</span>
-<div class="flex gap-2">
-<input class="w-1/2 p-2 rounded-lg border border-outline-variant text-sm" id="form-nm-from" type="time"/>
-<input class="w-1/2 p-2 rounded-lg border border-outline-variant text-sm" id="form-nm-to" type="time"/>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl">
-<span class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Status</span>
-<select class="w-full p-2 rounded-lg border border-outline-variant text-sm cursor-pointer" id="form-status">
-<option value="Normal">Reguläre Arbeitszeit</option>
-<option value="Ferien">🌴 Ferien (Gutschrift Tagessoll)</option>
-<option value="Krankheit">🩺 Krankheit (Gutschrift Tagessoll)</option>
-</select>
-</div>
-</div>
-<div>
-<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase">Bemerkungen</label>
-<input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low" id="form-notes" placeholder="z. B. Herbstferien oder Schulförderung" type="text"/>
-</div>
-<div class="flex justify-end gap-3 pt-4">
-<button class="px-6 py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container" type="submit">Eintrag speichern</button>
-</div>
-</form>
-</div>
-</div>
+<div class="view-container hidden flex flex-col w-full p-8 max-w-[900px] mx-auto gap-8 pb-20" id="view-zeiterfassung"><div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high"><div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-3 border-b border-surface-container-high pb-4"><div><h2 class="text-2xl font-bold text-on-surface">Zeiterfassung erfassen</h2><p class="text-sm text-on-surface-variant">Erfasse Einzeltage oder mehrtägige Zeiträume (Ferien, Krankheit, Weiterbildung) mit automatischer Berechnung der Werktage (Mo–Fr) basierend auf dem Pensum.</p></div><span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-xl flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">date_range</span>Zeitraum-Modus aktiv</span></div><form class="space-y-6" id="time-form" onsubmit="event.preventDefault(); handleZeiterfassungSubmit();"><!-- Modus-Umschaltung: Einzeltag vs. Zeitraum --><div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high"><span class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2.5">Erfassungsmodus wählen</span><div class="grid grid-cols-1 md:grid-cols-2 gap-3"><label class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border-2 border-primary cursor-pointer transition-all shadow-sm" id="label-mode-single"><input checked="" class="text-primary focus:ring-primary w-4 h-4 cursor-pointer" id="mode-single" name="entry-mode" onchange="toggleEntryMode('single')" type="radio" value="single"><div class="flex flex-col"><span class="text-sm font-bold text-on-surface flex items-center gap-1.5"><span class="material-symbols-outlined text-primary text-[18px]">today</span> Einzeltag erfassen</span><span class="text-xs text-on-surface-variant">Standard-Arbeitszeit oder einzelner Fehltag</span></div></label><label class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border-2 border-transparent hover:border-outline-variant cursor-pointer transition-all" id="label-mode-range"><input class="text-primary focus:ring-primary w-4 h-4 cursor-pointer" id="mode-range" name="entry-mode" onchange="toggleEntryMode('range')" type="radio" value="range"><div class="flex flex-col"><span class="text-sm font-bold text-on-surface flex items-center gap-1.5"><span class="material-symbols-outlined text-primary text-[18px]">date_range</span> Zeitraum erfassen (Von – Bis)</span><span class="text-xs text-on-surface-variant">Mehrtägig: Herbstferien, Krankheitsurlaub, Fortbildung</span></div></label></div></div><!-- Mitarbeiter & Kategorie --><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-wider">Mitarbeiter</label><select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium cursor-pointer focus:border-primary focus:outline-none" id="form-emp" onchange="updateCalculationsInfo()"><option selected="" value="nicole">Nicole De Pretto (57% Pensum • 4.56 h/Tag)</option><option value="michelle">Michelle Dreifuss (100% Pensum • 8.00 h/Tag)</option><option value="manuel">Manuel Schoch (100% Pensum • 8.00 h/Tag)</option><option value="seline">Seline Steinmann (92% Pensum • 7.36 h/Tag)</option></select></div><div><label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-wider">Kategorie / Status</label><select class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-medium cursor-pointer focus:border-primary focus:outline-none" id="form-status" onchange="updateCalculationsInfo()"><option value="Normal">Reguläre Arbeitszeit</option><option value="Ferien">🌴 Ferien (Gutschrift Tagessoll)</option><option value="Krankheit">🩺 Krankheit (Gutschrift Tagessoll)</option><option value="Weiterbildung">🎓 Weiterbildung / Abwesenheit</option></select></div></div><!-- Datum / Zeitraum Sektion --><div class="p-5 bg-surface-container-low rounded-xl border border-surface-container-high space-y-4"><!-- Container Einzeltag --><div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="container-single-date"><div class="md:col-span-1"><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Datum (TT.MM.JJJJ)</label><input class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest font-medium text-sm focus:border-primary focus:outline-none" id="form-date" placeholder="28.10.2026" type="text" value="28.10.2026"></div><div class="md:col-span-1"><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Vormittag</label><div class="flex gap-2"><input class="w-1/2 p-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-medium" id="form-vm-from" type="time" value="08:00"><input class="w-1/2 p-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-medium" id="form-vm-to" type="time" value="12:34"></div></div><div class="md:col-span-1"><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">Nachmittag</label><div class="flex gap-2"><input class="w-1/2 p-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-medium" id="form-nm-from" type="time"><input class="w-1/2 p-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-medium" id="form-nm-to" type="time"></div></div></div><!-- Container Zeitraum (Von - Bis) --><div class="hidden space-y-4" id="container-range-date"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">calendar_today</span> Von Datum (Start)</label><input class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest font-medium text-sm focus:border-primary focus:outline-none" id="form-range-from" onchange="updateCalculationsInfo()" type="date" value="2026-10-05"></div><div><label class="block text-xs font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">event</span> Bis Datum (Ende)</label><input class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest font-medium text-sm focus:border-primary focus:outline-none" id="form-range-to" onchange="updateCalculationsInfo()" type="date" value="2026-10-16"></div></div><!-- Automatische Werktags-Berechnung --><div class="p-4 bg-emerald-50 border border-emerald-300 rounded-xl flex items-center justify-between flex-wrap gap-3"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-lg bg-emerald-200 text-emerald-800 flex items-center justify-center font-bold"><span class="material-symbols-outlined text-[20px]">functions</span></div><div><p class="text-xs font-bold text-emerald-950 uppercase tracking-wider">Automatische Werktage-Kalkulation (Mo–Fr)</p><p class="text-xs text-emerald-800" id="range-calc-summary">10 Werktage à 4.56 h = <strong>45.60 Stunden Gesamtgutschrift</strong></p></div></div><span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-200 text-emerald-900 border border-emerald-300" id="range-calc-badge">10 Werktage</span></div></div></div><!-- Bemerkung --><div class="space-y-1.5"><label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Bemerkungen / Notiz</label><input class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-sm font-medium focus:border-primary focus:outline-none" id="form-notes" placeholder="z. B. Herbstferien KW 41 &amp; 42 oder Weiterbildung DaZ" type="text" value="Herbstferien 2026"></div><!-- Aktionsleiste --><div class="flex justify-between items-center pt-4 border-t border-surface-container-high"><button class="px-4 py-2.5 rounded-xl text-xs font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="switchView('tagesansicht')" type="button">Zurück zur Tagesansicht</button><button class="px-6 py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-all shadow-md flex items-center gap-2 cursor-pointer" id="btn-submit-entry" type="submit"><span class="material-symbols-outlined text-[18px]">check_circle</span> <span id="btn-submit-label" class="">Zeitraum buchen &amp; gutschreiben</span></button></div></form></div></div>
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1100px] mx-auto gap-8 pb-20" id="view-wochenuebersicht">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
@@ -678,5 +940,7 @@
         renderDashboard();
     });
 </script>
-</body>
-</html>
+
+
+
+</body></html>
