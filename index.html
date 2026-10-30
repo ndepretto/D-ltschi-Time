@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="de"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -47,7 +48,6 @@ tailwind.config = {
 </form>
 </div>
 </div>
-
 <!-- Modal 804h Herleitung & Schuljahresberechnung -->
 <div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-herleitung">
 <div class="bg-white max-w-2xl w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
@@ -89,7 +89,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </div>
-
 <!-- Modal Mitarbeiter bearbeiten -->
 <div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm items-center justify-center p-4 hidden" id="modal-employee-edit">
 <div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
@@ -132,7 +131,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </form>
 </div>
 </div>
-
 <!-- Sidebar -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-slate-50 z-40 flex flex-col pt-6 pb-8 border-r border-slate-200 no-print">
 <div class="px-6 mb-6 text-xl font-bold text-primary flex items-center gap-2 cursor-pointer" onclick="switchView('dashboard')">
@@ -179,12 +177,11 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </aside>
-
 <!-- Main Wrapper -->
 <div class="pl-64">
 <header class="fixed top-0 left-64 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 z-30 flex items-center justify-between px-8 no-print">
 <div class="flex items-center gap-4">
-<div class="font-bold text-slate-900 text-lg" id="header-title">Zeitmanagement - Dashboard</div>
+<div class="font-bold text-slate-900 text-lg" id="header-title">Master mit leerem November-Start &amp; individueller Mitarbeiter-Erfassung</div>
 <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700">
 <span class="material-symbols-outlined text-primary text-[18px]">school</span>
 <span>Zyklus:</span>
@@ -214,47 +211,48 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </select>
 </div>
 </div>
-
 <div class="flex items-center gap-3">
 <button class="px-3 py-1.5 bg-indigo-50 text-indigo-900 border border-indigo-200 rounded-xl text-xs font-bold hover:bg-indigo-100 transition-all flex items-center gap-1.5 shadow-xs" onclick="openModalHerleitung()">
 <span class="material-symbols-outlined text-[16px] text-indigo-700">calculate</span>
 <span>804h Herleitung</span>
 </button>
-
 <button class="px-3 py-1.5 bg-emerald-600 text-white border border-emerald-700 rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer" onclick="cleanDuplicateEntries(true)" title="Doppelte reguläre Schichten an Ferientagen 05.–17.10. restlos löschen und fixieren">
 <span class="material-symbols-outlined text-[16px]">verified</span>
 <span>Ferien-Fix &amp; F5-Löschgarantie</span>
 <span class="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-800 text-white font-bold ml-1">Aktiv</span>
 </button>
-
 <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200" id="cloud-sync-badge">
 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span id="cloud-sync-label">F5-Löschschutz Garantiert</span>
+<span id="cloud-sync-label">November sauber (0.0h Start)</span>
 </span>
 <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">ND</div>
 </div>
 </header>
-
 <main class="pt-20 px-8 pb-20 max-w-[1240px] mx-auto space-y-8">
 <!-- VIEW: DASHBOARD -->
 <div class="view-pane space-y-8" id="view-dashboard">
-<!-- Garantierter F5-Löschschutz Banner -->
+<!-- Master Banner: Leerer November-Start & individuelle Erfassung -->
 <div class="bg-gradient-to-r from-blue-900 via-primary to-indigo-900 text-white p-4 rounded-2xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-blue-800">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur text-white flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[24px]">verified_user</span>
+<span class="material-symbols-outlined text-[24px]">event_available</span>
 </div>
 <div>
-<h4 class="text-sm font-bold flex items-center gap-2">F5-Löschschutz Garantiert: Gelöschte Einträge bleiben nach Neuladen unwiderruflich weg! <span class="bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Aktiviert</span></h4>
-<p class="text-xs text-blue-100 mt-0.5">Automatisches Seed-Wiederherstellen ist permanent deaktiviert. Gelöschte Arbeitsschichten (insbesondere an den Ferientagen 05.–17.10.2026 wie am 14.10.) werden zusätzlich in einer Lösch-Blacklist blockiert und können niemals zurückkehren.</p>
+<h4 class="text-sm font-bold flex items-center gap-2">Master mit leerem November-Start &amp; individueller Mitarbeiter-Erfassung <span class="bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Aktiv</span></h4>
+<p class="text-xs text-blue-100 mt-0.5">Für November 2026 (und Folgemonate) sind alle Dummy- &amp; Seed-Schichten vollständig bereinigt (0.0 h Ist-Stunden). Jeder Mitarbeiter erfasst seine Arbeitszeiten und Schichten frei im System.</p>
 </div>
 </div>
-<button onclick="cleanDuplicateEntries(true)" class="px-3.5 py-2 bg-white text-primary hover:bg-blue-50 text-xs font-bold rounded-xl transition-all shadow-xs shrink-0 flex items-center gap-1.5">
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-3.5 py-2 bg-white text-primary hover:bg-blue-50 text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5" onclick="changeDashboardMonth('11')">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+<span>November anzeigen (0.0 h)</span>
+</button>
+<button class="px-3.5 py-2 bg-blue-800/80 hover:bg-blue-800 text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5 border border-white/20" onclick="cleanDuplicateEntries(true)">
 <span class="material-symbols-outlined text-[16px]">cleaning_services</span>
-<span>Ferientage jetzt säubern</span>
+<span>Bereinigen</span>
 </button>
 </div>
-
+</div>
 <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
 <div class="flex items-center gap-2">
 <div class="w-9 h-9 rounded-xl bg-blue-50 text-primary flex items-center justify-center font-bold">
@@ -269,13 +267,12 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('8')">Aug</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('9')">Sep</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs" id="dash-btn-oct" onclick="changeDashboardMonth('10')">Okt (Aktiv)</button>
-<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('11')">Nov</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" id="dash-btn-nov" onclick="changeDashboardMonth('11')">Nov (0.0 h Start)</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('12')">Dez</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('1')">Jan</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="changeDashboardMonth('all')">Alle Monate</button>
 </div>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Aktives Team</span>
@@ -284,31 +281,30 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Monats-Soll &amp; Ist Team</span>
-<h2 class="text-2xl font-black text-primary mt-1" id="dash-month-total">472.8 / 586.4 h</h2>
+<h2 class="text-2xl font-black text-primary mt-1" id="dash-month-total">311.3 / 586.4 h</h2>
 <span class="text-xs text-slate-500 mt-2 block" id="dash-month-subtext">Laufender Monat (Krankheit/Ferien = Tagessoll angerechnet)</span>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Schuljahr Summe Total</span>
-<h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-year-total">926.7 / 7'482 Std.</h2>
+<h2 class="text-2xl font-black text-slate-900 mt-1" id="dash-year-total">316.0 / 7'482 Std.</h2>
 <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
-<div class="bg-primary h-full" id="dash-progress" style="width: 12%;"></div>
+<div class="bg-primary h-full" id="dash-progress" style="width: 5%;"></div>
 </div>
 </div>
 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
 <span class="text-xs font-bold uppercase text-slate-500">Überstunden Saldo</span>
-<h2 class="text-2xl font-black text-amber-600 mt-1" id="dash-overtime">-113.6 h</h2>
-<span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Total erfasst: 926.7 Std.</span>
+<h2 class="text-2xl font-black text-amber-600 mt-1" id="dash-overtime">-275.1 h</h2>
+<span class="text-xs text-slate-500 mt-2 block" id="dash-year-saldo">Total erfasst: 316.0 Std.</span>
 </div>
 </div>
-
 <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between gap-3 text-emerald-950 shadow-xs">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[22px]">verified</span>
 </div>
 <div>
-<span class="text-xs font-bold block text-emerald-900">Ferien-Duplikate 05.–17.10. bereinigt &amp; Löschungen dauerhaft geschützt</span>
-<p class="text-[11px] text-emerald-800 mt-0.5">An den Herbstferientagen existiert pro Werktag genau 1 Ferieneintrag mit vollem Tagessoll (Saldo: ±0.00 h). Manuell gelöschte Schichten bleiben auch nach F5 (Neuladen) dauerhaft gelöscht.</p>
+<span class="text-xs font-bold block text-emerald-900">November bereit für eigenständige Erfassung &amp; F5-Löschgarantie aktiv</span>
+<p class="text-[11px] text-emerald-800 mt-0.5">Keine fiktiven Vorbelegungen für November 2026. Alle 4 Mitarbeiter (Nicole, Michelle, Manuel, Seline) starten im November mit 0.0 Ist-Stunden und erfassen ihre Schichten flexibel.</p>
 </div>
 </div>
 <button class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors shrink-0 shadow-xs flex items-center gap-1.5 cursor-pointer" onclick="cleanDuplicateEntries(true)">
@@ -316,7 +312,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span>Jetzt säubern &amp; fixieren</span>
 </button>
 </div>
-
 <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex items-center justify-between">
 <div>
 <span class="text-xs font-bold text-primary uppercase">Schuljahreszyklus Zürich</span>
@@ -332,10 +327,8 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </button>
 </div>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="dashboard-employees-grid"></div>
 </div>
-
 <!-- VIEW: TAGESANSICHT -->
 <div class="view-pane hidden space-y-6" id="view-tagesansicht">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -359,7 +352,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </button>
 </div>
 </div>
-
 <!-- Filterbereich -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
@@ -372,7 +364,7 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <option value="8">August</option>
 <option value="9">September</option>
 <option selected="" value="10">Oktober</option>
-<option value="11">November</option>
+<option value="11">November (0.0h Start)</option>
 <option value="12">Dezember</option>
 <option value="1">Januar</option>
 <option value="2">Februar</option>
@@ -414,14 +406,13 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </div>
-
 <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
 <div class="flex flex-wrap items-center gap-1.5">
 <span class="text-slate-500 font-bold mr-1">Monats-Schnellwahl:</span>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(8)">August</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(9)">September</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs" id="quick-btn-oct" onclick="setMonthFast(10)">Oktober (Aktiv)</button>
-<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast(11)">November</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" id="quick-btn-nov" onclick="setMonthFast(11)">November (0.0h)</button>
 <button class="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors" onclick="setMonthFast('all')">Alle Monate</button>
 </div>
 <div class="flex items-center gap-2">
@@ -433,7 +424,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </div>
-
 <!-- Recent Dates Bar -->
 <div class="bg-blue-50/60 p-4 rounded-2xl border border-blue-100 space-y-3">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
@@ -447,7 +437,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="flex flex-wrap items-center gap-1.5" id="daily-recent-dates-pills"></div>
 </div>
-
 <!-- Daily KPI Metrics -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
@@ -471,7 +460,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <span class="text-[11px] text-slate-500">Keine Minusstunden bei Absenzen</span>
 </div>
 </div>
-
 <!-- Entries Container -->
 <div class="space-y-3">
 <div class="flex items-center justify-between">
@@ -483,15 +471,14 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="space-y-4" id="daily-entries-container"></div>
 </div>
 </div>
-
 <!-- VIEW: ZEITERFASSUNG -->
 <div class="view-pane hidden space-y-6" id="view-zeiterfassung">
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
 <div class="border-b border-slate-100 pb-4">
 <h2 class="text-2xl font-black text-slate-900">Zeiteintrag erfassen / bearbeiten</h2>
 <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950 text-xs mt-2 space-y-1">
-<p class="font-bold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-700">verified_user</span> Vorrang-Regel für Absenzen (Ferien / Krankheit):</p>
-<p class="text-[11px] leading-relaxed text-emerald-900">Werden Ferien oder Krankheit erfasst, überschreiben diese automatisch reguläre Schichten desselben Tages. Es wird exakt das Tagessoll gutgeschrieben (Saldo: ±0.00 h).</p>
+<p class="font-bold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-700">verified_user</span> Vorrang-Regel für Absenzen (Ferien / Krankheit) &amp; freie November-Erfassung:</p>
+<p class="text-[11px] leading-relaxed text-emerald-900">Arbeitszeiten für November (und jeden weiteren Monat) können hier für Nicole, Michelle, Manuel oder Seline völlig eigenständig eingetragen werden. Werden Ferien oder Krankheit erfasst, wird automatisch das Tagessoll gutgeschrieben (Saldo: ±0.00 h).</p>
 </div>
 </div>
 <form class="space-y-6" id="time-entry-form" onsubmit="saveTimeEntry(event)">
@@ -518,16 +505,15 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="date-inputs-wrapper">
 <div>
 <span class="text-[11px] font-bold text-slate-500 block mb-0.5" id="date-start-label">Datum (TT.MM.JJJJ)</span>
-<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 23.10.2026" required="" type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-date" placeholder="z.B. 02.11.2026" required="" type="text"/>
 </div>
 <div class="hidden" id="entry-date-end-container">
 <span class="text-[11px] font-bold text-primary block mb-0.5">Bis Datum (TT.MM.JJJJ)</span>
-<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 30.10.2026" type="text"/>
+<input class="w-full px-4 py-2.5 rounded-xl border border-primary/40 bg-blue-50/30 text-xs font-bold focus:border-primary" id="entry-date-end" placeholder="z.B. 06.11.2026" type="text"/>
 </div>
 </div>
 </div>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="form-shifts-block">
 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
 <span class="text-xs font-bold text-slate-700 block mb-2 flex items-center gap-1">
@@ -557,7 +543,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </div>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Status / Abwesenheitstyp</label>
@@ -574,14 +559,12 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" id="entry-notes" placeholder="z.B. Sonderpädagogische Begleitung, Sitzung, etc." type="text"/>
 </div>
 </div>
-
 <div class="flex justify-end gap-3 pt-2">
 <button class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 font-bold text-xs rounded-xl" onclick="resetTimeForm()" type="button">Zurücksetzen</button>
 <button class="px-6 py-2.5 bg-primary hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs" type="submit">Eintrag speichern</button>
 </div>
 </form>
 </div>
-
 <!-- Entries Table -->
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
 <div class="flex justify-between items-center">
@@ -597,7 +580,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 <div class="space-y-3" id="time-entries-list"></div>
 </div>
 </div>
-
 <!-- VIEW: WOCHENÜBERSICHT -->
 <div class="view-pane hidden space-y-6" id="view-wochenuebersicht">
 <div class="flex justify-between items-center">
@@ -615,7 +597,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="space-y-4" id="weekly-overview-container"></div>
 </div>
-
 <!-- VIEW: MITARBEITER -->
 <div class="view-pane hidden space-y-6" id="view-mitarbeiter">
 <div class="flex justify-between items-center">
@@ -629,7 +610,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="employees-management-list"></div>
 </div>
-
 <!-- VIEW: BERICHTE -->
 <div class="view-pane hidden space-y-6" id="view-berichte">
 <div class="flex justify-between items-center">
@@ -643,7 +623,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 <div class="space-y-6" id="reports-content"></div>
 </div>
-
 <!-- VIEW: ERKLÄRUNG SCHULJAHRESARBEITSZEIT -->
 <div class="view-pane hidden space-y-6" id="view-erklaerung">
 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
@@ -678,7 +657,6 @@ Tagessoll (5-Tage-Woche): <strong>4.56 h / Tag</strong>.</p>
 </div>
 </main>
 </div>
-
 <script>
 // Firebase Config
 const firebaseConfig = {
@@ -695,7 +673,7 @@ const db = firebase.firestore();
 const BASE_FULL_YEAR_HOURS = 2144;
 let selectedSchoolYear = 'all';
 let currentDailyDate = new Date(2026, 9, 23); // 23.10.2026
-let selectedDailyMonth = '10'; // Oktober
+let selectedDailyMonth = '10'; // Oktober Standard
 let dailyViewMode = 'month';
 
 const MONTH_NAMES = {
@@ -877,6 +855,24 @@ function sanitizeAndFilterEntries(entries) {
   return finalClean;
 }
 
+function purgeNovemberDummyEntries(entries) {
+  if (!Array.isArray(entries)) return [];
+  return entries.filter(e => {
+    if (!e || !e.date) return false;
+    const pDate = parseDateSafely(e.date);
+    if (!pDate) return true;
+    const m = pDate.getMonth() + 1; // 1-12
+    const y = pDate.getFullYear();
+    // Alle Seed/Demo-Einträge aus November 2026 (und späteren Monaten) löschen
+    const isSeedOrDemo = !e.id || String(e.id).startsWith('seed_') || String(e.id).startsWith('demo_') || String(e.id).startsWith('fixed_');
+    if (y === 2026 && m >= 11 && isSeedOrDemo) {
+      addToDeletedIdsBlacklist(e.id);
+      return false;
+    }
+    return true;
+  });
+}
+
 function saveLocalState() {
   timeEntriesData = sanitizeAndFilterEntries(timeEntriesData);
   try {
@@ -885,6 +881,7 @@ function saveLocalState() {
     localStorage.setItem('doeltschi_time_entries', JSON.stringify(timeEntriesData));
     localStorage.setItem('doeltschi_seed_done', 'true');
     localStorage.setItem('doeltschi_ferien_cleaned', 'true');
+    localStorage.setItem('doeltschi_nov_cleaned_v2', 'true');
   } catch(e){}
 }
 
@@ -951,6 +948,8 @@ function cleanDuplicateEntries(showAlert = false) {
     });
   });
 
+  timeEntriesData = purgeNovemberDummyEntries(timeEntriesData);
+
   saveLocalState();
   renderDashboard();
   renderDailyOverview();
@@ -959,17 +958,14 @@ function cleanDuplicateEntries(showAlert = false) {
   renderReports();
 
   if (showAlert) {
-    alert('F5-Löschschutz Aktiv!\nAlle doppelten Schichten während den Herbstferien (05.–17.10.) wurden dauerhaft entfernt. Gelöschte Einträge kehren nach F5 garantiert nicht mehr zurück.');
+    alert('Bereinigung abgeschlossen!\n1. November startet mit 0.0 Ist-Stunden (keine Dummy-Schichten).\n2. Ferien 05.–17.10. sind exakt bereinigt.\n3. F5-Löschgarantie ist aktiv.');
   }
 }
 
-// Master Seeds (NUR einmalig laden, wenn localStorage VOLLKOMMEN leer ist)
+// Master Seeds (NUR für September und Oktober 2026 - November bleibt VOLLKOMMEN LEER = 0.0h)
 function getMasterSeedEntries() {
   const list = [];
   const nicoleRaw = [
-    { date: '06.11.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Sonderpädagogische Einzelförderung' },
-    { date: '04.11.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Unterrichtsunterstützung' },
-    { date: '02.11.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung Förderunterricht' },
     { date: '30.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Schulbegleitung & Teamsitzung' },
     { date: '28.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Begleitung & Förderung' },
     { date: '27.10.2026', hours: 4.5, status: 'Normal', vmFrom: '08:00', vmTo: '12:00', nmFrom: '13:00', nmTo: '13:30', notes: 'Unterrichtsunterstützung & Nachbereitung' },
@@ -1021,6 +1017,7 @@ function getMasterSeedEntries() {
 // Initialer Ladevorgang
 function initApplication() {
   const isSeedDone = localStorage.getItem('doeltschi_seed_done') === 'true';
+  const isNovCleaned = localStorage.getItem('doeltschi_nov_cleaned_v2') === 'true';
   let stored = null;
 
   try {
@@ -1032,14 +1029,20 @@ function initApplication() {
   } catch(e){}
 
   if (stored && stored.length > 0) {
-    // Ausschliesslich gespeicherte Daten nutzen!
     timeEntriesData = sanitizeAndFilterEntries(stored);
+    if (!isNovCleaned) {
+      timeEntriesData = purgeNovemberDummyEntries(timeEntriesData);
+      saveLocalState();
+    }
   } else if (!isSeedDone) {
     timeEntriesData = sanitizeAndFilterEntries(getMasterSeedEntries());
     saveLocalState();
   } else {
     timeEntriesData = [];
   }
+
+  // Zusätzliche Sicherheitsgarantie: Nie November-Seed-Einträge behalten
+  timeEntriesData = purgeNovemberDummyEntries(timeEntriesData);
 
   try {
     const rawEmp = localStorage.getItem('doeltschi_employees');
@@ -1098,7 +1101,13 @@ function changeDashboardMonth(val) {
   if (dSel) dSel.value = val;
   const title = document.getElementById('dash-selected-month-title');
   if (title) {
-    title.textContent = val === 'all' ? 'Monatsansicht: Alle Monate' : `Monatsansicht: ${MONTH_NAMES[val] || 'Oktober'} 2026`;
+    if (val === 'all') {
+      title.textContent = 'Monatsansicht: Alle Monate';
+    } else if (val === '11') {
+      title.textContent = 'Monatsansicht: November 2026 (Leerer Start: 0.0 h Ist)';
+    } else {
+      title.textContent = `Monatsansicht: ${MONTH_NAMES[val] || 'Oktober'} 2026`;
+    }
   }
   updateQuickMonthButtons();
   renderDashboard();
@@ -1110,15 +1119,31 @@ function setMonthFast(monthVal) {
 }
 
 function updateQuickMonthButtons() {
+  const isOct = (selectedDailyMonth === '10');
+  const isNov = (selectedDailyMonth === '11');
+
   const octBtn = document.getElementById('quick-btn-oct');
   if (octBtn) {
-    octBtn.className = (selectedDailyMonth === '10' && dailyViewMode === 'month')
+    octBtn.className = isOct
       ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs'
       : 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
   }
+  const novBtn = document.getElementById('quick-btn-nov');
+  if (novBtn) {
+    novBtn.className = isNov
+      ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs'
+      : 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
+  }
+
   const dashOctBtn = document.getElementById('dash-btn-oct');
   if (dashOctBtn) {
-    dashOctBtn.className = (selectedDailyMonth === '10')
+    dashOctBtn.className = isOct
+      ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs'
+      : 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
+  }
+  const dashNovBtn = document.getElementById('dash-btn-nov');
+  if (dashNovBtn) {
+    dashNovBtn.className = isNov
       ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-primary text-white shadow-xs'
       : 'px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors';
   }
@@ -1205,7 +1230,7 @@ function switchView(viewName) {
   });
 
   const titles = {
-    dashboard: 'Zeitmanagement - Dashboard',
+    dashboard: 'Master mit leerem November-Start & individueller Mitarbeiter-Erfassung',
     tagesansicht: 'Tagesansicht & Stundenkontrolle',
     zeiterfassung: 'Zeiterfassung erfassen',
     wochenuebersicht: 'Wochenübersicht',
@@ -1274,9 +1299,13 @@ function renderDailyOverview() {
 
   const monthLabel = selectedDailyMonth === 'all' ? 'Alle Monate' : (MONTH_NAMES[selectedDailyMonth] || 'Monat');
   if (dateBadge) {
-    dateBadge.textContent = dailyViewMode === 'single'
-      ? `Stichtag: ${targetDateStr}`
-      : `Monat: ${monthLabel} (${displayEntries.length} Buchungen)`;
+    if (dailyViewMode === 'single') {
+      dateBadge.textContent = `Stichtag: ${targetDateStr}`;
+    } else {
+      dateBadge.textContent = selectedDailyMonth === '11'
+        ? `Monat: November (${displayEntries.length} Buchungen – Leerer Start)`
+        : `Monat: ${monthLabel} (${displayEntries.length} Buchungen)`;
+    }
   }
 
   if (totalInfo) {
@@ -1318,20 +1347,22 @@ function renderDailyOverview() {
   if (displayEntries.length === 0) {
     const hintBox = document.createElement('div');
     hintBox.className = 'bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-4';
+    const isNov = (selectedDailyMonth === '11');
     hintBox.innerHTML = `
-      <div class="w-12 h-12 rounded-full bg-blue-50 text-primary mx-auto flex items-center justify-center font-bold">
-        <span class="material-symbols-outlined text-[24px]">event_busy</span>
+      <div class="w-12 h-12 rounded-full ${isNov ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-primary'} mx-auto flex items-center justify-center font-bold">
+        <span class="material-symbols-outlined text-[24px]">${isNov ? 'edit_calendar' : 'event_busy'}</span>
       </div>
       <div>
-        <h4 class="text-lg font-bold text-slate-900">Keine Einträge für diese Auswahl vorhanden</h4>
-        <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">Einträge wurden gelöscht oder für dieses Datum liegt keine Buchung vor.</p>
+        <h4 class="text-lg font-bold text-slate-900">${isNov ? 'Noch keine Zeiteinträge für November vorhanden' : 'Keine Einträge für diese Auswahl vorhanden'}</h4>
+        <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">${isNov ? 'Der November startet sauber mit 0.0 Ist-Stunden. Jeder Mitarbeiter kann seine Arbeitszeiten jetzt im Erfassungsformular eintragen.' : 'Einträge wurden gelöscht oder für dieses Datum liegt keine Buchung vor.'}</p>
       </div>
       <div class="flex justify-center gap-3 pt-2">
-        <button onclick="setMonthFast(10)" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-xs shadow-xs hover:bg-blue-800 transition-colors">
-          Oktober anzeigen
+        <button onclick="switchView('zeiterfassung'); document.getElementById('entry-date').value='02.11.2026';" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-xs shadow-xs hover:bg-blue-800 transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[15px]">add</span>
+          <span>Arbeitszeit für November erfassen</span>
         </button>
-        <button onclick="cleanDuplicateEntries(true)" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-xs hover:bg-emerald-700 transition-colors">
-          Ferien säubern
+        <button onclick="setMonthFast(10)" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition-colors">
+          Oktober anzeigen
         </button>
       </div>
     `;
@@ -1404,7 +1435,8 @@ function renderDashboard() {
   let currentMonthIst = 0;
   let currentMonthSoll = 0;
 
-  const targetMonthNum = selectedDailyMonth === 'all' ? 10 : parseInt(selectedDailyMonth, 10);
+  const isAllMonths = selectedDailyMonth === 'all';
+  const targetMonthNum = isAllMonths ? null : parseInt(selectedDailyMonth, 10);
   const targetYearNum = 2026;
 
   employeesData.forEach(emp => {
@@ -1414,7 +1446,7 @@ function renderDashboard() {
 
     const monthEntries = empEntries.filter(e => {
       const p = parseDateSafely(e.date);
-      if (selectedDailyMonth === 'all') return true;
+      if (isAllMonths) return true;
       return p && (p.getMonth() + 1) === targetMonthNum && p.getFullYear() === targetYearNum;
     });
     const mIst = monthEntries.reduce((acc, curr) => acc + calculateTotalEntryHours(curr, emp), 0);
@@ -1471,8 +1503,16 @@ function renderDashboard() {
     grid.appendChild(card);
   });
 
+  const monthLabel = selectedDailyMonth === 'all' ? 'Alle Monate' : (MONTH_NAMES[selectedDailyMonth] || 'Laufender Monat');
   document.getElementById('dash-team-count').textContent = `${employeesData.length} Mitglieder`;
   document.getElementById('dash-month-total').textContent = `${currentMonthIst.toFixed(1)} / ${currentMonthSoll.toFixed(1)} h`;
+  const subtextEl = document.getElementById('dash-month-subtext');
+  if (subtextEl) {
+    subtextEl.textContent = selectedDailyMonth === '11'
+      ? 'November 2026: 0.0 h Ist (Bereit für freie Erfassung)'
+      : `${monthLabel} (Krankheit/Ferien = Tagessoll angerechnet)`;
+  }
+
   document.getElementById('dash-year-total').textContent = `${totalActual.toFixed(1)} / ${totalYearly.toLocaleString('de-CH')} Std.`;
   const pct = totalYearly > 0 ? Math.min(100, Math.round((totalActual / totalYearly) * 100)) : 0;
   document.getElementById('dash-progress').style.width = `${pct}%`;
@@ -1531,7 +1571,7 @@ function renderTimeEntriesList() {
 function renderWeeklyOverview() {
   const container = document.getElementById('weekly-overview-container');
   if (!container) return;
-  container.innerHTML = '<p class="text-xs text-slate-500">Wochenübersicht wird aus den erfassten Schichten zusammengestellt.</p>';
+  container.innerHTML = '<p class="text-xs text-slate-500">Wochenübersicht wird dynamisch aus den erfassten Schichten zusammengestellt.</p>';
 }
 
 function renderEmployeesManagement() {
@@ -1661,7 +1701,7 @@ function saveTimeEntry(e) {
       const isAbs = isAbsenceStatus(status);
       const hoursVal = isAbs ? getDailyTargetHours(emp) : calculateTotalEntryHours({ vmFrom, vmTo, nmFrom, nmTo, abendFrom, abendTo }, emp);
 
-      // Falls Absenz: entferne vorherige Schichten
+      // Falls Absenz: vorherige Schichten desselben Tages überschreiben
       if (isAbs) {
         timeEntriesData = timeEntriesData.filter(x => !(x.employeeId === eId && normalizeDateToDDMMYYYY(x.date) === d));
       }
@@ -1685,6 +1725,18 @@ function saveTimeEntry(e) {
   });
 
   saveLocalState();
+
+  // Bei November-Eintrag automatisch November im Blick behalten
+  const firstDateObj = parseDateSafely(dates[0]);
+  if (firstDateObj && (firstDateObj.getMonth() + 1) === 11) {
+    selectedDailyMonth = '11';
+    const hSel = document.getElementById('header-month-select');
+    if (hSel) hSel.value = '11';
+    const dSel = document.getElementById('daily-month-select');
+    if (dSel) dSel.value = '11';
+    updateQuickMonthButtons();
+  }
+
   renderDashboard();
   renderDailyOverview();
   renderTimeEntriesList();
@@ -1734,5 +1786,4 @@ window.addEventListener('DOMContentLoaded', () => {
   initApplication();
 });
 </script>
-</body>
-</html>
+</body></html>
