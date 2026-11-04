@@ -297,13 +297,7 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 <div class="pl-64">
 <!-- Top Header -->
 <header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-md border-b border-surface-container-high z-30 flex items-center justify-between px-8 no-print">
-<div class="flex items-center gap-4">
-<div class="text-lg font-bold text-on-surface" id="header-title">Zeitmanagement - Dashboard</div>
-<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high">
-<span class="material-symbols-outlined text-primary text-[18px]">school</span>
-<span class="text-xs font-bold text-primary">Schuljahr 26/27 (Aug–Juli)</span>
-</div>
-</div>
+<div class="flex items-center gap-4"><div class="text-lg font-bold text-on-surface" id="header-title">Zeitmanagement - Dashboard</div><div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high"><span class="material-symbols-outlined text-primary text-[18px]">school</span><span class="text-xs font-bold text-primary">Schuljahr 26/27</span></div><div class="flex items-center gap-1.5 bg-surface-container-lowest px-2.5 py-1 rounded-xl border border-primary/30 shadow-sm"><span class="material-symbols-outlined text-primary text-[16px]">calendar_month</span><select class="text-xs font-bold text-primary bg-transparent border-0 cursor-pointer focus:ring-0 p-0 pr-4" id="global-month-select" onchange="onGlobalMonthChange(this.value)"><option value="all">📅 Alle Monate (Schuljahr 26/27)</option><option value="8">August 2026</option><option value="9">September 2026</option><option selected="" value="10">Oktober 2026</option><option value="11">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select></div></div>
 <div class="flex items-center gap-3">
 <!-- Prominente Buttons im Header für Mobile Swipe & QR Code -->
 <button class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-sm flex items-center gap-1.5 transition-all" onclick="switchView('mobile-swipe')">
@@ -575,13 +569,7 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
 </div>
 <div class="flex items-center gap-3">
 <label class="text-xs font-bold text-on-surface-variant uppercase">Monat:</label>
-<select class="px-4 py-2 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm font-semibold cursor-pointer" id="tagesansicht-filter-month" onchange="renderTagesansicht()">
-<option value="all">Alle Monate</option>
-<option value="8">August 2026</option>
-<option value="9">September 2026</option>
-<option selected="" value="10">Oktober 2026</option>
-<option value="11">November 2026</option>
-</select>
+<select class="px-4 py-2 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm font-semibold cursor-pointer" id="tagesansicht-filter-month" onchange="renderTagesansicht()"><option value="all">📅 Alle Monate (Schuljahr 26/27)</option><option value="8">August 2026</option><option value="9">September 2026</option><option selected="" value="10">Oktober 2026</option><option value="11">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select>
 </div>
 <div class="text-xs font-bold text-primary bg-primary/10 px-3 py-2 rounded-xl" id="tagesansicht-count-badge">
 0 Schultage erfasst
@@ -670,10 +658,7 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
 <h2 class="text-2xl font-bold text-on-surface">Wochenübersicht (Oktober 2026)</h2>
 <p class="text-sm text-on-surface-variant" id="weekly-subtitle">Übersicht nach Kalenderwochen inklusive Ferien (KW 41 &amp; KW 42) und Schultagen.</p>
 </div>
-<div class="flex items-center gap-3">
-<label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter:</label>
-<select class="px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-sm font-semibold cursor-pointer" id="weekly-emp-select" onchange="renderWeekly()"></select>
-</div>
+<div class="flex items-center gap-3"><div class="flex items-center gap-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Monat:</label><select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-xs font-bold text-primary cursor-pointer" id="weekly-month-select" onchange="renderWeekly()"><option value="all">Alle Wochen (Okt &amp; Nov)</option><option selected="" value="10">Oktober 2026 (KW 40–44)</option><option value="11">November 2026 (KW 45–48)</option></select></div><div class="flex items-center gap-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter:</label><select class="px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-sm font-semibold cursor-pointer" id="weekly-emp-select" onchange="renderWeekly()"></select></div></div>
 </div>
 <div class="space-y-6" id="weekly-container"></div>
 </div>
@@ -681,15 +666,7 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex justify-between items-center mb-6">
-<div>
-<h2 class="text-2xl font-bold text-on-surface">Monatsbericht Oktober 2026</h2>
-<p class="text-sm text-on-surface-variant">Schulkreis Uto • Primarstufe Döltschi</p>
-</div>
-<button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm" onclick="window.print()">
-<span class="material-symbols-outlined text-[16px] align-middle mr-1">print</span> Bericht Drucken
-</button>
-</div>
+<div class="flex justify-between items-center mb-6"><div><h2 class="text-2xl font-bold text-on-surface" id="report-headline">Monatsbericht Oktober 2026</h2><p class="text-sm text-on-surface-variant">Schulkreis Uto • Primarstufe Döltschi • Schuljahr 2026/27</p></div><div class="flex items-center gap-3"><div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high"><label class="text-xs font-bold text-on-surface-variant uppercase">Zeitraum:</label><select class="px-3 py-1 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-bold text-primary cursor-pointer" id="reports-filter-month" onchange="onReportMonthChange(this.value)"><option value="all">Alle Monate (Schuljahr)</option><option value="8">August 2026</option><option value="9">September 2026</option><option selected="" value="10">Oktober 2026</option><option value="11">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select></div><button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm hover:bg-primary-container shadow-sm flex items-center gap-1.5" onclick="window.print()"><span class="material-symbols-outlined text-[16px]">print</span><span>Bericht Drucken</span></button></div></div>
 <div class="space-y-6" id="reports-container"></div>
 </div>
 </div>
