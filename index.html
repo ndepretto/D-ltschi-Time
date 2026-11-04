@@ -295,7 +295,7 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 <div class="pl-64">
 <!-- Top Header -->
 <header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-md border-b border-surface-container-high z-30 flex items-center justify-between px-8 no-print">
-<div class="flex items-center gap-4"><div class="text-lg font-bold text-on-surface" id="header-title">Zeitmanagement - Dashboard</div><div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high"><span class="material-symbols-outlined text-primary text-[18px]">school</span><span class="text-xs font-bold text-primary">Schuljahr 26/27</span></div><div class="flex items-center gap-1.5 bg-surface-container-lowest px-2.5 py-1 rounded-xl border border-primary/30 shadow-sm"><span class="material-symbols-outlined text-primary text-[16px]">calendar_month</span><select class="text-xs font-bold text-primary bg-transparent border-0 cursor-pointer focus:ring-0 p-0 pr-4" id="global-month-select" onchange="onGlobalMonthChange(this.value)"><option value="all">📅 Alle Monate (Schuljahr 26/27)</option><option value="8">August 2026</option><option value="9">September 2026</option><option value="10">Oktober 2026</option><option value="11" selected="selected">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select></div></div>
+<div class="flex items-center gap-4"><div class="text-lg font-bold text-on-surface" id="header-title">Zeitmanagement - Dashboard</div><div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high"><span class="material-symbols-outlined text-primary text-[18px]">school</span><span class="text-xs font-bold text-primary">Schuljahr 26/27</span></div><div class="flex items-center gap-1.5 bg-surface-container-lowest px-2.5 py-1 rounded-xl border border-primary/30 shadow-sm"><span class="material-symbols-outlined text-primary text-[16px]">calendar_month</span><select class="text-xs font-bold text-primary bg-transparent border-0 cursor-pointer focus:ring-0 p-0 pr-4" id="global-month-select" onchange="onGlobalMonthChange(this.value)"><option value="all">📅 Alle Monate (Schuljahr 26/27)</option><option value="8">August 2026</option><option value="9">September 2026</option><option value="10" class="">Oktober 2026</option><option value="11" selected="selected" class="">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select></div></div>
 <div class="flex items-center gap-3">
 <!-- Prominente Buttons im Header für Mobile Swipe & QR Code -->
 <button class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-sm flex items-center gap-1.5 transition-all" onclick="switchView('mobile-swipe')">
@@ -318,7 +318,7 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 <div class="w-10 h-10 rounded-xl bg-emerald-200 flex items-center justify-center text-emerald-800 shrink-0 mt-0.5">
 <span class="material-symbols-outlined text-[24px]">verified</span>
 </div>
-<div><h3 class="text-base font-bold text-emerald-950">November 2026 aktiv – Filter: Ganzes Team</h3><p class="text-sm text-emerald-800 mt-0.5">November 2026 aktiv – Filter: Ganzes Team. Alle erfassten Arbeitszeiten für November sind live verbucht und sichtbar für das gesamte Team (Nicole De Pretto, Michelle Dreifuss, Manuel Schoch, Seline Steinmann).</p><div class="mt-3 pt-3 border-t border-emerald-200 flex flex-wrap items-center justify-between gap-2"><div class="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-emerald-300 text-xs font-bold text-emerald-900 shadow-sm"><span class="material-symbols-outlined text-primary text-[18px]">edit_note</span><span class="">Neu: Bemerkungen &amp; Einträge direkt mit 1-Klick bearbeiten</span></div><button class="px-3 py-1.5 bg-primary text-on-primary text-xs font-bold rounded-lg hover:bg-primary-container transition-all inline-flex items-center gap-1 shadow-sm" onclick="switchView('tagesansicht')"><span class="">Zur Tagesansicht &amp; Bemerkungen</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span></button></div></div>
+<div><h3 class="text-base font-bold text-emerald-950">November 2026 aktiv – Filter: Ganzes Team</h3><p class="text-sm text-emerald-800 mt-0.5">November 2026 aktiv: Alle Team-Daten &amp; Wochenansichten für November vollständig geladen und synchronisiert (Schultage 02.–30. November 2026).</p><div class="mt-3 pt-3 border-t border-emerald-200 flex flex-wrap items-center justify-between gap-2"><div class="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-emerald-300 text-xs font-bold text-emerald-900 shadow-sm"><span class="material-symbols-outlined text-primary text-[18px]">edit_note</span><span class="">Neu: Bemerkungen &amp; Einträge direkt mit 1-Klick bearbeiten</span></div><button class="px-3 py-1.5 bg-primary text-on-primary text-xs font-bold rounded-lg hover:bg-primary-container transition-all inline-flex items-center gap-1 shadow-sm" onclick="switchView('tagesansicht')"><span class="">Zur Tagesansicht &amp; Bemerkungen</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span></button></div></div>
 </div>
 <!-- KPIs -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -329,7 +329,7 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 <span class="material-symbols-outlined text-[16px]">school</span> Kanton Zürich Volksschule
 </div>
 </div>
-<div class="bg-surface-container-low p-6 rounded-xl border border-surface-container-high"><span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Nicole De Pretto (Nov)</span><h2 class="text-2xl font-bold text-primary mt-1" id="dash-nicole-oct-hours">45.0 / 95.8 h</h2><div class="mt-3 text-xs text-emerald-700 font-bold">Aktueller Stand November 2026</div></div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-surface-container-high"><span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Nicole De Pretto (Nov)</span><h2 class="text-2xl font-bold text-primary mt-1" id="dash-nicole-oct-hours">98.5 / 95.8 h</h2><div class="mt-3 text-xs text-emerald-700 font-bold">Aktueller Stand November 2026</div></div>
 <div class="bg-surface-container-low p-6 rounded-xl border border-surface-container-high"><span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Geleistet Ganzes Team (Nov)</span><h2 class="text-2xl font-bold text-on-surface mt-1" id="dash-total-yearly-label">224.5 h Total</h2><div class="mt-3 text-xs text-on-surface-variant font-bold">Alle 4 Teammitglieder verbucht</div></div>
 <div class="bg-surface-container-low p-6 rounded-xl border border-surface-container-high"><span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Saldo Team (Nov)</span><h2 class="text-2xl font-bold text-emerald-600 mt-1" id="dash-nicole-saldo-kpi">+12.4 h Saldo</h2><div class="mt-3 text-xs text-emerald-700 font-bold">Team-Pensen im Sollbereich</div></div>
 </div>
@@ -363,8 +363,8 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3 mt-5">
                         <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
-                            <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
-                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 border-emerald-300 px-2 py-0.5 rounded-full border">Saldo: +8.61 h</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-primary">MONATSÜBERBLICK (NOVEMBER 2026)</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 border-emerald-300 px-2 py-0.5 rounded-full border">Saldo: +2.70 h</span>
                         </div>
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
@@ -373,29 +373,28 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
                             </div>
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
                                 <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
-                                <p class="text-lg font-black text-primary mt-0.5">104.4 h</p>
+                                <p class="text-lg font-black text-primary mt-0.5">98.5 h</p>
                             </div>
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
                                 <span class="text-[11px] font-bold block uppercase">Saldo</span>
-                                <p class="text-lg font-black mt-0.5">+8.6 h</p>
+                                <p class="text-lg font-black mt-0.5">+2.7 h</p>
                             </div>
                         </div>
                         
-                            <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
-                                <span class="badge-ferien px-2.5 py-1 rounded-full font-bold">🌴 10 Ferientage (45.60 h)</span>
-                                <span class="badge-krankheit px-2.5 py-1 rounded-full font-bold">🩺 1 Krank (4.56 h)</span>
-                                <span class="bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-full font-bold">📚 Schultage 01., 20., 22. &amp; 26.–30.10.</span>
-                            </div>
-                        
+                        <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+                            <span class="badge-ferien px-2.5 py-1 rounded-full font-bold">🌴 0 Ferientage</span>
+                            <span class="badge-krankheit px-2.5 py-1 rounded-full font-bold">🩺 0 Krank</span>
+                            <span class="bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-full font-bold">📚 Schultage Nov: 02., 03., 09., 10., 16., 17., 23., 24., 30.11.</span>
+                        </div>
                     </div>
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5 mt-3">
                         <div class="flex justify-between items-center text-sm font-bold">
                             <span class="text-on-surface">Schuljahresarbeitszeit</span>
-                            <span class="text-primary font-bold">104.4 / 1077 h (10%)</span>
+                            <span class="text-primary font-bold">202.9 / 1077 h (19%)</span>
                         </div>
                         <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 10%;"></div>
+                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 19%;"></div>
                         </div>
                         <div class="text-[11px] text-on-surface-variant flex justify-between">
                             <span class="">Zyklus: 1. Aug. – 31. Juli</span>
@@ -437,8 +436,8 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3 mt-5">
                         <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
-                            <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
-                            <span class="text-xs font-semibold text-primary bg-primary/10 border-primary/20 px-2 py-0.5 rounded-full border">Saldo: -151.50 h</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-primary">MONATSÜBERBLICK (NOVEMBER 2026)</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 border-emerald-300 px-2 py-0.5 rounded-full border">Saldo: 0.00 h</span>
                         </div>
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
@@ -447,23 +446,22 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
                             </div>
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
                                 <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
-                                <p class="text-lg font-black text-primary mt-0.5">16.5 h</p>
+                                <p class="text-lg font-black text-primary mt-0.5">168.0 h</p>
                             </div>
-                            <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-on-surface">
+                            <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
                                 <span class="text-[11px] font-bold block uppercase">Saldo</span>
-                                <p class="text-lg font-black mt-0.5">-151.5 h</p>
+                                <p class="text-lg font-black mt-0.5">0.0 h</p>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5 mt-3">
                         <div class="flex justify-between items-center text-sm font-bold">
                             <span class="text-on-surface">Schuljahresarbeitszeit</span>
-                            <span class="text-primary font-bold">16.5 / 1890 h (1%)</span>
+                            <span class="text-primary font-bold">184.5 / 1890 h (10%)</span>
                         </div>
                         <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 1%;"></div>
+                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 10%;"></div>
                         </div>
                         <div class="text-[11px] text-on-surface-variant flex justify-between">
                             <span class="">Zyklus: 1. Aug. – 31. Juli</span>
@@ -505,8 +503,8 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3 mt-5">
                         <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
-                            <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
-                            <span class="text-xs font-semibold text-primary bg-primary/10 border-primary/20 px-2 py-0.5 rounded-full border">Saldo: -152.00 h</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-primary">MONATSÜBERBLICK (NOVEMBER 2026)</span>
+                            <span class="text-xs font-semibold text-primary bg-primary/10 border-primary/20 px-2 py-0.5 rounded-full border">Saldo: -4.00 h</span>
                         </div>
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
@@ -515,23 +513,22 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
                             </div>
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
                                 <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
-                                <p class="text-lg font-black text-primary mt-0.5">16.0 h</p>
+                                <p class="text-lg font-black text-primary mt-0.5">164.0 h</p>
                             </div>
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-on-surface">
                                 <span class="text-[11px] font-bold block uppercase">Saldo</span>
-                                <p class="text-lg font-black mt-0.5">-152.0 h</p>
+                                <p class="text-lg font-black mt-0.5">-4.0 h</p>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5 mt-3">
                         <div class="flex justify-between items-center text-sm font-bold">
                             <span class="text-on-surface">Schuljahresarbeitszeit</span>
-                            <span class="text-primary font-bold">16.0 / 1890 h (1%)</span>
+                            <span class="text-primary font-bold">180.0 / 1890 h (10%)</span>
                         </div>
                         <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 1%;"></div>
+                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 10%;"></div>
                         </div>
                         <div class="text-[11px] text-on-surface-variant flex justify-between">
                             <span class="">Zyklus: 1. Aug. – 31. Juli</span>
@@ -573,8 +570,8 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-3 mt-5">
                         <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
-                            <span class="text-xs font-bold uppercase tracking-wider text-primary">Monatsüberblick (Oktober 2026)</span>
-                            <span class="text-xs font-semibold text-primary bg-primary/10 border-primary/20 px-2 py-0.5 rounded-full border">Saldo: -139.74 h</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-primary">MONATSÜBERBLICK (NOVEMBER 2026)</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 border-emerald-300 px-2 py-0.5 rounded-full border">Saldo: +1.40 h</span>
                         </div>
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
@@ -583,23 +580,22 @@ Kamera draufhalten zum Öffnen (iPhone &amp; Android)
                             </div>
                             <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
                                 <span class="text-[11px] font-bold text-on-surface-variant block uppercase">Monats-Ist</span>
-                                <p class="text-lg font-black text-primary mt-0.5">14.9 h</p>
+                                <p class="text-lg font-black text-primary mt-0.5">156.0 h</p>
                             </div>
-                            <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-on-surface">
+                            <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high text-emerald-700">
                                 <span class="text-[11px] font-bold block uppercase">Saldo</span>
-                                <p class="text-lg font-black mt-0.5">-139.7 h</p>
+                                <p class="text-lg font-black mt-0.5">+1.4 h</p>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high space-y-2.5 mt-3">
                         <div class="flex justify-between items-center text-sm font-bold">
                             <span class="text-on-surface">Schuljahresarbeitszeit</span>
-                            <span class="text-primary font-bold">14.9 / 1739 h (1%)</span>
+                            <span class="text-primary font-bold">170.9 / 1739 h (10%)</span>
                         </div>
                         <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 1%;"></div>
+                            <div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 10%;"></div>
                         </div>
                         <div class="text-[11px] text-on-surface-variant flex justify-between">
                             <span class="">Zyklus: 1. Aug. – 31. Juli</span>
@@ -867,7 +863,7 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
 </div>
 <div class="flex items-center gap-3">
 <label class="text-xs font-bold text-on-surface-variant uppercase">Monat:</label>
-<select class="px-4 py-2 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm font-semibold cursor-pointer" id="tagesansicht-filter-month" onchange="renderTagesansicht()"><option value="all">📅 Alle Monate (Schuljahr 26/27)</option><option value="8">August 2026</option><option value="9">September 2026</option><option selected="" value="10">Oktober 2026</option><option value="11">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select>
+<select class="px-4 py-2 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm font-semibold cursor-pointer" id="tagesansicht-filter-month" onchange="renderTagesansicht()"><option value="all">📅 Alle Monate (Schuljahr 26/27)</option><option value="8">August 2026</option><option value="9">September 2026</option><option value="10">Oktober 2026</option><option value="11" selected="selected">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select>
 </div>
 <div class="text-xs font-bold text-primary bg-primary/10 px-3 py-2 rounded-xl" id="tagesansicht-count-badge">28 Schultage erfasst</div>
 </div>
@@ -1147,190 +1143,146 @@ Mitarbeitende können diesen Link als Icon auf den Smartphone-Bildschirm legen. 
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-surface-container-high pb-4">
 <div>
-<h2 class="text-2xl font-bold text-on-surface">Wochenübersicht (Oktober 2026)</h2>
-<p class="text-sm text-on-surface-variant" id="weekly-subtitle">Übersicht nach Kalenderwochen inklusive Ferien (KW 41 &amp; KW 42) und Schultagen.</p>
+<h2 class="text-2xl font-bold text-on-surface">Wochenübersicht (November 2026)</h2>
+<p class="text-sm text-on-surface-variant" id="weekly-subtitle">Übersicht nach Kalenderwochen (KW 45 – KW 48) für alle Schultage im November 2026.</p>
 </div>
-<div class="flex items-center gap-3"><div class="flex items-center gap-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Monat:</label><select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-xs font-bold text-primary cursor-pointer" id="weekly-month-select" onchange="renderWeekly()"><option value="all">Alle Wochen (Okt &amp; Nov)</option><option selected="" value="10">Oktober 2026 (KW 40–44)</option><option value="11">November 2026 (KW 45–48)</option></select></div><div class="flex items-center gap-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter:</label><select class="px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-sm font-semibold cursor-pointer" id="weekly-emp-select" onchange="renderWeekly()"><option value="nicole">Nicole De Pretto (57%, 1077 h Jahressoll)</option><option value="michelle">Michelle Dreifuss (100%, 1890 h Jahressoll)</option><option value="manuel">Manuel Schoch (100%, 1890 h Jahressoll)</option><option value="seline">Seline Steinmann (92%, 1739 h Jahressoll)</option><option value="all">👥 Ganzes Team</option></select></div></div>
+<div class="flex items-center gap-3"><div class="flex items-center gap-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Monat:</label><select class="px-3 py-2 rounded-xl border border-outline-variant bg-surface-container-low text-xs font-bold text-primary cursor-pointer" id="weekly-month-select" onchange="renderWeekly()"><option value="all">Alle Wochen (Okt &amp; Nov)</option><option value="10">Oktober 2026 (KW 40–44)</option><option value="11" selected="selected">November 2026 (KW 45–48)</option></select></div><div class="flex items-center gap-2"><label class="text-xs font-bold text-on-surface-variant uppercase">Mitarbeiter:</label><select class="px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-low text-sm font-semibold cursor-pointer" id="weekly-emp-select" onchange="renderWeekly()"><option value="nicole">Nicole De Pretto (57%, 1077 h Jahressoll)</option><option value="michelle">Michelle Dreifuss (100%, 1890 h Jahressoll)</option><option value="manuel">Manuel Schoch (100%, 1890 h Jahressoll)</option><option value="seline">Seline Steinmann (92%, 1739 h Jahressoll)</option><option value="all">👥 Ganzes Team</option></select></div></div>
 </div>
-<div class="space-y-6" id="weekly-container">
-                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+<div class="space-y-6" id="weekly-container"><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
                     <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
-                        <h3 class="font-bold text-on-surface">KW 40 (28.09. – 02.10.2026)</h3>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">10.00 h Total</span>
+                        <h3 class="font-bold text-on-surface">KW 45 (02.11. – 06.11.2026)</h3>
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">24.50 h Total</span>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">01.10.2026</span>
+                        <span class="text-xs font-bold block">02.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">02.10.2026</span>
+                        <span class="text-xs font-bold block">03.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                </div>
-                </div>
-            
-                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
-                    <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
-                        <h3 class="font-bold text-on-surface">KW 41 (05.10. – 09.10.2026) • Herbstferien Woche 1</h3>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">22.80 h Total</span>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">05.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">06.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">07.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">08.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">09.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                </div>
-                </div>
-            
-                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
-                    <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
-                        <h3 class="font-bold text-on-surface">KW 42 (12.10. – 16.10.2026) • Herbstferien Woche 2</h3>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">22.80 h Total</span>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">12.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">13.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">14.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">15.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">16.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Ferien</span>
-                    </div>
-                </div>
-                </div>
-            
-                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
-                    <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
-                        <h3 class="font-bold text-on-surface">KW 43 (19.10. – 23.10.2026)</h3>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">23.81 h Total</span>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">19.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.75 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Normal</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">20.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Normal</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">21.10.2026</span>
+                        <span class="text-xs font-bold block">04.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">4.50 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">22.10.2026</span>
+                        <span class="text-xs font-bold block">05.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">23.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">4.56 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Krankheit</span>
+                        <span class="text-xs font-bold block">06.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
                 </div>
-                </div>
-            
-                <div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                </div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
                     <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
-                        <h3 class="font-bold text-on-surface">KW 44 (26.10. – 30.10.2026)</h3>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">25.00 h Total</span>
+                        <h3 class="font-bold text-on-surface">KW 46 (09.11. – 13.11.2026)</h3>
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">24.50 h Total</span>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">26.10.2026</span>
+                        <span class="text-xs font-bold block">09.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">27.10.2026</span>
+                        <span class="text-xs font-bold block">10.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">28.10.2026</span>
+                        <span class="text-xs font-bold block">11.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">4.50 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">12.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
-                
                     <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">29.10.2026</span>
-                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
-                        <span class="text-[11px] text-on-surface-variant">Normal</span>
-                    </div>
-                
-                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
-                        <span class="text-xs font-bold block">30.10.2026</span>
+                        <span class="text-xs font-bold block">13.11.2026</span>
                         <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
                         <span class="text-[11px] text-on-surface-variant">Normal</span>
                     </div>
                 </div>
+                </div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+                        <h3 class="font-bold text-on-surface">KW 47 (16.11. – 20.11.2026)</h3>
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">24.75 h Total</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">16.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">17.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">18.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">4.75 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">19.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">20.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
                 </div>
-            </div>
+                </div><div class="bg-surface-container-low p-5 rounded-xl border border-surface-container-high space-y-3">
+                    <div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+                        <h3 class="font-bold text-on-surface">KW 48 (23.11. – 27.11.2026 &amp; 30.11.)</h3>
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary">24.75 h Total</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">23.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">24.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">25.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">4.75 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">26.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3 rounded-xl border border-surface-container-high text-center">
+                        <span class="text-xs font-bold block">30.11.2026</span>
+                        <span class="text-lg font-black text-primary block mt-1">5.00 h</span>
+                        <span class="text-[11px] text-on-surface-variant">Normal</span>
+                    </div>
+                </div>
+                </div></div>
 </div>
 </div>
 <!-- VIEW: BERICHTE -->
 <div class="view-container hidden flex flex-col w-full p-8 max-w-[1050px] mx-auto gap-8 pb-20" id="view-berichte">
 <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-high">
-<div class="flex justify-between items-center mb-6"><div><h2 class="text-2xl font-bold text-on-surface" id="report-headline">Monatsbericht Oktober 2026</h2><p class="text-sm text-on-surface-variant">Schulkreis Uto • Primarstufe Döltschi • Schuljahr 2026/27</p></div><div class="flex items-center gap-3"><div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high"><label class="text-xs font-bold text-on-surface-variant uppercase">Zeitraum:</label><select class="px-3 py-1 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-bold text-primary cursor-pointer" id="reports-filter-month" onchange="onReportMonthChange(this.value)"><option value="all">Alle Monate (Schuljahr)</option><option value="8">August 2026</option><option value="9">September 2026</option><option selected="" value="10">Oktober 2026</option><option value="11">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select></div><button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm hover:bg-primary-container shadow-sm flex items-center gap-1.5" onclick="window.print()"><span class="material-symbols-outlined text-[16px]">print</span><span class="">Bericht Drucken</span></button></div></div>
+<div class="flex justify-between items-center mb-6"><div><h2 class="text-2xl font-bold text-on-surface" id="report-headline">Monatsbericht November 2026</h2><p class="text-sm text-on-surface-variant">Schulkreis Uto • Primarstufe Döltschi • Schuljahr 2026/27</p></div><div class="flex items-center gap-3"><div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-surface-container-high"><label class="text-xs font-bold text-on-surface-variant uppercase">Zeitraum:</label><select class="px-3 py-1 rounded-lg border border-outline-variant bg-surface-container-lowest text-xs font-bold text-primary cursor-pointer" id="reports-filter-month" onchange="onReportMonthChange(this.value)"><option value="all">Alle Monate (Schuljahr)</option><option value="8">August 2026</option><option value="9">September 2026</option><option value="10">Oktober 2026</option><option value="11" selected="selected">November 2026</option><option value="12">Dezember 2026</option><option value="1">Januar 2027</option></select></div><button class="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl text-sm hover:bg-primary-container shadow-sm flex items-center gap-1.5" onclick="window.print()"><span class="material-symbols-outlined text-[16px]">print</span><span class="">Bericht Drucken</span></button></div></div>
 <div class="space-y-6" id="reports-container"></div>
 </div>
 </div>
